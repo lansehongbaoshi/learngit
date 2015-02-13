@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN"
+     "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<beans>
+    <import resource="classpath:META-INF/conf/knowledge/serviceImpl.xml" />
+
+    <!-- client beans -->
+    <bean id="accountServiceClient" class="com.chsi.account.client.AccountServiceClientFactory" factory-method="getAccountServiceClient">
+    </bean>
+
+    <!-- action beans -->
+   
+    <bean id="tagActionBean"  class="com.chsi.knowledge.action.tag.TagAction"  scope="request">
+        <property name="tagService" ref="tagService" />
+    </bean>
+    
+    <bean id="knowledgeActionBean"  class="com.chsi.knowledge.action.knowledge.KnowledgeAction"  scope="request">
+        <property name="knowledgeService" ref="knowledgeService" />
+    </bean>
+    
+    <bean id="discussActionBean"  class="com.chsi.knowledge.action.discuss.DiscussAction"  scope="request">
+        <property name="discussService" ref="discussService" />
+        <property name="knowledgeService" ref="knowledgeService" />
+    </bean>
+   
+</beans>

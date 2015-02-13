@@ -1,0 +1,10 @@
+﻿#\u65b9\u4fbf\u6d4b\u8bd5\u7684\u65f6\u5019\u4fee\u6539
+website.jbossweb.virtual_host=xlrz2.chsi.com.cn
+website.protocol=http
+website.account_server_protocol=https
+website.account_server_name=account.chsi.com.cn
+website.contact_server_name=contact.chsi.com.cn
+website.msg_server_name=msg.chsi.com.cn
+website.bbs_server_name=bbs.chsi.com.cn
+memcache.pool_name=zsxx
+memcache.app_name=knowledge

@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!-- <!DOCTYPE tiles-definitions PUBLIC
+        "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/tiles-config_2_0.dtd"> -->
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+<tiles-definitions>
+    <!-- knowledge layout框架 -->
+   <definition name="htgl.knowledge.main" template="/layout/modal.jsp" >
+        <put-attribute name="title" value="知识库"/>
+    </definition>
+    
+   <!--  tag部分 -->
+    <definition name="htgl.tag.tagList" extends="htgl.knowledge.main" >
+        <put-attribute name="content" value="/htgl/tag/tagList.jsp"/>
+    </definition>
+    
+    <!--knowledge部分  -->
+    <definition name="htgl.knowledge.knowledgeList" extends="htgl.knowledge.main" >
+        <put-attribute name="content" value="/htgl/knowledge/knowledgeList.jsp"/>
+    </definition>
+    
+    <definition name="htgl.knowledge.knowledge" extends="htgl.knowledge.main" >
+        <put-attribute name="content" value="/htgl/knowledge/knowledge.jsp"/>
+    </definition>
+    
+    
+    </tiles-definitions> 

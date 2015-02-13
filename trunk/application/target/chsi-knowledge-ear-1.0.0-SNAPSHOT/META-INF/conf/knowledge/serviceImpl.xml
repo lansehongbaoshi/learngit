@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+    <bean id="locator" class="com.chsi.framework.service.BeanLocator"
+        init-method="init">
+        <property name="beanFactoryLocatorKey"
+            value="servicelayer-context-knowledge" />
+        <property name="factoryLocatorSelector"
+            value="META-INF/conf/knowledge/beanRefContext.xml" />
+        <property name="dbProviderName" value="dbProvider" />
+    </bean>
+    
+    <bean id="baseDbService" abstract="true" init-method="create"
+        destroy-method="remove">
+        <property name="locator">
+            <ref local="locator" />
+        </property>
+    </bean>
+    
+    <bean id="druid-stat-interceptor" class="com.alibaba.druid.support.spring.stat.DruidStatInterceptor">
+    </bean>
+    <bean class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+        <property name="proxyTargetClass" value="true" />
+        <property name="beanNames">
+            <list>
+                <!-- 这里配置需要拦截的bean id列表 -->
+                <value>fileService</value>
+            </list>
+        </property>
+        <property name="interceptorNames">
+            <list>
+                <value>druid-stat-interceptor</value>
+            </list>
+        </property>
+    </bean>
+
+    <!-- service beans -->
+    <bean id="discussService" class="com.chsi.knowledge.service.impl.DiscussServiceImpl" parent="baseDbService" />
+    <bean id="knowledgeService" class="com.chsi.knowledge.service.impl.KnowledgeServiceImpl" parent="baseDbService" />
+    <bean id="tagService" class="com.chsi.knowledge.service.impl.TagServiceImpl" parent="baseDbService" />
+</beans>

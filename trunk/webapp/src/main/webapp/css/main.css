@@ -1,0 +1,129 @@
+ body  {
+	font: 100% 宋体, 新宋体;
+	background: #dbdee1;
+	margin: 0; /* 最好将 body 元素的边距和填充设置为 0 以覆盖不同的浏览器默认值 */
+	padding: 0;
+	text-align: center; /* 在 IE 5* 浏览器中，这会将容器居中。文本随后将在 #container 选择器中设置为默认左对齐 */
+	color: #000000;
+}
+html,body,p,ul,li,form,ol{ margin:0; padding:0;}
+
+ul,li{ list-style:none;}
+
+a{ color:#333; text-decoration:none;}
+a:hover,a:visited{ text-decoration:underline;}
+
+#container { 
+	width: 980px;  /* 使用比最大宽度 (800px) 小 20px 的宽度可显示浏览器界面元素，并避免出现水平滚动条 */
+	background: #FFFFFF;
+	margin: 0 auto; /* 自动边距（与宽度一起）会将页面居中 */
+	text-align: left; /* 这将覆盖 body 元素上的“text-align: center”。 */
+	font-family:"微软雅黑", "新宋体", "宋体", "Arial Unicode MS";
+} 
+
+#header { 
+	height:170px;
+	margin:0 auto;
+	text-align:center;
+	} 
+#header h1 {
+	margin: 0; /* 将 #header div 中最后一个元素的边距设置为零将避免边距重叠（即 div 之间出现的无法解释的空白）。如果 div 周围有边框，则不必将边距设置为零，因为边框也会避免边距重叠 */
+	padding: 10px 0; /* 使用填充而不使用边距将可以使元素远离 div 的边缘 */
+	display:none;
+}
+
+#sidebar1 {
+	float: left; /* 由于此元素是浮动的，因此必须指定宽度 */
+	padding: 15px 10px 15px 20px;
+	margin-top:15px;
+}
+
+.login_box{
+	border:solid #eaeaea 1px;
+	width:248px;
+	height:224px;
+	text-align:center;
+	background:#Fff url(../images/login_box_bg.gif) no-repeat center center;
+	}
+	
+.login_box_top{
+	margin:5px auto;
+	width:223px;
+	height:130px;
+	text-align:left;
+	font-family:"微软雅黑", "新宋体", "宋体", "Arial Unicode MS";
+	font-size:12px;
+	background:url(../images/login_bg.jpg) no-repeat;
+	}
+
+.left_sm{
+	margin-top:10px;
+	padding:10px;
+	border:solid #eaeaea 1px;
+	width:228px;
+	line-height:22px;
+	font-size:12px;
+	}
+	
+#sidebar1 h2{ margin:0; margin-left:5px; font:600 12px/12px "微软雅黑"; width:60px;  overflow:hidden; padding:6px 2px 0px 18px;}
+
+.sign_in{ margin-top:16px;  line-height:22px; text-align:center;}
+.sign_in span{ display:block; color:#933;}
+
+input.input_login{ height:26px; line-height:26px; border:solid #e6e7e9 1px; width:136px; padding:0 3px;}
+input.bnt_login{ background:url(../images/loginBnt.jpg) no-repeat; height:47px; width:205px;  border:0px; font:400 12px/12px "微软雅黑"; cursor:pointer; font-size:14px; color:#933; font-weight:bold;}
+
+.kf_box {
+    background: url(../images/kf.jpg) no-repeat;
+    height: 70px;
+    margin: 8px auto 0 10px;
+    overflow: hidden;
+    width: 223px;
+	text-align:center;
+}
+.kf_box p {
+    color: #FF4200;
+    line-height: 26px;
+	text-align:left;
+    padding: 10px 6px 0 20px;
+}
+
+#mainContent { 
+	margin: 15px 0 0 270px; /* 此 div 元素的左边距会在页面的左下方创建栏 — 无论 sidebar1 div 中包含多少内容，都将保留栏空白。如果您希望在 #sidebar1 中的内容结束时，用 #mainContent div 的文本填充 #sidebar1 空白，则可以删除此边距。 */
+	padding: 0 20px; /* 请记住，填充是 div 方块内部的空间，边距则是 div 方块外部的空间 */
+	font-family:"微软雅黑", "新宋体", "宋体", "Arial Unicode MS";
+} 
+#mainContent h2{ font:600 16px/30px "微软雅黑", "新宋体", "宋体", "Arial Unicode MS"; margin:0; height:30px; }
+#mainContent h2 span{ float:right; margin-top:18px;}
+#mainContent ul{ margin-top:8px;}
+.boder_line{ border-bottom:solid #cbcbcb 2px;}
+.main_box1{ float:left;  width:340px; font-size:12px;}
+.main_box1 li{ line-height:24px; background:url(../images/main_icon.jpg) no-repeat left center; padding-left:8px;}
+
+ul.contact_us li{ background:none;}
+.main_box2{ float:right; width:310px; font-size:12px;}
+.main_box2 li{ line-height:24px; background:url(../images/main_icon.jpg) no-repeat left center; padding-left:8px;}
+#footer {
+	/*background:url(../images/footer_bg.jpg) repeat;*/
+	background:#FFF;
+	text-align:center;
+	font:400 12px/30px "微软雅黑", "新宋体", "宋体", "Arial Unicode MS";
+	padding:13px 0;
+	margin-top:15px;
+} 
+
+
+
+.fltrt { /* 此类可用来使页面中的元素向右浮动。浮动元素必须位于页面上要与之相邻的元素之前。 */
+	float: right;
+
+}
+.fltlft { /* 此类可用来使页面上的元素向左浮动 */
+	float: left;
+}
+.clearfloat { /* 此类应当放在 div 或 break 元素上，而且该元素应当是完全包含浮动的容器关闭之前的最后一个元素 */
+	clear:both;
+    height:0;
+    font-size: 1px;
+    line-height: 0px;
+}
