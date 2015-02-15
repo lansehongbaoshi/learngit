@@ -10,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
 
 import com.chsi.framework.pojos.PersistentObject;
@@ -23,10 +24,10 @@ import com.chsi.knowledge.dic.KnowledgeStatus;
  */
 @Entity
 @Table(name = "KNOWLEDGE")
-@org.hibernate.annotations.Entity(dynamicUpdate = true)
+@DynamicUpdate(value = true)
 public class KnowledgeData extends PersistentObject {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = -4645122472610059168L;
     private String id;
     private TagData tagData;
     private String keywords;

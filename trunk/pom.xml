@@ -100,7 +100,7 @@
             <layout>default</layout>
             <url>http://maven.chsi.com.cn/maven2</url>
             <snapshots>
-                <enabled>false</enabled>
+                <enabled>true</enabled>
             </snapshots>
         </repository>      
         <repository>

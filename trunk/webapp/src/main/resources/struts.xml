@@ -30,7 +30,7 @@
                 <interceptor-ref name="fileUpload">
                     <param name="allowedTypes">image/jpeg,image/pjpeg,image/png</param>
                     <param name="allowedExtensions">jpg,jpeg,jpe,jfif,png</param>
-                    <param name="maximumSize">1024000</param> <!--2048000 307200 -->
+                    <param name="maximumSize">52428800</param> <!--50M -->
                 </interceptor-ref>
                 <interceptor-ref name="checkbox" />
                 <interceptor-ref name="staticParams" />

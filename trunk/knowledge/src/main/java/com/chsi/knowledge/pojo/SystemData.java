@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
 
 import com.chsi.framework.pojos.PersistentObject;
@@ -18,10 +19,9 @@ import com.chsi.framework.pojos.PersistentObject;
  */
 @Entity
 @Table(name = "SYSTEM")
-@org.hibernate.annotations.Entity(dynamicUpdate=true)
+@DynamicUpdate(value = true)
 public class SystemData extends PersistentObject {
-
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = -4617519619519431521L;
     private String id;
     private String name;
     private String description;

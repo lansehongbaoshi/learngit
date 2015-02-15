@@ -1,7 +1,5 @@
 package com.chsi.knowledge.action.base;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,7 +12,6 @@ import org.apache.struts2.interceptor.ServletResponseAware;
 import org.apache.struts2.interceptor.SessionAware;
 
 import com.chsi.framework.struts2.BasicSupportAction;
-import com.chsi.knowledge.web.util.AjaxMessage;
 import com.chsi.knowledge.web.util.WebAppUtil;
 import com.opensymphony.xwork2.ActionContext;
 

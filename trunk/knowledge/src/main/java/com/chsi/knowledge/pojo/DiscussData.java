@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
 
 import com.chsi.framework.pojos.PersistentObject;
@@ -21,10 +22,10 @@ import com.chsi.knowledge.dic.DiscussStatus;
  */
 @Entity
 @Table(name = "DISCUSS")
-@org.hibernate.annotations.Entity(dynamicUpdate=true)
+@DynamicUpdate(value = true)
 public class DiscussData extends PersistentObject {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = -742448616617323219L;
     private String id;
     private String knowledgeId;
     private String userId;

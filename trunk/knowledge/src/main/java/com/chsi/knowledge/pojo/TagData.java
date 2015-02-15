@@ -8,6 +8,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
 
 import com.chsi.framework.pojos.PersistentObject;
@@ -18,10 +19,10 @@ import com.chsi.framework.pojos.PersistentObject;
  */
 @Entity
 @Table(name = "TAG")
-@org.hibernate.annotations.Entity(dynamicUpdate=true)
+@DynamicUpdate(value = true)
 public class TagData extends PersistentObject {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = -5725482424563596939L;
     private String id;
     private SystemData systemData;
     private String name;
