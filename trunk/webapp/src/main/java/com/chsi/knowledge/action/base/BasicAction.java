@@ -5,7 +5,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.struts2.interceptor.ParameterAware;
 import org.apache.struts2.interceptor.RequestAware;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
@@ -14,12 +13,14 @@ import org.apache.struts2.interceptor.SessionAware;
 import com.chsi.framework.struts2.BasicSupportAction;
 import com.chsi.knowledge.web.util.WebAppUtil;
 import com.opensymphony.xwork2.ActionContext;
-
+/**
+ *  BasicAction 实现大多接口，子类不用再去重复实现
+ * @author chenjian
+ */
 public class BasicAction extends BasicSupportAction implements RequestAware,
-        ParameterAware, ServletResponseAware, ServletRequestAware, SessionAware {
+         ServletResponseAware, ServletRequestAware, SessionAware {
 
     private static final long serialVersionUID = 1L;
-    private Map<String, String[]> parameters;
     protected HttpServletResponse response;
     protected HttpServletRequest httpRequest;
     private Map<String, Object> session;
@@ -41,20 +42,12 @@ public class BasicAction extends BasicSupportAction implements RequestAware,
         return response;
     }
 
-    public Map<String, String[]> getParameters() {
-        return parameters;
-    }
-
     public Map<String, Object> getSession() {
         return session;
     }
 
     public void setSession(Map<String, Object> session) {
         this.session = session;
-    }
-
-    public void setParameters(Map<String, String[]> parameters) {
-        this.parameters = parameters;
     }
 
     public void setRequest(Map<String, Object> arg0) {

@@ -6,8 +6,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.DynamicUpdate;
@@ -18,7 +16,6 @@ import com.chsi.knowledge.dic.KnowledgeStatus;
 
 /**
  * 知识表
- * 
  * @author chenjian
  * 
  */
@@ -29,7 +26,6 @@ public class KnowledgeData extends PersistentObject {
 
     private static final long serialVersionUID = -4645122472610059168L;
     private String id;
-    private TagData tagData;
     private String keywords;
     private String cmsId;
     private int visitCnt;
@@ -43,7 +39,6 @@ public class KnowledgeData extends PersistentObject {
     public void setData(PersistentObject persistentObject) {
         KnowledgeData knowledgeData = (KnowledgeData) persistentObject;
         this.id = knowledgeData.getId();
-        this.tagData = knowledgeData.getTagData();
         this.keywords = knowledgeData.getKeywords();
         this.cmsId = knowledgeData.getCmsId();
         this.visitCnt = knowledgeData.getVisitCnt();
@@ -59,13 +54,12 @@ public class KnowledgeData extends PersistentObject {
         super();
     }
     
-    public KnowledgeData(String id, TagData tagData, String keywords,
+    public KnowledgeData(String id, String keywords,
             String cmsId, int visitCnt, int sort,
             KnowledgeStatus knowledgeStatus, String creater,
             Calendar createTime, String updater, Calendar updateTime) {
         super();
         this.id = id;
-        this.tagData = tagData;
         this.keywords = keywords;
         this.cmsId = cmsId;
         this.visitCnt = visitCnt;
@@ -89,16 +83,6 @@ public class KnowledgeData extends PersistentObject {
     @Override
     public void setId(String arg0) {
         this.id = arg0;
-    }
-
-    @OneToOne
-    @JoinColumn(name = "TAG_ID")
-    public TagData getTagData() {
-        return tagData;
-    }
-
-    public void setTagData(TagData tagData) {
-        this.tagData = tagData;
     }
 
     @Column(name = "KEYWORDS")

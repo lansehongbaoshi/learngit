@@ -5,14 +5,14 @@ import java.util.Calendar;
 import javax.servlet.http.HttpServletRequest;
 
 import com.chsi.framework.util.ValidatorUtil;
-import com.chsi.knowledge.action.base.BasicAjaxAction;
+import com.chsi.knowledge.action.base.AjaxAction;
 import com.chsi.knowledge.dic.DiscussStatus;
 import com.chsi.knowledge.pojo.DiscussData;
 import com.chsi.knowledge.service.DiscussService;
 import com.chsi.knowledge.service.KnowledgeService;
 import com.chsi.knowledge.vo.KnowledgeVO;
 
-public class DiscussAction extends BasicAjaxAction {
+public class DiscussAction extends AjaxAction {
 
     private static final long serialVersionUID = 1L;
 

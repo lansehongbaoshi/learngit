@@ -23,7 +23,7 @@ public interface KnowledgeDataDAO {
      * @param tagName
      * @return
      */
-    Long countKnowledges(String systemId, String tagName, KnowledgeStatus knowledgeStatus);
+    Long countKnowledges(String systemId, String tagId, KnowledgeStatus knowledgeStatus);
 
    /**
     * 根据系统ID，标签名称，以及分页情况 取出多条知识
@@ -34,7 +34,7 @@ public interface KnowledgeDataDAO {
     * @param size
     * @return
     */
-    List<KnowledgeData> getKnowledges(String systemId, String tagName, KnowledgeStatus knowledgeStatus, int start, int size);
+    List<KnowledgeData> getKnowledges(String systemId, String tagId, KnowledgeStatus knowledgeStatus, int start, int size);
     
     void updateVisitCntPlusOne(String id);
 

@@ -37,7 +37,7 @@ public class TagServiceImpl extends BaseDbService implements TagService{
         TagVO tagVO = null;
         Long count;
         for (TagData tagData : tagDataList) {
-            count = knowledgeDataDAO.countKnowledges(systemId, tagData.getName(), knowledgeStatus);
+            count = knowledgeDataDAO.countKnowledges(systemId, tagData.getId(), knowledgeStatus);
             tagVO = new TagVO(tagData, count);
             tagVOList.add(tagVO);
         }

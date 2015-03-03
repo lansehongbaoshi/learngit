@@ -55,8 +55,8 @@ Extracting  js\selection.js
 Extracting  layout\modal.jsp
 Extracting  WEB-INF\applicationContext-knowledge.xml
 Extracting  WEB-INF\applicationContext-security.xml
+Extracting  WEB-INF\classes\com\chsi\knowledge\action\base\AjaxAction.class
 Extracting  WEB-INF\classes\com\chsi\knowledge\action\base\BasicAction.class
-Extracting  WEB-INF\classes\com\chsi\knowledge\action\base\BasicAjaxAction.class
 Extracting  WEB-INF\classes\com\chsi\knowledge\action\discuss\DiscussAction.class
 Extracting  WEB-INF\classes\com\chsi\knowledge\action\knowledge\KnowledgeAction.class
 Extracting  WEB-INF\classes\com\chsi\knowledge\action\tag\TagAction.class
@@ -105,10 +105,10 @@ Everything is Ok
 
 Folders: 31
 Files: 66
-Size:       7935329
-Compressed: 7004758
+Size:       7925699
+Compressed: 7001748
 
-Kernel  Time =     0.109 =   57%
-User    Time =     0.062 =   32%
-Process Time =     0.171 =   90%    Virtual  Memory =      3 MB
-Global  Time =     0.190 =  100%    Physical Memory =      5 MB
+Kernel  Time =     0.046 =   27%
+User    Time =     0.093 =   55%
+Process Time =     0.140 =   82%    Virtual  Memory =      3 MB
+Global  Time =     0.170 =  100%    Physical Memory =      5 MB

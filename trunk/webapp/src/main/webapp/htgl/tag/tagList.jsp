@@ -11,7 +11,7 @@ String ctxPath = request.getContextPath();
 	<s:if test="tagVO!=null">
 		<s:iterator value="tagVO" var="vo">
            <tr>
-           <td><a href="<%=ctxPath%>/htgl/knowledge/getKnowledgeList.action?systemId=<s:property value="#vo.tagData.systemData.id" />&tagName=<s:property value="#vo.tagData.name" /> ">
+           <td><a href="<%=ctxPath%>/htgl/knowledge/getKnowledgeList.action?systemId=<s:property value="#vo.tagData.systemData.id" />&tagId=<s:property value="#vo.tagData.id" /> ">
            <s:property value="#vo.tagData.name" /></a></td>
            <td><s:property value="#vo.count" /></td>
            </tr>

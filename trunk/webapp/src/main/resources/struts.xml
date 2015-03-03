@@ -9,8 +9,8 @@
     <package name="knowledge-default" extends="tiles-default" namespace="">
 
         <interceptors>
-            <interceptor name="chsiTransactionInterceptors"
-                class="com.chsi.framework.transaction.struts2.TranactionInterceptor" />
+            <interceptor name="chsiTransactionInterceptors"  class="com.chsi.framework.transaction.struts2.TranactionInterceptor" />
+            <!--有事务  -->
             <interceptor-stack name="chsiDefaultStack">
                 <interceptor-ref name="chsiTransactionInterceptors">
                     <param name="localTransaction">true</param>
@@ -49,6 +49,7 @@
                     <param name="excludeMethods">input,back,cancel,browse</param>
                 </interceptor-ref>
             </interceptor-stack>
+            <!--无事务  -->
             <interceptor-stack name="chsiNoTransactionDefaultStack">
                 <interceptor-ref name="exception">
                     <param name="logEnabled">true</param>
@@ -80,8 +81,10 @@
                     <param name="excludeMethods">input,back,cancel,browse</param>
                 </interceptor-ref>
             </interceptor-stack>
+            
         </interceptors>
         
+        <default-interceptor-ref name="chsiDefaultStack" />   
         
        <global-results>
             <result name="global.error">/error/error.jsp</result>

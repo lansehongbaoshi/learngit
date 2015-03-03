@@ -17,7 +17,7 @@ import com.chsi.knowledge.vo.KnowledgeVO;
 import com.chsi.news.type.ArticleStatusType;
 import com.chsi.news.vo.Article;
 
-public class KnowledgeServiceImpl extends BaseDbService implements   KnowledgeService {
+public class KnowledgeServiceImpl extends BaseDbService implements KnowledgeService {
 
     private KnowledgeDataDAO knowledgeDataDAO;
 
@@ -59,8 +59,8 @@ public class KnowledgeServiceImpl extends BaseDbService implements   KnowledgeSe
     }
 
     @Override
-    public Page<KnowledgeVO> getKnowledgeVOPage(String systemId, String tagName, KnowledgeStatus knowledgeStatus, int start, int pageSize) {
-        Long count = knowledgeDataDAO.countKnowledges(systemId, tagName, knowledgeStatus);
+    public Page<KnowledgeVO> getKnowledgeVOPage(String systemId, String tagId, KnowledgeStatus knowledgeStatus, int start, int pageSize) {
+        Long count = knowledgeDataDAO.countKnowledges(systemId, tagId, knowledgeStatus);
         if (count == 0) {
             return Page.EMPTY_PAGE;
         }
@@ -68,7 +68,7 @@ public class KnowledgeServiceImpl extends BaseDbService implements   KnowledgeSe
             start = 0;
         }
         CmsServiceClient cmsServiceClient = CmsServiceClientFactory.getCmsServiceClient();
-        List<KnowledgeData> KnowledgeDataList = knowledgeDataDAO.getKnowledges(systemId, tagName, knowledgeStatus, start, pageSize);
+        List<KnowledgeData> KnowledgeDataList = knowledgeDataDAO.getKnowledges(systemId, tagId, knowledgeStatus, start, pageSize);
         List<KnowledgeVO> KnowledgeVOList = new ArrayList<KnowledgeVO>();
         KnowledgeVO knowledgeVO = null;
         Article article = null;

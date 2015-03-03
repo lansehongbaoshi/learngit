@@ -5,7 +5,8 @@
 <struts>
 
     <package name="htgl.knowledge" extends="knowledge-default" namespace="/htgl/knowledge">
-    <interceptors>
+       
+        <interceptors>
           <interceptor-stack name="knowledgeStack">
               <interceptor-ref name="chsiDefaultStack"></interceptor-ref>
               <interceptor-ref name="store">
@@ -13,7 +14,7 @@
               </interceptor-ref>
           </interceptor-stack>
         </interceptors>
-  <!--       
+        <!--       
         <action name="upload" class="com.chsi.knowledge.action.upload.UploadAction" method="upload">
         </action> -->
         

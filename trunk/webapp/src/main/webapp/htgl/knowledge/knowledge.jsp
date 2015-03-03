@@ -12,10 +12,12 @@ String ctxPath = request.getContextPath();
    </tr> 
 </table>
 
+访问频度:<s:property value="knowledgeVO.knowledgeData.visitCnt" /> <br>
+
    <input type="hidden" name="knowledgeId" value="<s:property value="knowledgeVO.knowledgeData.id"/>" id="knowledgeId">
-      很满意:<input type="radio" name="discussStatus" value="0"> 
-      一般:  <input type="radio" name="discussStatus" value="1"> 
-      不满意:<input type="radio" name="discussStatus" value="2"> 
+      很满意:<input type="radio" name="discussStatus" value="1"> 
+      一般:  <input type="radio" name="discussStatus" value="2" checked="checked" > 
+      不满意:<input type="radio" name="discussStatus" value="3"> 
    <input type="button" value="提交评价" id="submit">
 <script type="text/javascript">  
 $(document).ready(function () {

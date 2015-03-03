@@ -3,6 +3,7 @@
 <%
 String ctxPath = request.getContextPath();
 %> 
+<a href="<%=ctxPath%>/htgl/tag/getTagList?systemId=<s:property  value="#request.systemId" />" >返回主页面</a>
 <table cellpadding="5" cellspacing="1" border="1">
   <tr>
     <td>问题</td>
@@ -14,8 +15,6 @@ String ctxPath = request.getContextPath();
            </tr>
         </s:iterator>
     </s:if>
-
 </table>
-
 <jsp:include page="/common/pageNavigator.jsp" flush="true"></jsp:include>
  

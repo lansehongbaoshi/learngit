@@ -40,7 +40,7 @@ public interface KnowledgeService {
      * @param size
      * @return
      */
-    Page<KnowledgeVO> getKnowledgeVOPage(String systemId, String tagName, KnowledgeStatus knowledgeStatus, int start, int pageSize); 
+    Page<KnowledgeVO> getKnowledgeVOPage(String systemId, String tagId, KnowledgeStatus knowledgeStatus, int start, int pageSize); 
     
     void update(KnowledgeData knowledgeData);
     

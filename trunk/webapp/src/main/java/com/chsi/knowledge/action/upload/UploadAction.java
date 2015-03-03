@@ -22,7 +22,7 @@ import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 
 import com.chsi.framework.page.Page;
 import com.chsi.knowledge.Constants;
-import com.chsi.knowledge.action.base.BasicAjaxAction;
+import com.chsi.knowledge.action.base.AjaxAction;
 import com.chsi.knowledge.dic.KnowledgeStatus;
 import com.chsi.knowledge.pojo.KnowledgeData;
 import com.chsi.knowledge.pojo.SystemData;
@@ -38,7 +38,7 @@ import com.ibm.icu.text.SimpleDateFormat;
  * @author chsi-pc
  *
  */
-public class UploadAction extends BasicAjaxAction {
+public class UploadAction extends AjaxAction {
  
     private TagService tagService;
     private KnowledgeService knowledgeService;
@@ -63,7 +63,7 @@ public class UploadAction extends BasicAjaxAction {
         /**
          * 插知识代码
          */
-        KnowledgeData knowledgeData=null;   
+        /*  KnowledgeData knowledgeData=null;   
         for(int i=0;i<result.length;i++){   
             TagData tagData2=tagService.getTagDataBySystemIdAndName("zb", result[i][0]);
             knowledgeData=new KnowledgeData(null, tagData2, result[i][1], null, 0, Integer.parseInt(result[i][4]), 
@@ -71,7 +71,7 @@ public class UploadAction extends BasicAjaxAction {
                                             null, null);
             knowledgeService.save(knowledgeData, result[i][2], result[i][3], ArticleStatusType.WAITTING, "00", "16a669296a704688b2cbf38fef310811");
         } 
-        /*Integer i=0;
+        Integer i=0;
         while(it.hasNext()){
             String name=it.next().toString();
             List<KnowledgeVO> list=knowledgeService.getKnowledgeVOPage("zb", name, KnowledgeStatus.WSH, 0, 100).getList();
