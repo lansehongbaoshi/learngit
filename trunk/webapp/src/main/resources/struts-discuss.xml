@@ -17,6 +17,5 @@
         <action name="discuss" class="discussActionBean" method="discuss">
         </action>
         
-        
     </package>
 </struts>

@@ -19,13 +19,12 @@
         </action> -->
         
         <action name="getKnowledgeList" class="knowledgeActionBean" method="getKnowledgeList">
-            <result name="success" type="tiles">htgl.knowledge.knowledgeList</result>
+            <!-- <result name="success" type="tiles">htgl.knowledge.knowledgeList</result> -->
         </action>
         
         <action name="getKnowledge" class="knowledgeActionBean" method="getKnowledge">
-            <result name="success" type="tiles">htgl.knowledge.knowledge</result>
+            <!-- <result name="success" type="tiles">htgl.knowledge.knowledge</result> -->
         </action>
-        
         
     </package>
 </struts>

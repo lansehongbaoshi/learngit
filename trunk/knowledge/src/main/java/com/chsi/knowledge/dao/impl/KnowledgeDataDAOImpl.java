@@ -8,6 +8,8 @@ import com.chsi.framework.hibernate.BaseHibernateDAO;
 import com.chsi.knowledge.dao.KnowledgeDataDAO;
 import com.chsi.knowledge.dic.KnowledgeStatus;
 import com.chsi.knowledge.pojo.KnowledgeData;
+import com.chsi.knowledge.pojo.KnowledgeTagRelationData;
+import com.chsi.knowledge.pojo.TagData;
 
 public class KnowledgeDataDAOImpl extends BaseHibernateDAO implements KnowledgeDataDAO {
 
@@ -66,5 +68,10 @@ public class KnowledgeDataDAOImpl extends BaseHibernateDAO implements KnowledgeD
         String hql = UPDATE_KNOWLEDGEVISITCNT + W + ID;
         Query query = hibernateUtil.getSession().createQuery(hql).setString("id", id);
         query.executeUpdate();
+    }
+
+    @Override
+    public void saveKnowledgeTagRelation(KnowledgeTagRelationData knowledgeTagRelationData) {
+        hibernateUtil.save(knowledgeTagRelationData);
     }
 }

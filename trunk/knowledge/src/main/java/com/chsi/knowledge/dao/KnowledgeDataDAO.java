@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.chsi.knowledge.dic.KnowledgeStatus;
 import com.chsi.knowledge.pojo.KnowledgeData;
+import com.chsi.knowledge.pojo.KnowledgeTagRelationData;
 /**
  * 知识表操作DAO层
  * @author chenjian
@@ -35,6 +36,8 @@ public interface KnowledgeDataDAO {
     * @return
     */
     List<KnowledgeData> getKnowledges(String systemId, String tagId, KnowledgeStatus knowledgeStatus, int start, int size);
+    
+    void saveKnowledgeTagRelation(KnowledgeTagRelationData knowledgeTagRelationData);
     
     void updateVisitCntPlusOne(String id);
 

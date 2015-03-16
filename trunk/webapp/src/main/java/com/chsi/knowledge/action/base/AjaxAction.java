@@ -19,13 +19,16 @@ public class AjaxAction extends BasicAction{
     protected List<String> errorMessages = new ArrayList<String>();
     
     protected void writeJSON(AjaxMessage msg) throws IOException{
-        msg.setErrorMessages(errorMessages);
         response.setContentType("text/plain;charset=UTF-8");
-        try {
-            response.getWriter().print(JSONObject.fromObject(msg).toString());
-            response.getWriter().flush();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        response.getWriter().print(JSONObject.fromObject(msg).toString());
+        response.getWriter().flush();
     }
+    
+    protected void writeCallbackJSON(AjaxMessage msg, String callback) throws IOException{
+        response.setContentType("text/plain;charset=UTF-8");
+        String json = callback+"("+JSONObject.fromObject(ajaxMessage).toString()+")";
+        response.getWriter().print(json);
+        response.getWriter().flush();
+    }
+    
 }

@@ -60,7 +60,7 @@
         <intercept-url pattern="/htgl/**" access="ROLE_USER" /> -->
 
         <!-- 公共资源-->
-        <intercept-url pattern="/**" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+        <!-- <intercept-url pattern="/**" access="IS_AUTHENTICATED_ANONYMOUSLY" /> -->
         <!-- Disable web URI authorization, as we're using <global-method-security> and have @Secured the services layer instead
         <intercept-url pattern="/listAccounts.html" access="IS_AUTHENTICATED_REMEMBERED" />
         <intercept-url pattern="/post.html" access="ROLE_TELLER" />

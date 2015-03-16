@@ -8,6 +8,8 @@ import com.chsi.knowledge.ServiceConstants;
 import com.chsi.knowledge.dao.KnowledgeDataDAO;
 import com.chsi.knowledge.dao.TagDataDAO;
 import com.chsi.knowledge.dic.KnowledgeStatus;
+import com.chsi.knowledge.pojo.KnowledgeData;
+import com.chsi.knowledge.pojo.KnowledgeTagRelationData;
 import com.chsi.knowledge.pojo.TagData;
 import com.chsi.knowledge.service.TagService;
 import com.chsi.knowledge.vo.TagVO;
@@ -53,5 +55,21 @@ public class TagServiceImpl extends BaseDbService implements TagService{
     public TagData getTagDataBySystemIdAndName(String systemId, String name) {
         return tagDataDAO.getTagDataBySystemIdAndName(systemId, name);
     }
+
+    @Override
+    public TagData getTagDataById(String id) {
+        return tagDataDAO.getTagDataById(id);
+    }
     
+    @Override
+    public void addTagsToKnowledge(KnowledgeData knowledgeData, List<TagData> list) {
+        if (null != knowledgeData && null != list) {
+            KnowledgeTagRelationData ktrData = null;
+            for (TagData tagData : list) {
+                ktrData = new KnowledgeTagRelationData(null, knowledgeData, tagData);
+                knowledgeDataDAO.saveKnowledgeTagRelation(ktrData);
+            }
+        }
+    }
+
 }

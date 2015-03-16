@@ -5,7 +5,6 @@
 
 <hibernate-configuration>
     <session-factory>
-        <!-- 2014网上申请新增pojo -->
         <mapping class="com.chsi.knowledge.pojo.DiscussData" />
         <mapping class="com.chsi.knowledge.pojo.KnowledgeData" />
         <mapping class="com.chsi.knowledge.pojo.SystemData" />  

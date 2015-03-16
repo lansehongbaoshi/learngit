@@ -86,10 +86,10 @@
         
         <default-interceptor-ref name="chsiDefaultStack" />   
         
-       <global-results>
+   <!--     <global-results>
             <result name="global.error">/error/error.jsp</result>
             <result name="global.exception">/error/error.jsp</result>
-        </global-results>
+        </global-results> -->
         
         <!-- 程序中未捕获的异常，使用声明式异常处理 -->
         <!--

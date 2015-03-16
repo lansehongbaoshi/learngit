@@ -64,7 +64,7 @@ public class KnowledgeServiceImpl extends BaseDbService implements KnowledgeServ
         if (count == 0) {
             return Page.EMPTY_PAGE;
         }
-        if (start >= count) {
+        if (start >= count || start < 0) {
             start = 0;
         }
         CmsServiceClient cmsServiceClient = CmsServiceClientFactory.getCmsServiceClient();
@@ -88,6 +88,11 @@ public class KnowledgeServiceImpl extends BaseDbService implements KnowledgeServ
     @Override
     public void updateVisitCntPlusOne(String id) {
         knowledgeDataDAO.updateVisitCntPlusOne(id);
+    }
+
+    @Override
+    public KnowledgeData getKnowledgeById(String id) {
+        return knowledgeDataDAO.getKnowledgeById(id);
     }
 
 }

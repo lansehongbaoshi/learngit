@@ -20,5 +20,7 @@ public interface TagDataDAO {
     void saveOrUpdate(TagData tagData);
     
     TagData getTagDataBySystemIdAndName(String systemId,String name);
+    
+    TagData getTagDataById(String id);
 
 }

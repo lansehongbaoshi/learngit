@@ -3,9 +3,6 @@ package com.chsi.knowledge.web.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.sf.json.JSONObject;
-import net.sf.json.JsonConfig;
-
 /**
  * 作为Ajax返回信息封装对象
  * @author weiqc <a href="mailto:weiqc@chsi.com.cn">weiqc</a>

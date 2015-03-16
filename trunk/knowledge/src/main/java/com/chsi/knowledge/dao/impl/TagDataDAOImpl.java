@@ -14,6 +14,7 @@ public class TagDataDAOImpl extends BaseHibernateDAO implements TagDataDAO {
 
     private static final String SYSTEMID = " p.systemData.id =:systemId";
     private static final String NAME = " p.name =:name";
+    private static final String ID = " p.id =:id";
     private static final String W = " where ";
     private static final String A = " and ";
 
@@ -34,6 +35,14 @@ public class TagDataDAOImpl extends BaseHibernateDAO implements TagDataDAO {
     public TagData getTagDataBySystemIdAndName(String systemId, String name) {
         String hql = SELECT_TAGDATA + W + SYSTEMID + A + NAME;
         Query query=hibernateUtil.getSession().createQuery(hql).setString("systemId", systemId).setString("name", name);
+        List<TagData> list = query.list();
+        return list.size() == 0 ? null : list.get(0);
+    }
+
+    @Override
+    public TagData getTagDataById(String id) {
+        String hql = SELECT_TAGDATA + W + ID;
+        Query query=hibernateUtil.getSession().createQuery(hql).setString("id", id);
         List<TagData> list = query.list();
         return list.size() == 0 ? null : list.get(0);
     }

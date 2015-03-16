@@ -3,6 +3,7 @@ package com.chsi.knowledge.service;
 import java.util.List;
 
 import com.chsi.knowledge.dic.KnowledgeStatus;
+import com.chsi.knowledge.pojo.KnowledgeData;
 import com.chsi.knowledge.pojo.TagData;
 import com.chsi.knowledge.vo.TagVO;
 /**
@@ -22,5 +23,9 @@ public interface TagService {
     void saveOrUpdate(TagData tagData);
     
     TagData getTagDataBySystemIdAndName(String systemId,String name);
+    
+    TagData getTagDataById(String id);
+    
+    void addTagsToKnowledge(KnowledgeData knowledgeData, List<TagData> list);
 
 }

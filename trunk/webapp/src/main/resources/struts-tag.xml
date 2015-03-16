@@ -15,7 +15,7 @@
         </interceptors>
         
         <action name="getTagList" class="tagActionBean" method="getTagList">
-             <result name="success" type="tiles">htgl.tag.tagList</result>
+            <!--  <result name="success" type="tiles">htgl.tag.tagList</result> -->
         </action>
         
     </package>

@@ -1,8 +1,11 @@
 package com.chsi.knowledge.service;
 
+import java.util.List;
+
 import com.chsi.framework.page.Page;
 import com.chsi.knowledge.dic.KnowledgeStatus;
 import com.chsi.knowledge.pojo.KnowledgeData;
+import com.chsi.knowledge.pojo.TagData;
 import com.chsi.knowledge.vo.KnowledgeVO;
 import com.chsi.news.type.ArticleStatusType;
 /**
@@ -31,6 +34,8 @@ public interface KnowledgeService {
      */
     KnowledgeVO getKnowledgeVOById(String id);
     
+    KnowledgeData getKnowledgeById(String id);
+    
     /**
      * 根据系统ID、标签、状态、分页数据取得知识，同时从CMS中读取对应数据。
      * @param systemId
@@ -45,5 +50,6 @@ public interface KnowledgeService {
     void update(KnowledgeData knowledgeData);
     
     void updateVisitCntPlusOne(String id);
+    
 
 }

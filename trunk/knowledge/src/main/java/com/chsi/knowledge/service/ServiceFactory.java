@@ -12,4 +12,8 @@ public class ServiceFactory {
     public static KnowledgeService getKnowledgeService(){
         return SpringBeanLocator.getInstance(ServiceConstants.SERVICE_IMPL_CONF).getBean(ServiceConstants.KNOWLEDGE_SERVICE);
     }
+    
+    public static TagService getTagService(){
+        return SpringBeanLocator.getInstance(ServiceConstants.SERVICE_IMPL_CONF).getBean(ServiceConstants.TAG_SERVICE);
+    }
 }
