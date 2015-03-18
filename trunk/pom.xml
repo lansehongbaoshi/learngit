@@ -176,7 +176,7 @@
         <velocity.version>1.5</velocity.version>
         <velocity-tools-view.version>1.1</velocity-tools-view.version>
         <chsi-cache.version>2.4.2</chsi-cache.version>
-        <chsi-framework.version>2.5.26</chsi-framework.version>
+        <chsi-framework.version>2.5.31</chsi-framework.version>
         <chsi-cms.version>2.5.12-SNAPSHOT</chsi-cms.version> 
         <chsi-memcachedclient.version>1.4.0</chsi-memcachedclient.version>
         <chsi-commonutil-client.version>1.0.5</chsi-commonutil-client.version>

@@ -10,17 +10,25 @@
 
     <!-- action beans -->
    
-    <bean id="tagActionBean"  class="com.chsi.knowledge.action.tag.TagAction"  scope="request">
+   <!-- 前台调用action -->
+    <bean id="tagViewActionBean"  class="com.chsi.knowledge.view.action.tag.TagAction"  scope="request">
         <property name="tagService" ref="tagService" />
+        <property name="systemService" ref="systemService" />
     </bean>
     
-    <bean id="knowledgeActionBean"  class="com.chsi.knowledge.action.knowledge.KnowledgeAction"  scope="request">
+    <bean id="knowledgeViewActionBean"  class="com.chsi.knowledge.view.action.knowledge.KnowledgeAction"  scope="request">
         <property name="knowledgeService" ref="knowledgeService" />
+        <property name="systemService" ref="systemService" />
     </bean>
     
-    <bean id="discussActionBean"  class="com.chsi.knowledge.action.discuss.DiscussAction"  scope="request">
+    <bean id="discussViewActionBean"  class="com.chsi.knowledge.view.action.discuss.DiscussAction"  scope="request">
         <property name="discussService" ref="discussService" />
         <property name="knowledgeService" ref="knowledgeService" />
     </bean>
+    
+    <!-- 后台管理用action  -->
+    
+    
+    
    
 </beans>

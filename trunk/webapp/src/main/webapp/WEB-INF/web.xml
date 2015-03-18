@@ -59,7 +59,7 @@
     <!-- 登录 -->
     <filter>
         <filter-name>LoginFilter</filter-name>
-        <filter-class>com.chsi.knowledge.filter.LoginFilter</filter-class>
+        <filter-class>com.chsi.knowledge.htgl.filter.LoginFilter</filter-class>
     </filter>
 
     <filter>

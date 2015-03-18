@@ -4,18 +4,18 @@
         "http://struts.apache.org/dtds/struts-2.0.dtd">
 <struts>
 
-    <package name="htgl.discuss" extends="knowledge-default" namespace="/htgl/discuss">
+    <package name="view.discuss" extends="knowledge-default" namespace="/view">
     <interceptors>
-          <interceptor-stack name="knowledgeStack">
-              <interceptor-ref name="chsiDefaultStack"></interceptor-ref>
-              <interceptor-ref name="store">
-                  <param name="operationMode">AUTOMATIC</param>
-              </interceptor-ref>
-          </interceptor-stack>
-        </interceptors>
-        
-        <action name="discuss" class="discussActionBean" method="discuss">
-        </action>
-        
+    <interceptor-stack name="knowledgeStack">
+           <interceptor-ref name="chsiDefaultStack"></interceptor-ref>
+           <interceptor-ref name="store">
+                <param name="operationMode">AUTOMATIC</param>
+             </interceptor-ref>
+        </interceptor-stack>
+    </interceptors>
+    <action name="discuss" class="discussViewActionBean" method="discuss"></action>
+    
     </package>
+    
+    
 </struts>

@@ -4,8 +4,7 @@
         "http://struts.apache.org/dtds/struts-2.0.dtd">
 <struts>
 
-    <package name="htgl.knowledge" extends="knowledge-default" namespace="/htgl/knowledge">
-       
+    <package name="view.knowledge" extends="knowledge-default" namespace="/view">
         <interceptors>
           <interceptor-stack name="knowledgeStack">
               <interceptor-ref name="chsiDefaultStack"></interceptor-ref>
@@ -17,14 +16,11 @@
         <!--       
         <action name="upload" class="com.chsi.knowledge.action.upload.UploadAction" method="upload">
         </action> -->
-        
-        <action name="getKnowledgeList" class="knowledgeActionBean" method="getKnowledgeList">
-            <!-- <result name="success" type="tiles">htgl.knowledge.knowledgeList</result> -->
-        </action>
-        
-        <action name="getKnowledge" class="knowledgeActionBean" method="getKnowledge">
-            <!-- <result name="success" type="tiles">htgl.knowledge.knowledge</result> -->
-        </action>
-        
+        <action name="getKnowledgeList" class="knowledgeViewActionBean" method="getKnowledgeList"></action>
+        <action name="getKnowledge" class="knowledgeViewActionBean" method="getKnowledge"></action>
     </package>
+    
+    
+    
+    
 </struts>

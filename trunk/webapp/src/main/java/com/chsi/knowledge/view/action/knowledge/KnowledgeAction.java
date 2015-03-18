@@ -1,16 +1,19 @@
-package com.chsi.knowledge.action.knowledge;
+package com.chsi.knowledge.view.action.knowledge;
 
 import com.chsi.framework.page.Page;
 import com.chsi.knowledge.Constants;
 import com.chsi.knowledge.action.base.AjaxAction;
 import com.chsi.knowledge.dic.KnowledgeStatus;
+import com.chsi.knowledge.pojo.SystemData;
 import com.chsi.knowledge.service.KnowledgeService;
+import com.chsi.knowledge.service.SystemService;
 import com.chsi.knowledge.vo.KnowledgeVO;
 
-public class KnowledgeAction  extends AjaxAction{
+public class KnowledgeAction extends AjaxAction{
 
     private static final long serialVersionUID = 1L;
     private KnowledgeService knowledgeService;
+    private SystemService systemService;
     private String id;
     private String systemId;
     private String tagId;
@@ -20,19 +23,24 @@ public class KnowledgeAction  extends AjaxAction{
     private String callback;
 
     public void getKnowledgeList() throws Exception{
-          page=knowledgeService.getKnowledgeVOPage(systemId, tagId, KnowledgeStatus.WSH, (currentNum-1)*Constants.PAGE_SIZE, Constants.PAGE_SIZE);
-          ajaxMessage.setFlag(Constants.AJAX_SUCCESS);
-          ajaxMessage.setO(page);
-          writeCallbackJSON(ajaxMessage, callback);
+        SystemData systemData = systemService.getSystemById(systemId);
+        if (null == systemData) {
+            ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
+        } else {
+            page = knowledgeService.getKnowledgeVOPage(systemId, tagId, KnowledgeStatus.WSH, (currentNum - 1) * Constants.PAGE_SIZE, Constants.PAGE_SIZE);
+            ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
+            ajaxMessage.setO(page);
+        }
+        writeCallbackJSON(ajaxMessage, callback);
     }
     
     public void getKnowledge() throws Exception{
         knowledgeVO = knowledgeService.getKnowledgeVOById(id);
         if (null == knowledgeVO)  {
-            ajaxMessage.setFlag(Constants.AJAX_ERROR);
+            ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
         }else{
             knowledgeService.updateVisitCntPlusOne(id);
-            ajaxMessage.setFlag(Constants.AJAX_SUCCESS);
+            ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
             ajaxMessage.setO(knowledgeVO);
         }
         writeCallbackJSON(ajaxMessage, callback);
@@ -100,6 +108,14 @@ public class KnowledgeAction  extends AjaxAction{
 
     public void setKnowledgeVO(KnowledgeVO knowledgeVO) {
         this.knowledgeVO = knowledgeVO;
+    }
+
+    public SystemService getSystemService() {
+        return systemService;
+    }
+
+    public void setSystemService(SystemService systemService) {
+        this.systemService = systemService;
     }
     
     

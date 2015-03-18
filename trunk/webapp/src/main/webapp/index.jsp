@@ -9,6 +9,6 @@
 </head>
 
 <body>
-<a href="<%=request.getContextPath()%>/htgl/tag/getTagList?systemId=zb">征兵知识库</a>
+<a href="<%=request.getContextPath()%>/view/getTagList?systemId=zb&callback=knowledge">征兵知识库</a>
 </body>
 </html>

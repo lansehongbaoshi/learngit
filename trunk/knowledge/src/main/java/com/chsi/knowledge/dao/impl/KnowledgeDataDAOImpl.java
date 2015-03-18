@@ -9,7 +9,6 @@ import com.chsi.knowledge.dao.KnowledgeDataDAO;
 import com.chsi.knowledge.dic.KnowledgeStatus;
 import com.chsi.knowledge.pojo.KnowledgeData;
 import com.chsi.knowledge.pojo.KnowledgeTagRelationData;
-import com.chsi.knowledge.pojo.TagData;
 
 public class KnowledgeDataDAOImpl extends BaseHibernateDAO implements KnowledgeDataDAO {
 

@@ -1,4 +1,4 @@
-package com.chsi.knowledge.action.tag;
+package com.chsi.knowledge.view.action.tag;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,8 +7,10 @@ import com.chsi.knowledge.Constants;
 import com.chsi.knowledge.action.base.AjaxAction;
 import com.chsi.knowledge.dic.KnowledgeStatus;
 import com.chsi.knowledge.pojo.KnowledgeData;
+import com.chsi.knowledge.pojo.SystemData;
 import com.chsi.knowledge.pojo.TagData;
 import com.chsi.knowledge.service.KnowledgeService;
+import com.chsi.knowledge.service.SystemService;
 import com.chsi.knowledge.service.TagService;
 import com.chsi.knowledge.vo.TagVO;
 
@@ -17,6 +19,7 @@ public class TagAction extends AjaxAction{
     private static final long serialVersionUID = 1L;
     private TagService tagService;
     private KnowledgeService knowledgeService;
+    private SystemService systemService;
     private String knowledgeId;
     private String systemId;
     private String[] tagIds;
@@ -24,10 +27,15 @@ public class TagAction extends AjaxAction{
     private String callback;
     
     public void getTagList() throws Exception {
-        tagVO = tagService.getTagVOsBySystemIdAndStatus(systemId, KnowledgeStatus.WSH);
-        ajaxMessage.setFlag(Constants.AJAX_SUCCESS);
-        ajaxMessage.setO(tagVO);
-        writeCallbackJSON(ajaxMessage,callback); 
+        SystemData systemData = systemService.getSystemById(systemId);
+        if (null == systemData) {
+            ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
+        } else {
+            tagVO = tagService.getTagVOsBySystemIdAndStatus(systemId, KnowledgeStatus.WSH);
+            ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
+            ajaxMessage.setO(tagVO);
+        }
+        writeCallbackJSON(ajaxMessage, callback);
     }
     
      //后面用，先写好，方案一、添加，删除，没有修改这么一说，删除可以前台JS点一次直接访问后台删除
@@ -106,6 +114,14 @@ public class TagAction extends AjaxAction{
 
     public void setCallback(String callback) {
         this.callback = callback;
+    }
+
+    public SystemService getSystemService() {
+        return systemService;
+    }
+
+    public void setSystemService(SystemService systemService) {
+        this.systemService = systemService;
     }
     
     

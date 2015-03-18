@@ -14,7 +14,7 @@ public class Constants {
     /**
      * ajaxMessage返回flag
      */
-    public static final String AJAX_SUCCESS = "success";
-    public static final String AJAX_ERROR = "error";
+    public static final String AJAX_FLAG_SUCCESS = "success";
+    public static final String AJAX_FLAG_ERROR = "error";
     
 }

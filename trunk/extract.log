@@ -21,14 +21,17 @@ Extracting  WEB-INF\classes\com\chsi
 Extracting  WEB-INF\classes\com\chsi\knowledge
 Extracting  WEB-INF\classes\com\chsi\knowledge\action
 Extracting  WEB-INF\classes\com\chsi\knowledge\action\base
-Extracting  WEB-INF\classes\com\chsi\knowledge\action\discuss
-Extracting  WEB-INF\classes\com\chsi\knowledge\action\knowledge
-Extracting  WEB-INF\classes\com\chsi\knowledge\action\tag
 Extracting  WEB-INF\classes\com\chsi\knowledge\action\upload
 Extracting  WEB-INF\classes\com\chsi\knowledge\common
 Extracting  WEB-INF\classes\com\chsi\knowledge\common\web
 Extracting  WEB-INF\classes\com\chsi\knowledge\common\web\filter
-Extracting  WEB-INF\classes\com\chsi\knowledge\filter
+Extracting  WEB-INF\classes\com\chsi\knowledge\htgl
+Extracting  WEB-INF\classes\com\chsi\knowledge\htgl\filter
+Extracting  WEB-INF\classes\com\chsi\knowledge\view
+Extracting  WEB-INF\classes\com\chsi\knowledge\view\action
+Extracting  WEB-INF\classes\com\chsi\knowledge\view\action\discuss
+Extracting  WEB-INF\classes\com\chsi\knowledge\view\action\knowledge
+Extracting  WEB-INF\classes\com\chsi\knowledge\view\action\tag
 Extracting  WEB-INF\classes\com\chsi\knowledge\web
 Extracting  WEB-INF\classes\com\chsi\knowledge\web\util
 Extracting  WEB-INF\lib
@@ -57,13 +60,13 @@ Extracting  WEB-INF\applicationContext-knowledge.xml
 Extracting  WEB-INF\applicationContext-security.xml
 Extracting  WEB-INF\classes\com\chsi\knowledge\action\base\AjaxAction.class
 Extracting  WEB-INF\classes\com\chsi\knowledge\action\base\BasicAction.class
-Extracting  WEB-INF\classes\com\chsi\knowledge\action\discuss\DiscussAction.class
-Extracting  WEB-INF\classes\com\chsi\knowledge\action\knowledge\KnowledgeAction.class
-Extracting  WEB-INF\classes\com\chsi\knowledge\action\tag\TagAction.class
 Extracting  WEB-INF\classes\com\chsi\knowledge\action\upload\UploadAction.class
 Extracting  WEB-INF\classes\com\chsi\knowledge\common\web\filter\EncodingFilter.class
 Extracting  WEB-INF\classes\com\chsi\knowledge\common\web\filter\KnowledgeCallInfoFilter.class
-Extracting  WEB-INF\classes\com\chsi\knowledge\filter\LoginFilter.class
+Extracting  WEB-INF\classes\com\chsi\knowledge\htgl\filter\LoginFilter.class
+Extracting  WEB-INF\classes\com\chsi\knowledge\view\action\discuss\DiscussAction.class
+Extracting  WEB-INF\classes\com\chsi\knowledge\view\action\knowledge\KnowledgeAction.class
+Extracting  WEB-INF\classes\com\chsi\knowledge\view\action\tag\TagAction.class
 Extracting  WEB-INF\classes\com\chsi\knowledge\web\util\AjaxMessage.class
 Extracting  WEB-INF\classes\com\chsi\knowledge\web\util\URLUtil.class
 Extracting  WEB-INF\classes\com\chsi\knowledge\web\util\WebAppUtil.class
@@ -72,27 +75,27 @@ Extracting  WEB-INF\classes\struts-knowledge.xml
 Extracting  WEB-INF\classes\struts-tag.xml
 Extracting  WEB-INF\classes\struts.xml
 Extracting  WEB-INF\jboss-web.xml
-ERROR: Can not delete output file: D:\jboss-4.2.2\server\knowledge\deploy\chsi-knowledge.ear\knowledge.war\WEB-INF\lib\antlr-2.7.5.jar
-ERROR: Can not delete output file: D:\jboss-4.2.2\server\knowledge\deploy\chsi-knowledge.ear\knowledge.war\WEB-INF\lib\asm-3.1.jar
-ERROR: Can not delete output file: D:\jboss-4.2.2\server\knowledge\deploy\chsi-knowledge.ear\knowledge.war\WEB-INF\lib\cas-client-core-3.1.3.jar
-ERROR: Can not delete output file: D:\jboss-4.2.2\server\knowledge\deploy\chsi-knowledge.ear\knowledge.war\WEB-INF\lib\commons-beanutils-1.6.jar
-ERROR: Can not delete output file: D:\jboss-4.2.2\server\knowledge\deploy\chsi-knowledge.ear\knowledge.war\WEB-INF\lib\commons-digester-1.7.jar
-ERROR: Can not delete output file: D:\jboss-4.2.2\server\knowledge\deploy\chsi-knowledge.ear\knowledge.war\WEB-INF\lib\commons-lang3-3.1.jar
-ERROR: Can not delete output file: D:\jboss-4.2.2\server\knowledge\deploy\chsi-knowledge.ear\knowledge.war\WEB-INF\lib\freemarker-2.3.19.jar
-ERROR: Can not delete output file: D:\jboss-4.2.2\server\knowledge\deploy\chsi-knowledge.ear\knowledge.war\WEB-INF\lib\jstl-1.1.2.jar
-ERROR: Can not delete output file: D:\jboss-4.2.2\server\knowledge\deploy\chsi-knowledge.ear\knowledge.war\WEB-INF\lib\log4j-1.2.14.jar
-ERROR: Can not delete output file: D:\jboss-4.2.2\server\knowledge\deploy\chsi-knowledge.ear\knowledge.war\WEB-INF\lib\ognl-3.0.6.chsi.4.jar
-ERROR: Can not delete output file: D:\jboss-4.2.2\server\knowledge\deploy\chsi-knowledge.ear\knowledge.war\WEB-INF\lib\slf4j-api-1.5.5.jar
-ERROR: Can not delete output file: D:\jboss-4.2.2\server\knowledge\deploy\chsi-knowledge.ear\knowledge.war\WEB-INF\lib\slf4j-log4j12-1.5.5.jar
-ERROR: Can not delete output file: D:\jboss-4.2.2\server\knowledge\deploy\chsi-knowledge.ear\knowledge.war\WEB-INF\lib\standard-1.1.2.jar
-ERROR: Can not delete output file: D:\jboss-4.2.2\server\knowledge\deploy\chsi-knowledge.ear\knowledge.war\WEB-INF\lib\struts2-core-2.3.15.2.jar
-ERROR: Can not delete output file: D:\jboss-4.2.2\server\knowledge\deploy\chsi-knowledge.ear\knowledge.war\WEB-INF\lib\struts2-spring-plugin-2.3.15.2.jar
-ERROR: Can not delete output file: D:\jboss-4.2.2\server\knowledge\deploy\chsi-knowledge.ear\knowledge.war\WEB-INF\lib\struts2-tiles-plugin-2.3.15.2.jar
-ERROR: Can not delete output file: D:\jboss-4.2.2\server\knowledge\deploy\chsi-knowledge.ear\knowledge.war\WEB-INF\lib\tiles-api-2.0.6.jar
-ERROR: Can not delete output file: D:\jboss-4.2.2\server\knowledge\deploy\chsi-knowledge.ear\knowledge.war\WEB-INF\lib\tiles-core-2.0.6.jar
-ERROR: Can not delete output file: D:\jboss-4.2.2\server\knowledge\deploy\chsi-knowledge.ear\knowledge.war\WEB-INF\lib\tiles-jsp-2.0.6.jar
-ERROR: Can not delete output file: D:\jboss-4.2.2\server\knowledge\deploy\chsi-knowledge.ear\knowledge.war\WEB-INF\lib\xalan-2.7.0.jar
-ERROR: Can not delete output file: D:\jboss-4.2.2\server\knowledge\deploy\chsi-knowledge.ear\knowledge.war\WEB-INF\lib\xwork-core-2.3.15.2.chsi.jar
+Extracting  WEB-INF\lib\antlr-2.7.5.jar
+Extracting  WEB-INF\lib\asm-3.1.jar
+Extracting  WEB-INF\lib\cas-client-core-3.1.3.jar
+Extracting  WEB-INF\lib\commons-beanutils-1.6.jar
+Extracting  WEB-INF\lib\commons-digester-1.7.jar
+Extracting  WEB-INF\lib\commons-lang3-3.1.jar
+Extracting  WEB-INF\lib\freemarker-2.3.19.jar
+Extracting  WEB-INF\lib\jstl-1.1.2.jar
+Extracting  WEB-INF\lib\log4j-1.2.14.jar
+Extracting  WEB-INF\lib\ognl-3.0.6.chsi.4.jar
+Extracting  WEB-INF\lib\slf4j-api-1.5.5.jar
+Extracting  WEB-INF\lib\slf4j-log4j12-1.5.5.jar
+Extracting  WEB-INF\lib\standard-1.1.2.jar
+Extracting  WEB-INF\lib\struts2-core-2.3.15.2.jar
+Extracting  WEB-INF\lib\struts2-spring-plugin-2.3.15.2.jar
+Extracting  WEB-INF\lib\struts2-tiles-plugin-2.3.15.2.jar
+Extracting  WEB-INF\lib\tiles-api-2.0.6.jar
+Extracting  WEB-INF\lib\tiles-core-2.0.6.jar
+Extracting  WEB-INF\lib\tiles-jsp-2.0.6.jar
+Extracting  WEB-INF\lib\xalan-2.7.0.jar
+Extracting  WEB-INF\lib\xwork-core-2.3.15.2.chsi.jar
 Extracting  WEB-INF\tiles.xml
 Extracting  WEB-INF\web.xml
 Extracting  META-INF\maven
@@ -101,13 +104,14 @@ Extracting  META-INF\maven\com.chsi\chsi-knowledge-war
 Extracting  META-INF\maven\com.chsi\chsi-knowledge-war\pom.xml
 Extracting  META-INF\maven\com.chsi\chsi-knowledge-war\pom.properties
 
-Sub items Errors: 21
+Everything is Ok
 
-Archives with Errors: 1
+Folders: 34
+Files: 66
+Size:       7930472
+Compressed: 7004104
 
-Sub items Errors: 21
-
-Kernel  Time =     0.062 =   69%
-User    Time =     0.000 =    0%
-Process Time =     0.062 =   69%    Virtual  Memory =      3 MB
-Global  Time =     0.090 =  100%    Physical Memory =      5 MB
+Kernel  Time =     0.124 =   30%
+User    Time =     0.078 =   18%
+Process Time =     0.202 =   49%    Virtual  Memory =      3 MB
+Global  Time =     0.413 =  100%    Physical Memory =      5 MB

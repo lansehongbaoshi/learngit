@@ -1,4 +1,4 @@
-package com.chsi.knowledge.action.discuss;
+package com.chsi.knowledge.view.action.discuss;
 
 import java.util.Calendar;
 
@@ -26,24 +26,24 @@ public class DiscussAction extends AjaxAction {
 
         KnowledgeVO knowledgeVO = knowledgeService.getKnowledgeVOById(knowledgeId);
         if (null == knowledgeVO) {
-            ajaxMessage.setFlag(Constants.AJAX_ERROR);
+            ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
             errorMessages.add("知识id有误");
         }
         DiscussStatus disStatus = DiscussStatus.getType(discussStatus);
         if (null == disStatus) {
-            ajaxMessage.setFlag(Constants.AJAX_ERROR);
+            ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
             errorMessages.add("评价信息错误");
         }
         
         String userId = getUserIdOrIp(httpRequest);
         if (ValidatorUtil.isNull(userId)) {
-            ajaxMessage.setFlag(Constants.AJAX_ERROR);
+            ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
             errorMessages.add("用户名或者ip错误");
         }
         if (errorMessages.size() == 0) {
             DiscussData discussData = new DiscussData(null, knowledgeId, userId, disStatus, Calendar.getInstance());
             discussService.saveOrUpdate(discussData);
-            ajaxMessage.setFlag(Constants.AJAX_SUCCESS);
+            ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
         }
         ajaxMessage.setErrorMessages(errorMessages);
         writeCallbackJSON(ajaxMessage, callback);

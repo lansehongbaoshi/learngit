@@ -1,4 +1,4 @@
-package com.chsi.knowledge.filter;
+package com.chsi.knowledge.htgl.filter;
 
 import java.io.IOException;
 import java.security.Principal;

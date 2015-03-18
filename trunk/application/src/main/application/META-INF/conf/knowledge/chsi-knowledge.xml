@@ -111,6 +111,12 @@
         <property name="sessionFactory">
             <ref local="sessionFactory" />
         </property>
-    </bean>  
+    </bean> 
+    
+     <bean id="systemDataDAO" class="com.chsi.knowledge.dao.impl.SystemDataDAOImpl">
+        <property name="sessionFactory">
+            <ref local="sessionFactory" />
+        </property>
+    </bean> 
 
 </beans>
