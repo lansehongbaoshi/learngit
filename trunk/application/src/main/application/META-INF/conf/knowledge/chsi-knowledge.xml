@@ -118,5 +118,11 @@
             <ref local="sessionFactory" />
         </property>
     </bean> 
+    
+    <bean id="knowTagRelationDataDAO" class="com.chsi.knowledge.dao.impl.KnowTagRelationDataDAOImpl">
+        <property name="sessionFactory">
+            <ref local="sessionFactory" />
+        </property>
+    </bean> 
 
 </beans>

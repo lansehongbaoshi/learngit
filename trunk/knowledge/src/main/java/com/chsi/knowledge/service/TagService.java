@@ -1,11 +1,8 @@
 package com.chsi.knowledge.service;
 
-import java.util.List;
-
 import com.chsi.knowledge.dic.KnowledgeStatus;
-import com.chsi.knowledge.pojo.KnowledgeData;
 import com.chsi.knowledge.pojo.TagData;
-import com.chsi.knowledge.vo.TagVO;
+import com.chsi.knowledge.vo.TagListPageVO;
 /**
  * 标签业务逻辑层
  * @author chenjian
@@ -13,19 +10,17 @@ import com.chsi.knowledge.vo.TagVO;
  */
 public interface TagService {
     /**
-     * 根据系统ID，知识状态，获取标签VO
+     * 根据系统ID，知识状态，获取标签page页面数据
      * @param systemId
      * @param knowledgeStatus
      * @return
      */
-    List<TagVO> getTagVOsBySystemIdAndStatus(String systemId,KnowledgeStatus knowledgeStatus);
+    TagListPageVO getTagVOsBySystemIdAndStatus(String systemId,KnowledgeStatus knowledgeStatus);
     
     void saveOrUpdate(TagData tagData);
     
-    TagData getTagDataBySystemIdAndName(String systemId,String name);
-    
     TagData getTagDataById(String id);
     
-    void addTagsToKnowledge(KnowledgeData knowledgeData, List<TagData> list);
+    TagData getTagDataBySystemIdTagName(String systemId,String tagName);
 
 }

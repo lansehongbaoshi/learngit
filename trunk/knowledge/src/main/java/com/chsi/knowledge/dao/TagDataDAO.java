@@ -6,7 +6,6 @@ import com.chsi.knowledge.pojo.TagData;
 /**
  * 标签表操作DAO层
  * @author chenjian
- *
  */
 public interface TagDataDAO {
     
@@ -19,8 +18,8 @@ public interface TagDataDAO {
     
     void saveOrUpdate(TagData tagData);
     
-    TagData getTagDataBySystemIdAndName(String systemId,String name);
-    
     TagData getTagDataById(String id);
+    
+    TagData getTagDataBySystemIdTagName(String systemId,String tagName);
 
 }

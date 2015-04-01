@@ -1,23 +1,18 @@
 package com.chsi.knowledge.dic;
-
-
 /**
  * 评价类型
  * @author chenjian
- * 
  */
 public enum DiscussStatus {
 
-    GOOD, GENERAL, BAD;
+    USEFUL, UNUSEFUL;
 
     public String toString() {
         switch (this) {
-        case GOOD:
-            return "很满意"; // 1
-        case GENERAL:
-            return "一般"; // 2
-        case BAD:
-            return "不满意"; // 3
+        case USEFUL:
+            return "认为该问题有用"; // 1
+        case UNUSEFUL:
+            return "认为该问题无用"; // 2
         }
         return super.toString();
     }
@@ -29,11 +24,9 @@ public enum DiscussStatus {
     public static DiscussStatus getType(int ordinal) {
         switch (ordinal) {
         case 1:
-            return DiscussStatus.GOOD;
+            return DiscussStatus.USEFUL;
         case 2:
-            return DiscussStatus.GENERAL;
-        case 3:
-            return DiscussStatus.BAD;
+            return DiscussStatus.UNUSEFUL;
         default:
             throw new IllegalStateException("无此消息管理对象类型:" + ordinal);
         }

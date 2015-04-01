@@ -56,6 +56,7 @@ Extracting  index.jsp
 Extracting  js\jquery-1.11.1.min.js
 Extracting  js\selection.js
 Extracting  layout\modal.jsp
+Extracting  upload.jsp
 Extracting  WEB-INF\applicationContext-knowledge.xml
 Extracting  WEB-INF\applicationContext-security.xml
 Extracting  WEB-INF\classes\com\chsi\knowledge\action\base\AjaxAction.class
@@ -73,6 +74,7 @@ Extracting  WEB-INF\classes\com\chsi\knowledge\web\util\WebAppUtil.class
 Extracting  WEB-INF\classes\struts-discuss.xml
 Extracting  WEB-INF\classes\struts-knowledge.xml
 Extracting  WEB-INF\classes\struts-tag.xml
+Extracting  WEB-INF\classes\struts-upload.xml
 Extracting  WEB-INF\classes\struts.xml
 Extracting  WEB-INF\jboss-web.xml
 Extracting  WEB-INF\lib\antlr-2.7.5.jar
@@ -107,11 +109,11 @@ Extracting  META-INF\maven\com.chsi\chsi-knowledge-war\pom.properties
 Everything is Ok
 
 Folders: 34
-Files: 66
-Size:       7930472
-Compressed: 7004104
+Files: 68
+Size:       7933193
+Compressed: 7005223
 
-Kernel  Time =     0.124 =   30%
-User    Time =     0.078 =   18%
-Process Time =     0.202 =   49%    Virtual  Memory =      3 MB
-Global  Time =     0.413 =  100%    Physical Memory =      5 MB
+Kernel  Time =     0.124 =    7%
+User    Time =     0.078 =    4%
+Process Time =     0.202 =   12%    Virtual  Memory =      3 MB
+Global  Time =     1.630 =  100%    Physical Memory =      5 MB

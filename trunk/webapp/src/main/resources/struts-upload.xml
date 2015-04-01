@@ -1,10 +1,10 @@
-﻿<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE struts PUBLIC
         "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
         "http://struts.apache.org/dtds/struts-2.0.dtd">
 <struts>
 
-    <package name="view.knowledge" extends="knowledge-default" namespace="/view">
+    <package name="htgl.zxstranscriptUpload" extends="knowledge-default" namespace="/htgl/zxstranscriptUpload">
         <interceptors>
           <interceptor-stack name="knowledgeStack">
               <interceptor-ref name="chsiDefaultStack"></interceptor-ref>
@@ -13,11 +13,12 @@
               </interceptor-ref>
           </interceptor-stack>
         </interceptors>
-        <action name="getKnowledgeList" class="knowledgeViewActionBean" method="getKnowledgeList"></action>
-        <action name="getKnowledge" class="knowledgeViewActionBean" method="getKnowledge"></action>
+         <!--上传用的ACTION     -->   
+        <action name="upload" class="uploadActionBean" method="upload">
+                 <result name="success">/upload.jsp</result>
+                 <result name="input">/upload.jsp</result>
+        </action>
     </package>
-    
-    
     
     
 </struts>

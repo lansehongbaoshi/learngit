@@ -12,7 +12,6 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
 import com.chsi.knowledge.web.util.WebAppUtil;
-
 public class LoginFilter  implements Filter {
 
     public void destroy() {

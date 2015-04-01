@@ -6,7 +6,9 @@
        "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
        "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
 <tiles-definitions>
-    <!-- knowledge layout框架 -->
+    
+    <!-- 用不到了 -->
+     <!-- knowledge layout框架 -->
    <definition name="htgl.knowledge.main" template="/layout/modal.jsp" >
         <put-attribute name="title" value="知识库"/>
     </definition>
@@ -24,6 +26,10 @@
     <definition name="htgl.knowledge.knowledge" extends="htgl.knowledge.main" >
         <put-attribute name="content" value="/htgl/knowledge/knowledge.jsp"/>
     </definition>
+    
+    <!--后台管理页面  -->
+    
+    
     
     
     </tiles-definitions> 

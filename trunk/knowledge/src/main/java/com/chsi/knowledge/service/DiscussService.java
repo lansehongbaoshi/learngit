@@ -1,7 +1,6 @@
 package com.chsi.knowledge.service;
 
 import com.chsi.knowledge.pojo.DiscussData;
-import com.chsi.knowledge.vo.DiscussVO;
 
 /**
  * 评价业务逻辑层接口
@@ -15,5 +14,5 @@ public interface DiscussService {
      * @param knowledgeId
      * @return
      */
-    DiscussVO getDiscussVOByKnowledgeId(String knowledgeId);
+    /*  DiscussVO getDiscussVOByKnowledgeId(String knowledgeId);*/
 }

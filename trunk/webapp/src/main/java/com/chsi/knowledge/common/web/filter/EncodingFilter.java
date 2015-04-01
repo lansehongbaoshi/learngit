@@ -8,7 +8,11 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-
+/**
+ * 编码过滤器，均为UTF-8格式
+ * @author chenjian
+ *
+ */
 public class EncodingFilter implements Filter{
 
     public void destroy() {

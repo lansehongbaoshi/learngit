@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.chsi.knowledge.dic.KnowledgeStatus;
 import com.chsi.knowledge.pojo.KnowledgeData;
-import com.chsi.knowledge.pojo.KnowledgeTagRelationData;
+import com.chsi.knowledge.pojo.KnowTagRelationData;
 /**
  * 知识表操作DAO层
  * @author chenjian
@@ -19,12 +19,12 @@ public interface KnowledgeDataDAO {
     KnowledgeData getKnowledgeById(String id);
     
     /**
-     * 根据系统ID，标签名称
+     * 根据系统ID，标签名称，知识状态统计知识数量
      * @param SystemId
      * @param tagName
      * @return
      */
-    Long countKnowledges(String systemId, String tagId, KnowledgeStatus knowledgeStatus);
+    int countKnowledges(String systemId, String tagId, KnowledgeStatus knowledgeStatus);
 
    /**
     * 根据系统ID，标签名称，以及分页情况 取出多条知识
@@ -37,8 +37,10 @@ public interface KnowledgeDataDAO {
     */
     List<KnowledgeData> getKnowledges(String systemId, String tagId, KnowledgeStatus knowledgeStatus, int start, int size);
     
-    void saveKnowledgeTagRelation(KnowledgeTagRelationData knowledgeTagRelationData);
-    
+    /**
+     * 根据ID 更新知识的访问次数加一
+     * @param id
+     */
     void updateVisitCntPlusOne(String id);
 
 }

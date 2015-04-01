@@ -1,14 +1,19 @@
 package com.chsi.knowledge.view.action.knowledge;
 
-import com.chsi.framework.page.Page;
+import com.chsi.framework.util.ValidatorUtil;
 import com.chsi.knowledge.Constants;
 import com.chsi.knowledge.action.base.AjaxAction;
 import com.chsi.knowledge.dic.KnowledgeStatus;
 import com.chsi.knowledge.pojo.SystemData;
 import com.chsi.knowledge.service.KnowledgeService;
 import com.chsi.knowledge.service.SystemService;
-import com.chsi.knowledge.vo.KnowledgeVO;
-
+import com.chsi.knowledge.vo.KnowListPageVO;
+import com.chsi.knowledge.vo.KnowPageVO;
+import com.chsi.knowledge.web.util.WebAppUtil;
+/**
+ * 用户获取知识ACTION
+ * @author chenjian
+ */
 public class KnowledgeAction extends AjaxAction{
 
     private static final long serialVersionUID = 1L;
@@ -17,41 +22,45 @@ public class KnowledgeAction extends AjaxAction{
     private String id;
     private String systemId;
     private String tagId;
-    private int currentNum;   
-    private Page<KnowledgeVO> page;
-    private KnowledgeVO knowledgeVO;
+    private int curPage;   
+    private KnowListPageVO knowledgePageVO;
+    private KnowPageVO knowPageVO;
     private String callback;
 
     public void getKnowledgeList() throws Exception{
+        System.out.print(WebAppUtil.getUserId());
         SystemData systemData = systemService.getSystemById(systemId);
         if (null == systemData) {
             ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
         } else {
-            page = knowledgeService.getKnowledgeVOPage(systemId, tagId, KnowledgeStatus.WSH, (currentNum - 1) * Constants.PAGE_SIZE, Constants.PAGE_SIZE);
+            knowledgePageVO = knowledgeService.getKnowledgeVOPage(systemId, tagId, KnowledgeStatus.WSH, (curPage - 1) * Constants.PAGE_SIZE, Constants.PAGE_SIZE);
             ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
-            ajaxMessage.setO(page);
+            ajaxMessage.setO(knowledgePageVO);
         }
         writeCallbackJSON(ajaxMessage, callback);
     }
     
-    public void getKnowledge() throws Exception{
-        knowledgeVO = knowledgeService.getKnowledgeVOById(id);
-        if (null == knowledgeVO)  {
+     public void getKnowledge() throws Exception{
+         knowPageVO = knowledgeService.getKnowledgeVOById(id);
+        if (null == knowPageVO)  {
             ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
         }else{
             knowledgeService.updateVisitCntPlusOne(id);
             ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
-            ajaxMessage.setO(knowledgeVO);
+            ajaxMessage.setO(knowPageVO);
         }
         writeCallbackJSON(ajaxMessage, callback);
+    } 
+    
+    public void setCallback(String callback) {
+        if (ValidatorUtil.isNull(callback))
+            this.callback = Constants.DEFAULT_CALLBACKNAME;
+        else
+            this.callback = callback;
     }
     
     public String getCallback() {
         return callback;
-    }
-
-    public void setCallback(String callback) {
-        this.callback = callback;
     }
 
     public KnowledgeService getKnowledgeService() {
@@ -62,12 +71,12 @@ public class KnowledgeAction extends AjaxAction{
         this.knowledgeService = knowledgeService;
     }
 
-    public String getId() {
-        return id;
+    public SystemService getSystemService() {
+        return systemService;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setSystemService(SystemService systemService) {
+        this.systemService = systemService;
     }
 
     public String getSystemId() {
@@ -86,37 +95,37 @@ public class KnowledgeAction extends AjaxAction{
         this.tagId = tagId;
     }
 
-    public int getCurrentNum() {
-        return currentNum;
+    public int getCurPage() {
+        return curPage;
     }
 
-    public void setCurrentNum(int currentNum) {
-        this.currentNum = currentNum;
+    public void setCurPage(int curPage) {
+        this.curPage = curPage;
     }
 
-    public Page<KnowledgeVO> getPage() {
-        return page;
+    public KnowListPageVO getKnowledgePageVO() {
+        return knowledgePageVO;
     }
 
-    public void setPage(Page<KnowledgeVO> page) {
-        this.page = page;
+    public void setKnowledgePageVO(KnowListPageVO knowledgePageVO) {
+        this.knowledgePageVO = knowledgePageVO;
     }
 
-    public KnowledgeVO getKnowledgeVO() {
-        return knowledgeVO;
+    public String getId() {
+        return id;
     }
 
-    public void setKnowledgeVO(KnowledgeVO knowledgeVO) {
-        this.knowledgeVO = knowledgeVO;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public SystemService getSystemService() {
-        return systemService;
+    public KnowPageVO getKnowPageVO() {
+        return knowPageVO;
     }
 
-    public void setSystemService(SystemService systemService) {
-        this.systemService = systemService;
+    public void setKnowPageVO(KnowPageVO knowPageVO) {
+        this.knowPageVO = knowPageVO;
     }
-    
+
     
 }

@@ -1,16 +1,10 @@
 package com.chsi.knowledge.service.impl;
 
-import java.util.List;
-
 import com.chsi.framework.service.BaseDbService;
 import com.chsi.knowledge.ServiceConstants;
 import com.chsi.knowledge.dao.DiscussDataDAO;
 import com.chsi.knowledge.pojo.DiscussData;
 import com.chsi.knowledge.service.DiscussService;
-import com.chsi.knowledge.service.KnowledgeService;
-import com.chsi.knowledge.service.ServiceFactory;
-import com.chsi.knowledge.vo.DiscussVO;
-import com.chsi.knowledge.vo.KnowledgeVO;
 
 public class DiscussServiceImpl extends BaseDbService implements DiscussService {
 
@@ -30,7 +24,7 @@ public class DiscussServiceImpl extends BaseDbService implements DiscussService 
         discussDataDAO.saveOrUpdate(discussData);
     }
 
-    @Override
+   /* @Override
     public DiscussVO getDiscussVOByKnowledgeId(String knowledgeId) {
         List<DiscussData> list = discussDataDAO.getDiscusssByKnowledgeId(knowledgeId);
         KnowledgeService knowledgeService = ServiceFactory.getKnowledgeService();
@@ -39,6 +33,6 @@ public class DiscussServiceImpl extends BaseDbService implements DiscussService 
         discussVO.setDiscussDataList(list);
         discussVO.setKnowledgeVO(knowledgeVO);
         return discussVO;
-    }
+    }*/
    
 }

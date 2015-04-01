@@ -20,7 +20,7 @@ import com.chsi.framework.pojos.PersistentObject;
 @Entity
 @Table(name = "KNOWLEDGE_TAG_RELATION")
 @DynamicUpdate(value = true)
-public class KnowledgeTagRelationData extends PersistentObject {
+public class KnowTagRelationData extends PersistentObject {
 
     private static final long serialVersionUID = 1L;
     private String id;
@@ -28,17 +28,17 @@ public class KnowledgeTagRelationData extends PersistentObject {
     private TagData tagData;
 
     public void setData(PersistentObject persistentObject) {
-        KnowledgeTagRelationData relation = (KnowledgeTagRelationData) persistentObject;
+        KnowTagRelationData relation = (KnowTagRelationData) persistentObject;
         this.id = relation.getId();
         this.knowledgeData = relation.getKnowledgeData();
         this.tagData = relation.getTagData();
     }
     
-    public KnowledgeTagRelationData(){
+    public KnowTagRelationData(){
         super();
     }
     
-    public KnowledgeTagRelationData(String id, KnowledgeData knowledgeData, TagData tagData) {
+    public KnowTagRelationData(String id, KnowledgeData knowledgeData, TagData tagData) {
         super();
         this.id = id;
         this.knowledgeData = knowledgeData;

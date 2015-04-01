@@ -9,6 +9,6 @@
         <mapping class="com.chsi.knowledge.pojo.KnowledgeData" />
         <mapping class="com.chsi.knowledge.pojo.SystemData" />  
         <mapping class="com.chsi.knowledge.pojo.TagData" />  
-        <mapping class="com.chsi.knowledge.pojo.KnowledgeTagRelationData" /> 
+        <mapping class="com.chsi.knowledge.pojo.KnowTagRelationData" /> 
      </session-factory>
 </hibernate-configuration>

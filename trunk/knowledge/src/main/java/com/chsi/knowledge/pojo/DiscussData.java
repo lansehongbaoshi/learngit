@@ -15,8 +15,7 @@ import com.chsi.framework.pojos.PersistentObject;
 import com.chsi.knowledge.dic.DiscussStatus;
 
 /**
- * 评价表
- * 
+ * 评价表，存储用户的评价信息
  * @author chenjian
  * 
  */
@@ -30,6 +29,7 @@ public class DiscussData extends PersistentObject {
     private String knowledgeId;
     private String userId;
     private DiscussStatus discussStatus;
+    private String content;
     private Calendar createTime;
 
     public void setData(PersistentObject persistentObject) {
@@ -38,6 +38,7 @@ public class DiscussData extends PersistentObject {
         this.knowledgeId = discussData.getKnowledgeId();
         this.userId = discussData.getUserId();
         this.discussStatus = discussData.getDiscussStatus();
+        this.content = discussData.getContent();
         this.createTime = discussData.getCreateTime();
     }
 
@@ -46,12 +47,13 @@ public class DiscussData extends PersistentObject {
     }
     
     public DiscussData(String id, String knowledgeId, String userId,
-            DiscussStatus discussStatus, Calendar createTime) {
+            DiscussStatus discussStatus, String content, Calendar createTime) {
         super();
         this.id = id;
         this.knowledgeId = knowledgeId;
         this.userId = userId;
         this.discussStatus = discussStatus;
+        this.content = content;
         this.createTime = createTime;
     }
 
@@ -105,4 +107,14 @@ public class DiscussData extends PersistentObject {
         this.createTime = createTime;
     }
 
+    @Column(name = "CONTENT")
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    
 }

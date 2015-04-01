@@ -1,29 +1,25 @@
 package com.chsi.knowledge.view.action.tag;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.chsi.framework.util.ValidatorUtil;
 import com.chsi.knowledge.Constants;
 import com.chsi.knowledge.action.base.AjaxAction;
 import com.chsi.knowledge.dic.KnowledgeStatus;
-import com.chsi.knowledge.pojo.KnowledgeData;
 import com.chsi.knowledge.pojo.SystemData;
-import com.chsi.knowledge.pojo.TagData;
-import com.chsi.knowledge.service.KnowledgeService;
 import com.chsi.knowledge.service.SystemService;
 import com.chsi.knowledge.service.TagService;
-import com.chsi.knowledge.vo.TagVO;
-
+import com.chsi.knowledge.vo.TagListPageVO;
+/**
+ * 用户对标签操作ACTION
+ * @author chsi-pc
+ *
+ */
 public class TagAction extends AjaxAction{
 
     private static final long serialVersionUID = 1L;
     private TagService tagService;
-    private KnowledgeService knowledgeService;
     private SystemService systemService;
-    private String knowledgeId;
     private String systemId;
-    private String[] tagIds;
-    private List<TagVO> tagVO;
+    private TagListPageVO tagVO;
     private String callback;
     
     public void getTagList() throws Exception {
@@ -40,7 +36,7 @@ public class TagAction extends AjaxAction{
     
      //后面用，先写好，方案一、添加，删除，没有修改这么一说，删除可以前台JS点一次直接访问后台删除
     // 方案二、完全的修改，可以随意的添加删除，到时候保存的时候 把以前的都删掉，将这次的全部保存
-    public String saveTagsToKnowledge() throws Exception {
+    /*public String saveTagsToKnowledge() throws Exception {
         if (null != tagIds && tagIds.length > 0 && null != knowledgeId) {
             List<TagData> list = new ArrayList<TagData>();
             KnowledgeData k = knowledgeService.getKnowledgeById(knowledgeId);
@@ -58,6 +54,13 @@ public class TagAction extends AjaxAction{
             return SUCCESS;
         }
         return "global.error";
+    }*/
+    
+    public void setCallback(String callback) {
+        if (ValidatorUtil.isNull(callback))
+            this.callback = Constants.DEFAULT_CALLBACKNAME;
+        else
+            this.callback = callback;
     }
     
     public String getSystemId() {
@@ -68,11 +71,11 @@ public class TagAction extends AjaxAction{
         this.systemId = systemId;
     }
 
-    public List<TagVO> getTagVO() {
+    public TagListPageVO getTagVO() {
         return tagVO;
     }
 
-    public void setTagVO(List<TagVO> tagVO) {
+    public void setTagVO(TagListPageVO tagVO) {
         this.tagVO = tagVO;
     }
 
@@ -84,36 +87,8 @@ public class TagAction extends AjaxAction{
         this.tagService = tagService;
     }
 
-    public String[] getTagIds() {
-        return tagIds;
-    }
-
-    public void setTagIds(String[] tagIds) {
-        this.tagIds = tagIds;
-    }
-
-    public String getKnowledgeId() {
-        return knowledgeId;
-    }
-
-    public void setKnowledgeId(String knowledgeId) {
-        this.knowledgeId = knowledgeId;
-    }
-
-    public KnowledgeService getKnowledgeService() {
-        return knowledgeService;
-    }
-
-    public void setKnowledgeService(KnowledgeService knowledgeService) {
-        this.knowledgeService = knowledgeService;
-    }
-
     public String getCallback() {
         return callback;
-    }
-
-    public void setCallback(String callback) {
-        this.callback = callback;
     }
 
     public SystemService getSystemService() {

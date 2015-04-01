@@ -6,7 +6,6 @@ import com.chsi.knowledge.pojo.DiscussData;
 /**
  * 评价表操作DAO 接口
  * @author chenjian
- *
  */
 public interface DiscussDataDAO {
     

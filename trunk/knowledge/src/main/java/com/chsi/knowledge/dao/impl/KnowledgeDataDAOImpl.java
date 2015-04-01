@@ -8,13 +8,12 @@ import com.chsi.framework.hibernate.BaseHibernateDAO;
 import com.chsi.knowledge.dao.KnowledgeDataDAO;
 import com.chsi.knowledge.dic.KnowledgeStatus;
 import com.chsi.knowledge.pojo.KnowledgeData;
-import com.chsi.knowledge.pojo.KnowledgeTagRelationData;
 
 public class KnowledgeDataDAOImpl extends BaseHibernateDAO implements KnowledgeDataDAO {
 
     private static final String SELECT_KNOWLEDGE = "select p from KnowledgeData p";
-    private static final String SELECT_KNOWLEDGETAGRELATION_KNOWLEDGE = "select p.knowledgeData from KnowledgeTagRelationData p ";
-    private static final String COUNT_KNOWLEDGETAGDATARELATION = "select count(p) from KnowledgeTagRelationData p";
+    private static final String SELECT_KNOWTAGRELATION_KNOWLEDGE = "select p.knowledgeData from KnowTagRelationData p ";
+    private static final String COUNT_KNOWTAGDATARELATION = "select count(p) from KnowTagRelationData p";
     private static final String UPDATE_KNOWLEDGEVISITCNT = "update KnowledgeData p set p.visitCnt=p.visitCnt+1";
     
     private static final String W = " where ";
@@ -46,7 +45,7 @@ public class KnowledgeDataDAOImpl extends BaseHibernateDAO implements KnowledgeD
 
     @Override
     public List<KnowledgeData> getKnowledges(String systemId, String tagId, KnowledgeStatus knowledgeStatus, int start, int size) {
-        String hql = SELECT_KNOWLEDGETAGRELATION_KNOWLEDGE + W + TAG_ID + A + TAG_SYSTEM_ID + A + KNOWLEDGE_KNOWLEDGESTATUS + ORDERBY_KNOWLEDGE_VISITCNT_SORT;
+        String hql = SELECT_KNOWTAGRELATION_KNOWLEDGE + W + TAG_ID + A + TAG_SYSTEM_ID + A + KNOWLEDGE_KNOWLEDGESTATUS + ORDERBY_KNOWLEDGE_VISITCNT_SORT;
         Query query = hibernateUtil.getSession().createQuery(hql).setInteger("knowledgeStatus", knowledgeStatus.getOrdinal())
                       .setString("systemId", systemId).setString("tagId", tagId).setFirstResult(start).setMaxResults(size);
         List<KnowledgeData> list = query.list();
@@ -54,12 +53,12 @@ public class KnowledgeDataDAOImpl extends BaseHibernateDAO implements KnowledgeD
     }
 
     @Override
-    public Long countKnowledges(String systemId, String tagId, KnowledgeStatus knowledgeStatus) {
-        String hql = COUNT_KNOWLEDGETAGDATARELATION + W + TAG_SYSTEM_ID + A + TAG_ID + A + KNOWLEDGE_KNOWLEDGESTATUS;
+    public int countKnowledges(String systemId, String tagId, KnowledgeStatus knowledgeStatus) {
+        String hql = COUNT_KNOWTAGDATARELATION + W + TAG_SYSTEM_ID + A + TAG_ID + A + KNOWLEDGE_KNOWLEDGESTATUS;
         Query query = hibernateUtil.getSession().createQuery(hql).setInteger("knowledgeStatus", knowledgeStatus.getOrdinal())
                       .setString("systemId", systemId).setString("tagId", tagId);
         List<Long> list = query.list();
-        return list.size() == 0 ? 0 : list.get(0);
+        return list.size() == 0 ? 0 : new Long(list.get(0)).intValue();
     }
 
     @Override
@@ -69,8 +68,4 @@ public class KnowledgeDataDAOImpl extends BaseHibernateDAO implements KnowledgeD
         query.executeUpdate();
     }
 
-    @Override
-    public void saveKnowledgeTagRelation(KnowledgeTagRelationData knowledgeTagRelationData) {
-        hibernateUtil.save(knowledgeTagRelationData);
-    }
 }

@@ -8,11 +8,11 @@ import com.chsi.knowledge.ServiceConstants;
 import com.chsi.knowledge.dao.KnowledgeDataDAO;
 import com.chsi.knowledge.dao.TagDataDAO;
 import com.chsi.knowledge.dic.KnowledgeStatus;
-import com.chsi.knowledge.pojo.KnowledgeData;
-import com.chsi.knowledge.pojo.KnowledgeTagRelationData;
 import com.chsi.knowledge.pojo.TagData;
 import com.chsi.knowledge.service.TagService;
-import com.chsi.knowledge.vo.TagVO;
+import com.chsi.knowledge.util.LevelData;
+import com.chsi.knowledge.util.LevelUtil;
+import com.chsi.knowledge.vo.TagListPageVO;
 
 public class TagServiceImpl extends BaseDbService implements TagService{
     
@@ -31,19 +31,21 @@ public class TagServiceImpl extends BaseDbService implements TagService{
     }
 
     @Override
-    public List<TagVO> getTagVOsBySystemIdAndStatus(String systemId, KnowledgeStatus knowledgeStatus) {
+    public  TagListPageVO getTagVOsBySystemIdAndStatus(String systemId, KnowledgeStatus knowledgeStatus) {
         List<TagData> tagDataList = tagDataDAO.getTagDataBySystemId(systemId);
         if (null == tagDataList || tagDataList.size() == 0)
             return null;
-        List<TagVO> tagVOList = new ArrayList<TagVO>();
-        TagVO tagVO = null;
-        Long count;
+        List<TagListPageVO.TagVO> tagVOList = new ArrayList<TagListPageVO.TagVO>();
+        TagListPageVO.TagVO tagVO = null;
+        int count;
         for (TagData tagData : tagDataList) {
             count = knowledgeDataDAO.countKnowledges(systemId, tagData.getId(), knowledgeStatus);
-            tagVO = new TagVO(tagData, count);
+            tagVO = new TagListPageVO.TagVO(tagData.getId(), tagData.getSystemData().getId(), tagData.getName(), tagData.getDescription(), count);
             tagVOList.add(tagVO);
         }
-        return tagVOList;
+        List<LevelData> levelDataList = LevelUtil.getOneLevel(tagDataList.get(0).getSystemData());
+        TagListPageVO TagPageVO = new TagListPageVO(tagVOList, levelDataList);
+        return TagPageVO;
     }
 
     @Override
@@ -52,24 +54,13 @@ public class TagServiceImpl extends BaseDbService implements TagService{
     }
 
     @Override
-    public TagData getTagDataBySystemIdAndName(String systemId, String name) {
-        return tagDataDAO.getTagDataBySystemIdAndName(systemId, name);
-    }
-
-    @Override
     public TagData getTagDataById(String id) {
         return tagDataDAO.getTagDataById(id);
     }
     
     @Override
-    public void addTagsToKnowledge(KnowledgeData knowledgeData, List<TagData> list) {
-        if (null != knowledgeData && null != list) {
-            KnowledgeTagRelationData ktrData = null;
-            for (TagData tagData : list) {
-                ktrData = new KnowledgeTagRelationData(null, knowledgeData, tagData);
-                knowledgeDataDAO.saveKnowledgeTagRelation(ktrData);
-            }
-        }
+    public TagData getTagDataBySystemIdTagName(String systemId, String tagName) {
+        return tagDataDAO.getTagDataBySystemIdTagName(systemId, tagName);
     }
 
 }

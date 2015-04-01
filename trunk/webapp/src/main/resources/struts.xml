@@ -6,11 +6,12 @@
 <struts>
     <constant name="struts.enable.DynamicMethodInvocation" value="true" />
     <constant name="struts.custom.i18n.resources" value="MessageResources"></constant>
-    <package name="knowledge-default" extends="tiles-default" namespace="">
-
+    <package name="knowledge-default" extends="tiles-default"
+        namespace="">
         <interceptors>
-            <interceptor name="chsiTransactionInterceptors"  class="com.chsi.framework.transaction.struts2.TranactionInterceptor" />
-            <!--有事务  -->
+            <interceptor name="chsiTransactionInterceptors"
+                class="com.chsi.framework.transaction.struts2.TranactionInterceptor" />
+            <!--有事务 -->
             <interceptor-stack name="chsiDefaultStack">
                 <interceptor-ref name="chsiTransactionInterceptors">
                     <param name="localTransaction">true</param>
@@ -23,17 +24,14 @@
                 <interceptor-ref name="servletConfig" />
                 <interceptor-ref name="i18n" />
                 <interceptor-ref name="chain" />
-                <interceptor-ref name="debugging" />
-                <interceptor-ref name="profiling" />
                 <interceptor-ref name="scopedModelDriven" />
                 <interceptor-ref name="modelDriven" />
                 <interceptor-ref name="fileUpload">
-                    <param name="allowedTypes">image/jpeg,image/pjpeg,image/png</param>
-                    <param name="allowedExtensions">jpg,jpeg,jpe,jfif,png</param>
+                    <param name="allowedTypes">image/jpeg,image/pjpeg,image/png,application/vnd.ms-excel</param>
+                    <param name="allowedExtensions">jpg,jpeg,jpe,jfif,png,xls,xlsx</param>
                     <param name="maximumSize">52428800</param> <!--50M -->
                 </interceptor-ref>
                 <interceptor-ref name="checkbox" />
-                <interceptor-ref name="staticParams" />
                 <interceptor-ref name="actionMappingParams" />
                 <interceptor-ref name="params">
                     <param name="excludeParams">dojo\..*,^struts\..*</param>
@@ -49,7 +47,7 @@
                     <param name="excludeMethods">input,back,cancel,browse</param>
                 </interceptor-ref>
             </interceptor-stack>
-            <!--无事务  -->
+            <!--无事务 -->
             <interceptor-stack name="chsiNoTransactionDefaultStack">
                 <interceptor-ref name="exception">
                     <param name="logEnabled">true</param>
@@ -59,13 +57,10 @@
                 <interceptor-ref name="servletConfig" />
                 <interceptor-ref name="i18n" />
                 <interceptor-ref name="chain" />
-                <interceptor-ref name="debugging" />
-                <interceptor-ref name="profiling" />
                 <interceptor-ref name="scopedModelDriven" />
                 <interceptor-ref name="modelDriven" />
                 <interceptor-ref name="fileUpload" />
                 <interceptor-ref name="checkbox" />
-                <interceptor-ref name="staticParams" />
                 <interceptor-ref name="actionMappingParams" />
                 <interceptor-ref name="params">
                     <param name="excludeParams">dojo\..*,^struts\..*</param>
@@ -81,39 +76,23 @@
                     <param name="excludeMethods">input,back,cancel,browse</param>
                 </interceptor-ref>
             </interceptor-stack>
-            
         </interceptors>
-        
-        <default-interceptor-ref name="chsiDefaultStack" />   
-        
-   <!--     <global-results>
-            <result name="global.error">/error/error.jsp</result>
-            <result name="global.exception">/error/error.jsp</result>
-        </global-results> -->
-        
-        <!-- 程序中未捕获的异常，使用声明式异常处理 -->
-        <!--
-        <global-exception-mappings>
-            <exception-mapping result="global.exception" exception="java.lang.Exception" />
-        </global-exception-mappings>
-        <action name="index" class="index">
-              <result name="success" type="redirect">/htgl/indexAction</result>
-              <result name="indexJsp" type="dispatcher">/index.jsp</result>
-        </action>
-        <global-results>
-            <result name="Exception" type="tiles"></result>
-        </global-results>
-        
+        <default-interceptor-ref name="chsiDefaultStack" />
+        <!-- <global-results> <result name="global.error">/error/error.jsp</result> 
+            <result name="global.exception">/error/error.jsp</result> </global-results> -->
 
-        <global-exception-mappings>
-            <exception-mapping exception="java.lang.Exception"
-                result="Exception" />
-        </global-exception-mappings>
-           -->
-           
+        <!-- 程序中未捕获的异常，使用声明式异常处理 -->
+        <!-- <global-exception-mappings> <exception-mapping result="global.exception" 
+            exception="java.lang.Exception" /> </global-exception-mappings> <action name="index" 
+            class="index"> <result name="success" type="redirect">/htgl/indexAction</result> 
+            <result name="indexJsp" type="dispatcher">/index.jsp</result> </action> <global-results> 
+            <result name="Exception" type="tiles"></result> </global-results> <global-exception-mappings> 
+            <exception-mapping exception="java.lang.Exception" result="Exception" /> 
+            </global-exception-mappings> -->
     </package>
 
     <include file="struts-knowledge.xml"></include>
     <include file="struts-tag.xml"></include>
     <include file="struts-discuss.xml"></include>
+    <include file="struts-upload.xml"></include>
 </struts>

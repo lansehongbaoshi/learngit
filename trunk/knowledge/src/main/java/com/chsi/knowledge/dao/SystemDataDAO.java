@@ -10,4 +10,6 @@ import com.chsi.knowledge.pojo.SystemData;
 public interface SystemDataDAO {
 
     SystemData getSystemById(String id);
+    
+    void save(SystemData systemData);
 }

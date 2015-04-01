@@ -9,6 +9,13 @@
     </bean>
 
     <!-- action beans -->
+    <!--上传数据的ACTION  -->
+    <bean id="uploadActionBean"  class="com.chsi.knowledge.action.upload.UploadAction"  scope="request">
+        <property name="tagService" ref="tagService" />
+        <property name="systemService" ref="systemService" />
+        <property name="knowledgeService" ref="knowledgeService" />
+        <property name="knowTagRelationService" ref="knowTagRelationService" />
+    </bean>
    
    <!-- 前台调用action -->
     <bean id="tagViewActionBean"  class="com.chsi.knowledge.view.action.tag.TagAction"  scope="request">

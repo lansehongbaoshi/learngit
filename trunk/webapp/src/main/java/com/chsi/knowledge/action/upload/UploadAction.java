@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -20,92 +21,82 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 
-import com.chsi.framework.page.Page;
-import com.chsi.knowledge.Constants;
 import com.chsi.knowledge.action.base.AjaxAction;
 import com.chsi.knowledge.dic.KnowledgeStatus;
+import com.chsi.knowledge.pojo.KnowTagRelationData;
 import com.chsi.knowledge.pojo.KnowledgeData;
 import com.chsi.knowledge.pojo.SystemData;
 import com.chsi.knowledge.pojo.TagData;
+import com.chsi.knowledge.service.KnowTagRelationService;
 import com.chsi.knowledge.service.KnowledgeService;
+import com.chsi.knowledge.service.SystemService;
 import com.chsi.knowledge.service.TagService;
-import com.chsi.knowledge.vo.KnowledgeVO;
 import com.chsi.news.type.ArticleStatusType;
 import com.ibm.icu.text.DecimalFormat;
 import com.ibm.icu.text.SimpleDateFormat;
 /**
- * 导入数据临时类
- * @author chsi-pc
+ * 导入数据类
+ * @author chenjian
  *
  */
 public class UploadAction extends AjaxAction {
  
+    private static final long serialVersionUID = 1L;
     private TagService tagService;
     private KnowledgeService knowledgeService;
+    private SystemService systemService;
+    private KnowTagRelationService knowTagRelationService;
+
+    private File upload;
+    private String uploadContentType; // 文件的内容类型
+    private String uploadFileName; // 上传文件名
     
     public void saveData(String[][] result){
-      /**
-       * 插标签
-       */
-       SystemData system=new SystemData("zb","预征报名","预征报名，兵役登记");
-        Set set=new HashSet();
-        for(int i=0;i<result.length;i++){
+        // 保存系统
+        SystemData system = new SystemData("zb", "全国征兵网", "预征报名，兵役登记");
+        systemService.save(system);
+        /**
+         * 插标签
+         */
+        Set set = new HashSet();
+        for (int i = 0; i < result.length; i++) {
             set.add(result[i][0]);
         }
-      
-        java.util.Iterator it=set.iterator();
-        TagData tagData=null;
-        while(it.hasNext()){
-             String name=it.next().toString();
-             tagData=new TagData(null,system,name,name);
-             tagService.saveOrUpdate(tagData);
-        }   
+        Iterator it = set.iterator();
+        TagData tagData = null;
+        List<TagData> list = new ArrayList<TagData>();
+        while (it.hasNext()) {
+            String name = it.next().toString();
+            tagData = new TagData(null, system, name, name);
+            tagService.saveOrUpdate(tagData);
+            list.add(tagData);
+        }  
         /**
          * 插知识代码
          */
-        /*  KnowledgeData knowledgeData=null;   
-        for(int i=0;i<result.length;i++){   
-            TagData tagData2=tagService.getTagDataBySystemIdAndName("zb", result[i][0]);
-            knowledgeData=new KnowledgeData(null, tagData2, result[i][1], null, 0, Integer.parseInt(result[i][4]), 
+        KnowledgeData knowledgeData = null;   
+        for (int i = 0; i < result.length; i++) {
+            TagData tagData2 = null;
+            for (TagData t : list) {
+                if (t.getName().equals(result[i][0]))
+                    tagData2 = t;
+            }
+            knowledgeData = new KnowledgeData(null, result[i][1], null, 0, Integer.parseInt(result[i][4]), 
                                             KnowledgeStatus.WSH, "16a669296a704688b2cbf38fef310811", Calendar.getInstance(),
                                             null, null);
+            //保存知识
             knowledgeService.save(knowledgeData, result[i][2], result[i][3], ArticleStatusType.WAITTING, "00", "16a669296a704688b2cbf38fef310811");
+            //保存知识与标签关系
+            KnowTagRelationData knowTagRelationData = new KnowTagRelationData(null,knowledgeData,tagData2);
+            knowTagRelationService.save(knowTagRelationData);
         } 
-        Integer i=0;
-        while(it.hasNext()){
-            String name=it.next().toString();
-            List<KnowledgeVO> list=knowledgeService.getKnowledgeVOPage("zb", name, KnowledgeStatus.WSH, 0, 100).getList();
-            for(KnowledgeVO vo:list){
-                knowledgeService.save(vo.getKnowledgeData(), null, null, null, null, null);
-                i++;
-            }
-       }  
-        System.out.print(i);*/
-       // knowledgeService.save(null, null, null, null, null, null);
         
     }
     
-    public void upload() throws Exception {
-
-        KnowledgeVO konwledgeVO=knowledgeService.getKnowledgeVOById("lWtQe3Jvls96tfbA");
-        
-        List list=tagService.getTagVOsBySystemIdAndStatus("aa", KnowledgeStatus.WSH);
-        
-        Page page=knowledgeService.getKnowledgeVOPage("zb", "报名条件", KnowledgeStatus.WSH, 0, Constants.PAGE_SIZE); 
-        
-        UploadAction upload = new UploadAction();
-        File file = new File("C:\\Users\\chsi-pc\\Desktop\\excel.xls");
-        String[][] result = getData(file, 1);
-        int rowLength = result.length;
-        /*for (int i = 0; i < rowLength; i++) {
-            for (int j = 0; j < result[i].length; j++) {
-                System.out.print(result[i][j] + "\t\t");
-            }
-            System.out.println();
-        }*/
-        //saveData(result);
-        
-        
+    public String upload() throws Exception {
+        String[][] result = getData(upload, 1);
+        saveData(result);
+        return SUCCESS;
         
     }
 
@@ -120,7 +111,7 @@ public class UploadAction extends AjaxAction {
      * @throws IOException
      */
 
-    public static String[][] getData(File file, int ignoreRows)
+    public  String[][] getData(File file, int ignoreRows)
     throws FileNotFoundException, IOException {
         List<String[]> result = new ArrayList<String[]>();
         int rowSize = 0;
@@ -233,7 +224,13 @@ public class UploadAction extends AjaxAction {
         return tagService;
     }
 
+    public File getUpload() {
+        return upload;
+    }
 
+    public void setUpload(File upload) {
+        this.upload = upload;
+    }
 
     public void setTagService(TagService tagService) {
         this.tagService = tagService;
@@ -247,5 +244,39 @@ public class UploadAction extends AjaxAction {
         this.knowledgeService = knowledgeService;
     }
 
+    public SystemService getSystemService() {
+        return systemService;
+    }
+
+    public void setSystemService(SystemService systemService) {
+        this.systemService = systemService;
+    }
+
+    public KnowTagRelationService getKnowTagRelationService() {
+        return knowTagRelationService;
+    }
+
+    public void setKnowTagRelationService(
+            KnowTagRelationService knowTagRelationService) {
+        this.knowTagRelationService = knowTagRelationService;
+    }
+
+    public String getUploadContentType() {
+        return uploadContentType;
+    }
+
+    public void setUploadContentType(String uploadContentType) {
+        this.uploadContentType = uploadContentType;
+    }
+
+    public String getUploadFileName() {
+        return uploadFileName;
+    }
+
+    public void setUploadFileName(String uploadFileName) {
+        this.uploadFileName = uploadFileName;
+    }
+
+    
     
 }

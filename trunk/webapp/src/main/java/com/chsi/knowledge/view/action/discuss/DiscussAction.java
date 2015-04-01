@@ -9,49 +9,50 @@ import com.chsi.knowledge.Constants;
 import com.chsi.knowledge.action.base.AjaxAction;
 import com.chsi.knowledge.dic.DiscussStatus;
 import com.chsi.knowledge.pojo.DiscussData;
+import com.chsi.knowledge.pojo.KnowledgeData;
 import com.chsi.knowledge.service.DiscussService;
 import com.chsi.knowledge.service.KnowledgeService;
-import com.chsi.knowledge.vo.KnowledgeVO;
-
+/**
+ * 用户评价ACTION
+ * @author chsi-pc
+ *
+ */
 public class DiscussAction extends AjaxAction {
 
     private static final long serialVersionUID = 1L;
     private DiscussService discussService;
     private KnowledgeService knowledgeService;
     private String knowledgeId;
+    private String content;
     private int discussStatus;
     private String callback;
 
     public void discuss() throws Exception {
 
-        KnowledgeVO knowledgeVO = knowledgeService.getKnowledgeVOById(knowledgeId);
-        if (null == knowledgeVO) {
+        KnowledgeData knowledge = knowledgeService.getKnowledgeById(knowledgeId);
+        if (null == knowledge) {
             ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
-            errorMessages.add("知识id有误");
         }
         DiscussStatus disStatus = DiscussStatus.getType(discussStatus);
         if (null == disStatus) {
             ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
-            errorMessages.add("评价信息错误");
         }
         
         String userId = getUserIdOrIp(httpRequest);
         if (ValidatorUtil.isNull(userId)) {
             ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
-            errorMessages.add("用户名或者ip错误");
         }
         if (errorMessages.size() == 0) {
-            DiscussData discussData = new DiscussData(null, knowledgeId, userId, disStatus, Calendar.getInstance());
+            DiscussData discussData = new DiscussData(null, knowledgeId, userId, disStatus, content, Calendar.getInstance());
             discussService.saveOrUpdate(discussData);
             ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
         }
-        ajaxMessage.setErrorMessages(errorMessages);
         writeCallbackJSON(ajaxMessage, callback);
     }
 
     private String getUserIdOrIp(HttpServletRequest request) {
-        String userId=getLoginedUserId();
-        if(!ValidatorUtil.isNull(userId) && !userId.equals("Anonymous")){
+        String userId = getLoginedUserId();
+        if (!ValidatorUtil.isNull(userId) && !userId.equals("Anonymous")) {
             return userId;
         }
         if (request.getHeader("x-forwarded-for") == null) {
@@ -60,6 +61,13 @@ public class DiscussAction extends AjaxAction {
         return request.getHeader("x-forwarded-for");
     }
 
+    public void setCallback(String callback) {
+        if (ValidatorUtil.isNull(callback))
+            this.callback = Constants.DEFAULT_CALLBACKNAME;
+        else
+            this.callback = callback;
+    }
+    
     public DiscussService getDiscussService() {
         return discussService;
     }
@@ -70,10 +78,6 @@ public class DiscussAction extends AjaxAction {
     
     public String getCallback() {
         return callback;
-    }
-
-    public void setCallback(String callback) {
-        this.callback = callback;
     }
 
     public String getKnowledgeId() {
@@ -99,6 +103,13 @@ public class DiscussAction extends AjaxAction {
     public void setDiscussStatus(int discussStatus) {
         this.discussStatus = discussStatus;
     }
-    
 
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+   
 }

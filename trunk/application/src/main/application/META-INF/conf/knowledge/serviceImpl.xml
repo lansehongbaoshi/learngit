@@ -39,4 +39,5 @@
     <bean id="knowledgeService" class="com.chsi.knowledge.service.impl.KnowledgeServiceImpl" parent="baseDbService" />
     <bean id="tagService" class="com.chsi.knowledge.service.impl.TagServiceImpl" parent="baseDbService" />
     <bean id="systemService" class="com.chsi.knowledge.service.impl.SystemServiceImpl" parent="baseDbService" />
+    <bean id="knowTagRelationService" class="com.chsi.knowledge.service.impl.KnowTagRelationServiceImpl" parent="baseDbService" />
 </beans>

@@ -26,4 +26,9 @@ public class SystemServiceImpl extends BaseDbService implements SystemService{
         return systemDataDAO.getSystemById(id);
     }
 
+    @Override
+    public void save(SystemData systemData) {
+        systemDataDAO.save(systemData);
+    }
+
 }

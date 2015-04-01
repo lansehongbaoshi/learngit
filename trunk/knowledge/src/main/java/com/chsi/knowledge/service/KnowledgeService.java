@@ -1,17 +1,13 @@
 package com.chsi.knowledge.service;
 
-import java.util.List;
-
-import com.chsi.framework.page.Page;
 import com.chsi.knowledge.dic.KnowledgeStatus;
 import com.chsi.knowledge.pojo.KnowledgeData;
-import com.chsi.knowledge.pojo.TagData;
-import com.chsi.knowledge.vo.KnowledgeVO;
+import com.chsi.knowledge.vo.KnowListPageVO;
+import com.chsi.knowledge.vo.KnowPageVO;
 import com.chsi.news.type.ArticleStatusType;
 /**
  * 知识业务逻辑层
  * @author chenjian
- *
  */
 public interface KnowledgeService {
 
@@ -26,13 +22,22 @@ public interface KnowledgeService {
      */
     void save(KnowledgeData knowledgeData, String articleTitle, String articleContent, ArticleStatusType articleStatusType, String ssdm, String createBy);
 
-    void update(KnowledgeData knowledgeData, String id, String articleTitle, String articleContent, ArticleStatusType articleStatusType, String updateBy);
+    /**
+     * 更新知识，同时更新CMS中的数据
+     * @param knowledgeData
+     * @param articleId
+     * @param articleTitle
+     * @param articleContent
+     * @param articleStatusType
+     * @param updateBy
+     */
+    void update(KnowledgeData knowledgeData, String articleId, String articleTitle, String articleContent, ArticleStatusType articleStatusType, String updateBy);
     /**
      * 根据ID取知识，同时从CMS中读取对应数据
      * @param id
      * @return
      */
-    KnowledgeVO getKnowledgeVOById(String id);
+    KnowPageVO getKnowledgeVOById(String id);
     
     KnowledgeData getKnowledgeById(String id);
     
@@ -45,7 +50,7 @@ public interface KnowledgeService {
      * @param size
      * @return
      */
-    Page<KnowledgeVO> getKnowledgeVOPage(String systemId, String tagId, KnowledgeStatus knowledgeStatus, int start, int pageSize); 
+    KnowListPageVO getKnowledgeVOPage(String systemId, String tagId, KnowledgeStatus knowledgeStatus, int start, int pageSize); 
     
     void update(KnowledgeData knowledgeData);
     

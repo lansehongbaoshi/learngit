@@ -2,18 +2,15 @@ package com.chsi.knowledge.pojo;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.DynamicUpdate;
-import org.hibernate.annotations.GenericGenerator;
 
 import com.chsi.framework.pojos.PersistentObject;
 
 /**
  * 系统信息表
- * 
  * @author chenjian
  * 
  */
@@ -46,8 +43,6 @@ public class SystemData extends PersistentObject {
 
     @Id
     @Column(name = "ID")
-    @GeneratedValue(generator = "app_seq")
-    @GenericGenerator(name = "app_seq", strategy = "com.chsi.framework.hibernate.StringRandomGenerator")
     @Override
     public String getId() {
         return this.id;

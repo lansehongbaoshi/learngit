@@ -1,9 +1,8 @@
 package com.chsi.knowledge.dic;
 
 /**
- * 知识状态
- * @author chsi-pc
- *
+ * 知识所处状态
+ * @author chenjian
  */
 public enum KnowledgeStatus {
 
