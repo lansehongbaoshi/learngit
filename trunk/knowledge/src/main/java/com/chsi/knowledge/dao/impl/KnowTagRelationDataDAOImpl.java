@@ -6,26 +6,39 @@ import org.hibernate.Query;
 
 import com.chsi.framework.hibernate.BaseHibernateDAO;
 import com.chsi.knowledge.dao.KnowTagRelationDataDAO;
+import com.chsi.knowledge.dic.KnowledgeStatus;
 import com.chsi.knowledge.pojo.KnowTagRelationData;
 
 public class KnowTagRelationDataDAOImpl extends BaseHibernateDAO implements KnowTagRelationDataDAO{
 
     private static final String SELECT_KNOWTAGRELATION = "select p from KnowTagRelationData p ";
-    
     private static final String W = " where ";
+    private static final String A = " and ";
     private static final String KNOWLEDGE_ID = " p.knowledgeData.id=:id";
+    private static final String TAG_ID = " p.tagData.id=:tagId";
+    private static final String TAG_SYSTEM_ID = " p.tagData.systemData.id=:systemId";
+    private static final String KNOWLEDGE_KNOWLEDGESTATUS = " p.knowledgeData.knowledgeStatus=:knowledgeStatus";
     
-    
+    private static final String ORDERBY_KNOWLEDGE_VISITCNT_SORT = " order by p.knowledgeData.visitCnt desc, p.knowledgeData.sort desc";
     @Override
     public void save(KnowTagRelationData knowTagRelationData) {
         hibernateUtil.save(knowTagRelationData);
     }
 
     @Override
-    public KnowTagRelationData getKnowTagRelationByKnowId(String knowledgeId) {
-        String hql = SELECT_KNOWTAGRELATION + W + KNOWLEDGE_ID;
-        Query query = hibernateUtil.getSession().createQuery(hql).setString("id", knowledgeId);
+    public KnowTagRelationData getKnowTagRelationByKnowId(String knowledgeId, String tagId) {
+        String hql = SELECT_KNOWTAGRELATION + W + KNOWLEDGE_ID + A + TAG_ID;
+        Query query = hibernateUtil.getSession().createQuery(hql).setString("id", knowledgeId).setString("tagId", tagId);
         List<KnowTagRelationData> list = query.list();
         return list.size() == 0 ? null : list.get(0);
+    }
+    
+    @Override
+    public List<KnowTagRelationData> getKnowTagDatas(String systemId, String tagId, KnowledgeStatus knowledgeStatus) {
+        String hql = SELECT_KNOWTAGRELATION + W + TAG_ID + A + TAG_SYSTEM_ID + A + KNOWLEDGE_KNOWLEDGESTATUS + ORDERBY_KNOWLEDGE_VISITCNT_SORT;
+        Query query = hibernateUtil.getSession().createQuery(hql).setInteger("knowledgeStatus", knowledgeStatus.getOrdinal())
+                      .setString("systemId", systemId).setString("tagId", tagId);
+        List<KnowTagRelationData> list = query.list();
+        return list;
     }
 }

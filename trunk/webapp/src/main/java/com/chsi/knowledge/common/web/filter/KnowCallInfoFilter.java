@@ -4,7 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.chsi.account.client.filter.AccountFilter;
 
-public class KnowledgeCallInfoFilter extends AccountFilter {
+public class KnowCallInfoFilter extends AccountFilter {
 
     @Override
     public String getModuleId(HttpServletRequest arg0) {

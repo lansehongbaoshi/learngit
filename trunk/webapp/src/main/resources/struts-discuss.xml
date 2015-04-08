@@ -14,6 +14,7 @@
         </interceptor-stack>
     </interceptors>
     <action name="discuss" class="discussViewActionBean" method="discuss"></action>
+    <action name="discussLogined" class="discussViewActionBean" method="discuss"></action>
     
     </package>
     

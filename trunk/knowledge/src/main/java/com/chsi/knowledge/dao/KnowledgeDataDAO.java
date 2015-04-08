@@ -26,17 +26,6 @@ public interface KnowledgeDataDAO {
      */
     int countKnowledges(String systemId, String tagId, KnowledgeStatus knowledgeStatus);
 
-   /**
-    * 根据系统ID，标签名称，以及分页情况 取出多条知识
-    * @param systemId
-    * @param tagName
-    * @param knowledgeStatus
-    * @param start
-    * @param size
-    * @return
-    */
-    List<KnowledgeData> getKnowledges(String systemId, String tagId, KnowledgeStatus knowledgeStatus, int start, int size);
-    
     /**
      * 根据ID 更新知识的访问次数加一
      * @param id

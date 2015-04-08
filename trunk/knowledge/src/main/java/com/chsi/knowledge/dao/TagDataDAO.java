@@ -20,6 +20,4 @@ public interface TagDataDAO {
     
     TagData getTagDataById(String id);
     
-    TagData getTagDataBySystemIdTagName(String systemId,String tagName);
-
 }

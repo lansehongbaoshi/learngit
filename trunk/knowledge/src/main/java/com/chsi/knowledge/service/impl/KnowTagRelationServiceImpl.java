@@ -12,7 +12,7 @@ public class KnowTagRelationServiceImpl extends BaseDbService implements KnowTag
     
     @Override
     protected void doCreate() {
-        knowTagRelationDataDAO=this.getDAO(ServiceConstants.KNOWTAGRELATIONDATA_DAO, KnowTagRelationDataDAO.class);
+        knowTagRelationDataDAO = getDAO(ServiceConstants.KNOWTAGRELATIONDATA_DAO, KnowTagRelationDataDAO.class);
     }
 
     @Override

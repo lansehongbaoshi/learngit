@@ -12,7 +12,6 @@ import com.chsi.knowledge.pojo.KnowledgeData;
 public class KnowledgeDataDAOImpl extends BaseHibernateDAO implements KnowledgeDataDAO {
 
     private static final String SELECT_KNOWLEDGE = "select p from KnowledgeData p";
-    private static final String SELECT_KNOWTAGRELATION_KNOWLEDGE = "select p.knowledgeData from KnowTagRelationData p ";
     private static final String COUNT_KNOWTAGDATARELATION = "select count(p) from KnowTagRelationData p";
     private static final String UPDATE_KNOWLEDGEVISITCNT = "update KnowledgeData p set p.visitCnt=p.visitCnt+1";
     
@@ -22,8 +21,6 @@ public class KnowledgeDataDAOImpl extends BaseHibernateDAO implements KnowledgeD
     private static final String TAG_SYSTEM_ID = " p.tagData.systemData.id=:systemId";
     private static final String TAG_ID = " p.tagData.id=:tagId";
     private static final String KNOWLEDGE_KNOWLEDGESTATUS = " p.knowledgeData.knowledgeStatus=:knowledgeStatus";
-
-    private static final String ORDERBY_KNOWLEDGE_VISITCNT_SORT = " order by p.knowledgeData.visitCnt desc, p.knowledgeData.sort desc";
 
     @Override
     public void save(KnowledgeData knowledgeData) {
@@ -41,15 +38,6 @@ public class KnowledgeDataDAOImpl extends BaseHibernateDAO implements KnowledgeD
         Query query = hibernateUtil.getSession().createQuery(hql).setString("id", id);
         List<KnowledgeData> list = query.list();
         return list.size() == 0 ? null : list.get(0);
-    }
-
-    @Override
-    public List<KnowledgeData> getKnowledges(String systemId, String tagId, KnowledgeStatus knowledgeStatus, int start, int size) {
-        String hql = SELECT_KNOWTAGRELATION_KNOWLEDGE + W + TAG_ID + A + TAG_SYSTEM_ID + A + KNOWLEDGE_KNOWLEDGESTATUS + ORDERBY_KNOWLEDGE_VISITCNT_SORT;
-        Query query = hibernateUtil.getSession().createQuery(hql).setInteger("knowledgeStatus", knowledgeStatus.getOrdinal())
-                      .setString("systemId", systemId).setString("tagId", tagId).setFirstResult(start).setMaxResults(size);
-        List<KnowledgeData> list = query.list();
-        return list.size() == 0 ? null : list;
     }
 
     @Override

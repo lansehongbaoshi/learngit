@@ -51,7 +51,8 @@
         <anonymous />
         <remember-me />
         <!--登录监测页面-->
-         <intercept-url pattern="/upload.jsp" access="ROLE_USER" />
+        <intercept-url pattern="/view/discussLogined**" access="ROLE_USER" />  
+         
       <!--   <intercept-url pattern="/j_spring_cas_security_check" access="IS_AUTHENTICATED_ANONYMOUSLY" />
         
         for inner used

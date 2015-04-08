@@ -160,38 +160,5 @@
             <version>${chsi-cms-client-version}</version>
             <scope>provided</scope>
         </dependency>
-     <!--    
-      <dependency>
-            <groupId>com.chsi</groupId>
-            <artifactId>chsi-cms</artifactId>
-            <version>${chsi-cms.version}</version>
-            <scope>provided</scope>
-            <exclusions>
-            <exclusion>
-                <groupId>com.chsi</groupId>
-                <artifactId>chsi-cache</artifactId>
-            </exclusion>
-            <exclusion>
-                <groupId>org.hibernate</groupId>
-                <artifactId>hibernate-entitymanager</artifactId>
-            </exclusion>
-            <exclusion>
-                <groupId>jboss</groupId>
-                <artifactId>jboss-common-jdbc-wrapper</artifactId>
-            </exclusion>
-            <exclusion>
-                <groupId>jboss</groupId>
-                <artifactId>jboss-jbosssx</artifactId>
-            </exclusion>
-            <exclusion>
-                <groupId>jboss</groupId>
-                <artifactId>jboss-common</artifactId>
-            </exclusion>
-            <exclusion>
-                <groupId>org.jsoup</groupId>
-                <artifactId>jsoup</artifactId>
-            </exclusion>
-        </exclusions>
-    </dependency> -->   
     </dependencies>
 </project>

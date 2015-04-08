@@ -27,6 +27,7 @@ Extracting  WEB-INF\classes\com\chsi\knowledge\common\web
 Extracting  WEB-INF\classes\com\chsi\knowledge\common\web\filter
 Extracting  WEB-INF\classes\com\chsi\knowledge\htgl
 Extracting  WEB-INF\classes\com\chsi\knowledge\htgl\filter
+Extracting  WEB-INF\classes\com\chsi\knowledge\listener
 Extracting  WEB-INF\classes\com\chsi\knowledge\view
 Extracting  WEB-INF\classes\com\chsi\knowledge\view\action
 Extracting  WEB-INF\classes\com\chsi\knowledge\view\action\discuss
@@ -63,8 +64,11 @@ Extracting  WEB-INF\classes\com\chsi\knowledge\action\base\AjaxAction.class
 Extracting  WEB-INF\classes\com\chsi\knowledge\action\base\BasicAction.class
 Extracting  WEB-INF\classes\com\chsi\knowledge\action\upload\UploadAction.class
 Extracting  WEB-INF\classes\com\chsi\knowledge\common\web\filter\EncodingFilter.class
+Extracting  WEB-INF\classes\com\chsi\knowledge\common\web\filter\KnowCallInfoFilter.class
 Extracting  WEB-INF\classes\com\chsi\knowledge\common\web\filter\KnowledgeCallInfoFilter.class
+Extracting  WEB-INF\classes\com\chsi\knowledge\common\web\filter\LoginFilter.class
 Extracting  WEB-INF\classes\com\chsi\knowledge\htgl\filter\LoginFilter.class
+Extracting  WEB-INF\classes\com\chsi\knowledge\listener\QueueVisitThreadListener.class
 Extracting  WEB-INF\classes\com\chsi\knowledge\view\action\discuss\DiscussAction.class
 Extracting  WEB-INF\classes\com\chsi\knowledge\view\action\knowledge\KnowledgeAction.class
 Extracting  WEB-INF\classes\com\chsi\knowledge\view\action\tag\TagAction.class
@@ -108,12 +112,12 @@ Extracting  META-INF\maven\com.chsi\chsi-knowledge-war\pom.properties
 
 Everything is Ok
 
-Folders: 34
-Files: 68
-Size:       7933193
-Compressed: 7005223
+Folders: 35
+Files: 71
+Size:       7936856
+Compressed: 7008051
 
-Kernel  Time =     0.124 =    7%
-User    Time =     0.078 =    4%
-Process Time =     0.202 =   12%    Virtual  Memory =      3 MB
-Global  Time =     1.630 =  100%    Physical Memory =      5 MB
+Kernel  Time =     0.062 =   33%
+User    Time =     0.093 =   50%
+Process Time =     0.156 =   84%    Virtual  Memory =      3 MB
+Global  Time =     0.184 =  100%    Physical Memory =      5 MB

@@ -57,10 +57,11 @@ public class KnowListPageVO {
         private String title;
         private Map<String,String> param;
 
-        public KnowledgeVO(String id, String title) {
+        public KnowledgeVO(String id, String tagId, String title) {
             this.title = title;
             param = new HashMap<String,String>();
             param.put("id", id);
+            param.put("tagId", tagId);
         }
 
         public Map<String, String> getParam() {

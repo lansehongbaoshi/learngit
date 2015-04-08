@@ -14,7 +14,7 @@ import com.chsi.knowledge.service.DiscussService;
 import com.chsi.knowledge.service.KnowledgeService;
 /**
  * 用户评价ACTION
- * @author chsi-pc
+ * @author chenjian
  *
  */
 public class DiscussAction extends AjaxAction {
@@ -28,7 +28,6 @@ public class DiscussAction extends AjaxAction {
     private String callback;
 
     public void discuss() throws Exception {
-
         KnowledgeData knowledge = knowledgeService.getKnowledgeById(knowledgeId);
         if (null == knowledge) {
             ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);

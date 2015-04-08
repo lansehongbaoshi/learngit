@@ -6,6 +6,7 @@ import com.chsi.knowledge.ServiceConstants;
 import com.chsi.knowledge.dao.SystemDataDAO;
 import com.chsi.knowledge.pojo.SystemData;
 import com.chsi.knowledge.service.SystemService;
+import com.chsi.knowledge.util.ManageCacheUtil;
 
 public class SystemServiceImpl extends BaseDbService implements SystemService{
 
@@ -23,7 +24,13 @@ public class SystemServiceImpl extends BaseDbService implements SystemService{
     
     @Override
     public SystemData getSystemById(String id) {
-        return systemDataDAO.getSystemById(id);
+        SystemData systemData = ManageCacheUtil.getSystem(id);
+        if (null == systemData) {
+            systemData = systemDataDAO.getSystemById(id);
+            if (null != systemData)
+                ManageCacheUtil.addSystem(id, systemData);
+        }
+        return systemData;
     }
 
     @Override

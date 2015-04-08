@@ -27,6 +27,7 @@ public class TagData extends PersistentObject {
     private SystemData systemData;
     private String name;
     private String description;
+    private int sort;
 
     public void setData(PersistentObject persistentObject) {
         TagData tagData = (TagData) persistentObject;
@@ -34,18 +35,20 @@ public class TagData extends PersistentObject {
         this.systemData = tagData.getSystemData();
         this.name = tagData.getName();
         this.description = tagData.getDescription();
+        this.sort = tagData.getSort();
     }
 
     public TagData(){
         super();
     }
     
-    public TagData(String id, SystemData systemData, String name, String description) {
+    public TagData(String id, SystemData systemData, String name, String description, int sort) {
         super();
         this.id = id;
         this.systemData = systemData;
         this.name = name;
         this.description = description;
+        this.sort = sort;
     }
 
     @Id
@@ -89,5 +92,16 @@ public class TagData extends PersistentObject {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    @Column(name = "SORT")
+    public int getSort() {
+        return sort;
+    }
+
+    public void setSort(int sort) {
+        this.sort = sort;
+    }
+    
+    
 
 }

@@ -14,10 +14,16 @@
           </interceptor-stack>
         </interceptors>
          <!--上传用的ACTION     -->   
-        <action name="upload" class="uploadActionBean" method="upload">
+        <!-- <action name="upload" class="uploadActionBean" method="upload">
                  <result name="success">/upload.jsp</result>
                  <result name="input">/upload.jsp</result>
         </action>
+        
+        <action name="delete" class="uploadActionBean" method="delete">
+                 <result name="success">/upload.jsp</result>
+                 <result name="input">/upload.jsp</result>
+        </action> -->
+        
     </package>
     
     

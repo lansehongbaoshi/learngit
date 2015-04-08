@@ -21,6 +21,8 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 
+import com.chsi.cms.client.CmsServiceClient;
+import com.chsi.cms.client.CmsServiceClientFactory;
 import com.chsi.knowledge.action.base.AjaxAction;
 import com.chsi.knowledge.dic.KnowledgeStatus;
 import com.chsi.knowledge.pojo.KnowTagRelationData;
@@ -67,7 +69,7 @@ public class UploadAction extends AjaxAction {
         List<TagData> list = new ArrayList<TagData>();
         while (it.hasNext()) {
             String name = it.next().toString();
-            tagData = new TagData(null, system, name, name);
+            tagData = new TagData(null, system, name, name, 0);
             tagService.saveOrUpdate(tagData);
             list.add(tagData);
         }  
@@ -91,6 +93,14 @@ public class UploadAction extends AjaxAction {
             knowTagRelationService.save(knowTagRelationData);
         } 
         
+    }
+    
+    public String delete() throws Exception{
+        /*List<KnowledgeData> list= knowledgeService.get();
+        CmsServiceClient cmsServiceClient = CmsServiceClientFactory.getCmsServiceClient();
+        for(KnowledgeData k : list)
+        cmsServiceClient.deleteArticle(k.getCmsId());*/
+        return SUCCESS;
     }
     
     public String upload() throws Exception {

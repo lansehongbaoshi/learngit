@@ -17,13 +17,14 @@ public class TagDataDAOImpl extends BaseHibernateDAO implements TagDataDAO {
     private static final String ID = " p.id =:id";
     private static final String W = " where ";
     private static final String A = " and ";
+    private static final String ORDERBY_SORT = " order by p.sort desc";
 
     @Override
     public List<TagData> getTagDataBySystemId(String systemId) {
-        String hql = SELECT_TAG + W + SYSTEM_ID;
+        String hql = SELECT_TAG + W + SYSTEM_ID + ORDERBY_SORT;
         Query query = hibernateUtil.getSession().createQuery(hql).setString("systemId", systemId);
         List<TagData> list = query.list();
-        return list.size() == 0 ? null : list;
+        return list;
     }
 
     @Override
@@ -35,14 +36,6 @@ public class TagDataDAOImpl extends BaseHibernateDAO implements TagDataDAO {
     public TagData getTagDataById(String id) {
         String hql = SELECT_TAG + W + ID;
         Query query=hibernateUtil.getSession().createQuery(hql).setString("id", id);
-        List<TagData> list = query.list();
-        return list.size() == 0 ? null : list.get(0);
-    }
-
-    @Override
-    public TagData getTagDataBySystemIdTagName(String systemId, String tagName) {
-        String hql =SELECT_TAG + W+ SYSTEM_ID + A + NAME;
-        Query query=hibernateUtil.getSession().createQuery(hql).setString("systemId", systemId).setString("name", tagName);
         List<TagData> list = query.list();
         return list.size() == 0 ? null : list.get(0);
     }

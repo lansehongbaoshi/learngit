@@ -19,8 +19,4 @@ public interface TagService {
     
     void saveOrUpdate(TagData tagData);
     
-    TagData getTagDataById(String id);
-    
-    TagData getTagDataBySystemIdTagName(String systemId,String tagName);
-
 }

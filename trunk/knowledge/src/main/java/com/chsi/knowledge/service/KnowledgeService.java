@@ -37,7 +37,7 @@ public interface KnowledgeService {
      * @param id
      * @return
      */
-    KnowPageVO getKnowledgeVOById(String id);
+    KnowPageVO getKnowledgeVOById(String id, String tagId);
     
     KnowledgeData getKnowledgeById(String id);
     
@@ -51,8 +51,6 @@ public interface KnowledgeService {
      * @return
      */
     KnowListPageVO getKnowledgeVOPage(String systemId, String tagId, KnowledgeStatus knowledgeStatus, int start, int pageSize); 
-    
-    void update(KnowledgeData knowledgeData);
     
     void updateVisitCntPlusOne(String id);
     

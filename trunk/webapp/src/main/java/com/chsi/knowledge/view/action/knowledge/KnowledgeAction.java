@@ -6,10 +6,11 @@ import com.chsi.knowledge.action.base.AjaxAction;
 import com.chsi.knowledge.dic.KnowledgeStatus;
 import com.chsi.knowledge.pojo.SystemData;
 import com.chsi.knowledge.service.KnowledgeService;
+import com.chsi.knowledge.service.QueueService;
+import com.chsi.knowledge.service.ServiceFactory;
 import com.chsi.knowledge.service.SystemService;
 import com.chsi.knowledge.vo.KnowListPageVO;
 import com.chsi.knowledge.vo.KnowPageVO;
-import com.chsi.knowledge.web.util.WebAppUtil;
 /**
  * 用户获取知识ACTION
  * @author chenjian
@@ -18,6 +19,7 @@ public class KnowledgeAction extends AjaxAction{
 
     private static final long serialVersionUID = 1L;
     private KnowledgeService knowledgeService;
+    private QueueService queueService = ServiceFactory.getQueueService();
     private SystemService systemService;
     private String id;
     private String systemId;
@@ -28,7 +30,6 @@ public class KnowledgeAction extends AjaxAction{
     private String callback;
 
     public void getKnowledgeList() throws Exception{
-        System.out.print(WebAppUtil.getUserId());
         SystemData systemData = systemService.getSystemById(systemId);
         if (null == systemData) {
             ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
@@ -41,11 +42,12 @@ public class KnowledgeAction extends AjaxAction{
     }
     
      public void getKnowledge() throws Exception{
-         knowPageVO = knowledgeService.getKnowledgeVOById(id);
+         knowPageVO = knowledgeService.getKnowledgeVOById(id, tagId);
         if (null == knowPageVO)  {
             ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
         }else{
-            knowledgeService.updateVisitCntPlusOne(id);
+            //向队列中插入ID 另一线程读取并更新数据库
+            queueService.addVisitKnowledgeId(id);
             ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
             ajaxMessage.setO(knowPageVO);
         }
@@ -126,6 +128,5 @@ public class KnowledgeAction extends AjaxAction{
     public void setKnowPageVO(KnowPageVO knowPageVO) {
         this.knowPageVO = knowPageVO;
     }
-
     
 }

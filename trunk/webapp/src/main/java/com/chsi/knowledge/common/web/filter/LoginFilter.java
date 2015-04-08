@@ -1,4 +1,4 @@
-package com.chsi.knowledge.htgl.filter;
+package com.chsi.knowledge.common.web.filter;
 
 import java.io.IOException;
 import java.security.Principal;
@@ -12,6 +12,10 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
 import com.chsi.knowledge.web.util.WebAppUtil;
+/**
+ * 用户过滤器，现在只是每次输出用户名，后面可能加其他限制
+ * @author chenjian
+ */
 public class LoginFilter  implements Filter {
 
     public void destroy() {
@@ -25,7 +29,7 @@ public class LoginFilter  implements Filter {
         Principal principal = request.getUserPrincipal();
         if (null != principal) {
             String userId = WebAppUtil.getUserId();
-            System.out.println(userId);
+            System.out.println("用户："+userId);
             //  验证用户信息
         }
         arg2.doFilter(arg0, arg1);

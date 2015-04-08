@@ -16,4 +16,8 @@ public class ServiceFactory {
     public static TagService getTagService(){
         return SpringBeanLocator.getInstance(ServiceConstants.SERVICE_IMPL_CONF).getBean(ServiceConstants.TAG_SERVICE);
     }
+    
+    public static QueueService getQueueService(){
+        return SpringBeanLocator.getInstance("chsi-knowledge.xml").getBean("queueService");
+    }
 }

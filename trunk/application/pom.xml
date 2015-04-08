@@ -50,6 +50,11 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <dependency>
+            <groupId>tokyotyrant</groupId>
+            <artifactId>tokyotyrant</artifactId>
+            <version>${tokyotyrant.version}</version>
+        </dependency>
     <!-- spring framework -->
     <dependency>
             <groupId>org.springframework</groupId>
