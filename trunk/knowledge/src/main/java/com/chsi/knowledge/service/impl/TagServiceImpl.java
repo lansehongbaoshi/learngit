@@ -66,4 +66,9 @@ public class TagServiceImpl extends BaseDbService implements TagService{
         tagDataDAO.saveOrUpdate(tagData);        
     }
 
+    @Override
+    public List<TagData> get() {
+        return tagDataDAO.getTagDataBySystemId("zb");
+    }
+
 }

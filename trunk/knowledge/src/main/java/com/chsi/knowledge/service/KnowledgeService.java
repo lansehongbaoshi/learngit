@@ -1,5 +1,7 @@
 package com.chsi.knowledge.service;
 
+import java.util.List;
+
 import com.chsi.knowledge.dic.KnowledgeStatus;
 import com.chsi.knowledge.pojo.KnowledgeData;
 import com.chsi.knowledge.vo.KnowListPageVO;
@@ -10,7 +12,8 @@ import com.chsi.news.type.ArticleStatusType;
  * @author chenjian
  */
 public interface KnowledgeService {
-
+    //取出所有知识  后面删
+    List<KnowledgeData> get();
     /**
      * 保存知识并向CMS 中保存相关数据
      * @param knowledgeData

@@ -158,4 +158,9 @@ public class KnowledgeServiceImpl extends BaseDbService implements KnowledgeServ
         return knowledgeDataDAO.getKnowledgeById(id);
     }
 
+    @Override
+    public List<KnowledgeData> get() {
+        return knowledgeDataDAO.get();
+    }
+
 }

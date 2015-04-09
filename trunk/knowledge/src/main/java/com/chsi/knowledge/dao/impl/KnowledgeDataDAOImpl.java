@@ -56,4 +56,12 @@ public class KnowledgeDataDAOImpl extends BaseHibernateDAO implements KnowledgeD
         query.executeUpdate();
     }
 
+    @Override
+    public List<KnowledgeData> get() {
+        String hql = SELECT_KNOWLEDGE;
+        Query query = hibernateUtil.getSession().createQuery(hql);
+        List<KnowledgeData> list = query.list();
+        return list;
+    }
+
 }

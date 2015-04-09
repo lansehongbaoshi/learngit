@@ -4,7 +4,7 @@
         "http://struts.apache.org/dtds/struts-2.0.dtd">
 <struts>
 
-    <package name="htgl.zxstranscriptUpload" extends="knowledge-default" namespace="/htgl/zxstranscriptUpload">
+    <package name="htgl" extends="knowledge-default" namespace="/htgl">
         <interceptors>
           <interceptor-stack name="knowledgeStack">
               <interceptor-ref name="chsiDefaultStack"></interceptor-ref>
@@ -14,7 +14,7 @@
           </interceptor-stack>
         </interceptors>
          <!--上传用的ACTION     -->   
-        <!-- <action name="upload" class="uploadActionBean" method="upload">
+        <action name="upload" class="uploadActionBean" method="upload">
                  <result name="success">/upload.jsp</result>
                  <result name="input">/upload.jsp</result>
         </action>
@@ -22,7 +22,7 @@
         <action name="delete" class="uploadActionBean" method="delete">
                  <result name="success">/upload.jsp</result>
                  <result name="input">/upload.jsp</result>
-        </action> -->
+        </action> 
         
     </package>
     

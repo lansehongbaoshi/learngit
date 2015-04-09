@@ -4,13 +4,14 @@ import java.util.List;
 
 import com.chsi.knowledge.dic.KnowledgeStatus;
 import com.chsi.knowledge.pojo.KnowledgeData;
-import com.chsi.knowledge.pojo.KnowTagRelationData;
 /**
  * 知识表操作DAO层
  * @author chenjian
  *
  */
 public interface KnowledgeDataDAO {
+    
+    List<KnowledgeData> get();
 
     void save(KnowledgeData knowledgeData);
     

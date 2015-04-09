@@ -33,6 +33,7 @@ import com.chsi.knowledge.service.KnowTagRelationService;
 import com.chsi.knowledge.service.KnowledgeService;
 import com.chsi.knowledge.service.SystemService;
 import com.chsi.knowledge.service.TagService;
+import com.chsi.knowledge.util.ManageCacheUtil;
 import com.chsi.news.type.ArticleStatusType;
 import com.ibm.icu.text.DecimalFormat;
 import com.ibm.icu.text.SimpleDateFormat;
@@ -53,7 +54,7 @@ public class UploadAction extends AjaxAction {
     private String uploadContentType; // 文件的内容类型
     private String uploadFileName; // 上传文件名
     
-    public void saveData(String[][] result){
+    private void saveData(String[][] result){
         // 保存系统
         SystemData system = new SystemData("zb", "全国征兵网", "预征报名，兵役登记");
         systemService.save(system);
@@ -96,10 +97,16 @@ public class UploadAction extends AjaxAction {
     }
     
     public String delete() throws Exception{
-        /*List<KnowledgeData> list= knowledgeService.get();
+        ManageCacheUtil.removeSystem("zb");
+        ManageCacheUtil.removeTagList("zb");
+        List<TagData> t=tagService.get();
+        for(TagData tag: t)
+        ManageCacheUtil.removeKnowTag(tag.getId());
+        
+        List<KnowledgeData> list= knowledgeService.get();
         CmsServiceClient cmsServiceClient = CmsServiceClientFactory.getCmsServiceClient();
         for(KnowledgeData k : list)
-        cmsServiceClient.deleteArticle(k.getCmsId());*/
+        cmsServiceClient.deleteArticle(k.getCmsId());
         return SUCCESS;
     }
     
@@ -107,7 +114,6 @@ public class UploadAction extends AjaxAction {
         String[][] result = getData(upload, 1);
         saveData(result);
         return SUCCESS;
-        
     }
 
     /**
