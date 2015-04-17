@@ -15,7 +15,7 @@
         </interceptors>
         <action name="getTagList" class="tagViewActionBean" method="getTagList">
         </action>
-    </package>
+    </package> 
     
     
     

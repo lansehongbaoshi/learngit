@@ -1,25 +1,24 @@
 package com.chsi.knowledge.view.action.tag;
 
-import com.chsi.framework.util.ValidatorUtil;
+import java.util.List;
+
 import com.chsi.knowledge.Constants;
 import com.chsi.knowledge.action.base.AjaxAction;
 import com.chsi.knowledge.dic.KnowledgeStatus;
 import com.chsi.knowledge.pojo.SystemData;
 import com.chsi.knowledge.service.SystemService;
 import com.chsi.knowledge.service.TagService;
-import com.chsi.knowledge.vo.TagListPageVO;
+import com.chsi.knowledge.vo.ViewTagVO;
 /**
  * 用户对标签操作ACTION
  * @author chsi-pc
- *
  */
 public class TagAction extends AjaxAction{
-
+ 
     private static final long serialVersionUID = 1L;
     private TagService tagService;
     private SystemService systemService;
     private String systemId;
-    private TagListPageVO tagVO;
     private String callback;
     
     public void getTagList() throws Exception {
@@ -27,9 +26,9 @@ public class TagAction extends AjaxAction{
         if (null == systemData) {
             ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
         } else {
-            tagVO = tagService.getTagVOsBySystemIdAndStatus(systemId, KnowledgeStatus.WSH);
+            List<ViewTagVO> viewTagVO = tagService.getTagVOsBySystemIdAndStatus(systemId, KnowledgeStatus.WSH);
             ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
-            ajaxMessage.setO(tagVO);
+            ajaxMessage.setO(viewTagVO);
         }
         writeCallbackJSON(ajaxMessage, callback);
     }
@@ -57,10 +56,7 @@ public class TagAction extends AjaxAction{
     }*/
     
     public void setCallback(String callback) {
-        if (ValidatorUtil.isNull(callback))
-            this.callback = Constants.DEFAULT_CALLBACKNAME;
-        else
-            this.callback = callback;
+        this.callback = callback;
     }
     
     public String getSystemId() {
@@ -71,24 +67,12 @@ public class TagAction extends AjaxAction{
         this.systemId = systemId;
     }
 
-    public TagListPageVO getTagVO() {
-        return tagVO;
-    }
-
-    public void setTagVO(TagListPageVO tagVO) {
-        this.tagVO = tagVO;
-    }
-
     public TagService getTagService() {
         return tagService;
     }
 
     public void setTagService(TagService tagService) {
         this.tagService = tagService;
-    }
-
-    public String getCallback() {
-        return callback;
     }
 
     public SystemService getSystemService() {
@@ -98,6 +82,10 @@ public class TagAction extends AjaxAction{
     public void setSystemService(SystemService systemService) {
         this.systemService = systemService;
     }
-    
+
+    public String getCallback() {
+        return callback;
+    }
+
     
 }

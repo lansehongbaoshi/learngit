@@ -33,9 +33,17 @@ public class TagDataDAOImpl extends BaseHibernateDAO implements TagDataDAO {
     }
 
     @Override
-    public TagData getTagDataById(String id) {
+    public TagData getTagData(String id) {
         String hql = SELECT_TAG + W + ID;
         Query query=hibernateUtil.getSession().createQuery(hql).setString("id", id);
+        List<TagData> list = query.list();
+        return list.size() == 0 ? null : list.get(0);
+    }
+
+    @Override
+    public TagData getTagData(String systemId, String name) {
+        String hql = SELECT_TAG + W + SYSTEM_ID + A + NAME;
+        Query query=hibernateUtil.getSession().createQuery(hql).setString("systemId", systemId).setString("name", name);
         List<TagData> list = query.list();
         return list.size() == 0 ? null : list.get(0);
     }

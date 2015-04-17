@@ -4,7 +4,10 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
 import com.chsi.knowledge.thread.QueueVisitThread;
-
+/**
+ * 访问次数队列监听启动线程
+ * @author chenjian
+ */
 public class QueueVisitThreadListener implements ServletContextListener {
 
     private QueueVisitThread queueVisitThread;
@@ -16,7 +19,7 @@ public class QueueVisitThreadListener implements ServletContextListener {
     }
 
     public void contextInitialized(ServletContextEvent arg0) {
-        queueVisitThread=new QueueVisitThread();
+        queueVisitThread = new QueueVisitThread();
         queueVisitThread.start();
     }
 

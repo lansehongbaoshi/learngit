@@ -25,8 +25,6 @@ Extracting  WEB-INF\classes\com\chsi\knowledge\action\upload
 Extracting  WEB-INF\classes\com\chsi\knowledge\common
 Extracting  WEB-INF\classes\com\chsi\knowledge\common\web
 Extracting  WEB-INF\classes\com\chsi\knowledge\common\web\filter
-Extracting  WEB-INF\classes\com\chsi\knowledge\htgl
-Extracting  WEB-INF\classes\com\chsi\knowledge\htgl\filter
 Extracting  WEB-INF\classes\com\chsi\knowledge\listener
 Extracting  WEB-INF\classes\com\chsi\knowledge\view
 Extracting  WEB-INF\classes\com\chsi\knowledge\view\action
@@ -53,7 +51,6 @@ Extracting  error\error.jsp
 Extracting  htgl\knowledge\knowledge.jsp
 Extracting  htgl\knowledge\knowledgeList.jsp
 Extracting  htgl\tag\tagList.jsp
-Extracting  index.jsp
 Extracting  js\jquery-1.11.1.min.js
 Extracting  js\selection.js
 Extracting  layout\modal.jsp
@@ -63,11 +60,8 @@ Extracting  WEB-INF\applicationContext-security.xml
 Extracting  WEB-INF\classes\com\chsi\knowledge\action\base\AjaxAction.class
 Extracting  WEB-INF\classes\com\chsi\knowledge\action\base\BasicAction.class
 Extracting  WEB-INF\classes\com\chsi\knowledge\action\upload\UploadAction.class
-Extracting  WEB-INF\classes\com\chsi\knowledge\common\web\filter\EncodingFilter.class
 Extracting  WEB-INF\classes\com\chsi\knowledge\common\web\filter\KnowCallInfoFilter.class
-Extracting  WEB-INF\classes\com\chsi\knowledge\common\web\filter\KnowledgeCallInfoFilter.class
 Extracting  WEB-INF\classes\com\chsi\knowledge\common\web\filter\LoginFilter.class
-Extracting  WEB-INF\classes\com\chsi\knowledge\htgl\filter\LoginFilter.class
 Extracting  WEB-INF\classes\com\chsi\knowledge\listener\QueueVisitThreadListener.class
 Extracting  WEB-INF\classes\com\chsi\knowledge\view\action\discuss\DiscussAction.class
 Extracting  WEB-INF\classes\com\chsi\knowledge\view\action\knowledge\KnowledgeAction.class
@@ -112,12 +106,12 @@ Extracting  META-INF\maven\com.chsi\chsi-knowledge-war\pom.properties
 
 Everything is Ok
 
-Folders: 35
-Files: 71
-Size:       7936856
-Compressed: 7008051
+Folders: 33
+Files: 67
+Size:       7934260
+Compressed: 7005663
 
-Kernel  Time =     0.062 =   33%
-User    Time =     0.093 =   50%
-Process Time =     0.156 =   84%    Virtual  Memory =      3 MB
-Global  Time =     0.184 =  100%    Physical Memory =      5 MB
+Kernel  Time =     0.093 =   37%
+User    Time =     0.078 =   31%
+Process Time =     0.171 =   69%    Virtual  Memory =      3 MB
+Global  Time =     0.247 =  100%    Physical Memory =      5 MB

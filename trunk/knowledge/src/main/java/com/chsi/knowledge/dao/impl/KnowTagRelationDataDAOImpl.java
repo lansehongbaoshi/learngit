@@ -16,7 +16,6 @@ public class KnowTagRelationDataDAOImpl extends BaseHibernateDAO implements Know
     private static final String A = " and ";
     private static final String KNOWLEDGE_ID = " p.knowledgeData.id=:id";
     private static final String TAG_ID = " p.tagData.id=:tagId";
-    private static final String TAG_SYSTEM_ID = " p.tagData.systemData.id=:systemId";
     private static final String KNOWLEDGE_KNOWLEDGESTATUS = " p.knowledgeData.knowledgeStatus=:knowledgeStatus";
     
     private static final String ORDERBY_KNOWLEDGE_VISITCNT_SORT = " order by p.knowledgeData.visitCnt desc, p.knowledgeData.sort desc";
@@ -34,10 +33,10 @@ public class KnowTagRelationDataDAOImpl extends BaseHibernateDAO implements Know
     }
     
     @Override
-    public List<KnowTagRelationData> getKnowTagDatas(String systemId, String tagId, KnowledgeStatus knowledgeStatus) {
-        String hql = SELECT_KNOWTAGRELATION + W + TAG_ID + A + TAG_SYSTEM_ID + A + KNOWLEDGE_KNOWLEDGESTATUS + ORDERBY_KNOWLEDGE_VISITCNT_SORT;
+    public List<KnowTagRelationData> getKnowTagDatas(String tagId, KnowledgeStatus knowledgeStatus) {
+        String hql = SELECT_KNOWTAGRELATION + W + TAG_ID + A + KNOWLEDGE_KNOWLEDGESTATUS + ORDERBY_KNOWLEDGE_VISITCNT_SORT;
         Query query = hibernateUtil.getSession().createQuery(hql).setInteger("knowledgeStatus", knowledgeStatus.getOrdinal())
-                      .setString("systemId", systemId).setString("tagId", tagId);
+                      .setString("tagId", tagId);
         List<KnowTagRelationData> list = query.list();
         return list;
     }

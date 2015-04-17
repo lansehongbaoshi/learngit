@@ -28,24 +28,35 @@ public class DiscussAction extends AjaxAction {
     private String callback;
 
     public void discuss() throws Exception {
-        KnowledgeData knowledge = knowledgeService.getKnowledgeById(knowledgeId);
-        if (null == knowledge) {
+        if (null != session.get(knowledgeId)) {
             ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
+            errorMessages.add("您已经评论过了");
+        }else{
+            KnowledgeData knowledge = knowledgeService.getKnowledgeById(knowledgeId);
+            if (null == knowledge) {
+                ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
+                errorMessages.add("知识id有误");
+            }
+            DiscussStatus disStatus = DiscussStatus.getType(discussStatus);
+            if (null == disStatus) {
+                ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
+                errorMessages.add("评价信息错误");
+            }
+            
+            String userId = getUserIdOrIp(httpRequest);
+            if (ValidatorUtil.isNull(userId)) {
+                ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
+                errorMessages.add("用户名或者ip错误");
+            }
+            if (errorMessages.size() == 0) {
+                DiscussData discussData = new DiscussData(null, knowledgeId, userId, disStatus, content, Calendar.getInstance());
+                discussService.saveOrUpdate(discussData);
+                ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
+                session.put(knowledgeId, discussData);
+            }
+            
         }
-        DiscussStatus disStatus = DiscussStatus.getType(discussStatus);
-        if (null == disStatus) {
-            ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
-        }
-        
-        String userId = getUserIdOrIp(httpRequest);
-        if (ValidatorUtil.isNull(userId)) {
-            ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
-        }
-        if (errorMessages.size() == 0) {
-            DiscussData discussData = new DiscussData(null, knowledgeId, userId, disStatus, content, Calendar.getInstance());
-            discussService.saveOrUpdate(discussData);
-            ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
-        }
+        ajaxMessage.setErrorMessages(errorMessages);
         writeCallbackJSON(ajaxMessage, callback);
     }
 
@@ -61,10 +72,7 @@ public class DiscussAction extends AjaxAction {
     }
 
     public void setCallback(String callback) {
-        if (ValidatorUtil.isNull(callback))
-            this.callback = Constants.DEFAULT_CALLBACKNAME;
-        else
-            this.callback = callback;
+        this.callback = callback;
     }
     
     public DiscussService getDiscussService() {

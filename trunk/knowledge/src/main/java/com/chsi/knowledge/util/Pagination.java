@@ -1,14 +1,14 @@
-package com.chsi.knowledge.vo;
+package com.chsi.knowledge.util;
 /**
  * 分页信息类
  * @author chenjian
  */
-public class PaginationVO {
+public class Pagination {
     private int totalCount; // 总数
     private int pageCount;// 每页数量
     private int curPage;// 当前页
 
-    public PaginationVO(int totalCount, int pageCount, int curPage) {
+    public Pagination(int totalCount, int pageCount, int curPage) {
         this.totalCount = totalCount;
         this.pageCount = pageCount;
         this.curPage = curPage;

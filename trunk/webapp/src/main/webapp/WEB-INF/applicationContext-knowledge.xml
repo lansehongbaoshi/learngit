@@ -26,6 +26,7 @@
     <bean id="knowledgeViewActionBean"  class="com.chsi.knowledge.view.action.knowledge.KnowledgeAction"  scope="request">
         <property name="knowledgeService" ref="knowledgeService" />
         <property name="systemService" ref="systemService" />
+        <property name="tagService" ref="tagService" />
     </bean>
     
     <bean id="discussViewActionBean"  class="com.chsi.knowledge.view.action.discuss.DiscussAction"  scope="request">

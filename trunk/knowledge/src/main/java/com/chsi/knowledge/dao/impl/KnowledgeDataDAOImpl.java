@@ -18,7 +18,6 @@ public class KnowledgeDataDAOImpl extends BaseHibernateDAO implements KnowledgeD
     private static final String W = " where ";
     private static final String A = " and ";
     private static final String ID = " p.id=:id";
-    private static final String TAG_SYSTEM_ID = " p.tagData.systemData.id=:systemId";
     private static final String TAG_ID = " p.tagData.id=:tagId";
     private static final String KNOWLEDGE_KNOWLEDGESTATUS = " p.knowledgeData.knowledgeStatus=:knowledgeStatus";
 
@@ -41,10 +40,10 @@ public class KnowledgeDataDAOImpl extends BaseHibernateDAO implements KnowledgeD
     }
 
     @Override
-    public int countKnowledges(String systemId, String tagId, KnowledgeStatus knowledgeStatus) {
-        String hql = COUNT_KNOWTAGDATARELATION + W + TAG_SYSTEM_ID + A + TAG_ID + A + KNOWLEDGE_KNOWLEDGESTATUS;
+    public int countKnowledges(String tagId, KnowledgeStatus knowledgeStatus) {
+        String hql = COUNT_KNOWTAGDATARELATION + W + TAG_ID + A + KNOWLEDGE_KNOWLEDGESTATUS;
         Query query = hibernateUtil.getSession().createQuery(hql).setInteger("knowledgeStatus", knowledgeStatus.getOrdinal())
-                      .setString("systemId", systemId).setString("tagId", tagId);
+                      .setString("tagId", tagId);
         List<Long> list = query.list();
         return list.size() == 0 ? 0 : new Long(list.get(0)).intValue();
     }

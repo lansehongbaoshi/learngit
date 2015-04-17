@@ -23,7 +23,7 @@ public class BasicAction extends BasicSupportAction implements RequestAware,
     private static final long serialVersionUID = 1L;
     protected HttpServletResponse response;
     protected HttpServletRequest httpRequest;
-    private Map<String, Object> session;
+    protected Map<String, Object> session;
     protected Map<String, Object> request;
 
     protected String getLoginedUserId() {

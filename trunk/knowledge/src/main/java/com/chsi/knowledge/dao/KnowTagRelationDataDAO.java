@@ -23,7 +23,7 @@ public interface KnowTagRelationDataDAO {
      * @param size
      * @return
      */
-     List<KnowTagRelationData> getKnowTagDatas(String systemId, String tagId, KnowledgeStatus knowledgeStatus);
+     List<KnowTagRelationData> getKnowTagDatas(String tagId, KnowledgeStatus knowledgeStatus);
     
     void save(KnowTagRelationData knowledgeTagRelationData);
 }

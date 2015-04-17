@@ -3,62 +3,64 @@ package com.chsi.knowledge.vo;
 import java.util.Calendar;
 import java.util.List;
 
-import com.chsi.knowledge.util.LevelData;
+import com.chsi.knowledge.util.Navigation;
 
 /**
- * 一个问题详细情况PAGEVO
+ * 前台展示具体知识VO
  * @author chenjian
- *
  */
-public class KnowPageVO {
+public class ViewKnowVO{
 
-    //数据
-    private KnowledgeVO knowledgeVO;
-    //层级
-    private List<LevelData> levelDataList;
-    
-    public KnowPageVO(){
-        
-    }
-    
-    public KnowPageVO(KnowledgeVO knowledgeVO, List<LevelData> levelDataList){
-        this.knowledgeVO = knowledgeVO;
-        this.levelDataList = levelDataList;
-    }
-    
-    
-    public KnowledgeVO getKnowledgeVO() {
-        return knowledgeVO;
+    private ConKnow conKnow; // 知识详细信息
+    private List<Navigation> navigations; // 导航
+
+    public ViewKnowVO(ConKnow conKnow, List<Navigation> navigations) {
+        this.conKnow = conKnow;
+        this.navigations = navigations;
     }
 
-    public void setKnowledgeVO(KnowledgeVO knowledgeVO) {
-        this.knowledgeVO = knowledgeVO;
+    public ConKnow getConKnow() {
+        return conKnow;
     }
 
-    public List<LevelData> getLevelDataList() {
-        return levelDataList;
+    public void setConKnow(ConKnow conKnow) {
+        this.conKnow = conKnow;
     }
 
-    public void setLevelDataList(List<LevelData> levelDataList) {
-        this.levelDataList = levelDataList;
+    public List<Navigation> getNavigations() {
+        return navigations;
     }
 
+    public void setNavigations(List<Navigation> navigations) {
+        this.navigations = navigations;
+    }
 
-    public static class KnowledgeVO {
+    public static class ConKnow {
         private String id;
         private String title;
         private String content;
         private String keywords;
         private int visitCnt;
         private Calendar updateTime;
+        private boolean ifDiscussed;
 
-        public KnowledgeVO(String id, String title, String content, String keywords, int visitCnt, Calendar updateTime) {
+        public ConKnow(String id, String title, String content,
+                String keywords, int visitCnt, Calendar updateTime) {
             this.id = id;
             this.title = title;
             this.content = content;
             this.keywords = keywords;
             this.visitCnt = visitCnt;
             this.updateTime = updateTime;
+            this.ifDiscussed = false;
+        }
+
+        public boolean isIfDiscussed() {
+            return ifDiscussed;
+        }
+
+        public void setIfDiscussed(boolean ifDiscussed) {
+            this.ifDiscussed = ifDiscussed;
         }
 
         public String getId() {
@@ -111,9 +113,4 @@ public class KnowPageVO {
 
     }
 
-    
-    
-    
-    
-    
 }

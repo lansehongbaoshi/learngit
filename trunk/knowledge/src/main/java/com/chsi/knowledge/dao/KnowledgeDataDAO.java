@@ -20,12 +20,11 @@ public interface KnowledgeDataDAO {
     KnowledgeData getKnowledgeById(String id);
     
     /**
-     * 根据系统ID，标签名称，知识状态统计知识数量
-     * @param SystemId
+     * 标签ID，知识状态统计知识数量
      * @param tagName
      * @return
      */
-    int countKnowledges(String systemId, String tagId, KnowledgeStatus knowledgeStatus);
+    int countKnowledges(String tagId, KnowledgeStatus knowledgeStatus);
 
     /**
      * 根据ID 更新知识的访问次数加一

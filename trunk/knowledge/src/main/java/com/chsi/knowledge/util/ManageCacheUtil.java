@@ -5,7 +5,10 @@ import java.util.List;
 import com.chsi.knowledge.pojo.KnowTagRelationData;
 import com.chsi.knowledge.pojo.SystemData;
 import com.chsi.knowledge.pojo.TagData;
-
+/**
+ * 缓存管理工具
+ * @author chenjian
+ */
 public class ManageCacheUtil {
 
     private static final String CACHE_KEY_ = "knowledge." + ManageCacheUtil.class.getName();

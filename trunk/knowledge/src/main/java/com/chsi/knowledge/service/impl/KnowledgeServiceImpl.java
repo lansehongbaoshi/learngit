@@ -13,15 +13,20 @@ import com.chsi.knowledge.dao.TagDataDAO;
 import com.chsi.knowledge.dic.KnowledgeStatus;
 import com.chsi.knowledge.pojo.KnowTagRelationData;
 import com.chsi.knowledge.pojo.KnowledgeData;
+import com.chsi.knowledge.pojo.SystemData;
 import com.chsi.knowledge.pojo.TagData;
 import com.chsi.knowledge.service.KnowledgeService;
-import com.chsi.knowledge.util.LevelData;
-import com.chsi.knowledge.util.LevelUtil;
+import com.chsi.knowledge.service.ServiceFactory;
+import com.chsi.knowledge.service.TagService;
 import com.chsi.knowledge.util.ManageCacheUtil;
-import com.chsi.knowledge.vo.KnowListPageVO;
-import com.chsi.knowledge.vo.KnowPageVO;
-import com.chsi.knowledge.vo.KnowPageVO.KnowledgeVO;
-import com.chsi.knowledge.vo.PaginationVO;
+import com.chsi.knowledge.util.Navigation;
+import com.chsi.knowledge.util.NavigationUtil;
+import com.chsi.knowledge.util.Pagination;
+import com.chsi.knowledge.vo.KnowListVO.Know;
+import com.chsi.knowledge.vo.ViewKnowVO;
+import com.chsi.knowledge.vo.ViewKnowVO.ConKnow;
+import com.chsi.knowledge.vo.ViewKnowsVO;
+import com.chsi.knowledge.vo.ViewTagVO;
 import com.chsi.news.type.ArticleStatusType;
 import com.chsi.news.vo.Article;
 
@@ -60,7 +65,7 @@ public class KnowledgeServiceImpl extends BaseDbService implements KnowledgeServ
     }
 
     @Override
-    public KnowPageVO getKnowledgeVOById(String id, String tagId) {
+    public ViewKnowVO getKnowledgeVOById(String id, String tagId) {
         KnowledgeData knowledgeData = null;
         KnowTagRelationData ktRelation = null;
         List<KnowTagRelationData> list = ManageCacheUtil.getKnowTag(tagId);
@@ -84,26 +89,34 @@ public class KnowledgeServiceImpl extends BaseDbService implements KnowledgeServ
         Article article = cmsServiceClient.getArticle(knowledgeData.getCmsId());
         if (null == article)
             return null;
-        KnowledgeVO knowledgeVO = new KnowledgeVO(knowledgeData.getId(),
+        ConKnow conKnow = new ConKnow(knowledgeData.getId(),
                                       article.getTitle(), article.getContent(),
                                       knowledgeData.getKeywords(), knowledgeData.getVisitCnt(),
                                       knowledgeData.getUpdateTime());
-        List<LevelData> levelDataList = LevelUtil.getThreeLevel(ktRelation.getTagData(), article.getTitle(), id);
-        KnowPageVO knowPageVO = new KnowPageVO(knowledgeVO, levelDataList);
+        List<Navigation> navigation = NavigationUtil.getNavigation(
+                                             ktRelation.getTagData().getSystemData(),
+                                             ktRelation.getTagData(), article.getTitle(), id);
+        ViewKnowVO knowPageVO = new ViewKnowVO(conKnow, navigation);
         return knowPageVO;
     }
 
     @Override
-    public KnowListPageVO getKnowledgeVOPage(String systemId, String tagId, KnowledgeStatus knowledgeStatus, int start, int pageSize) {
+    public ViewKnowsVO getViewKnowsVO(SystemData system, String tagId, KnowledgeStatus knowledgeStatus, int start, int pageSize) {
         int count;
+        ViewKnowsVO viewKnowsVO = null;
+        List<Navigation> navigation = null;
+        TagService service = ServiceFactory.getTagService();
+        List<ViewTagVO> tagVOList = service.getTagVOsBySystemIdAndStatus(system.getId(), knowledgeStatus);
         List<KnowTagRelationData> list = ManageCacheUtil.getKnowTag(tagId);
         if (null == list)
-            count = knowledgeDataDAO.countKnowledges(systemId, tagId, knowledgeStatus);
+            count = knowledgeDataDAO.countKnowledges(tagId, knowledgeStatus);
         else
             count = list.size();
         
         if (count == 0) {
-            return null;
+             navigation = NavigationUtil.getNavigation(system, null, null, null);
+             viewKnowsVO = new ViewKnowsVO(null, tagVOList, navigation, null);
+             return viewKnowsVO;
         }
         if (start >= count || start < 0) {
             start = 0;
@@ -112,7 +125,7 @@ public class KnowledgeServiceImpl extends BaseDbService implements KnowledgeServ
         
         List<KnowledgeData> knowledgeDataList = new ArrayList<KnowledgeData>();
         if (null == list) {
-            list = knowTagRelationDAO.getKnowTagDatas(systemId, tagId, knowledgeStatus); 
+            list = knowTagRelationDAO.getKnowTagDatas(tagId, knowledgeStatus); 
             ManageCacheUtil.addKnowTag(tagId, list);
         } 
         int size = (pageSize + start) >= list.size() ? list.size() : (pageSize + start);
@@ -121,31 +134,32 @@ public class KnowledgeServiceImpl extends BaseDbService implements KnowledgeServ
         }
         
         //分页情况数据
-        PaginationVO paginationVO=new PaginationVO(count, pageSize, start / pageSize + 1);
+        Pagination pagination = new Pagination(count, pageSize, start / pageSize + 1);
         //数据列表
-        List<KnowListPageVO.KnowledgeVO> knowledgeVOList = new ArrayList<KnowListPageVO.KnowledgeVO>(); //知识VO 列表
-        KnowListPageVO.KnowledgeVO knowledgeVO = null;
+        List<Know> knows = new ArrayList<Know>();
+        Know know = null;
         Article article = null;
         for (KnowledgeData knowledgeData : knowledgeDataList) {
             article = cmsServiceClient.getArticle(knowledgeData.getCmsId());
-            knowledgeVO = new KnowListPageVO.KnowledgeVO(knowledgeData.getId(), tagId, article.getTitle());
-            knowledgeVOList.add(knowledgeVO);
+            know = new Know(knowledgeData.getId(), tagId, article.getTitle());
+            knows.add(know);
         }
         
-        List<TagData> tagList = ManageCacheUtil.getTagList(systemId);
+        List<TagData> tagList = ManageCacheUtil.getTagList(system.getId());
         TagData tagData = null;
-        if (null != tagList && tagList.size() > 0) {
-            for (TagData temp : tagList) {
-                if (tagId.equals(temp.getId()))
-                    tagData = temp;
+        if (null != tagId) {
+            if (null != tagList && tagList.size() > 0) {
+                for (TagData temp : tagList) {
+                    if (tagId.equals(temp.getId()))
+                        tagData = temp;
+                }
+            } else {
+                tagData = tagDataDAO.getTagData(tagId);
             }
-        } else {
-            tagData = tagDataDAO.getTagDataById(tagId);
         }
-        // 层级
-        List<LevelData> levelDataList=LevelUtil.getTwoLevel(tagData);
-        KnowListPageVO knowledgePageVO = new KnowListPageVO(knowledgeVOList, levelDataList, paginationVO); 
-        return knowledgePageVO;
+        navigation = NavigationUtil.getNavigation(tagData.getSystemData(), tagData, null, null);  
+        viewKnowsVO = new ViewKnowsVO(knows, tagVOList, navigation, pagination);
+        return viewKnowsVO;
     }
 
     @Override

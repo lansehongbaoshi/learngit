@@ -1,30 +1,26 @@
-package com.chsi.knowledge.util;
+package com.chsi.knowledge.vo;
 
+import java.util.HashMap;
 import java.util.Map;
 /**
- * 前台页面层级展示类
- * @author chenjian
+ * 前台标签VO
+ * @author chsi-pc
+ *
  */
-public class LevelData {
+public class ViewTagVO {
 
-    private int level;
     private String name;
     private String description;
-    private Map<String, String> param;
+    private int count;
+    private Map<String,String> param;
     
-    public LevelData(int level, String name, String description, Map<String, String> param) {
-        this.level = level;
+    public ViewTagVO(String tagId, String systemId, String name, String description, int count) {
+        param = new HashMap<String, String>();
+        param.put("tagId", tagId);
+        param.put("systemId", systemId);
         this.name = name;
         this.description = description;
-        this.param = param;
-    }
-
-    public int getLevel() {
-        return level;
-    }
-
-    public void setLevel(int level) {
-        this.level = level;
+        this.count = count;
     }
 
     public String getName() {
@@ -41,6 +37,14 @@ public class LevelData {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
     }
 
     public Map<String, String> getParam() {

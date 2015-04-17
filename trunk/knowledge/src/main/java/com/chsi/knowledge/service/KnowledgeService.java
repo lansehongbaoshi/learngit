@@ -4,8 +4,9 @@ import java.util.List;
 
 import com.chsi.knowledge.dic.KnowledgeStatus;
 import com.chsi.knowledge.pojo.KnowledgeData;
-import com.chsi.knowledge.vo.KnowListPageVO;
-import com.chsi.knowledge.vo.KnowPageVO;
+import com.chsi.knowledge.pojo.SystemData;
+import com.chsi.knowledge.vo.ViewKnowsVO;
+import com.chsi.knowledge.vo.ViewKnowVO;
 import com.chsi.news.type.ArticleStatusType;
 /**
  * 知识业务逻辑层
@@ -40,7 +41,7 @@ public interface KnowledgeService {
      * @param id
      * @return
      */
-    KnowPageVO getKnowledgeVOById(String id, String tagId);
+    ViewKnowVO getKnowledgeVOById(String id, String tagId);
     
     KnowledgeData getKnowledgeById(String id);
     
@@ -53,7 +54,7 @@ public interface KnowledgeService {
      * @param size
      * @return
      */
-    KnowListPageVO getKnowledgeVOPage(String systemId, String tagId, KnowledgeStatus knowledgeStatus, int start, int pageSize); 
+    ViewKnowsVO getViewKnowsVO(SystemData system, String tagId, KnowledgeStatus knowledgeStatus, int start, int pageSize); 
     
     void updateVisitCntPlusOne(String id);
     

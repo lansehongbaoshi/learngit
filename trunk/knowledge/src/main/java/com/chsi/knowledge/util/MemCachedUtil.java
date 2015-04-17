@@ -4,7 +4,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -17,7 +16,6 @@ import com.chsi.knowledge.Constants;
 /**
  * 缓存工具
  * @author chenjian
- *
  */
 public class MemCachedUtil {
     protected static final Log log = LogFactory.getLog(MemCachedUtil.class);
@@ -31,9 +29,6 @@ public class MemCachedUtil {
             FileInputStream in = null;
             try {
                 in = new FileInputStream(propertyPath);
-                /*
-                 * if (null == in) { log.error("环境变量propertyPath指向的文件不存在"); }
-                 */
                 Properties properties = new Properties();
                 properties.load(in);
                 memCachePoolName = properties.getProperty("sys.com.chsi.knowledge.memcache.pool_name");
@@ -98,38 +93,5 @@ public class MemCachedUtil {
         }
         return cacheClient.add(key, obj, CacheExpireTimeUtil.getExpireTimeInHour(Constants.CACHE_EXPIRE_TIME_IN_HOUR));
     }
-    
-    /**
-     * 重置缓存
-     * @param key
-     * @param obj
-     * @return
-     */
-    public static boolean replace(String key, Object obj) {
-        if (ValidatorUtil.isNull(key)) {
-            throw new IllegalArgumentException("重置缓存:key未赋值");
-        }
-        if (null == obj) {
-            throw new IllegalArgumentException("重置缓存:obj未赋值");
-        }
-        return cacheClient.replace(key, obj, CacheExpireTimeUtil.getExpireTimeInHour(Constants.CACHE_EXPIRE_TIME_IN_HOUR));
-    }
-
-    /**
-     * 设置缓存
-     * @param key
-     * @param obj
-     * @return
-     */
-    public static boolean set(String key, Object obj) {
-        if (StringUtils.isBlank(key)) {
-            throw new IllegalArgumentException("设置缓存:key未赋值");
-        }
-        if (null == obj) {
-            throw new IllegalArgumentException("设置缓存:obj未赋值");
-        }
-        return cacheClient.set(key, obj, CacheExpireTimeUtil.getExpireTimeInHour(Constants.CACHE_EXPIRE_TIME_IN_HOUR));
-    }
-    
     
 }
