@@ -26,6 +26,7 @@ public class DiscussAction extends AjaxAction {
     private String content;
     private int discussStatus;
     private String callback;
+    private String userId;
 
     public void discuss() throws Exception {
         if (null != session.get(knowledgeId)) {
@@ -42,8 +43,12 @@ public class DiscussAction extends AjaxAction {
                 ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
                 errorMessages.add("评价信息错误");
             }
-            
-            String userId = getUserIdOrIp(httpRequest);
+            if(!ValidatorUtil.isNull(content) && content.length()>200){
+                ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
+                errorMessages.add("评论内容过长");
+            }
+            if(ValidatorUtil.isNull(userId))
+               userId = getIp(httpRequest);
             if (ValidatorUtil.isNull(userId)) {
                 ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
                 errorMessages.add("用户名或者ip错误");
@@ -54,17 +59,12 @@ public class DiscussAction extends AjaxAction {
                 ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
                 session.put(knowledgeId, discussData);
             }
-            
         }
         ajaxMessage.setErrorMessages(errorMessages);
         writeCallbackJSON(ajaxMessage, callback);
     }
 
-    private String getUserIdOrIp(HttpServletRequest request) {
-        String userId = getLoginedUserId();
-        if (!ValidatorUtil.isNull(userId) && !userId.equals("Anonymous")) {
-            return userId;
-        }
+    private String getIp(HttpServletRequest request) {
         if (request.getHeader("x-forwarded-for") == null) {
             return request.getRemoteAddr();
         }
@@ -118,5 +118,14 @@ public class DiscussAction extends AjaxAction {
     public void setContent(String content) {
         this.content = content;
     }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+    
    
 }
