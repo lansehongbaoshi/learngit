@@ -110,10 +110,10 @@ Everything is Ok
 
 Folders: 34
 Files: 68
-Size:       7938000
-Compressed: 7007401
+Size:       7937988
+Compressed: 7007397
 
-Kernel  Time =     0.078 =   22%
-User    Time =     0.093 =   27%
-Process Time =     0.171 =   50%    Virtual  Memory =      3 MB
-Global  Time =     0.340 =  100%    Physical Memory =      5 MB
+Kernel  Time =     0.062 =   34%
+User    Time =     0.109 =   59%
+Process Time =     0.171 =   93%    Virtual  Memory =      3 MB
+Global  Time =     0.183 =  100%    Physical Memory =      5 MB

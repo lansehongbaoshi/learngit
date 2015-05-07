@@ -24,9 +24,9 @@ public enum DiscussStatus {
     public static DiscussStatus getType(int ordinal) {
         switch (ordinal) {
         case 1:
-            return DiscussStatus.USEFUL;
-        case 2:
             return DiscussStatus.UNUSEFUL;
+        case 2:
+            return DiscussStatus.USEFUL;
         default:
             throw new IllegalStateException("无此消息管理对象类型:" + ordinal);
         }
