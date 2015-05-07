@@ -40,13 +40,15 @@ public class KnowListVO {
         private String title;
         private Map<String, String> param;
 
-        public Know(String id, String tagId, String title) {
+        public Know(String title) {
             this.title = title;
             param = new HashMap<String, String>();
-            param.put("id", id);
-            param.put("tagId", tagId);
         }
 
+        public void addParam(String name,String param) {
+            this.param.put(name, param);
+        }
+        
         public Map<String, String> getParam() {
             return param;
         }

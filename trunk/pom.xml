@@ -213,5 +213,6 @@
         <chsi-xlrz-client.version>3.3.18-SNAPSHOT</chsi-xlrz-client.version>
         <chsi-lobdb-client-version>1.0.0-SNAPSHOT</chsi-lobdb-client-version>
         <chsi-cms-client-version>2.5.12-SNAPSHOT</chsi-cms-client-version>
+        <chsi-search-client.version>1.1.9-SNAPSHOT</chsi-search-client.version>
     </properties>
 </project>

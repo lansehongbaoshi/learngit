@@ -31,37 +31,36 @@ public class DiscussAction extends AjaxAction {
     public void discuss() throws Exception {
         if (null != session.get(knowledgeId)) {
             ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
-            errorMessages.add("您已经评论过了");
+            ajaxMessage.addMessage("您已经评论过了");
         }else{
             KnowledgeData knowledge = knowledgeService.getKnowledgeById(knowledgeId);
             if (null == knowledge) {
                 ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
-                errorMessages.add("知识id有误");
+                ajaxMessage.addMessage("知识id有误");
             }
             DiscussStatus disStatus = DiscussStatus.getType(discussStatus);
             if (null == disStatus) {
                 ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
-                errorMessages.add("评价信息错误");
+                ajaxMessage.addMessage("评价信息错误");
             }
             if(!ValidatorUtil.isNull(content) && content.length()>200){
                 ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
-                errorMessages.add("评论内容过长");
+                ajaxMessage.addMessage("评论内容过长");
             }
             if(ValidatorUtil.isNull(userId))
                userId = getIp(httpRequest);
             if (ValidatorUtil.isNull(userId)) {
                 ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
-                errorMessages.add("用户名或者ip错误");
+                ajaxMessage.addMessage("用户名或者ip错误");
             }
-            if (errorMessages.size() == 0) {
+            if (ajaxMessage.getErrorMessages() == null || ajaxMessage.getErrorMessages().size() == 0) {
                 DiscussData discussData = new DiscussData(null, knowledgeId, userId, disStatus, content, Calendar.getInstance());
                 discussService.saveOrUpdate(discussData);
                 ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
                 session.put(knowledgeId, discussData);
             }
         }
-        ajaxMessage.setErrorMessages(errorMessages);
-        writeCallbackJSON(ajaxMessage, callback);
+        writeCallbackJSON(callback);
     }
 
     private String getIp(HttpServletRequest request) {

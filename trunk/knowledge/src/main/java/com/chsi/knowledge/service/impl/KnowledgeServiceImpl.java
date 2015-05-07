@@ -141,7 +141,9 @@ public class KnowledgeServiceImpl extends BaseDbService implements KnowledgeServ
         Article article = null;
         for (KnowledgeData knowledgeData : knowledgeDataList) {
             article = cmsServiceClient.getArticle(knowledgeData.getCmsId());
-            know = new Know(knowledgeData.getId(), tagId, article.getTitle());
+            know = new Know(article.getTitle());
+            know.addParam("tagId", tagId);
+            know.addParam("id", knowledgeData.getId());
             knows.add(know);
         }
         

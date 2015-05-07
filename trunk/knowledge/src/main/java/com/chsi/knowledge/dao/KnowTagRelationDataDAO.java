@@ -15,7 +15,7 @@ public interface KnowTagRelationDataDAO {
     KnowTagRelationData getKnowTagRelationByKnowId(String knowledgeId, String tagId);
     
     /**
-     * 根据系统ID，标签ID 取出多条知识
+     * 根据标签ID 取出多条知识
      * @param systemId
      * @param tagName
      * @param knowledgeStatus
@@ -24,6 +24,14 @@ public interface KnowTagRelationDataDAO {
      * @return
      */
      List<KnowTagRelationData> getKnowTagDatas(String tagId, KnowledgeStatus knowledgeStatus);
+     
+     /**
+      * 取出该条知识属于的所有 关联关系
+      * @param knowledgeStatus
+      * @param knowledgeId
+      * @return
+      */
+     List<KnowTagRelationData> getKnowTagDatas(KnowledgeStatus knowledgeStatus,String knowledgeId);
     
-    void save(KnowTagRelationData knowledgeTagRelationData);
+     void save(KnowTagRelationData knowledgeTagRelationData);
 }

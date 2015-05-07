@@ -35,8 +35,11 @@
     </bean>
     
     <!-- 后台管理用action  -->
-    
-    
-    
+        
+    <bean id="searchActionBean"  class="com.chsi.knowledge.action.search.SearchAction"  scope="request">
+        <property name="knowIndexService" ref="knowIndexService" />
+        <property name="systemService" ref="systemService" />
+        <property name="knowledgeService" ref="knowledgeService" />
+    </bean> 
    
 </beans>

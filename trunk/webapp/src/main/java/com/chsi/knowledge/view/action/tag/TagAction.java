@@ -30,7 +30,7 @@ public class TagAction extends AjaxAction{
             ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
             ajaxMessage.setO(viewTagVO);
         }
-        writeCallbackJSON(ajaxMessage, callback);
+        writeCallbackJSON(callback);
     }
     
      //后面用，先写好，方案一、添加，删除，没有修改这么一说，删除可以前台JS点一次直接访问后台删除

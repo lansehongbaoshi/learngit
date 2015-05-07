@@ -21,6 +21,7 @@ Extracting  WEB-INF\classes\com\chsi
 Extracting  WEB-INF\classes\com\chsi\knowledge
 Extracting  WEB-INF\classes\com\chsi\knowledge\action
 Extracting  WEB-INF\classes\com\chsi\knowledge\action\base
+Extracting  WEB-INF\classes\com\chsi\knowledge\action\search
 Extracting  WEB-INF\classes\com\chsi\knowledge\action\upload
 Extracting  WEB-INF\classes\com\chsi\knowledge\common
 Extracting  WEB-INF\classes\com\chsi\knowledge\common\web
@@ -54,11 +55,11 @@ Extracting  htgl\tag\tagList.jsp
 Extracting  js\jquery-1.11.1.min.js
 Extracting  js\selection.js
 Extracting  layout\modal.jsp
-Extracting  upload.jsp
 Extracting  WEB-INF\applicationContext-knowledge.xml
 Extracting  WEB-INF\applicationContext-security.xml
 Extracting  WEB-INF\classes\com\chsi\knowledge\action\base\AjaxAction.class
 Extracting  WEB-INF\classes\com\chsi\knowledge\action\base\BasicAction.class
+Extracting  WEB-INF\classes\com\chsi\knowledge\action\search\SearchAction.class
 Extracting  WEB-INF\classes\com\chsi\knowledge\action\upload\UploadAction.class
 Extracting  WEB-INF\classes\com\chsi\knowledge\common\web\filter\KnowCallInfoFilter.class
 Extracting  WEB-INF\classes\com\chsi\knowledge\common\web\filter\LoginFilter.class
@@ -71,6 +72,7 @@ Extracting  WEB-INF\classes\com\chsi\knowledge\web\util\URLUtil.class
 Extracting  WEB-INF\classes\com\chsi\knowledge\web\util\WebAppUtil.class
 Extracting  WEB-INF\classes\struts-discuss.xml
 Extracting  WEB-INF\classes\struts-knowledge.xml
+Extracting  WEB-INF\classes\struts-search.xml
 Extracting  WEB-INF\classes\struts-tag.xml
 Extracting  WEB-INF\classes\struts-upload.xml
 Extracting  WEB-INF\classes\struts.xml
@@ -106,12 +108,12 @@ Extracting  META-INF\maven\com.chsi\chsi-knowledge-war\pom.properties
 
 Everything is Ok
 
-Folders: 33
-Files: 67
-Size:       7934260
-Compressed: 7005663
+Folders: 34
+Files: 68
+Size:       7938000
+Compressed: 7007401
 
-Kernel  Time =     0.093 =   37%
-User    Time =     0.078 =   31%
-Process Time =     0.171 =   69%    Virtual  Memory =      3 MB
-Global  Time =     0.247 =  100%    Physical Memory =      5 MB
+Kernel  Time =     0.078 =   22%
+User    Time =     0.093 =   27%
+Process Time =     0.171 =   50%    Virtual  Memory =      3 MB
+Global  Time =     0.340 =  100%    Physical Memory =      5 MB

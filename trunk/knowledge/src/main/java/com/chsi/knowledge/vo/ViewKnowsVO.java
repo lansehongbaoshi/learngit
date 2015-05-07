@@ -7,7 +7,6 @@ import com.chsi.knowledge.util.Pagination;
 
 /**
  * 知识列表与标签列表VO
- * 
  * @author chenjian
  */
 public class ViewKnowsVO extends KnowListVO {

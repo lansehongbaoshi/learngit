@@ -40,7 +40,7 @@ public class KnowledgeAction extends AjaxAction{
             ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
             ajaxMessage.setO(viewKnowsVO);
         }
-        writeCallbackJSON(ajaxMessage, callback);
+        writeCallbackJSON(callback);
     }
     
      public void getKnowledge() throws Exception{
@@ -48,14 +48,15 @@ public class KnowledgeAction extends AjaxAction{
         if (null == viewKnowVO)  {
             ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
         }else{
-            if (null != session.get(id))
+            if (null != session.get(id)){
                 viewKnowVO.getConKnow().setIfDiscussed(true);
+            }
             //向队列中插入ID 另一线程读取并更新数据库
             queueService.addVisitKnowledgeId(id);
             ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
             ajaxMessage.setO(viewKnowVO);
         }
-        writeCallbackJSON(ajaxMessage, callback);
+        writeCallbackJSON(callback);
     } 
     
     public void setCallback(String callback) {
