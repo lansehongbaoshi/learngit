@@ -11,8 +11,12 @@ import com.chsi.knowledge.vo.ViewTagVO;
  *
  */
 public interface TagService {
-    //获取所有TAG临时用，后面删
-    List<TagData> get();
+    /**
+     * 根据systemId获取系统下所有标签 
+     * @param systemId
+     * @return
+     */
+    List<TagData> get(String systemId);
     /**
      * 根据系统ID，知识状态，获取标签数据
      * @param systemId
@@ -24,4 +28,6 @@ public interface TagService {
     void saveOrUpdate(TagData tagData);
     
     TagData getTagData(String systemId, String name);
+    
+    TagData getTagData(String id);
 }

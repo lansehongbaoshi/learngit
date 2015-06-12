@@ -17,6 +17,16 @@
         <action name="getKnowledge" class="knowledgeViewActionBean" method="getKnowledge"></action>
     </package>
     
+    <package name="htgl.knowledge" extends="knowledge-default" namespace="/htgl">
+        <interceptors>
+          <interceptor-stack name="knowledgeStack">
+              <interceptor-ref name="chsiDefaultStack"></interceptor-ref>
+              <interceptor-ref name="store">
+                  <param name="operationMode">AUTOMATIC</param>
+              </interceptor-ref>
+          </interceptor-stack>
+        </interceptors>
+    </package>
     
     
     

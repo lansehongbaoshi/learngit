@@ -24,6 +24,10 @@
                  <result name="input">/upload.jsp</result>
         </action> 
          -->   
+          <action name="updateStatus" class="uploadActionBean" method="updateStatus">
+                 <result name="success">/upload.jsp</result>
+                 <result name="input">/upload.jsp</result>
+        </action> 
     </package>
     
     

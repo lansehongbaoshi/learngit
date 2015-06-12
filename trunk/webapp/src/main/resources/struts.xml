@@ -92,7 +92,6 @@
     </package>
 
     <include file="struts-knowledge.xml"></include>
-    <include file="struts-tag.xml"></include>
     <include file="struts-discuss.xml"></include>
     <include file="struts-upload.xml"></include>
     <include file="struts-search.xml"></include>

@@ -1,6 +1,8 @@
 package com.chsi.knowledge.service.impl;
 
 
+import java.util.List;
+
 import com.chsi.framework.service.BaseDbService;
 import com.chsi.knowledge.ServiceConstants;
 import com.chsi.knowledge.dao.SystemDataDAO;
@@ -27,8 +29,9 @@ public class SystemServiceImpl extends BaseDbService implements SystemService{
         SystemData systemData = ManageCacheUtil.getSystem(id);
         if (null == systemData) {
             systemData = systemDataDAO.getSystemById(id);
-            if (null != systemData)
+            if (null != systemData) {
                 ManageCacheUtil.addSystem(id, systemData);
+            }
         }
         return systemData;
     }
@@ -36,6 +39,17 @@ public class SystemServiceImpl extends BaseDbService implements SystemService{
     @Override
     public void save(SystemData systemData) {
         systemDataDAO.save(systemData);
+    }
+    
+    @Override
+    public void update(SystemData systemData) {
+        systemDataDAO.update(systemData);
+        ManageCacheUtil.removeSystem(systemData.getId());
+    }
+
+    @Override
+    public List<SystemData> getSystems() {
+        return systemDataDAO.getSystems();
     }
 
 }

@@ -31,6 +31,7 @@ public class KnowledgeDataDAOImpl extends BaseHibernateDAO implements KnowledgeD
         hibernateUtil.update(knowledgeData);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public KnowledgeData getKnowledgeById(String id) {
         String hql = SELECT_KNOWLEDGE + W + ID;
@@ -39,6 +40,7 @@ public class KnowledgeDataDAOImpl extends BaseHibernateDAO implements KnowledgeD
         return list.size() == 0 ? null : list.get(0);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public int countKnowledges(String tagId, KnowledgeStatus knowledgeStatus) {
         String hql = COUNT_KNOWTAGDATARELATION + W + TAG_ID + A + KNOWLEDGE_KNOWLEDGESTATUS;
@@ -55,6 +57,7 @@ public class KnowledgeDataDAOImpl extends BaseHibernateDAO implements KnowledgeD
         query.executeUpdate();
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public List<KnowledgeData> get() {
         String hql = SELECT_KNOWLEDGE;

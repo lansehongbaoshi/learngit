@@ -4,9 +4,8 @@ import com.chsi.framework.callcontrol.CallInfoHelper;
 
 
 /**
- * 工具类
+ * web工具类
  * @author chenjian
- * 
  */
 public class WebAppUtil {
 
@@ -18,5 +17,5 @@ public class WebAppUtil {
         String userId = CallInfoHelper.getCurrentUser();
         return userId;
     }
-
+    
 }

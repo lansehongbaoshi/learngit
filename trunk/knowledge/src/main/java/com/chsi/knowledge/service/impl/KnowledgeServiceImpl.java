@@ -22,10 +22,10 @@ import com.chsi.knowledge.util.ManageCacheUtil;
 import com.chsi.knowledge.util.Navigation;
 import com.chsi.knowledge.util.NavigationUtil;
 import com.chsi.knowledge.util.Pagination;
-import com.chsi.knowledge.vo.KnowListVO.Know;
 import com.chsi.knowledge.vo.ViewKnowVO;
 import com.chsi.knowledge.vo.ViewKnowVO.ConKnow;
 import com.chsi.knowledge.vo.ViewKnowsVO;
+import com.chsi.knowledge.vo.ViewKnowsVO.Know;
 import com.chsi.knowledge.vo.ViewTagVO;
 import com.chsi.news.type.ArticleStatusType;
 import com.chsi.news.vo.Article;
@@ -48,8 +48,8 @@ public class KnowledgeServiceImpl extends BaseDbService implements KnowledgeServ
     }
 
     @Override
-    public void save(KnowledgeData knowledgeData,String articleTitle, String articleContent, ArticleStatusType articleStatusType,String ssdm,String createBy) {
-          Article article = Article.getInstance4Create(articleTitle, articleContent, articleStatusType, ssdm, createBy);
+    public void save(KnowledgeData knowledgeData,String articleTitle, String articleContent,String ssdm,String createBy) {
+          Article article = Article.getInstance4Create(articleTitle, articleContent, getStatus(knowledgeData.getKnowledgeStatus()), ssdm, createBy);
           CmsServiceClient cmsServiceClient = CmsServiceClientFactory.getCmsServiceClient();
           String articleId=cmsServiceClient.saveOrUpdateArticle(article);
           knowledgeData.setCmsId(articleId);
@@ -57,38 +57,49 @@ public class KnowledgeServiceImpl extends BaseDbService implements KnowledgeServ
     }
 
     @Override
-    public void update(KnowledgeData knowledgeData, String id, String articleTitle, String articleContent, ArticleStatusType articleStatusType, String updateBy) {
-        Article article = Article.getInstance4Update(id, articleTitle, articleContent, articleStatusType, updateBy);
+    public void update(KnowledgeData knowledgeData, String articleTitle, String articleContent, String updateBy) {
+        Article article = Article.getInstance4Update(knowledgeData.getCmsId(), articleTitle, articleContent, getStatus(knowledgeData.getKnowledgeStatus()), updateBy);
         CmsServiceClient cmsServiceClient = CmsServiceClientFactory.getCmsServiceClient();
         cmsServiceClient.saveOrUpdateArticle(article);
         knowledgeDataDAO.update(knowledgeData);
     }
+    
+    private ArticleStatusType getStatus(KnowledgeStatus knowledgeStatus) {
+        if (knowledgeStatus == KnowledgeStatus.WSH) {
+            return ArticleStatusType.WAITTING;
+        } else if (knowledgeStatus == KnowledgeStatus.YSH) {
+            return ArticleStatusType.PUBLISHED;
+        } else if (knowledgeStatus == KnowledgeStatus.YSC) {
+            return ArticleStatusType.NUPUBLISHED;
+        }
+        return ArticleStatusType.NUPUBLISHED;
+    }
 
     @Override
-    public ViewKnowVO getKnowledgeVOById(String id, String tagId) {
-        KnowledgeData knowledgeData = null;
+    public ViewKnowVO getKnowVOById(String id, String tagId) {
         KnowTagRelationData ktRelation = null;
         List<KnowTagRelationData> list = ManageCacheUtil.getKnowTag(tagId);
         if (null != list) {
             for (KnowTagRelationData knowTag : list) {
                 if (id.equals(knowTag.getKnowledgeData().getId())){
-                    knowledgeData = knowTag.getKnowledgeData();
                     ktRelation = knowTag;
                 }
             }
         }
 
-        if (null == knowledgeData){
-            knowledgeData = knowledgeDataDAO.getKnowledgeById(id);
+        if (null == ktRelation){
             ktRelation = knowTagRelationDAO.getKnowTagRelationByKnowId(id, tagId);
         }
            
-        if (null == knowledgeData)
+        if (null == ktRelation){
             return null;
+        }
+        KnowledgeData knowledgeData = ktRelation.getKnowledgeData();
         CmsServiceClient cmsServiceClient = CmsServiceClientFactory.getCmsServiceClient();
         Article article = cmsServiceClient.getArticle(knowledgeData.getCmsId());
-        if (null == article)
+        if (null == article){
             return null;
+        }
         ConKnow conKnow = new ConKnow(knowledgeData.getId(),
                                       article.getTitle(), article.getContent(),
                                       knowledgeData.getKeywords(), knowledgeData.getVisitCnt(),
@@ -101,18 +112,18 @@ public class KnowledgeServiceImpl extends BaseDbService implements KnowledgeServ
     }
 
     @Override
-    public ViewKnowsVO getViewKnowsVO(SystemData system, String tagId, KnowledgeStatus knowledgeStatus, int start, int pageSize) {
+    public ViewKnowsVO getViewKnowsVO(SystemData system, String tagId, int start, int pageSize) {
         int count;
         ViewKnowsVO viewKnowsVO = null;
         List<Navigation> navigation = null;
         TagService service = ServiceFactory.getTagService();
-        List<ViewTagVO> tagVOList = service.getTagVOsBySystemIdAndStatus(system.getId(), knowledgeStatus);
+        List<ViewTagVO> tagVOList = service.getTagVOsBySystemIdAndStatus(system.getId(),  KnowledgeStatus.YSH);
         List<KnowTagRelationData> list = ManageCacheUtil.getKnowTag(tagId);
-        if (null == list)
-            count = knowledgeDataDAO.countKnowledges(tagId, knowledgeStatus);
-        else
+        if (null == list){
+            count = knowledgeDataDAO.countKnowledges(tagId,  KnowledgeStatus.YSH);
+        }else{
             count = list.size();
-        
+        }
         if (count == 0) {
              navigation = NavigationUtil.getNavigation(system, null, null, null);
              viewKnowsVO = new ViewKnowsVO(null, tagVOList, navigation, null);
@@ -125,7 +136,7 @@ public class KnowledgeServiceImpl extends BaseDbService implements KnowledgeServ
         
         List<KnowledgeData> knowledgeDataList = new ArrayList<KnowledgeData>();
         if (null == list) {
-            list = knowTagRelationDAO.getKnowTagDatas(tagId, knowledgeStatus); 
+            list = knowTagRelationDAO.getKnowTagDatas(tagId,  KnowledgeStatus.YSH); 
             ManageCacheUtil.addKnowTag(tagId, list);
         } 
         int size = (pageSize + start) >= list.size() ? list.size() : (pageSize + start);

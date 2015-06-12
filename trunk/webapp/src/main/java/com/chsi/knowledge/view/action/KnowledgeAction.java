@@ -1,8 +1,7 @@
-package com.chsi.knowledge.view.action.knowledge;
+package com.chsi.knowledge.view.action;
 
 import com.chsi.knowledge.Constants;
 import com.chsi.knowledge.action.base.AjaxAction;
-import com.chsi.knowledge.dic.KnowledgeStatus;
 import com.chsi.knowledge.pojo.SystemData;
 import com.chsi.knowledge.service.KnowledgeService;
 import com.chsi.knowledge.service.QueueService;
@@ -12,7 +11,7 @@ import com.chsi.knowledge.service.TagService;
 import com.chsi.knowledge.vo.ViewKnowVO;
 import com.chsi.knowledge.vo.ViewKnowsVO;
 /**
- * 用户获取知识ACTION
+ * 前台获取知识ACTION
  * @author chenjian
  */
 public class KnowledgeAction extends AjaxAction{
@@ -36,7 +35,7 @@ public class KnowledgeAction extends AjaxAction{
             if (tagId != null && tagId.equals("normal")) {
                 tagId = tagService.getTagData(systemId, "常见问题").getId();
             }
-            ViewKnowsVO viewKnowsVO = knowledgeService.getViewKnowsVO(systemData, tagId, KnowledgeStatus.WSH, (curPage - 1) * Constants.PAGE_SIZE, Constants.PAGE_SIZE);
+            ViewKnowsVO viewKnowsVO = knowledgeService.getViewKnowsVO(systemData, tagId, (curPage - 1) * Constants.PAGE_SIZE, Constants.PAGE_SIZE);
             ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
             ajaxMessage.setO(viewKnowsVO);
         }
@@ -44,15 +43,18 @@ public class KnowledgeAction extends AjaxAction{
     }
     
      public void getKnowledge() throws Exception{
-        ViewKnowVO viewKnowVO = knowledgeService.getKnowledgeVOById(id, tagId);
+        ViewKnowVO viewKnowVO = knowledgeService.getKnowVOById(id, tagId);
         if (null == viewKnowVO)  {
             ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
         }else{
-            if (null != session.get(id)){
+            if (null != session.get(Constants.DISCUSS + id)){
                 viewKnowVO.getConKnow().setIfDiscussed(true);
             }
-            //向队列中插入ID 另一线程读取并更新数据库
-            queueService.addVisitKnowledgeId(id);
+            //如果没访问过，向访问知识队列中插入ID
+            if (null == session.get(Constants.VISIT + id)) {
+                session.put(Constants.VISIT + id, id);
+                queueService.addVisitKnowledgeId(id);
+            }
             ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
             ajaxMessage.setO(viewKnowVO);
         }

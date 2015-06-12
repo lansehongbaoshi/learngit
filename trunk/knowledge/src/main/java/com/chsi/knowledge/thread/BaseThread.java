@@ -1,15 +1,25 @@
 package com.chsi.knowledge.thread;
 
-public abstract class BaseThread extends Thread{
-    
-    public void run(){
-        try{
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+public abstract class BaseThread extends Thread {
+
+    protected Log log;
+
+    public BaseThread() {
+        log = LogFactory.getLog(getClass());
+    }
+
+    public void run() {
+        try {
             doRun();
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally{
-            
+        } finally {
+
         }
     }
+
     public abstract void doRun();
 }

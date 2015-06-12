@@ -177,8 +177,7 @@
         <velocity.version>1.5</velocity.version>
         <velocity-tools-view.version>1.1</velocity-tools-view.version>
         <chsi-cache.version>2.4.2</chsi-cache.version>
-        <chsi-framework.version>2.5.31</chsi-framework.version>
-        <chsi-cms.version>2.5.12-SNAPSHOT</chsi-cms.version> 
+        <chsi-framework.version>2.5.34</chsi-framework.version>
         <chsi-memcachedclient.version>1.4.0</chsi-memcachedclient.version>
         <chsi-commonutil-client.version>1.0.5</chsi-commonutil-client.version>
         <chsi-cachecfg-remote.version>1.2.0</chsi-cachecfg-remote.version>
@@ -210,9 +209,8 @@
         <chsi-util.version>1.0.1</chsi-util.version>
         <xmlbeans.version>2.3.0</xmlbeans.version>
         <zookeeper-version>3.4.5</zookeeper-version>
-        <chsi-xlrz-client.version>3.3.18-SNAPSHOT</chsi-xlrz-client.version>
-        <chsi-lobdb-client-version>1.0.0-SNAPSHOT</chsi-lobdb-client-version>
+        <chsi-cms.version>2.5.12-SNAPSHOT</chsi-cms.version> 
         <chsi-cms-client-version>2.5.12-SNAPSHOT</chsi-cms-client-version>
-        <chsi-search-client.version>1.1.9-SNAPSHOT</chsi-search-client.version>
+        <chsi-search-client.version>4.0.0-SNAPSHOT</chsi-search-client.version>
     </properties>
 </project>

@@ -1,6 +1,6 @@
 package com.chsi.knowledge.util;
 /**
- * 分页信息类
+ * 分页信息
  * @author chenjian
  */
 public class Pagination {

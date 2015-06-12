@@ -1,5 +1,7 @@
 package com.chsi.knowledge.dao;
 
+import java.util.List;
+
 import com.chsi.knowledge.pojo.SystemData;
 
 /**
@@ -12,4 +14,12 @@ public interface SystemDataDAO {
     SystemData getSystemById(String id);
     
     void save(SystemData systemData);
+    
+    void update(SystemData systemData);
+    /**
+     * 获取所有系统
+     * @return
+     */
+    List<SystemData> getSystems();
+    
 }

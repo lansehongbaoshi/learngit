@@ -28,18 +28,15 @@ import com.chsi.search.proto.SearchProtos;
 public class KnowIndexServiceImpl extends BaseDbService implements KnowIndexService {
 
     private KnowTagRelationDataDAO knowTagRelationDAO;
-    @Override
+
     protected void doCreate() {
         knowTagRelationDAO = getDAO(ServiceConstants.KNOWTAGRELATIONDATA_DAO, KnowTagRelationDataDAO.class);
-        
     }
 
-    @Override
     protected void doRemove() {
         
     }
     
-    @Override
     public void deleteKnowIndex(String knowledgeId) {
         if (StringUtils.isNotBlank(knowledgeId)) {
             SearchProtos.SearchIndexInfo.Builder builder = SearchProtos.SearchIndexInfo.newBuilder();
@@ -47,54 +44,46 @@ public class KnowIndexServiceImpl extends BaseDbService implements KnowIndexServ
             SearchProtos.SearchIndexInfo indexInfo = builder.build();
             SearchServiceClient searchClient = SearchServiceClientFactory.getSearchServiceClient();
             MessageQueue knowQueue = searchClient.getQueue();
-            knowQueue.enqueue("knowindexdeleter", indexInfo.toByteArray());   //名称须与SOLR配置的queueName 相同
+            knowQueue.enqueue("knowindexdeleter_solr4", indexInfo.toByteArray());   //名称须与SOLR配置的queueName 相同
         }
     }
 
-    @Override
     public void updateKnowIndex(String knowledgeId) {
         SearchServiceClient searchClient = SearchServiceClientFactory.getSearchServiceClient();
         searchClient.updateKnow(setKnowIndexData(knowledgeId));
     }
 
     private KnowIndexData setKnowIndexData(String knowledgeId){
-        List<KnowTagRelationData> relation=knowTagRelationDAO.getKnowTagDatas(KnowledgeStatus.WSH, knowledgeId);
+        List<KnowTagRelationData> relation=knowTagRelationDAO.getKnowTagDatas(KnowledgeStatus.YSH, knowledgeId);
         CmsServiceClient cmsServiceClient = CmsServiceClientFactory.getCmsServiceClient();
         Article article = cmsServiceClient.getArticle(relation.get(0).getKnowledgeData().getCmsId());
         KnowledgeData know=relation.get(0).getKnowledgeData();
         List<String> tags=new LinkedList<String>();
+        List<String> tagIds=new LinkedList<String>();
         for(KnowTagRelationData k : relation){
             tags.add(k.getTagData().getName());
+            tagIds.add(k.getTagData().getId());
         }
         KnowIndexData index=new KnowIndexData();
         index.setId(know.getId());
         index.setKeywords(know.getKeywords());
         index.setTitle(article.getTitle());
         index.setContent(article.getContent());
-        index.setSort(know.getSort());
-        index.setVisitCnt(know.getVisitCnt());
         index.setSystemId(relation.get(0).getTagData().getSystemData().getId());
-        index.setCreateTime(know.getCreateTime().getTime());
-        index.setUpdateTime(know.getUpdateTime().getTime());
+        index.setTagIds(tagIds);
         index.setTags(tags);
         return index;
     }
 
     @Override
-    public KnowListVO searchKnow(String keywords, String systemId, int start,
-            int pageSize) {
+    public KnowListVO<KnowledgeVO> searchKnow(String keywords, String systemId, int start, int pageSize) {
         SearchServiceClient searchClient = SearchServiceClientFactory.getSearchServiceClient();
-        Page<KnowledgeVO> page = searchClient.searchKnow(keywords, systemId, start, pageSize);
-        List<KnowListVO.Know> knowList=new LinkedList<KnowListVO.Know>();
-        for(KnowledgeVO vo : page.getList()){
-            KnowListVO.Know tempKnow=new KnowListVO.Know(vo.getTitle());
-            tempKnow.addParam("id", vo.getKnowledgeId());
-            knowList.add(tempKnow);
+        if (start < 0) {
+            start = 0;
         }
-        
-        Pagination pagination = new Pagination(page.getTotalCount(),page.getPageCount(),page.getCurPage());
-        KnowListVO knowListVO=new KnowListVO(knowList,pagination);
-        
+        Page<KnowledgeVO> page = searchClient.searchKnow(keywords, systemId, start, pageSize);
+        Pagination pagination = new Pagination(page.getTotalCount(), page.getPageCount(), page.getCurPage());
+        KnowListVO<KnowledgeVO> knowListVO = new KnowListVO<KnowledgeVO>(page.getList(), pagination);
         return knowListVO;
     }
 

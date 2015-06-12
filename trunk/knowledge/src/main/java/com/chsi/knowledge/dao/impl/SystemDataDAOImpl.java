@@ -15,6 +15,7 @@ public class SystemDataDAOImpl extends BaseHibernateDAO implements SystemDataDAO
     private static final String W = " where ";
     private static final String ID = " p.id=:id";
     
+    @SuppressWarnings("unchecked")
     @Override
     public SystemData getSystemById(String id) {
         String hql = SELECT_SYSTEM + W + ID;
@@ -27,5 +28,21 @@ public class SystemDataDAOImpl extends BaseHibernateDAO implements SystemDataDAO
     public void save(SystemData systemData) {
         hibernateUtil.save(systemData);  
     }
+    
+    @Override
+    public void update(SystemData systemData) {
+        hibernateUtil.update(systemData);
+    }
+    
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<SystemData> getSystems() {
+        String hql = SELECT_SYSTEM ;
+        Query query = hibernateUtil.getSession().createQuery(hql);
+        List<SystemData> list = query.list();
+        return list;
+    }
+
+    
 
 }

@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  * 作为Ajax返回信息封装对象
- * @author weiqc <a href="mailto:weiqc@chsi.com.cn">weiqc</a>
+ * @author chenjian
  *
  */
 public class AjaxMessage {

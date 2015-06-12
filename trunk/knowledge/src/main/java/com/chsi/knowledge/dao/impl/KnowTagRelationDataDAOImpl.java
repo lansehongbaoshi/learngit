@@ -24,6 +24,7 @@ public class KnowTagRelationDataDAOImpl extends BaseHibernateDAO implements Know
         hibernateUtil.save(knowTagRelationData);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public KnowTagRelationData getKnowTagRelationByKnowId(String knowledgeId, String tagId) {
         String hql = SELECT_KNOWTAGRELATION + W + KNOWLEDGE_ID + A + TAG_ID;
@@ -32,6 +33,7 @@ public class KnowTagRelationDataDAOImpl extends BaseHibernateDAO implements Know
         return list.size() == 0 ? null : list.get(0);
     }
     
+    @SuppressWarnings("unchecked")
     @Override
     public List<KnowTagRelationData> getKnowTagDatas(String tagId, KnowledgeStatus knowledgeStatus) {
         String hql = SELECT_KNOWTAGRELATION + W + TAG_ID + A + KNOWLEDGE_KNOWLEDGESTATUS + ORDERBY_KNOWLEDGE_VISITCNT_SORT;
@@ -41,6 +43,7 @@ public class KnowTagRelationDataDAOImpl extends BaseHibernateDAO implements Know
         return list;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public List<KnowTagRelationData> getKnowTagDatas(KnowledgeStatus knowledgeStatus, String knowledgeId) {
         String hql = SELECT_KNOWTAGRELATION + W + KNOWLEDGE_ID + A + KNOWLEDGE_KNOWLEDGESTATUS + ORDERBY_KNOWLEDGE_VISITCNT_SORT;

@@ -1,4 +1,4 @@
-package com.chsi.knowledge.view.action.discuss;
+package com.chsi.knowledge.view.action;
 
 import java.util.Calendar;
 
@@ -29,7 +29,7 @@ public class DiscussAction extends AjaxAction {
     private String userId;
 
     public void discuss() throws Exception {
-        if (null != session.get(knowledgeId)) {
+        if (null != session.get(Constants.DISCUSS + knowledgeId)) {
             ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
             ajaxMessage.addMessage("您已经评论过了");
         }else{
@@ -47,8 +47,9 @@ public class DiscussAction extends AjaxAction {
                 ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
                 ajaxMessage.addMessage("评论内容过长");
             }
-            if(ValidatorUtil.isNull(userId))
-               userId = getIp(httpRequest);
+            if(ValidatorUtil.isNull(userId)){
+                userId = getIp(httpRequest);
+            }
             if (ValidatorUtil.isNull(userId)) {
                 ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
                 ajaxMessage.addMessage("用户名或者ip错误");
@@ -57,7 +58,7 @@ public class DiscussAction extends AjaxAction {
                 DiscussData discussData = new DiscussData(null, knowledgeId, userId, disStatus, content, Calendar.getInstance());
                 discussService.saveOrUpdate(discussData);
                 ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
-                session.put(knowledgeId, discussData);
+                session.put(Constants.DISCUSS + knowledgeId, knowledgeId);
             }
         }
         writeCallbackJSON(callback);

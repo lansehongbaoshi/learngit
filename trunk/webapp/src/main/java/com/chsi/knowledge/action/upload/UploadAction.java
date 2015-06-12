@@ -34,13 +34,12 @@ import com.chsi.knowledge.service.KnowledgeService;
 import com.chsi.knowledge.service.SystemService;
 import com.chsi.knowledge.service.TagService;
 import com.chsi.knowledge.util.ManageCacheUtil;
-import com.chsi.news.type.ArticleStatusType;
+import com.chsi.news.vo.Article;
 import com.ibm.icu.text.DecimalFormat;
 import com.ibm.icu.text.SimpleDateFormat;
 /**
  * 导入数据类
  * @author chenjian
- *
  */
 public class UploadAction extends AjaxAction {
  
@@ -61,11 +60,11 @@ public class UploadAction extends AjaxAction {
         /**
          * 插标签
          */
-        Set set = new HashSet();
+        Set<String> set = new HashSet<String>();
         for (int i = 0; i < result.length; i++) {
             set.add(result[i][0]);
         }
-        Iterator it = set.iterator();
+        Iterator<String> it = set.iterator();
         TagData tagData = null;
         List<TagData> list = new ArrayList<TagData>();
         while (it.hasNext()) {
@@ -85,10 +84,10 @@ public class UploadAction extends AjaxAction {
                     tagData2 = t;
             }
             knowledgeData = new KnowledgeData(null, result[i][1], null, 0, Integer.parseInt(result[i][4]), 
-                                            KnowledgeStatus.WSH, "16a669296a704688b2cbf38fef310811", Calendar.getInstance(),
-                                            null, null);
+                                            KnowledgeStatus.YSH, "16a669296a704688b2cbf38fef310811", Calendar.getInstance(),
+                                            "16a669296a704688b2cbf38fef310811", Calendar.getInstance());
             //保存知识
-            knowledgeService.save(knowledgeData, result[i][2], result[i][3], ArticleStatusType.WAITTING, "00", "16a669296a704688b2cbf38fef310811");
+            knowledgeService.save(knowledgeData, result[i][2], result[i][3], "00", "16a669296a704688b2cbf38fef310811");
             //保存知识与标签关系
             KnowTagRelationData knowTagRelationData = new KnowTagRelationData(null,knowledgeData,tagData2);
             knowTagRelationService.save(knowTagRelationData);
@@ -96,17 +95,33 @@ public class UploadAction extends AjaxAction {
         
     }
     
+    public String updateStatus() throws Exception {
+        List<KnowledgeData> list = knowledgeService.get();
+        if (null != list) {
+            for (KnowledgeData temp : list) {
+                CmsServiceClient cmsServiceClient = CmsServiceClientFactory.getCmsServiceClient();
+                Article article = cmsServiceClient.getArticle(temp.getCmsId());
+                temp.setKnowledgeStatus(KnowledgeStatus.YSH);
+                temp.setUpdater(temp.getCreater());
+                temp.setUpdateTime(temp.getCreateTime());
+                knowledgeService.update(temp, article.getTitle(), article.getContent(), article.getCreateby());
+            }
+        }
+        return SUCCESS;
+    }
+    
     public String delete() throws Exception{
         ManageCacheUtil.removeSystem("zb");
         ManageCacheUtil.removeTagList("zb");
-        List<TagData> t=tagService.get();
-        for(TagData tag: t)
-        ManageCacheUtil.removeKnowTag(tag.getId());
-        
-        List<KnowledgeData> list= knowledgeService.get();
+        List<TagData> t = tagService.get("zb");
+        for (TagData tag : t) {
+            ManageCacheUtil.removeKnowTag(tag.getId());
+        }
+        List<KnowledgeData> list = knowledgeService.get();
         CmsServiceClient cmsServiceClient = CmsServiceClientFactory.getCmsServiceClient();
-        for(KnowledgeData k : list)
-        cmsServiceClient.deleteArticle(k.getCmsId());
+        for (KnowledgeData k : list){
+            cmsServiceClient.deleteArticle(k.getCmsId());
+        }
         return SUCCESS;
     }
     

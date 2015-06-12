@@ -37,18 +37,21 @@ public class TagServiceImpl extends BaseDbService implements TagService{
             tagDataList = tagDataDAO.getTagDataBySystemId(systemId);
             ManageCacheUtil.addTagList(systemId, tagDataList);
         }
-        if (null == tagDataList || tagDataList.size() == 0)
+        if (null == tagDataList || tagDataList.size() == 0){
             return null;
+        }
+            
         List<ViewTagVO> tagVOList = new ArrayList<ViewTagVO>();
         ViewTagVO tagVO = null;
         int count;
         List<KnowTagRelationData> list = null;
         for (TagData tagData : tagDataList) {
             list = ManageCacheUtil.getKnowTag(tagData.getId());
-            if (null == list)              
+            if (null == list) {             
                 count = knowledgeDataDAO.countKnowledges(tagData.getId(), knowledgeStatus);
-            else
+            }else{
                 count = list.size();
+            }
             tagVO = new ViewTagVO(tagData.getId(), tagData.getSystemData().getId(), tagData.getName(), tagData.getDescription(), count);
             tagVOList.add(tagVO);
         }
@@ -57,17 +60,24 @@ public class TagServiceImpl extends BaseDbService implements TagService{
 
     @Override
     public void saveOrUpdate(TagData tagData) {
-        tagDataDAO.saveOrUpdate(tagData);        
+        ManageCacheUtil.removeTagList(tagData.getSystemData().getId());
+        ManageCacheUtil.removeKnowTag(tagData.getId());
+        tagDataDAO.saveOrUpdate(tagData);   
     }
 
     @Override
-    public List<TagData> get() {
-        return tagDataDAO.getTagDataBySystemId("zb");
+    public List<TagData> get(String systemId) {
+        return tagDataDAO.getTagDataBySystemId(systemId);
     }
 
     @Override
     public TagData getTagData(String systemId, String name) {
         return tagDataDAO.getTagData(systemId, name);
+    }
+
+    @Override
+    public TagData getTagData(String id) {
+        return tagDataDAO.getTagData(id);
     }
 
 }

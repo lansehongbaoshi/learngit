@@ -22,19 +22,21 @@ public class Constants {
     public static final String AJAX_FLAG_SUCCESS = "true";
     public static final String AJAX_FLAG_ERROR = "false";
     
-    /**
-     * 默认的jsonp调用callback方法名称
-     */
-    public static final String DEFAULT_CALLBACKNAME = "knowledge";
     
     /**
-     * 更新访问次数队列名称
+     * 每个知识访问次数队列名称
      */
     public static final String QUEUE_VISIT_KNOWLEDGEID_NAME = "visit_knowledgeId";
     
     /**
-     * 缓存有效时间
+     * 缓存有效时间：小时
      */
     public static final int CACHE_EXPIRE_TIME_IN_HOUR = 24;
+    
+    /**
+     * session中的名称前缀
+     */
+    public static final String DISCUSS = "discuss_";
+    public static final String VISIT = "visit_";
     
 }
