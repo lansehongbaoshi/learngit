@@ -54,10 +54,10 @@ public class KnowIndexServiceImpl extends BaseDbService implements KnowIndexServ
     }
 
     private KnowIndexData setKnowIndexData(String knowledgeId){
-        List<KnowTagRelationData> relation=knowTagRelationDAO.getKnowTagDatas(KnowledgeStatus.YSH, knowledgeId);
+        List<KnowTagRelationData> relation = knowTagRelationDAO.getKnowTagDatas(KnowledgeStatus.YSH, knowledgeId);
         CmsServiceClient cmsServiceClient = CmsServiceClientFactory.getCmsServiceClient();
         Article article = cmsServiceClient.getArticle(relation.get(0).getKnowledgeData().getCmsId());
-        KnowledgeData know=relation.get(0).getKnowledgeData();
+        KnowledgeData know = relation.get(0).getKnowledgeData();
         List<String> tags=new LinkedList<String>();
         List<String> tagIds=new LinkedList<String>();
         for(KnowTagRelationData k : relation){

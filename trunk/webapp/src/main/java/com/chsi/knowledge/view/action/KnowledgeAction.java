@@ -10,6 +10,7 @@ import com.chsi.knowledge.service.SystemService;
 import com.chsi.knowledge.service.TagService;
 import com.chsi.knowledge.vo.ViewKnowVO;
 import com.chsi.knowledge.vo.ViewKnowsVO;
+import com.opensymphony.xwork2.ActionContext;
 /**
  * 前台获取知识ACTION
  * @author chenjian
@@ -42,24 +43,23 @@ public class KnowledgeAction extends AjaxAction{
         writeCallbackJSON(callback);
     }
     
-     public void getKnowledge() throws Exception{
+    public String getKnowledge() throws Exception {
+        ActionContext actionCon = ActionContext.getContext();
         ViewKnowVO viewKnowVO = knowledgeService.getKnowVOById(id, tagId);
-        if (null == viewKnowVO)  {
-            ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
-        }else{
-            if (null != session.get(Constants.DISCUSS + id)){
-                viewKnowVO.getConKnow().setIfDiscussed(true);
-            }
-            //如果没访问过，向访问知识队列中插入ID
-            if (null == session.get(Constants.VISIT + id)) {
-                session.put(Constants.VISIT + id, id);
-                queueService.addVisitKnowledgeId(id);
-            }
-            ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
-            ajaxMessage.setO(viewKnowVO);
+        if (null == viewKnowVO) {
+            return ERROR;
         }
-        writeCallbackJSON(callback);
-    } 
+        if (null != session.get(Constants.DISCUSS + id)) {
+            viewKnowVO.getConKnow().setIfDiscussed(true);
+        }
+        // 如果没访问过，向访问知识队列中插入ID
+        if (null == session.get(Constants.VISIT + id)) {
+            session.put(Constants.VISIT + id, id);
+            queueService.addVisitKnowledgeId(id);
+        }
+        actionCon.put("viewKnowVO", viewKnowVO);
+        return SUCCESS;
+    }
     
     public void setCallback(String callback) {
         this.callback = callback;
@@ -68,7 +68,7 @@ public class KnowledgeAction extends AjaxAction{
     public String getCallback() {
         return callback;
     }
-
+    
     public KnowledgeService getKnowledgeService() {
         return knowledgeService;
     }

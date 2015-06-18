@@ -26,15 +26,17 @@ Extracting  WEB-INF\classes\com\chsi\knowledge\action\upload
 Extracting  WEB-INF\classes\com\chsi\knowledge\common
 Extracting  WEB-INF\classes\com\chsi\knowledge\common\web
 Extracting  WEB-INF\classes\com\chsi\knowledge\common\web\filter
+Extracting  WEB-INF\classes\com\chsi\knowledge\htgl
+Extracting  WEB-INF\classes\com\chsi\knowledge\htgl\action
 Extracting  WEB-INF\classes\com\chsi\knowledge\listener
+Extracting  WEB-INF\classes\com\chsi\knowledge\thread
 Extracting  WEB-INF\classes\com\chsi\knowledge\view
 Extracting  WEB-INF\classes\com\chsi\knowledge\view\action
-Extracting  WEB-INF\classes\com\chsi\knowledge\view\action\discuss
-Extracting  WEB-INF\classes\com\chsi\knowledge\view\action\knowledge
-Extracting  WEB-INF\classes\com\chsi\knowledge\view\action\tag
 Extracting  WEB-INF\classes\com\chsi\knowledge\web
 Extracting  WEB-INF\classes\com\chsi\knowledge\web\util
 Extracting  WEB-INF\lib
+Extracting  WEB-INF\tld
+Extracting  common\knowledge.jsp
 Extracting  common\pageNavigator.jsp
 Extracting  css\base.css
 Extracting  css\bootstrap-ie6.min.css
@@ -50,11 +52,11 @@ Extracting  css\webuploader.css
 Extracting  css\_notes\dwsync.xml
 Extracting  error\error.jsp
 Extracting  htgl\knowledge\knowledge.jsp
-Extracting  htgl\knowledge\knowledgeList.jsp
 Extracting  htgl\tag\tagList.jsp
 Extracting  js\jquery-1.11.1.min.js
 Extracting  js\selection.js
 Extracting  layout\modal.jsp
+Extracting  upload.jsp
 Extracting  WEB-INF\applicationContext-knowledge.xml
 Extracting  WEB-INF\applicationContext-security.xml
 Extracting  WEB-INF\classes\com\chsi\knowledge\action\base\AjaxAction.class
@@ -63,17 +65,19 @@ Extracting  WEB-INF\classes\com\chsi\knowledge\action\search\SearchAction.class
 Extracting  WEB-INF\classes\com\chsi\knowledge\action\upload\UploadAction.class
 Extracting  WEB-INF\classes\com\chsi\knowledge\common\web\filter\KnowCallInfoFilter.class
 Extracting  WEB-INF\classes\com\chsi\knowledge\common\web\filter\LoginFilter.class
+Extracting  WEB-INF\classes\com\chsi\knowledge\htgl\action\KnowledgeAction.class
+Extracting  WEB-INF\classes\com\chsi\knowledge\htgl\action\SystemAction.class
+Extracting  WEB-INF\classes\com\chsi\knowledge\htgl\action\TagAction.class
 Extracting  WEB-INF\classes\com\chsi\knowledge\listener\QueueVisitThreadListener.class
-Extracting  WEB-INF\classes\com\chsi\knowledge\view\action\discuss\DiscussAction.class
-Extracting  WEB-INF\classes\com\chsi\knowledge\view\action\knowledge\KnowledgeAction.class
-Extracting  WEB-INF\classes\com\chsi\knowledge\view\action\tag\TagAction.class
+Extracting  WEB-INF\classes\com\chsi\knowledge\thread\QueueVisitThread.class
+Extracting  WEB-INF\classes\com\chsi\knowledge\view\action\DiscussAction.class
+Extracting  WEB-INF\classes\com\chsi\knowledge\view\action\KnowledgeAction.class
 Extracting  WEB-INF\classes\com\chsi\knowledge\web\util\AjaxMessage.class
-Extracting  WEB-INF\classes\com\chsi\knowledge\web\util\URLUtil.class
+Extracting  WEB-INF\classes\com\chsi\knowledge\web\util\SearchUtil.class
 Extracting  WEB-INF\classes\com\chsi\knowledge\web\util\WebAppUtil.class
 Extracting  WEB-INF\classes\struts-discuss.xml
 Extracting  WEB-INF\classes\struts-knowledge.xml
 Extracting  WEB-INF\classes\struts-search.xml
-Extracting  WEB-INF\classes\struts-tag.xml
 Extracting  WEB-INF\classes\struts-upload.xml
 Extracting  WEB-INF\classes\struts.xml
 Extracting  WEB-INF\jboss-web.xml
@@ -99,6 +103,12 @@ Extracting  WEB-INF\lib\tiles-jsp-2.0.6.jar
 Extracting  WEB-INF\lib\xalan-2.7.0.jar
 Extracting  WEB-INF\lib\xwork-core-2.3.15.2.chsi.jar
 Extracting  WEB-INF\tiles.xml
+Extracting  WEB-INF\tld\app.tld
+Extracting  WEB-INF\tld\c.tld
+Extracting  WEB-INF\tld\chsi-common.tld
+Extracting  WEB-INF\tld\chsi.tld
+Extracting  WEB-INF\tld\chsimsg.tld
+Extracting  WEB-INF\tld\fmt.tld
 Extracting  WEB-INF\web.xml
 Extracting  META-INF\maven
 Extracting  META-INF\maven\com.chsi
@@ -108,12 +118,12 @@ Extracting  META-INF\maven\com.chsi\chsi-knowledge-war\pom.properties
 
 Everything is Ok
 
-Folders: 34
-Files: 68
-Size:       7937988
-Compressed: 7007397
+Folders: 35
+Files: 77
+Size:       7976686
+Compressed: 7016979
 
-Kernel  Time =     0.062 =   34%
-User    Time =     0.109 =   59%
-Process Time =     0.171 =   93%    Virtual  Memory =      3 MB
-Global  Time =     0.183 =  100%    Physical Memory =      5 MB
+Kernel  Time =     0.109 =   58%
+User    Time =     0.062 =   33%
+Process Time =     0.171 =   92%    Virtual  Memory =      3 MB
+Global  Time =     0.186 =  100%    Physical Memory =      5 MB
