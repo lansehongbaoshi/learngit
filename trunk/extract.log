@@ -9,9 +9,6 @@ Extracting  common
 Extracting  css
 Extracting  css\_notes
 Extracting  error
-Extracting  htgl
-Extracting  htgl\knowledge
-Extracting  htgl\tag
 Extracting  js
 Extracting  layout
 Extracting  WEB-INF
@@ -35,9 +32,7 @@ Extracting  WEB-INF\classes\com\chsi\knowledge\view\action
 Extracting  WEB-INF\classes\com\chsi\knowledge\web
 Extracting  WEB-INF\classes\com\chsi\knowledge\web\util
 Extracting  WEB-INF\lib
-Extracting  WEB-INF\tld
 Extracting  common\knowledge.jsp
-Extracting  common\pageNavigator.jsp
 Extracting  css\base.css
 Extracting  css\bootstrap-ie6.min.css
 Extracting  css\bootstrap.min.css
@@ -51,11 +46,10 @@ Extracting  css\pic_style.css
 Extracting  css\webuploader.css
 Extracting  css\_notes\dwsync.xml
 Extracting  error\error.jsp
-Extracting  htgl\knowledge\knowledge.jsp
-Extracting  htgl\tag\tagList.jsp
 Extracting  js\jquery-1.11.1.min.js
 Extracting  js\selection.js
 Extracting  layout\modal.jsp
+Extracting  tempUpdate.jsp
 Extracting  upload.jsp
 Extracting  WEB-INF\applicationContext-knowledge.xml
 Extracting  WEB-INF\applicationContext-security.xml
@@ -103,12 +97,6 @@ Extracting  WEB-INF\lib\tiles-jsp-2.0.6.jar
 Extracting  WEB-INF\lib\xalan-2.7.0.jar
 Extracting  WEB-INF\lib\xwork-core-2.3.15.2.chsi.jar
 Extracting  WEB-INF\tiles.xml
-Extracting  WEB-INF\tld\app.tld
-Extracting  WEB-INF\tld\c.tld
-Extracting  WEB-INF\tld\chsi-common.tld
-Extracting  WEB-INF\tld\chsi.tld
-Extracting  WEB-INF\tld\chsimsg.tld
-Extracting  WEB-INF\tld\fmt.tld
 Extracting  WEB-INF\web.xml
 Extracting  META-INF\maven
 Extracting  META-INF\maven\com.chsi
@@ -118,12 +106,12 @@ Extracting  META-INF\maven\com.chsi\chsi-knowledge-war\pom.properties
 
 Everything is Ok
 
-Folders: 35
-Files: 77
-Size:       7976686
-Compressed: 7016979
+Folders: 31
+Files: 69
+Size:       7944770
+Compressed: 7010029
 
-Kernel  Time =     0.109 =   58%
-User    Time =     0.062 =   33%
-Process Time =     0.171 =   92%    Virtual  Memory =      3 MB
-Global  Time =     0.186 =  100%    Physical Memory =      5 MB
+Kernel  Time =     0.093 =   46%
+User    Time =     0.093 =   46%
+Process Time =     0.187 =   93%    Virtual  Memory =      3 MB
+Global  Time =     0.200 =  100%    Physical Memory =      5 MB

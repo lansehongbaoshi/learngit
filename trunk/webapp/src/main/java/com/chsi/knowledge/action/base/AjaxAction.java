@@ -26,7 +26,7 @@ public class AjaxAction extends BasicAction{
     protected void writeCallbackJSON(String callback) throws IOException{
         response.setHeader("P3P","CP='IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND CNT'");
         response.setContentType("text/plain;charset=UTF-8");
-        String json=null;
+        String json = null;
         if(ValidatorUtil.isNull(callback)){
             json = JSONObject.fromObject(ajaxMessage).toString();
         }else{

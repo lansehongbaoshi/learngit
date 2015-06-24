@@ -70,10 +70,11 @@ public class SearchUtil {
         List<SearchVO> searchList= new ArrayList<SearchVO>();
         SearchVO tempVO = null;
         String con = null;
+        int tempLength = 0 ;
         for(KnowledgeVO vo : listVO.getKnows()){
             vo.setContent(resultFilter(vo.getContent()));
-            length = vo.getContent().length() < length ? vo.getContent().length() : length;
-            con = vo.getContent().substring(0, length);
+            tempLength = vo.getContent().length() < length ? vo.getContent().length() : length;
+            con = vo.getContent().substring(0, tempLength) + "...";
             tempVO = new SearchVO(vo.getTitle(), con, vo.getKnowledgeId(), vo.getTagIds(), searchWords);
             searchList.add(tempVO);
         }

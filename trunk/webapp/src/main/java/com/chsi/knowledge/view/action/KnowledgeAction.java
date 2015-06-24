@@ -43,7 +43,31 @@ public class KnowledgeAction extends AjaxAction{
         writeCallbackJSON(callback);
     }
     
-    public String getKnowledge() throws Exception {
+    public void getKnowledge() throws Exception{
+        ViewKnowVO viewKnowVO = knowledgeService.getKnowVOById(id, tagId);
+        if (null == viewKnowVO)  {
+            ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
+        }else{
+            if (null != session.get(Constants.DISCUSS + id)){
+                viewKnowVO.getConKnow().setIfDiscussed(true);
+            }
+            //如果没访问过，向访问知识队列中插入ID
+            if (null == session.get(Constants.VISIT + id)) {
+                session.put(Constants.VISIT + id, id);
+                queueService.addVisitKnowledgeId(id);
+            }
+            ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
+            ajaxMessage.setO(viewKnowVO);
+        }
+        writeCallbackJSON(callback);
+    }
+    
+    /**
+     * 根据搜索结果访问知识
+     * @return
+     * @throws Exception
+     */
+    public String getKnowForSearch() throws Exception {
         ActionContext actionCon = ActionContext.getContext();
         ViewKnowVO viewKnowVO = knowledgeService.getKnowVOById(id, tagId);
         if (null == viewKnowVO) {
