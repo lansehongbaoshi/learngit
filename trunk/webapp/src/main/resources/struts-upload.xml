@@ -4,7 +4,7 @@
         "http://struts.apache.org/dtds/struts-2.0.dtd">
 <struts>
 
-    <package name="htgl" extends="knowledge-default" namespace="/htgl">
+    <package name="upload" extends="knowledge-default" namespace="/upload">
         <interceptors>
           <interceptor-stack name="knowledgeStack">
               <interceptor-ref name="chsiDefaultStack"></interceptor-ref>
@@ -23,11 +23,11 @@
                  <result name="success">/upload.jsp</result>
                  <result name="input">/upload.jsp</result>
         </action> 
-         -->   
+        
           <action name="updateStatus" class="uploadActionBean" method="updateStatus">
                  <result name="success">/upload.jsp</result>
                  <result name="input">/upload.jsp</result>
-        </action> 
+         </action>  -->   
     </package>
     
     

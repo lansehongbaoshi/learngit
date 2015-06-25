@@ -4,7 +4,7 @@
         "http://struts.apache.org/dtds/struts-2.0.dtd">
 <struts>
 
-    <package name="knowledge.search" extends="knowledge-default" namespace="/search">
+    <package name="search" extends="knowledge-default" namespace="/search">
         <interceptors>
           <interceptor-stack name="knowledgeStack">
               <interceptor-ref name="chsiDefaultStack"></interceptor-ref>
@@ -17,7 +17,6 @@
         <action name="searchAllKnow" class="searchActionBean" method="searchAllKnow"></action>
         <action name="refreshIndex" class="searchActionBean" method="refreshIndex"></action>
         <action name="deleteIndex" class="searchActionBean" method="deleteIndex"></action>
-       
     </package>
     
     
