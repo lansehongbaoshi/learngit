@@ -15,8 +15,6 @@
         </interceptors>
         <action name="quickSearchKnow" class="searchActionBean" method="quickSearchKnow"></action>
         <action name="searchAllKnow" class="searchActionBean" method="searchAllKnow"></action>
-        <action name="refreshIndex" class="searchActionBean" method="refreshIndex"></action>
-        <action name="deleteIndex" class="searchActionBean" method="deleteIndex"></action>
     </package>
     
     

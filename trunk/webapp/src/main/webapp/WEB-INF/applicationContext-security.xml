@@ -51,13 +51,13 @@
         <anonymous />
         <remember-me />
         <!--登录监测页面-->
-      <!--   <intercept-url pattern="/j_spring_cas_security_check" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+        <intercept-url pattern="/j_spring_cas_security_check" access="IS_AUTHENTICATED_ANONYMOUSLY" />
         
-        for inner used
         <intercept-url pattern="/htgl/admin/druid/**" access="ROLE_XLRZ_MODULE_ADMIN_MODIFY" />
 
-        <intercept-url pattern="/wb/**" access="ROLE_USER" />
-        <intercept-url pattern="/htgl/**" access="ROLE_USER" /> -->
+        <!--   <intercept-url pattern="/wb/**" access="ROLE_USER" />-->
+        <intercept-url pattern="/htgl/**" access="ROLE_CTI_USER,ROLE_CTI_MAIL_USER,ROLE_CTI_ADMIN_USER" /> 
+        <intercept-url pattern="/manage/**" access="ROLE_USER" /> 
 
         <!-- 公共资源-->
         <!-- <intercept-url pattern="/**" access="IS_AUTHENTICATED_ANONYMOUSLY" /> -->

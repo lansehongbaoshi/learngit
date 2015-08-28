@@ -6,7 +6,6 @@ import com.chsi.framework.util.ValidatorUtil;
 import com.chsi.knowledge.Constants;
 import com.chsi.knowledge.action.base.AjaxAction;
 import com.chsi.knowledge.index.service.KnowIndexService;
-import com.chsi.knowledge.pojo.KnowledgeData;
 import com.chsi.knowledge.service.KnowledgeService;
 import com.chsi.knowledge.service.SystemService;
 import com.chsi.knowledge.vo.KnowListVO;
@@ -59,23 +58,6 @@ public class SearchAction extends AjaxAction {
         writeCallbackJSON(callback);
     }
     
-    public void refreshIndex() throws Exception {
-        List<KnowledgeData> list = knowledgeService.get();
-        if (null != list) {
-            for (KnowledgeData temp : list) {
-                knowIndexService.updateKnowIndex(temp.getId());
-            }
-        }
-    }
-
-    public void deleteIndex() throws Exception {
-        List<KnowledgeData> list = knowledgeService.get();
-        if (null != list) {
-            for (KnowledgeData temp : list) {
-                knowIndexService.deleteKnowIndex(temp.getId());
-            }
-        }
-    }
 
     public KnowIndexService getKnowIndexService() {
         return knowIndexService;

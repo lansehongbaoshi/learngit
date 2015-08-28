@@ -11,7 +11,7 @@ import com.chsi.knowledge.pojo.KnowledgeData;
  */
 public interface KnowledgeDataDAO {
     
-    List<KnowledgeData> get();
+    List<KnowledgeData> get(String systemId);
 
     void save(KnowledgeData knowledgeData);
     

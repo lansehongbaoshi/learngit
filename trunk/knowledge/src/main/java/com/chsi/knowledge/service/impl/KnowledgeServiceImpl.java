@@ -110,6 +110,16 @@ public class KnowledgeServiceImpl extends BaseDbService implements KnowledgeServ
         ViewKnowVO knowPageVO = new ViewKnowVO(conKnow, navigation);
         return knowPageVO;
     }
+    
+    public KnowledgeData getKnowledgeCmsById(String id) {
+        KnowledgeData knowledgeData = getKnowledgeById(id);
+        if(knowledgeData!=null) {
+            CmsServiceClient cmsServiceClient = CmsServiceClientFactory.getCmsServiceClient();
+            Article article = cmsServiceClient.getArticle(knowledgeData.getCmsId());
+            knowledgeData.setArticle(article);
+        }
+        return knowledgeData;
+    }
 
     @Override
     public ViewKnowsVO getViewKnowsVO(SystemData system, String tagId, int start, int pageSize) {
@@ -186,8 +196,8 @@ public class KnowledgeServiceImpl extends BaseDbService implements KnowledgeServ
     }
 
     @Override
-    public List<KnowledgeData> get() {
-        return knowledgeDataDAO.get();
+    public List<KnowledgeData> get(String systemId) {
+        return knowledgeDataDAO.get(systemId);
     }
 
 }

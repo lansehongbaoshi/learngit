@@ -34,7 +34,11 @@ public class KnowledgeAction extends AjaxAction{
             ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
         } else {
             if (tagId != null && tagId.equals("normal")) {
-                tagId = tagService.getTagData(systemId, "常见问题").getId();
+                if("zb".equals(systemId)) {
+                    tagId = tagService.getTagData(systemId, "常见问题").getId();
+                } else if("yz_wb".equals(systemId)) {
+                    tagId = tagService.getTagData(systemId, "报名资格").getId();
+                }
             }
             ViewKnowsVO viewKnowsVO = knowledgeService.getViewKnowsVO(systemData, tagId, (curPage - 1) * Constants.PAGE_SIZE, Constants.PAGE_SIZE);
             ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);

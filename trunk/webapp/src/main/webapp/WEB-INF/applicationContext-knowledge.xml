@@ -13,7 +13,7 @@
 -->
     <!-- action beans -->
     <!--上传数据的ACTION  -->
-    <bean id="uploadActionBean"  class="com.chsi.knowledge.action.upload.UploadAction"  scope="request">
+    <bean id="uploadActionBean"  class="com.chsi.knowledge.manage.action.UploadAction"  scope="request">
         <property name="tagService" ref="tagService" />
         <property name="systemService" ref="systemService" />
         <property name="knowledgeService" ref="knowledgeService" />
@@ -39,5 +39,21 @@
         <property name="systemService" ref="systemService" />
         <property name="knowledgeService" ref="knowledgeService" />
     </bean> 
+    
+    <bean id="knowledgeActionBean"  class="com.chsi.knowledge.htgl.action.KnowledgeAction"  scope="request">
+        <property name="knowIndexService" ref="knowIndexService" />
+        <property name="knowledgeService" ref="knowledgeService" />
+        <property name="tagService" ref="tagService" />
+    </bean>
+    
+    <bean id="manageActionBean"  class="com.chsi.knowledge.manage.action.ManageAction"  scope="request">
+        <property name="knowIndexService" ref="knowIndexService" />
+        <property name="knowledgeService" ref="knowledgeService" />
+        <property name="tagService" ref="tagService" />
+    </bean>
+   
+    <bean id="systemActionBean"  class="com.chsi.knowledge.htgl.action.SystemAction"  scope="request">
+        <property name="systemService" ref="systemService" />
+    </bean>
    
 </beans>

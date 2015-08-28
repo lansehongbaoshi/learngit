@@ -15,6 +15,8 @@ public class KnowledgeDataDAOImpl extends BaseHibernateDAO implements KnowledgeD
     private static final String COUNT_KNOWTAGDATARELATION = "select count(p) from KnowTagRelationData p";
     private static final String UPDATE_KNOWLEDGEVISITCNT = "update KnowledgeData p set p.visitCnt=p.visitCnt+1";
     
+    private static final String SELECT_KNOWLEDGE_BY_SYSTEM = "select distinct p.knowledgeData from KnowTagRelationData p where p.tagData.systemData.id=:id";
+    
     private static final String W = " where ";
     private static final String A = " and ";
     private static final String ID = " p.id=:id";
@@ -59,9 +61,10 @@ public class KnowledgeDataDAOImpl extends BaseHibernateDAO implements KnowledgeD
 
     @SuppressWarnings("unchecked")
     @Override
-    public List<KnowledgeData> get() {
-        String hql = SELECT_KNOWLEDGE;
+    public List<KnowledgeData> get(String systemId) {
+        String hql = SELECT_KNOWLEDGE_BY_SYSTEM;
         Query query = hibernateUtil.getSession().createQuery(hql);
+        query.setString("id", systemId);
         List<KnowledgeData> list = query.list();
         return list;
     }

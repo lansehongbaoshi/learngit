@@ -39,4 +39,8 @@ public class Constants {
     public static final String DISCUSS = "discuss_";
     public static final String VISIT = "visit_";
     
+    public static final String SESSION_KNOWLEDGE = "SESSION_KNOWLEDGE";
+    
+    public static final String REQUEST_ERROR = "r_error";
+    public static final String ERRORURL = "/error/index.jsp";
 }

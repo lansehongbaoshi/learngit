@@ -11,6 +11,7 @@ import org.apache.struts2.interceptor.ServletResponseAware;
 import org.apache.struts2.interceptor.SessionAware;
 
 import com.chsi.framework.struts2.BasicSupportAction;
+import com.chsi.knowledge.vo.LoginUserVO;
 import com.chsi.knowledge.web.util.WebAppUtil;
 import com.opensymphony.xwork2.ActionContext;
 /**
@@ -28,6 +29,10 @@ public class BasicAction extends BasicSupportAction implements RequestAware,
 
     protected String getLoginedUserId() {
         return WebAppUtil.getUserId();
+    }
+    
+    protected LoginUserVO getLoginUserVO() {
+        return WebAppUtil.getLoginUserVO(httpRequest);
     }
 
     protected void rollbackTransaction(String message) {

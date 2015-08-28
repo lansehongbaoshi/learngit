@@ -78,8 +78,11 @@
             </interceptor-stack>
         </interceptors>
         <default-interceptor-ref name="chsiDefaultStack" />
-        <!-- <global-results> <result name="global.error">/error/error.jsp</result> 
-            <result name="global.exception">/error/error.jsp</result> </global-results> -->
+        <global-results> 
+            <result name="global.error">/error/error.jsp</result>
+            <result name="global.exception">/error/error.jsp</result>
+            <result name="error">/error/index.jsp</result>
+        </global-results>
 
         <!-- 程序中未捕获的异常，使用声明式异常处理 -->
         <!-- <global-exception-mappings> <exception-mapping result="global.exception" 
@@ -92,6 +95,7 @@
     </package>
 
     <include file="struts-knowledge.xml"></include>
-    <include file="struts-upload.xml"></include>
+    <include file="struts-manage.xml"></include>
     <include file="struts-search.xml"></include>
+    <include file="struts-htgl.xml"></include>
 </struts>

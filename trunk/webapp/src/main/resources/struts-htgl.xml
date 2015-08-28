@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+    <package name="htgl" extends="knowledge-default" namespace="/htgl">
+        <interceptors>
+          <interceptor-stack name="knowledgeStack">
+              <interceptor-ref name="chsiDefaultStack"></interceptor-ref>
+              <interceptor-ref name="store">
+                  <param name="operationMode">AUTOMATIC</param>
+              </interceptor-ref>
+          </interceptor-stack>
+        </interceptors>
+        <action name="modifyindex" class="knowledgeActionBean" method="modifyindex">
+            <result name="success" type="tiles">htgl.modify.index</result>
+        </action>
+        <action name="updateKnowledge" class="knowledgeActionBean" method="updateKnowledge">
+            <result name="success" type="redirect">/htgl/modifyindex.action?id=${id}&amp;tagId=${tagId}</result>
+        </action>
+        <action name="searchindex" class="knowledgeActionBean" method="searchindex">
+            <result name="success" type="tiles">htgl.search.index</result>
+        </action>
+        <action name="listSystem" class="systemActionBean" method="getSystems"></action>
+    </package>
+    
+</struts>

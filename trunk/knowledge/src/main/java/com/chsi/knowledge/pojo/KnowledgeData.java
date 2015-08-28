@@ -7,12 +7,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
 
 import com.chsi.framework.pojos.PersistentObject;
 import com.chsi.knowledge.dic.KnowledgeStatus;
+import com.chsi.news.vo.Article;
 
 /**
  * 知识表
@@ -35,6 +37,7 @@ public class KnowledgeData extends PersistentObject {
     private Calendar createTime;
     private String updater;
     private Calendar updateTime;
+    private Article article;
 
     public void setData(PersistentObject persistentObject) {
         KnowledgeData knowledgeData = (KnowledgeData) persistentObject;
@@ -164,6 +167,15 @@ public class KnowledgeData extends PersistentObject {
 
     public void setUpdateTime(Calendar updateTime) {
         this.updateTime = updateTime;
+    }
+
+    @Transient
+    public Article getArticle() {
+        return article;
+    }
+
+    public void setArticle(Article article) {
+        this.article = article;
     }
 
 }

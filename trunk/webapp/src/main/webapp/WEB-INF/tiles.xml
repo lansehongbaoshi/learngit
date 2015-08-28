@@ -28,8 +28,11 @@
     </definition>
     
     <!--后台管理页面  -->
+    <definition name="htgl.search.index" extends="htgl.knowledge.main" >
+        <put-attribute name="content" value="/htgl/search/index.jsp"/>
+    </definition>
+    <definition name="htgl.modify.index" extends="htgl.knowledge.main" >
+        <put-attribute name="content" value="/htgl/modify/index.jsp"/>
+    </definition>
     
-    
-    
-    
-    </tiles-definitions> 
+</tiles-definitions> 

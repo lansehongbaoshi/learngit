@@ -16,7 +16,7 @@ public interface KnowledgeService {
      * 取出所有的知识
      * @return
      */
-    List<KnowledgeData> get();
+    List<KnowledgeData> get(String systemId);
     /**
      * 保存知识并向CMS 中保存相关数据
      * @param knowledgeData
@@ -52,6 +52,8 @@ public interface KnowledgeService {
      * @return
      */
     ViewKnowVO getKnowVOById(String id, String tagId);
+    
+    KnowledgeData getKnowledgeCmsById(String id);
     
     /**
      * 根据系统ID、标签、状态、分页数据取得知识，同时从CMS中读取对应数据。
