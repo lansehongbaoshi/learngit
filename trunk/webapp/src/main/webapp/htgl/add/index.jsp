@@ -6,6 +6,18 @@ String ctxPath = request.getContextPath();
 <script type="text/javascript" src="<%=ctxPath%>/ckeditor/ckeditor.js"></script>
 <script>
 $(function(){
+    $.getJSON("/htgl/listSystem.action",
+        function showSystems(json){
+            if(json.flag=="true"){
+              var options = "";
+               for(var i=0;i<json.o.length;i++){
+                var option = json.o[i];
+                options+="<option value='"+option.id+"'>"+option.name+"</option>";
+               }
+               $("#systemIds").html(options);
+            }
+        }
+    );
   //编辑器
     CKEDITOR.replace( 'contentArea', {
         //extraPlugins: 'autogrow',
@@ -32,26 +44,21 @@ $(function(){
 	    $("#content").val(oEditor.getData());
 	    $("#myform").submit();
     })
-    $("#delBtn").click(function(){
-	   if(confirm("确定删除该知识点？")) {
-	       $("#mydelform").submit();
-	   }
-    })
 })
 </script>
-<form id="myform" action="<%=ctxPath%>/htgl/updateKnowledge.action" method="post" enctype="multipart/form-data">
-<input type="hidden" name="id" value="<s:property value="id" />">
+<form id="myform" action="<%=ctxPath%>/htgl/addKnowledge.action" method="post" enctype="multipart/form-data">
+系统：<select id="systemIds" name="systemId">
+</select>
 <input type="hidden" id="content" name="content" value="">
-<p>标题：<input id="title" type="text" name="title" style="width: 400px;" value="<s:property value="knowledgeData.article.title" />"></p>
+<p>标题：<input id="title" type="text" name="title" style="width: 400px;" value=""></p>
+<p>标签：<input id="tagName" type="text" name="tagName" style="width: 200px;" value=""></p>
+<p>关键字：<input id="keywords" type="text" name="keywords" style="width: 200px;" value=""></p>
+<p>热点度：<input id="sort" type="text" name="sort" style="width: 100px;" value=""></p>
 </form>
 <p>内容：</p>
 <p>
 <textarea cols="80"  id="contentArea" name="contentArea" style="display:none;" rows="20" class="">
-<s:property value="knowledgeData.article.content" />
+
 </textarea>
 </p>
-<input id="modifyBtn" type="button" value="修改">
-<form id="mydelform" action="<%=ctxPath%>/htgl/delKnowledge.action" method="post" enctype="multipart/form-data">
-<input type="hidden" name="id" value="<s:property value="id" />">
-<input id="delBtn" type="button" value="删除">
-</form>
+<input id="modifyBtn" type="button" value="新增">

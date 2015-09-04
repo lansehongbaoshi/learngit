@@ -32,6 +32,11 @@ public class KnowledgeDataDAOImpl extends BaseHibernateDAO implements KnowledgeD
     public void update(KnowledgeData knowledgeData) {
         hibernateUtil.update(knowledgeData);
     }
+    
+    @Override
+    public void delete(KnowledgeData knowledgeData) {
+        hibernateUtil.getSession().delete(knowledgeData);
+    }
 
     @SuppressWarnings("unchecked")
     @Override

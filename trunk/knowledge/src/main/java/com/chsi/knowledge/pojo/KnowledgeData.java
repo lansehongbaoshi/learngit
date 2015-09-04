@@ -37,7 +37,7 @@ public class KnowledgeData extends PersistentObject {
     private Calendar createTime;
     private String updater;
     private Calendar updateTime;
-    private Article article;
+    private Article article;//临时变量
 
     public void setData(PersistentObject persistentObject) {
         KnowledgeData knowledgeData = (KnowledgeData) persistentObject;

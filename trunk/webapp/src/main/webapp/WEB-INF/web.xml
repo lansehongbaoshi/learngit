@@ -122,7 +122,12 @@
     <filter-mapping>
         <filter-name>LoginFilter</filter-name>
         <url-pattern>/htgl/*</url-pattern>
-    </filter-mapping>  
+    </filter-mapping>
+    
+    <filter-mapping>
+        <filter-name>LoginFilter</filter-name>
+        <url-pattern>/manage/*</url-pattern>
+    </filter-mapping>
 
     <filter-mapping>
         <filter-name>StrutsPrepareFilter</filter-name>

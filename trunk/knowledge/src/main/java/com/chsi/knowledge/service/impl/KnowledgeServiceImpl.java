@@ -200,4 +200,9 @@ public class KnowledgeServiceImpl extends BaseDbService implements KnowledgeServ
         return knowledgeDataDAO.get(systemId);
     }
 
+    @Override
+    public void delete(KnowledgeData knowledgeData) {
+        knowledgeDataDAO.delete(knowledgeData);
+    }
+
 }

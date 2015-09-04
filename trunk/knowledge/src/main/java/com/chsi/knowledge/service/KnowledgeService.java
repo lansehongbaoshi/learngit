@@ -39,6 +39,7 @@ public interface KnowledgeService {
      */
     void update(KnowledgeData knowledgeData, String articleTitle, String articleContent, String updateBy);
     
+    void delete(KnowledgeData knowledgeData);
     
     
     /*后台service结束*/

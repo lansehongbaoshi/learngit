@@ -19,6 +19,13 @@
         <action name="updateKnowledge" class="knowledgeActionBean" method="updateKnowledge">
             <result name="success" type="redirect">/htgl/modifyindex.action?id=${id}&amp;tagId=${tagId}</result>
         </action>
+        <action name="addindex">
+            <result name="success" type="tiles">htgl.add.index</result>
+        </action>
+        <action name="addKnowledge" class="knowledgeActionBean" method="addKnowledge">
+        </action>
+        <action name="delKnowledge" class="knowledgeActionBean" method="delKnowledge">
+        </action>
         <action name="searchindex" class="knowledgeActionBean" method="searchindex">
             <result name="success" type="tiles">htgl.search.index</result>
         </action>

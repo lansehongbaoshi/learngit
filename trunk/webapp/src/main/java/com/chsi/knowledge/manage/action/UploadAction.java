@@ -32,6 +32,7 @@ import com.chsi.knowledge.service.KnowTagRelationService;
 import com.chsi.knowledge.service.KnowledgeService;
 import com.chsi.knowledge.service.SystemService;
 import com.chsi.knowledge.service.TagService;
+import com.chsi.knowledge.vo.LoginUserVO;
 import com.ibm.icu.text.DecimalFormat;
 import com.ibm.icu.text.SimpleDateFormat;
 /**
@@ -110,10 +111,12 @@ public class UploadAction extends AjaxAction {
                     tagData2 = t;
             }
             knowledgeData = new KnowledgeData(null, result[i][1], null, 0, Integer.parseInt(result[i][4]), 
-                                            KnowledgeStatus.YSH, "16a669296a704688b2cbf38fef310811", Calendar.getInstance(),
-                                            "16a669296a704688b2cbf38fef310811", Calendar.getInstance());
+                                            KnowledgeStatus.YSH, getLoginedUserId(), Calendar.getInstance(),
+                                            null, null);
+            
+            LoginUserVO loginUserVO = getLoginUserVO();
             //保存知识
-            knowledgeService.save(knowledgeData, result[i][2], result[i][3], "00", "16a669296a704688b2cbf38fef310811");
+            knowledgeService.save(knowledgeData, result[i][2], result[i][3], loginUserVO.getOrg().getCode(), getLoginedUserId());
             //保存知识与标签关系
             KnowTagRelationData knowTagRelationData = new KnowTagRelationData(null,knowledgeData,tagData2);
             knowTagRelationService.save(knowTagRelationData);

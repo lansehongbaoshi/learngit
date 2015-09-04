@@ -16,6 +16,8 @@ public interface KnowledgeDataDAO {
     void save(KnowledgeData knowledgeData);
     
     void update(KnowledgeData knowledgeData);
+    
+    void delete(KnowledgeData knowledgeData);
 
     KnowledgeData getKnowledgeById(String id);
     
