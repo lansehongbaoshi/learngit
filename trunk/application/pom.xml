@@ -402,7 +402,33 @@
                 <artifactId>jbosssx</artifactId>
             </exclusion>
         </exclusions>
-    </dependency>   
+    </dependency>
+    <dependency>
+        <groupId>org.owasp.antisamy</groupId>
+        <artifactId>antisamy</artifactId>
+        <version>${antisamy.version}</version>
+        <exclusions>
+            <exclusion>
+                <groupId>xml-apis</groupId>
+                <artifactId>xml-apis</artifactId>
+            </exclusion>
+            <exclusion>
+                <groupId>org.apache.xmlgraphics</groupId>
+                <artifactId>batik-css</artifactId>
+            </exclusion>
+        </exclusions>
+    </dependency>
+    <dependency>
+        <groupId>net.sourceforge.nekohtml</groupId>
+        <artifactId>nekohtml</artifactId>
+        <version>${nekohtml.version}</version>
+        <exclusions>
+            <exclusion>
+                <groupId>xerces</groupId>
+                <artifactId>xercesImpl</artifactId>
+            </exclusion>
+        </exclusions>
+    </dependency>
     <dependency>
         <groupId>com.chsi</groupId>
         <artifactId>chsi-knowledge-war</artifactId>
