@@ -18,6 +18,22 @@ $(function(){
             }
         }
     );
+    $("#systemIds").change(function(){
+    	$.getJSON("/view/getKnowledgeList.action?systemId="+$(this).val()+"&tagId=normal",
+  	        function showTags(json){
+  	            if(json.flag=="true"){
+  	              var options = "";
+  	              var viewTagVOs = json.o.viewTagVOs;
+  	               for(var i=0;i<viewTagVOs.length;i++){
+  	                var option = viewTagVOs[i];
+  	                options+="<option value='"+option.name+"'>"+option.description+"</option>";
+  	               }
+  	               $("#tagName").html(options);
+  	            }
+  	        }
+  	    );
+    });
+    
   //编辑器
     CKEDITOR.replace( 'contentArea', {
         //extraPlugins: 'autogrow',
@@ -51,7 +67,7 @@ $(function(){
 </select>
 <input type="hidden" id="content" name="content" value="">
 <p>标题：<input id="title" type="text" name="title" style="width: 400px;" value=""></p>
-<p>标签：<input id="tagName" type="text" name="tagName" style="width: 200px;" value=""></p>
+<p>标签：<select id="tagName" name="tagName"></select></p>
 <p>关键字：<input id="keywords" type="text" name="keywords" style="width: 200px;" value=""></p>
 <p>热点度：<input id="sort" type="text" name="sort" style="width: 100px;" value=""></p>
 </form>

@@ -1,6 +1,7 @@
 package com.chsi.knowledge.htgl.action;
 
 import java.util.Calendar;
+import java.util.List;
 
 import com.chsi.cms.client.CmsServiceClient;
 import com.chsi.cms.client.CmsServiceClientFactory;
@@ -171,10 +172,14 @@ public class KnowledgeAction extends BasicAction{
     }
     
     public String modifyindex() throws Exception{
-        if(!ValidatorUtil.isNull(id)) {
+        if(!ValidatorUtil.isNull(id)&&!ValidatorUtil.isNull(systemId)) {
             knowledgeData = knowledgeService.getKnowledgeCmsById(id);
             if (null != knowledgeData)  {
-                return SUCCESS;
+                List<KnowTagRelationData> list = knowTagRelationService.getKnowTagDatas(KnowledgeStatus.YSH, id);
+                if(list!=null&&list.size()>0) {
+                    tagName = list.get(0).getTagData().getName();
+                    return SUCCESS;
+                }
             }
             
         }
@@ -188,13 +193,28 @@ public class KnowledgeAction extends BasicAction{
     
     //更新某个知识点，包括更新系统内的knowledge表、新闻系统里的知识点以及搜索引擎的索引
     public String updateKnowledge() throws Exception {
-        if(!ValidatorUtil.isNull(id)&&!ValidatorUtil.isNull(title)&&!ValidatorUtil.isNull(content)) {
-            KnowledgeData data = knowledgeService.getKnowledgeById(id);
-            LoginUserVO loginUserVO = getLoginUserVO();
-            data.setUpdateTime(Calendar.getInstance());
-            data.setUpdater(getLoginedUserId());
-            knowledgeService.update(data, title, content, loginUserVO.getAcc().getId());
-            knowIndexService.updateKnowIndex(data.getId());
+        if(!ValidatorUtil.isNull(systemId)&&!ValidatorUtil.isNull(id)&&!ValidatorUtil.isNull(title)&&!ValidatorUtil.isNull(content)&&!ValidatorUtil.isNull(sort)&&!ValidatorUtil.isNull(tagName)) {
+            TagData tagData = tagService.getTagData(systemId, tagName);
+            if(tagData!=null) {
+                KnowledgeData data = knowledgeService.getKnowledgeById(id);
+                LoginUserVO loginUserVO = getLoginUserVO();
+                
+                data.setSort(Integer.parseInt(sort));
+                data.setUpdateTime(Calendar.getInstance());
+                data.setUpdater(getLoginedUserId());
+                
+                KnowTagRelationData knowTagRelationData = knowTagRelationService.getKnowTagRelationByKnowId(id, tagData.getId());
+                if(knowTagRelationData==null) {
+                    knowTagRelationService.del(id);
+                    KnowTagRelationData newKnowTagRelationData = new KnowTagRelationData();
+                    newKnowTagRelationData.setKnowledgeData(data);
+                    newKnowTagRelationData.setTagData(tagData);
+                    knowTagRelationService.save(newKnowTagRelationData);
+                }
+                
+                knowledgeService.update(data, title, content, loginUserVO.getAcc().getId());
+                knowIndexService.updateKnowIndex(data.getId());
+            }
         }
         return SUCCESS;
     }
@@ -204,20 +224,18 @@ public class KnowledgeAction extends BasicAction{
             SystemData system = systemService.getSystemById(systemId);
             if(system!=null) {
                 TagData tagData = tagService.getTagData(systemId, tagName);
-                if(tagData==null) {
-                    tagData = new TagData(null, system, tagName, tagName, 0);
-                    tagService.saveOrUpdate(tagData);
+                if(tagData!=null) {
+                    knowledgeData = new KnowledgeData(null, keywords, null, 0, Integer.parseInt(sort), 
+                            KnowledgeStatus.YSH, getLoginedUserId(), Calendar.getInstance(),
+                            null, null);
+                    LoginUserVO loginUserVO = getLoginUserVO();
+                    //保存知识
+                    knowledgeService.save(knowledgeData, title, content, loginUserVO.getOrg().getCode(), getLoginedUserId());
+                    //保存知识与标签关系
+                    KnowTagRelationData knowTagRelationData = new KnowTagRelationData(null, knowledgeData, tagData);
+                    knowTagRelationService.save(knowTagRelationData);
+                    knowIndexService.updateKnowIndex(knowledgeData.getId());
                 }
-                knowledgeData = new KnowledgeData(null, keywords, null, 0, Integer.parseInt(sort), 
-                        KnowledgeStatus.YSH, getLoginedUserId(), Calendar.getInstance(),
-                        null, null);
-                LoginUserVO loginUserVO = getLoginUserVO();
-                //保存知识
-                knowledgeService.save(knowledgeData, title, content, loginUserVO.getOrg().getCode(), getLoginedUserId());
-                //保存知识与标签关系
-                KnowTagRelationData knowTagRelationData = new KnowTagRelationData(null, knowledgeData, tagData);
-                knowTagRelationService.save(knowTagRelationData);
-                knowIndexService.updateKnowIndex(knowledgeData.getId());
             }
         }
     }

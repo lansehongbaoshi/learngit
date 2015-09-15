@@ -18,6 +18,8 @@ public class KnowTagRelationDataDAOImpl extends BaseHibernateDAO implements Know
     private static final String TAG_ID = " p.tagData.id=:tagId";
     private static final String KNOWLEDGE_KNOWLEDGESTATUS = " p.knowledgeData.knowledgeStatus=:knowledgeStatus";
     
+    private static final String DEL_RELATION = "delete from KnowTagRelationData p ";
+    
     private static final String ORDERBY_KNOWLEDGE_VISITCNT_SORT = " order by p.knowledgeData.visitCnt desc, p.knowledgeData.sort desc";
     @Override
     public void save(KnowTagRelationData knowTagRelationData) {
@@ -50,5 +52,12 @@ public class KnowTagRelationDataDAOImpl extends BaseHibernateDAO implements Know
         Query query = hibernateUtil.getSession().createQuery(hql).setInteger("knowledgeStatus", knowledgeStatus.getOrdinal()).setString("id", knowledgeId);
         List<KnowTagRelationData> list = query.list();
         return list;
+    }
+
+    @Override
+    public int del(String knowledgeId) {
+        Query query = hibernateUtil.getSession().createQuery(DEL_RELATION + W + KNOWLEDGE_ID);
+        query.setString("id", knowledgeId);
+        return query.executeUpdate();
     }
 }

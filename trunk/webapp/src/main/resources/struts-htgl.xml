@@ -17,7 +17,7 @@
             <result name="success" type="tiles">htgl.modify.index</result>
         </action>
         <action name="updateKnowledge" class="knowledgeActionBean" method="updateKnowledge">
-            <result name="success" type="redirect">/htgl/modifyindex.action?id=${id}&amp;tagId=${tagId}</result>
+            <result name="success" type="redirect">/htgl/modifyindex.action?id=${id}&amp;systemId=${systemId}</result>
         </action>
         <action name="addindex">
             <result name="success" type="tiles">htgl.add.index</result>

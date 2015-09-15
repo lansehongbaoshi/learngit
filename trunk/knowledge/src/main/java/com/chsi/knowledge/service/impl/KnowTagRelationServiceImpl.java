@@ -1,13 +1,15 @@
 package com.chsi.knowledge.service.impl;
 
+import java.util.List;
+
 import com.chsi.framework.service.BaseDbService;
 import com.chsi.knowledge.ServiceConstants;
 import com.chsi.knowledge.dao.KnowTagRelationDataDAO;
+import com.chsi.knowledge.dic.KnowledgeStatus;
 import com.chsi.knowledge.pojo.KnowTagRelationData;
 import com.chsi.knowledge.service.KnowTagRelationService;
 
 public class KnowTagRelationServiceImpl extends BaseDbService implements KnowTagRelationService{
-
     private KnowTagRelationDataDAO knowTagRelationDataDAO;
     
     @Override
@@ -24,6 +26,20 @@ public class KnowTagRelationServiceImpl extends BaseDbService implements KnowTag
     @Override
     public void save(KnowTagRelationData knowTagRelationData) {
         knowTagRelationDataDAO.save(knowTagRelationData);
+    }
+
+    @Override
+    public List<KnowTagRelationData> getKnowTagDatas(KnowledgeStatus knowledgeStatus, String knowledgeId) {
+        return knowTagRelationDataDAO.getKnowTagDatas(knowledgeStatus, knowledgeId);
+    }
+
+    public KnowTagRelationData getKnowTagRelationByKnowId(String knowledgeId, String tagId) {
+        return knowTagRelationDataDAO.getKnowTagRelationByKnowId(knowledgeId, tagId);
+    }
+
+    @Override
+    public int del(String knowledgeId) {
+        return knowTagRelationDataDAO.del(knowledgeId);
     }
     
 }

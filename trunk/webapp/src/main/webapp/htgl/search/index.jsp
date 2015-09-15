@@ -9,7 +9,7 @@ function showSearchResult(systemId,keywords,curPage) {
             var pagination = json.o.pagination;
             for(var i=0;i<knows.length;i++){
                 var k = knows[i];
-                var str = "<li><h3><a target='_blank' href='/htgl/modifyindex.action?id="+k.knowId+"'>"+k.title+"</a></h3><p>"+k.summary+"</p></li>";
+                var str = "<li><h3><a target='_blank' href='/htgl/modifyindex.action?id="+k.knowId+"&systemId="+systemId+"'>"+k.title+"</a></h3><p>"+k.summary+"</p></li>";
                 $("#search_result").append(str);
             }
             $("#search_result").append(formatP(pagination,systemId,keywords,curPage));

@@ -34,4 +34,6 @@ public interface KnowTagRelationDataDAO {
      List<KnowTagRelationData> getKnowTagDatas(KnowledgeStatus knowledgeStatus,String knowledgeId);
     
      void save(KnowTagRelationData knowledgeTagRelationData);
+     
+     int del(String knowledgeId);
 }
