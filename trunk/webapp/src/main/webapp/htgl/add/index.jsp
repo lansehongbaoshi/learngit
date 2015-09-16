@@ -49,6 +49,7 @@ $(function(){
         '/',
         { name: 'insert', items: [ 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar'] },
         { name: 'styles', items: [ 'Styles', 'Format', 'Font', 'FontSize' ] },
+        { name: 'links', items: [ 'Link', 'Unlink', 'Anchor' ] },
         { name: 'tools', items: [ 'Maximize' ] }
         ],
         // Remove the Resize plugin as it does not make sense to use it in conjunction with the AutoGrow plugin.
