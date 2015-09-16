@@ -17,6 +17,7 @@ import com.chsi.knowledge.service.KnowTagRelationService;
 import com.chsi.knowledge.service.KnowledgeService;
 import com.chsi.knowledge.service.SystemService;
 import com.chsi.knowledge.service.TagService;
+import com.chsi.knowledge.util.ManageCacheUtil;
 import com.chsi.knowledge.vo.LoginUserVO;
 import com.chsi.knowledge.vo.ViewKnowVO;
 
@@ -210,6 +211,7 @@ public class KnowledgeAction extends BasicAction{
                     newKnowTagRelationData.setKnowledgeData(data);
                     newKnowTagRelationData.setTagData(tagData);
                     knowTagRelationService.save(newKnowTagRelationData);
+                    ManageCacheUtil.removeKnowTag(tagData.getId());
                 }
                 
                 knowledgeService.update(data, title, content, loginUserVO.getAcc().getId());
@@ -235,6 +237,7 @@ public class KnowledgeAction extends BasicAction{
                     KnowTagRelationData knowTagRelationData = new KnowTagRelationData(null, knowledgeData, tagData);
                     knowTagRelationService.save(knowTagRelationData);
                     knowIndexService.updateKnowIndex(knowledgeData.getId());
+                    ManageCacheUtil.removeKnowTag(tagData.getId());
                 }
             }
         }
