@@ -9,33 +9,36 @@
     
     <!-- 用不到了 -->
      <!-- knowledge layout框架 -->
-   <definition name="htgl.knowledge.main" template="/layout/modal.jsp" >
+   <definition name="htgl.knowledge.admin" template="/layout/admin.jsp" >
+        <put-attribute name="title" value="知识库后台"/>
+    </definition>
+   <definition name="htgl.knowledge.modal" template="/layout/modal.jsp" >
         <put-attribute name="title" value="知识库"/>
     </definition>
     
    <!--  tag部分 -->
-    <definition name="htgl.tag.tagList" extends="htgl.knowledge.main" >
+    <definition name="htgl.tag.tagList" extends="htgl.knowledge.modal" >
         <put-attribute name="content" value="/htgl/tag/tagList.jsp"/>
     </definition>
     
     <!--knowledge部分  -->
-    <definition name="htgl.knowledge.knowledgeList" extends="htgl.knowledge.main" >
+    <definition name="htgl.knowledge.knowledgeList" extends="htgl.knowledge.modal" >
         <put-attribute name="content" value="/htgl/knowledge/knowledgeList.jsp"/>
     </definition>
     
-    <definition name="htgl.knowledge.knowledge" extends="htgl.knowledge.main" >
+    <definition name="htgl.knowledge.knowledge" extends="htgl.knowledge.modal" >
         <put-attribute name="content" value="/htgl/knowledge/knowledge.jsp"/>
     </definition>
     
     <!--后台管理页面  -->
-    <definition name="htgl.search.index" extends="htgl.knowledge.main" >
-        <put-attribute name="content" value="/htgl/search/index.jsp"/>
+    <definition name="htgl.search.index" extends="htgl.knowledge.admin" >
+        <put-attribute name="body" value="/htgl/search/index.jsp"/>
     </definition>
-    <definition name="htgl.modify.index" extends="htgl.knowledge.main" >
-        <put-attribute name="content" value="/htgl/modify/index.jsp"/>
+    <definition name="htgl.modify.index" extends="htgl.knowledge.admin" >
+        <put-attribute name="body" value="/htgl/modify/index.jsp"/>
     </definition>
-    <definition name="htgl.add.index" extends="htgl.knowledge.main" >
-        <put-attribute name="content" value="/htgl/add/index.jsp"/>
+    <definition name="htgl.add.index" extends="htgl.knowledge.admin" >
+        <put-attribute name="body" value="/htgl/add/index.jsp"/>
     </definition>
     
 </tiles-definitions> 
