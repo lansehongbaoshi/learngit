@@ -36,7 +36,7 @@ function formatP(pagination,systemId,keywords,curPage) {
     return htmlStr;
 }
 $(function(){
-    $.getJSON("/htgl/listSystem.action",
+    $.getJSON("/htgl/system/listSystem.action",
         function showSystems(json){
             if(json.flag=="true"){
               var options = "";

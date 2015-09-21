@@ -22,6 +22,9 @@ public class SystemAction extends AjaxAction{
     private String name;
     private String description;
     
+    private SystemData systemData;
+    private List<SystemData> systemDatas;
+    
     public SystemService getSystemService() {
         return systemService;
     }
@@ -54,6 +57,22 @@ public class SystemAction extends AjaxAction{
         this.description = description;
     }
 
+    public SystemData getSystemData() {
+        return systemData;
+    }
+
+    public void setSystemData(SystemData systemData) {
+        this.systemData = systemData;
+    }
+
+    public List<SystemData> getSystemDatas() {
+        return systemDatas;
+    }
+
+    public void setSystemDatas(List<SystemData> systemDatas) {
+        this.systemDatas = systemDatas;
+    }
+
     protected AjaxMessage ajaxMessage = new AjaxMessage();
     
     public void getSystems() throws Exception{
@@ -63,18 +82,38 @@ public class SystemAction extends AjaxAction{
         writeJSON(ajaxMessage);
     }
     
-    public String add() throws Exception {
-        if(!ValidatorUtil.isNull(name)){
+    public String listSystems() throws Exception{
+        systemDatas = systemService.getSystems();
+        return SUCCESS;
+    }
+    
+    public String updateIndex() throws Exception{
+        systemData = systemService.getSystemById(id);
+        if (null == systemData) {
+            request.put(Constants.REQUEST_ERROR, "未查到要更新的系统");
             return ERROR;
         }
-        SystemData data = new SystemData(null, name, description);
+        return SUCCESS;
+    }
+    
+    public String add() throws Exception {
+        if(ValidatorUtil.isNull(id) || ValidatorUtil.isNull(name)){
+            request.put(Constants.REQUEST_ERROR, "参数不能为空");
+            return ERROR;
+        }
+        SystemData data = new SystemData(id, name, description);
         systemService.save(data);
         return SUCCESS;
     }
     
     public String update() throws Exception {
+        if(ValidatorUtil.isNull(id) || ValidatorUtil.isNull(name)) {
+            request.put(Constants.REQUEST_ERROR, "id和name不能为空");
+            return ERROR;
+        }
         SystemData data = systemService.getSystemById(id);
-        if (null == data || !ValidatorUtil.isNull(name)) {
+        if (null == data) {
+            request.put(Constants.REQUEST_ERROR, "未查到要更新的系统");
             return ERROR;
         }
         data.setName(name);
@@ -82,7 +121,5 @@ public class SystemAction extends AjaxAction{
         systemService.update(data);
         return SUCCESS;
     }
-    
-    
 
 }

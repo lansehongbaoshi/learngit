@@ -57,5 +57,10 @@
     <bean id="systemActionBean"  class="com.chsi.knowledge.htgl.action.SystemAction"  scope="request">
         <property name="systemService" ref="systemService" />
     </bean>
+    
+    <bean id="tagActionBean"  class="com.chsi.knowledge.htgl.action.TagAction"  scope="request">
+        <property name="systemService" ref="systemService" />
+        <property name="tagService" ref="tagService" />
+    </bean>
    
 </beans>

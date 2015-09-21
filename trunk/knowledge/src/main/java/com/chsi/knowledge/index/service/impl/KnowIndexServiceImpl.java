@@ -24,6 +24,7 @@ import com.chsi.search.client.SearchServiceClientFactory;
 import com.chsi.search.client.vo.KnowledgeVO;
 import com.chsi.search.common.indexdata.KnowIndexData;
 import com.chsi.search.proto.SearchProtos;
+import com.chsi.search.type.QueueNameType;
 
 public class KnowIndexServiceImpl extends BaseDbService implements KnowIndexService {
 
@@ -44,7 +45,7 @@ public class KnowIndexServiceImpl extends BaseDbService implements KnowIndexServ
             SearchProtos.SearchIndexInfo indexInfo = builder.build();
             SearchServiceClient searchClient = SearchServiceClientFactory.getSearchServiceClient();
             MessageQueue knowQueue = searchClient.getQueue();
-            knowQueue.enqueue("knowindexdeleter_solr4", indexInfo.toByteArray());   //名称须与SOLR配置的queueName 相同
+            knowQueue.enqueue(QueueNameType.KNOW_INDEX_DELETER.toString(), indexInfo.toByteArray());   //名称须与SOLR配置的queueName 相同
         }
     }
 

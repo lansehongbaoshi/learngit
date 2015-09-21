@@ -6,6 +6,7 @@ import java.util.List;
 import com.chsi.cms.client.CmsServiceClient;
 import com.chsi.cms.client.CmsServiceClientFactory;
 import com.chsi.framework.util.ValidatorUtil;
+import com.chsi.knowledge.Constants;
 import com.chsi.knowledge.action.base.BasicAction;
 import com.chsi.knowledge.dic.KnowledgeStatus;
 import com.chsi.knowledge.index.service.KnowIndexService;
@@ -184,6 +185,7 @@ public class KnowledgeAction extends BasicAction{
             }
             
         }
+        request.put(Constants.REQUEST_ERROR, "参数不能为空");
         return ERROR;
     }
     
@@ -194,12 +196,13 @@ public class KnowledgeAction extends BasicAction{
     
     //更新某个知识点，包括更新系统内的knowledge表、新闻系统里的知识点以及搜索引擎的索引
     public String updateKnowledge() throws Exception {
-        if(!ValidatorUtil.isNull(systemId)&&!ValidatorUtil.isNull(id)&&!ValidatorUtil.isNull(title)&&!ValidatorUtil.isNull(content)&&!ValidatorUtil.isNull(sort)&&!ValidatorUtil.isNull(tagName)) {
+        if(!ValidatorUtil.isNull(systemId)&&!ValidatorUtil.isNull(id)&&!ValidatorUtil.isNull(title)&&!ValidatorUtil.isNull(content)&&!ValidatorUtil.isNull(sort)&&!ValidatorUtil.isNull(tagName)&&!ValidatorUtil.isNull(keywords)) {
             TagData tagData = tagService.getTagData(systemId, tagName);
             if(tagData!=null) {
                 KnowledgeData data = knowledgeService.getKnowledgeById(id);
                 LoginUserVO loginUserVO = getLoginUserVO();
                 
+                data.setKeywords(keywords);
                 data.setSort(Integer.parseInt(sort));
                 data.setUpdateTime(Calendar.getInstance());
                 data.setUpdater(getLoginedUserId());
@@ -216,12 +219,14 @@ public class KnowledgeAction extends BasicAction{
                 
                 knowledgeService.update(data, title, content, loginUserVO.getAcc().getId());
                 knowIndexService.updateKnowIndex(data.getId());
+                return SUCCESS;
             }
         }
-        return SUCCESS;
+        request.put(Constants.REQUEST_ERROR, "参数不能为空");
+        return ERROR;
     }
     
-    public void addKnowledge() throws Exception {
+    public String addKnowledge() throws Exception {
         if(!ValidatorUtil.isNull(systemId)&&!ValidatorUtil.isNull(keywords)&&!ValidatorUtil.isNull(title)&&!ValidatorUtil.isNull(content)&&!ValidatorUtil.isNull(tagName)&&!ValidatorUtil.isNull(sort)) {
             SystemData system = systemService.getSystemById(systemId);
             if(system!=null) {
@@ -238,18 +243,24 @@ public class KnowledgeAction extends BasicAction{
                     knowTagRelationService.save(knowTagRelationData);
                     knowIndexService.updateKnowIndex(knowledgeData.getId());
                     ManageCacheUtil.removeKnowTag(tagData.getId());
+                    return SUCCESS;
                 }
             }
         }
+        request.put(Constants.REQUEST_ERROR, "参数不能为空");
+        return ERROR;
     }
     
-    public void delKnowledge() throws Exception {
+    public String delKnowledge() throws Exception {
         if(!ValidatorUtil.isNull(id)) {
             KnowledgeData data = knowledgeService.getKnowledgeById(id);
             knowIndexService.deleteKnowIndex(data.getId());//删索引
             CmsServiceClient cmsServiceClient = CmsServiceClientFactory.getCmsServiceClient();
             cmsServiceClient.deleteArticle(data.getCmsId());//从新闻系统删除
             knowledgeService.delete(data);//从本系统删除
+            return SUCCESS;
         }
+        request.put(Constants.REQUEST_ERROR, "参数不能为空");
+        return ERROR;
     }
 }

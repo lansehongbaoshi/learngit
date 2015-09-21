@@ -14,22 +14,75 @@
           </interceptor-stack>
         </interceptors>
         <action name="modifyindex" class="knowledgeActionBean" method="modifyindex">
-            <result name="success" type="tiles">htgl.modify.index</result>
+            <result name="success" type="tiles">htgl.knowledge.modify.index</result>
         </action>
         <action name="updateKnowledge" class="knowledgeActionBean" method="updateKnowledge">
             <result name="success" type="redirect">/htgl/modifyindex.action?id=${id}&amp;systemId=${systemId}</result>
         </action>
         <action name="addindex">
-            <result name="success" type="tiles">htgl.add.index</result>
+            <result name="success" type="tiles">htgl.knowledge.add.index</result>
         </action>
         <action name="addKnowledge" class="knowledgeActionBean" method="addKnowledge">
         </action>
         <action name="delKnowledge" class="knowledgeActionBean" method="delKnowledge">
         </action>
         <action name="searchindex" class="knowledgeActionBean" method="searchindex">
-            <result name="success" type="tiles">htgl.search.index</result>
+            <result name="success" type="tiles">htgl.knowledge.search.index</result>
         </action>
-        <action name="listSystem" class="systemActionBean" method="getSystems"></action>
+    </package>
+    
+    <package name="htgl.system" extends="knowledge-default" namespace="/htgl/system">
+        <interceptors>
+          <interceptor-stack name="knowledgeStack">
+              <interceptor-ref name="chsiDefaultStack"></interceptor-ref>
+              <interceptor-ref name="store">
+                  <param name="operationMode">AUTOMATIC</param>
+              </interceptor-ref>
+          </interceptor-stack>
+        </interceptors>
+        <action name="listSystem" class="systemActionBean" method="getSystems"></action><!-- ajax -->
+        <action name="listSystems" class="systemActionBean" method="listSystems"><!-- not ajax -->
+            <result name="success" type="tiles">htgl.system.list</result>
+        </action>
+        <action name="updateSystemIndex" class="systemActionBean" method="updateIndex">
+            <result name="success" type="tiles">htgl.system.modify</result>
+        </action>
+        <action name="updateSystem" class="systemActionBean" method="update">
+            <result name="success" type="redirect">/htgl/system/listSystems.action</result>
+        </action>
+        <action name="addSystemIndex">
+            <result name="success" type="tiles">htgl.system.add</result>
+        </action>
+        <action name="addSystem" class="systemActionBean" method="add">
+            <result name="success" type="redirect">/htgl/system/listSystems.action</result>
+        </action>
+    </package>
+    
+    <package name="htgl.tag" extends="knowledge-default" namespace="/htgl/tag">
+        <interceptors>
+          <interceptor-stack name="knowledgeStack">
+              <interceptor-ref name="chsiDefaultStack"></interceptor-ref>
+              <interceptor-ref name="store">
+                  <param name="operationMode">AUTOMATIC</param>
+              </interceptor-ref>
+          </interceptor-stack>
+        </interceptors>
+        <action name="index">
+            <result name="success" type="tiles">htgl.tag.list</result>
+        </action>
+        <action name="list" class="tagActionBean" method="list"></action>
+        <action name="addIndex">
+            <result name="success" type="tiles">htgl.tag.add</result>
+        </action>
+        <action name="add" class="tagActionBean" method="add">
+            <result name="success" type="redirect">/htgl/tag/updateIndex.action?id=${id}&amp;</result>
+        </action>
+        <action name="updateIndex" class="tagActionBean" method="updateIndex">
+            <result name="success" type="tiles">htgl.tag.modify</result>
+        </action>
+        <action name="update" class="tagActionBean" method="update">
+            <result name="success" type="redirect">/htgl/tag/updateIndex.action?id=${id}&amp;</result>
+        </action>
     </package>
     
 </struts>
