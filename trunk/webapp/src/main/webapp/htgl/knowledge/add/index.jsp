@@ -40,6 +40,7 @@ $(function(){
         //autoGrow_maxHeight: 260,
         height: '300px',
         toolbar:  [
+		{ name: 'document', groups: [ 'mode'], items: [ 'Source'] },
         { name: 'basicstyles', groups: [ 'basicstyles' ], items: [ 'Bold', 'Italic', 'Underline', 'Strike'] },
         { name: 'cleanup', groups: [ 'cleanup' ], items: [ 'RemoveFormat' ]},
         { name: 'bidi', groups: [ 'bidi' ], items: [ 'BidiLtr', 'BidiRtl' ]},
@@ -47,7 +48,7 @@ $(function(){
         { name: 'align', groups: [ 'align' ], items: [ 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock' ]},
         { name: 'colors', items: [ 'TextColor', 'BGColor' ] },
         '/',
-        { name: 'insert', items: [ 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar'] },
+        { name: 'insert', items: [ 'Image', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar'] },
         { name: 'styles', items: [ 'Styles', 'Format', 'Font', 'FontSize' ] },
         { name: 'links', items: [ 'Link', 'Unlink', 'Anchor' ] },
         { name: 'tools', items: [ 'Maximize' ] }

@@ -23,6 +23,7 @@
             <result name="success" type="tiles">htgl.knowledge.add.index</result>
         </action>
         <action name="addKnowledge" class="knowledgeActionBean" method="addKnowledge">
+            <result name="success" type="redirect">/htgl/addindex.action</result>
         </action>
         <action name="delKnowledge" class="knowledgeActionBean" method="delKnowledge">
         </action>
