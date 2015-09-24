@@ -42,7 +42,7 @@
         </plugins>
     </build>
     <dependencies>
-         <!-- spring framework -->
+        <!-- spring framework -->
 
         <!-- chsi framework -->
         <dependency>
@@ -129,7 +129,7 @@
             <artifactId>itext-asian</artifactId>
             <version>${itext-asian.version}</version>
         </dependency>
-         
+
         <dependency>
             <groupId>com.chsi</groupId>
             <artifactId>chsi-memcachedclient</artifactId>
@@ -153,17 +153,13 @@
             <version>${ojdbc14.version}</version>
             <scope>provided</scope>
         </dependency>
-     
-         <dependency>
+
+        <dependency>
             <groupId>com.chsi</groupId>
             <artifactId>chsi-cms-client</artifactId>
             <version>${chsi-cms-client-version}</version>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>com.chsi</groupId>
-            <artifactId>chsi-search-client</artifactId>
-            <version>${chsi-search-client.version}</version>
-        </dependency>
+
     </dependencies>
 </project>
