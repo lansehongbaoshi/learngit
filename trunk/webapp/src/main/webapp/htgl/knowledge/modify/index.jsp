@@ -3,36 +3,16 @@
 <%
 String ctxPath = request.getContextPath();
 %>
-<script type="text/javascript" src="<%=ctxPath%>/ckeditor/ckeditor.js"></script>
+<link href="<%=ctxPath%>/umeditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" charset="utf-8" src="<%=ctxPath%>/umeditor/umeditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="<%=ctxPath%>/umeditor/umeditor.min.js"></script>
+<script type="text/javascript" src="<%=ctxPath%>/umeditor/lang/zh-cn/zh-cn.js"></script>
 <script>
 $(function(){
 	var tagName = "<s:property value='tagName'/>";
-  //编辑器
-    CKEDITOR.replace( 'contentArea', {
-        //extraPlugins: 'autogrow',
-        //autoGrow_maxHeight: 260,
-        height: '300px',
-        toolbar:  [
-		{ name: 'document', groups: [ 'mode'], items: [ 'Source'] },
-        { name: 'basicstyles', groups: [ 'basicstyles' ], items: [ 'Bold', 'Italic', 'Underline', 'Strike'] },
-        { name: 'cleanup', groups: [ 'cleanup' ], items: [ 'RemoveFormat' ]},
-        { name: 'bidi', groups: [ 'bidi' ], items: [ 'BidiLtr', 'BidiRtl' ]},
-        { name: 'list', groups: [ 'list', 'indent', 'blocks'], items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote']},
-        { name: 'align', groups: [ 'align' ], items: [ 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock' ]},
-        { name: 'colors', items: [ 'TextColor', 'BGColor' ] },
-        '/',
-        { name: 'insert', items: [ 'Image', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar'] },
-        { name: 'styles', items: [ 'Styles', 'Format', 'Font', 'FontSize' ] },
-        { name: 'links', items: [ 'Link', 'Unlink', 'Anchor' ] },
-        { name: 'tools', items: [ 'Maximize' ] }
-        ],
-        // Remove the Resize plugin as it does not make sense to use it in conjunction with the AutoGrow plugin.
-        removePlugins: 'elementspath'
-        //resize_enabled: false
-    });
     $("#modifyBtn").click(function(){
-	    var oEditor = CKEDITOR.instances.contentArea;
-	    $("#content").val(oEditor.getData());
+    	var html = editor.getContent();
+	    $("#content").val(html);
 	    $("#myform").submit();
     });
     $("#delBtn").click(function(){
@@ -66,13 +46,16 @@ $(function(){
 <p>热点度：<input id="" type="text" name="sort" style="width: 200px;" value="<s:property value="knowledgeData.sort" />">（说明：数值越大，排序越靠前）</p>
 </form>
 <p>内容：</p>
-<p>
-<textarea cols="80"  id="contentArea" name="contentArea" style="display:none;" rows="20" class="">
-<s:property value="knowledgeData.article.content" />
-</textarea>
-</p>
+<script type="text/plain" id="myEditor" style="width:1000px;height:240px;">
+<s:property value="knowledgeData.article.content" escape="false" />
+</script>
+<div class="clear"></div>
 <input id="modifyBtn" type="button" value="修改">
 <form id="mydelform" action="<%=ctxPath%>/htgl/delKnowledge.action" method="post" enctype="multipart/form-data">
 <input type="hidden" name="id" value="<s:property value="id" />">
 <input id="delBtn" type="button" value="删除">
 </form>
+<script type="text/javascript">
+   var editor = UM.getEditor('myEditor',{});
+   //editor.setContent('<s:property value="knowledgeData.article.content" />');
+</script>

@@ -3,7 +3,10 @@
 <%
 String ctxPath = request.getContextPath();
 %>
-<script type="text/javascript" src="<%=ctxPath%>/ckeditor/ckeditor.js"></script>
+<link href="<%=ctxPath%>/umeditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" charset="utf-8" src="<%=ctxPath%>/umeditor/umeditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="<%=ctxPath%>/umeditor/umeditor.min.js"></script>
+<script type="text/javascript" src="<%=ctxPath%>/umeditor/lang/zh-cn/zh-cn.js"></script>
 <script>
 $(function(){
     $.getJSON("/htgl/system/listSystem.action",
@@ -33,37 +36,14 @@ $(function(){
   	        }
   	    );
     });
-    
-  //编辑器
-    CKEDITOR.replace( 'contentArea', {
-        //extraPlugins: 'autogrow',
-        //autoGrow_maxHeight: 260,
-        height: '300px',
-        toolbar:  [
-		{ name: 'document', groups: [ 'mode'], items: [ 'Source'] },
-        { name: 'basicstyles', groups: [ 'basicstyles' ], items: [ 'Bold', 'Italic', 'Underline', 'Strike'] },
-        { name: 'cleanup', groups: [ 'cleanup' ], items: [ 'RemoveFormat' ]},
-        { name: 'bidi', groups: [ 'bidi' ], items: [ 'BidiLtr', 'BidiRtl' ]},
-        { name: 'list', groups: [ 'list', 'indent', 'blocks'], items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote']},
-        { name: 'align', groups: [ 'align' ], items: [ 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock' ]},
-        { name: 'colors', items: [ 'TextColor', 'BGColor' ] },
-        '/',
-        { name: 'insert', items: [ 'Image', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar'] },
-        { name: 'styles', items: [ 'Styles', 'Format', 'Font', 'FontSize' ] },
-        { name: 'links', items: [ 'Link', 'Unlink', 'Anchor' ] },
-        { name: 'tools', items: [ 'Maximize' ] }
-        ],
-        // Remove the Resize plugin as it does not make sense to use it in conjunction with the AutoGrow plugin.
-        removePlugins: 'elementspath'
-        //resize_enabled: false
-    });
     $("#modifyBtn").click(function(){
-	    var oEditor = CKEDITOR.instances.contentArea;
-	    $("#content").val(oEditor.getData());
+    	var html = editor.getContent();
+	    $("#content").val(html);
 	    $("#myform").submit();
-    })
+    });
 })
 </script>
+<div>
 <form id="myform" action="<%=ctxPath%>/htgl/addKnowledge.action" method="post" enctype="multipart/form-data">
 系统：<select id="systemIds" name="systemId">
 </select>
@@ -72,11 +52,11 @@ $(function(){
 <p>标签：<select id="tagName" name="tagName"></select></p>
 <p>关键字：<input id="keywords" type="text" name="keywords" style="width: 200px;" value=""></p>
 <p>热点度：<input id="sort" type="text" name="sort" style="width: 100px;" value=""></p>
-</form>
-<p>内容：</p>
-<p>
-<textarea cols="80"  id="contentArea" name="contentArea" style="display:none;" rows="20" class="">
-
-</textarea>
-</p>
-<input id="modifyBtn" type="button" value="新增">
+</form></div>
+<script type="text/plain" id="myEditor" style="width:1000px;height:240px;">
+</script>
+<div class="clear"></div>
+<div><input id="modifyBtn" type="button" value="新增"></div>
+<script type="text/javascript">
+   var editor = UM.getEditor('myEditor',{});
+</script>
