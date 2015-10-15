@@ -57,5 +57,4 @@ $(function(){
 </form>
 <script type="text/javascript">
    var editor = UM.getEditor('myEditor',{});
-   //editor.setContent('<s:property value="knowledgeData.article.content" />');
 </script>

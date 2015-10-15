@@ -25,6 +25,7 @@
         <property name="knowledgeService" ref="knowledgeService" />
         <property name="systemService" ref="systemService" />
         <property name="tagService" ref="tagService" />
+        <property name="knowTagRelationService" ref="knowTagRelationService" />
     </bean>
     
     <bean id="discussViewActionBean"  class="com.chsi.knowledge.view.action.DiscussAction"  scope="request">

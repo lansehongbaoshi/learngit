@@ -54,6 +54,11 @@ public interface KnowledgeService {
      */
     ViewKnowVO getKnowVOById(String id, String tagId);
     
+    /**
+     * 查询知识点内容（）
+     * @param id
+     * @return
+     */
     KnowledgeData getKnowledgeCmsById(String id);
     
     /**

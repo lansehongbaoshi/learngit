@@ -1,8 +1,13 @@
 package com.chsi.knowledge.view.action;
 
+import java.util.List;
+
 import com.chsi.knowledge.Constants;
 import com.chsi.knowledge.action.base.AjaxAction;
+import com.chsi.knowledge.pojo.KnowTagRelationData;
+import com.chsi.knowledge.pojo.KnowledgeData;
 import com.chsi.knowledge.pojo.SystemData;
+import com.chsi.knowledge.service.KnowTagRelationService;
 import com.chsi.knowledge.service.KnowledgeService;
 import com.chsi.knowledge.service.QueueService;
 import com.chsi.knowledge.service.ServiceFactory;
@@ -22,11 +27,14 @@ public class KnowledgeAction extends AjaxAction{
     private TagService tagService;
     private QueueService queueService = ServiceFactory.getQueueService();
     private SystemService systemService;
+    private KnowTagRelationService knowTagRelationService;
     private String id;
     private String systemId;
     private String tagId;
     private int curPage;   
     private String callback;
+    List<KnowTagRelationData>  ktrDatas;
+    KnowledgeData kData;
 
     public void getKnowledgeList() throws Exception{
         SystemData systemData = systemService.getSystemById(systemId);
@@ -89,6 +97,13 @@ public class KnowledgeAction extends AjaxAction{
         return SUCCESS;
     }
     
+    //后台查看知识点
+    public String viewKnowledge() throws Exception {
+        ktrDatas = knowTagRelationService.getKnowTagRelationByKnowId(id);
+        kData = knowledgeService.getKnowledgeCmsById(id);
+        return SUCCESS;
+    }
+    
     public void setCallback(String callback) {
         this.callback = callback;
     }
@@ -97,12 +112,28 @@ public class KnowledgeAction extends AjaxAction{
         return callback;
     }
     
+    public List<KnowTagRelationData> getKtrDatas() {
+        return ktrDatas;
+    }
+
+    public void setKtrDatas(List<KnowTagRelationData> ktrDatas) {
+        this.ktrDatas = ktrDatas;
+    }
+
     public KnowledgeService getKnowledgeService() {
         return knowledgeService;
     }
 
     public void setKnowledgeService(KnowledgeService knowledgeService) {
         this.knowledgeService = knowledgeService;
+    }
+
+    public KnowTagRelationService getKnowTagRelationService() {
+        return knowTagRelationService;
+    }
+
+    public void setKnowTagRelationService(KnowTagRelationService knowTagRelationService) {
+        this.knowTagRelationService = knowTagRelationService;
     }
 
     public QueueService getQueueService() {
@@ -159,6 +190,14 @@ public class KnowledgeAction extends AjaxAction{
 
     public void setTagService(TagService tagService) {
         this.tagService = tagService;
+    }
+
+    public KnowledgeData getKData() {
+        return kData;
+    }
+
+    public void setKData(KnowledgeData kData) {
+        this.kData = kData;
     }
      
     

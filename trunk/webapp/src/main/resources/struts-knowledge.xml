@@ -18,6 +18,9 @@
         <action name="getKnowForSearch" class="knowledgeViewActionBean" method="getKnowForSearch">
             <result name="success">/common/knowledge.jsp</result>
         </action>
+        <action name="viewKnowledge" class="knowledgeViewActionBean" method="viewKnowledge">
+            <result name="success">/common/viewknowledge.jsp</result>
+        </action>
         <action name="discuss" class="discussViewActionBean" method="discuss"></action>
     </package>
     

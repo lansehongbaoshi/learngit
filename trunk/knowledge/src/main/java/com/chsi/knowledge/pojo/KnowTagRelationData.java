@@ -78,4 +78,7 @@ public class KnowTagRelationData extends PersistentObject {
         this.tagData = tagData;
     }
     
+    public String toString() {
+        return this.tagData.getName();
+    }
 }
