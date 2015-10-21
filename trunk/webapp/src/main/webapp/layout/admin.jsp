@@ -41,6 +41,15 @@
 		<script src="/assets/js/html5shiv.min.js"></script>
 		<script src="/assets/js/respond.min.js"></script>
 		<![endif]-->
+		
+		<!--[if !IE]> -->
+		<script src="/assets/js/jquery.2.1.1.min.js"></script>
+
+		<!-- <![endif]-->
+
+		<!--[if IE]>
+<script src="/assets/js/jquery.1.11.1.min.js"></script>
+<![endif]-->
 	</head>
 <body class="no-skin">
 <jsp:include page="/common/admin/header.jsp" flush="false" />
@@ -74,14 +83,7 @@
 
 		<!-- basic scripts -->
 
-		<!--[if !IE]> -->
-		<script src="/assets/js/jquery.2.1.1.min.js"></script>
-
-		<!-- <![endif]-->
-
-		<!--[if IE]>
-<script src="/assets/js/jquery.1.11.1.min.js"></script>
-<![endif]-->
+		
 
 		<!--[if !IE]> -->
 		<script type="text/javascript">
