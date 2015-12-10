@@ -24,28 +24,30 @@ import com.chsi.knowledge.vo.ViewKnowVO;
 
 /**
  * 知识后台管理ACTION
+ * 
  * @author zhangzh
  */
-public class KnowledgeAction extends BasicAction{
+public class KnowledgeAction extends BasicAction {
     private String id;
     private String tagId;
     private String keywords;
-    private String tagName;
+    private String[] tagName;
     private String title;
     private String content;
     private String sort;
-    
+
     private String systemId;
-    
+
     private ViewKnowVO viewKnowVO;
     private KnowledgeData knowledgeData;
+    private List<KnowTagRelationData> knowTagRelationList;
 
     private KnowledgeService knowledgeService;
     private KnowIndexService knowIndexService;
     private TagService tagService;
     private SystemService systemService;
     private KnowTagRelationService knowTagRelationService;
-    
+
     public String getId() {
         return id;
     }
@@ -85,7 +87,7 @@ public class KnowledgeAction extends BasicAction{
     public void setContent(String content) {
         this.content = content;
     }
-    
+
     public String getSort() {
         return sort;
     }
@@ -94,11 +96,11 @@ public class KnowledgeAction extends BasicAction{
         this.sort = sort;
     }
 
-    public String getTagName() {
+    public String[] getTagName() {
         return tagName;
     }
 
-    public void setTagName(String tagName) {
+    public void setTagName(String[] tagName) {
         this.tagName = tagName;
     }
 
@@ -124,6 +126,14 @@ public class KnowledgeAction extends BasicAction{
 
     public void setKnowledgeData(KnowledgeData knowledgeData) {
         this.knowledgeData = knowledgeData;
+    }
+
+    public List<KnowTagRelationData> getKnowTagRelationList() {
+        return knowTagRelationList;
+    }
+
+    public void setKnowTagRelationList(List<KnowTagRelationData> knowTagRelationList) {
+        this.knowTagRelationList = knowTagRelationList;
     }
 
     public KnowledgeService getKnowledgeService() {
@@ -168,96 +178,92 @@ public class KnowledgeAction extends BasicAction{
 
     private static final long serialVersionUID = 464316546L;
 
-    
-    public String searchindex() throws Exception{
+    public String searchindex() throws Exception {
         return SUCCESS;
     }
-    
-    public String modifyindex() throws Exception{
-        if(!ValidatorUtil.isNull(id)&&!ValidatorUtil.isNull(systemId)) {
+
+    public String modifyindex() throws Exception {
+        if (!ValidatorUtil.isNull(id) && !ValidatorUtil.isNull(systemId)) {
             knowledgeData = knowledgeService.getKnowledgeCmsById(id);
-            if (null != knowledgeData)  {
-                List<KnowTagRelationData> list = knowTagRelationService.getKnowTagDatas(KnowledgeStatus.YSH, id);
-                if(list!=null&&list.size()>0) {
-                    tagName = list.get(0).getTagData().getName();
+            if (null != knowledgeData) {
+                knowTagRelationList = knowTagRelationService.getKnowTagDatas(KnowledgeStatus.YSH, id);
+                if (knowTagRelationList != null && knowTagRelationList.size() > 0) {
                     return SUCCESS;
                 }
             }
-            
+
         }
         request.put(Constants.REQUEST_ERROR, "参数不能为空");
         return ERROR;
     }
-    
-    public String getKnow() throws Exception{
-        
+
+    public String getKnow() throws Exception {
+
         return null;
     }
-    
-    //更新某个知识点，包括更新系统内的knowledge表、新闻系统里的知识点以及搜索引擎的索引
+
+    // 更新某个知识点，包括更新系统内的knowledge表、新闻系统里的知识点以及搜索引擎的索引
     public String updateKnowledge() throws Exception {
-        if(!ValidatorUtil.isNull(systemId)&&!ValidatorUtil.isNull(id)&&!ValidatorUtil.isNull(title)&&!ValidatorUtil.isNull(content)&&!ValidatorUtil.isNull(sort)&&!ValidatorUtil.isNull(tagName)&&!ValidatorUtil.isNull(keywords)) {
-            TagData tagData = tagService.getTagData(systemId, tagName);
-            if(tagData!=null) {
-                KnowledgeData data = knowledgeService.getKnowledgeById(id);
-                LoginUserVO loginUserVO = getLoginUserVO();
-                
-                data.setKeywords(keywords);
-                data.setSort(Integer.parseInt(sort));
-                data.setUpdateTime(Calendar.getInstance());
-                data.setUpdater(getLoginedUserId());
-                
-                KnowTagRelationData knowTagRelationData = knowTagRelationService.getKnowTagRelationByKnowId(id, tagData.getId());
-                if(knowTagRelationData==null) {
-                    knowTagRelationService.del(id);
+        if (!ValidatorUtil.isNull(systemId) && !ValidatorUtil.isNull(id) && !ValidatorUtil.isNull(title) && !ValidatorUtil.isNull(content) && !ValidatorUtil.isNull(sort) && tagName != null && tagName.length > 0 && !ValidatorUtil.isNull(keywords)) {
+            knowTagRelationService.del(id);
+            for (String one : tagName) {
+                TagData tagData = tagService.getTagData(systemId, one);
+                if (tagData != null) {
+                    KnowledgeData data = knowledgeService.getKnowledgeById(id);
+                    LoginUserVO loginUserVO = getLoginUserVO();
+
+                    data.setKeywords(keywords);
+                    data.setSort(Integer.parseInt(sort));
+                    data.setUpdateTime(Calendar.getInstance());
+                    data.setUpdater(getLoginedUserId());
+
                     KnowTagRelationData newKnowTagRelationData = new KnowTagRelationData();
                     newKnowTagRelationData.setKnowledgeData(data);
                     newKnowTagRelationData.setTagData(tagData);
                     knowTagRelationService.save(newKnowTagRelationData);
                     ManageCacheUtil.removeKnowTag(tagData.getId());
+
+                    knowledgeService.update(data, title, content, loginUserVO.getAcc().getId());
+                    knowIndexService.updateKnowIndex(data.getId());
                 }
-                
-                knowledgeService.update(data, title, content, loginUserVO.getAcc().getId());
-                knowIndexService.updateKnowIndex(data.getId());
-                return SUCCESS;
             }
+            return SUCCESS;
         }
         request.put(Constants.REQUEST_ERROR, "参数不能为空");
         return ERROR;
     }
-    
+
     public String addKnowledge() throws Exception {
-        if(!ValidatorUtil.isNull(systemId)&&!ValidatorUtil.isNull(keywords)&&!ValidatorUtil.isNull(title)&&!ValidatorUtil.isNull(content)&&!ValidatorUtil.isNull(tagName)&&!ValidatorUtil.isNull(sort)) {
-            SystemData system = systemService.getSystemById(systemId);
-            if(system!=null) {
-                TagData tagData = tagService.getTagData(systemId, tagName);
-                if(tagData!=null) {
-                    knowledgeData = new KnowledgeData(null, keywords, null, 0, Integer.parseInt(sort), 
-                            KnowledgeStatus.YSH, getLoginedUserId(), Calendar.getInstance(),
-                            null, null);
-                    LoginUserVO loginUserVO = getLoginUserVO();
-                    //保存知识
-                    knowledgeService.save(knowledgeData, title, content, loginUserVO.getOrg().getCode(), getLoginedUserId());
-                    //保存知识与标签关系
-                    KnowTagRelationData knowTagRelationData = new KnowTagRelationData(null, knowledgeData, tagData);
-                    knowTagRelationService.save(knowTagRelationData);
-                    knowIndexService.updateKnowIndex(knowledgeData.getId());
-                    ManageCacheUtil.removeKnowTag(tagData.getId());
-                    return SUCCESS;
+        if (!ValidatorUtil.isNull(systemId) && !ValidatorUtil.isNull(keywords) && !ValidatorUtil.isNull(title) && !ValidatorUtil.isNull(content) && tagName != null && tagName.length > 0 && !ValidatorUtil.isNull(sort)) {
+            LoginUserVO loginUserVO = getLoginUserVO();
+            // 保存知识
+            knowledgeData = new KnowledgeData(null, keywords, null, 0, Integer.parseInt(sort), KnowledgeStatus.YSH, getLoginedUserId(), Calendar.getInstance(), null, null);
+            knowledgeService.save(knowledgeData, title, content, loginUserVO.getOrg().getCode(), getLoginedUserId());
+            for (String one : tagName) {
+                SystemData system = systemService.getSystemById(systemId);
+                if (system != null) {
+                    TagData tagData = tagService.getTagData(systemId, one);
+                    if (tagData != null) {
+                        // 保存知识与标签关系
+                        KnowTagRelationData knowTagRelationData = new KnowTagRelationData(null, knowledgeData, tagData);
+                        knowTagRelationService.save(knowTagRelationData);
+                    }
                 }
             }
+            knowIndexService.updateKnowIndex(knowledgeData.getId());
+            return SUCCESS;
         }
         request.put(Constants.REQUEST_ERROR, "参数不能为空");
         return ERROR;
     }
-    
+
     public String delKnowledge() throws Exception {
-        if(!ValidatorUtil.isNull(id)) {
+        if (!ValidatorUtil.isNull(id)) {
             KnowledgeData data = knowledgeService.getKnowledgeById(id);
-            knowIndexService.deleteKnowIndex(data.getId());//删索引
+            knowIndexService.deleteKnowIndex(data.getId());// 删索引
             CmsServiceClient cmsServiceClient = CmsServiceClientFactory.getCmsServiceClient();
-            cmsServiceClient.deleteArticle(data.getCmsId());//从新闻系统删除
-            knowledgeService.delete(data);//从本系统删除
+            cmsServiceClient.deleteArticle(data.getCmsId());// 从新闻系统删除
+            knowledgeService.delete(data);// 从本系统删除
             return SUCCESS;
         }
         request.put(Constants.REQUEST_ERROR, "参数不能为空");

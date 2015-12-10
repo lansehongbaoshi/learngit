@@ -9,7 +9,10 @@ String ctxPath = request.getContextPath();
 <script type="text/javascript" src="<%=ctxPath%>/umeditor/lang/zh-cn/zh-cn.js"></script>
 <script>
 $(function(){
-	var tagName = "<s:property value='tagName'/>";
+	var tagName = "";
+	<s:iterator value="knowTagRelationList" id="knowTagRelation">
+	tagName+='<s:property value="tagData.name"/>';
+	</s:iterator>
     $("#modifyBtn").click(function(){
     	var html = editor.getContent();
 	    $("#content").val(html);
@@ -27,8 +30,8 @@ $(function(){
               var viewTagVOs = json.o.viewTagVOs;
                for(var i=0;i<viewTagVOs.length;i++){
                 var option = viewTagVOs[i];
-                var selected = tagName.indexOf(option.name)>-1?"selected='true'":"";
-                options+="<option value='"+option.name+"' "+selected+">"+option.description+"</option>";
+                var selected = tagName.indexOf(option.name)>-1?"checked='checked'":"";
+                options+="<input type='checkbox' name='tagName' value='"+option.name+"' "+selected+">"+option.description+"&nbsp;&nbsp;";
                }
                $("#tag").html(options);
             }
@@ -41,7 +44,7 @@ $(function(){
 <input type="hidden" name="systemId" value="<s:property value="systemId" />">
 <input type="hidden" id="content" name="content" value="">
 <p>标题：<input id="title" type="text" name="title" style="width: 400px;" value="<s:property value="knowledgeData.article.title" />"></p>
-<p>标签：<select id="tag" name="tagName"></select></p>
+<p>标签：<span id="tag"></span></p>
 <p>关键字：<input id="keywords" type="text" name="keywords" style="width: 200px;" value="<s:property value="knowledgeData.keywords" />"></p>
 <p>热点度：<input id="" type="text" name="sort" style="width: 200px;" value="<s:property value="knowledgeData.sort" />">（说明：数值越大，排序越靠前）</p>
 </form>
