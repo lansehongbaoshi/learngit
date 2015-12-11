@@ -248,7 +248,7 @@
 
                                     <li>
                                         <a href="#" class="clearfix">
-                                            <img src="assets/avatars/avatar5.png" class="msg-photo" alt="Fred's Avatar" />
+                                            <img src="/assets/avatars/avatar5.png" class="msg-photo" alt="Fred's Avatar" />
                                             <span class="msg-body">
 													<span class="msg-title">
 														<span class="blue">Fred:</span> Vestibulum id penatibus et auctor ...
