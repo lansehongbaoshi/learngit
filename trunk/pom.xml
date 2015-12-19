@@ -190,6 +190,7 @@
         <chsi-cachecfg-remote.version>1.2.0</chsi-cachecfg-remote.version>
         <chsi-account-client.version>1.2.6</chsi-account-client.version>
         <chsi-jedisha.version>1.1</chsi-jedisha.version>
+        <chsi-lobdb-client-version>1.0.2-SNAPSHOT</chsi-lobdb-client-version>
         <spymemcached.version>2.11.4</spymemcached.version>
         <protobuf-java.version>2.0.1</protobuf-java.version>
         <aspectjrt.version>1.6.1</aspectjrt.version>

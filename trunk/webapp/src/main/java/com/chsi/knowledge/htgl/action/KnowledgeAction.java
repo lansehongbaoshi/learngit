@@ -7,7 +7,7 @@ import com.chsi.cms.client.CmsServiceClient;
 import com.chsi.cms.client.CmsServiceClientFactory;
 import com.chsi.framework.util.ValidatorUtil;
 import com.chsi.knowledge.Constants;
-import com.chsi.knowledge.action.base.BasicAction;
+import com.chsi.knowledge.action.base.AjaxAction;
 import com.chsi.knowledge.dic.KnowledgeStatus;
 import com.chsi.knowledge.index.service.KnowIndexService;
 import com.chsi.knowledge.pojo.KnowTagRelationData;
@@ -21,13 +21,14 @@ import com.chsi.knowledge.service.TagService;
 import com.chsi.knowledge.util.ManageCacheUtil;
 import com.chsi.knowledge.vo.LoginUserVO;
 import com.chsi.knowledge.vo.ViewKnowVO;
+import com.chsi.knowledge.web.util.AjaxMessage;
 
 /**
  * 知识后台管理ACTION
  * 
  * @author zhangzh
  */
-public class KnowledgeAction extends BasicAction {
+public class KnowledgeAction extends AjaxAction {
     private String id;
     private String tagId;
     private String keywords;
@@ -47,6 +48,8 @@ public class KnowledgeAction extends BasicAction {
     private TagService tagService;
     private SystemService systemService;
     private KnowTagRelationService knowTagRelationService;
+    
+    protected AjaxMessage ajaxMessage = new AjaxMessage();
 
     public String getId() {
         return id;
@@ -257,16 +260,18 @@ public class KnowledgeAction extends BasicAction {
         return ERROR;
     }
 
-    public String delKnowledge() throws Exception {
+    public void delKnowledge() throws Exception {
         if (!ValidatorUtil.isNull(id)) {
             KnowledgeData data = knowledgeService.getKnowledgeById(id);
             knowIndexService.deleteKnowIndex(data.getId());// 删索引
             CmsServiceClient cmsServiceClient = CmsServiceClientFactory.getCmsServiceClient();
             cmsServiceClient.deleteArticle(data.getCmsId());// 从新闻系统删除
             knowledgeService.delete(data);// 从本系统删除
-            return SUCCESS;
+            ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
+        } else {
+            ajaxMessage.addMessage("id不能为空！");
+            ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
         }
-        request.put(Constants.REQUEST_ERROR, "参数不能为空");
-        return ERROR;
+        writeJSON(ajaxMessage);;
     }
 }

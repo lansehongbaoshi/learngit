@@ -101,6 +101,12 @@
             <version>${chsi-account-client.version}</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>com.chsi</groupId>
+            <artifactId>chsi-lobdb-client</artifactId>
+            <version>${chsi-lobdb-client-version}</version>
+            <scope>provided</scope>
+        </dependency>
 
         <!-- jexcelapi -->
         <dependency>

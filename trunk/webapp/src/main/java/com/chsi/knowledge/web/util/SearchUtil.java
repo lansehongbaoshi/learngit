@@ -6,6 +6,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.chsi.framework.util.ValidatorUtil;
+import com.chsi.knowledge.pojo.KnowledgeData;
+import com.chsi.knowledge.service.KnowledgeService;
+import com.chsi.knowledge.service.ServiceFactory;
 import com.chsi.knowledge.vo.KnowListVO;
 import com.chsi.knowledge.vo.SearchVO;
 import com.chsi.search.client.vo.KnowledgeVO;
@@ -71,12 +74,16 @@ public class SearchUtil {
         SearchVO tempVO = null;
         String con = null;
         int tempLength = 0 ;
+        KnowledgeService knowledgeService = ServiceFactory.getKnowledgeService();
         for(KnowledgeVO vo : listVO.getKnows()){
             vo.setContent(resultFilter(vo.getContent()));
             tempLength = vo.getContent().length() < length ? vo.getContent().length() : length;
             con = vo.getContent().substring(0, tempLength) + "...";
-            tempVO = new SearchVO(vo.getTitle(), con, vo.getKnowledgeId(), vo.getTagIds(), searchWords);
-            searchList.add(tempVO);
+            KnowledgeData data = knowledgeService.getKnowledgeById(vo.getKnowledgeId());
+            if(data!=null) {
+                tempVO = new SearchVO(vo.getTitle(), con, vo.getKnowledgeId(), vo.getTagIds(), searchWords, data.getVisitCnt());
+                searchList.add(tempVO);
+            }
         }
         return searchList;
     }

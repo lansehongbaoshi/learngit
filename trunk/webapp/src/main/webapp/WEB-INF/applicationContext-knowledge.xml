@@ -64,4 +64,8 @@
         <property name="tagService" ref="tagService" />
     </bean>
    
+    <bean id="fileActionBean"  class="com.chsi.knowledge.file.action.FileAction"  scope="request">
+        <property name="fileService" ref="fileService" />
+    </bean>
+   
 </beans>

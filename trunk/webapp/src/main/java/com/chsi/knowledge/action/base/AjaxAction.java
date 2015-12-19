@@ -16,6 +16,13 @@ public class AjaxAction extends BasicAction{
     private static final long serialVersionUID = 21231231L;
     protected AjaxMessage ajaxMessage = new AjaxMessage();
     
+    protected void writePlainJSON(Object obj) throws IOException{
+        response.setHeader("P3P","CP='IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND CNT'");
+        response.setContentType("text/plain;charset=UTF-8");
+        response.getWriter().print(JSONObject.fromObject(obj).toString());
+        response.getWriter().flush();
+    }
+    
     protected void writeJSON(AjaxMessage msg) throws IOException{
         response.setHeader("P3P","CP='IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND CNT'");
         response.setContentType("text/plain;charset=UTF-8");

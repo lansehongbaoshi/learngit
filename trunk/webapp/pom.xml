@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.chsi</groupId>
@@ -14,12 +15,12 @@
         <developerConnection>scm:svn:https://svn.chsi.com.cn/svn/repos/chsicommunity/knowledge/trunk/webapp</developerConnection>
     </scm>
     <dependencies>
-        
+
         <dependency>
-                <groupId>javaee</groupId>
-                <artifactId>javaee-api</artifactId>
-                <version>${javaee-api.version}</version>
-                <scope>provided</scope>
+            <groupId>javaee</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>${javaee-api.version}</version>
+            <scope>provided</scope>
         </dependency>
         <!-- Apache common -->
         <dependency>
@@ -46,7 +47,7 @@
             <version>${commons-validator.version}</version>
             <scope>provided</scope>
         </dependency>
-        
+
         <!-- JSTL -->
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -76,13 +77,8 @@
             <version>${ezmorph.version}</version>
             <scope>provided</scope>
         </dependency>
-        <!-- Servletapi 
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>${servlet-api.version}</version>
-        </dependency>
-        -->
+        <!-- Servletapi <dependency> <groupId>javax.servlet</groupId> <artifactId>servlet-api</artifactId> 
+            <version>${servlet-api.version}</version> </dependency> -->
         <!-- Hibernate related -->
         <dependency>
             <groupId>antlr</groupId>
@@ -113,7 +109,7 @@
             <version>${asm.version}</version>
         </dependency>
         <!-- Struts -->
-    <dependency>
+        <dependency>
             <groupId>org.apache.struts</groupId>
             <artifactId>struts2-core</artifactId>
             <version>${struts2-core.version}</version>
@@ -140,7 +136,7 @@
                 </exclusion>
                 <exclusion>
                     <groupId>org.apache.struts.xwork</groupId>
-                <artifactId>xwork-core</artifactId>
+                    <artifactId>xwork-core</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -316,27 +312,35 @@
             <artifactId>ognl</artifactId>
             <version>${ognl.version}</version>
             <exclusions>
-              <exclusion>
+                <exclusion>
                     <groupId>javassist</groupId>
                     <artifactId>javassist</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
-        <!--2.4.1-->
+        <!--2.4.1 -->
 
-    <dependency>
-        <groupId>org.jasig.cas</groupId>      
-        <artifactId>cas-client-core</artifactId>    
-        <version>${cas-client-core.version}</version><!-- 3.1.3 -->
-    </dependency>
-    
-    <dependency>
-      <groupId>com.chsi</groupId>
-      <artifactId>chsi-account-client</artifactId>
-      <version>${chsi-account-client.version}</version>
-      <scope>provided</scope>     
-    </dependency>
-    <dependency>
+        <dependency>
+            <groupId>org.jasig.cas</groupId>
+            <artifactId>cas-client-core</artifactId>
+            <version>${cas-client-core.version}</version><!-- 3.1.3 -->
+        </dependency>
+
+        <dependency>
+            <groupId>com.chsi</groupId>
+            <artifactId>chsi-account-client</artifactId>
+            <version>${chsi-account-client.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.chsi</groupId>
+            <artifactId>chsi-lobdb-client</artifactId>
+            <version>${chsi-lobdb-client-version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi</artifactId>
             <version>${poi.version}</version>
@@ -354,49 +358,49 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        
-         <dependency>
+
+        <dependency>
             <groupId>org.apache.xmlbeans</groupId>
             <artifactId>xmlbeans</artifactId>
             <version>${xmlbeans.version}</version>
             <scope>provided</scope>
         </dependency>
-    <!-- for it test resource info -->
+        <!-- for it test resource info -->
 
-    <dependency>
+        <dependency>
             <groupId>com.chsi</groupId>
             <artifactId>chsi-util</artifactId>
-             <version>${chsi-util.version}</version>
+            <version>${chsi-util.version}</version>
             <scope>provided</scope>
-    </dependency>
-    <dependency>
-         <groupId>com.chsi</groupId>      
-         <artifactId>chsi-commonutil-client</artifactId>    
-         <version>${chsi-commonutil-client.version}</version>
-         <scope>provided</scope>
-         <exclusions>
-             <exclusion>
-                 <artifactId>solr-solrj</artifactId>
-                 <groupId>org.apache.solr</groupId>
-             </exclusion>
-         </exclusions>
-    </dependency>
-    <!-- jexcelapi -->
-    <dependency>
-         <groupId>com.chsi</groupId>      
-         <artifactId>jxl</artifactId>    
-         <version>${jxl.version}</version>
-         <scope>provided</scope>
-    </dependency>
-        
+        </dependency>
+        <dependency>
+            <groupId>com.chsi</groupId>
+            <artifactId>chsi-commonutil-client</artifactId>
+            <version>${chsi-commonutil-client.version}</version>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <artifactId>solr-solrj</artifactId>
+                    <groupId>org.apache.solr</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!-- jexcelapi -->
+        <dependency>
+            <groupId>com.chsi</groupId>
+            <artifactId>jxl</artifactId>
+            <version>${jxl.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
         <!-- Chsi -->
         <dependency>
             <groupId>com.chsi</groupId>
             <artifactId>chsi-framework</artifactId>
             <version>${chsi-framework.version}</version>
             <scope>provided</scope>
-        </dependency>    
-         
+        </dependency>
+
         <dependency>
             <groupId>com.chsi</groupId>
             <artifactId>chsi-memcachedclient</artifactId>
@@ -441,37 +445,37 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        
-    <dependency>
-        <groupId>com.chsi</groupId>
-        <artifactId>chsi-knowledge</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
-        <scope>provided</scope>
-    </dependency>
-    <dependency>
-        <groupId>com.chsi</groupId>
-        <artifactId>chsi-cms-client</artifactId>
-        <version>${chsi-cms-client-version}</version>
-        <scope>provided</scope>
-    </dependency>
-    <dependency>
-        <groupId>com.chsi</groupId>
-        <artifactId>chsi-cms</artifactId>
-        <version>${chsi-cms.version}</version>
-        <scope>provided</scope>
-    </dependency>
-    
-  </dependencies>
+
+        <dependency>
+            <groupId>com.chsi</groupId>
+            <artifactId>chsi-knowledge</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.chsi</groupId>
+            <artifactId>chsi-cms-client</artifactId>
+            <version>${chsi-cms-client-version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.chsi</groupId>
+            <artifactId>chsi-cms</artifactId>
+            <version>${chsi-cms.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+    </dependencies>
     <build>
         <plugins>
             <plugin>
-                 <groupId>org.apache.maven.plugins</groupId>
-                 <artifactId>maven-compiler-plugin</artifactId>
-                 <configuration>
-                     <source>1.5</source>
-                     <target>1.5</target>
-                     <encoding>UTF-8</encoding>
-                 </configuration>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.5</source>
+                    <target>1.5</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

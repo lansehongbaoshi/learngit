@@ -58,6 +58,32 @@ public class SearchAction extends AjaxAction {
         writeCallbackJSON(callback);
     }
     
+    public void quickAll() throws Exception {
+        keywords = SearchUtil.keywordsFilter(keywords);
+        if (ValidatorUtil.isNull(keywords)) {
+            ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
+        } else {
+            ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
+            KnowListVO<KnowledgeVO> listVO = knowIndexService.searchKnow(keywords, (curPage - 1) * Constants.SEARCH_PAGE_SIZE, Constants.SEARCH_PAGE_SIZE);
+            ajaxMessage.setO(SearchUtil.exchangeResultList(listVO, keywords, 14));
+        }
+        writeCallbackJSON(callback);
+    }
+    
+    public void allSearch() throws Exception {
+        keywords = SearchUtil.keywordsFilter(keywords);
+        if (ValidatorUtil.isNull(keywords)) {
+            ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
+        } else {
+            ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
+            KnowListVO<KnowledgeVO> listVO = knowIndexService.searchKnow(keywords, (curPage - 1) * Constants.PAGE_SIZE, Constants.PAGE_SIZE);
+            List<SearchVO> list = SearchUtil.exchangeResultList(listVO, keywords, 40);
+            KnowListVO<SearchVO> result = new KnowListVO<SearchVO>(list, listVO.getPagination());
+            ajaxMessage.setO(result);
+        }
+        writeCallbackJSON(callback);
+    }
+    
 
     public KnowIndexService getKnowIndexService() {
         return knowIndexService;

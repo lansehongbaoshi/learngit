@@ -73,6 +73,7 @@ public class KnowIndexServiceImpl extends BaseDbService implements KnowIndexServ
         index.setSystemId(relation.get(0).getTagData().getSystemData().getId());
         index.setTagIds(tagIds);
         index.setTags(tags);
+        index.setSort(know.getSort());
         return index;
     }
 
@@ -83,6 +84,18 @@ public class KnowIndexServiceImpl extends BaseDbService implements KnowIndexServ
             start = 0;
         }
         Page<KnowledgeVO> page = searchClient.searchKnow(keywords, systemId, start, pageSize);
+        Pagination pagination = new Pagination(page.getTotalCount(), page.getPageCount(), page.getCurPage());
+        KnowListVO<KnowledgeVO> knowListVO = new KnowListVO<KnowledgeVO>(page.getList(), pagination);
+        return knowListVO;
+    }
+
+    @Override
+    public KnowListVO<KnowledgeVO> searchKnow(String keywords, int start, int pageSize) {
+        SearchServiceClient searchClient = SearchServiceClientFactory.getSearchServiceClient();
+        if (start < 0) {
+            start = 0;
+        }
+        Page<KnowledgeVO> page = searchClient.searchKnow(keywords, start, pageSize);
         Pagination pagination = new Pagination(page.getTotalCount(), page.getPageCount(), page.getCurPage());
         KnowListVO<KnowledgeVO> knowListVO = new KnowListVO<KnowledgeVO>(page.getList(), pagination);
         return knowListVO;

@@ -10,6 +10,7 @@ public class ServiceConstants {
     public static final String TAGDATA_DAO = "tagDataDAO";
     public static final String SYSTEMDATA_DAO = "systemDataDAO";
     public static final String KNOWTAGRELATIONDATA_DAO  = "knowTagRelationDataDAO";
+    public static final String FILE_DAO  = "fileDAO";
     
     
     //SERVICE层

@@ -27,9 +27,9 @@
                 <interceptor-ref name="scopedModelDriven" />
                 <interceptor-ref name="modelDriven" />
                 <interceptor-ref name="fileUpload">
-                    <param name="allowedTypes">image/jpeg,image/pjpeg,image/png,application/vnd.ms-excel</param>
-                    <param name="allowedExtensions">jpg,jpeg,jpe,jfif,png,xls,xlsx</param>
-                    <param name="maximumSize">52428800</param> <!--50M -->
+                    <param name="allowedTypes">image/jpeg,image/pjpeg,image/png,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document</param>
+                    <param name="allowedExtensions">jpg,jpeg,jpe,jfif,png,xls,xlsx,doc,docx</param>
+                    <param name="maximumSize">5242880</param> <!--5M -->
                 </interceptor-ref>
                 <interceptor-ref name="checkbox" />
                 <interceptor-ref name="actionMappingParams" />
@@ -98,4 +98,5 @@
     <include file="struts-manage.xml"></include>
     <include file="struts-search.xml"></include>
     <include file="struts-htgl.xml"></include>
+    <include file="struts-file.xml"></include>
 </struts>

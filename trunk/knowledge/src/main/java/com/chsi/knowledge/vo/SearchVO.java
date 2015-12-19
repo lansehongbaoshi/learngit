@@ -14,13 +14,15 @@ public class SearchVO {
     private String knowId;
     private String keywords;
     private List<String> tagIds;
+    private int visitCnt;
     
-    public SearchVO(String title, String summary, String knowId, List<String> tagIds, String keywords){
+    public SearchVO(String title, String summary, String knowId, List<String> tagIds, String keywords, int visitCnt){
         this.title = title;
         this.summary = summary;
         this.knowId = knowId;
         this.tagIds = tagIds;
         this.keywords = keywords;
+        this.visitCnt = visitCnt;
     }
 
     public String getTitle() {
@@ -61,6 +63,14 @@ public class SearchVO {
 
     public void setTagIds(List<String> tagIds) {
         this.tagIds = tagIds;
+    }
+
+    public int getVisitCnt() {
+        return visitCnt;
+    }
+
+    public void setVisitCnt(int visitCnt) {
+        this.visitCnt = visitCnt;
     }
 
     

@@ -1,4 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%
+String ctxPath = request.getContextPath();
+%>
     <!--breadcrumbs-->
 
     <div class="breadcrumbs" id="breadcrumbs">
@@ -125,7 +128,7 @@
                         for (var i = 0; i < knows.length; i++) {
                             var k = knows[i];
                             var odd_even = (i%2==0)?"even":"odd";
-                            var str = " <tr role=\"row\" class=\""+odd_even+"\"><td><a target='_blank' href='/view/viewKnowledge.action?id=" + k.knowId + "'>" + k.title + "</a></td><td class=\"hidden-260\">" + k.summary + "</td><td class=\"hidden-80\">--</td><td class=\hidden-80\><span class=\"label label-sm label-success\">已发布</span></td><td><div class=\"hidden-sm hidden-xs action-buttons\"><a class=\"blue\" href=\"#\"> <i class=\"ace-icon fa fa-search-plus bigger-130\"></i> </a> <a class=\"green\" title=\"修改\" target='_blank' href='/htgl/modifyindex.action?id=" + k.knowId +"&systemId=" + systemId + "'><i class=\"ace-icon fa fa-pencil bigger-130\"></i> </a> <a title=\"删除\" class=\"red\" href=\"#\"> <i class=\"ace-icon fa fa-trash-o bigger-130\"></i> </a></div>" + "</td></tr>";
+                            var str = " <tr role=\"row\" data-id="+k.knowId+" class=\""+odd_even+"\"><td><a target='_blank' href='/view/viewKnowledge.action?id=" + k.knowId + "'>" + k.title + "</a></td><td class=\"hidden-260\">" + k.summary + "</td><td class=\"hidden-80\">"+k.visitCnt+"</td><td class=\hidden-80\><span class=\"label label-sm label-success\">已发布</span></td><td><div class=\"hidden-sm hidden-xs action-buttons\"><a class=\"blue\" href=\"#\"> <i class=\"ace-icon fa fa-search-plus bigger-130\"></i> </a> <a class=\"green\" title=\"修改\" target='_blank' href='/htgl/modifyindex.action?id=" + k.knowId +"&systemId=" + systemId + "'><i class=\"ace-icon fa fa-pencil bigger-130\"></i> </a> <a title=\"删除\" class=\"red delBtn\" href=\"#\"> <i class=\"ace-icon fa fa-trash-o bigger-130\"></i> </a></div>" + "</td></tr>";
                             $("#search_result").append(str);
                         }
                         $("#search_table_header").html("搜索 \“"+knows[0].keywords +"\” 的结果").show();
@@ -171,6 +174,25 @@
             );
             $("#searchBtn").click(function () {
                 showSearchResult($("#systemIds").val(), $("#keywords").val(), 0);
-            })
+            });
+            $(document).on("click",".delBtn",function() {
+            	if(confirm("删除后将不可恢复，确定删除该知识点？")) {
+            		var $tr = $(this).closest("tr");
+	            	var knowId = $tr.data("id");
+	            	$.getJSON(
+            			"<%=ctxPath%>/htgl/delKnowledge.action",
+            			{id:knowId},
+            			function(data){
+            				if(data.flag=='true') {
+            					alert("删除成功");
+            					$tr.remove();
+            				} else {
+            					var errMsg = data.errorMessages.pop();
+            					alert(errMsg);
+            				}
+            			}
+	            	)
+            	}
+            });
         })
     </script>

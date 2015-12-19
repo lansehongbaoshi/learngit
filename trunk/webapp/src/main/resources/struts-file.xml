@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+    <package name="file" extends="knowledge-default" namespace="/file">
+        <interceptors>
+          <interceptor-stack name="knowledgeStack">
+              <interceptor-ref name="chsiDefaultStack"></interceptor-ref>
+              <interceptor-ref name="store">
+                  <param name="operationMode">AUTOMATIC</param>
+              </interceptor-ref>
+          </interceptor-stack>
+        </interceptors>
+        <action name="*" class="fileActionBean" method="getfile"></action>
+    </package>
+    
+</struts>

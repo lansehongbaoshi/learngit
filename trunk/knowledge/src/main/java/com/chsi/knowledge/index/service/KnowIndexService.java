@@ -14,5 +14,22 @@ public interface KnowIndexService {
    
    void updateKnowIndex(String knowledgeId);
    
+   /**
+    * 限定系统搜索
+    * @param keywords
+    * @param systemId
+    * @param start
+    * @param pageSize
+    * @return
+    */
    KnowListVO<KnowledgeVO> searchKnow(String keywords, String systemId, int start, int pageSize);
+   
+   /**
+    * 不限系统搜索
+    * @param keywords
+    * @param start
+    * @param pageSize
+    * @return
+    */
+   KnowListVO<KnowledgeVO> searchKnow(String keywords, int start, int pageSize);
 }

@@ -233,6 +233,11 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <dependency>
+            <groupId>com.chsi</groupId>
+            <artifactId>chsi-lobdb-client</artifactId>
+            <version>${chsi-lobdb-client-version}</version>
+        </dependency>
 
         <dependency>
             <groupId>com.chsi</groupId>

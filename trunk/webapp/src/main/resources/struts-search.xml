@@ -15,9 +15,7 @@
         </interceptors>
         <action name="quickSearchKnow" class="searchActionBean" method="quickSearchKnow"></action>
         <action name="searchAllKnow" class="searchActionBean" method="searchAllKnow"></action>
+        <action name="all" class="searchActionBean" method="allSearch"></action>
     </package>
-    
-    
-    
     
 </struts>
