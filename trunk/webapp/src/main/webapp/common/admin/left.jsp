@@ -50,11 +50,26 @@
 
 				
 
-					
+					<li class="">
+						<a href="/htgl/system/listSystems">
+							<i class="menu-icon fa fa-desktop"></i>
+							<span class="menu-text"> 添加系统 </span>
+						</a>
+
+						<b class="arrow"></b>
+					</li>
+					<li class="">
+						<a href="/htgl/tag/index.action">
+							<i class="menu-icon fa fa-tag"></i>
+							<span class="menu-text"> 标签管理 </span>
+						</a>
+
+						<b class="arrow"></b>
+					</li>
 
 					<li class="">
 						<a href="/htgl/searchindex.action">
-							<i class="menu-icon fa fa-calendar"></i>
+							<i class="menu-icon fa fa-search"></i>
 
 							<span class="menu-text">
 								查询
@@ -66,7 +81,7 @@
 
 					<li class="">
 						<a href="/htgl/addindex.action">
-							<i class="menu-icon fa fa-picture-o"></i>
+							<i class="menu-icon fa fa-pencil-square-o"></i>
 							<span class="menu-text"> 添加新的知识 </span>
 						</a>
 

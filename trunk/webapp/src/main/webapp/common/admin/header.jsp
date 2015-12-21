@@ -184,7 +184,7 @@
                                 <ul class="dropdown-menu dropdown-navbar">
                                     <li>
                                         <a href="#" class="clearfix">
-                                            <img src="assets/avatars/avatar.png" class="msg-photo" alt="Alex's Avatar" />
+                                            <img src="/assets/avatars/avatar.png" class="msg-photo" alt="Alex's Avatar" />
                                             <span class="msg-body">
 													<span class="msg-title">
 														<span class="blue">Alex:</span> Ciao sociis natoque penatibus et auctor ...
@@ -200,7 +200,7 @@
 
                                     <li>
                                         <a href="#" class="clearfix">
-                                            <img src="assets/avatars/avatar3.png" class="msg-photo" alt="Susan's Avatar" />
+                                            <img src="/assets/avatars/avatar3.png" class="msg-photo" alt="Susan's Avatar" />
                                             <span class="msg-body">
 													<span class="msg-title">
 														<span class="blue">Susan:</span> Vestibulum id ligula porta felis euismod ...
@@ -216,7 +216,7 @@
 
                                     <li>
                                         <a href="#" class="clearfix">
-                                            <img src="assets/avatars/avatar4.png" class="msg-photo" alt="Bob's Avatar" />
+                                            <img src="/assets/avatars/avatar4.png" class="msg-photo" alt="Bob's Avatar" />
                                             <span class="msg-body">
 													<span class="msg-title">
 														<span class="blue">Bob:</span> Nullam quis risus eget urna mollis ornare ...
@@ -232,7 +232,7 @@
 
                                     <li>
                                         <a href="#" class="clearfix">
-                                            <img src="assets/avatars/avatar2.png" class="msg-photo" alt="Kate's Avatar" />
+                                            <img src="/assets/avatars/avatar2.png" class="msg-photo" alt="Kate's Avatar" />
                                             <span class="msg-body">
 													<span class="msg-title">
 														<span class="blue">Kate:</span> Ciao sociis natoque eget urna mollis ornare ...
@@ -275,7 +275,7 @@
 
                     <li class="light-blue">
                         <a data-toggle="dropdown" href="#" class="dropdown-toggle">
-                            <img class="nav-user-photo" src="assets/avatars/user.jpg" alt="Jason's Photo" />
+                            <img class="nav-user-photo" src="/assets/avatars/user.jpg" alt="Jason's Photo" />
                             <span class="user-info">
 									<small>Welcome,</small>
 									Jason
