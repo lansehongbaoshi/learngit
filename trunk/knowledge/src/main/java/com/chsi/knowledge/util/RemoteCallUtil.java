@@ -16,13 +16,14 @@ public class RemoteCallUtil {
     private static LobDbServiceClient lobDbServiceClient = LobDbServiceClientFactory.getLobDbServiceClient();
     
     public static String addFile(byte[] bytes, String contentType) throws Exception {
-        RemoteCallRs<String> result = lobDbServiceClient.add(bytes, contentType, Constants.LOB_TYPE);
+        /*RemoteCallRs<String> result = lobDbServiceClient.add(bytes, contentType, "");
         if (result.getCallResult() == RemoteCallRs.CALLRESULT_SUCCESS) {
             return result.getValue();
         } else {
             log.error(String.format("{contentType:%s,errMsg:%s}", contentType, result.getErrorMsg()));
             throw new Exception("远程调用addFile失败");
-        }
+        }*/
+        return "";
     }
 
     public static String addFile(File file, String contentType) throws Exception {

@@ -90,18 +90,18 @@ public class FileAction extends AjaxAction {
                 String userId = WebAppUtil.getUserId();
                 File uploadFile = new File(this.upload);
                 if (uploadFile.exists()) {
-                    String lobId = RemoteCallUtil.addFile(uploadFile, this.uploadContentType);
-                    FileInfoData pojo = new FileInfoData();
-                    pojo.setLobId(lobId);
-                    pojo.setContentType(uploadContentType);
-                    pojo.setFileName(uploadFileName);
-                    pojo.setFileSize(uploadFile.length());
-                    pojo.setCreateTime(Calendar.getInstance());
-                    pojo.setCreateUserId(userId);
-                    fileService.save(pojo);
+//                    String lobId = RemoteCallUtil.addFile(uploadFile, this.uploadContentType);
+//                    FileInfoData pojo = new FileInfoData();
+//                    pojo.setLobId(lobId);
+//                    pojo.setContentType(uploadContentType);
+//                    pojo.setFileName(uploadFileName);
+//                    pojo.setFileSize(uploadFile.length());
+//                    pojo.setCreateTime(Calendar.getInstance());
+//                    pojo.setCreateUserId(userId);
+//                    fileService.save(pojo);
                     vo.setState("SUCCESS");
                     vo.setTitle(this.uploadFileName);
-                    vo.setUrl("/file/"+pojo.getId());
+//                    vo.setUrl("/file/"+pojo.getId());
                     vo.setOriginal(this.uploadFileName);
                 } else {
                     vo.setState("文件不存在");

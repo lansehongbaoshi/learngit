@@ -44,5 +44,5 @@ public class Constants {
     public static final String REQUEST_ERROR = "r_error";
     public static final String ERRORURL = "/error/index.jsp";
     
-    public static final String LOB_TYPE = "/kl/attachment";// 小文件系统里指定的type
+//    public static final String LOB_TYPE = "/kl/attachment";// 小文件系统里指定的type
 }
