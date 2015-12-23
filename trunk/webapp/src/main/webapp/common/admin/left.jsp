@@ -50,22 +50,7 @@
 
 				
 
-					<li class="">
-						<a href="/htgl/system/listSystems">
-							<i class="menu-icon fa fa-desktop"></i>
-							<span class="menu-text"> 添加系统 </span>
-						</a>
-
-						<b class="arrow"></b>
-					</li>
-					<li class="">
-						<a href="/htgl/tag/index.action">
-							<i class="menu-icon fa fa-tag"></i>
-							<span class="menu-text"> 标签管理 </span>
-						</a>
-
-						<b class="arrow"></b>
-					</li>
+					
 
 					<li class="">
 						<a href="/htgl/searchindex.action">
@@ -87,7 +72,23 @@
 
 						<b class="arrow"></b>
 					</li>
+                     
+					<li class="">
+						<a href="/htgl/tag/index.action">
+							<i class="menu-icon fa fa-tag"></i>
+							<span class="menu-text"> 标签管理 </span>
+						</a>
 
+						<b class="arrow"></b>
+					</li>
+					<li class="">
+						<a href="/htgl/system/listSystems">
+							<i class="menu-icon fa fa-desktop"></i>
+							<span class="menu-text"> 添加系统 </span>
+						</a>
+
+						<b class="arrow"></b>
+					</li>
 					 
 
 				
