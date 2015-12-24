@@ -56,8 +56,8 @@
         <intercept-url pattern="/htgl/admin/druid/**" access="ROLE_XLRZ_MODULE_ADMIN_MODIFY" />
 
         <!--   <intercept-url pattern="/wb/**" access="ROLE_USER" />-->
-        <intercept-url pattern="/htgl/**" access="ROLE_USER,ROLE_CTI_USER,ROLE_CTI_MAIL_USER,ROLE_CTI_ADMIN_USER" /> 
-        <intercept-url pattern="/manage/**" access="ROLE_USER" /> 
+        <intercept-url pattern="/htgl/**" access="ROLE_MIS,ROLE_CTI_USER,ROLE_CTI_MAIL_USER,ROLE_CTI_ADMIN_USER" /> 
+        <intercept-url pattern="/manage/**" access="ROLE_MIS" /> 
 
         <!-- 公共资源-->
         <!-- <intercept-url pattern="/**" access="IS_AUTHENTICATED_ANONYMOUSLY" /> -->

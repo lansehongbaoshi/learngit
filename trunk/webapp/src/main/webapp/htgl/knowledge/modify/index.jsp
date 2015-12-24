@@ -3,10 +3,6 @@
         <%
 String ctxPath = request.getContextPath();
 %>
-            <link href="<%=ctxPath%>/umeditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
-            <script type="text/javascript" charset="utf-8" src="<%=ctxPath%>/umeditor/umeditor.config.js"></script>
-            <script type="text/javascript" charset="utf-8" src="<%=ctxPath%>/umeditor/umeditor.min.js"></script>
-            <script type="text/javascript" src="<%=ctxPath%>/umeditor/lang/zh-cn/zh-cn.js"></script>
             <!--breadcrumbs-->
 
             <div class="breadcrumbs" id="breadcrumbs">
@@ -53,7 +49,7 @@ String ctxPath = request.getContextPath();
                             <p>标签：<span id="tag"></span></p>
 </form>
 <p>内容：</p>
-<script type="text/plain" id="myEditor" style="width:1000px;height:240px;">
+<script type="text/plain" id="container" style="width:1000px;height:240px;">
 <s:property value="knowledgeData.article.content" escape="false" />
 </script>
 <div class="clear"></div>
@@ -66,15 +62,7 @@ String ctxPath = request.getContextPath();
                                 <button class="btn" type="reset">
                                     <i class="ace-icon fa fa-undo bigger-110"></i> 取消
                                 </button>
-                                &nbsp; &nbsp; &nbsp;
                                  
-<form id="mydelform" style="display:inline;" action="<%=ctxPath%>/htgl/delKnowledge.action" method="post" enctype="multipart/form-data">
-                              <input type="hidden" name="id" value="<s:property value="id" />">
-                                <button class="btn btn-danger" id="delBtn"  data='<s:property value="id" />' type="button">
-                                    <i class="ace-icon fa fa-undo bigger-110"></i> 删除
-                                </button>
-                                
-</form>
                             </div>
                         </div>
                      </div>
@@ -115,8 +103,21 @@ $(function(){
     );
 })
 </script>
-
-
+<!-- 配置文件 -->
+<script type="text/javascript" src="/ueditor/ueditor.config.js"></script>
+<!-- 编辑器源码文件 -->
+<script type="text/javascript" src="/ueditor/ueditor.all.min.js"></script>
+<!-- 实例化编辑器 -->
 <script type="text/javascript">
-   var editor = UM.getEditor('myEditor',{});
+UE.Editor.prototype._bkGetActionUrl = UE.Editor.prototype.getActionUrl;
+UE.Editor.prototype.getActionUrl = function(action) {
+    if (action == 'uploadimage' || action == 'uploadfile') {
+        return 'http://kl.chsi.com.cn/htgl/file/up.action';
+    } else if (action == 'uploadvideo') {
+        return 'http://a.b.com/video.php';
+    } else {
+        return this._bkGetActionUrl.call(this, action);
+    }
+}
+    var editor = UE.getEditor('container');
 </script>

@@ -1,7 +1,9 @@
 package com.chsi.knowledge.index.service.impl;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -73,7 +75,9 @@ public class KnowIndexServiceImpl extends BaseDbService implements KnowIndexServ
         index.setSystemId(relation.get(0).getTagData().getSystemData().getId());
         index.setTagIds(tagIds);
         index.setTags(tags);
+//        double sort = know.getVisitCnt() == (double)0.0 ? 0:Math.log10(know.getVisitCnt());
         index.setSort(know.getSort());
+        index.setVisitCnt(know.getVisitCnt());
         return index;
     }
 
@@ -83,7 +87,11 @@ public class KnowIndexServiceImpl extends BaseDbService implements KnowIndexServ
         if (start < 0) {
             start = 0;
         }
-        Page<KnowledgeVO> page = searchClient.searchKnow(keywords, systemId, start, pageSize);
+        Map<String, String> queryParams = new HashMap<String, String>();
+        queryParams.put("qf", "title^15 content^5 key_words^10 tags^10");
+        queryParams.put("defType", "edismax");
+        queryParams.put("bf", "sum(div(log(visit_cnt),10),div(sort,100))");
+        Page<KnowledgeVO> page = searchClient.searchKnow(keywords, systemId, queryParams, start, pageSize);
         Pagination pagination = new Pagination(page.getTotalCount(), page.getPageCount(), page.getCurPage());
         KnowListVO<KnowledgeVO> knowListVO = new KnowListVO<KnowledgeVO>(page.getList(), pagination);
         return knowListVO;
@@ -95,7 +103,11 @@ public class KnowIndexServiceImpl extends BaseDbService implements KnowIndexServ
         if (start < 0) {
             start = 0;
         }
-        Page<KnowledgeVO> page = searchClient.searchKnow(keywords, start, pageSize);
+        Map<String, String> queryParams = new HashMap<String, String>();
+        queryParams.put("qf", "title^15 content^5 key_words^10 tags^10");
+        queryParams.put("defType", "edismax");
+        queryParams.put("bf", "sum(log(visit_cnt),sqrt(sort))");
+        Page<KnowledgeVO> page = searchClient.searchKnow(keywords, queryParams, start, pageSize);
         Pagination pagination = new Pagination(page.getTotalCount(), page.getPageCount(), page.getCurPage());
         KnowListVO<KnowledgeVO> knowListVO = new KnowListVO<KnowledgeVO>(page.getList(), pagination);
         return knowListVO;

@@ -116,7 +116,13 @@ public class ManageAction extends BasicAction{
             List<KnowledgeData> list = knowledgeService.get(systemId);
             if (null != list) {
                 for (KnowledgeData temp : list) {
-                    knowIndexService.updateKnowIndex(temp.getId());
+                    try{
+                        knowIndexService.updateKnowIndex(temp.getId());
+                        log.info(String.format("{method:'refreshIndex',knowId:'%s',result:'success'}", temp.getId()));
+                    } catch(Exception ex) {
+                        ex.printStackTrace();
+                        log.error(String.format("{method:'refreshIndex',knowId:'%s',result:'fail'}", temp.getId()));
+                    }
                 }
             }
         }
@@ -128,7 +134,13 @@ public class ManageAction extends BasicAction{
             List<KnowledgeData> list = knowledgeService.get(systemId);
             if (null != list) {
                 for (KnowledgeData temp : list) {
-                    knowIndexService.deleteKnowIndex(temp.getId());
+                    try{
+                        knowIndexService.deleteKnowIndex(temp.getId());
+                        log.info(String.format("{method:'deleteIndex',knowId:'%s',result:'success'}", temp.getId()));
+                    } catch(Exception ex) {
+                        ex.printStackTrace();
+                        log.error(String.format("{method:'deleteIndex',knowId:'%s',result:'fail'}", temp.getId()));
+                    }
                 }
             }
         }

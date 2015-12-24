@@ -3,10 +3,6 @@
         <%
 String ctxPath = request.getContextPath();
 %>
-            <link href="<%=ctxPath%>/umeditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
-            <script type="text/javascript" charset="utf-8" src="<%=ctxPath%>/umeditor/umeditor.config.js"></script>
-            <script type="text/javascript" charset="utf-8" src="<%=ctxPath%>/umeditor/umeditor.min.js"></script>
-            <script type="text/javascript" src="<%=ctxPath%>/umeditor/lang/zh-cn/zh-cn.js"></script>
             <!--breadcrumbs-->
 
             <div class="breadcrumbs" id="breadcrumbs">
@@ -55,7 +51,7 @@ String ctxPath = request.getContextPath();
                             </p>
                              <p>标签：<span id="tag"></span></p>
                         </form>
-                        <script type="text/plain" id="myEditor" style="width:1000px;height:240px;">
+                        <script type="text/plain" id="container" style="width:1000px;height:240px;">
                         </script>
                         <div class="clear"></div>
                         <div class="clearfix form-actions">
@@ -77,9 +73,24 @@ String ctxPath = request.getContextPath();
 
 
             </div>
-            <script type="text/javascript">
-                var editor = UM.getEditor('myEditor', {});
-            </script>
+            <!-- 配置文件 -->
+<script type="text/javascript" src="/ueditor/ueditor.config.js"></script>
+<!-- 编辑器源码文件 -->
+<script type="text/javascript" src="/ueditor/ueditor.all.min.js"></script>
+<!-- 实例化编辑器 -->
+<script type="text/javascript">
+UE.Editor.prototype._bkGetActionUrl = UE.Editor.prototype.getActionUrl;
+UE.Editor.prototype.getActionUrl = function(action) {
+    if (action == 'uploadimage' || action == 'uploadfile') {
+        return 'http://kl.chsi.com.cn/htgl/file/up.action';
+    } else if (action == 'uploadvideo') {
+        return 'http://a.b.com/video.php';
+    } else {
+        return this._bkGetActionUrl.call(this, action);
+    }
+}
+    var editor = UE.getEditor('container');
+</script>
 
             <script>
                 $(function () {

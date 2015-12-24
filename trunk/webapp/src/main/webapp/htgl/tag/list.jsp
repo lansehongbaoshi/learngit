@@ -122,10 +122,11 @@
                     function showSystems(json) {
                         if (json.flag == "true") {
                             var options = "";
+                            var str = "";
                             for (var i = 0; i < json.o.length; i++) {
                                 var tag = json.o[i];
                                 var odd_even = (i%2==0)?"even":"odd";
-                            var str = " <tr role=\"row\" class=\""+odd_even+"\"><td>"+ tag.name +"</td><td class=\"hidden-260\">" + tag.description + "</td><td><div class=\"hidden-sm hidden-xs action-buttons\"><a class=\"blue\" href=\"#\"> <i class=\"ace-icon fa fa-search-plus bigger-130\"></i> </a> <a class=\"green\" title=\"修改\" target='_blank' href='/htgl/tag/updateIndex.action?id=" + tag.id +"'><i class=\"ace-icon fa fa-pencil bigger-130\"></i> </a> <a title=\"删除\" class=\"red\" href=\"#\"> <i class=\"ace-icon fa fa-trash-o bigger-130\"></i> </a></div>" + "</td></tr>";
+                             str = str + (" <tr role=\"row\" class=\""+odd_even+"\"><td>"+ tag.name +"</td><td class=\"hidden-260\">" + tag.description + "</td><td><div class=\"hidden-sm hidden-xs action-buttons\"><a class=\"blue\" href=\"#\"> <i class=\"ace-icon fa fa-search-plus bigger-130\"></i> </a> <a class=\"green\" title=\"修改\" target='_blank' href='/htgl/tag/updateIndex.action?id=" + tag.id +"'><i class=\"ace-icon fa fa-pencil bigger-130\"></i> </a> <a title=\"删除\" class=\"red\" href=\"#\"> <i class=\"ace-icon fa fa-trash-o bigger-130\"></i> </a></div>" + "</td></tr>");
                              
                             }
                             $("#tags_result").html(str);
