@@ -17,7 +17,7 @@ import com.chsi.framework.util.FileUtil;
  * @author weiqc <a href="mailto:weiqc@chsi.com.cn">weiqc</a>
  * 
  */
-public class ByteArrayConvertUtil {
+public class ConvertUtil {
     public static Object byteArrayToObject(byte[] byteArray) {
         ByteArrayInputStream bais = new ByteArrayInputStream(byteArray);
         ObjectInputStream ois = null;

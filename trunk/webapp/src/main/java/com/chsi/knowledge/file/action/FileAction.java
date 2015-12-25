@@ -10,10 +10,13 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.struts2.ServletActionContext;
 
+import com.chsi.cms.client.CmsServiceClient;
+import com.chsi.cms.client.CmsServiceClientFactory;
 import com.chsi.framework.util.ValidatorUtil;
 import com.chsi.knowledge.action.base.AjaxAction;
 import com.chsi.knowledge.pojo.FileInfoData;
 import com.chsi.knowledge.service.FileService;
+import com.chsi.knowledge.util.ConvertUtil;
 import com.chsi.knowledge.util.RemoteCallUtil;
 import com.chsi.knowledge.vo.UpFileResponseVO;
 import com.chsi.knowledge.web.util.WebAppUtil;
@@ -84,6 +87,7 @@ public class FileAction extends AjaxAction {
 
     public String upfile() throws Exception {
         UpFileResponseVO vo = new UpFileResponseVO();
+        CmsServiceClient cmsServiceClient = CmsServiceClientFactory.getCmsServiceClient();
         try {
             List<String> validateResult = validateData();
             if (validateResult.size() == 0) {
@@ -99,9 +103,15 @@ public class FileAction extends AjaxAction {
 //                    pojo.setCreateTime(Calendar.getInstance());
 //                    pojo.setCreateUserId(userId);
 //                    fileService.save(pojo);
+                    byte[] bytes = ConvertUtil.fileToByteArray(uploadFile);
+                    String url = cmsServiceClient.saveBlob(this.uploadFileName, this.uploadContentType, bytes);
+                    if(!this.uploadContentType.contains("image")) {
+                        url += "&attach=true";
+                    }
                     vo.setState("SUCCESS");
                     vo.setTitle(this.uploadFileName);
 //                    vo.setUrl("/file/"+pojo.getId());
+                    vo.setUrl(url);
                     vo.setOriginal(this.uploadFileName);
                 } else {
                     vo.setState("文件不存在");

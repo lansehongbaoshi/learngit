@@ -357,37 +357,6 @@
         </dependency>
         <dependency>
             <groupId>com.chsi</groupId>
-            <artifactId>chsi-cms</artifactId>
-            <version>${chsi-cms.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.chsi</groupId>
-                    <artifactId>chsi-cache</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.hibernate</groupId>
-                    <artifactId>hibernate-entitymanager</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>jboss</groupId>
-                    <artifactId>jboss-common-jdbc-wrapper</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>jboss</groupId>
-                    <artifactId>jboss-common</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.jsoup</groupId>
-                    <artifactId>jsoup</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>jboss</groupId>
-                    <artifactId>jbosssx</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>com.chsi</groupId>
             <artifactId>chsi-search-client</artifactId>
             <version>${chsi-search-client.version}</version>
             <exclusions>

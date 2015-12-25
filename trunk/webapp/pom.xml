@@ -458,12 +458,6 @@
             <version>${chsi-cms-client-version}</version>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>com.chsi</groupId>
-            <artifactId>chsi-cms</artifactId>
-            <version>${chsi-cms.version}</version>
-            <scope>provided</scope>
-        </dependency>
 
     </dependencies>
     <build>

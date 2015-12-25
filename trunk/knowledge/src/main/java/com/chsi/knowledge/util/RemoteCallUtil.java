@@ -29,7 +29,7 @@ public class RemoteCallUtil {
     public static String addFile(File file, String contentType) throws Exception {
         byte[] bytes = null;
         try {
-            bytes = ByteArrayConvertUtil.fileToByteArray(file);
+            bytes = ConvertUtil.fileToByteArray(file);
             ;
         } catch (Exception ex) {
             throw ex;

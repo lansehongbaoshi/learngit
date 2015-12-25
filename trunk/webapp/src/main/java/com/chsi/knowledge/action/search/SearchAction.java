@@ -1,5 +1,6 @@
 package com.chsi.knowledge.action.search;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.chsi.framework.util.ValidatorUtil;
@@ -28,6 +29,7 @@ public class SearchAction extends AjaxAction {
     private int curPage;
     private String callback;
 
+    //指定系统内搜索
     public void quickSearchKnow() throws Exception {
         keywords = SearchUtil.keywordsFilter(keywords);
         if (ValidatorUtil.isNull(keywords)) {
@@ -42,6 +44,7 @@ public class SearchAction extends AjaxAction {
         writeCallbackJSON(callback);
     }
     
+    //指定系统内搜索
     public void searchAllKnow() throws Exception {
         keywords = SearchUtil.keywordsFilter(keywords);
         if (ValidatorUtil.isNull(keywords)) {
@@ -58,7 +61,8 @@ public class SearchAction extends AjaxAction {
         writeCallbackJSON(callback);
     }
     
-    public void quickAll() throws Exception {
+    //全系统搜索
+    public String quickAll() throws Exception {
         keywords = SearchUtil.keywordsFilter(keywords);
         if (ValidatorUtil.isNull(keywords)) {
             ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
@@ -68,9 +72,11 @@ public class SearchAction extends AjaxAction {
             ajaxMessage.setO(SearchUtil.exchangeResultList(listVO, keywords, 14));
         }
         writeCallbackJSON(callback);
+        return NONE;
     }
     
-    public void allSearch() throws Exception {
+    //全系统搜索
+    public String allSearch() throws Exception {
         keywords = SearchUtil.keywordsFilter(keywords);
         if (ValidatorUtil.isNull(keywords)) {
             ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
@@ -82,6 +88,18 @@ public class SearchAction extends AjaxAction {
             ajaxMessage.setO(result);
         }
         writeCallbackJSON(callback);
+        return NONE;
+    }
+    
+    //搜索关键字热度排名前几个
+    public String topKeywords() throws Exception {
+        List<String> strs = new ArrayList<String>();
+        strs.add("账号注册");
+        strs.add("密码找回");
+        strs.add("研招报名");
+        strs.add("学信档案");
+        writePlainJSON(strs);
+        return NONE;
     }
     
 
