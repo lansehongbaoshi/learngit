@@ -13,7 +13,7 @@
               </interceptor-ref>
           </interceptor-stack>
         </interceptors>
-        <action name="*" class="fileActionBean" method="getfile"></action>
+        <!-- <action name="*" class="fileActionBean" method="getfile"></action> -->
     </package>
     
 </struts>
