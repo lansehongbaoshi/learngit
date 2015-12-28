@@ -10,7 +10,7 @@ public class ServiceConstants {
     public static final String TAGDATA_DAO = "tagDataDAO";
     public static final String SYSTEMDATA_DAO = "systemDataDAO";
     public static final String KNOWTAGRELATIONDATA_DAO  = "knowTagRelationDataDAO";
-    public static final String FILE_DAO  = "fileDAO";
+    public static final String SEARCH_DAO  = "searchDAO";
     
     
     //SERVICE层
@@ -19,6 +19,7 @@ public class ServiceConstants {
     public static final String TAG_SERVICE = "tagService";
     public static final String SYSTEM_SERVICE = "systemService";
     public static final String KNOWTAGRELATIONDATA_SERVICE  = "knowTagRelationService";
+    public static final String SEARCH_SERVICE  = "searchService";
     
     public static final String SERVICE_IMPL_CONF = "META-INF/conf/knowledge/serviceImpl.xml";
     

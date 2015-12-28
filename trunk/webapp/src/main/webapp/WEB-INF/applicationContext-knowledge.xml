@@ -39,6 +39,7 @@
         <property name="knowIndexService" ref="knowIndexService" />
         <property name="systemService" ref="systemService" />
         <property name="knowledgeService" ref="knowledgeService" />
+        <property name="searchService" ref="searchService" />
     </bean> 
     
     <bean id="knowledgeActionBean"  class="com.chsi.knowledge.htgl.action.KnowledgeAction"  scope="request">
@@ -65,7 +66,6 @@
     </bean>
    
     <bean id="fileActionBean"  class="com.chsi.knowledge.file.action.FileAction"  scope="request">
-        <!-- <property name="fileService" ref="fileService" /> -->
     </bean>
    
 </beans>

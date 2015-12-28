@@ -1,14 +1,20 @@
 package com.chsi.knowledge.action.search;
 
-import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
+import com.chsi.framework.callcontrol.CallInfoHelper;
 import com.chsi.framework.util.ValidatorUtil;
 import com.chsi.knowledge.Constants;
 import com.chsi.knowledge.action.base.AjaxAction;
 import com.chsi.knowledge.index.service.KnowIndexService;
+import com.chsi.knowledge.pojo.SearchLogData;
 import com.chsi.knowledge.service.KnowledgeService;
+import com.chsi.knowledge.service.QueueService;
+import com.chsi.knowledge.service.SearchService;
+import com.chsi.knowledge.service.ServiceFactory;
 import com.chsi.knowledge.service.SystemService;
+import com.chsi.knowledge.util.ManageCacheUtil;
 import com.chsi.knowledge.vo.KnowListVO;
 import com.chsi.knowledge.vo.SearchVO;
 import com.chsi.knowledge.web.util.SearchUtil;
@@ -24,10 +30,12 @@ public class SearchAction extends AjaxAction {
     private KnowIndexService knowIndexService;
     private KnowledgeService knowledgeService;
     private SystemService systemService;
+    private SearchService searchService;
     private String keywords;
     private String systemId;
     private int curPage;
     private String callback;
+    private QueueService queueService = ServiceFactory.getQueueService();
 
     //指定系统内搜索
     public void quickSearchKnow() throws Exception {
@@ -55,6 +63,7 @@ public class SearchAction extends AjaxAction {
             ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
             KnowListVO<KnowledgeVO> listVO = knowIndexService.searchKnow(keywords, systemId, (curPage - 1) * Constants.PAGE_SIZE, Constants.PAGE_SIZE);
             List<SearchVO> list = SearchUtil.exchangeResultList(listVO, keywords, 40);
+            saveSearchLog(list);
             KnowListVO<SearchVO> result = new KnowListVO<SearchVO>(list, listVO.getPagination());
             ajaxMessage.setO(result);
         }
@@ -84,6 +93,7 @@ public class SearchAction extends AjaxAction {
             ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
             KnowListVO<KnowledgeVO> listVO = knowIndexService.searchKnow(keywords, (curPage - 1) * Constants.PAGE_SIZE, Constants.PAGE_SIZE);
             List<SearchVO> list = SearchUtil.exchangeResultList(listVO, keywords, 40);
+            saveSearchLog(list);
             KnowListVO<SearchVO> result = new KnowListVO<SearchVO>(list, listVO.getPagination());
             ajaxMessage.setO(result);
         }
@@ -93,15 +103,12 @@ public class SearchAction extends AjaxAction {
     
     //搜索关键字热度排名前几个
     public String topKeywords() throws Exception {
-        List<String> strs = new ArrayList<String>();
-        strs.add("账号注册");
-        strs.add("密码找回");
-        strs.add("研招报名");
-        strs.add("学信档案");
-        writePlainJSON(strs);
+        List<String> strs = ManageCacheUtil.getTopKeywords();
+        ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
+        ajaxMessage.setO(strs);
+        writeJSON(ajaxMessage);
         return NONE;
     }
-    
 
     public KnowIndexService getKnowIndexService() {
         return knowIndexService;
@@ -117,6 +124,14 @@ public class SearchAction extends AjaxAction {
 
     public void setSystemService(SystemService systemService) {
         this.systemService = systemService;
+    }
+
+    public SearchService getSearchService() {
+        return searchService;
+    }
+
+    public void setSearchService(SearchService searchService) {
+        this.searchService = searchService;
     }
 
     public String getKeywords() {
@@ -161,5 +176,22 @@ public class SearchAction extends AjaxAction {
         this.callback = callback;
     }
     
-
+    private void saveSearchLog(List<SearchVO> list) {
+        SearchLogData data = new SearchLogData();
+        data.setKeyword(this.keywords);
+        data.setSystemId(this.systemId);
+        StringBuffer sb = new StringBuffer();
+        int i=0;
+        for(SearchVO vo : list) {
+            i++;
+            if(i>10) break;//最多存储10个搜索结果id
+            sb.append(vo.getKnowId());
+            sb.append(",");
+        }
+        data.setSearchResult(sb.toString());
+        data.setCreateTime(Calendar.getInstance());
+        data.setCreateUserId(CallInfoHelper.getCurrentUser());
+        data.setUserIP(CallInfoHelper.getCurrentUserIp());
+        queueService.addSearchLog(data);
+    }
 }

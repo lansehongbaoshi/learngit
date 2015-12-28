@@ -5,6 +5,8 @@ import java.util.List;
 import com.chsi.knowledge.pojo.KnowTagRelationData;
 import com.chsi.knowledge.pojo.SystemData;
 import com.chsi.knowledge.pojo.TagData;
+import com.chsi.knowledge.service.SearchService;
+import com.chsi.knowledge.service.ServiceFactory;
 
 /**
  * 缓存管理工具
@@ -79,4 +81,14 @@ public class ManageCacheUtil {
         MemCachedUtil.removeByKey(key);
     }
 
+    public static List<String> getTopKeywords() {
+        String key = CACHE_KEY_ + SEP + "getTopKeywords";
+        List<String> result = MemCachedUtil.get(key);
+        if(result == null) {
+            SearchService searchService = ServiceFactory.getSearchService();
+            result = searchService.getTopKeyword(5);
+            MemCachedUtil.add(key, result);
+        }
+        return result;
+    }
 }

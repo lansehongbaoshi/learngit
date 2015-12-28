@@ -21,7 +21,8 @@ public class ServiceFactory {
         return SpringBeanLocator.getInstance("chsi-knowledge.xml").getBean("queueService");
     }
     
-    public static FileService getFileService(){
-        return SpringBeanLocator.getInstance(ServiceConstants.SERVICE_IMPL_CONF).getBean("fileService");
+    public static SearchService getSearchService(){
+        return SpringBeanLocator.getInstance(ServiceConstants.SERVICE_IMPL_CONF).getBean(ServiceConstants.SEARCH_SERVICE);
     }
+    
 }

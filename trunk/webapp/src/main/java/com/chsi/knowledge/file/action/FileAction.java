@@ -2,25 +2,15 @@ package com.chsi.knowledge.file.action;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
-
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletRequest;
-
-import org.apache.struts2.ServletActionContext;
 
 import com.chsi.cms.client.CmsServiceClient;
 import com.chsi.cms.client.CmsServiceClientFactory;
 import com.chsi.framework.util.ValidatorUtil;
 import com.chsi.knowledge.action.base.AjaxAction;
-import com.chsi.knowledge.pojo.FileInfoData;
-import com.chsi.knowledge.service.FileService;
 import com.chsi.knowledge.util.ConvertUtil;
-import com.chsi.knowledge.util.RemoteCallUtil;
 import com.chsi.knowledge.vo.UpFileResponseVO;
 import com.chsi.knowledge.web.util.WebAppUtil;
-import com.chsi.lobdb.client.vo.LobVo;
 
 public class FileAction extends AjaxAction {
 
@@ -34,8 +24,6 @@ public class FileAction extends AjaxAction {
     private String status;
     private String uploadContentType;
     private String uploadFileName;
-
-    FileService fileService;
 
     public String getUpload() {
         return upload;
@@ -75,14 +63,6 @@ public class FileAction extends AjaxAction {
 
     public void setUploadContentType(String uploadContentType) {
         this.uploadContentType = uploadContentType;
-    }
-
-    public FileService getFileService() {
-        return fileService;
-    }
-
-    public void setFileService(FileService fileService) {
-        this.fileService = fileService;
     }
 
     public String upfile() throws Exception {
@@ -129,7 +109,7 @@ public class FileAction extends AjaxAction {
         return NONE;
     }
     
-    public String getfile() throws Exception {
+    /*public String getfile() throws Exception {
         HttpServletRequest request = ServletActionContext.getRequest();
         String uri = request.getRequestURI();
         String fileInfoDataId = uri.substring(uri.lastIndexOf("/")+1);
@@ -146,7 +126,7 @@ public class FileAction extends AjaxAction {
             }
         }
         return NONE;
-    }
+    }*/
 
     public List<String> validateData() throws Exception {
         List<String> errList = new ArrayList<String>();

@@ -119,16 +119,16 @@
         </property>
     </bean> 
     
-    <!-- <bean id="fileDAO" class="com.chsi.knowledge.dao.impl.FileDAOImpl">
-        <property name="sessionFactory">
-            <ref local="sessionFactory" />
-        </property>
-    </bean>  -->
-    
     <bean id="knowTagRelationDataDAO" class="com.chsi.knowledge.dao.impl.KnowTagRelationDataDAOImpl">
         <property name="sessionFactory">
             <ref local="sessionFactory" />
         </property>
     </bean> 
+    
+    <bean id="searchDAO" class="com.chsi.knowledge.dao.impl.SearchDAOImpl">
+        <property name="sessionFactory">
+            <ref local="sessionFactory" />
+        </property>
+    </bean>
 
 </beans>
