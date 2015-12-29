@@ -3,6 +3,7 @@
 				<script type="text/javascript">
 					try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
 				</script>
+<!--
 
 				<div class="sidebar-shortcuts" id="sidebar-shortcuts">
 					<div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
@@ -32,7 +33,10 @@
 
 						<span class="btn btn-danger"></span>
 					</div>
-				</div><!-- /.sidebar-shortcuts -->
+				</div>
+-->
+				
+				<!-- /.sidebar-shortcuts -->
 
 				<ul class="nav nav-list">
 					<li class="active">
