@@ -33,26 +33,54 @@ String ctxPath = request.getContextPath();
                 </div>
                 <div class="row">
                     <div class="col-xs-12">
-                        <form id="myform" action="<%=ctxPath%>/htgl/addKnowledge.action" method="post" enctype="multipart/form-data">
-                            <p>系统：
+                        <form id="myform" action="<%=ctxPath%>/htgl/addKnowledge.action" method="post" enctype="multipart/form-data" class="form-horizontal">
+                            <div class="form-group">
+                            <label for="" class="col-sm-3 control-label no-padding-top">系统：</label>
+                            <div class="col-sm-9">
                             <select id="systemIds" name="systemId">
                             </select>
+                            </div>
                             <input type="hidden" id="content" name="content" value="">
-                            </p>
-                            <p>标题：
+                            </div>
+                             <div class="form-group">
+                                 <label for="" class="col-sm-3 control-label no-padding-top">标题：</label>
+                                 <div class="col-sm-9">
                                 <input id="title" type="text" name="title" style="width: 400px;" value="">
-                            </p>
+                                 </div>
+                            </div>
                            
-                            <p>关键字：
-                                <input id="keywords" type="text" name="keywords" style="width: 200px;" value=""> <span>（说明：2~3个,英文逗号,隔开）<span>
-                            </p>
-                            <p>热点度：
-                                <input id="sort" type="text" name="sort" style="width: 100px;" value=""> <span>（说明：1~99之间的数字,数值越大,序越靠前）<span>
-                            </p>
-                             <p>标签：<span id="tag"></span></p>
+                            <div class="form-group">
+                                <label for="" class="col-sm-3 control-label no-padding-top">关键字：</label>
+                                <div class="col-sm-9">
+                                    <input id="keywords" type="text" name="keywords" style="width: 200px;" value=""> <span>（说明：2~3个,英文逗号,隔开）</span>
+                                    </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="" class="col-sm-3 control-label no-padding-top">热点度：</label>
+                                <div class="col-sm-9">
+                                <input id="sort" type="text" name="sort" style="width: 100px;" value=""> <span>（说明：1~99之间的数字,数值越大,序越靠前）</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                             <label for="" class="col-sm-3 control-label no-padding-top">
+                            标签：
+                                </label>
+                                <div class="col-sm-9" id="tag">
+                                </div>
+                                </div>
+                              
                         </form>
-                        <script type="text/plain" id="container" style="width:1000px;height:240px;">
+                        <div class="form-horizontal">
+                        <div class="form-group">
+                                <label for="" class="col-sm-3 control-label no-padding-top">
+                            内容：
+                                </label>
+                                <div class="col-sm-9">
+                                 <script type="text/plain" id="container" style="width:1000px;height:240px;">
                         </script>
+                                </div>
+                            </div> 
+                            </div>
                         <div class="clear"></div>
                         <div class="clearfix form-actions">
                             <div class="col-md-offset-3 col-md-9">

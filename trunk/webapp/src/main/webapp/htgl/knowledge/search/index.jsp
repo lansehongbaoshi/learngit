@@ -96,7 +96,7 @@ String ctxPath = request.getContextPath();
                            
                                     </tbody>
                                 </table>
-                                <div class="row">
+                                <div class="row" id="table_footer_info" style="display:none">
                                     <div class="col-xs-6">
                                         <div class="dataTables_info" id="dynamic-table_info" role="status" aria-live="polite"></div>
                                     </div>
@@ -134,6 +134,7 @@ String ctxPath = request.getContextPath();
                         $("#search_table_header").html("搜索 \“"+knows[0].keywords +"\” 的结果").show();
                         $("#dynamic-table_info").html("总计：共 "+ pagination.totalCount +" 条。");
                         $("#dynamic-table_paginate").html(formatP(pagination, systemId, keywords, curPage));
+                        $("#table_footer_info").show();
                     }
                 }
             )
