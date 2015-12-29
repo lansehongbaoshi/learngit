@@ -1,50 +1,98 @@
 package com.chsi.knowledge.util;
 
-import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Properties;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.chsi.contact.client.ContactServiceClient;
+import com.chsi.contact.client.ContactServiceClientFactory;
+import com.chsi.contact.constant.client.ContactConstants;
+import com.chsi.framework.callcontrol.CallInfoHelper;
 import com.chsi.framework.remote.RemoteCallRs;
-import com.chsi.knowledge.Constants;
+import com.chsi.framework.util.ValidatorUtil;
 import com.chsi.lobdb.client.LobDbServiceClient;
 import com.chsi.lobdb.client.LobDbServiceClientFactory;
-import com.chsi.lobdb.client.vo.LobVo;
+import com.chsi.security.client.AuthorityServiceClient;
+import com.chsi.security.client.AuthorityServiceClientFactory;
 
 public class RemoteCallUtil {
     protected static final Log log = LogFactory.getLog(RemoteCallUtil.class);
-    private static LobDbServiceClient lobDbServiceClient = LobDbServiceClientFactory.getLobDbServiceClient();
     
-    public static String addFile(byte[] bytes, String contentType) throws Exception {
-        /*RemoteCallRs<String> result = lobDbServiceClient.add(bytes, contentType, "");
-        if (result.getCallResult() == RemoteCallRs.CALLRESULT_SUCCESS) {
-            return result.getValue();
+    private static String accountProtocol;
+    private static String accountServerName;
+    private static String picsrvProtocol;
+    private static String picsrvServerName;
+    private static String contactProtocol;
+    private static String contactServerName;// contact域名
+    
+    private static LobDbServiceClient lobDbServiceClient = LobDbServiceClientFactory.getLobDbServiceClient();
+    private static ContactServiceClient contactService = ContactServiceClientFactory.getContactServiceClient();
+    private static AuthorityServiceClient authorityServiceClient = AuthorityServiceClientFactory.getAuthorityServiceClient();
+
+    static {
+        String propertyPath = System.getenv("propertyPath");
+        if (null == propertyPath) {
+            log.error("环境变量未配置propertyPath");
         } else {
-            log.error(String.format("{contentType:%s,errMsg:%s}", contentType, result.getErrorMsg()));
-            throw new Exception("远程调用addFile失败");
-        }*/
+            FileInputStream in = null;
+            try {
+                in = new FileInputStream(propertyPath);
+                Properties properties = new Properties();
+                properties.load(in);
+                accountProtocol = properties.getProperty("sys.website.account.protocol");
+                accountServerName = properties.getProperty("sys.website.account.servername");
+                picsrvProtocol = properties.getProperty("sys.website.picsrv.protocol");
+                picsrvServerName = properties.getProperty("sys.website.picsrv.servername");
+                contactProtocol = properties.getProperty("sys.website.contact.protocol");
+                contactServerName = properties.getProperty("sys.website.contact.servername");
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                if (null != in) {
+                    try {
+                        in.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+        }
+    }
+    
+    public static String getAccountUrl() {
+        return accountProtocol + "://" + accountServerName;
+    }
+    
+    public static String getContactUrl() {
+        return contactProtocol + "://" + contactServerName;
+    }
+    
+    public static String getPicsrvUrl() {
+        return picsrvProtocol + "://" + picsrvServerName;
+    }
+    
+    /**
+     * 通讯录姓名
+     * @param userId
+     * @return
+     */
+    public static String getXm() {
+        String userId = CallInfoHelper.getCurrentUser();
+        if(!ValidatorUtil.isNull(userId)) {
+            return contactService.getRealInfoSingleItemValue(userId, ContactConstants.ITEM_NAME_ID);
+        }
         return "";
     }
-
-    public static String addFile(File file, String contentType) throws Exception {
-        byte[] bytes = null;
-        try {
-            bytes = ConvertUtil.fileToByteArray(file);
-            ;
-        } catch (Exception ex) {
-            throw ex;
-        } finally {
-        }
-        return addFile(bytes, contentType);
-    }
     
-    public static LobVo getFile(String id) throws Exception {
-        RemoteCallRs<LobVo> result = lobDbServiceClient.getLob(id);
-        if (result.getCallResult() == RemoteCallRs.CALLRESULT_SUCCESS) {
-            return result.getValue();
-        } else {
-            log.error(String.format("{id:%s,errMsg:%s}", id, result.getErrorMsg()));
-            throw new Exception("远程调用getFile失败");
-        }
+    public static List<String> getAuthsByUserId(String userId) {
+        RemoteCallRs<String[]> rcr = authorityServiceClient.getAuthorities(userId);
+        String[] strs = rcr.getSuccRsValue();
+        return Arrays.asList(strs);
     }
 }

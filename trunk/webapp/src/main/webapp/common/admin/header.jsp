@@ -34,7 +34,7 @@
                             
                             <span>
 									<small>欢迎，</small>
-									管理员
+									<%=com.chsi.knowledge.util.RemoteCallUtil.getXm() %>
 								</span>
 
                            
