@@ -76,7 +76,7 @@ String ctxPath = request.getContextPath();
                             内容：
                                 </label>
                                 <div class="col-sm-9">
-                                 <script type="text/plain" id="container" style="width:1000px;height:240px;">
+                                 <script type="text/plain" id="container" style="width:650px;height:240px;">
                         </script>
                                 </div>
                             </div> 
@@ -123,13 +123,13 @@ UE.Editor.prototype.getActionUrl = function(action) {
             <script>
                 $(function () {
                     $("#systemIds").change(function () {
-                        $.getJSON("/view/getKnowledgeList.action?systemId=" + $(this).val() + "&tagId=normal",
+                        $.getJSON("/htgl/tag/list.action?systemId=" + $(this).val(),
                             function showTags(json) {
                                 if (json.flag == "true") {
                                     var options = "";
-                                    var viewTagVOs = json.o.viewTagVOs;
-                                    for (var i = 0; i < viewTagVOs.length; i++) {
-                                        var option = viewTagVOs[i];
+                                    var tags = json.o;
+                                    for (var i = 0; i < tags.length; i++) {
+                                        var option = tags[i];
                                         options += "<input type='checkbox' name='tagName' id='tag_"+ i +"' value='" + option.name + "'><label for='tag_"+ i +"'>" + option.description + "</label>&nbsp;&nbsp;";
                                     }
                                     $("#tag").html(options);

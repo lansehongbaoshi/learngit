@@ -27,6 +27,7 @@ public class QueueVisitThread  extends BaseThread{
                 if (null != knowledgeId){
                     knowledgeService.updateVisitCntPlusOne(knowledgeId);
                 }
+                sleep(100);
             } catch (Exception e) {
                 log.error(e);
             }

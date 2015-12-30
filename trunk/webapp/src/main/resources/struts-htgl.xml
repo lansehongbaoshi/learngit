@@ -17,15 +17,18 @@
             <result name="success" type="tiles">htgl.knowledge.modify.index</result>
         </action>
         <action name="updateKnowledge" class="knowledgeActionBean" method="updateKnowledge">
-            <result name="success" type="redirect">/htgl/modifyindex.action?id=${id}&amp;systemId=${systemId}</result>
+            <result name="success" type="redirect">/htgl/showKnowledge.action?id=${id}&amp;from=update</result>
         </action>
         <action name="addindex">
             <result name="success" type="tiles">htgl.knowledge.add.index</result>
         </action>
         <action name="addKnowledge" class="knowledgeActionBean" method="addKnowledge">
-            <result name="success" type="redirect">/htgl/addindex.action</result>
+            <result name="success" type="redirect">/htgl/showKnowledge.action?id=${id}&amp;from=add</result>
         </action>
         <action name="delKnowledge" class="knowledgeActionBean" method="delKnowledge">
+        </action>
+        <action name="showKnowledge" class="knowledgeActionBean" method="getKnow">
+            <result name="success" type="tiles">htgl.knowledge.show</result>
         </action>
         <action name="searchindex" class="knowledgeActionBean" method="searchindex">
             <result name="success" type="tiles">htgl.knowledge.search.index</result>

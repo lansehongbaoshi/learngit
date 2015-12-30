@@ -75,7 +75,7 @@ String ctxPath = request.getContextPath();
                             内容：
                                 </label>
                                 <div class="col-sm-9">
-                                <script type="text/plain" id="container" style="width:1000px;height:240px;">
+                                <script type="text/plain" id="container" style="width:650px;height:240px;">
 <s:property value="knowledgeData.article.content" escape="false" />
 </script>
                                 </div>
@@ -116,13 +116,13 @@ $(function(){
 	       $("#mydelform").submit();
 	   }
     });
-    $.getJSON("/view/getKnowledgeList.action?systemId=<s:property value='systemId'/>&tagId=normal",
+    $.getJSON("/htgl/tag/list.action?systemId=<s:property value='systemId'/>",
         function showTags(json){
             if(json.flag=="true"){
               var options = "";
-              var viewTagVOs = json.o.viewTagVOs;
-               for(var i=0;i<viewTagVOs.length;i++){
-                var option = viewTagVOs[i];
+              var tags = json.o;
+               for(var i=0;i<tags.length;i++){
+                var option = tags[i];
                 var selected = tagName.indexOf(option.name)>-1?"checked='checked'":"";
                 options+="<input type='checkbox' name='tagName' value='"+option.name+"' "+selected+">"+option.description+"&nbsp;&nbsp;";
                }

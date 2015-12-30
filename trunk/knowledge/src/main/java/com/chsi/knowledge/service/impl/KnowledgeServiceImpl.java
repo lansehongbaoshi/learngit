@@ -111,7 +111,7 @@ public class KnowledgeServiceImpl extends BaseDbService implements KnowledgeServ
         return knowPageVO;
     }
     
-    public KnowledgeData getKnowledgeCmsById(String id) {
+    public KnowledgeData getKnowledgeWithArticleById(String id) {
         KnowledgeData knowledgeData = getKnowledgeById(id);
         if(knowledgeData!=null) {
             CmsServiceClient cmsServiceClient = CmsServiceClientFactory.getCmsServiceClient();
@@ -203,6 +203,11 @@ public class KnowledgeServiceImpl extends BaseDbService implements KnowledgeServ
     @Override
     public void delete(KnowledgeData knowledgeData) {
         knowledgeDataDAO.delete(knowledgeData);
+    }
+
+    @Override
+    public List<KnowTagRelationData> getKnowTagDatas(String tagId, KnowledgeStatus knowledgeStatus) {
+        return knowTagRelationDAO.getKnowTagDatas(tagId, knowledgeStatus);
     }
 
 }

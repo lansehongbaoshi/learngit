@@ -8,6 +8,7 @@ import com.chsi.knowledge.pojo.SystemData;
 import com.chsi.knowledge.pojo.TagData;
 import com.chsi.knowledge.service.SystemService;
 import com.chsi.knowledge.service.TagService;
+import com.chsi.knowledge.util.ManageCacheUtil;
 /**
  * 后台管理 标签ACTION
  * @author chenjian
@@ -117,9 +118,11 @@ public class TagAction extends AjaxAction{
         TagData tagData = new TagData(null, system, name, description, sort);
         tagService.saveOrUpdate(tagData);
         id = tagData.getId();
+        ManageCacheUtil.removeTagList(systemId);
         return SUCCESS;
     }
     
+    //更新首页
     public String updateIndex() throws Exception {
         tagData = tagService.getTagData(id);
         if (null == tagData) {
@@ -139,6 +142,7 @@ public class TagAction extends AjaxAction{
         tagData.setSort(sort);
         tagData.setDescription(description);
         tagService.saveOrUpdate(tagData);
+        ManageCacheUtil.removeTagList(systemId);
         return SUCCESS;
     }
 

@@ -26,13 +26,7 @@ public class SystemServiceImpl extends BaseDbService implements SystemService{
     
     @Override
     public SystemData getSystemById(String id) {
-        SystemData systemData = ManageCacheUtil.getSystem(id);
-        if (null == systemData) {
-            systemData = systemDataDAO.getSystemById(id);
-            if (null != systemData) {
-                ManageCacheUtil.addSystem(id, systemData);
-            }
-        }
+        SystemData systemData = systemDataDAO.getSystemById(id);
         return systemData;
     }
 

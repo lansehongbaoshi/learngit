@@ -2,6 +2,8 @@ package com.chsi.knowledge.service;
 
 import java.util.List;
 
+import com.chsi.knowledge.dic.KnowledgeStatus;
+import com.chsi.knowledge.pojo.KnowTagRelationData;
 import com.chsi.knowledge.pojo.KnowledgeData;
 import com.chsi.knowledge.pojo.SystemData;
 import com.chsi.knowledge.vo.ViewKnowVO;
@@ -59,7 +61,7 @@ public interface KnowledgeService {
      * @param id
      * @return
      */
-    KnowledgeData getKnowledgeCmsById(String id);
+    KnowledgeData getKnowledgeWithArticleById(String id);
     
     /**
      * 根据系统ID、标签、状态、分页数据取得知识，同时从CMS中读取对应数据。
@@ -78,4 +80,12 @@ public interface KnowledgeService {
     
     
     KnowledgeData getKnowledgeById(String id);
+    
+    /**
+     * 根据标签ID 取出多条知识
+     * @param tagId
+     * @param knowledgeStatus
+     * @return
+     */
+     List<KnowTagRelationData> getKnowTagDatas(String tagId, KnowledgeStatus knowledgeStatus);
 }

@@ -28,6 +28,7 @@ public class RecordSearchLogThread  extends BaseThread{
                 if (null != data){
                     searchService.save(data);
                 }
+                sleep(100);
             } catch (Exception e) {
                 log.error(e);
             }

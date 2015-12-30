@@ -41,6 +41,9 @@
     <definition name="htgl.knowledge.add.index" extends="htgl.admin.main" >
         <put-attribute name="body" value="/htgl/knowledge/add/index.jsp"/>
     </definition>
+    <definition name="htgl.knowledge.show" extends="htgl.admin.main" >
+        <put-attribute name="body" value="/htgl/knowledge/show.jsp"/>
+    </definition>
     
     <!--系统相关  -->
     <definition name="htgl.system.list" extends="htgl.admin.main" >

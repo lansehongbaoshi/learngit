@@ -8,4 +8,6 @@ public interface SearchDAO {
     void save(PersistentObject po);
     
     List<String> getTopKeyword(int n);
+    
+    List<String> getTopVisitKnowl(int n);
 }

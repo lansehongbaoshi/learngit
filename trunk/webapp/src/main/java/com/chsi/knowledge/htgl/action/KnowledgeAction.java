@@ -42,7 +42,7 @@ public class KnowledgeAction extends AjaxAction {
     private ViewKnowVO viewKnowVO;
     private KnowledgeData knowledgeData;
     private List<KnowTagRelationData> knowTagRelationList;
-
+    
     private KnowledgeService knowledgeService;
     private KnowIndexService knowIndexService;
     private TagService tagService;
@@ -187,7 +187,7 @@ public class KnowledgeAction extends AjaxAction {
 
     public String modifyindex() throws Exception {
         if (!ValidatorUtil.isNull(id) && !ValidatorUtil.isNull(systemId)) {
-            knowledgeData = knowledgeService.getKnowledgeCmsById(id);
+            knowledgeData = knowledgeService.getKnowledgeWithArticleById(id);
             if (null != knowledgeData) {
                 knowTagRelationList = knowTagRelationService.getKnowTagDatas(KnowledgeStatus.YSH, id);
                 if (knowTagRelationList != null && knowTagRelationList.size() > 0) {
@@ -201,8 +201,9 @@ public class KnowledgeAction extends AjaxAction {
     }
 
     public String getKnow() throws Exception {
-
-        return null;
+        knowTagRelationList = knowTagRelationService.getKnowTagRelationByKnowId(id);
+        knowledgeData = knowledgeService.getKnowledgeWithArticleById(id);
+        return SUCCESS;
     }
 
     // 更新某个知识点，包括更新系统内的knowledge表、新闻系统里的知识点以及搜索引擎的索引
@@ -254,6 +255,7 @@ public class KnowledgeAction extends AjaxAction {
                 }
             }
             knowIndexService.updateKnowIndex(knowledgeData.getId());
+            id = knowledgeData.getId();
             return SUCCESS;
         }
         request.put(Constants.REQUEST_ERROR, "参数不能为空");

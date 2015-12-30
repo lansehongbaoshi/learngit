@@ -2,11 +2,16 @@ package com.chsi.knowledge.util;
 
 import java.util.List;
 
+import com.chsi.knowledge.dic.KnowledgeStatus;
 import com.chsi.knowledge.pojo.KnowTagRelationData;
+import com.chsi.knowledge.pojo.KnowledgeData;
 import com.chsi.knowledge.pojo.SystemData;
 import com.chsi.knowledge.pojo.TagData;
+import com.chsi.knowledge.service.KnowledgeService;
 import com.chsi.knowledge.service.SearchService;
 import com.chsi.knowledge.service.ServiceFactory;
+import com.chsi.knowledge.service.SystemService;
+import com.chsi.knowledge.service.TagService;
 
 /**
  * 缓存管理工具
@@ -15,8 +20,7 @@ import com.chsi.knowledge.service.ServiceFactory;
  */
 public class ManageCacheUtil {
 
-    private static final String CACHE_KEY_ = "knowledge."
-            + ManageCacheUtil.class.getName();
+    private static final String CACHE_KEY_ = "knowledge." + ManageCacheUtil.class.getName();
     private static final String SEP = ".";
     // 具体每个缓存项目的名称
     private static final String SYSTEM_PREFIX = CACHE_KEY_ + SEP + "system";
@@ -35,7 +39,13 @@ public class ManageCacheUtil {
 
     public static List<KnowTagRelationData> getKnowTag(String tagId) {
         String key = KNOWTAG_PREFIX + SEP + tagId;
-        return MemCachedUtil.get(key);
+        List<KnowTagRelationData> list = MemCachedUtil.get(key);
+        if(list==null) {
+            KnowledgeService knowledgeService = ServiceFactory.getKnowledgeService();
+            list = knowledgeService.getKnowTagDatas(tagId, KnowledgeStatus.YSH);
+            MemCachedUtil.add(key, list);
+        }
+        return list;
     }
 
     public static void removeKnowTag(String tagId) {
@@ -54,7 +64,13 @@ public class ManageCacheUtil {
 
     public static List<TagData> getTagList(String systemId) {
         String key = TAG_PREFIX + SEP + systemId;
-        return MemCachedUtil.get(key);
+        List<TagData> list = MemCachedUtil.get(key);
+        if(list==null) {
+            TagService tagService = ServiceFactory.getTagService();
+            list = tagService.get(systemId);
+            MemCachedUtil.add(key, list);
+        }
+        return list;
     }
 
     public static void removeTagList(String systemId) {
@@ -73,7 +89,13 @@ public class ManageCacheUtil {
 
     public static SystemData getSystem(String systemId) {
         String key = SYSTEM_PREFIX + SEP + systemId;
-        return MemCachedUtil.get(key);
+        SystemData data = MemCachedUtil.get(key);
+        if(data==null) {
+            SystemService systemService = ServiceFactory.getSystemService();
+            data = systemService.getSystemById(systemId);
+            MemCachedUtil.add(key, data);
+        }
+        return data;
     }
 
     public static void removeSystem(String systemId) {
@@ -86,7 +108,18 @@ public class ManageCacheUtil {
         List<String> result = MemCachedUtil.get(key);
         if(result == null) {
             SearchService searchService = ServiceFactory.getSearchService();
-            result = searchService.getTopKeyword(5);
+            result = searchService.getTopKeyword(6);
+            MemCachedUtil.add(key, result);
+        }
+        return result;
+    }
+    
+    public static List<KnowledgeData> getTopKnowl() {
+        String key = CACHE_KEY_ + SEP + "getTopKnowl";
+        List<KnowledgeData> result = MemCachedUtil.get(key);
+        if(result == null) {
+            SearchService searchService = ServiceFactory.getSearchService();
+            result = searchService.getTopKnowl(6);
             MemCachedUtil.add(key, result);
         }
         return result;

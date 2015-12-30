@@ -100,7 +100,7 @@ public class KnowledgeAction extends AjaxAction{
     //后台查看知识点
     public String viewKnowledge() throws Exception {
         ktrDatas = knowTagRelationService.getKnowTagRelationByKnowId(id);
-        kData = knowledgeService.getKnowledgeCmsById(id);
+        kData = knowledgeService.getKnowledgeWithArticleById(id);
         return SUCCESS;
     }
     

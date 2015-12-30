@@ -3,6 +3,7 @@ package com.chsi.knowledge.service;
 import java.util.List;
 
 import com.chsi.framework.pojos.PersistentObject;
+import com.chsi.knowledge.pojo.KnowledgeData;
 
 public interface SearchService {
     void save(PersistentObject po);
@@ -13,4 +14,6 @@ public interface SearchService {
      * @return
      */
     List<String> getTopKeyword(int n);
+    
+    List<KnowledgeData> getTopKnowl(int n);
 }

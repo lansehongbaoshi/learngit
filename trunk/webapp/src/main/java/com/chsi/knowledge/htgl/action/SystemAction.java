@@ -7,6 +7,7 @@ import com.chsi.knowledge.Constants;
 import com.chsi.knowledge.action.base.AjaxAction;
 import com.chsi.knowledge.pojo.SystemData;
 import com.chsi.knowledge.service.SystemService;
+import com.chsi.knowledge.util.ManageCacheUtil;
 import com.chsi.knowledge.web.util.AjaxMessage;
 
 /**
@@ -103,6 +104,7 @@ public class SystemAction extends AjaxAction{
         }
         SystemData data = new SystemData(id, name, description);
         systemService.save(data);
+        ManageCacheUtil.addSystem(id, data);
         return SUCCESS;
     }
     
@@ -119,6 +121,7 @@ public class SystemAction extends AjaxAction{
         data.setName(name);
         data.setDescription(description);
         systemService.update(data);
+        ManageCacheUtil.removeSystem(id);
         return SUCCESS;
     }
 
