@@ -28,7 +28,7 @@ public class SearchLogData extends PersistentObject {
     private String keyword;
     private String searchResult;
     private Calendar createTime;
-    private String createUserId;
+    private String userId;
     private String userIP;
     
     @Id
@@ -80,12 +80,12 @@ public class SearchLogData extends PersistentObject {
     }
 
     @Column(name = "USER_ID")
-    public String getCreateUserId() {
-        return createUserId;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setCreateUserId(String createUserId) {
-        this.createUserId = createUserId;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     @Column(name = "USER_IP")

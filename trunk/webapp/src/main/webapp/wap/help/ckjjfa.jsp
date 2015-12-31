@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
-import="com.chsi.knowledge.pojo.KnowledgeData,com.chsi.knowledge.service.*,java.util.List" %>
+import="com.chsi.knowledge.pojo.*,com.chsi.knowledge.service.*,java.util.List" %>
 <%@ page import="com.chsi.knowledge.Constants" %>
+<%@ page import="com.chsi.knowledge.util.ManageCacheUtil" %>
+<%@ page import="com.chsi.cms.client.*" %>
+<%@ page import="com.chsi.news.vo.Article" %>
 <%@ taglib uri="/struts-tags" prefix="s"%>
 <% 
 String id = request.getParameter("id");
@@ -15,6 +18,12 @@ if (null == session.getAttribute(visitedFlag)) {
 }
 String discussedFlag = Constants.DISCUSS + id;
 boolean isDiscussed = null != session.getAttribute(discussedFlag);
+
+KnowTagRelationService knowTagRelationService = ServiceFactory.getKnowTagRelationService();
+List<KnowTagRelationData> list = knowTagRelationService.getKnowTagRelationByKnowId(id);
+TagData tagData = list.get(0).getTagData();
+list = ManageCacheUtil.getKnowTag(tagData.getId());
+int otherNum = 4;
 %>
 <!DOCTYPE html>
 <html>
@@ -59,11 +68,17 @@ boolean isDiscussed = null != session.getAttribute(discussedFlag);
               <div class="may_que">
                   <h3>您可能遇到的问题</h3>
                   <ul class="hot_list">
-                      <li><a href="#"><i>什么是学信网账号？</i><span><img src="../../images/wap/help/more.png"/></span></a></li>
-                      <li><a href="#"><i>什么是学信网账号？</i><span><img src="../../images/wap/help/more.png"/></span></a></li>
-                      <li><a href="#"><i>什么是学信网账号？</i><span><img src="../../images/wap/help/more.png"/></span></a></li>
-                      <li><a href="#"><i>什么是学信网账号？</i><span><img src="../../images/wap/help/more.png"/></span></a></li>
-                      <li class="last"><a href="#"><i>什么是学信网账号？</i><span><img src="../../images/wap/help/more.png"/></span></a></li>
+                  <%int realnum = 0;
+                  CmsServiceClient cmsServiceClient = CmsServiceClientFactory.getCmsServiceClient();
+                  for(int i=0;i<list.size()&&realnum<=otherNum;i++) {
+                      KnowTagRelationData one = list.get(i);
+                      KnowledgeData data = one.getKnowledgeData();
+                      if(data.getId().equals(id)) continue;
+                      Article article = cmsServiceClient.getArticle(data.getCmsId());
+                      realnum++;
+                  %>
+                      <li<%if(i==list.size()-1 || realnum==otherNum) out.print(" class=\"last\"");%>><a href="/wap/help/ckjjfa.jsp?id=<%=data.getId() %>"><i><%=article.getTitle() %></i><span><img src="../../images/wap/help/more.png"/></span></a></li>
+                   <%} %>
                   </ul>
               </div>
       </div>

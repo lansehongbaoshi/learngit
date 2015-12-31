@@ -22,6 +22,10 @@ public class ServiceFactory {
         return springBeanLocator.getBean(ServiceConstants.SYSTEM_SERVICE);
     }
     
+    public static KnowTagRelationService getKnowTagRelationService(){
+        return springBeanLocator.getBean(ServiceConstants.KNOWTAGRELATIONDATA_SERVICE);
+    }
+    
     public static QueueService getQueueService(){
         return SpringBeanLocator.getInstance("chsi-knowledge.xml").getBean("queueService");
     }
