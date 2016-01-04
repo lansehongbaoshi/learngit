@@ -200,7 +200,7 @@ public class SearchAction extends AjaxAction {
         }
         data.setSearchResult(sb.toString());
         data.setCreateTime(Calendar.getInstance());
-        data.setCreateUserId(CallInfoHelper.getCurrentUser());
+        data.setUserId(CallInfoHelper.getCurrentUser());
         data.setUserIP(CallInfoHelper.getCurrentUserIp());
         queueService.addSearchLog(data);
     }
