@@ -43,6 +43,9 @@ public class SystemDataDAOImpl extends BaseHibernateDAO implements SystemDataDAO
         return list;
     }
 
-    
+    @Override
+    public void delete(SystemData systemData) {
+        hibernateUtil.delete(systemData);
+    }
 
 }

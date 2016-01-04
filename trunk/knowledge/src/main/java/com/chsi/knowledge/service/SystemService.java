@@ -21,6 +21,8 @@ public interface SystemService {
     
     void update(SystemData systemData);
     
+    void delete(SystemData systemData);
+    
     /**
      * 获取所有系统列表
      * @return

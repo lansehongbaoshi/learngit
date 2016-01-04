@@ -2,9 +2,12 @@ package com.chsi.knowledge.htgl.action;
 
 import java.util.List;
 
+import com.chsi.cms.client.CmsServiceClient;
+import com.chsi.cms.client.CmsServiceClientFactory;
 import com.chsi.framework.util.ValidatorUtil;
 import com.chsi.knowledge.Constants;
 import com.chsi.knowledge.action.base.AjaxAction;
+import com.chsi.knowledge.pojo.KnowledgeData;
 import com.chsi.knowledge.pojo.SystemData;
 import com.chsi.knowledge.service.SystemService;
 import com.chsi.knowledge.util.ManageCacheUtil;
@@ -125,4 +128,18 @@ public class SystemAction extends AjaxAction{
         return SUCCESS;
     }
 
+    public String delete() throws Exception {
+        if (!ValidatorUtil.isNull(id)) {
+            SystemData systemData = systemService.getSystemById(id);
+            if(systemData!=null) {
+                systemService.delete(systemData);
+            }
+            ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
+        } else {
+            ajaxMessage.addMessage("id不能为空！");
+            ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
+        }
+        writeJSON(ajaxMessage);
+        return NONE;
+    }
 }

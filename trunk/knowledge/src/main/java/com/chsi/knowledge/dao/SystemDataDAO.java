@@ -16,6 +16,9 @@ public interface SystemDataDAO {
     void save(SystemData systemData);
     
     void update(SystemData systemData);
+    
+    void delete(SystemData systemData);
+    
     /**
      * 获取所有系统
      * @return

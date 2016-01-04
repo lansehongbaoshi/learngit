@@ -46,4 +46,9 @@ public class SystemServiceImpl extends BaseDbService implements SystemService{
         return systemDataDAO.getSystems();
     }
 
+    @Override
+    public void delete(SystemData systemData) {
+        systemDataDAO.delete(systemData);
+    }
+
 }
