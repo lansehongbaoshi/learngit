@@ -116,6 +116,11 @@
 }
 .hot_list li a i{
 	float: left;
+	width: 90%;
+	display: block;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }
 .hot_list li a span{
 	float: right;
