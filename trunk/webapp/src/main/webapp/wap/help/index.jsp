@@ -20,12 +20,7 @@ List<KnowledgeData> list = ManageCacheUtil.getTopKnowl();
     <div id="wrap">
       <div class="section">
         <div class="question">
-                  <div class="search">
-                      <div>
-                          <div class="sou"><img src="../../images/wap/help/search.png"/>遇到问题搜一搜</div>
-                          <div class="text"></div>
-                      </div>
-                  </div>
+                  <s:include value="searchbox.jsp"></s:include>
                   <div class="hot">
                       <h2>热门问题</h2>
                       <ul class="hot_list">

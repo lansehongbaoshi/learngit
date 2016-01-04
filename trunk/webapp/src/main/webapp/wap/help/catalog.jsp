@@ -26,12 +26,7 @@ int knowNum = 2;//显示几个标签
   <body>
     <div id="wrap">
       <div class="section">
-        <div class="search" style="border: none;">
-                      <div>
-                          <div class="sou"><img src="../../images/wap/help/search.png"/>遇到问题搜一搜</div>
-                          <div class="text"></div>
-                      </div>
-                  </div>
+        <s:include value="searchbox.jsp"></s:include>
         <%for(int i=0;i<tags.size()&&i<tagNum;i++){
             TagData tagData = tags.get(i);
             %>

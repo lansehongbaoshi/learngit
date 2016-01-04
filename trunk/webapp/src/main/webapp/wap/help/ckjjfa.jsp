@@ -40,12 +40,7 @@ int otherNum = 4;
   <body>
     <div id="wrap">
       <div class="section">
-        <div class="search" style="border: none;">
-                      <div>
-                          <div class="sou"><img src="../../images/wap/help/search.png"/>遇到问题搜一搜</div>
-                          <div class="text"></div>
-                      </div>
-              </div>
+        <s:include value="searchbox.jsp"></s:include>
         <div class="findUser">
                   <h2><%=knowledgeData.getArticle().getTitle() %></h2>
                     <div class="cont">

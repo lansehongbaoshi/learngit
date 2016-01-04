@@ -23,6 +23,7 @@ import com.chsi.search.client.vo.KnowledgeVO;
 
 /**
  * 搜索action
+ * 
  * @author chenjian
  */
 public class SearchAction extends AjaxAction {
@@ -38,7 +39,7 @@ public class SearchAction extends AjaxAction {
     private String callback;
     private QueueService queueService = ServiceFactory.getQueueService();
 
-    //指定系统内搜索
+    // 指定系统内搜索
     public void quickSearchKnow() throws Exception {
         keywords = SearchUtil.keywordsFilter(keywords);
         if (ValidatorUtil.isNull(keywords)) {
@@ -52,8 +53,8 @@ public class SearchAction extends AjaxAction {
         }
         writeCallbackJSON(callback);
     }
-    
-    //指定系统内搜索
+
+    // 指定系统内搜索
     public void searchAllKnow() throws Exception {
         keywords = SearchUtil.keywordsFilter(keywords);
         if (ValidatorUtil.isNull(keywords)) {
@@ -70,8 +71,8 @@ public class SearchAction extends AjaxAction {
         }
         writeCallbackJSON(callback);
     }
-    
-    //全系统搜索
+
+    // 全系统搜索
     public String quickAll() throws Exception {
         keywords = SearchUtil.keywordsFilter(keywords);
         if (ValidatorUtil.isNull(keywords)) {
@@ -84,8 +85,8 @@ public class SearchAction extends AjaxAction {
         writeCallbackJSON(callback);
         return NONE;
     }
-    
-    //全系统搜索
+
+    // 全系统搜索
     public String allSearch() throws Exception {
         keywords = SearchUtil.keywordsFilter(keywords);
         if (ValidatorUtil.isNull(keywords)) {
@@ -101,8 +102,8 @@ public class SearchAction extends AjaxAction {
         writeCallbackJSON(callback);
         return NONE;
     }
-    
-    //搜索关键字热度排名前几个
+
+    // 搜索关键字热度排名前几个
     public String topKeywords() throws Exception {
         List<String> strs = ManageCacheUtil.getTopKeywords();
         ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
@@ -110,8 +111,8 @@ public class SearchAction extends AjaxAction {
         writeJSON(ajaxMessage);
         return NONE;
     }
-    
-    //访问最热的n个知识点
+
+    // 访问最热的n个知识点
     public String topKnowl() throws Exception {
         List<KnowledgeData> result = ManageCacheUtil.getTopKnowl();
         ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
@@ -176,25 +177,24 @@ public class SearchAction extends AjaxAction {
         this.knowledgeService = knowledgeService;
     }
 
-
     public String getCallback() {
         return callback;
     }
 
-
     public void setCallback(String callback) {
         this.callback = callback;
     }
-    
+
     private void saveSearchLog(List<SearchVO> list) {
         SearchLogData data = new SearchLogData();
         data.setKeyword(this.keywords);
         data.setSystemId(this.systemId);
         StringBuffer sb = new StringBuffer();
-        int i=0;
-        for(SearchVO vo : list) {
+        int i = 0;
+        for (SearchVO vo : list) {
             i++;
-            if(i>10) break;//最多存储10个搜索结果id
+            if (i > 10)
+                break;// 最多存储10个搜索结果id
             sb.append(vo.getKnowId());
             sb.append(",");
         }
