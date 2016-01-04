@@ -635,6 +635,7 @@
 	font-size: 14px;
 	font-size: 1.167rem;
 	color: #3d4245;
+	display: block;
 }
 .question_part ul li a span{
 	float: right;
