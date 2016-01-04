@@ -3,6 +3,7 @@
     height: 100%;
     font-size: 12px;
     background: #eeeeee;
+    -webkit-tap-highlight-color: rgba(0,0,0,0.2);
 }
 /*帮助页面*/
 #wrap{
@@ -156,6 +157,9 @@
 	width: 50%;
 	float: left;
     border-bottom:  1px #DDDDDD solid;
+}
+.part div dl a{
+	display: block;
 }
 .part div.first dl{
 	padding-bottom: 12px;

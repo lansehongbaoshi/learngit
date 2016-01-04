@@ -35,34 +35,42 @@ List<KnowledgeData> list = ManageCacheUtil.getTopKnowl();
                 <span class="fg_line"></span>
                   <div class="first">
                       <dl>
+                      	<a href="#">
                           <dt><img src="../../images/wap/help/user.png"/></dt>
                           <dd>
                               <h3>账户问题</h3>
                               <p>用户名密码、身份证重复等</p>
                           </dd>
+                        </a>
                       </dl>
                       <dl class="none">
-                          <dt><a href="/wap/help/catalog.jsp?id=yz_wb"><img src="../../images/wap/help/yanzhao.png"/></a></dt>
+                      	<a href="/wap/help/catalog.jsp?id=yz_wb">
+                          <dt><img src="../../images/wap/help/yanzhao.png"/></dt>
                           <dd>
                               <h3>研招网报</h3>
                               <p>打印准考证、报名资格等</p>
                           </dd>
+                        </a>
                       </dl>
                   </div>
                   <div class="second">
                       <dl>
-                          <dt><a href="/wap/help/catalog.jsp?id=zb"><img src="../../images/wap/help/zhengbing.png"/></a></dt>
+                      	<a href="/wap/help/catalog.jsp?id=zb">
+                          <dt><img src="../../images/wap/help/zhengbing.png"/></dt>
                           <dd>
                               <h3>征兵网</h3>
                               <p>常见问题、报名条件</p>
                           </dd>
+                        </a>
                       </dl>
                       <dl class="none">
+                      	<a href="#">
                           <dt><img src="../../images/wap/help/dangan.png"/></dt>
                           <dd>
                               <h3>学信档案</h3>
                               <p>图片校对、高等教育等</p>
                           </dd>
+                        </a>
                       </dl>
                   </div>
               </div>
