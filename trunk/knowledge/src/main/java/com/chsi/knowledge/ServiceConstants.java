@@ -20,6 +20,7 @@ public class ServiceConstants {
     public static final String SYSTEM_SERVICE = "systemService";
     public static final String KNOWTAGRELATIONDATA_SERVICE  = "knowTagRelationService";
     public static final String SEARCH_SERVICE  = "searchService";
+    public static final String KNOWLEDGE_INDEX_SERVICE  = "knowIndexService";
     
     public static final String SERVICE_IMPL_CONF = "META-INF/conf/knowledge/serviceImpl.xml";
     

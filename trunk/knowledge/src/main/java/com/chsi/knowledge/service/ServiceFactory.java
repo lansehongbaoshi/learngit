@@ -2,6 +2,7 @@ package com.chsi.knowledge.service;
 
 import com.chsi.framework.service.spring.SpringBeanLocator;
 import com.chsi.knowledge.ServiceConstants;
+import com.chsi.knowledge.index.service.KnowIndexService;
 
 public class ServiceFactory {
     private static SpringBeanLocator springBeanLocator = SpringBeanLocator.getInstance(ServiceConstants.SERVICE_IMPL_CONF);
@@ -32,6 +33,10 @@ public class ServiceFactory {
     
     public static SearchService getSearchService(){
         return springBeanLocator.getBean(ServiceConstants.SEARCH_SERVICE);
+    }
+    
+    public static KnowIndexService getKnowIndexService(){
+        return springBeanLocator.getBean(ServiceConstants.KNOWLEDGE_INDEX_SERVICE);
     }
     
 }

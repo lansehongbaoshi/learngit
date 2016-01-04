@@ -12,6 +12,7 @@ import com.chsi.knowledge.service.SearchService;
 import com.chsi.knowledge.service.ServiceFactory;
 import com.chsi.knowledge.service.SystemService;
 import com.chsi.knowledge.service.TagService;
+import com.chsi.search.client.vo.KnowledgeVO;
 
 /**
  * 缓存管理工具
@@ -103,12 +104,12 @@ public class ManageCacheUtil {
         MemCachedUtil.removeByKey(key);
     }
 
-    public static List<String> getTopKeywords() {
-        String key = CACHE_KEY_ + SEP + "getTopKeywords";
-        List<String> result = MemCachedUtil.get(key);
+    public static List<KnowledgeVO> getTopSearchKnow() {
+        String key = CACHE_KEY_ + SEP + "getTopSearchKnow";
+        List<KnowledgeVO> result = MemCachedUtil.get(key);
         if(result == null) {
             SearchService searchService = ServiceFactory.getSearchService();
-            result = searchService.getTopKeyword(6);
+            result = searchService.getTopSearchKnow(5);
             MemCachedUtil.add(key, result);
         }
         return result;

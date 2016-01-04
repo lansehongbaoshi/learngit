@@ -105,7 +105,7 @@ public class SearchAction extends AjaxAction {
 
     // 搜索关键字热度排名前几个
     public String topKeywords() throws Exception {
-        List<String> strs = ManageCacheUtil.getTopKeywords();
+        List<KnowledgeVO> strs = ManageCacheUtil.getTopSearchKnow();
         ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
         ajaxMessage.setO(strs);
         writeJSON(ajaxMessage);
