@@ -39,7 +39,7 @@ int knowNum = 2;//显示几个标签
               String knowId = one.getKnowledgeData().getId();
               Article article = cmsServiceClient.getArticle(one.getKnowledgeData().getCmsId());
           %>
-            <li><a href="/wap/help/ckjjfa.jsp?id=<%=knowId %>"><span><img src="../../images/wap/help/more.png"/></span><%=article.getTitle() %></a></li>
+            <li><a href="/wap/help/ckjjfa.jsp?id=<%=knowId %>"><span><img src="../../images/wap/help/more.png"/></span><i><%=article.getTitle() %></i></a></li>
             <%} %>
           </ul>
           <%if(i==tags.size()-1 || i==tagNum-1){ %>

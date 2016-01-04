@@ -636,6 +636,15 @@
 	font-size: 1.167rem;
 	color: #3d4245;
 	display: block;
+	overflow: hidden;
+}
+.question_part ul li a i{
+	display: block;
+	float: left;
+	width: 92%;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
 }
 .question_part ul li a span{
 	float: right;
