@@ -36,7 +36,7 @@ int knowNum = 2;//显示几个标签
             TagData tagData = tags.get(i);
             %>
         <div class="question_part">
-          <h2><%=i+1 %>.<%=tagData.getName() %></h2>
+          <h2><%=i+1 %>、<%=tagData.getName() %></h2>
           <ul>
           <%List<KnowTagRelationData> list = ManageCacheUtil.getKnowTag(tagData.getId());
           for(int j=0;j<list.size()&&j<knowNum;j++){

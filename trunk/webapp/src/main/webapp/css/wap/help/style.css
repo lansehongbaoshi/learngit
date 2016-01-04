@@ -104,6 +104,11 @@
 	font-size: 14px;
 	font-size: 1.167rem;
 	color: #333333;
+	display: block;
+	line-height: 47px;
+	line-height: 3.917rem;
+	height: 47px;
+	height: 3.917rem;
 }
 .hot_list li.last{
     border: none;

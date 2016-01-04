@@ -50,7 +50,7 @@ List<KnowledgeData> list = ManageCacheUtil.getTopKnowl();
                           <dt><a href="/wap/help/catalog.jsp?id=yz_wb"><img src="../../images/wap/help/yanzhao.png"/></a></dt>
                           <dd>
                               <h3>研招网报</h3>
-                              <p>用户名密码、身份证重复等</p>
+                              <p>打印准考证、报名资格等</p>
                           </dd>
                       </dl>
                   </div>
@@ -59,14 +59,14 @@ List<KnowledgeData> list = ManageCacheUtil.getTopKnowl();
                           <dt><a href="/wap/help/catalog.jsp?id=zb"><img src="../../images/wap/help/zhengbing.png"/></a></dt>
                           <dd>
                               <h3>征兵网</h3>
-                              <p>用户名密码、身份证重复等</p>
+                              <p>常见问题、报名条件</p>
                           </dd>
                       </dl>
                       <dl class="none">
                           <dt><img src="../../images/wap/help/dangan.png"/></dt>
                           <dd>
                               <h3>学信档案</h3>
-                              <p>用户名密码、身份证重复等</p>
+                              <p>图片校对、高等教育等</p>
                           </dd>
                       </dl>
                   </div>
