@@ -80,4 +80,9 @@ public class TagServiceImpl extends BaseDbService implements TagService{
         return tagDataDAO.getTagData(id);
     }
 
+    @Override
+    public void delete(TagData tagData) {
+        tagDataDAO.delete(tagData);
+    }
+
 }

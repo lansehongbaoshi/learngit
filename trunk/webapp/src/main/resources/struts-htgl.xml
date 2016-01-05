@@ -60,6 +60,9 @@
         <action name="addSystem" class="systemActionBean" method="add">
             <result name="success" type="redirect">/htgl/system/listSystems.action</result>
         </action>
+        <action name="delSystem" class="systemActionBean" method="delete">
+            <result name="success" type="redirect">/htgl/system/listSystems.action</result>
+        </action>
     </package>
     
     <package name="htgl.tag" extends="knowledge-default" namespace="/htgl/tag">
@@ -86,6 +89,8 @@
         </action>
         <action name="update" class="tagActionBean" method="update">
             <result name="success" type="redirect">/htgl/tag/updateIndex.action?id=${id}&amp;</result>
+        </action>
+        <action name="delete" class="tagActionBean" method="delete">
         </action>
     </package>
     

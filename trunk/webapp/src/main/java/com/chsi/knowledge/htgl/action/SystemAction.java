@@ -2,14 +2,13 @@ package com.chsi.knowledge.htgl.action;
 
 import java.util.List;
 
-import com.chsi.cms.client.CmsServiceClient;
-import com.chsi.cms.client.CmsServiceClientFactory;
 import com.chsi.framework.util.ValidatorUtil;
 import com.chsi.knowledge.Constants;
 import com.chsi.knowledge.action.base.AjaxAction;
-import com.chsi.knowledge.pojo.KnowledgeData;
 import com.chsi.knowledge.pojo.SystemData;
+import com.chsi.knowledge.pojo.TagData;
 import com.chsi.knowledge.service.SystemService;
+import com.chsi.knowledge.service.TagService;
 import com.chsi.knowledge.util.ManageCacheUtil;
 import com.chsi.knowledge.web.util.AjaxMessage;
 
@@ -22,6 +21,7 @@ public class SystemAction extends AjaxAction{
 
     private static final long serialVersionUID = 12312412L;
     private SystemService systemService;
+    private TagService tagService;
     private String id;
     private String name;
     private String description;
@@ -35,6 +35,14 @@ public class SystemAction extends AjaxAction{
 
     public void setSystemService(SystemService systemService) {
         this.systemService = systemService;
+    }
+
+    public TagService getTagService() {
+        return tagService;
+    }
+
+    public void setTagService(TagService tagService) {
+        this.tagService = tagService;
     }
 
     public String getId() {
@@ -132,9 +140,17 @@ public class SystemAction extends AjaxAction{
         if (!ValidatorUtil.isNull(id)) {
             SystemData systemData = systemService.getSystemById(id);
             if(systemData!=null) {
-                systemService.delete(systemData);
+                List<TagData> tags = tagService.get(id);
+                if(tags.size()>0) {
+                    ajaxMessage.addMessage("删除系统前必须先清空标签！");
+                    ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
+                } else {
+                    systemService.delete(systemData);
+                    ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
+                }
+            } else {
+                ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
             }
-            ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
         } else {
             ajaxMessage.addMessage("id不能为空！");
             ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);

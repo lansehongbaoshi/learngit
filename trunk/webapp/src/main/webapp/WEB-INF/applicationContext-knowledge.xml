@@ -58,11 +58,13 @@
    
     <bean id="systemActionBean"  class="com.chsi.knowledge.htgl.action.SystemAction"  scope="request">
         <property name="systemService" ref="systemService" />
+        <property name="tagService" ref="tagService" />
     </bean>
     
     <bean id="tagActionBean"  class="com.chsi.knowledge.htgl.action.TagAction"  scope="request">
         <property name="systemService" ref="systemService" />
         <property name="tagService" ref="tagService" />
+        <property name="knowTagRelationService" ref="knowTagRelationService" />
     </bean>
    
     <bean id="fileActionBean"  class="com.chsi.knowledge.file.action.FileAction"  scope="request">

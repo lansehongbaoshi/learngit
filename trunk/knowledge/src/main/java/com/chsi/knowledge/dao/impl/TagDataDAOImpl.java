@@ -48,4 +48,9 @@ public class TagDataDAOImpl extends BaseHibernateDAO implements TagDataDAO {
         return list.size() == 0 ? null : list.get(0);
     }
 
+    @Override
+    public void delete(TagData tagData) {
+        hibernateUtil.delete(tagData);
+    }
+
 }

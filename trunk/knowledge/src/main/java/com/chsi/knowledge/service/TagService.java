@@ -27,6 +27,8 @@ public interface TagService {
     
     void saveOrUpdate(TagData tagData);
     
+    void delete(TagData tagData);
+    
     TagData getTagData(String systemId, String name);
     
     TagData getTagData(String id);

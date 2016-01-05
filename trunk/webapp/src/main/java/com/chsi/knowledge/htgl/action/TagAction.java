@@ -2,10 +2,13 @@ package com.chsi.knowledge.htgl.action;
 
 import java.util.List;
 
+import com.chsi.framework.util.ValidatorUtil;
 import com.chsi.knowledge.Constants;
 import com.chsi.knowledge.action.base.AjaxAction;
+import com.chsi.knowledge.pojo.KnowTagRelationData;
 import com.chsi.knowledge.pojo.SystemData;
 import com.chsi.knowledge.pojo.TagData;
+import com.chsi.knowledge.service.KnowTagRelationService;
 import com.chsi.knowledge.service.SystemService;
 import com.chsi.knowledge.service.TagService;
 import com.chsi.knowledge.util.ManageCacheUtil;
@@ -19,6 +22,7 @@ public class TagAction extends AjaxAction{
     private static final long serialVersionUID = 12312412L;
     private TagService tagService;
     private SystemService systemService;
+    private KnowTagRelationService knowTagRelationService;
     private String systemId;
     private String id;
     private String name;
@@ -44,6 +48,14 @@ public class TagAction extends AjaxAction{
 
     public void setSystemService(SystemService systemService) {
         this.systemService = systemService;
+    }
+
+    public KnowTagRelationService getKnowTagRelationService() {
+        return knowTagRelationService;
+    }
+
+    public void setKnowTagRelationService(KnowTagRelationService knowTagRelationService) {
+        this.knowTagRelationService = knowTagRelationService;
     }
 
     public String getSystemId() {
@@ -144,6 +156,29 @@ public class TagAction extends AjaxAction{
         tagService.saveOrUpdate(tagData);
         ManageCacheUtil.removeTagList(systemId);
         return SUCCESS;
+    }
+    
+    public String delete() throws Exception {
+        if (!ValidatorUtil.isNull(id)) {
+            TagData tagData = tagService.getTagData(id);
+            if(tagData!=null) {
+                List<KnowTagRelationData>  list = knowTagRelationService.getKnowTagDatas(id);
+                if(list.size()>0) {
+                    ajaxMessage.addMessage("删除标签前必须先清空使用该标签的知识！");
+                    ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
+                } else {
+                    tagService.delete(tagData);
+                    ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
+                }
+            } else {
+                ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
+            }
+        } else {
+            ajaxMessage.addMessage("id不能为空！");
+            ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
+        }
+        writeJSON(ajaxMessage);
+        return NONE;
     }
 
 }

@@ -43,6 +43,7 @@ public interface KnowledgeService {
     
     void delete(KnowledgeData knowledgeData);
     
+    void update(KnowledgeData knowledgeData);
     
     /*后台service结束*/
     

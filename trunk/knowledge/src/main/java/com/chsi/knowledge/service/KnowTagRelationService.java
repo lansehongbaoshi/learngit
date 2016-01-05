@@ -21,4 +21,10 @@ public interface KnowTagRelationService {
      */
     int del(String knowledgeId);
 
+    /**
+     * 非删除状态的知识
+     * @param tagId
+     * @return
+     */
+    List<KnowTagRelationData> getKnowTagDatas(String tagId);
 }

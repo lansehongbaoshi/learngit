@@ -18,6 +18,8 @@ public interface TagDataDAO {
     
     void saveOrUpdate(TagData tagData);
     
+    void delete(TagData tagData);
+    
     TagData getTagData(String id);
     
     TagData getTagData(String systemId, String name);

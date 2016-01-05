@@ -204,10 +204,16 @@ public class KnowledgeServiceImpl extends BaseDbService implements KnowledgeServ
     public void delete(KnowledgeData knowledgeData) {
         knowledgeDataDAO.delete(knowledgeData);
     }
+    
+    @Override
+    public void update(KnowledgeData knowledgeData) {
+        knowledgeDataDAO.update(knowledgeData);
+    }
 
     @Override
     public List<KnowTagRelationData> getKnowTagDatas(String tagId, KnowledgeStatus knowledgeStatus) {
         return knowTagRelationDAO.getKnowTagDatas(tagId, knowledgeStatus);
     }
+
 
 }

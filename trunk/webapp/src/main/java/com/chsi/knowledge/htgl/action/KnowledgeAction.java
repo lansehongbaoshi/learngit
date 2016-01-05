@@ -265,10 +265,14 @@ public class KnowledgeAction extends AjaxAction {
     public void delKnowledge() throws Exception {
         if (!ValidatorUtil.isNull(id)) {
             KnowledgeData data = knowledgeService.getKnowledgeById(id);
-            knowIndexService.deleteKnowIndex(data.getId());// 删索引
-            CmsServiceClient cmsServiceClient = CmsServiceClientFactory.getCmsServiceClient();
-            cmsServiceClient.deleteArticle(data.getCmsId());// 从新闻系统删除
-            knowledgeService.delete(data);// 从本系统删除
+            if(data!=null) {
+                knowIndexService.deleteKnowIndex(data.getId());// 删索引
+                CmsServiceClient cmsServiceClient = CmsServiceClientFactory.getCmsServiceClient();
+                cmsServiceClient.deleteArticle(data.getCmsId());// 从新闻系统删除
+                data.setKnowledgeStatus(KnowledgeStatus.YSC);
+                knowledgeService.update(data);// 从本系统删除,非真删除
+                knowTagRelationService.del(data.getId());
+            }
             ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
         } else {
             ajaxMessage.addMessage("id不能为空！");

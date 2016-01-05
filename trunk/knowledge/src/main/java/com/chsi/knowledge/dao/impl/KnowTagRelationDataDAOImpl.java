@@ -17,6 +17,7 @@ public class KnowTagRelationDataDAOImpl extends BaseHibernateDAO implements Know
     private static final String KNOWLEDGE_ID = " p.knowledgeData.id=:id";
     private static final String TAG_ID = " p.tagData.id=:tagId";
     private static final String KNOWLEDGE_KNOWLEDGESTATUS = " p.knowledgeData.knowledgeStatus=:knowledgeStatus";
+    private static final String NOT_KNOWLEDGE_KNOWLEDGESTATUS = " p.knowledgeData.knowledgeStatus!=:knowledgeStatus";
     
     private static final String DEL_RELATION = "delete from KnowTagRelationData p ";
     
@@ -48,6 +49,13 @@ public class KnowTagRelationDataDAOImpl extends BaseHibernateDAO implements Know
         String hql = SELECT_KNOWTAGRELATION + W + TAG_ID + A + KNOWLEDGE_KNOWLEDGESTATUS + ORDERBY_KNOWLEDGE_VISITCNT_SORT;
         Query query = hibernateUtil.getSession().createQuery(hql).setInteger("knowledgeStatus", knowledgeStatus.getOrdinal())
                       .setString("tagId", tagId);
+        List<KnowTagRelationData> list = query.list();
+        return list;
+    }
+    
+    public List<KnowTagRelationData> getKnowTagDatas(String tagId) {
+        String hql = SELECT_KNOWTAGRELATION + W + TAG_ID + A + NOT_KNOWLEDGE_KNOWLEDGESTATUS + ORDERBY_KNOWLEDGE_VISITCNT_SORT;
+        Query query = hibernateUtil.getSession().createQuery(hql).setInteger("knowledgeStatus", KnowledgeStatus.YSC.getOrdinal()).setString("tagId", tagId);
         List<KnowTagRelationData> list = query.list();
         return list;
     }

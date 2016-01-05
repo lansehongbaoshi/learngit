@@ -117,13 +117,32 @@
                             for (var i = 0; i < json.o.length; i++) {
                                 var tag = json.o[i];
                                 var odd_even = (i%2==0)?"even":"odd";
-                             str = str + (" <tr role=\"row\" class=\""+odd_even+"\"><td>"+ tag.name +"</td><td class=\"hidden-260\">" + tag.description + "</td><td><div class=\"hidden-sm hidden-xs action-buttons\"><a class=\"blue\" href=\"#\"> <i class=\"ace-icon fa fa-search-plus bigger-130\"></i> </a> <a class=\"green\" title=\"修改\" target='_blank' href='/htgl/tag/updateIndex.action?id=" + tag.id +"'><i class=\"ace-icon fa fa-pencil bigger-130\"></i> </a> <a title=\"删除\" class=\"red\" href=\"#\"> <i class=\"ace-icon fa fa-trash-o bigger-130\"></i> </a></div>" + "</td></tr>");
+                             str = str + (" <tr role=\"row\" class=\""+odd_even+"\"><td>"+ tag.name +"</td><td class=\"hidden-260\">" + tag.description + "</td><td><div class=\"hidden-sm hidden-xs action-buttons\" data-id=\"" + tag.id +"\"><a class=\"blue\" href=\"#\"> <i class=\"ace-icon fa fa-search-plus bigger-130\"></i> </a> <a class=\"green\" title=\"修改\" target='_blank' href='/htgl/tag/updateIndex.action?id=" + tag.id +"'><i class=\"ace-icon fa fa-pencil bigger-130\"></i> </a> <a title=\"删除\" class=\"red delBtn\" href=\"javascript:void(0)\"> <i class=\"ace-icon fa fa-trash-o bigger-130\"></i> </a></div>" + "</td></tr>");
                              
                             }
                             $("#tags_result").html(str);
                         }
                     }
                 );
+            });
+            $(document).on("click",".delBtn",function() {
+            	if(confirm("删除后将不可恢复，确定删除该标签？")) {
+            		var $div = $(this).closest("div");
+	            	var tagId = $div.data("id");
+	            	$.getJSON(
+            			"/htgl/tag/delete.action",
+            			{id:tagId},
+            			function(data){
+            				if(data.flag=='true') {
+            					alert("删除成功");
+            					$div.closest("tr").remove();
+            				} else {
+            					var errMsg = data.errorMessages.pop();
+            					alert(errMsg);
+            				}
+            			}
+	            	)
+            	}
             });
         })
     </script>
