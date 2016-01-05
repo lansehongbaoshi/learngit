@@ -31,7 +31,7 @@
         List<GrantAuthority> gaList = new ArrayList<GrantAuthority>();
 
         GrantAuthority grantAuthority = new GrantAuthority();
-        grantAuthority.setAuthority(vo.getId());
+        grantAuthority.setAuthority(vo.getName());
         grantAuthority.setAssignable(true);
         gaList.add(grantAuthority);
 
