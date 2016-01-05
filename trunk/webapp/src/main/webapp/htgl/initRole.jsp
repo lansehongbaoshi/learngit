@@ -43,7 +43,8 @@
             }
         }
         if (flag) {
-            authorityServiceClient.grantAuthorities(userId, gaList);
+            Integer[] i = authorityServiceClient.grantAuthorities(userId, gaList).getValue();
+            log.info(String.format("===================开始result:%s", i[0]));
         }
     }
 %>
@@ -53,13 +54,7 @@
     log.info(String.format("===================开始accountLoginName:%s", aLoginName));
     try {
         String userId = accountServiceClient.getAccountByLoginname(aLoginName.trim()).getValue().getId();
-        PersonalInfoData personalInfoData = accountServiceClient.getPersonalInfoById(userId).getValue();
-        String userNameCN;
-        if (personalInfoData != null) {
-            userNameCN = personalInfoData.getXm();
-        } else {
-            userNameCN = aLoginName;
-        }
+        log.info(String.format("===================开始userId:%s", userId));
 
         if (userId != null && !"".equals(userId)) {
             createAuthentication("ROLE_KNOWLEDGE", userId);
