@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="gb2312"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+    <bean id="sysPropertyConfigurer"  class="com.chsi.framework.config.spring.ConfigurablePropertyPlaceholder">
+            <property name="propertyLocationSystemProperty" value="propertyPath" />
+        <property name="defaultPropertyFileName" value="server.properties" />
+    </bean>
+  <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+          <property name="jndiName"><value>java:jdbc/account</value></property>
+    </bean>
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+        <property name="dataSource"><ref local="dataSource"/></property>
+        <property name="configLocation">
+            <value>META-INF/conf/account/hibernate-account-cfg.xml</value>
+        </property>
+        <property name="configurationClass">
+            <value>org.hibernate.cfg.AnnotationConfiguration</value>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.Oracle9iDialect</prop>
+                <prop key="hibernate.cache.provider_class">org.hibernate.cache.HashtableCacheProvider</prop>
+                <!--<prop key="hibernate.jdbc.fetch_size">15</prop>-->
+                <prop key="hibernate.jdbc.batch_size">0</prop>
+                <prop key="hibernate.show_sql">false</prop>
+                <prop key="hibernate.use_outer_join">false</prop>
+            </props>            
+        </property>
+        <property name="entityInterceptor">
+            <bean class="com.chsi.framework.hibernate.AuditInterceptor"/>
+        </property>        
+      <property name="eventListeners">
+            <map>
+                <entry key="flush" value-ref="flushEventListener" />
+                    <entry key="post-update" value-ref="versionEventListener" />
+                    <entry key="post-insert" value-ref="versionEventListener" />
+                <entry key="post-delete" value-ref="versionEventListener" />
+            </map>
+        </property>             
+    </bean>
+    
+    <!-- version start-->
+    <bean id="versionEventListener" class="com.chsi.version.listener.VersionsEventListener" >
+      <property name="versionService"><ref local="versionService" /></property>
+    </bean>
+      
+    <bean id="flushEventListener" class="com.chsi.version.listener.VersionIdFlushEventListener" /> 
+    
+    <bean id="versionService" class="com.chsi.version.service.impl.VersionServiceImpl" init-method="create" destroy-method="remove"/>    
+    <!-- version end-->    
+    
+    <bean id="daoInvocationHander" class="java.lang.String" >
+        <constructor-arg>
+            <value>com.chsi.framework.hibernate.HibernateDAOInvocationHandler</value>
+        </constructor-arg>
+    </bean>
+
+    <bean id="dbProvider" class="com.chsi.framework.service.HibernateDbProvider" >
+        <property name="daoInvocationHander"><ref local="daoInvocationHander"/></property>
+    </bean>
+    
+    <!-- dao -->
+    <bean id="userAccountDao" class="com.chsi.account.dao.hibernate.UserAccountDAOImpl" >
+        <property name="sessionFactory"><ref local="sessionFactory"/></property>
+        <property name="cacheClient"><ref local="cacheClient"/></property>
+    </bean>
+    <bean id="verifyInfoDao" class="com.chsi.account.dao.hibernate.VerifyInfoDAOImpl" >
+        <property name="sessionFactory"><ref local="sessionFactory"/></property>
+    </bean>
+    <bean id="dicDao" class="com.chsi.account.dao.hibernate.DicDAOImpl" >
+        <property name="sessionFactory"><ref local="sessionFactory"/></property>
+        <property name="cacheClient"><ref local="cacheClient"/></property>
+    </bean>
+   <bean id="cacheClient" class="com.chsi.cache.memcached.spy.SpyMemcachedClientFactory" factory-method="getSpyMemcachedClient">
+        <constructor-arg type="java.lang.String" value="${sys.com.chsi.account.memcache.pool_name}"/><!-- Pool name -->
+        <constructor-arg type="java.lang.String" value="${sys.com.chsi.account.memcache.app_name}"/><!-- App name -->
+     </bean>
+    <bean id="authorityDAO" class="com.chsi.security.dao.hibernate.AuthorityDAOImpl" >
+        <property name="sessionFactory"><ref local="sessionFactory"/></property>
+        <property name="cacheClient"><ref local="cacheClient"/></property>
+    </bean>    
+    <bean id="ftpAuthorityDAO" class="com.chsi.security.dao.hibernate.FtpAuthorityDAOImpl" >
+        <property name="sessionFactory"><ref local="sessionFactory"/></property>
+    </bean>    
+</beans>

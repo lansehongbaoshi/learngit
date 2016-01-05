@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="gb2312"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+    <bean id="beanFactoryLocatorKey" class="java.lang.String" >
+        <constructor-arg>
+            <value>servicelayer-context-account-version</value>
+        </constructor-arg>
+    </bean>
+    <bean id="factoryLocatorSelector" class="java.lang.String" >
+        <constructor-arg>
+            <value>META-INF/conf/account/beanRefContext-account.xml</value>
+        </constructor-arg>
+    </bean>
+    
+    <bean id="dbProvider" class="java.lang.String" >
+        <constructor-arg>
+            <value>dbProvider</value>
+        </constructor-arg>
+    </bean>    
+</beans>

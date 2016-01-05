@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+    <bean id="locator" class="com.chsi.framework.service.BeanLocator" init-method="init">
+        <property name="beanFactoryLocatorKey" value="servicelayer-context-account" />
+        <property name="factoryLocatorSelector" value="META-INF/conf/account/beanRefContext-account.xml" />
+        <property name="dbProviderName" value="dbProvider" />
+    </bean>
+
+    <bean id="baseDbService" abstract="true" init-method="create" destroy-method="remove">
+        <property name="locator">
+            <ref local="locator" />
+        </property>
+    </bean>
+
+    <bean id="searchQueueService" class="com.chsi.account.service.impl.SearchQueueServiceImpl" parent="baseDbService"/>  
+    <bean id="authorityService" class="com.chsi.security.service.impl.AuthorityServiceImpl" parent="baseDbService"/>    
+    <bean id="accountService" class="com.chsi.account.service.impl.AccountServiceImpl"  parent="baseDbService">
+        <property name="searchQueueService" ref="searchQueueService"/>
+    </bean>
+    
+</beans>
+
+

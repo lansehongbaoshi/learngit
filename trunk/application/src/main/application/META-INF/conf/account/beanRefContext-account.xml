@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="gb2312"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+   <bean id="servicelayer-context-account"
+         class="org.springframework.context.support.ClassPathXmlApplicationContext">
+     <constructor-arg>
+       <list>
+         <value>META-INF/conf/account/chsi-account.xml</value>
+       </list>
+     </constructor-arg>
+   </bean>  
+   
+   <bean id="servicelayer-context-account-version"
+         class="org.springframework.context.support.ClassPathXmlApplicationContext">
+     <constructor-arg>
+       <list>
+         <value>META-INF/conf/account/chsi-account-version.xml</value>
+       </list>
+     </constructor-arg>
+   </bean>      
+</beans>
