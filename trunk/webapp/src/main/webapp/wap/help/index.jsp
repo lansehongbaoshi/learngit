@@ -26,7 +26,14 @@ List<KnowledgeData> list = ManageCacheUtil.getTopKnowl();
                       <ul class="hot_list">
                       <%for(int i=0;i<list.size();i++) {
                           KnowledgeData one = list.get(i);%>
-                          <li<%if(i==(list.size()-1)) out.print(" class=\"last\"");%>><a href="/wap/help/ckjjfa.jsp?id=<%=one.getId()%>"><i><%=one.getArticle().getTitle() %></i><span><img src="../../images/wap/help/more.png"/></span></a></li>
+                          <li<%if(i==(list.size()-1)) out.print(" class=\"last\"");%>>
+	                          <a href="/wap/help/ckjjfa.jsp?id=<%=one.getId()%>">
+	                          	<div>
+		                          	<i><%=one.getArticle().getTitle() %></i>
+		                          	<span><img src="../../images/wap/help/more.png"/></span>
+	                          	</div>
+	                          </a>
+                          </li>
                        <%} %>
                       </ul>
                   </div>

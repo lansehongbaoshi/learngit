@@ -72,7 +72,14 @@ int otherNum = 4;
                       Article article = cmsServiceClient.getArticle(data.getCmsId());
                       realnum++;
                   %>
-                      <li<%if(i==list.size()-1 || realnum==otherNum) out.print(" class=\"last\"");%>><a href="/wap/help/ckjjfa.jsp?id=<%=data.getId() %>"><i><%=article.getTitle() %></i><span><img src="../../images/wap/help/more.png"/></span></a></li>
+                      <li<%if(i==list.size()-1 || realnum==otherNum) out.print(" class=\"last\"");%>>
+	                      <a href="/wap/help/ckjjfa.jsp?id=<%=data.getId() %>">
+	                      	<div>
+		                      	<i><%=article.getTitle() %></i>
+		                      	<span><img src="../../images/wap/help/more.png"/></span>
+	                      	</div>
+	                      </a>
+                      </li>
                    <%} %>
                   </ul>
               </div>

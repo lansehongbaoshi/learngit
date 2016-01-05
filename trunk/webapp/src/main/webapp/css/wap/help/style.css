@@ -3,7 +3,7 @@
     height: 100%;
     font-size: 12px;
     background: #eeeeee;
-    -webkit-tap-highlight-color: rgba(0,0,0,0.2);
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 /*帮助页面*/
 #wrap{
@@ -91,13 +91,10 @@
 }
 .hot_list{
     background: #ffffff;
-    padding-left: 12px;
-    padding-left: 1.0rem;
 }
 .hot_list li{
     line-height: 47px;
     line-height: 3.917rem;
-    border-bottom: 1px #DDDDDD solid;
     height: 47px;
     height: 3.917rem;
 }
@@ -110,9 +107,15 @@
 	line-height: 3.917rem;
 	height: 47px;
 	height: 3.917rem;
+	padding-left: 12px;
+	padding-left: 1.0rem;
 }
-.hot_list li.last{
-    border: none;
+.hot_list li a div{
+	border-bottom: 1px #DDDDDD solid;
+	overflow: hidden;
+}
+.hot_list li.last a div{
+	border: none;
 }
 .hot_list li a i{
 	float: left;
@@ -622,20 +625,25 @@
 	text-indent: 12px;
 	text-indent: 1.0rem;
 }
-.question_part ul{
+/*.question_part ul{
 	padding: 0 12px;
 	padding: 0 1.0rem;
-}
+}*/
 .question_part ul li{
 	line-height: 47px;
 	line-height: 3.917rem;
-	border-top: 1px #dddddd solid;
 }
 .question_part ul li a{
 	font-size: 14px;
 	font-size: 1.167rem;
 	color: #3d4245;
 	display: block;
+	
+	padding:0 12px;
+	padding:0 1.0rem;
+}
+.question_part ul li a div{
+	border-top: 1px #dddddd solid;
 	overflow: hidden;
 }
 .question_part ul li a i{
