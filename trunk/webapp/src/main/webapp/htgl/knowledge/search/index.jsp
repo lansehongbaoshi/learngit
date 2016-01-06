@@ -115,7 +115,7 @@ String ctxPath = request.getContextPath();
     </div>
     <script type="text/javascript">
         function showSearchResult(systemId, keywords, curPage) {
-            $.getJSON("/search/searchAllKnow.action", {
+            $.getJSON("/htgl/search/searchAllKnow.action", {
                     systemId: systemId,
                     keywords: keywords,
                     curPage: curPage

@@ -106,4 +106,16 @@
         <action name="up" class="fileActionBean" method="upfile"></action>
     </package>
     
+    <package name="htgl.search" extends="knowledge-default" namespace="/htgl/search">
+        <interceptors>
+          <interceptor-stack name="knowledgeStack">
+              <interceptor-ref name="chsiDefaultStack"></interceptor-ref>
+              <interceptor-ref name="store">
+                  <param name="operationMode">AUTOMATIC</param>
+              </interceptor-ref>
+          </interceptor-stack>
+        </interceptors>
+        <action name="searchAllKnow" class="htglSearchActionBean" method="searchAllKnow"></action>
+    </package>
+    
 </struts>

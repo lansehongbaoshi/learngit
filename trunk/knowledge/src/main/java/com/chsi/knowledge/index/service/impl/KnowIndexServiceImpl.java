@@ -88,6 +88,7 @@ public class KnowIndexServiceImpl extends BaseDbService implements KnowIndexServ
             start = 0;
         }
         Map<String, String> queryParams = new HashMap<String, String>();
+        queryParams.put("q", keywords);
         queryParams.put("qf", "title^15 content^5 key_words^10 tags^10");
         queryParams.put("defType", "edismax");
         queryParams.put("bf", "sum(div(log(visit_cnt),6),div(sort,200))");

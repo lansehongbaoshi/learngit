@@ -69,5 +69,12 @@
    
     <bean id="fileActionBean"  class="com.chsi.knowledge.file.action.FileAction"  scope="request">
     </bean>
+    
+    <bean id="htglSearchActionBean"  class="com.chsi.knowledge.htgl.action.SearchAction"  scope="request">
+        <property name="knowIndexService" ref="knowIndexService" />
+        <property name="systemService" ref="systemService" />
+        <property name="knowledgeService" ref="knowledgeService" />
+        <property name="searchService" ref="searchService" />
+    </bean>
    
 </beans>
