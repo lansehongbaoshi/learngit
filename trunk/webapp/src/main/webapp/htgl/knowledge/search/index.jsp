@@ -182,6 +182,7 @@ String ctxPath = request.getContextPath();
                     }
                 }
             );
+            showSearchResult($("#systemIds").val(), "*:*", 0);
             $("#searchBtn").click(function () {
                 showSearchResult($("#systemIds").val(), $("#keywords").val(), 0);
             });
