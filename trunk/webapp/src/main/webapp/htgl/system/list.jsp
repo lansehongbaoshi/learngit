@@ -70,10 +70,10 @@
                                                         <s:property value="#data.description" />
                                                     </td>
                                                     <td class="hidden-260">
-                                                       <div class="hidden-sm hidden-xs action-buttons" data-id="<s:property value='#data.id'/>">
+                                                       <div class="hidden-sm hidden-xs action-buttons">
                                                        <a class="blue" href="#"> <i class="ace-icon fa fa-search-plus bigger-130"></i> </a> 
                                                        <a class="green" title="修改" target='_self' href="/htgl/system/updateSystemIndex.action?id=<s:property value='#data.id'/>"><i class="ace-icon fa fa-pencil bigger-130"></i> </a> 
-                                                       <a title="删除" class="red delBtn" href="javascript:void(0)"> <i class="ace-icon fa fa-trash-o bigger-130"></i> </a>
+                                                       <a title="删除" class="red" href="#"> <i class="ace-icon fa fa-trash-o bigger-130"></i> </a>
                                                        </div>
                                                       
                                                     </td>
@@ -98,24 +98,6 @@
 
         <script>
             $(function () {
-            	$(document).on("click",".delBtn",function() {
-                	if(confirm("删除后将不可恢复，确定删除该系统？")) {
-                		var $div = $(this).closest("div");
-    	            	var id = $div.data("id");
-    	            	$.getJSON(
-                			"/htgl/system/delSystem.action",
-                			{id:id},
-                			function(data){
-                				if(data.flag=='true') {
-                					alert("删除成功");
-                					$div.closest("tr").remove();
-                				} else {
-                					var errMsg = data.errorMessages.pop();
-                					alert(errMsg);
-                				}
-                			}
-    	            	)
-                	}
-                });
+
             })
         </script>

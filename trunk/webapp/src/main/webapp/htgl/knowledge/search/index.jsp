@@ -58,7 +58,7 @@ String ctxPath = request.getContextPath();
                         <h3 class="row header smaller lighter blue">
                         <span class="col-xs-7">知识点列表</span>
                         <span class="col-xs-5">
-                            <a  href="/htgl/addindex.action" target="_blank"  class="btn-new-mail pull-right">
+                            <a  href="/htgl/addindex.action" target="_self"  class="btn-new-mail pull-right">
 														<span class="btn btn-primary no-border">
 															<i class="ace-icon fa glyphicon-plus bigger-130"></i>
 															<span class="bigger-110">新增</span>
@@ -123,12 +123,21 @@ String ctxPath = request.getContextPath();
                 function showSearchResult(json) {
                     if (json.flag == 'true') {
                         $("#search_result").html("");
+                        $("#search_table_header").html("");
+                        $("#dynamic-table_info").html("");
+                        $("#dynamic-table_paginate").html("");
+                        $("#table_footer_info").hide();
                         var knows = json.o.knows;
+                        if(knows.length<1){
+                           $("#search_result").html(" <tr role=\"row\" class=\"odd\"\><td  colspan=\"5\"> 无数据 </td><\/tr>");
+                            $("#search_table_header").html("搜索 \“"+$("#keywords").val() +"\” 的结果").show();
+                            return;
+                        }
                         var pagination = json.o.pagination;
                         for (var i = 0; i < knows.length; i++) {
                             var k = knows[i];
                             var odd_even = (i%2==0)?"even":"odd";
-                            var str = " <tr role=\"row\" data-id="+k.knowId+" class=\""+odd_even+"\"><td><a target='_blank' href='/view/viewKnowledge.action?id=" + k.knowId + "'>" + k.title + "</a></td><td class=\"hidden-260\">" + k.summary + "</td><td class=\"hidden-80\">"+k.visitCnt+"</td><td class=\hidden-80\><span class=\"label label-sm label-success\">已发布</span></td><td><div class=\"hidden-sm hidden-xs action-buttons\"><a class=\"blue\" target='_blank' href=\"/htgl/showKnowledge.action?id=" + k.knowId +"\"> <i class=\"ace-icon fa fa-search-plus bigger-130\"></i> </a> <a class=\"green\" title=\"修改\" target='_blank' href='/htgl/modifyindex.action?id=" + k.knowId +"&systemId=" + systemId + "'><i class=\"ace-icon fa fa-pencil bigger-130\"></i> </a> <a title=\"删除\" class=\"red delBtn\" href=\"#\"> <i class=\"ace-icon fa fa-trash-o bigger-130\"></i> </a></div>" + "</td></tr>";
+                            var str = " <tr role=\"row\" data-id="+k.knowId+" class=\""+odd_even+"\"><td><a target='_blank' href='/view/viewKnowledge.action?id=" + k.knowId + "'>" + k.title + "</a></td><td class=\"hidden-260\">" + k.summary + "</td><td class=\"hidden-80\">"+k.visitCnt+"</td><td class=\hidden-80\><span class=\"label label-sm label-success\">已发布</span></td><td><div class=\"hidden-sm hidden-xs action-buttons\"><a class=\"blue\" target='_blank' href=\"/htgl/showKnowledge.action?id=" + k.knowId +"\"> <i class=\"ace-icon fa fa-search-plus bigger-130\"></i> </a> <a class=\"green\" title=\"修改\" target='_self' href='/htgl/modifyindex.action?id=" + k.knowId +"&systemId=" + systemId + "'><i class=\"ace-icon fa fa-pencil bigger-130\"></i> </a> <a title=\"删除\" class=\"red delBtn\" href=\"#\"> <i class=\"ace-icon fa fa-trash-o bigger-130\"></i> </a></div>" + "</td></tr>";
                             $("#search_result").append(str);
                         }
                         $("#search_table_header").html("搜索 \“"+knows[0].keywords +"\” 的结果").show();

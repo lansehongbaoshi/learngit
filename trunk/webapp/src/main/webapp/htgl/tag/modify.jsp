@@ -44,8 +44,8 @@
                         <input type="text" name="description" style="width: 400px;" value="<s:property value='tagData.description' />">
                     </p>
 
-                    <p>排序：
-                        <input id="sort" type="text" name="sort" style="width: 100px;" value="<s:property value='tagData.sort' />"> <span>（说明：1~999之间的数字,数值越大,排序越靠前）<span>
+                    <p>热度：
+                        <input id="sort" type="text" name="sort" style="width: 100px;" value="<s:property value='tagData.sort' />"> <span>（说明：1~99之间的数字,数值越大,序越靠前）<span>
                             </p>
                        
                     
@@ -57,7 +57,7 @@
                                 </button>
 
                                 &nbsp; &nbsp; &nbsp;
-                                <button class="btn" type="reset">
+                                <button class="btn" type="reset" onclick="history.go(-1)">
                                     <i class="ace-icon fa fa-undo bigger-110"></i> 取消
                                 </button>
                             </div>

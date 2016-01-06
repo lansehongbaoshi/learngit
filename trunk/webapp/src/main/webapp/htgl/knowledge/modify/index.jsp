@@ -88,7 +88,7 @@ String ctxPath = request.getContextPath();
                                     <i class="ace-icon fa fa-check bigger-110"></i> 修改
                                 </button>
                                  &nbsp; &nbsp; &nbsp;
-                                <button class="btn" type="reset">
+                                <button class="btn" type="reset" onclick="history.go(-1)">
                                     <i class="ace-icon fa fa-undo bigger-110"></i> 取消
                                 </button>
                                  
