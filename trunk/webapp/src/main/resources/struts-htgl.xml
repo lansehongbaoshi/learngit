@@ -33,6 +33,8 @@
         <action name="searchindex" class="knowledgeActionBean" method="searchindex">
             <result name="success" type="tiles">htgl.knowledge.search.index</result>
         </action>
+        <action name="showDiscussContent" class="knowledgeActionBean" method="showDiscussContent">
+        </action>
     </package>
     
     <package name="htgl.system" extends="knowledge-default" namespace="/htgl/system">

@@ -14,11 +14,15 @@ import com.chsi.knowledge.pojo.KnowTagRelationData;
 import com.chsi.knowledge.pojo.KnowledgeData;
 import com.chsi.knowledge.pojo.SystemData;
 import com.chsi.knowledge.pojo.TagData;
+import com.chsi.knowledge.service.DiscussService;
 import com.chsi.knowledge.service.KnowTagRelationService;
 import com.chsi.knowledge.service.KnowledgeService;
 import com.chsi.knowledge.service.SystemService;
 import com.chsi.knowledge.service.TagService;
 import com.chsi.knowledge.util.ManageCacheUtil;
+import com.chsi.knowledge.vo.DiscussCountVO;
+import com.chsi.knowledge.vo.DiscussInfoVO;
+import com.chsi.knowledge.vo.KnowListVO;
 import com.chsi.knowledge.vo.LoginUserVO;
 import com.chsi.knowledge.vo.ViewKnowVO;
 import com.chsi.knowledge.web.util.AjaxMessage;
@@ -48,6 +52,10 @@ public class KnowledgeAction extends AjaxAction {
     private TagService tagService;
     private SystemService systemService;
     private KnowTagRelationService knowTagRelationService;
+    private DiscussService discussService;
+    private DiscussCountVO discussCountVO;
+    private KnowListVO<DiscussInfoVO> contentList;
+    private int curPage;
     
     protected AjaxMessage ajaxMessage = new AjaxMessage();
 
@@ -178,6 +186,40 @@ public class KnowledgeAction extends AjaxAction {
     public void setKnowTagRelationService(KnowTagRelationService knowTagRelationService) {
         this.knowTagRelationService = knowTagRelationService;
     }
+    
+    public DiscussService getDiscussService() {
+        return discussService;
+    }
+
+    public void setDiscussService(DiscussService discussService) {
+        this.discussService = discussService;
+    }
+
+    public DiscussCountVO getDiscussCountVO() {
+        return discussCountVO;
+    }
+
+    public void setDiscussCountVO(DiscussCountVO discussCountVO) {
+        this.discussCountVO = discussCountVO;
+    }
+    
+    public KnowListVO<DiscussInfoVO> getContentList() {
+        return contentList;
+    }
+
+    public void setContentList(KnowListVO<DiscussInfoVO> contentList) {
+        this.contentList = contentList;
+    }
+    
+    public int getCurPage() {
+        return curPage;
+    }
+
+    public void setCurPage(int curPage) {
+        this.curPage = curPage;
+    }
+
+
 
     private static final long serialVersionUID = 464316546L;
 
@@ -203,6 +245,11 @@ public class KnowledgeAction extends AjaxAction {
     public String getKnow() throws Exception {
         knowTagRelationList = knowTagRelationService.getKnowTagRelationByKnowId(id);
         knowledgeData = knowledgeService.getKnowledgeWithArticleById(id);
+        
+        String KId = knowledgeData.getId();
+        discussCountVO = discussService.getDiscussCountVOByKId(KId);
+        contentList = discussService.getDiscussInfoVOList(KId, 0, 10);
+        
         return SUCCESS;
     }
 
@@ -278,6 +325,14 @@ public class KnowledgeAction extends AjaxAction {
             ajaxMessage.addMessage("id不能为空！");
             ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
         }
-        writeJSON(ajaxMessage);;
+        writeJSON(ajaxMessage);
+    }
+    
+    public void showDiscussContent() throws Exception{
+        String KId = id;
+        contentList = discussService.getDiscussInfoVOList(KId, curPage, 10);
+        ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
+        ajaxMessage.setO(contentList);
+        writeJSON(ajaxMessage);
     }
 }

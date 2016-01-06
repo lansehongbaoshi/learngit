@@ -3,6 +3,8 @@ package com.chsi.knowledge.dao;
 import java.util.List;
 
 import com.chsi.knowledge.pojo.DiscussData;
+import com.chsi.knowledge.vo.DiscussCountVO;
+import com.chsi.knowledge.vo.DiscussInfoVO;
 /**
  * 评价表操作DAO 接口
  * @author chenjian
@@ -16,4 +18,9 @@ public interface DiscussDataDAO {
      * @return
      */
     List<DiscussData> getDiscusssByKnowledgeId(String knowledgeId);
+    
+    DiscussCountVO getDiscussCountVOByKId(String KId);
+    
+    List<DiscussInfoVO> getDiscussInfoVOList(String KId, int start, int pageSize);
+    int getDiscussInfoVOList(String KId);
 }

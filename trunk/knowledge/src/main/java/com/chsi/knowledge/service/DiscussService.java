@@ -1,6 +1,10 @@
 package com.chsi.knowledge.service;
 
+import com.chsi.framework.page.Page;
 import com.chsi.knowledge.pojo.DiscussData;
+import com.chsi.knowledge.vo.DiscussCountVO;
+import com.chsi.knowledge.vo.DiscussInfoVO;
+import com.chsi.knowledge.vo.KnowListVO;
 
 /**
  * 评价业务逻辑层接口
@@ -15,4 +19,8 @@ public interface DiscussService {
      * @return
      */
     /*  DiscussVO getDiscussVOByKnowledgeId(String knowledgeId);*/
+    
+    DiscussCountVO getDiscussCountVOByKId(String KId);
+    
+    KnowListVO<DiscussInfoVO> getDiscussInfoVOList(String KId, int start, int pageSize);
 }
