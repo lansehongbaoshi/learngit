@@ -182,9 +182,15 @@ String ctxPath = request.getContextPath();
                     }
                 }
             );
-            showSearchResult($("#systemIds").val(), "*:*", 0);
+           
             $("#searchBtn").click(function () {
-                showSearchResult($("#systemIds").val(), $("#keywords").val(), 0);
+                if($.trim($("#keywords").val())==""){
+                     showSearchResult($("#systemIds").val(), "*:*", 0);
+                    }
+                    else{
+                     showSearchResult($("#systemIds").val(), $("#keywords").val(), 0);
+                        }
+                
             });
             $(document).on("click",".delBtn",function() {
             	if(confirm("删除后将不可恢复，确定删除该知识点？")) {
