@@ -71,7 +71,7 @@ public class DiscussDataDAOImpl extends BaseHibernateDAO implements DiscussDataD
     
     @Override
     public List<DiscussInfoVO> getDiscussInfoVOList(String KId,int start,int pageSize) {
-        String sql = " SELECT D.USER_ID,D.CONTENT,TO_CHAR(D.CREATE_TIME,'yyyy-MM-dd hh24:mm:ss') FROM DISCUSS D WHERE D.KNOWLEDGE_ID =:KId AND D.CONTENT IS NOT NULL ";
+        String sql = " SELECT D.USER_ID,D.CONTENT,TO_CHAR(D.CREATE_TIME,'yyyy-MM-dd hh24:mm:ss') FROM DISCUSS D WHERE D.KNOWLEDGE_ID =:KId AND D.CONTENT IS NOT NULL order by D.CREATE_TIME desc ";
         Query query = hibernateUtil.getSession().createSQLQuery(sql).setString("KId", KId);
         query.setFirstResult(start);
         query.setMaxResults(pageSize);
