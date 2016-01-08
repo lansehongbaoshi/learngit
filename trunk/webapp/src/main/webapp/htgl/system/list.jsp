@@ -33,7 +33,7 @@
                             <h3 class="row header smaller lighter blue">
                         <span class="col-xs-7">所有系统</span>
                         <span class="col-xs-5">
-                            <a  href="/htgl/addSystemIndex.action" target="_self"  class="btn-new-mail pull-right">
+                            <a  href="/htgl/system/addSystemIndex.action" target="_self"  class="btn-new-mail pull-right">
 														<span class="btn btn-primary no-border">
 															<i class="ace-icon fa glyphicon-plus bigger-130"></i>
 															<span class="bigger-110">新增</span>
