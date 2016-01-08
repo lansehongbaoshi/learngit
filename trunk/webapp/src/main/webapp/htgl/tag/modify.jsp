@@ -44,7 +44,7 @@
                         <input type="text" name="description" style="width: 400px;" value="<s:property value='tagData.description' />">
                     </p>
 
-                    <p>热度：
+                    <p>排序：
                         <input id="sort" type="text" name="sort" style="width: 100px;" value="<s:property value='tagData.sort' />"> <span>（说明：1~99之间的数字,数值越大,序越靠前）<span>
                             </p>
                        

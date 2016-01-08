@@ -42,7 +42,7 @@
                         <input type="text" name="description" style="width: 400px;">
                     </p>
 
-                    <p>热度：
+                    <p>排序：
                         <input id="sort" type="text" name="sort" style="width: 100px;" value=""> <span>（说明：1~99之间的数字,数值越大,序越靠前）<span>
                             </p>
                        
