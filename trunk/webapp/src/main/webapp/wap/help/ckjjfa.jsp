@@ -53,8 +53,8 @@ int otherNum = 4;
                   <div class="bot">
                       <h6>
                       	<span class="before"></span>
-                      	<lable>此解答是否有用</lable><br/>
-                        <lable class='bot_txt' style='display:none;'>已有1人参与</lable>
+                      	<label>此解答是否有用</label><br/>
+                        <label class='bot_txt' style='display:none;'>已有1人参与</label>
                         <span class="after"></span>
                       </h6>
                       <div class="huifu">
@@ -97,25 +97,23 @@ int otherNum = 4;
       	<div class="dialog" style="display:none">
                 <div class="bot_bar">
                   <div class="title">
-                    <div class="cancel">取消</div>
+                    <div class="cancel available">取消</div>
                     <h1>您觉得无用的原因</h1>
                     <div class="submit">提交</div>
                   </div>
-                  <ul>
-                    <li><input type="radio" name="sel"/>解决方案看不懂</li>
-                    <li><input type="radio" name="sel"/>操作后不成功</li>
-                    <li><input type="radio" name="sel"/>其他</li>
+                  <ul class='sel_list'>
+                    <li><label for='sel1'><input type="radio" name="sel" id='sel1' value='1'/>解决方案看不懂</label></li>
+                    <li><label for='sel2'><input type="radio" name="sel" id='sel2' value='2'/>操作后不成功</label></li>
+                    <li><label for='sel3'><input type="radio" name="sel" id='sel3' value='3'/>其他</label></li>
                   </ul>
-                  <textarea>
-                    谢谢您帮我们发现了新大陆，和小编说说呗~
-                  </textarea>
+                  <textarea class='text_area'>谢谢您帮我们发现了新大陆，和小编说说呗!</textarea>
                 </div>
             </div>
     </div>
   </body>
 <script type="text/javascript">
 $(function(){
-	$('.huifu').delegate(' li','click',function(e){
+	$('.huifu').delegate('li','click',function(e){
 		var $this = $(this),$txt = $('.bot_txt'),$huifuEnd=$('.huifu_end');
 		var n = 1;
 		$txt.show().html('已有'+n+'人参与');
@@ -126,6 +124,36 @@ $(function(){
 			$('.dialog').show();
 		}
 	})
+	$('.dialog').delegate('.cancel','click',function(e){
+		$(this).parents('.dialog').hide();
+	}).find('input[name="sel"]').change(function(e) {
+        var $this = $(this);
+		var value = $('input[name="sel"]:checked').val()||'';
+		if(value!=''){
+			var $dialog = $this.parents(".dialog");
+			$dialog.find('.submit').addClass('available')
+				   .click(function(){$dialog.hide();submitFn();			
+			});			
+		}
+    }).end().find('textarea').focus(function(){
+		$this = $(this);
+		var val = $this.val();
+		if(val=='谢谢您帮我们发现了新大陆，和小编说说呗!'){
+			$this.val('').css('color','#333');
+		}
+	}).keydown(function(){
+		$this = $(this);
+		var val = $this.val()||'';
+		if(val!=''){
+			$this.parents(".dialog")
+				.find('input[name="sel"]').eq(2).prop('checked',true)
+				.end().find('.submit').addClass('available')
+				.click(function(){$dialog.hide();submitFn();});			
+		}	
+	});
 });
+function submitFn(){
+	alert('提交');	
+};
 </script>  
 </html>
