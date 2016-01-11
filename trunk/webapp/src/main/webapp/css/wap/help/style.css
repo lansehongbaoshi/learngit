@@ -498,13 +498,27 @@
     height: 18px;
     width: 3.25rem;
     height: 1.5rem; 
-    border: 1px #CCCCCC solid;
+    border: 1px #999 solid;
     border-radius: 2px;
     line-height: 15px;
     line-height: 1.2rem;
-    color: #b6b6b6;
+    color: #999;
     font-size: 10px;
 }
+.bot .bot_txt{color:#999}
+.bot .huifu_end{
+	text-align: center;
+    margin: 10px 0;
+	margin: 0.5rem 0;
+    color: #999;
+	line-height:30px;
+	line-height:2.2rem;
+}
+.bot .huifu_end .kp{    
+	color: #ff5500;
+    font-weight: bold;
+	font-size: 17px;
+    font-size: 1.2rem;}
 .may_que{
     padding-bottom: 24px;
     padding-bottom: 2.0rem;

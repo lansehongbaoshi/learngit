@@ -35,7 +35,8 @@ int otherNum = 4;
     <link href="../../css/wap/help/style.css" rel="stylesheet"/>
     <!--[if lt IE 9]>
         <script src="../../js/wap/respond.js"></script>
-      <![endif]-->
+    <![endif]--> 
+    <script type="text/javascript" src="../../js/jquery-1.11.1.min.js"></script>
   </head>
   <body>
     <div id="wrap">
@@ -50,12 +51,21 @@ int otherNum = 4;
                   </div>
                   <%if(!isDiscussed){ %>
                   <div class="bot">
-                      <h6><span class="before"></span>此解答是否有用<span class="after"></span></h6>
+                      <h6>
+                      	<span class="before"></span>
+                      	<lable>此解答是否有用</lable><br/>
+                        <lable class='bot_txt' style='display:none;'>已有1人参与</lable>
+                        <span class="after"></span>
+                      </h6>
                       <div class="huifu">
                         <ul>
-                            <li><button>有用</button></li>
+                            <li><button >有用</button></li>
                             <li class="none"><button>无用</button></li>
                         </ul>
+                      </div>
+                       <div class="huifu_end" style='display:none;'>
+                       	<div class='kp'>靠谱</div>
+                        <span>谢谢您的反馈！</span>
                       </div>
                   </div>
                   <%} %>
@@ -84,7 +94,7 @@ int otherNum = 4;
                   </ul>
               </div>
       </div>
-      <div class="dialog" style="display:none">
+      	<div class="dialog" style="display:none">
                 <div class="bot_bar">
                   <div class="title">
                     <div class="cancel">取消</div>
@@ -103,4 +113,19 @@ int otherNum = 4;
             </div>
     </div>
   </body>
+<script type="text/javascript">
+$(function(){
+	$('.huifu').delegate(' li','click',function(e){
+		var $this = $(this),$txt = $('.bot_txt'),$huifuEnd=$('.huifu_end');
+		var n = 1;
+		$txt.show().html('已有'+n+'人参与');
+		$this.parents('.huifu').hide();	
+		$huifuEnd.show();
+		if($this.hasClass("none")){//无用
+			$huifuEnd.find('.kp').text('不靠谱');
+			$('.dialog').show();
+		}
+	})
+});
+</script>  
 </html>
