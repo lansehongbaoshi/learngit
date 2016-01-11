@@ -561,9 +561,6 @@
 	font-size: 14px;
 	font-size: 1.167rem;
 }
-.title .cancel{
-	color: #238cff;
-}
 .title .submit{
 	color: #7fbcff;
 	position: absolute;
@@ -571,6 +568,10 @@
 	right: 0.667rem;
 	line-height: 30px;
 	line-height: 2.5rem;
+}
+.title .available{
+	color: #238cff;
+	cursor:pointer;
 }
 .title h1{
 	text-align: center;
@@ -588,7 +589,7 @@
 	padding: 12px;
 	padding: 1.0rem;
 }
-.bot_bar ul li{
+.bot_bar ul label{
 	line-height: 45px;
 	line-height: 3.75rem;
 	border-top: 1px #dddddd solid;
@@ -597,8 +598,9 @@
 	color: #333333;
 	font-size: 14px;
 	font-size: 1.167rem;
+	display:block;
 }
-.bot_bar ul li input{
+.bot_bar ul input{
 	margin-right: 9.6px;
 	margin-right: 0.8rem;
 }

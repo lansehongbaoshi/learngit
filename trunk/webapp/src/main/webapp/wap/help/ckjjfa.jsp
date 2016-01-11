@@ -53,8 +53,7 @@ int otherNum = 4;
                   <div class="bot">
                       <h6>
                       	<span class="before"></span>
-                      	<label>此解答是否有用</label><br/>
-                        <label class='bot_txt' style='display:none;'>已有1人参与</label>
+                      	<label>此解答是否有用</label>
                         <span class="after"></span>
                       </h6>
                       <div class="huifu">
@@ -64,7 +63,7 @@ int otherNum = 4;
                         </ul>
                       </div>
                        <div class="huifu_end" style='display:none;'>
-                       	<div class='kp'>靠谱</div>
+                       	<div class='kp'>有用</div>
                         <span>谢谢您的反馈！</span>
                       </div>
                   </div>
@@ -114,14 +113,15 @@ int otherNum = 4;
 <script type="text/javascript">
 $(function(){
 	$('.huifu').delegate('li','click',function(e){
-		var $this = $(this),$txt = $('.bot_txt'),$huifuEnd=$('.huifu_end');
+		var $this = $(this),$huifuEnd=$('.huifu_end');
 		var n = 1;
-		$txt.show().html('已有'+n+'人参与');
 		$this.parents('.huifu').hide();	
 		$huifuEnd.show();
 		if($this.hasClass("none")){//无用
-			$huifuEnd.find('.kp').text('不靠谱');
+			$huifuEnd.find('.kp').text('无用');
 			$('.dialog').show();
+		}else{
+			usefulFn();
 		}
 	})
 	$('.dialog').delegate('.cancel','click',function(e){
@@ -152,8 +152,11 @@ $(function(){
 		}	
 	});
 });
+function usefulFn(){
+	alert('有用');	
+}
 function submitFn(){
-	alert('提交');	
+	alert('提交无用');	
 };
 </script>  
 </html>
