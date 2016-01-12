@@ -101,9 +101,9 @@ int otherNum = 4;
                     <div class="submit">提交</div>
                   </div>
                   <ul class='sel_list'>
-                    <li><label for='sel1'><input type="radio" name="sel" id='sel1' value='1'/>解决方案看不懂</label></li>
-                    <li><label for='sel2'><input type="radio" name="sel" id='sel2' value='2'/>操作后不成功</label></li>
-                    <li><label for='sel3'><input type="radio" name="sel" id='sel3' value='3'/>其他</label></li>
+                    <li><label for='sel1'><input type="radio" name="sel" id='sel1' value='解决方案看不懂'/>解决方案看不懂</label></li>
+                    <li><label for='sel2'><input type="radio" name="sel" id='sel2' value='操作后不成功'/>操作后不成功</label></li>
+                    <li><label for='sel3'><input type="radio" name="sel" id='sel3' value='其他'/>其他</label></li>
                   </ul>
                   <textarea class='text_area'>谢谢您帮我们发现了新大陆，和小编说说呗!</textarea>
                 </div>
@@ -129,10 +129,10 @@ $(function(){
 	}).find('input[name="sel"]').change(function(e) {
         var $this = $(this);
 		var value = $('input[name="sel"]:checked').val()||'';
-		if(value!=''){
+		if(value!=''){			
 			var $dialog = $this.parents(".dialog");
 			$dialog.find('.submit').addClass('available')
-				   .click(function(){$dialog.hide();submitFn();			
+				   .click(function(){$dialog.hide();submitFn(value,$('.text_area').val());			
 			});			
 		}
     }).end().find('textarea').focus(function(){
@@ -148,15 +148,18 @@ $(function(){
 			$this.parents(".dialog")
 				.find('input[name="sel"]').eq(2).prop('checked',true)
 				.end().find('.submit').addClass('available')
-				.click(function(){$dialog.hide();submitFn();});			
+				.click(function(){$dialog.hide();submitFn(value,$('.text_area').val());});			
 		}	
 	});
 });
 function usefulFn(){
 	alert('有用');	
 }
-function submitFn(){
-	alert('提交无用');	
+function submitFn(selectTxt,textarea){
+	if(textarea=='谢谢您帮我们发现了新大陆，和小编说说呗!'){
+		textarea='';
+	}
+	alert('选中了：'+selectTxt+'，填写内容为：'+textarea+'');	
 };
 </script>  
 </html>
