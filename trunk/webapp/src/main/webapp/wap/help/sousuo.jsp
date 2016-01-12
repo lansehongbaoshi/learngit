@@ -10,22 +10,39 @@ import="com.chsi.knowledge.pojo.KnowledgeData,com.chsi.knowledge.util.ManageCach
     <link href="../../css/wap/help/reset.css" rel="stylesheet"/>
     <link href="../../css/wap/help/style.css" rel="stylesheet"/>
     <!--[if lt IE 9]><script src="../../js/wap/respond.js"></script><![endif]-->
-    <script type="text/javascript" src="http://t4.chsi.com.cn/common/jquery/1.11.1/jquery.min.js"></script>
+    <script type="text/javascript" src="http://t4.chsi.com.cn/common/jquery/1.11.1/jquery.min.js"></script>    
     <script type="text/javascript" src='../../js/wap/template.js'></script>
 <script type="text/javascript">
+var InputText = '';
 $(function(){
+	$('#search_input').focus();
 	$("#cancel").on("click", function(){
 		window.history.back();
 	})
+	$('#search_input').on("keyup",function(){
+		var text = $.trim($(this).val());
+		if(text ==""){ 
+			$('#hot_lists').show();
+			$('#ask_list').html('');
+			return false;
+		}else if (text == InputText){
+			return false;	
+		}
+		InputText = text;
+		var _par = "keywords="+text;
+		$('#hot_lists').hide();
+		ajaxJSONP('allsearch',_par,'inputSearch'); 
+	})
+	
 })
-//搜索
+/********  搜索  begin *******/
 function searchAll(){
-	var $searchText = $("#search_text");
+	var $searchText = $("#search_input");
 	var text = $.trim($searchText.val());
 	var _par = "keywords="+text;
-	if(text ==""){ alert("请输入您要咨询的问题"); return false;}
+	if(text ==""){ return false;}
 	$("#cache_v").val(_par);
-	$('.hot_search_questions').hide();
+	$('#hot_lists').hide();
 	ajaxJSONP('allsearch',_par,'knSearch'); //自动搜索“报名”
 }
 // 配置项
@@ -58,10 +75,13 @@ function ajaxJSONP(url,data,callback){
 }
 // 搜索
 function knSearch(json){
-	if(!json.flag){ alert(json.errorMessages); return;}
-	//$(".ask_answer").show();  
-	$("#ask_list").html(template('ask_list_template',json));
+	if(!json.flag){ alert(json.errorMessages); return;}  
+	$("#ask_list").html(template('ask_list_detail',json));
 }    
+function inputSearch(json){
+	if(!json.flag){ alert(json.errorMessages); return;}
+	$("#ask_list").html(template('input_list_detail',json));
+}
 //artTemplate辅助方法-高亮关键字
 template.helper('hightWord', function (k,o) {
     var pattern = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？]",'g');
@@ -69,6 +89,7 @@ template.helper('hightWord', function (k,o) {
      var reg = new RegExp("("+$.trim(_k)+")","g");
     return  o.replace(reg, "<strong style='color:#c30'>$1</strong>");
 });
+/********  搜索  end *******/
 </script>
 
   </head>
@@ -78,13 +99,13 @@ template.helper('hightWord', function (k,o) {
         <div class="search_text">
           <div class="cancel"><a href="javascript:void(0)" id="cancel">取消</a></div>
           <div class="search_form">
-            <input type="text" class='search_text' id='search_text'/>
+            <input type="text" id='search_input'/>
             <span class="clearr">×</span>
             <button class='search_tbn' onClick="searchAll()">搜索</button>
             <input type="hidden" id="cache_v" name="cache_v" />  
           </div>
         </div>
-        <ul class="hot_search_questions">
+        <ul class="hot_search_questions" id='hot_lists'>
         <%if(knows!=null){ 
            for(KnowledgeVO vo:knows){%>
            <li><a href="/wap/help/ckjjfa.jsp?id=<%=vo.getKnowledgeId() %>"><%=vo.getTitle() %></a></li>
@@ -92,21 +113,23 @@ template.helper('hightWord', function (k,o) {
         <%} %>
         </ul>
         <div id='ask_list'></div>
-        <!--搜索列表内容-->
-<script id="kn_res_list_template" type="text/html">
- <div class="ui-box-container">
- 
-<div class="faq-list">
-<div id="res_loading" class="kn-loading"><img alt="正在加载中..." src="http://t1.chei.com.cn/common/zbbm/images/htgl/loading.gif"></div>
-<div id="res_list">{{include 'ask_list_detail'}}</div>
-</div>
-<div class="pagenation clearfix" id="res_pagenation_list"></div>
-</div> 
+<!--自动完成内容-->
+<script id="input_list_detail" type="text/html">
+<ul class="hot_search_questions">
+{{if o.knows.length>0 }}
+ {{each o.knows as value i}} 
+ <li>
+ 	<a class="ui-corner-all"  href="/wap/help/ckjjfa.jsp?id={{value.knowId}}">{{#hightWord(value.keywords,value.title)}}
+	</a>
+ </li> 
+  {{/each}}	
+  {{else}}
+  <li style="color:#c30;"> 抱歉，未找到相关问题。</li>
+  {{/if}}
+</ul>
+
 </script>
 <!--搜索列表内容-->
-<script id="ask_list_template" type="text/html">
-{{include 'ask_list_detail'}} 
-</script>
 <script id="ask_list_detail" type="text/html">
 <ul class="ask_answer">
 {{if o.knows.length>0 }}
