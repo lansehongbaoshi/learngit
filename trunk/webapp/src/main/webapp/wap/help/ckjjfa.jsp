@@ -49,25 +49,31 @@ int otherNum = 5;
                           <%=knowledgeData.getArticle().getContent() %>
                       </div>
                   </div>
-                  <%if(!isDiscussed){ %>
+                  
                   <div class="bot">
+                  	
                       <h6>
                       	<span class="before"></span>
                       	<label>此解答是否有用</label>
                         <span class="after"></span>
                       </h6>
                       <div class="huifu">
+                      	<%if(!isDiscussed){ %>
                         <ul>
                             <li><button >有用</button></li>
                             <li class="none"><button>无用</button></li>
                         </ul>
+                        <%}else{ %>
+                             <div class='has_reply'>已收到您的建议。谢谢！</div>
+                        <%}%>
                       </div>
                        <div class="huifu_end" style='display:none;'>
                        	<div class='kp'>有用</div>
                         <span>谢谢您的反馈！</span>
                       </div>
+                     
                   </div>
-                  <%} %>
+                  
               </div>
               <div class="may_que">
                   <h3>您可能遇到的问题</h3>

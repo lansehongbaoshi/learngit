@@ -124,7 +124,7 @@ template.helper('hightWord', function (k,o) {
  </li> 
   {{/each}}	
   {{else}}
-  <li style="color:#c30;"> 抱歉，未找到相关问题。</li>
+  <li class="last"> 没有搜索结果，您可以更换关键词重新搜索。</li>
   {{/if}}
 </ul>
 
@@ -142,7 +142,7 @@ template.helper('hightWord', function (k,o) {
  </li> 
   {{/each}}	
   {{else}}
-  <li style="color:#c30;"> 抱歉，未找到相关问题。</li>
+  <li class="last"> 没有搜索结果，您可以更换关键词重新搜索。</li>
   {{/if}}
 </ul>
 </script>

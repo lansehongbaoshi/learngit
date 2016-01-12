@@ -352,6 +352,11 @@
 	font-size: 1.167rem;
 	color: #333333;
 	display:block;
+	text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+	padding-right: 14px;
+	padding-right: 1rem;
 }
 /*查询结果页面*/
 .ask_answer{
@@ -410,13 +415,15 @@
     overflow: hidden;
 }
 .findUser h2{
-	line-height: 60px;
-    line-height: 5.0rem;
+	line-height: 36px;
+    line-height: 2.57rem;
     border-bottom: 1px #DDDDDD solid;
     font-size: 18px;
     font-size: 1.5rem;
-    color: #333333;
+    color: #333;
     font-weight: normal;
+	padding: 14px 0;
+	padding: 1rem 0;
 }
 .cont .article{
 	margin-top: 21px;
