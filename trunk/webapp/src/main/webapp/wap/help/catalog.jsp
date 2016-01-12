@@ -34,12 +34,12 @@ int knowNum = 2;//显示几个标签
           <h2><%=i+1 %>、<%=tagData.getName() %></h2>
           <ul>
           <%List<KnowTagRelationData> list = ManageCacheUtil.getKnowTag(tagData.getId());
-          for(int j=0;j<list.size()&&j<knowNum;j++){
+          for(int j=0;j<list.size();j++){
               KnowTagRelationData one = list.get(j);
               String knowId = one.getKnowledgeData().getId();
               Article article = cmsServiceClient.getArticle(one.getKnowledgeData().getCmsId());
           %>
-            <li>
+            <li <%if(j>=knowNum) out.print("style=\"display:none;\"");%>>
             	<a href="/wap/help/ckjjfa.jsp?id=<%=knowId %>">
             		<div>
 	            		<span><img src="../../images/wap/help/more.png"/></span>
@@ -49,14 +49,23 @@ int knowNum = 2;//显示几个标签
             </li>
             <%} %>
           </ul>
-          <%if(i==tags.size()-1 || i==tagNum-1){ %>
+          <%if(list.size()>knowNum){ %>
           <div class="more_que">
-            <span>查看更多<img src="../../images/wap/help/ckgd.png"/></span>
+            <span class="">查看更多<img src="../../images/wap/help/ckgd.png"/></span>
           </div>
           <%} %>
         </div>
         <%} %>
       </div>
     </div>
+    <script type="text/javascript">
+      $(function(){
+        $(".more_que").on("click", function(){
+          $question_part = $(this).closest(".question_part");
+          $question_part.find("li").show();
+          $(this).remove();
+        })
+      })
+      </script>
   </body>
 </html>

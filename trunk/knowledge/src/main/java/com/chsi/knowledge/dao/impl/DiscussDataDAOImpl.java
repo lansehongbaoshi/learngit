@@ -95,7 +95,8 @@ public class DiscussDataDAOImpl extends BaseHibernateDAO implements DiscussDataD
     public int getDiscussInfoVOList(String KId) {
         String sql = " SELECT sum(1) FROM DISCUSS D WHERE D.KNOWLEDGE_ID =:KId AND D.CONTENT IS NOT NULL ";
         Query query = hibernateUtil.getSession().createSQLQuery(sql).setString("KId", KId);
-        return Integer.parseInt(String.valueOf(query.uniqueResult()));
+        Object obj = query.uniqueResult();
+        return obj==null?0:Integer.parseInt(String.valueOf(obj));
         
     }
 

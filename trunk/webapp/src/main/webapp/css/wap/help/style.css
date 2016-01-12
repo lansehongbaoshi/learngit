@@ -683,6 +683,7 @@
 .more_que{
 	height: 48px;
 	height: 4.0rem;
+	cursor: pointer;
 }
 .more_que span{
 	width: 105px;

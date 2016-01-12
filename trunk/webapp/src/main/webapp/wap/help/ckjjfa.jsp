@@ -152,14 +152,49 @@ $(function(){
 		}	
 	});
 });
+var _url = "/view/discuss.action";
+var data = {knowledgeId:'<%=id%>'};
 function usefulFn(){
-	alert('有用');	
+	data.discussStatus = 1;
+	$.ajax({ 
+		global:true, 
+		type: "post",
+		cache: false,
+		async: true,
+		crossDomain:true,
+		url: _url,  
+		data:data,
+		//dataType: "jsonp",  
+		//jsonp: "callback", //回调函数的参数  
+		//jsonpCallback: callback, //回调函数的名称  
+		error: function(){  
+			alert('请求时发生了错误，请稍后再试');  
+		}  
+	}); 
+	//alert('有用');	
 }
 function submitFn(selectTxt,textarea){
+	data.discussStatus = 0;
 	if(textarea=='谢谢您帮我们发现了新大陆，和小编说说呗!'){
 		textarea='';
 	}
-	alert('选中了：'+selectTxt+'，填写内容为：'+textarea+'');	
+	//alert('选中了：'+selectTxt+'，填写内容为：'+textarea+'');
+	data.content=selectTxt+textarea;
+	$.ajax({
+		global:true,
+		type: "post",
+		cache: false,
+		async: true,
+		crossDomain:true,
+		url: _url,
+		data:data,
+		//dataType: "jsonp",
+		//jsonp: "callback", //回调函数的参数
+		//jsonpCallback: callback, //回调函数的名称
+		error: function(){
+			alert('请求时发生了错误，请稍后再试');
+		}
+	});
 };
 </script>  
 </html>
