@@ -40,11 +40,11 @@ public class DiscussDataDAOImpl extends BaseHibernateDAO implements DiscussDataD
         Query query = hibernateUtil.getSession().createSQLQuery(sql).setString("KId", KId);
         Object[] obj = (Object[])query.uniqueResult();
         DiscussCountVO vo = new DiscussCountVO();
-        vo.setUseful(format(obj[0].toString()));
-        vo.setUnuseful(format(obj[1].toString()));
-        vo.setSum(format(obj[2].toString()));
-        vo.setUsefulPersent(obj[3].toString());
-        vo.setUnusefulPersent(obj[4].toString());
+        vo.setUseful(obj[0] == null ? "0" : format(obj[0].toString()));
+        vo.setUnuseful(obj[1] == null ? "0" : format(obj[1].toString()));
+        vo.setSum(obj[2] == null ? "0" : format(obj[2].toString()));
+        vo.setUsefulPersent(obj[3] == null ? "0" : obj[3].toString());
+        vo.setUnusefulPersent(obj[4] == null ? "0" : obj[4].toString());
         return vo;
     }
 
