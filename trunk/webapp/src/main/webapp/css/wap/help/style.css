@@ -1,8 +1,8 @@
 ﻿html,body{
     width: 100%;
     height: 100%;
-    font-size: 12px;
-    background: #eeeeee;
+    font-size: 14px;
+    background: #eee;
     -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 /*帮助页面*/
@@ -279,9 +279,9 @@
 .search_form input{
 	width: 96%;
 	line-height: 28px;
-	line-height: 2.35rem;
+	line-height: 2.5rem;
 	height: 28px;
-	height: 2.35rem;
+	height: 2.5rem;
 	border: none;
 	background: #e5e5e5;
 	border-radius: 5px;
@@ -346,10 +346,12 @@
 	text-indent: 12px;
 	text-indent: 1.0rem;
 }
+.hot_search_questions li.last{border-bottom: 0;color:#c30;text-align:center}
 .hot_search_questions li a{
 	font-size: 14px;
 	font-size: 1.167rem;
 	color: #333333;
+	display:block;
 }
 /*查询结果页面*/
 .ask_answer{
@@ -403,8 +405,8 @@
 .findUser{
     background: #ffffff;
     border-bottom: 1px #d5d6da solid;
-    padding: 0 12px;
-    padding: 0 1.0rem;
+    padding: 0 12px 12px;
+    padding: 0 1.0rem 1rem;
     overflow: hidden;
 }
 .findUser h2{
@@ -480,17 +482,17 @@
 	width: 15.0rem;
 	overflow: hidden;
 }
-.bot .huifu ul li{
+.bot .huifu li{
 	float: left;
 	width: 50%;
 	border-right: 1px #ccc solid;
 	box-sizing: border-box;
 	behavior: url(../../js/wap/boxsizing.htc);
 }
-.bot .huifu ul li.none{
+.bot .huifu li.none{
 	border: none;
 }
-.bot .huifu ul li button{
+.bot .huifu button{
 	margin: 0 auto;
 	display: block;
 	background: #ffffff;
@@ -504,6 +506,12 @@
     line-height: 1.2rem;
     color: #999;
     font-size: 10px;
+}
+.huifu .has_reply{
+	text-align: center;
+    color: #999;
+    margin: -20px 0 0 15px;
+    margin: -1.2rem 0 0 1rem;
 }
 .bot .bot_txt{color:#999}
 .bot .huifu_end{
