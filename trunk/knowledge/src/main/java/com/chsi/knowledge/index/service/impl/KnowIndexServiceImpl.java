@@ -89,7 +89,7 @@ public class KnowIndexServiceImpl extends BaseDbService implements KnowIndexServ
         }
         Map<String, String> queryParams = new HashMap<String, String>();
         queryParams.put("q", keywords);
-        queryParams.put("qf", "title^15 content^5 key_words^10 tags^10");
+        queryParams.put("qf", "title^15 content^8 key_words^6 tags^5");
         queryParams.put("defType", "edismax");
         queryParams.put("bf", "sum(div(log(visit_cnt),6),div(sort,200))");
         Page<KnowledgeVO> page = searchClient.searchKnow(keywords, systemId, queryParams, start, pageSize);
@@ -105,7 +105,7 @@ public class KnowIndexServiceImpl extends BaseDbService implements KnowIndexServ
             start = 0;
         }
         Map<String, String> queryParams = new HashMap<String, String>();
-        queryParams.put("qf", "title^15 content^5 key_words^10 tags^10");
+        queryParams.put("qf", "title^15 content^8 key_words^6 tags^5");
         queryParams.put("defType", "edismax");
         queryParams.put("bf", "sum(div(log(visit_cnt),6),div(sort,200))");
         Page<KnowledgeVO> page = searchClient.searchKnow(keywords, queryParams, start, pageSize);

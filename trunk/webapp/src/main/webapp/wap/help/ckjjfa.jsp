@@ -23,7 +23,7 @@ KnowTagRelationService knowTagRelationService = ServiceFactory.getKnowTagRelatio
 List<KnowTagRelationData> list = knowTagRelationService.getKnowTagRelationByKnowId(id);
 TagData tagData = list.get(0).getTagData();
 list = ManageCacheUtil.getKnowTag(tagData.getId());
-int otherNum = 4;
+int otherNum = 5;
 %>
 <!DOCTYPE html>
 <html>
@@ -74,7 +74,7 @@ int otherNum = 4;
                   <ul class="hot_list">
                   <%int realnum = 0;
                   CmsServiceClient cmsServiceClient = CmsServiceClientFactory.getCmsServiceClient();
-                  for(int i=0;i<list.size()&&realnum<=otherNum;i++) {
+                  for(int i=0;i<list.size()&&realnum<otherNum;i++) {
                       KnowTagRelationData one = list.get(i);
                       KnowledgeData data = one.getKnowledgeData();
                       if(data.getId().equals(id)) continue;
