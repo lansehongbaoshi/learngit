@@ -22,7 +22,7 @@ $(function(){
 function searchAll(){
 	var $searchText = $("#search_text");
 	var text = $.trim($searchText.val());
-	var _par = "systemId=zb&keywords="+text;
+	var _par = "keywords="+text;
 	if(text ==""){ alert("请输入您要咨询的问题"); return false;}
 	$("#cache_v").val(_par);
 	$('.hot_search_questions').hide();
@@ -34,11 +34,11 @@ var  kn_local_data = {
 	list:"/view/getKnowledgeList.action",
 	detail:"/view/getKnowledge.action",
 	discuss:"/view/discuss.action",
-	allsearch:"/search/searchAllKnow.action"
+	allsearch:"/search/all.action"
 }
 //通用ajax函数
 function ajaxJSONP(url,data,callback){
-	var _url = kn_local_data['url']+kn_local_data[url];//http://kl.chsi.com.cn/search/searchAllKnow.action
+	var _url = kn_local_data['url']+kn_local_data[url];//http://kl.chsi.com.cn/search/all.action?keywords=test
 	$.ajax({ 
 		global:true, 
 		type: "post",
@@ -60,9 +60,15 @@ function ajaxJSONP(url,data,callback){
 function knSearch(json){
 	if(!json.flag){ alert(json.errorMessages); return;}
 	//$(".ask_answer").show();  
-	$("#ask_list").html(template('ask_list_detail',json));
+	$("#ask_list").html(template('ask_list_template',json));
 }    
-
+//artTemplate辅助方法-高亮关键字
+template.helper('hightWord', function (k,o) {
+    var pattern = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？]",'g');
+    var _k = k.replace(pattern,'')
+     var reg = new RegExp("("+$.trim(_k)+")","g");
+    return  o.replace(reg, "<strong style='color:#c30'>$1</strong>");
+});
 </script>
 
   </head>
@@ -97,20 +103,26 @@ function knSearch(json){
 <div class="pagenation clearfix" id="res_pagenation_list"></div>
 </div> 
 </script>
-        <script id='ask_list_detail' type="text/html">
-		<ul class="ask_answer">
+<!--搜索列表内容-->
+<script id="ask_list_template" type="text/html">
+{{include 'ask_list_detail'}} 
+</script>
+<script id="ask_list_detail" type="text/html">
+<ul class="ask_answer">
 {{if o.knows.length>0 }}
  {{each o.knows as value i}} 
- <li><h1><span><img src="../../images/wap/help/ask.png"/></span><a class="ui-corner-all"  href="#" onclick="javascript:showDetailWin('id={{value.knowId}}&tagId={{value.tagIds[0]}}'); return false;"> {{#hightWord(value.keywords,value.title)}}</a></h1>
- <p><span><img src="../../images/wap/help/answer.png"/></span><span class="summer_stuff">{{#hightWord(value.keywords,value.summary)}}</span></p>
+ <li>
+ 	<a class="ui-corner-all"  href="/wap/help/ckjjfa.jsp?id={{value.knowId}}">
+ 		<h1><span><img src="../../images/wap/help/ask.png"/></span> {{#hightWord(value.keywords,value.title)}}</h1>
+	</a>
+ 	<p><span><img src="../../images/wap/help/answer.png"/></span>{{#hightWord(value.keywords,value.summary)}}</p>
  </li> 
   {{/each}}	
   {{else}}
   <li style="color:#c30;"> 抱歉，未找到相关问题。</li>
   {{/if}}
 </ul>
-        
-		</script>
+</script>
       </div>
     </div>
   </body>
