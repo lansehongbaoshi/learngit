@@ -15,6 +15,7 @@ int knowNum = 2;//显示几个标签
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
     <meta charset="utf-8">
     <title><%=systemData.getName() %></title>
     <link href="../../css/wap/help/reset.css" rel="stylesheet"/>
@@ -58,14 +59,14 @@ int knowNum = 2;//显示几个标签
         <%} %>
       </div>
     </div>
-    <script type="text/javascript">
-      $(function(){
-        $(".more_que").on("click", function(){
-          $question_part = $(this).closest(".question_part");
-          $question_part.find("li").show();
-          $(this).remove();
-        })
-      })
-      </script>
+<script type="text/javascript">
+$(function(){
+	$(".more_que").on("click", function(){
+		$question_part = $(this).closest(".question_part");
+		$question_part.find("li").slideDown();
+		$(this).remove();
+	})
+})
+</script>
   </body>
 </html>

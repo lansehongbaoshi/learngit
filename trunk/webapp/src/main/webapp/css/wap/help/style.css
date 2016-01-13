@@ -285,8 +285,8 @@
 	border: none;
 	background: #e5e5e5;
 	border-radius: 5px;
-	text-indent: 12px;
-	text-indent: 1.0rem;
+	text-indent: 8px;
+	text-indent: 0.58rem;
 	display: inline-block;
 	position: absolute;
 }
@@ -308,33 +308,25 @@
     position: absolute;
     right: 0;
 }
-@media (device-width:375px) and (-webkit-min-device-pixel-ratio:2) {/* 兼容iphone 6 */
-    .search_form input{
-        height:2.03rem;
-    }
-    .clearr{
-        font-size:1.2rem;
-        line-height:1.25rem;
-    }
-}
 .clearr{
 	position: absolute;
-	right: 54px;
-	right: 4.5rem;
-	display: block;
-	width: 15px;
-	height: 15px;
-	width: 1.25rem;
-	height: 1.25rem;
-	background: #999999;
-	color: white;
-	font-size: 0.8rem;
-	top: 9px;
-	top: 0.75rem;
-	border-radius: 100%;
-	text-align: center;
-	line-height: 16px;
-	line-height: 1.5rem;
+    right: 54px;
+    right: 4.5rem;
+    display: block;
+    width: 15px;
+    height: 15px;
+    width: 1.2rem;
+    height: 1.2rem;
+    background: #999999;
+    color: white;
+    font-size: 1.1rem;
+    top: 9px;
+    top: 0.75rem;
+    border-radius: 100%;
+    text-align: center;
+    line-height: 14px;
+    line-height: 1.0rem;
+	cursor:pointer;
 }
 .hot_search_questions{
 	width: 100%;
@@ -346,7 +338,6 @@
 	text-indent: 12px;
 	text-indent: 1.0rem;
 }
-.hot_search_questions li.last{border-bottom: 0;color:#c30;text-align:center}
 .hot_search_questions li a{
 	font-size: 14px;
 	font-size: 1.167rem;
@@ -367,6 +358,7 @@
 	padding: 12px;
 	padding: 1.0rem;
 }
+.ask_answer li.last{border-bottom: 0;color:#c30;text-align:center}
 .ask_answer li h1{
 	font-size: 15px;
 	font-size: 1.25rem;
@@ -377,12 +369,12 @@
 	color: #3d4245;
 	font-weight: normal;
 }
-.ask_answer li h1 span{
+.ask_answer h1 span{
 	float: left;
 	margin-top: 8px;
 	margin-top: 0.65rem;
 }
-.ask_answer li h1 span img{
+.ask_answer h1 img{
 	display: block;
 	width: 15px;
 	width: 1.25rem;
@@ -623,9 +615,9 @@
 	float: right;
 	height: 72px;
 	height: 6.0rem;
-	width: 83.594%;
-	margin-right: 8px;
-	margin-right: 0.667rem;
+	width: 92%;
+	margin-right: 15px;
+	margin-right: 1.07rem;
 	border-radius: 6px;
 	border-radius: 0.5rem;
 	background: #e5e5e5;
@@ -660,24 +652,23 @@
 	padding: 0 12px;
 	padding: 0 1.0rem;
 }*/
-.question_part ul li{
+.question_part li{
 	line-height: 47px;
 	line-height: 3.917rem;
 }
-.question_part ul li a{
+.question_part li a{
 	font-size: 14px;
 	font-size: 1.167rem;
-	color: #3d4245;
-	display: block;
-	
+	color: #333;
+	display: block;	
 	padding:0 12px;
 	padding:0 1.0rem;
 }
-.question_part ul li a div{
-	border-top: 1px #dddddd solid;
+.question_part li a div{
+	border-top: 1px #ddd solid;
 	overflow: hidden;
 }
-.question_part ul li a i{
+.question_part li a i{
 	display: block;
 	float: left;
 	width: 92%;
@@ -685,12 +676,12 @@
 	overflow: hidden;
 	white-space: nowrap;
 }
-.question_part ul li a span{
+.question_part li a span{
 	float: right;
 	margin-top: 18px;
 	margin-top: 1.5rem;
 }
-.question_part ul li a span img{
+.question_part li a span img{
 	display: block;
 	width: 10.5px;
 	width: 0.875rem;
@@ -699,33 +690,36 @@
 	height: 48px;
 	height: 4.0rem;
 	cursor: pointer;
+	border-top: 1px #ddd solid;
 }
 .more_que span{
-	width: 105px;
-	width: 8.75rem;
-	height: 35px;
-	height: 2.917rem;
-	display: block;
-	margin: 0 auto;
-	border-radius: 18px;
-	border-radius: 1.4585rem;
-	text-indent: 18px;
-	text-indent: 1.5rem;
-	line-height: 35px;
-	line-height: 2.917rem;
-	color: #bfbfbf;
-	background-color:#eeeeee;
-	position: relative;
+	    width: 105px;
+    width: 8.75rem;
+    height: 36px;
+    height: 2.57rem;
+    display: block;
+    margin: 0 auto;
+    border-radius: 18px;
+    border-radius: 1.4585rem;
+    text-indent: 18px;
+    text-indent: 1.5rem;
+    line-height: 35px;
+    line-height: 2.57rem;
+    color: #bfbfbf;
+    background-color: #eee;
+    position: relative;
+    margin-top: 10px;
+	margin-top: 0.71rem;
 }
 .more_que span img{
 	display: block;
-	width: 13px;
-	width: 1.083rem;
-	position: absolute;
-	right: 15.6px;
-	right: 1.3rem;
-	top: 14.4px;
-	top: 1.2rem;
+    width: 14px;
+    width: 1rem;
+    position: absolute;
+    right: 18px;
+    right: 1.30rem;
+    top: 14px;
+    top: 1rem;
 }
 @media only screen and (min-width: 641px){
     html {
@@ -735,10 +729,6 @@
     	background: whitesmoke;
     }
 	#wrap{width:560px;}
-	.clearr{
-		line-height: 16px;
-		line-height: 1.333rem;
-	}
 }
 
 

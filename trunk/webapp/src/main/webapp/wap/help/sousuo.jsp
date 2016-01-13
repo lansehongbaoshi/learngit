@@ -33,6 +33,9 @@ $(function(){
 		$('#hot_lists').hide();
 		ajaxJSONP('allsearch',_par,'inputSearch'); 
 	})
+	$('#search_clear').on('click',function(){
+		$("#search_input").val('');	
+	});
 	
 })
 /********  搜索  begin *******/
@@ -100,7 +103,7 @@ template.helper('hightWord', function (k,o) {
           <div class="cancel"><a href="javascript:void(0)" id="cancel">取消</a></div>
           <div class="search_form">
             <input type="text" id='search_input'/>
-            <span class="clearr">×</span>
+            <span class="clearr" id='search_clear'>×</span>
             <button class='search_tbn' onClick="searchAll()">搜索</button>
             <input type="hidden" id="cache_v" name="cache_v" />  
           </div>
@@ -122,10 +125,8 @@ template.helper('hightWord', function (k,o) {
  	<a class="ui-corner-all"  href="/wap/help/ckjjfa.jsp?id={{value.knowId}}">{{#hightWord(value.keywords,value.title)}}
 	</a>
  </li> 
-  {{/each}}	
-  {{else}}
-  <li class="last"> 没有搜索结果，您可以更换关键词重新搜索。</li>
-  {{/if}}
+ {{/each}}	
+{{/if}}
 </ul>
 
 </script>
