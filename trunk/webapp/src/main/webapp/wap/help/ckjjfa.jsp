@@ -183,9 +183,12 @@ function submitFn(selectTxt,textarea){
 	data.discussStatus = 0;
 	if(textarea=='谢谢您帮我们发现了新大陆，和小编说说呗!'){
 		textarea='';
+	}else{
+		textarea="："+textarea;
 	}
+	if(selectTxt=='其他') data.content=selectTxt+textarea;
+	else data.content=selectTxt;
 	//alert('选中了：'+selectTxt+'，填写内容为：'+textarea+'');
-	data.content=selectTxt+textarea;
 	$.ajax({
 		global:true,
 		type: "post",
