@@ -29,6 +29,7 @@ int otherNum = 5;
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
     <meta charset="utf-8">
     <title>查看解决方案</title>
     <link href="../../css/wap/help/reset.css" rel="stylesheet"/>
@@ -111,7 +112,7 @@ int otherNum = 5;
                     <li><label for='sel2'><input type="radio" name="sel" id='sel2' value='操作后不成功'/>操作后不成功</label></li>
                     <li><label for='sel3'><input type="radio" name="sel" id='sel3' value='其他'/>其他</label></li>
                   </ul>
-                  <textarea class='text_area'>谢谢您帮我们发现了新大陆，和小编说说呗!</textarea>
+                  <textarea class='text_area' placeholder="谢谢您帮我们发现了新大陆，和小编说说呗!"></textarea>
                 </div>
             </div>
     </div>
@@ -141,20 +142,15 @@ $(function(){
 				   .click(function(){$dialog.hide();submitFn(value,$('.text_area').val());			
 			});			
 		}
-    }).end().find('textarea').focus(function(){
-		$this = $(this);
-		var val = $this.val();
-		if(val=='谢谢您帮我们发现了新大陆，和小编说说呗!'){
-			$this.val('').css('color','#333');
-		}
-	}).keydown(function(){
+    }).end().find('textarea').keydown(function(){
 		$this = $(this);
 		var val = $this.val()||'';
 		if(val!=''){
-			$this.parents(".dialog")
-				.find('input[name="sel"]').eq(2).prop('checked',true)
-				.end().find('.submit').addClass('available')
-				.click(function(){$dialog.hide();submitFn(value,$('.text_area').val());});			
+			var $dialog = $this.css('color','#333').parents(".dialog");
+			var $textArea = $dialog.find('input[name="sel"]').eq(2).prop('checked',true);
+			var textarea = $('input[name="sel"]:checked').val()||'';
+			$dialog.find('.submit').addClass('available')
+				.click(function(){$dialog.hide();submitFn(val,textarea)});			
 		}	
 	});
 });
