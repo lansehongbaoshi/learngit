@@ -142,7 +142,7 @@ $(function(){
 				   .click(function(){$dialog.hide();submitFn(value,$('.text_area').val());			
 			});			
 		}
-    }).end().find('textarea').keydown(function(){
+    }).end().find('textarea').keyup(function(){
 		$this = $(this);
 		var val = $this.val()||'';
 		if(val!=''){
