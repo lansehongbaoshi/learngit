@@ -4,6 +4,8 @@
     font-size: 14px;
     background: #eee;
     -webkit-tap-highlight-color: rgba(0,0,0,0);
+    -webkit-overflow-scrolling: touch;
+    overflow-scrolling: touch;
 }
 /*帮助页面*/
 #wrap{
@@ -309,24 +311,24 @@
     right: 0;
 }
 .clearr{
-	position: absolute;
-    right: 54px;
+    position: absolute;
+    right: 63px;
     right: 4.5rem;
     display: block;
-    width: 15px;
-    height: 15px;
-    width: 1.2rem;
-    height: 1.2rem;
+    width: 16px;
+    height: 16px;
+    width: 1.14rem;
+    height: 1.14rem;
     background: #999999;
     color: white;
-    font-size: 1.1rem;
+    font-size: 1.15rem;
     top: 9px;
-    top: 0.75rem;
+    top: 0.64rem;
     border-radius: 100%;
     text-align: center;
-    line-height: 14px;
-    line-height: 1.0rem;
-	cursor:pointer;
+    line-height: 15px;
+    line-height: 1.09rem;
+    cursor: pointer;
 }
 .hot_search_questions{
 	width: 100%;
