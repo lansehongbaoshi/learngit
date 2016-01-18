@@ -46,7 +46,7 @@ List<KnowledgeData> list = ManageCacheUtil.getTopKnowl();
                           <dt><img src="../../images/wap/help/user.png"/></dt>
                           <dd>
                               <h3>账户问题</h3>
-                              <p>用户名密码、身份证重复等</p>
+                              <p>忘记密码、身份证重复等</p>
                           </dd>
                         </a>
                       </dl>
