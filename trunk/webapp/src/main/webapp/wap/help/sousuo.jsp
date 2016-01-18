@@ -5,60 +5,105 @@ import="com.chsi.knowledge.pojo.KnowledgeData,com.chsi.knowledge.util.ManageCach
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
     <meta charset="utf-8">
     <title>搜索</title>
     <link href="../../css/wap/help/reset.css" rel="stylesheet"/>
     <link href="../../css/wap/help/style.css" rel="stylesheet"/>
     <!--[if lt IE 9]><script src="../../js/wap/respond.js"></script><![endif]-->
-    <script type="text/javascript" src="http://t4.chsi.com.cn/common/jquery/1.11.1/jquery.min.js"></script>    
+    <script type="text/javascript" src="../../js/jquery-1.11.1.min.js"></script>    
     <script type="text/javascript" src='../../js/wap/template.js'></script>
 <script type="text/javascript">
 var InputText = '';
 $(function(){
+	searchInputFn();
+	clearFn();
+})
+function searchInputFn(){
 	$('#search_input').focus();
+	$('.search_form').on('opened', function () {
+		alert(1);
+		$('.search_form #search_input')[0].focus();
+		 uexWindow.showSoftKeyboard();
+	});
+	var bind_name = 'input paste',userAgent = navigator.userAgent;
+	if (userAgent.indexOf("MSIE") != -1) {  
+		bind_name = 'propertychange';  
+	}else if(userAgent.match(/android/i) == "android")  {  
+		bind_name = "keyup";  
+	}
+	if(userAgent.indexOf('iPhone') > -1){
+		var timer, windowInnerHeight;
+		function eventCheck(e) {
+			if (e) { //blur,focus事件触发的
+				//$('.keyupTest').html('android键盘' + (e.type == 'focus' ? '弹出' : '隐藏') + '--通过' + e.type + '事件,keyCode'+e.keyCode||event.keyCode);
+				if (e.type == 'click') {//如果是点击事件启动计时器监控是否点击了键盘上的隐藏键盘按钮，没有点击这个按钮的事件可用，keydown中也获取不到keyCode值
+					setTimeout(function () {//由于键盘弹出是有动画效果的，要获取完全弹出的窗口高度，使用了计时器
+						windowInnerHeight = window.innerHeight;//获取弹出android软键盘后的窗口高度
+						timer = setInterval(function () { eventCheck() }, 100);
+					}, 500);
+				}else {
+					clearInterval(timer);
+					autoSearchFn();
+				}
+			}else { //计时器执行的，需要判断窗口可视高度，如果改变说明键盘隐藏了
+				if (window.innerHeight > windowInnerHeight) {
+					clearInterval(timer);
+					//$('.keyupTest').html('android键盘隐藏--通过点击键盘隐藏按钮');
+					autoSearchFn();
+				}
+			}
+		}
+		$('#search_input').click(eventCheck).blur(eventCheck);
+	}else{
+		$('#search_input').on(bind_name,function(event){
+			event.stopPropagation();  
+			autoSearchFn();
+		})		
+	}	
+}
+function autoSearchFn(){
+	
+	var text = $.trim($('#search_input').val());
+	if(text ==""){ 
+		$('#hot_lists').show();
+		$('#ask_list').html('');
+		return false;
+	}else if (text == InputText){
+		return false;	
+	}
+	$('#hot_lists').hide();
+	ajaxJSONP('allsearch',text,'inputSearch');
+}
+//取消和清除事件
+function clearFn(){
 	$("#cancel").on("click", function(){
 		window.history.back();
 	})
-	$('#search_input').on("keyup",function(){
-		var text = $.trim($(this).val());
-		if(text ==""){ 
-			$('#hot_lists').show();
-			$('#ask_list').html('');
-			return false;
-		}else if (text == InputText){
-			return false;	
-		}
-		InputText = text;
-		var _par = "keywords="+text;
-		$('#hot_lists').hide();
-		ajaxJSONP('allsearch',_par,'inputSearch'); 
-	})
 	$('#search_clear').on('click',function(){
 		$("#search_input").val('');	
+		$('#hot_lists').show();
+		$('#ask_list').html('');
 	});
-	
-})
+}
 /********  搜索  begin *******/
 function searchAll(){
 	var $searchText = $("#search_input");
 	var text = $.trim($searchText.val());
-	var _par = "keywords="+text;
 	if(text ==""){ return false;}
-	$("#cache_v").val(_par);
 	$('#hot_lists').hide();
-	ajaxJSONP('allsearch',_par,'knSearch'); //自动搜索“报名”
+	ajaxJSONP('allsearch',text,'knSearch'); //自动搜索“报名”
 }
 // 配置项
 var  kn_local_data = {
 	url:"http://kl.chsi.com.cn",
-	list:"/view/getKnowledgeList.action",
-	detail:"/view/getKnowledge.action",
-	discuss:"/view/discuss.action",
 	allsearch:"/search/all.action"
 }
 //通用ajax函数
-function ajaxJSONP(url,data,callback){
+function ajaxJSONP(url,text,callback){
 	var _url = kn_local_data['url']+kn_local_data[url];//http://kl.chsi.com.cn/search/all.action?keywords=test
+	var data = "keywords="+text; 
+	InputText = text;
 	$.ajax({ 
 		global:true, 
 		type: "post",
@@ -93,6 +138,7 @@ template.helper('hightWord', function (k,o) {
     return  o.replace(reg, "<strong style='color:#c30'>$1</strong>");
 });
 /********  搜索  end *******/
+
 </script>
 
   </head>
@@ -102,12 +148,12 @@ template.helper('hightWord', function (k,o) {
         <div class="search_text">
           <div class="cancel"><a href="javascript:void(0)" id="cancel">取消</a></div>
           <div class="search_form">
-            <input type="text" id='search_input'/>
+            <input type="text" autofocus id='search_input' placeholder="请输入搜索内容"/>
             <span class="clearr" id='search_clear'>×</span>
             <button class='search_tbn' onClick="searchAll()">搜索</button>
-            <input type="hidden" id="cache_v" name="cache_v" />  
           </div>
         </div>
+        <div class='keyupTest'></div>
         <ul class="hot_search_questions" id='hot_lists'>
         <%if(knows!=null){ 
            for(KnowledgeVO vo:knows){%>
