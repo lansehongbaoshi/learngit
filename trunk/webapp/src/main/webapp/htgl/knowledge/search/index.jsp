@@ -81,7 +81,7 @@ String ctxPath = request.getContextPath();
                                     <thead>
                                         <tr role="row">
                                             <th  class="hidden-180" tabindex="0"  aria-controls="dynamic-table" rowspan="1" colspan="1" aria-label="Domain: activate to sort column ascending">标题</th>
-                                             <th  width="410"  class="hidden-200" tabindex="0"  aria-controls="dynamic-table" rowspan="1" colspan="1">回答摘要</th> 
+                                             <th  width="510"  class="hidden-200" tabindex="0"  aria-controls="dynamic-table" rowspan="1" colspan="1">回答摘要</th> 
                                             <th width="100" class="hidden-480 sorting" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1" aria-label="Clicks: activate to sort column ascending">点击次数</th>
                                             <th width="100" class="hidden-480 sorting" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1" aria-label="Status: activate to sort column ascending">状态</th>
                                             <th  width="180" class="sorting_disabled" rowspan="1" colspan="1" aria-label=""></th>
@@ -179,6 +179,7 @@ String ctxPath = request.getContextPath();
                             options += "<option value='" + option.id + "'>" + option.name + "</option>";
                         }
                         $("#systemIds").html(options);
+                         showSearchResult($("#systemIds").val(), "*:*", 0); //初始化首页数据
                     }
                 }
             );
@@ -211,5 +212,6 @@ String ctxPath = request.getContextPath();
 	            	)
             	}
             });
+           
         })
     </script>
