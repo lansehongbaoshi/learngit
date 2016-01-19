@@ -30,20 +30,20 @@
             <form name="" action="/htgl/tag/add.action" method="get">
                 <div class="col-xs-12">
                     <p>
-                        系统：
+                        所属系统：
                         <select id="systemIds" name="systemId">
                         </select>
                     </p>
-                    <p>名称：
+                    <p>标签名称：
                         <input type="text" name="name" style="width: 400px;" value="">
                     </p>
                     <p>
-                        描述：
+                        标签描述：
                         <input type="text" name="description" style="width: 400px;">
                     </p>
 
-                    <p>排序：
-                        <input id="sort" type="text" name="sort" style="width: 100px;" value=""> <span>（说明：1~99之间的数字,数值越大,序越靠前）<span>
+                    <p>标签顺序：
+                        <input id="sort" type="text" name="sort" style="width: 100px;" value=""> <span>（说明：1~999之间的数字,数值越大,顺序越靠前）<span>
                             </p>
                        
                     

@@ -16,9 +16,9 @@ import com.chsi.knowledge.service.SearchService;
 import com.chsi.knowledge.service.ServiceFactory;
 import com.chsi.knowledge.service.SystemService;
 import com.chsi.knowledge.util.ManageCacheUtil;
+import com.chsi.knowledge.util.SearchUtil;
 import com.chsi.knowledge.vo.KnowListVO;
 import com.chsi.knowledge.vo.SearchVO;
-import com.chsi.knowledge.web.util.SearchUtil;
 import com.chsi.search.client.vo.KnowledgeVO;
 
 /**

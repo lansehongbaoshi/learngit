@@ -26,26 +26,26 @@
    
     <div class="page-content">
         <div class="page-header">
-            <h1> 标签详细  </h1>
+            <h1> 标签修改  </h1>
         </div>
         <div class="row">
             <form action="/htgl/tag/update.action" method="get">
                <input type="hidden" name="id" value="<s:property value="tagData.id" />">
                 <div class="col-xs-12">
                     <p>
-                        系统：
+                        所属系统：
                        <s:property value="tagData.systemData.name" />
                     </p>
-                    <p>名称：
+                    <p>标签名称：
                         <input type="text" name="name" style="width: 400px;" value="<s:property value='tagData.name' />">
                     </p>
                     <p>
-                        描述：
+                        标签描述：
                         <input type="text" name="description" style="width: 400px;" value="<s:property value='tagData.description' />">
                     </p>
 
-                    <p>排序：
-                        <input id="sort" type="text" name="sort" style="width: 100px;" value="<s:property value='tagData.sort' />"> <span>（说明：1~99之间的数字,数值越大,序越靠前）<span>
+                    <p>标签顺序：
+                        <input id="sort" type="text" name="sort" style="width: 100px;" value="<s:property value='tagData.sort' />"> <span>（说明：1~999之间的数字,数值越大,顺序越靠前）<span>
                             </p>
                        
                     

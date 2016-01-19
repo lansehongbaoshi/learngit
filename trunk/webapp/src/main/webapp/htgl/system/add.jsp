@@ -25,19 +25,19 @@
   
     <div class="page-content">
         <div class="page-header">
-            <h1> 系统详细  </h1>
+            <h1> 添加新系统 </h1>
         </div>
         <div class="row">
           <form name="" action="/htgl/system/addSystem.action" method="get">
             
                 <div class="col-xs-12">
                     <p>
-                        标识：<input type="text" name="id" value="" style="width: 400px;"><span>（说明：填写系统ID，数字或者字母）<span>
+                        系统代码：<input type="text" name="id" value="" style="width: 400px;"><span>（说明：填写系统简称代码，如征兵就写“zb”）<span>
                     </p>
-                    <p>名称：<input type="text" name="name" value="" style="width: 400px;" >
+                    <p>系统名称：<input type="text" name="name" value="" style="width: 400px;" >
                     </p>
                     <p>
-                       描述：<input type="text" name="description" value="" style="width: 400px;">
+                       系统描述：<input type="text" name="description" value="" style="width: 400px;">
                     </p>
 
                    

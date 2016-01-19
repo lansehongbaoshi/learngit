@@ -10,11 +10,16 @@ public interface SearchService {
     void save(PersistentObject po);
     
     /**
-     * 获取搜索频次最多的前n个关键词
+     * 获取搜索频次最多的前n个关键词对应的知识
      * @param n
      * @return
      */
     List<KnowledgeVO> getTopSearchKnow(int n);
     
+    /**
+     * 访问最多的前n个知识
+     * @param n
+     * @return
+     */
     List<KnowledgeData> getTopKnowl(int n);
 }

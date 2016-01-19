@@ -48,12 +48,12 @@ public class KnowledgeServiceImpl extends BaseDbService implements KnowledgeServ
     }
 
     @Override
-    public void save(KnowledgeData knowledgeData,String articleTitle, String articleContent,String ssdm,String createBy) {
-          Article article = Article.getInstance4Create(articleTitle, articleContent, getStatus(knowledgeData.getKnowledgeStatus()), ssdm, createBy);
-          CmsServiceClient cmsServiceClient = CmsServiceClientFactory.getCmsServiceClient();
-          String articleId=cmsServiceClient.saveOrUpdateArticle(article);
-          knowledgeData.setCmsId(articleId);
-          knowledgeDataDAO.save(knowledgeData); 
+    public void save(KnowledgeData knowledgeData, String articleTitle, String articleContent, String ssdm, String createBy) {
+        Article article = Article.getInstance4Create(articleTitle, articleContent, getStatus(knowledgeData.getKnowledgeStatus()), ssdm, createBy);
+        CmsServiceClient cmsServiceClient = CmsServiceClientFactory.getCmsServiceClient();
+        String articleId = cmsServiceClient.saveOrUpdateArticle(article);
+        knowledgeData.setCmsId(articleId);
+        knowledgeDataDAO.save(knowledgeData);
     }
 
     @Override
@@ -63,7 +63,7 @@ public class KnowledgeServiceImpl extends BaseDbService implements KnowledgeServ
         cmsServiceClient.saveOrUpdateArticle(article);
         knowledgeDataDAO.update(knowledgeData);
     }
-    
+
     private ArticleStatusType getStatus(KnowledgeStatus knowledgeStatus) {
         if (knowledgeStatus == KnowledgeStatus.WSH) {
             return ArticleStatusType.WAITTING;
@@ -81,39 +81,34 @@ public class KnowledgeServiceImpl extends BaseDbService implements KnowledgeServ
         List<KnowTagRelationData> list = ManageCacheUtil.getKnowTag(tagId);
         if (null != list) {
             for (KnowTagRelationData knowTag : list) {
-                if (id.equals(knowTag.getKnowledgeData().getId())){
+                if (id.equals(knowTag.getKnowledgeData().getId())) {
                     ktRelation = knowTag;
                 }
             }
         }
 
-        if (null == ktRelation){
+        if (null == ktRelation) {
             ktRelation = knowTagRelationDAO.getKnowTagRelationByKnowId(id, tagId);
         }
-           
-        if (null == ktRelation){
+
+        if (null == ktRelation) {
             return null;
         }
         KnowledgeData knowledgeData = ktRelation.getKnowledgeData();
         CmsServiceClient cmsServiceClient = CmsServiceClientFactory.getCmsServiceClient();
         Article article = cmsServiceClient.getArticle(knowledgeData.getCmsId());
-        if (null == article){
+        if (null == article) {
             return null;
         }
-        ConKnow conKnow = new ConKnow(knowledgeData.getId(),
-                                      article.getTitle(), article.getContent(),
-                                      knowledgeData.getKeywords(), knowledgeData.getVisitCnt(),
-                                      knowledgeData.getUpdateTime());
-        List<Navigation> navigation = NavigationUtil.getNavigation(
-                                             ktRelation.getTagData().getSystemData(),
-                                             ktRelation.getTagData(), article.getTitle(), id);
+        ConKnow conKnow = new ConKnow(knowledgeData.getId(), article.getTitle(), article.getContent(), knowledgeData.getKeywords(), knowledgeData.getVisitCnt(), knowledgeData.getUpdateTime());
+        List<Navigation> navigation = NavigationUtil.getNavigation(ktRelation.getTagData().getSystemData(), ktRelation.getTagData(), article.getTitle(), id);
         ViewKnowVO knowPageVO = new ViewKnowVO(conKnow, navigation);
         return knowPageVO;
     }
-    
+
     public KnowledgeData getKnowledgeWithArticleById(String id) {
         KnowledgeData knowledgeData = getKnowledgeById(id);
-        if(knowledgeData!=null) {
+        if (knowledgeData != null) {
             CmsServiceClient cmsServiceClient = CmsServiceClientFactory.getCmsServiceClient();
             Article article = cmsServiceClient.getArticle(knowledgeData.getCmsId());
             knowledgeData.setArticle(article);
@@ -127,36 +122,36 @@ public class KnowledgeServiceImpl extends BaseDbService implements KnowledgeServ
         ViewKnowsVO viewKnowsVO = null;
         List<Navigation> navigation = null;
         TagService service = ServiceFactory.getTagService();
-        List<ViewTagVO> tagVOList = service.getTagVOsBySystemIdAndStatus(system.getId(),  KnowledgeStatus.YSH);
+        List<ViewTagVO> tagVOList = service.getTagVOsBySystemIdAndStatus(system.getId(), KnowledgeStatus.YSH);
         List<KnowTagRelationData> list = ManageCacheUtil.getKnowTag(tagId);
-        if (null == list){
-            count = knowledgeDataDAO.countKnowledges(tagId,  KnowledgeStatus.YSH);
-        }else{
+        if (null == list) {
+            count = knowledgeDataDAO.countKnowledges(tagId, KnowledgeStatus.YSH);
+        } else {
             count = list.size();
         }
         if (count == 0) {
-             navigation = NavigationUtil.getNavigation(system, null, null, null);
-             viewKnowsVO = new ViewKnowsVO(null, tagVOList, navigation, null);
-             return viewKnowsVO;
+            navigation = NavigationUtil.getNavigation(system, null, null, null);
+            viewKnowsVO = new ViewKnowsVO(null, tagVOList, navigation, null);
+            return viewKnowsVO;
         }
         if (start >= count || start < 0) {
             start = 0;
         }
         CmsServiceClient cmsServiceClient = CmsServiceClientFactory.getCmsServiceClient();
-        
+
         List<KnowledgeData> knowledgeDataList = new ArrayList<KnowledgeData>();
         if (null == list) {
-            list = knowTagRelationDAO.getKnowTagDatas(tagId,  KnowledgeStatus.YSH); 
+            list = knowTagRelationDAO.getKnowTagDatas(tagId, KnowledgeStatus.YSH);
             ManageCacheUtil.addKnowTag(tagId, list);
-        } 
+        }
         int size = (pageSize + start) >= list.size() ? list.size() : (pageSize + start);
         for (int i = start; i < size; i++) {
             knowledgeDataList.add(list.get(i).getKnowledgeData());
         }
-        
-        //分页情况数据
+
+        // 分页情况数据
         Pagination pagination = new Pagination(count, pageSize, start / pageSize + 1);
-        //数据列表
+        // 数据列表
         List<Know> knows = new ArrayList<Know>();
         Know know = null;
         Article article = null;
@@ -167,7 +162,7 @@ public class KnowledgeServiceImpl extends BaseDbService implements KnowledgeServ
             know.addParam("id", knowledgeData.getId());
             knows.add(know);
         }
-        
+
         List<TagData> tagList = ManageCacheUtil.getTagList(system.getId());
         TagData tagData = null;
         if (null != tagId) {
@@ -180,7 +175,7 @@ public class KnowledgeServiceImpl extends BaseDbService implements KnowledgeServ
                 tagData = tagDataDAO.getTagData(tagId);
             }
         }
-        navigation = NavigationUtil.getNavigation(tagData.getSystemData(), tagData, null, null);  
+        navigation = NavigationUtil.getNavigation(tagData.getSystemData(), tagData, null, null);
         viewKnowsVO = new ViewKnowsVO(knows, tagVOList, navigation, pagination);
         return viewKnowsVO;
     }
@@ -204,7 +199,7 @@ public class KnowledgeServiceImpl extends BaseDbService implements KnowledgeServ
     public void delete(KnowledgeData knowledgeData) {
         knowledgeDataDAO.delete(knowledgeData);
     }
-    
+
     @Override
     public void update(KnowledgeData knowledgeData) {
         knowledgeDataDAO.update(knowledgeData);
@@ -214,6 +209,5 @@ public class KnowledgeServiceImpl extends BaseDbService implements KnowledgeServ
     public List<KnowTagRelationData> getKnowTagDatas(String tagId, KnowledgeStatus knowledgeStatus) {
         return knowTagRelationDAO.getKnowTagDatas(tagId, knowledgeStatus);
     }
-
 
 }

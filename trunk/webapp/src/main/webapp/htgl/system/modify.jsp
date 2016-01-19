@@ -26,20 +26,19 @@
   
     <div class="page-content">
         <div class="page-header">
-            <h1> 系统详细  </h1>
+            <h1> 系统修改  </h1>
         </div>
         <div class="row">
            <form name="" action="/htgl/system/updateSystem.action" method="get">
-               <input type="hidden" name="id" value="<s:property value="tagData.id" />">
                 <div class="col-xs-12">
                     <p>
-                        标识：
+                        系统代码：
                        <input type="text" name="id" value="<s:property value='systemData.id' />" style="width: 400px;"><span>（说明：填写系统ID，数字或者字母）<span>
                     </p>
-                    <p>名称：<input type="text" name="name" value="<s:property value='systemData.name' />" style="width: 400px;" >
+                    <p>系统名称：<input type="text" name="name" value="<s:property value='systemData.name' />" style="width: 400px;" >
                     </p>
                     <p>
-                       描述：<input type="text" name="description" value="<s:property value='systemData.description' />" style="width: 400px;">
+                       系统描述：<input type="text" name="description" value="<s:property value='systemData.description' />" style="width: 400px;">
                     </p>
 
                    

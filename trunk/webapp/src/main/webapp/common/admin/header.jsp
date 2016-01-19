@@ -20,7 +20,7 @@
             <div class="navbar-header pull-left">
                 <a href="index.html" class="navbar-brand">
                     <small>
-							<i class="fa fa-leaf"></i> 学信知识库管理系统
+							<i class="fa fa-leaf"></i> 学信网知识库管理系统
 						</small>
                 </a>
             </div>

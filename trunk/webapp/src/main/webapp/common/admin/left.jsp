@@ -40,24 +40,15 @@
 
 				<ul class="nav nav-list">
 					<li class="active">
-						<a href="/htgl/searchindex.action">
+						<a href="/htgl/search/searchindex.action">
 							<i class="menu-icon fa fa-tachometer"></i>
 							<span class="menu-text"> 首页 </span>
 						</a>
 
 						<b class="arrow"></b>
 					</li>
-
-			
-
-				
-
-				
-
-					
-
 					<li class="">
-						<a href="/htgl/searchindex.action">
+						<a href="/htgl/search/searchindex.action">
 							<i class="menu-icon fa fa-search"></i>
 
 							<span class="menu-text">
@@ -69,9 +60,9 @@
 					</li>
 
 					<li class="">
-						<a href="/htgl/addindex.action">
+						<a href="/htgl/knowledge/searchindex.action">
 							<i class="menu-icon fa fa-pencil-square-o"></i>
-							<span class="menu-text"> 添加新的知识 </span>
+							<span class="menu-text"> 知识管理 </span>
 						</a>
 
 						<b class="arrow"></b>
@@ -88,7 +79,7 @@
 					<li class="">
 						<a href="/htgl/system/listSystems">
 							<i class="menu-icon fa fa-desktop"></i>
-							<span class="menu-text"> 添加系统 </span>
+							<span class="menu-text"> 系统管理 </span>
 						</a>
 
 						<b class="arrow"></b>

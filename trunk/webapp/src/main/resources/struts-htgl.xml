@@ -4,7 +4,7 @@
         "http://struts.apache.org/dtds/struts-2.0.dtd">
 <struts>
 
-    <package name="htgl" extends="knowledge-default" namespace="/htgl">
+    <package name="htgl" extends="knowledge-default" namespace="/htgl/search">
         <interceptors>
           <interceptor-stack name="knowledgeStack">
               <interceptor-ref name="chsiDefaultStack"></interceptor-ref>
@@ -13,11 +13,27 @@
               </interceptor-ref>
           </interceptor-stack>
         </interceptors>
-        <action name="modifyindex" class="knowledgeActionBean" method="modifyindex">
-            <result name="success" type="tiles">htgl.knowledge.modify.index</result>
+        <action name="searchindex" class="knowledgeActionBean" method="searchindex">
+            <result name="success" type="tiles">htgl.search.index</result>
         </action>
-        <action name="updateKnowledge" class="knowledgeActionBean" method="updateKnowledge">
-            <result name="success" type="redirect">/htgl/showKnowledge.action?id=${id}&amp;from=update</result>
+        <action name="showDiscussContent" class="knowledgeActionBean" method="showDiscussContent">
+        </action>
+        <action name="showKnowledge" class="knowledgeActionBean" method="getKnow">
+            <result name="success" type="tiles">htgl.knowledge.show</result>
+        </action>
+    </package>
+    
+    <package name="htgl.knowledge" extends="knowledge-default" namespace="/htgl/knowledge">
+        <interceptors>
+          <interceptor-stack name="knowledgeStack">
+              <interceptor-ref name="chsiDefaultStack"></interceptor-ref>
+              <interceptor-ref name="store">
+                  <param name="operationMode">AUTOMATIC</param>
+              </interceptor-ref>
+          </interceptor-stack>
+        </interceptors>
+        <action name="searchindex" class="knowledgeActionBean" method="searchindex">
+            <result name="success" type="tiles">htgl.knowledge.search.index</result>
         </action>
         <action name="addindex">
             <result name="success" type="tiles">htgl.knowledge.add.index</result>
@@ -25,15 +41,16 @@
         <action name="addKnowledge" class="knowledgeActionBean" method="addKnowledge">
             <result name="success" type="redirect">/htgl/showKnowledge.action?id=${id}&amp;from=add</result>
         </action>
+        <action name="modifyindex" class="knowledgeActionBean" method="modifyindex">
+            <result name="success" type="tiles">htgl.knowledge.modify.index</result>
+        </action>
+        <action name="updateKnowledge" class="knowledgeActionBean" method="updateKnowledge">
+            <result name="success" type="redirect">/htgl/showKnowledge.action?id=${id}&amp;from=update</result>
+        </action>
         <action name="delKnowledge" class="knowledgeActionBean" method="delKnowledge">
         </action>
         <action name="showKnowledge" class="knowledgeActionBean" method="getKnow">
             <result name="success" type="tiles">htgl.knowledge.show</result>
-        </action>
-        <action name="searchindex" class="knowledgeActionBean" method="searchindex">
-            <result name="success" type="tiles">htgl.knowledge.search.index</result>
-        </action>
-        <action name="showDiscussContent" class="knowledgeActionBean" method="showDiscussContent">
         </action>
     </package>
     

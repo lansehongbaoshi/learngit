@@ -2,11 +2,8 @@ package com.chsi.knowledge.service.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import com.chsi.framework.page.Page;
 import com.chsi.framework.pojos.PersistentObject;
@@ -66,7 +63,7 @@ public class SearchServiceImpl extends BaseDbService implements SearchService {
     private KnowledgeVO getFirstSearchResult(String keyword) {
         SearchServiceClient searchClient = SearchServiceClientFactory.getSearchServiceClient();
         Map<String, String> queryParams = new HashMap<String, String>();
-        queryParams.put("qf", "title^15 content^5 key_words^5 tags^5");
+        queryParams.put("qf", "title");
         queryParams.put("defType", "edismax");
         Page<KnowledgeVO> page = searchClient.searchKnow(keyword, queryParams, 0, 1);
         List<KnowledgeVO> list = page.getList();

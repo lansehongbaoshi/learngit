@@ -50,8 +50,8 @@
                                         <thead>
                                             <tr role="row">
                                                 <th class="hidden-180" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1" aria-label="Domain: activate to sort column ascending">系统代码</th>
-                                                 <th  width="210"  class="hidden-200" tabindex="0"  aria-controls="dynamic-table" rowspan="1" colspan="1">名称</th> 
-                                            <th width="410" class="hidden-480 sorting" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1" aria-label="Clicks: activate to sort column ascending">描述</th>
+                                                 <th  width="210"  class="hidden-200" tabindex="0"  aria-controls="dynamic-table" rowspan="1" colspan="1">系统名称</th> 
+                                            <th width="410" class="hidden-480 sorting" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1" aria-label="Clicks: activate to sort column ascending">系统描述</th>
                                              
                                                 <th class="sorting_disabled" rowspan="1" colspan="1" aria-label=""></th>
                                             </tr>
@@ -71,7 +71,6 @@
                                                     </td>
                                                     <td class="hidden-260">
                                                        <div class="hidden-sm hidden-xs action-buttons" data-id="<s:property value='#data.id'/>">
-                                                       <a class="blue" href="#"> <i class="ace-icon fa fa-search-plus bigger-130"></i> </a> 
                                                        <a class="green" title="修改" target='_self' href="/htgl/system/updateSystemIndex.action?id=<s:property value='#data.id'/>"><i class="ace-icon fa fa-pencil bigger-130"></i> </a> 
                                                        <a title="删除" class="red delBtn" href="javascript:void(0)"> <i class="ace-icon fa fa-trash-o bigger-130"></i> </a>
                                                        </div>

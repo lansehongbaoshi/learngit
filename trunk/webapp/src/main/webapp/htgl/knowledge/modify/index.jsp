@@ -33,7 +33,7 @@ String ctxPath = request.getContextPath();
                 </div>
                 <div class="row">
                     <div class="col-xs-12">
-                        <form id="myform" action="<%=ctxPath%>/htgl/updateKnowledge.action" method="post" enctype="multipart/form-data" class="form-horizontal">
+                        <form id="myform" action="<%=ctxPath%>/htgl/knowledge/updateKnowledge.action" method="post" enctype="multipart/form-data" class="form-horizontal">
                             <input type="hidden" name="id" value="<s:property value=" id " />">
                             <input type="hidden" name="systemId" value="<s:property value=" systemId " />">
                             <input type="hidden" id="content" name="content" value="">

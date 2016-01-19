@@ -33,7 +33,7 @@ String ctxPath = request.getContextPath();
                 </div>
                 <div class="row">
                     <div class="col-xs-12">
-                        <form id="myform" action="<%=ctxPath%>/htgl/addKnowledge.action" method="post" enctype="multipart/form-data" class="form-horizontal">
+                        <form id="myform" action="<%=ctxPath%>/htgl/knowledge/addKnowledge.action" method="post" enctype="multipart/form-data" class="form-horizontal">
                             <div class="form-group">
                             <label for="" class="col-sm-3 control-label no-padding-top">系统：</label>
                             <div class="col-sm-9">

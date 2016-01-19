@@ -10,7 +10,7 @@
     <!-- 用不到了 -->
      <!-- knowledge layout框架 -->
    <definition name="htgl.admin.main" template="/layout/admin.jsp" >
-        <put-attribute name="title" value="知识库后台"/>
+        <put-attribute name="title" value="学信网知识库管理系统"/>
     </definition>
    <definition name="htgl.knowledge.modal" template="/layout/modal.jsp" >
         <put-attribute name="title" value="知识库"/>
@@ -31,6 +31,10 @@
     </definition>
     
     <!--后台管理页面  -->
+    <!-- search部分 -->
+    <definition name="htgl.search.index" extends="htgl.admin.main" >
+        <put-attribute name="body" value="/htgl/search/index.jsp"/>
+    </definition>
     <!--知识点相关  -->
     <definition name="htgl.knowledge.search.index" extends="htgl.admin.main" >
         <put-attribute name="body" value="/htgl/knowledge/search/index.jsp"/>

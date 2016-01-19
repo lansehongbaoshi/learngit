@@ -28,7 +28,7 @@ int knowNum = 2;//显示几个标签
     <div id="wrap">
       <div class="section">
         <s:include value="searchbox.jsp"></s:include>
-        <%for(int i=0;i<tags.size()&&i<tagNum;i++){
+        <%for(int i=0;i<tags.size();i++){
             TagData tagData = tags.get(i);
             %>
         <div class="question_part">
