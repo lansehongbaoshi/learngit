@@ -140,13 +140,10 @@ UE.Editor.prototype.getActionUrl = function(action) {
                     $.getJSON("/htgl/system/listSystem.action",
                         function showSystems(json) {
                             if (json.flag == "true") {
-                                var options = "";
+                                var options = "<option value=''>请选择...</option>";
                                 for (var i = 0; i < json.o.length; i++) {
                                     var option = json.o[i];
                                     var selected = '';
-                                    if (i == 0) {
-                                        selected = " selected='selected'";
-                                    }
                                     options += "<option value='" + option.id + "'" + selected + ">" + option.name + "</option>";
                                 }
                                 $("#systemIds").html(options);

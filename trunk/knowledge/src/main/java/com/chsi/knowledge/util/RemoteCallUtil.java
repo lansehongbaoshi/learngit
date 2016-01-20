@@ -78,12 +78,19 @@ public class RemoteCallUtil {
     }
     
     /**
-     * 通讯录姓名
+     * 当前登录人的通讯录姓名
      * @param userId
      * @return
      */
     public static String getXm() {
         String userId = CallInfoHelper.getCurrentUser();
+        if(!ValidatorUtil.isNull(userId)) {
+            return contactService.getRealInfoSingleItemValue(userId, ContactConstants.ITEM_NAME_ID);
+        }
+        return "";
+    }
+    
+    public static String getXmByUserId(String userId) {
         if(!ValidatorUtil.isNull(userId)) {
             return contactService.getRealInfoSingleItemValue(userId, ContactConstants.ITEM_NAME_ID);
         }

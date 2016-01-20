@@ -14,6 +14,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import com.chsi.framework.pojos.PersistentObject;
 import com.chsi.knowledge.dic.KnowledgeStatus;
+import com.chsi.knowledge.util.RemoteCallUtil;
 import com.chsi.news.vo.Article;
 
 /**
@@ -178,4 +179,15 @@ public class KnowledgeData extends PersistentObject {
         this.article = article;
     }
 
+    //创建者姓名
+    @Transient
+    public String getCreaterName() {
+        return RemoteCallUtil.getXmByUserId(this.creater);
+    }
+    
+    //最后更新者姓名
+    @Transient
+    public String getUpdaterName() {
+        return RemoteCallUtil.getXmByUserId(this.updater);
+    }
 }

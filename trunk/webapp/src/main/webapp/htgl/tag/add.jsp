@@ -42,8 +42,8 @@
                         <input type="text" name="description" style="width: 400px;">
                     </p>
 
-                    <p>标签顺序：
-                        <input id="sort" type="text" name="sort" style="width: 100px;" value=""> <span>（说明：1~999之间的数字,数值越大,顺序越靠前）<span>
+                    <p>标签排序：
+                        <input id="sort" type="text" name="sort" style="width: 100px;" value=""> <span>（说明：1~999之间的数字,数值越大,排序越靠前）<span>
                             </p>
                        
                     
@@ -74,7 +74,7 @@ $(function(){
 	$.getJSON("/htgl/system/listSystem.action",
         function showSystems(json){
             if(json.flag=="true"){
-              var options = "";
+              var options = "<option value=''>请选择...</option>";
                for(var i=0;i<json.o.length;i++){
                 var option = json.o[i];
                 options+="<option value='"+option.id+"'>"+option.name+"</option>";

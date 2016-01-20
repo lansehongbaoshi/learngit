@@ -44,8 +44,8 @@
                         <input type="text" name="description" style="width: 400px;" value="<s:property value='tagData.description' />">
                     </p>
 
-                    <p>标签顺序：
-                        <input id="sort" type="text" name="sort" style="width: 100px;" value="<s:property value='tagData.sort' />"> <span>（说明：1~999之间的数字,数值越大,顺序越靠前）<span>
+                    <p>标签排序：
+                        <input id="sort" type="text" name="sort" style="width: 100px;" value="<s:property value='tagData.sort' />"> <span>（说明：1~999之间的数字,数值越大,排序越靠前）<span>
                             </p>
                        
                     

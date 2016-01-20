@@ -33,7 +33,7 @@ if("update".equals(from)) {
                     
                     
                     function showSearchResult(KId,curPage) {
-                        $.getJSON("/htgl/showDiscussContent.action", {
+                        $.getJSON("/htgl/knowledge/showDiscussContent.action", {
                                id:KId,
                                 curPage: curPage
                             },
@@ -180,10 +180,14 @@ if("update".equals(from)) {
                             <div class="widget-body">
                                 <div class="widget-main padding-8">
                                     <dl class="dl-horizontal">
-                                        <dt>贡献者：</dt>
-                                        <dd>未知</dd>
-                                        <dt>最后更新：</dt>
-                                        <dd> 2015-12-02 13:29 </dd>
+                                        <dt>创建者：</dt>
+                                        <dd><s:property value="knowledgeData.createrName " /></dd>
+                                        <dt>创建时间：</dt>
+                                        <dd><s:date format="yyyy-MM-dd hh:mm:ss" name="knowledgeData.createTime"/></dd>
+                                        <dt>最后更新者：</dt>
+                                        <dd><s:property value=" knowledgeData.updaterName " /></dd>
+                                        <dt>最后更新时间：</dt>
+                                        <dd><s:date format="yyyy-MM-dd hh:mm:ss" name="knowledgeData.updateTime"/> </dd>
                                     </dl>
                                 </div>
                             </div>

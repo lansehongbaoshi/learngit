@@ -57,14 +57,6 @@ String ctxPath = request.getContextPath();
                        
                         <h3 class="row header smaller lighter blue">
                         <span class="col-xs-7">知识点列表</span>
-                        <span class="col-xs-5">
-                            <a  href="/htgl/knowledge/addindex.action" target="_self"  class="btn-new-mail pull-right">
-														<span class="btn btn-primary no-border">
-															<i class="ace-icon fa glyphicon-plus bigger-130"></i>
-															<span class="bigger-110">新增</span>
-														</span>
-													</a>
-                        </span>
                         
                         </h3>
          

@@ -154,7 +154,8 @@ public class TagAction extends AjaxAction{
         tagData.setSort(sort);
         tagData.setDescription(description);
         tagService.saveOrUpdate(tagData);
-        ManageCacheUtil.removeTagList(systemId);
+        setSystemId(tagData.getSystemData().getId());
+        ManageCacheUtil.removeTagList(getSystemId());
         return SUCCESS;
     }
     
