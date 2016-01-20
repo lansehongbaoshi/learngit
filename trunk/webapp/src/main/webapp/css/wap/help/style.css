@@ -578,7 +578,7 @@
 	line-height: 30px;
 	line-height: 2.5rem;
 }
-.title .available{
+.available,.title .available{
 	color: #238cff;
 	cursor:pointer;
 }

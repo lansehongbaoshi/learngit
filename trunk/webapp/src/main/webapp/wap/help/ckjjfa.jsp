@@ -70,7 +70,7 @@ int otherNum = 5;
                       </div>
                        <div class="huifu_end" style='display:none;'>
                        	<div class='kp'>有用</div>
-                        <span>谢谢您的反馈！</span>
+                        <span>谢谢您的反馈！<span class='huifu_ccpj available' style='display:none;'>补充评价</span></span>
                       </div>
                      
                   </div>
@@ -130,16 +130,20 @@ $(function(){
 		}else{
 			usefulFn();
 		}
-	})
+	});
+	$('.huifu_end').delegate('.huifu_ccpj','click',function(e){
+		$('.dialog').show();			
+	});
 	$('.dialog').delegate('.cancel','click',function(e){
 		$(this).parents('.dialog').hide();
+		$('.huifu_ccpj').show();
 	}).find('input[name="sel"]').change(function(e) {
         var $this = $(this);
 		var value = $('input[name="sel"]:checked').val()||'';
 		if(value!=''){			
 			var $dialog = $this.parents(".dialog");
 			$dialog.find('.submit').addClass('available')
-				   .click(function(){$dialog.hide();submitFn(value,$('.text_area').val());			
+				   .click(function(){submitFn(value,$('.text_area').val());			
 			});			
 		}
     }).end().find('textarea').keyup(function(){
@@ -150,10 +154,11 @@ $(function(){
 			var $textArea = $dialog.find('input[name="sel"]').eq(2).prop('checked',true);
 			var textarea = $('input[name="sel"]:checked').val()||'';
 			$dialog.find('.submit').addClass('available')
-				.click(function(){$dialog.hide();submitFn(val,textarea)});			
+				.click(function(){submitFn(val,textarea)});			
 		}	
 	});
 });
+
 var _url = "/view/discuss.action";
 var data = {knowledgeId:'<%=id%>'};
 function usefulFn(){
@@ -176,6 +181,8 @@ function usefulFn(){
 	//alert('有用');	
 }
 function submitFn(selectTxt,textarea){
+	$('.dialog').hide();
+	$('.huifu_ccpj').hide();
 	data.discussStatus = 0;
 	if(textarea=='谢谢您帮我们发现了新大陆，和小编说说呗!'){
 		textarea='';
