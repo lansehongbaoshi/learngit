@@ -23,6 +23,10 @@ if("update".equals(from)) {
 
             <div class="breadcrumbs" id="breadcrumbs">
                 <script type="text/javascript">
+                    $(function(){
+                    	showSearchResult($("#kId").val(),0);
+                	}); 
+                
                     try {
                         ace.settings.check('breadcrumbs', 'fixed')
                     } catch (e) {}
@@ -57,12 +61,12 @@ if("update".equals(from)) {
                         var pageCount = Math.ceil(totalCount / pagination.pageCount);
                         var prePage = "";
                         var nextPage = "";
-                        if (curPage  > 0) {
-                            prePage = " <li class=\"paginate_button previous\" aria-controls=\"dynamic-table\" tabindex=\"0\" id=\"dynamic-table_previous\"><a href=\"javascript:void(0)\" onclick=\"showSearchResult('"+KId+"," + (curPage - 2) + "')\">上一页</a>";
+                        if (curPage - 1 > 0) {
+                            prePage = " <li class=\"paginate_button previous\" aria-controls=\"dynamic-table\" tabindex=\"0\" id=\"dynamic-table_previous\"><a href=\"javascript:void(0)\" onclick=\"showSearchResult('"+KId+"','" + (curPage - 1) + "')\">上一页</a>";
                         }
                   
-                        if (curPage + 1< pageCount) {
-                            nextPage = " <li class=\"paginate_button next\" aria-controls=\"dynamic-table\" tabindex=\"0\" id=\"dynamic-table_next\"><a href=\"javascript:void(0)\" onclick=\"showSearchResult('" +KId+"," + (curPage) + "')\">下一页</a></li>";
+                        if (curPage + 1 < pageCount) {
+                            nextPage = " <li class=\"paginate_button next\" aria-controls=\"dynamic-table\" tabindex=\"0\" id=\"dynamic-table_next\"><a href=\"javascript:void(0)\" onclick=\"showSearchResult('" +KId+"','" + (curPage + 1) + "')\">下一页</a></li>";
                         }
                         var htmlStr = "<ul class=\"pagination\">" + prePage + nextPage + "</ul>";
                         return htmlStr;
@@ -137,7 +141,9 @@ if("update".equals(from)) {
                                 <div class="widget-main padding-8">
                                     <dl class="dl-horizontal">
                                         <dt>知识点编号：</dt>
-                                        <dd>#<s:property value=" knowledgeData.id " /></dd>
+                                        <dd>#<s:property value=" knowledgeData.id " />
+                                            <input id="kId" type="hidden" value="<s:property value='knowledgeData.id' />"/>
+                                        </dd>
                                         <dt>热点度：</dt>
                                         <dd><s:property value=" knowledgeData.sort " /></dd>
                                         <dt>当前状态：</dt>
@@ -226,7 +232,6 @@ if("update".equals(from)) {
            </div>
            <div class="col-xs-6">
                <div class="dataTables_paginate paging_simple_numbers" id="dynamic-table_paginate">
-               <ul class="pagination"><li class="paginate_button next" aria-controls="dynamic-table" tabindex="0" id="dynamic-table_next"><a href="javascript:void(0)" onclick="showSearchResult('<s:property value=" knowledgeData.id " />','1')">下一页</a></li></ul>
                </div>
            </div>
        </div>
