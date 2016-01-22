@@ -1,4 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+<%
+com.chsi.knowledge.vo.LoginUserVO user = com.chsi.knowledge.web.util.WebAppUtil.getLoginUserVO(request);
+%>
 <div id="sidebar" class="sidebar responsive">
 				<script type="text/javascript">
 					try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
@@ -39,8 +42,8 @@
 				<!-- /.sidebar-shortcuts -->
 
 				<ul class="nav nav-list">
-					<li class="">
-						<a href="/htgl/search/searchindex.action">
+					<li id="homepage_menu" class="">
+						<a href="/htgl/index.action">
 							<i class="menu-icon fa fa-tachometer"></i>
 							<span class="menu-text"> 首页 </span>
 						</a>
@@ -76,10 +79,20 @@
 
 						<b class="arrow"></b>
 					</li>
+          <%if(user.getAuths().contains(com.chsi.knowledge.Constants.ROLE_KNOWLEDGE_ADMIN)) {%>
 					<li id="system_menu" class="">
 						<a href="/htgl/system/listSystems">
 							<i class="menu-icon fa fa-desktop"></i>
 							<span class="menu-text"> 系统管理 </span>
+						</a>
+
+						<b class="arrow"></b>
+					</li>
+          <%} %>
+					<li id="recycle_menu" class="">
+						<a href="/htgl/recycle/index">
+							<i class="menu-icon fa fa-trash"></i>
+							<span class="menu-text"> 回收站 </span>
 						</a>
 
 						<b class="arrow"></b>
@@ -100,5 +113,6 @@
 					else if(url.indexOf("/knowledge/")>-1) $("#knowledge_menu").addClass("active");
 					else if(url.indexOf("/system/")>-1) $("#system_menu").addClass("active");
 					else if(url.indexOf("/search/")>-1) $("#search_menu").addClass("active");
+					else if(url.indexOf("/htgl/index")>-1) $("#homepage_menu").addClass("active");
 				</script>
 			</div>

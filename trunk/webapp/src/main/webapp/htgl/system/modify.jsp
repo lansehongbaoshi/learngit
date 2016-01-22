@@ -9,7 +9,7 @@
             } catch (e) {}
         </script>
         <ul class="breadcrumb">
-            <li> <i class="ace-icon fa fa-home home-icon"></i> <a href="#">首页</a> </li>
+            <li> <i class="ace-icon fa fa-home home-icon"></i> <a href="/htgl/index.action">首页</a> </li>
             <li class="active">系统管理</li>
         </ul>
         <!-- /.breadcrumb -->

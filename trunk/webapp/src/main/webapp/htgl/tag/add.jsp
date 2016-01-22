@@ -8,7 +8,7 @@
             } catch (e) {}
         </script>
         <ul class="breadcrumb">
-            <li> <i class="ace-icon fa fa-home home-icon"></i> <a href="#">首页</a> </li>
+            <li> <i class="ace-icon fa fa-home home-icon"></i> <a href="/htgl/index.action">首页</a> </li>
             <li class="active">添加新标签</li>
         </ul>
         <!-- /.breadcrumb -->
@@ -71,7 +71,7 @@
             
 <script>
 $(function(){
-	$.getJSON("/htgl/system/listSystem.action",
+	$.getJSON("/htgl/listSystem.action",
         function showSystems(json){
             if(json.flag=="true"){
               var options = "<option value=''>请选择...</option>";

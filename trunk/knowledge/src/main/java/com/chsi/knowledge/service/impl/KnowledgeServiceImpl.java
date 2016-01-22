@@ -210,4 +210,15 @@ public class KnowledgeServiceImpl extends BaseDbService implements KnowledgeServ
         return knowTagRelationDAO.getKnowTagDatas(tagId, knowledgeStatus);
     }
 
+    @Override
+    public List<KnowledgeData> get(String systemId, KnowledgeStatus knowledgeStatus) {
+        List<KnowledgeData> list = knowledgeDataDAO.get(systemId, knowledgeStatus);
+        CmsServiceClient cmsServiceClient = CmsServiceClientFactory.getCmsServiceClient();
+        for(KnowledgeData knowledgeData:list) {
+            Article article = cmsServiceClient.getArticle(knowledgeData.getCmsId());
+            knowledgeData.setArticle(article);
+        }
+        return list;
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.chsi.knowledge.common.web.filter;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -16,6 +17,7 @@ import com.chsi.account.client.AccountServiceClientFactory;
 import com.chsi.account.client.UserAccountData;
 import com.chsi.account.client.UserOrganizationData;
 import com.chsi.framework.remote.RemoteCallRs;
+import com.chsi.knowledge.util.RemoteCallUtil;
 import com.chsi.knowledge.vo.LoginUserVO;
 import com.chsi.knowledge.web.util.WebAppUtil;
 /**
@@ -43,7 +45,8 @@ public class LoginFilter  implements Filter {
             RemoteCallRs<UserOrganizationData> org = accountService.getUserOrganizationByUserId(userId);
             //TODO 权限控制
             if(acc!=null && acc.getValue()!=null && org!=null && org.getValue()!=null) {
-                LoginUserVO vo = new LoginUserVO(acc.getValue(), org.getValue());
+                List<String> auths = RemoteCallUtil.getAuthsByUserId(userId);
+                LoginUserVO vo = new LoginUserVO(acc.getValue(), org.getValue(), auths);
                 WebAppUtil.setLoginUserVO(request, vo);
             } else {
                 response.sendRedirect(request.getContextPath() + "/error/c403.jsp");

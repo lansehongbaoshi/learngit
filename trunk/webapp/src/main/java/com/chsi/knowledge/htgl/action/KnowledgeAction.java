@@ -313,12 +313,12 @@ public class KnowledgeAction extends AjaxAction {
         if (!ValidatorUtil.isNull(id)) {
             KnowledgeData data = knowledgeService.getKnowledgeById(id);
             if(data!=null) {
-                knowIndexService.deleteKnowIndex(data.getId());// 删索引
-                CmsServiceClient cmsServiceClient = CmsServiceClientFactory.getCmsServiceClient();
-                cmsServiceClient.deleteArticle(data.getCmsId());// 从新闻系统删除
+                knowIndexService.deleteKnowIndexBySolr(data.getId());// 删索引
+//                CmsServiceClient cmsServiceClient = CmsServiceClientFactory.getCmsServiceClient();
+//                cmsServiceClient.deleteArticle(data.getCmsId());// 从新闻系统删除
                 data.setKnowledgeStatus(KnowledgeStatus.YSC);
                 knowledgeService.update(data);// 从本系统删除,非真删除
-                knowTagRelationService.del(data.getId());
+//                knowTagRelationService.del(data.getId());
             }
             ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
         } else {

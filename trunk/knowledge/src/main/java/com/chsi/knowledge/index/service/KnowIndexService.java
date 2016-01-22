@@ -10,7 +10,17 @@ import com.chsi.search.client.vo.KnowledgeVO;
  */
 public interface KnowIndexService {
 
+    /**
+     * 通过加入队列来删除索引
+     * @param knowledgeId
+     */
    void deleteKnowIndex(String knowledgeId);
+   
+   /**
+    * 调用Solr，直接删除索引
+    * @param knowledgeId
+    */
+   void deleteKnowIndexBySolr(String knowledgeId);
    
    void updateKnowIndex(String knowledgeId);
    

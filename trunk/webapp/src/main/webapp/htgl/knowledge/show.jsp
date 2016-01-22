@@ -74,7 +74,7 @@ if("update".equals(from)) {
 
                 </script>
                 <ul class="breadcrumb">
-                    <li> <i class="ace-icon fa fa-home home-icon"></i> <a href="#">首页</a> </li>
+                    <li> <i class="ace-icon fa fa-home home-icon"></i> <a href="/htgl/index.action">首页</a> </li>
                     <li class="active">知识详情</li>
                 </ul>
                 <!-- /.breadcrumb -->

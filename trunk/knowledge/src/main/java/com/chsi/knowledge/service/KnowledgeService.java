@@ -19,6 +19,15 @@ public interface KnowledgeService {
      * @return
      */
     List<KnowledgeData> get(String systemId);
+    
+    /**
+     * 某个系统某个状态的所有知识点
+     * @param systemId
+     * @param knowledgeStatus
+     * @return
+     */
+    List<KnowledgeData> get(String systemId, KnowledgeStatus knowledgeStatus);
+    
     /**
      * 保存知识并向CMS 中保存相关数据
      * @param knowledgeData

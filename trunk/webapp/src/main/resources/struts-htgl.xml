@@ -4,7 +4,22 @@
         "http://struts.apache.org/dtds/struts-2.0.dtd">
 <struts>
 
-    <package name="htgl" extends="knowledge-default" namespace="/htgl/search">
+    <package name="htgl" extends="knowledge-default" namespace="/htgl">
+        <interceptors>
+          <interceptor-stack name="knowledgeStack">
+              <interceptor-ref name="chsiDefaultStack"></interceptor-ref>
+              <interceptor-ref name="store">
+                  <param name="operationMode">AUTOMATIC</param>
+              </interceptor-ref>
+          </interceptor-stack>
+        </interceptors>
+        <action name="index">
+            <result name="success" type="tiles">htgl.index</result>
+        </action>
+        <action name="listSystem" class="systemActionBean" method="getSystems"></action>
+    </package>
+    
+    <package name="htgl.search" extends="knowledge-default" namespace="/htgl/search">
         <interceptors>
           <interceptor-stack name="knowledgeStack">
               <interceptor-ref name="chsiDefaultStack"></interceptor-ref>
@@ -19,6 +34,7 @@
         <action name="showKnowledge" class="knowledgeActionBean" method="getKnow">
             <result name="success" type="tiles">htgl.knowledge.show</result>
         </action>
+        <action name="searchAllKnow" class="htglSearchActionBean" method="searchAllKnow"></action>
     </package>
     
     <package name="htgl.knowledge" extends="knowledge-default" namespace="/htgl/knowledge">
@@ -113,6 +129,22 @@
         </action>
     </package>
     
+    <package name="htgl.recycle" extends="knowledge-default" namespace="/htgl/recycle">
+        <interceptors>
+          <interceptor-stack name="knowledgeStack">
+              <interceptor-ref name="chsiDefaultStack"></interceptor-ref>
+              <interceptor-ref name="store">
+                  <param name="operationMode">AUTOMATIC</param>
+              </interceptor-ref>
+          </interceptor-stack>
+        </interceptors>
+        <action name="index">
+            <result name="success" type="tiles">htgl.recycle.index</result>
+        </action>
+        <action name="list" class="recycleActionBean" method="list"></action>
+        <action name="rollback" class="recycleActionBean" method="rollback"></action>
+    </package>
+    
     <package name="htgl.file" extends="knowledge-default" namespace="/htgl/file">
         <interceptors>
           <interceptor-stack name="knowledgeStack">
@@ -123,18 +155,6 @@
           </interceptor-stack>
         </interceptors>
         <action name="up" class="fileActionBean" method="upfile"></action>
-    </package>
-    
-    <package name="htgl.search" extends="knowledge-default" namespace="/htgl/search">
-        <interceptors>
-          <interceptor-stack name="knowledgeStack">
-              <interceptor-ref name="chsiDefaultStack"></interceptor-ref>
-              <interceptor-ref name="store">
-                  <param name="operationMode">AUTOMATIC</param>
-              </interceptor-ref>
-          </interceptor-stack>
-        </interceptors>
-        <action name="searchAllKnow" class="htglSearchActionBean" method="searchAllKnow"></action>
     </package>
     
 </struts>

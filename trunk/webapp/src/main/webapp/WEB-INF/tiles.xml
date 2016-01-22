@@ -31,6 +31,10 @@
     </definition>
     
     <!--后台管理页面  -->
+    <definition name="htgl.index" extends="htgl.admin.main" >
+        <put-attribute name="body" value="/htgl/index.jsp"/>
+    </definition>
+    
     <!-- search部分 -->
     <definition name="htgl.search.index" extends="htgl.admin.main" >
         <put-attribute name="body" value="/htgl/search/index.jsp"/>
@@ -68,6 +72,10 @@
     </definition>
     <definition name="htgl.tag.add" extends="htgl.admin.main" >
         <put-attribute name="body" value="/htgl/tag/add.jsp"/>
+    </definition>
+    <!-- 回收站 -->
+    <definition name="htgl.recycle.index" extends="htgl.admin.main" >
+        <put-attribute name="body" value="/htgl/recycle/index.jsp"/>
     </definition>
     
 </tiles-definitions> 

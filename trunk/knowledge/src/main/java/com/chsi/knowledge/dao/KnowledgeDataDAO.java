@@ -11,7 +11,20 @@ import com.chsi.knowledge.pojo.KnowledgeData;
  */
 public interface KnowledgeDataDAO {
     
+    /**
+     * 某个系统的所有知识点
+     * @param systemId
+     * @return
+     */
     List<KnowledgeData> get(String systemId);
+    
+    /**
+     * 某个系统某个状态的所有知识点
+     * @param systemId
+     * @param knowledgeStatus
+     * @return
+     */
+    List<KnowledgeData> get(String systemId, KnowledgeStatus knowledgeStatus);
 
     void save(KnowledgeData knowledgeData);
     

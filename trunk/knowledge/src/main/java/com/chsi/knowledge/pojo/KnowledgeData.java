@@ -15,6 +15,7 @@ import org.hibernate.annotations.GenericGenerator;
 import com.chsi.framework.pojos.PersistentObject;
 import com.chsi.knowledge.dic.KnowledgeStatus;
 import com.chsi.knowledge.util.RemoteCallUtil;
+import com.chsi.knowledge.util.SearchUtil;
 import com.chsi.news.vo.Article;
 
 /**
@@ -189,5 +190,18 @@ public class KnowledgeData extends PersistentObject {
     @Transient
     public String getUpdaterName() {
         return RemoteCallUtil.getXmByUserId(this.updater);
+    }
+    
+    @Transient
+    public String getSummary() {
+        if(this.article!=null) {
+            String content = this.article.getContent();
+            content = SearchUtil.resultFilter(content);
+            int tempLength = content.length() < 40 ? content.length() : 40;
+            content = content.substring(0, tempLength) + "...";
+            return content;
+        } else {
+            return "";
+        }
     }
 }

@@ -9,7 +9,7 @@
             } catch (e) {}
         </script>
   <ul class="breadcrumb">
-    <li><i class="ace-icon fa fa-home home-icon"></i> <a href="#">首页</a>
+    <li><i class="ace-icon fa fa-home home-icon"></i> <a href="/htgl/index.action">首页</a>
     </li>
     <li class="active">标签管理</li>
   </ul>
@@ -47,7 +47,7 @@
         <span class="ace-icon fa fa-search icon-on-right bigger-110"></span>
         查询
       </button>
-      <span></span>
+      <span>（请选择系统后，点击【查询】显示“标签列表”）</span>
     </div>
 
   </div>
@@ -97,11 +97,6 @@
                   </tr>
                 </thead>
                 <tbody id="tags_result">
-                  <tr role="row" class="odd">
-
-                    <td colspan="4">无数据</td>
-
-                  </tr>
 
                 </tbody>
               </table>
@@ -119,7 +114,7 @@
 
 <script>
         $(function () {
-            $.getJSON("/htgl/system/listSystem.action",
+            $.getJSON("/htgl/listSystem.action",
                 function showSystems(json) {
                     if (json.flag == "true") {
                         var options = "";

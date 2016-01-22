@@ -1,11 +1,16 @@
 package com.chsi.knowledge.index.service.impl;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.solr.client.solrj.SolrServer;
+import org.apache.solr.client.solrj.SolrServerException;
 
 import com.chsi.cms.client.CmsServiceClient;
 import com.chsi.cms.client.CmsServiceClientFactory;
@@ -31,6 +36,11 @@ import com.chsi.search.type.QueueNameType;
 public class KnowIndexServiceImpl extends BaseDbService implements KnowIndexService {
 
     private KnowTagRelationDataDAO knowTagRelationDAO;
+    private SolrServer solrService;
+    
+    private static final int SUCCESS = 0;
+    
+    protected final Log logger = LogFactory.getLog(getClass());
 
     protected void doCreate() {
         knowTagRelationDAO = getDAO(ServiceConstants.KNOWTAGRELATIONDATA_DAO, KnowTagRelationDataDAO.class);
@@ -38,6 +48,14 @@ public class KnowIndexServiceImpl extends BaseDbService implements KnowIndexServ
 
     protected void doRemove() {
         
+    }
+    
+    public SolrServer getSolrService() {
+        return solrService;
+    }
+
+    public void setSolrService(SolrServer solrService) {
+        this.solrService = solrService;
     }
     
     public void deleteKnowIndex(String knowledgeId) {
@@ -50,6 +68,28 @@ public class KnowIndexServiceImpl extends BaseDbService implements KnowIndexServ
             knowQueue.enqueue(QueueNameType.KNOW_INDEX_DELETER.toString(), indexInfo.toByteArray());   //名称须与SOLR配置的queueName 相同
         }
     }
+    
+    @Override
+    public void deleteKnowIndexBySolr(String knowledgeId) {
+        if (StringUtils.isNotBlank(knowledgeId)) {
+            try {
+                solrService.deleteById(knowledgeId);
+                int status = solrService.commit().getStatus();
+                if (status != SUCCESS) {
+                    logger.error("删除搜索引擎索引，commit失败!");
+                } else {
+                    logger.info("删除搜索引擎索引, indexId = " + knowledgeId);
+                }
+            } catch (SolrServerException e) {
+                logger.error("删除搜索引擎索引时异常了!");
+                e.printStackTrace();
+            } catch (IOException e) {
+                logger.error("删除搜索引擎索引时异常了!");
+                e.printStackTrace();
+            }
+        }
+    }
+
 
     public void updateKnowIndex(String knowledgeId) {
         SearchServiceClient searchClient = SearchServiceClientFactory.getSearchServiceClient();
@@ -113,6 +153,5 @@ public class KnowIndexServiceImpl extends BaseDbService implements KnowIndexServ
         KnowListVO<KnowledgeVO> knowListVO = new KnowListVO<KnowledgeVO>(page.getList(), pagination);
         return knowListVO;
     }
-
 
 }
