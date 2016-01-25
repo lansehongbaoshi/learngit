@@ -446,6 +446,9 @@
     -webkit-transform:scale(0.95);
     display: block;
 }
+.cont .article a{color: #36AAA4}
+.cont .article a:hover{ text-decoration:underline;}
+.cont .article img{width:88%;}
 .bot{
 	margin-top: 18px;
     margin-top: 1.5rem;
