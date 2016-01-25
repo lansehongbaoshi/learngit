@@ -21,11 +21,7 @@ $(function(){
 })
 function searchInputFn(){
 	$('#search_input').focus();
-	$('.search_form').on('opened', function () {
-		alert(1);
-		$('.search_form #search_input')[0].focus();
-		 uexWindow.showSoftKeyboard();
-	});
+	//uexWindow.showSoftKeyboard();
 	var bind_name = 'input paste',userAgent = navigator.userAgent;
 	if (userAgent.indexOf("MSIE") != -1) {  
 		bind_name = 'propertychange';  
@@ -35,21 +31,19 @@ function searchInputFn(){
 	if(userAgent.indexOf('iPhone') > -1){
 		var timer, windowInnerHeight;
 		function eventCheck(e) {
-			if (e) { //blur,focus事件触发的
-				//$('.keyupTest').html('android键盘' + (e.type == 'focus' ? '弹出' : '隐藏') + '--通过' + e.type + '事件,keyCode'+e.keyCode||event.keyCode);
-				if (e.type == 'click') {//如果是点击事件启动计时器监控是否点击了键盘上的隐藏键盘按钮，没有点击这个按钮的事件可用，keydown中也获取不到keyCode值
-					setTimeout(function () {//由于键盘弹出是有动画效果的，要获取完全弹出的窗口高度，使用了计时器
-						windowInnerHeight = window.innerHeight;//获取弹出android软键盘后的窗口高度
+			if (e) {;
+				if (e.type == 'click') {
+					setTimeout(function () {
+						windowInnerHeight = window.innerHeight;
 						timer = setInterval(function () { eventCheck() }, 100);
 					}, 500);
 				}else {
 					clearInterval(timer);
 					autoSearchFn();
 				}
-			}else { //计时器执行的，需要判断窗口可视高度，如果改变说明键盘隐藏了
+			}else { 
 				if (window.innerHeight > windowInnerHeight) {
 					clearInterval(timer);
-					//$('.keyupTest').html('android键盘隐藏--通过点击键盘隐藏按钮');
 					autoSearchFn();
 				}
 			}
@@ -62,8 +56,7 @@ function searchInputFn(){
 		})		
 	}	
 }
-function autoSearchFn(){
-	
+function autoSearchFn(){	
 	var text = $.trim($('#search_input').val());
 	if(text ==""){ 
 		$('#hot_lists').show();
@@ -81,7 +74,7 @@ function clearFn(){
 		window.history.back();
 	})
 	$('#search_clear').on('click',function(){
-		$("#search_input").val('');	
+		$("#search_input").val('').focus();	
 		$('#hot_lists').show();
 		$('#ask_list').html('');
 	});
@@ -116,7 +109,7 @@ function ajaxJSONP(url,text,callback){
 		jsonp: "callback", //回调函数的参数  
 		jsonpCallback: callback, //回调函数的名称  
 		error: function(){  
-			alert('请求时发生了错误，请稍后再试');  
+			//alert('请求时发生了错误，请稍后再试');  
 		}  
 	}); 
 	return false;

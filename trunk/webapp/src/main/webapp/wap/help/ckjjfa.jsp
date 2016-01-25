@@ -175,7 +175,7 @@ function usefulFn(){
 		//jsonp: "callback", //回调函数的参数  
 		//jsonpCallback: callback, //回调函数的名称  
 		error: function(){  
-			alert('请求时发生了错误，请稍后再试');  
+			//alert('请求时发生了错误，请稍后再试');  
 		}  
 	}); 
 	//alert('有用');	
