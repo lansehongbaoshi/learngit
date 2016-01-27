@@ -113,6 +113,7 @@ com.chsi.knowledge.vo.LoginUserVO user = com.chsi.knowledge.web.util.WebAppUtil.
 					else if(url.indexOf("/knowledge/")>-1) $("#knowledge_menu").addClass("active");
 					else if(url.indexOf("/system/")>-1) $("#system_menu").addClass("active");
 					else if(url.indexOf("/search/")>-1) $("#search_menu").addClass("active");
+					else if(url.indexOf("/recycle/")>-1) $("#recycle_menu").addClass("active");
 					else if(url.indexOf("/htgl/index")>-1) $("#homepage_menu").addClass("active");
 				</script>
 			</div>
