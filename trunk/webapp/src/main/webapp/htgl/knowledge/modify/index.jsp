@@ -53,7 +53,7 @@ String ctxPath = request.getContextPath();
                             <div class="form-group">
                                 <label for="" class="col-sm-3 control-label no-padding-top">热点度：</label>
                                 <div class="col-sm-9">
-                                <input id="sort" type="text" name="sort" style="width: 100px;" value="<s:property value=" knowledgeData.sort " />"> <span>（说明：1~99之间的数字,数值越大,序越靠前）</span>
+                                <input id="sort" type="text" name="sort" style="width: 100px;" value="<s:property value=" knowledgeData.sort " />"> <span>（说明：1~99之间的数字,数值越大,排序越靠前）</span>
                                 </div>
                             </div>
                             <div class="form-group">
