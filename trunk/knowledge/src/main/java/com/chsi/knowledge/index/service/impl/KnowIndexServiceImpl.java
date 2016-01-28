@@ -131,7 +131,7 @@ public class KnowIndexServiceImpl extends BaseDbService implements KnowIndexServ
         queryParams.put("q", keywords);
         queryParams.put("qf", "title^25 content^10 key_words^6 tags^5");
         queryParams.put("defType", "edismax");
-        queryParams.put("bf", "sum(div(log(visit_cnt),6),div(sort,200))");
+        queryParams.put("bf", "pow(recip(div(1,visit_cnt),1,1,1),recip(div(1,sort),1,1,1))");//bf计算出来的值位于0-1之间最合适
         Page<KnowledgeVO> page = searchClient.searchKnow(keywords, systemId, queryParams, start, pageSize);
         Pagination pagination = new Pagination(page.getTotalCount(), page.getPageCount(), page.getCurPage());
         KnowListVO<KnowledgeVO> knowListVO = new KnowListVO<KnowledgeVO>(page.getList(), pagination);
@@ -147,7 +147,7 @@ public class KnowIndexServiceImpl extends BaseDbService implements KnowIndexServ
         Map<String, String> queryParams = new HashMap<String, String>();
         queryParams.put("qf", "title^25 content^10 key_words^6 tags^5");
         queryParams.put("defType", "edismax");
-        queryParams.put("bf", "sum(div(log(visit_cnt),6),div(sort,200))");
+        queryParams.put("bf", "pow(recip(div(1,visit_cnt),1,1,1),recip(div(1,sort),1,1,1))");//bf计算出来的值位于0-1之间最合适
         Page<KnowledgeVO> page = searchClient.searchKnow(keywords, queryParams, start, pageSize);
         Pagination pagination = new Pagination(page.getTotalCount(), page.getPageCount(), page.getCurPage());
         KnowListVO<KnowledgeVO> knowListVO = new KnowListVO<KnowledgeVO>(page.getList(), pagination);

@@ -3,8 +3,6 @@ package com.chsi.knowledge.htgl.action;
 import java.util.Calendar;
 import java.util.List;
 
-import com.chsi.cms.client.CmsServiceClient;
-import com.chsi.cms.client.CmsServiceClientFactory;
 import com.chsi.framework.util.ValidatorUtil;
 import com.chsi.knowledge.Constants;
 import com.chsi.knowledge.action.base.AjaxAction;
@@ -255,6 +253,24 @@ public class KnowledgeAction extends AjaxAction {
 
     // 更新某个知识点，包括更新系统内的knowledge表、新闻系统里的知识点以及搜索引擎的索引
     public String updateKnowledge() throws Exception {
+        String error = "";
+        if(ValidatorUtil.isNull(systemId)) {
+            error = "请选择系统";
+        } else if(ValidatorUtil.isNull(keywords)) {
+            error = "请输入关键字";
+        } else if(ValidatorUtil.isNull(title)) {
+            error = "请输入标题";
+        } else if(ValidatorUtil.isNull(content)) {
+            error = "请输入回答";
+        } else if(tagName == null || tagName.length == 0) {
+            error = "请先到\"<a href='/htgl/tag/index.action'>便签管理</a>\"中增加标签";
+        } else if(ValidatorUtil.isNull(sort)) {
+            error = "请输入热点度";
+        }
+        if(!"".equals(error)) {
+            request.put(Constants.REQUEST_ERROR, error);
+            return ERROR;
+        }
         if (!ValidatorUtil.isNull(systemId) && !ValidatorUtil.isNull(id) && !ValidatorUtil.isNull(title) && !ValidatorUtil.isNull(content) && !ValidatorUtil.isNull(sort) && tagName != null && tagName.length > 0 && !ValidatorUtil.isNull(keywords)) {
             knowTagRelationService.del(id);
             for (String one : tagName) {
@@ -285,28 +301,43 @@ public class KnowledgeAction extends AjaxAction {
     }
 
     public String addKnowledge() throws Exception {
-        if (!ValidatorUtil.isNull(systemId) && !ValidatorUtil.isNull(keywords) && !ValidatorUtil.isNull(title) && !ValidatorUtil.isNull(content) && tagName != null && tagName.length > 0 && !ValidatorUtil.isNull(sort)) {
-            LoginUserVO loginUserVO = getLoginUserVO();
-            // 保存知识
-            knowledgeData = new KnowledgeData(null, keywords, null, 0, Integer.parseInt(sort), KnowledgeStatus.YSH, getLoginedUserId(), Calendar.getInstance(), null, null);
-            knowledgeService.save(knowledgeData, title, content, loginUserVO.getOrg().getCode(), getLoginedUserId());
-            for (String one : tagName) {
-                SystemData system = systemService.getSystemById(systemId);
-                if (system != null) {
-                    TagData tagData = tagService.getTagData(systemId, one);
-                    if (tagData != null) {
-                        // 保存知识与标签关系
-                        KnowTagRelationData knowTagRelationData = new KnowTagRelationData(null, knowledgeData, tagData);
-                        knowTagRelationService.save(knowTagRelationData);
-                    }
+        String error = "";
+        if(ValidatorUtil.isNull(systemId)) {
+            error = "请选择系统";
+        } else if(ValidatorUtil.isNull(keywords)) {
+            error = "请输入关键字";
+        } else if(ValidatorUtil.isNull(title)) {
+            error = "请输入标题";
+        } else if(ValidatorUtil.isNull(content)) {
+            error = "请输入回答";
+        } else if(tagName == null || tagName.length == 0) {
+            error = "请先到\"<a href='/htgl/tag/index.action'>便签管理</a>\"中增加标签";
+        } else if(ValidatorUtil.isNull(sort)) {
+            error = "请输入热点度";
+        }
+        if(!"".equals(error)) {
+            request.put(Constants.REQUEST_ERROR, error);
+            return ERROR;
+        }
+        LoginUserVO loginUserVO = getLoginUserVO();
+        // 保存知识
+        knowledgeData = new KnowledgeData(null, keywords, null, 0, Integer.parseInt(sort), KnowledgeStatus.YSH, getLoginedUserId(), Calendar.getInstance(), null, null);
+        knowledgeService.save(knowledgeData, title, content, loginUserVO.getOrg().getCode(), getLoginedUserId());
+        for (String one : tagName) {
+            SystemData system = systemService.getSystemById(systemId);
+            if (system != null) {
+                TagData tagData = tagService.getTagData(systemId, one);
+                if (tagData != null) {
+                    // 保存知识与标签关系
+                    KnowTagRelationData knowTagRelationData = new KnowTagRelationData(null, knowledgeData, tagData);
+                    knowTagRelationService.save(knowTagRelationData);
                 }
             }
-            knowIndexService.updateKnowIndex(knowledgeData.getId());
-            id = knowledgeData.getId();
-            return SUCCESS;
         }
-        request.put(Constants.REQUEST_ERROR, "参数不能为空");
-        return ERROR;
+        knowIndexService.updateKnowIndex(knowledgeData.getId());
+        id = knowledgeData.getId();
+        return SUCCESS;
+        
     }
 
     public void delKnowledge() throws Exception {
@@ -319,6 +350,10 @@ public class KnowledgeAction extends AjaxAction {
                 data.setKnowledgeStatus(KnowledgeStatus.YSC);
                 knowledgeService.update(data);// 从本系统删除,非真删除
 //                knowTagRelationService.del(data.getId());
+                List<KnowTagRelationData> ktrList = knowTagRelationService.getKnowTagRelationByKnowId(data.getId());
+                for(KnowTagRelationData one:ktrList) {
+                    ManageCacheUtil.removeKnowTag(one.getTagData().getId());
+                }
             }
             ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
         } else {

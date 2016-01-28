@@ -1,6 +1,8 @@
 package com.chsi.knowledge.service.impl;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import com.chsi.cms.client.CmsServiceClient;
@@ -100,7 +102,10 @@ public class KnowledgeServiceImpl extends BaseDbService implements KnowledgeServ
         if (null == article) {
             return null;
         }
-        ConKnow conKnow = new ConKnow(knowledgeData.getId(), article.getTitle(), article.getContent(), knowledgeData.getKeywords(), knowledgeData.getVisitCnt(), knowledgeData.getUpdateTime());
+        Calendar lastOperTime = knowledgeData.getUpdateTime()==null ? knowledgeData.getCreateTime():knowledgeData.getUpdateTime();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        String updateTime = format.format(lastOperTime.getTime());
+        ConKnow conKnow = new ConKnow(knowledgeData.getId(), article.getTitle(), article.getContent(), knowledgeData.getKeywords(), knowledgeData.getVisitCnt(), updateTime);
         List<Navigation> navigation = NavigationUtil.getNavigation(ktRelation.getTagData().getSystemData(), ktRelation.getTagData(), article.getTitle(), id);
         ViewKnowVO knowPageVO = new ViewKnowVO(conKnow, navigation);
         return knowPageVO;

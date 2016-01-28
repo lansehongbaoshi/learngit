@@ -1,6 +1,5 @@
 package com.chsi.knowledge.vo;
 
-import java.util.Calendar;
 import java.util.List;
 
 import com.chsi.knowledge.util.Navigation;
@@ -41,11 +40,11 @@ public class ViewKnowVO{
         private String content;
         private String keywords;
         private int visitCnt;
-        private Calendar updateTime;
+        private String updateTime;
         private boolean ifDiscussed;
 
         public ConKnow(String id, String title, String content,
-                String keywords, int visitCnt, Calendar updateTime) {
+                String keywords, int visitCnt, String updateTime) {
             this.id = id;
             this.title = title;
             this.content = content;
@@ -103,11 +102,11 @@ public class ViewKnowVO{
             this.visitCnt = visitCnt;
         }
 
-        public Calendar getUpdateTime() {
+        public String getUpdateTime() {
             return updateTime;
         }
 
-        public void setUpdateTime(Calendar updateTime) {
+        public void setUpdateTime(String updateTime) {
             this.updateTime = updateTime;
         }
 
