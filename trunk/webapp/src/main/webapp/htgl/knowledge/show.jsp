@@ -183,11 +183,11 @@ if("update".equals(from)) {
                                         <dt>创建者：</dt>
                                         <dd><s:property value="knowledgeData.createrName " /></dd>
                                         <dt>创建时间：</dt>
-                                        <dd><s:date format="yyyy-MM-dd hh:mm:ss" name="knowledgeData.createTime"/></dd>
+                                        <dd><s:date format="yyyy-MM-dd HH:mm:ss" name="knowledgeData.createTime"/></dd>
                                         <dt>最后更新者：</dt>
                                         <dd><s:property value=" knowledgeData.updaterName " /></dd>
                                         <dt>最后更新时间：</dt>
-                                        <dd><s:date format="yyyy-MM-dd hh:mm:ss" name="knowledgeData.updateTime"/> </dd>
+                                        <dd><s:date format="yyyy-MM-dd HH:mm:ss" name="knowledgeData.updateTime"/> </dd>
                                     </dl>
                                 </div>
                             </div>
