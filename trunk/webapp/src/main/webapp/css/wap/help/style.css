@@ -55,6 +55,7 @@
     top: 50%;
     margin-top: -14.5px;
     margin-top: -1.208rem;
+     z-index:99;
 }
 .sou img{
 	position: absolute;
@@ -63,16 +64,25 @@
 	width: 16px;
 	width: 1.333rem;
 	top: 7px;
-	top: 0.583rem;
+	top: 0.583rem;   
 }
-.text{
+.search .text{
     background: #ffffff;
     border-radius: 5px;
     border-radius: 0.417rem;
     height: 38px;
     height: 3.167rem;
-    width: 100%;
+    position: relative;
+    margin-right: 36px;
+    margin-right: 3.0rem;
 }
+.search .text img{    position: absolute;
+    top: 6px;
+    right: -36px;
+    width: 28px;
+    top: 0.43rem;
+    right: -2.57rem;
+    width:2rem;}
 .hot{
     width: 100%;
     border-top: 1px #ffffff solid;

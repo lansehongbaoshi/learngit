@@ -12,6 +12,6 @@ $(function(){
     <div class="sou">
       <img src="../../images/wap/help/search.png" />遇到问题搜一搜
     </div>
-    <div class="text"></div>
+    <div class="text"><a href='/wap/help/index.jsp'><img src='../../images/wap/help/wap_index.png'/></a></div>
   </div>
 </div>
