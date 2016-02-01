@@ -5,7 +5,6 @@ import="com.chsi.knowledge.pojo.KnowledgeData,com.chsi.knowledge.util.ManageCach
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    
     <meta charset="utf-8">
     <title>搜索</title>
     <link href="../../css/wap/help/reset.css" rel="stylesheet"/>
@@ -20,41 +19,17 @@ $(function(){
 	clearFn();
 })
 function searchInputFn(){
-	$('#search_input').focus();
-	//uexWindow.showSoftKeyboard();
-	var bind_name = 'input paste',userAgent = navigator.userAgent;
-	if (userAgent.indexOf("MSIE") != -1) {  
-		bind_name = 'propertychange';  
-	}else if(userAgent.match(/android/i) == "android")  {  
-		bind_name = "keyup";  
-	}
-	if(userAgent.indexOf('iPhone') > -1){
-		var timer, windowInnerHeight;
-		function eventCheck(e) {
-			if (e) {;
-				if (e.type == 'click') {
-					setTimeout(function () {
-						windowInnerHeight = window.innerHeight;
-						timer = setInterval(function () { eventCheck() }, 100);
-					}, 500);
-				}else {
-					clearInterval(timer);
-					autoSearchFn();
-				}
-			}else { 
-				if (window.innerHeight > windowInnerHeight) {
-					clearInterval(timer);
-					autoSearchFn();
-				}
-			}
-		}
-		$('#search_input').click(eventCheck).blur(eventCheck);
-	}else{
-		$('#search_input').on(bind_name,function(event){
-			event.stopPropagation();  
-			autoSearchFn();
-		})		
-	}	
+    $('#search_input').on('input paste',function(event){
+        event.stopPropagation();          
+        var userAgent = window.navigator.userAgent;
+        if(userAgent.indexOf('iPhone') > -1){
+            setTimeout(function () {
+                autoSearchFn();
+            }, 500);
+        }else{
+            autoSearchFn(); 
+        }
+    }).css('visibility','visible').focus();
 }
 function autoSearchFn(){	
 	var text = $.trim($('#search_input').val());
@@ -66,7 +41,7 @@ function autoSearchFn(){
 		return false;	
 	}
 	$('#hot_lists').hide();
-	ajaxJSONP('allsearch',text,'inputSearch');
+	ajaxJSONP('allsearch',text,'inputSearch',true);
 }
 //取消和清除事件
 function clearFn(){
@@ -85,7 +60,7 @@ function searchAll(){
 	var text = $.trim($searchText.val());
 	if(text ==""){ return false;}
 	$('#hot_lists').hide();
-	ajaxJSONP('allsearch',text,'knSearch'); //自动搜索“报名”
+	ajaxJSONP('allsearch',text,'knSearch',false); //自动搜索“报名”
 }
 // 配置项
 var  kn_local_data = {
@@ -93,7 +68,7 @@ var  kn_local_data = {
 	allsearch:"/search/all.action"
 }
 //通用ajax函数
-function ajaxJSONP(url,text,callback){
+function ajaxJSONP(url,text,callback,flag){
 	var _url = kn_local_data['url']+kn_local_data[url];//http://kl.chsi.com.cn/search/all.action?keywords=test
 	var data = "keywords="+text; 
 	InputText = text;
@@ -109,7 +84,9 @@ function ajaxJSONP(url,text,callback){
 		jsonp: "callback", //回调函数的参数  
 		jsonpCallback: callback, //回调函数的名称  
 		error: function(){  
-			//alert('请求时发生了错误，请稍后再试');  
+            if(flag && InputText!=''){
+                ajaxJSONP('allsearch',InputText,'inputSearch');      
+            }            
 		}  
 	}); 
 	return false;
@@ -141,7 +118,7 @@ template.helper('hightWord', function (k,o) {
         <div class="search_text">
           <div class="cancel"><a href="javascript:void(0)" id="cancel">取消</a></div>
           <div class="search_form">
-            <input type="text" autofocus id='search_input' placeholder="请输入搜索内容"/>
+            <input type="text" autofocus id='search_input' style="visibility:hidden;" placeholder="请输入搜索内容"/>
             <span class="clearr" id='search_clear'>×</span>
             <button class='search_tbn' onClick="searchAll()">搜索</button>
           </div>
