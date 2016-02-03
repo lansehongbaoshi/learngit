@@ -145,7 +145,7 @@
                               for (var i = 0; i < knows.length; i++) {
                                   var k = knows[i];
                                   var odd_even = (i%2==0)?"even":"odd";
-                                  var str = " <tr role=\"row\" data-id="+k.id+" class=\""+odd_even+"\"><td>" + k.article.title + "</td><td class=\"hidden-260\"><a target='_blank' href='/view/viewKnowledge.action?id=" + k.id + "'>" + k.summary + "</a></td><td class=\"hidden-80\">"+k.visitCnt+"</td><td class=\hidden-80\><span class=\"label label-sm label-success\">已删除</span></td><td><div class=\"hidden-sm hidden-xs action-buttons undo\"><a class=\"blue\" title=\"恢复\" href=\"javascript:void(0)\"> <i class=\"ace-icon fa fa-undo bigger-130\"></i> </a></div>" + "</td></tr>";
+                                  var str = " <tr role=\"row\" data-id="+k.id+" class=\""+odd_even+"\"><td>" + k.article.title + "</td><td class=\"hidden-260\"><a target='_blank' href='/htgl/view/viewKnowledge.action?id=" + k.id + "'>" + k.summary + "</a></td><td class=\"hidden-80\">"+k.visitCnt+"</td><td class=\hidden-80\><span class=\"label label-sm label-success\">已删除</span></td><td><div class=\"hidden-sm hidden-xs action-buttons undo\"><a class=\"blue\" title=\"恢复\" href=\"javascript:void(0)\"> <i class=\"ace-icon fa fa-undo bigger-130\"></i> </a></div>" + "</td></tr>";
                                   $("#search_result").append(str);
                               }
                       	   }

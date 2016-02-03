@@ -1,7 +1,9 @@
 package com.chsi.knowledge.action.search;
 
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.chsi.framework.callcontrol.CallInfoHelper;
 import com.chsi.framework.util.ValidatorUtil;
@@ -72,28 +74,40 @@ public class SearchAction extends AjaxAction {
         writeCallbackJSON(callback);
     }
 
-    // 全系统搜索
+    // 全系统搜索（自动完成处用），对外使用（如帮助中心）
     public String quickAll() throws Exception {
         keywords = SearchUtil.keywordsFilter(keywords);
         if (ValidatorUtil.isNull(keywords)) {
             ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
         } else {
             ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
-            KnowListVO<KnowledgeVO> listVO = knowIndexService.searchKnow(keywords, (curPage - 1) * Constants.SEARCH_PAGE_SIZE, Constants.SEARCH_PAGE_SIZE);
+            Map<String, String> queryParams = new HashMap<String, String>();
+            queryParams.put("q", keywords);
+            String system = ManageCacheUtil.getUnderwaySystem();
+            if(system!=null) {
+                queryParams.put("bf", String.format("if(exists(query({!v='system_id:%s'})), 1, 0)", system));
+            }
+            KnowListVO<KnowledgeVO> listVO = knowIndexService.searchKnow(queryParams, (curPage - 1) * Constants.SEARCH_PAGE_SIZE, Constants.SEARCH_PAGE_SIZE);
             ajaxMessage.setO(SearchUtil.exchangeResultList(listVO, keywords, 14));
         }
         writeCallbackJSON(callback);
         return NONE;
     }
 
-    // 全系统搜索
+    // 全系统搜索，对外使用（如帮助中心）
     public String allSearch() throws Exception {
         keywords = SearchUtil.keywordsFilter(keywords);
         if (ValidatorUtil.isNull(keywords)) {
             ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
         } else {
             ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
-            KnowListVO<KnowledgeVO> listVO = knowIndexService.searchKnow(keywords, (curPage - 1) * Constants.PAGE_SIZE, Constants.PAGE_SIZE);
+            Map<String, String> queryParams = new HashMap<String, String>();
+            queryParams.put("q", keywords);
+            String system = ManageCacheUtil.getUnderwaySystem();
+            if(system!=null) {
+                queryParams.put("bf", String.format("if(exists(query({!v='system_id:%s'})),0.5,0)^10", system));
+            }
+            KnowListVO<KnowledgeVO> listVO = knowIndexService.searchKnow(queryParams, (curPage - 1) * Constants.PAGE_SIZE, Constants.PAGE_SIZE);
             List<SearchVO> list = SearchUtil.exchangeResultList(listVO, keywords, 40);
             saveSearchLog(list);
             KnowListVO<SearchVO> result = new KnowListVO<SearchVO>(list, listVO.getPagination());

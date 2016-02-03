@@ -12,7 +12,7 @@ public class Constants {
     public static final int PAGE_SIZE = 10;
     
     /**
-     * 搜索页面每页显示数目
+     * 自动完成显示数目
      */
     public static final int SEARCH_PAGE_SIZE = 5;
     

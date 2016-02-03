@@ -63,9 +63,10 @@ public class SearchServiceImpl extends BaseDbService implements SearchService {
     private KnowledgeVO getFirstSearchResult(String keyword) {
         SearchServiceClient searchClient = SearchServiceClientFactory.getSearchServiceClient();
         Map<String, String> queryParams = new HashMap<String, String>();
+        queryParams.put("q", keyword);
         queryParams.put("qf", "title");
         queryParams.put("defType", "edismax");
-        Page<KnowledgeVO> page = searchClient.searchKnow(keyword, queryParams, 0, 1);
+        Page<KnowledgeVO> page = searchClient.searchKnow(queryParams, 0, 1);
         List<KnowledgeVO> list = page.getList();
         if(list!=null&&list.size()>0) {
             return list.get(0);

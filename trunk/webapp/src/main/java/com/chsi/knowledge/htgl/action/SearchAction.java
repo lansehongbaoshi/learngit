@@ -1,7 +1,9 @@
 package com.chsi.knowledge.htgl.action;
 
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.chsi.framework.callcontrol.CallInfoHelper;
 import com.chsi.framework.util.ValidatorUtil;
@@ -14,9 +16,9 @@ import com.chsi.knowledge.service.QueueService;
 import com.chsi.knowledge.service.SearchService;
 import com.chsi.knowledge.service.ServiceFactory;
 import com.chsi.knowledge.service.SystemService;
+import com.chsi.knowledge.util.SearchUtil;
 import com.chsi.knowledge.vo.KnowListVO;
 import com.chsi.knowledge.vo.SearchVO;
-import com.chsi.knowledge.web.util.SearchUtil;
 import com.chsi.search.client.vo.KnowledgeVO;
 
 /**
@@ -33,24 +35,33 @@ public class SearchAction extends AjaxAction {
     private SearchService searchService;
     private String keywords;
     private String systemId;
+    private String tag;
     private int curPage;
     private String callback;
     private QueueService queueService = ServiceFactory.getQueueService();
 
     // 指定系统内搜索,不过滤关键字（如：*:*）
     public void searchAllKnow() throws Exception {
-        if (ValidatorUtil.isNull(keywords)) {
-            ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
-        } else if (null == systemService.getSystemById(systemId)) {
-            ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
-        } else {
-            ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
-            KnowListVO<KnowledgeVO> listVO = knowIndexService.searchKnow(keywords, systemId, (curPage - 1) * Constants.PAGE_SIZE, Constants.PAGE_SIZE);
-            List<SearchVO> list = SearchUtil.exchangeResultList(listVO, keywords, 40);
-            saveSearchLog(list);
-            KnowListVO<SearchVO> result = new KnowListVO<SearchVO>(list, listVO.getPagination());
-            ajaxMessage.setO(result);
+        ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
+        Map<String, String> queryParams = new HashMap<String, String>();
+        if(ValidatorUtil.isNull(keywords)){
+            keywords = "*:*";
         }
+        queryParams.put("q", keywords);
+        if (!ValidatorUtil.isNull(systemId)){
+            queryParams.put("fq", "system_id:"+systemId);
+        }
+        if(!ValidatorUtil.isNull(tag)) {
+            queryParams.put("fq", "tag_ids:"+tag);
+        }
+        /*if("*:*".equals(keywords)) {
+            queryParams.put("sort", "visit_cnt desc");
+        }*/
+        KnowListVO<KnowledgeVO> listVO = knowIndexService.searchKnow(queryParams, (curPage - 1) * Constants.PAGE_SIZE, Constants.PAGE_SIZE);
+        List<SearchVO> list = SearchUtil.exchangeResultList(listVO, keywords, 40);
+        saveSearchLog(list);
+        KnowListVO<SearchVO> result = new KnowListVO<SearchVO>(list, listVO.getPagination());
+        ajaxMessage.setO(result);
         writeCallbackJSON(callback);
     }
 
@@ -92,6 +103,14 @@ public class SearchAction extends AjaxAction {
 
     public void setSystemId(String systemId) {
         this.systemId = systemId;
+    }
+
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
     }
 
     public int getCurPage() {

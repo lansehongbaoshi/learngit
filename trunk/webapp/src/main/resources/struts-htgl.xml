@@ -17,6 +17,7 @@
             <result name="success" type="tiles">htgl.index</result>
         </action>
         <action name="listSystem" class="systemActionBean" method="getSystems"></action>
+        <action name="listTag" class="tagActionBean" method="list"></action>
     </package>
     
     <package name="htgl.search" extends="knowledge-default" namespace="/htgl/search">
@@ -155,6 +156,20 @@
           </interceptor-stack>
         </interceptors>
         <action name="up" class="fileActionBean" method="upfile"></action>
+    </package>
+    
+    <package name="htgl.view" extends="knowledge-default" namespace="/htgl/view">
+        <interceptors>
+          <interceptor-stack name="knowledgeStack">
+              <interceptor-ref name="chsiDefaultStack"></interceptor-ref>
+              <interceptor-ref name="store">
+                  <param name="operationMode">AUTOMATIC</param>
+              </interceptor-ref>
+          </interceptor-stack>
+        </interceptors>
+        <action name="viewKnowledge" class="knowledgeViewActionBean" method="viewKnowledge">
+            <result name="success">/htgl/view/viewknowledge.jsp</result>
+        </action>
     </package>
     
 </struts>

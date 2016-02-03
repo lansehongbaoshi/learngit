@@ -1,5 +1,6 @@
 package com.chsi.knowledge.util;
 
+import java.util.Calendar;
 import java.util.List;
 
 import com.chsi.knowledge.dic.KnowledgeStatus;
@@ -124,5 +125,16 @@ public class ManageCacheUtil {
             MemCachedUtil.add(key, result);
         }
         return result;
+    }
+    
+    //当前时间处于开放时期的系统
+    public static String getUnderwaySystem() {
+        Calendar cal = Calendar.getInstance();
+        long time = cal.getTimeInMillis();
+        if(time%2==0) {
+            return "xjxl";
+        } else {
+            return null;
+        }
     }
 }

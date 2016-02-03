@@ -37,9 +37,14 @@ String ctxPath = request.getContextPath();
         <select id="systemIds" class="form-control" name="systemId">
         </select>
         </div>
+        <div class="col-xs-12 col-md-2">
+        <select id="tags">
+        <option value="">请选择标签...</option>
+        </select>
+        </div>
         <div class="col-xs-12 col-md-6">
         <div class="input-group">
-        <input id="keywords" type="text" class="form-control search-query" placeholder="知识点标题、回答、标签、关键字..." name="keywords" />
+        <input id="keywords" type="text" class="form-control search-query" placeholder="知识点标题、回答、标签、关键字(默认搜索所有)..." name="keywords" />
         <span class="input-group-btn">
 <button type="button" id="searchBtn" class="btn btn-purple btn-sm">
 																			<span class="ace-icon fa fa-search icon-on-right bigger-110"></span> 搜索
@@ -49,7 +54,7 @@ String ctxPath = request.getContextPath();
         </div>
        </div>
 
-        <div class="rows">
+        <div id="rows_content" class="rows" style="">
            
             <div class="col-xs-12">
                 <div class="row">
@@ -72,10 +77,13 @@ String ctxPath = request.getContextPath();
                                 <table id="dynamic-table" class="table table-striped table-bordered table-hover dataTable no-footer DTTT_selectable" role="grid" aria-describedby="dynamic-table_info">
                                     <thead>
                                         <tr role="row">
-                                            <th  class="hidden-180" tabindex="0"  aria-controls="dynamic-table" rowspan="1" colspan="1" aria-label="Domain: activate to sort column ascending">标题</th>
-                                             <th  width="510"  class="hidden-200" tabindex="0"  aria-controls="dynamic-table" rowspan="1" colspan="1">回答摘要</th> 
-                                            <th width="100" class="hidden-480 sorting" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1" aria-label="Clicks: activate to sort column ascending">点击次数</th>
-                                            <th width="100" class="hidden-480 sorting" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1" aria-label="Status: activate to sort column ascending">状态</th>
+                                            <th width="100" class="hidden-80" tabindex="0"  aria-controls="dynamic-table" rowspan="1" colspan="1" aria-label="Domain: activate to sort column ascending">系统</th>
+                                            <th width="100" class="hidden-80" tabindex="1"  aria-controls="dynamic-table" rowspan="1" colspan="1" aria-label="Domain: activate to sort column ascending">标签</th>
+                                            <th width="200" class="hidden-180" tabindex="1"  aria-controls="dynamic-table" rowspan="2" colspan="1" aria-label="Domain: activate to sort column ascending">标题</th>
+                                             <th width=""  class="hidden-200" tabindex="3"  aria-controls="dynamic-table" rowspan="1" colspan="1">回答摘要</th> 
+                                            <th width="70" class="hidden-480" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1" aria-label="Clicks: activate to sort column ascending">热点度</th>
+                                            <th width="80" class="hidden-480" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1" aria-label="Clicks: activate to sort column ascending">点击次数</th>
+                                            <th width="80" class="hidden-480" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1" aria-label="Status: activate to sort column ascending">状态</th>
                                         </tr>
                                     </thead>
                                     <tbody id="search_result">
@@ -109,7 +117,9 @@ String ctxPath = request.getContextPath();
             $.getJSON("/htgl/search/searchAllKnow.action", {
                     systemId: systemId,
                     keywords: keywords,
-                    curPage: curPage
+                    tag:$("#tags").val(),
+                    curPage: curPage,
+                    t: new Date().getTime()
                 },
                 function showSearchResult(json) {
                     if (json.flag == 'true') {
@@ -128,7 +138,7 @@ String ctxPath = request.getContextPath();
                         for (var i = 0; i < knows.length; i++) {
                             var k = knows[i];
                             var odd_even = (i%2==0)?"even":"odd";
-                            var str = " <tr role=\"row\" data-id="+k.knowId+" class=\""+odd_even+"\"><td>" + k.title + "</td><td class=\"hidden-260\"><a target='_blank' href='/view/viewKnowledge.action?id=" + k.knowId + "'>" + k.summary + "</a></td><td class=\"hidden-80\">"+k.visitCnt+"</td><td class=\hidden-80\><span class=\"label label-sm label-success\">已发布</span></td></tr>";
+                            var str = " <tr role=\"row\" data-id="+k.knowId+" class=\""+odd_even+"\"><td class=\"hidden-80\">" + k.system + "</td><td class=\"hidden-80\">" + k.tags + "</td><td class=\"hidden-160\">" + k.title + "</td><td class=\"hidden-260\"><a target='_blank' href='/htgl/view/viewKnowledge.action?id=" + k.knowId + "'>" + k.summary + "</a></td><td class=\"hidden-80\">"+k.sort+"</td><td class=\"hidden-80\">"+k.visitCnt+"</td><td class=\hidden-80\><span class=\"label label-sm label-success\">已发布</span></td></tr>";
                             $("#search_result").append(str);
                         }
                         $("#search_table_header").html("搜索 \“"+knows[0].keywords +"\” 的结果").show();
@@ -164,13 +174,13 @@ String ctxPath = request.getContextPath();
             $.getJSON("/htgl/listSystem.action",
                 function showSystems(json) {
                     if (json.flag == "true") {
-                        var options = "";
+                        var options = "<option value=''>请选择系统...</option>";
                         for (var i = 0; i < json.o.length; i++) {
                             var option = json.o[i];
                             options += "<option value='" + option.id + "'>" + option.name + "</option>";
                         }
                         $("#systemIds").html(options);
-                         showSearchResult($("#systemIds").val(), "*:*", 0); //初始化首页数据
+                        showSearchResult("", "*:*", 0); //初始化首页数据
                     }
                 }
             );
@@ -203,6 +213,22 @@ String ctxPath = request.getContextPath();
 	            	)
             	}
             });
-           
+            $(document).on("change","#systemIds",function() {
+            	var data = {};
+            	data.systemId = $("#systemIds").val();
+            	$.getJSON("/htgl/listTag.action",data,
+                    function showTags(json){
+                        if(json.flag=="true"){
+                          var options = "<option value=''>请选择标签...</option>";
+                          var tags = json.o;
+                           for(var i=0;i<tags.length;i++){
+                            var option = tags[i];
+                            options+="<option value='"+option.id+"'>"+option.name+"</option>";
+                           }
+                           $("#tags").html(options);
+                        }
+                    }
+                );
+            })
         })
     </script>

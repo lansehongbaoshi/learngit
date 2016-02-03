@@ -7,6 +7,7 @@ import java.util.regex.Pattern;
 
 import com.chsi.framework.util.ValidatorUtil;
 import com.chsi.knowledge.pojo.KnowledgeData;
+import com.chsi.knowledge.pojo.SystemData;
 import com.chsi.knowledge.service.KnowledgeService;
 import com.chsi.knowledge.service.ServiceFactory;
 import com.chsi.knowledge.vo.KnowListVO;
@@ -80,8 +81,10 @@ public class SearchUtil {
             tempLength = vo.getContent().length() < length ? vo.getContent().length() : length;
             con = vo.getContent().substring(0, tempLength) + "...";
             KnowledgeData data = knowledgeService.getKnowledgeById(vo.getKnowledgeId());
+            SystemData systemData = ManageCacheUtil.getSystem(vo.getSystemId());
+            String system = systemData==null?"":systemData.getName();
             if(data!=null) {
-                tempVO = new SearchVO(vo.getTitle(), con, vo.getKnowledgeId(), vo.getTagIds(), searchWords, data.getVisitCnt());
+                tempVO = new SearchVO(vo.getSystemId(), system, vo.getTags(), vo.getTitle(),  con, vo.getKnowledgeId(), vo.getTagIds(), searchWords, data.getVisitCnt(), data.getSort());
                 searchList.add(tempVO);
             }
         }

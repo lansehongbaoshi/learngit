@@ -1,5 +1,7 @@
 package com.chsi.knowledge.index.service;
 
+import java.util.Map;
+
 import com.chsi.knowledge.vo.KnowListVO;
 import com.chsi.search.client.vo.KnowledgeVO;
 
@@ -42,4 +44,15 @@ public interface KnowIndexService {
     * @return
     */
    KnowListVO<KnowledgeVO> searchKnow(String keywords, int start, int pageSize);
+   
+   /**
+    * 通用搜索，很灵活 自由配置参数
+    * @param queryParams 接口里会另外配置qf=title^25 content^10 key_words^6 tags^5",
+    *                     defType=edismax,
+    *                     bf=recip(rord(visit_cnt),1,1000,1000)^50 recip(rord(sort),1,100,100)^1
+    * @param start
+    * @param pageSize
+    * @return
+    */
+   KnowListVO<KnowledgeVO> searchKnow(Map<String, String> queryParams, int start, int pageSize);
 }

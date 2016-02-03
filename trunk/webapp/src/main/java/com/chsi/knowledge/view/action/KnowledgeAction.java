@@ -75,7 +75,7 @@ public class KnowledgeAction extends AjaxAction{
     }
     
     /**
-     * 根据搜索结果访问知识
+     * 根据搜索结果访问知识(公开的，所有可以访问)
      * @return
      * @throws Exception
      */

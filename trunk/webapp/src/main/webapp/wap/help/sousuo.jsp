@@ -18,17 +18,14 @@ $(function(){
 	searchInputFn();
 	clearFn();
 })
+function inputSearch(json){
+	if(!json.flag){ alert(json.errorMessages); return;}
+	$("#ask_list").html(template('input_list_detail',json));
+}
 function searchInputFn(){
     $('#search_input').on('input paste',function(event){
         event.stopPropagation();          
-        var userAgent = window.navigator.userAgent;
-        if(userAgent.indexOf('iPhone') > -1){
-            setTimeout(function () {
-                autoSearchFn();
-            }, 500);
-        }else{
-            autoSearchFn(); 
-        }
+      	setTimeout(autoSearchFn,500); 
     }).css('visibility','visible').focus();
 }
 function autoSearchFn(){	
@@ -41,7 +38,7 @@ function autoSearchFn(){
 		return false;	
 	}
 	$('#hot_lists').hide();
-	ajaxJSONP('allsearch',text,'inputSearch',true);
+	ajaxJSONP('allsearch',text,inputSearch,true);
 }
 //取消和清除事件
 function clearFn(){
@@ -60,7 +57,7 @@ function searchAll(){
 	var text = $.trim($searchText.val());
 	if(text ==""){ return false;}
 	$('#hot_lists').hide();
-	ajaxJSONP('allsearch',text,'knSearch',false); //自动搜索“报名”
+	ajaxJSONP('allsearch',text,knSearch,false); //自动搜索“报名”
 }
 // 配置项
 var  kn_local_data = {
@@ -82,13 +79,17 @@ function ajaxJSONP(url,text,callback,flag){
 		data:data,
 		dataType: "jsonp",  
 		jsonp: "callback", //回调函数的参数  
-		jsonpCallback: callback, //回调函数的名称  
-		error: function(){  
-            if(flag && InputText!=''){
-                ajaxJSONP('allsearch',InputText,'inputSearch');      
-            }            
-		}  
-	}); 
+		//jsonpCallback: callback, //回调函数的名称 
+		success: callback,
+		error: function(XMLHttpRequest, textStatus, errorThrown){
+			console.log(textStatus+":"+data);
+			//console.log(XMLHttpRequest);
+			//console.log(errorThrown);
+            //if(flag && InputText!=''){
+            //    ajaxJSONP('allsearch',InputText,'inputSearch');
+            //}
+		}
+	});
 	return false;
 }
 // 搜索
@@ -96,10 +97,6 @@ function knSearch(json){
 	if(!json.flag){ alert(json.errorMessages); return;}  
 	$("#ask_list").html(template('ask_list_detail',json));
 }    
-function inputSearch(json){
-	if(!json.flag){ alert(json.errorMessages); return;}
-	$("#ask_list").html(template('input_list_detail',json));
-}
 //artTemplate辅助方法-高亮关键字
 template.helper('hightWord', function (k,o) {
     var pattern = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？]",'g');

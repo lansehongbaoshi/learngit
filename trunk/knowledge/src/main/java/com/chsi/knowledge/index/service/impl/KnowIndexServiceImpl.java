@@ -17,6 +17,7 @@ import com.chsi.cms.client.CmsServiceClientFactory;
 import com.chsi.framework.page.Page;
 import com.chsi.framework.queue.MessageQueue;
 import com.chsi.framework.service.BaseDbService;
+import com.chsi.framework.util.ValidatorUtil;
 import com.chsi.knowledge.ServiceConstants;
 import com.chsi.knowledge.dao.KnowTagRelationDataDAO;
 import com.chsi.knowledge.dic.KnowledgeStatus;
@@ -128,10 +129,9 @@ public class KnowIndexServiceImpl extends BaseDbService implements KnowIndexServ
             start = 0;
         }
         Map<String, String> queryParams = new HashMap<String, String>();
-        queryParams.put("q", keywords);
         queryParams.put("qf", "title^25 content^10 key_words^6 tags^5");
         queryParams.put("defType", "edismax");
-        queryParams.put("bf", "pow(recip(div(1,visit_cnt),1,1,1),recip(div(1,sort),1,1,1))");//bf计算出来的值位于0-1之间最合适
+        queryParams.put("bf", "recip(rord(visit_cnt),1,1000,1000)^50 recip(rord(sort),1,100,100)^1");//bf计算出来的值位于0-1之间最合适
         Page<KnowledgeVO> page = searchClient.searchKnow(keywords, systemId, queryParams, start, pageSize);
         Pagination pagination = new Pagination(page.getTotalCount(), page.getPageCount(), page.getCurPage());
         KnowListVO<KnowledgeVO> knowListVO = new KnowListVO<KnowledgeVO>(page.getList(), pagination);
@@ -145,10 +145,32 @@ public class KnowIndexServiceImpl extends BaseDbService implements KnowIndexServ
             start = 0;
         }
         Map<String, String> queryParams = new HashMap<String, String>();
+        queryParams.put("q", keywords);
         queryParams.put("qf", "title^25 content^10 key_words^6 tags^5");
         queryParams.put("defType", "edismax");
-        queryParams.put("bf", "pow(recip(div(1,visit_cnt),1,1,1),recip(div(1,sort),1,1,1))");//bf计算出来的值位于0-1之间最合适
-        Page<KnowledgeVO> page = searchClient.searchKnow(keywords, queryParams, start, pageSize);
+        queryParams.put("bf", "recip(rord(visit_cnt),1,1000,1000)^50 recip(rord(sort),1,100,100)^1");//bf计算出来的值位于0-1之间最合适
+        Page<KnowledgeVO> page = searchClient.searchKnow(queryParams, start, pageSize);
+        Pagination pagination = new Pagination(page.getTotalCount(), page.getPageCount(), page.getCurPage());
+        KnowListVO<KnowledgeVO> knowListVO = new KnowListVO<KnowledgeVO>(page.getList(), pagination);
+        return knowListVO;
+    }
+
+    @Override
+    public KnowListVO<KnowledgeVO> searchKnow(Map<String, String> queryParams, int start, int pageSize) {
+        SearchServiceClient searchClient = SearchServiceClientFactory.getSearchServiceClient();
+        if (start < 0) {
+            start = 0;
+        }
+        queryParams.put("qf", "title^25 content^10 key_words^6 tags^5");
+        queryParams.put("defType", "edismax");
+        String BF = queryParams.get("bf");
+        if(BF!=null) {
+            BF += " recip(rord(visit_cnt),1,1000,1000)^50 recip(rord(sort),1,100,100)^1";
+        } else {
+            BF = "recip(rord(visit_cnt),1,1000,1000)^50 recip(rord(sort),1,100,100)^1";
+        }
+        queryParams.put("bf", BF);
+        Page<KnowledgeVO> page = searchClient.searchKnow(queryParams, start, pageSize);
         Pagination pagination = new Pagination(page.getTotalCount(), page.getPageCount(), page.getCurPage());
         KnowListVO<KnowledgeVO> knowListVO = new KnowListVO<KnowledgeVO>(page.getList(), pagination);
         return knowListVO;

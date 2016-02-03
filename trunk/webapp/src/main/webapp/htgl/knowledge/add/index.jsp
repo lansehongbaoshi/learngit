@@ -130,7 +130,7 @@ UE.Editor.prototype.getActionUrl = function(action) {
                                     var tags = json.o;
                                     for (var i = 0; i < tags.length; i++) {
                                         var option = tags[i];
-                                        options += "<input type='checkbox' name='tagName' id='tag_"+ i +"' value='" + option.name + "'><label for='tag_"+ i +"'>" + option.description + "</label>&nbsp;&nbsp;";
+                                        options += "<input type='checkbox' name='tagName' id='tag_"+ i +"' value='" + option.name + "'><label for='tag_"+ i +"'>" + option.name + "</label>&nbsp;&nbsp;";
                                     }
                                     $("#tag").html(options);
                                 }

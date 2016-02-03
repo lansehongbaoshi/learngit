@@ -124,7 +124,7 @@ $(function(){
                for(var i=0;i<tags.length;i++){
                 var option = tags[i];
                 var selected = tagName.indexOf(option.name)>-1?"checked='checked'":"";
-                options+="<input type='checkbox' name='tagName' value='"+option.name+"' "+selected+">"+option.description+"&nbsp;&nbsp;";
+                options+="<input type='checkbox' name='tagName' value='"+option.name+"' "+selected+">"+option.name+"&nbsp;&nbsp;";
                }
                $("#tag").html(options);
             }
