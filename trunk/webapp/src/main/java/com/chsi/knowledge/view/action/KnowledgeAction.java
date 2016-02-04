@@ -36,6 +36,7 @@ public class KnowledgeAction extends AjaxAction{
     List<KnowTagRelationData>  ktrDatas;
     KnowledgeData kData;
 
+    //查询所有标签及某个标签下的所有知识（公开的）
     public void getKnowledgeList() throws Exception{
         SystemData systemData = systemService.getSystemById(systemId);
         if (null == systemData) {
@@ -55,6 +56,7 @@ public class KnowledgeAction extends AjaxAction{
         writeCallbackJSON(callback);
     }
     
+    //查询某个知识点（公开的）
     public void getKnowledge() throws Exception{
         ViewKnowVO viewKnowVO = knowledgeService.getKnowVOById(id, tagId);
         if (null == viewKnowVO)  {

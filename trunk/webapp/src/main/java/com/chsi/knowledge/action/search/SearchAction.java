@@ -85,10 +85,12 @@ public class SearchAction extends AjaxAction {
             queryParams.put("q", keywords);
             String system = ManageCacheUtil.getUnderwaySystem();
             if(system!=null) {
-                queryParams.put("bf", String.format("if(exists(query({!v='system_id:%s'})), 1, 0)", system));
+                queryParams.put("bf", String.format("if(exists(query({!v='system_id:%s'})),1,0)", system));
             }
             KnowListVO<KnowledgeVO> listVO = knowIndexService.searchKnow(queryParams, (curPage - 1) * Constants.SEARCH_PAGE_SIZE, Constants.SEARCH_PAGE_SIZE);
-            ajaxMessage.setO(SearchUtil.exchangeResultList(listVO, keywords, 14));
+            List<SearchVO> list = SearchUtil.exchangeResultList(listVO, keywords, 14);
+            KnowListVO<SearchVO> result = new KnowListVO<SearchVO>(list, listVO.getPagination());
+            ajaxMessage.setO(result);
         }
         writeCallbackJSON(callback);
         return NONE;
@@ -104,7 +106,7 @@ public class SearchAction extends AjaxAction {
             Map<String, String> queryParams = new HashMap<String, String>();
             queryParams.put("q", keywords);
             String system = ManageCacheUtil.getUnderwaySystem();
-            if(system!=null) {
+            if(system!=null&&!system.equals("none")) {
                 queryParams.put("bf", String.format("if(exists(query({!v='system_id:%s'})),0.5,0)^10", system));
             }
             KnowListVO<KnowledgeVO> listVO = knowIndexService.searchKnow(queryParams, (curPage - 1) * Constants.PAGE_SIZE, Constants.PAGE_SIZE);

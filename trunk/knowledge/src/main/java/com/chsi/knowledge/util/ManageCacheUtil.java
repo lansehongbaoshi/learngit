@@ -1,6 +1,7 @@
 package com.chsi.knowledge.util;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import com.chsi.knowledge.dic.KnowledgeStatus;
@@ -28,6 +29,23 @@ public class ManageCacheUtil {
     private static final String SYSTEM_PREFIX = CACHE_KEY_ + SEP + "system";
     private static final String TAG_PREFIX = CACHE_KEY_ + SEP + "tag";
     private static final String KNOWTAG_PREFIX = CACHE_KEY_ + SEP + "knowtag";
+    private static final String KNOW_PREFIX = CACHE_KEY_ + SEP + "know";
+    
+    public static KnowledgeData getKnowledgeDataById(String id) {
+        String key = KNOW_PREFIX + SEP + id;
+        KnowledgeData data = MemCachedUtil.get(key);
+        if(data==null) {
+            KnowledgeService knowledgeService = ServiceFactory.getKnowledgeService();
+            data = knowledgeService.getKnowledgeWithArticleById(id);
+            MemCachedUtil.add(key, data);
+        }
+        return data;
+    }
+    
+    public static void removeKnowledgeDataById(String id) {
+        String key = KNOW_PREFIX + SEP + id;
+        MemCachedUtil.removeByKey(key);
+    }
 
     // 标签与知识关联关系的增删查
     public static boolean addKnowTag(String tagId,
@@ -129,12 +147,27 @@ public class ManageCacheUtil {
     
     //当前时间处于开放时期的系统
     public static String getUnderwaySystem() {
-        Calendar cal = Calendar.getInstance();
-        long time = cal.getTimeInMillis();
-        if(time%2==0) {
-            return "xjxl";
-        } else {
-            return null;
+        String key = CACHE_KEY_ + SEP + "getUnderwaySystem";
+        String underwaySystem = MemCachedUtil.get(key);
+        if(underwaySystem==null) {
+            underwaySystem = "none";
+            Calendar cal = Calendar.getInstance();
+            Date now = cal.getTime();
+            SystemService systemService = ServiceFactory.getSystemService();
+            List<SystemData> list = systemService.getSystems();
+            for(SystemData data:list) {
+                if(now.before(data.getEndTime()) && now.after(data.getStartTime())) {
+                    underwaySystem = data.getId();
+                    break;
+                }
+            }
+            MemCachedUtil.add(key, underwaySystem);
         }
+        return underwaySystem;
+    }
+    
+    public static void removeUnderwaySystem() {
+        String key = CACHE_KEY_ + SEP + "getUnderwaySystem";
+        MemCachedUtil.removeByKey(key);
     }
 }

@@ -1,5 +1,7 @@
 package com.chsi.knowledge.htgl.action;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import com.chsi.framework.util.ValidatorUtil;
@@ -25,6 +27,8 @@ public class SystemAction extends AjaxAction{
     private String id;
     private String name;
     private String description;
+    private String startTime;
+    private String endTime;
     
     private SystemData systemData;
     private List<SystemData> systemDatas;
@@ -67,6 +71,22 @@ public class SystemAction extends AjaxAction{
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
     }
 
     public SystemData getSystemData() {
@@ -114,8 +134,16 @@ public class SystemAction extends AjaxAction{
             return ERROR;
         }
         SystemData data = new SystemData(id, name, description);
+        if(!ValidatorUtil.isNull(startTime) && !ValidatorUtil.isNull(endTime)) {
+            SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date startDate =sdf.parse(startTime);
+            Date endDate =sdf.parse(endTime);
+            data.setStartTime(startDate);
+            data.setEndTime(endDate);
+        }
         systemService.save(data);
         ManageCacheUtil.addSystem(id, data);
+        ManageCacheUtil.removeUnderwaySystem();
         return SUCCESS;
     }
     
@@ -124,6 +152,7 @@ public class SystemAction extends AjaxAction{
             request.put(Constants.REQUEST_ERROR, "id和name不能为空");
             return ERROR;
         }
+        
         SystemData data = systemService.getSystemById(id);
         if (null == data) {
             request.put(Constants.REQUEST_ERROR, "未查到要更新的系统");
@@ -131,8 +160,20 @@ public class SystemAction extends AjaxAction{
         }
         data.setName(name);
         data.setDescription(description);
+        if((!ValidatorUtil.isNull(startTime) && !ValidatorUtil.isNull(endTime))) {
+            SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date startDate =sdf.parse(startTime);
+            Date endDate =sdf.parse(endTime);
+            data.setStartTime(startDate);
+            data.setEndTime(endDate);
+        }
+        if((ValidatorUtil.isNull(startTime) && ValidatorUtil.isNull(endTime))) {
+            data.setStartTime(null);
+            data.setEndTime(null);
+        }
         systemService.update(data);
         ManageCacheUtil.removeSystem(id);
+        ManageCacheUtil.removeUnderwaySystem();
         return SUCCESS;
     }
 

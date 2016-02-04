@@ -8,7 +8,7 @@ import="com.chsi.knowledge.pojo.*,com.chsi.knowledge.service.*,java.util.List" %
 <% 
 String id = request.getParameter("id");
 KnowledgeService knowledgeService = ServiceFactory.getKnowledgeService();
-KnowledgeData knowledgeData = knowledgeService.getKnowledgeWithArticleById(id);
+KnowledgeData knowledgeData = ManageCacheUtil.getKnowledgeDataById(id);
 
 //如果没访问过，向访问知识队列中插入ID
 String visitedFlag = Constants.VISIT + id;

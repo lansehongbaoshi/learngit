@@ -1,5 +1,8 @@
 package com.chsi.knowledge.pojo;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -22,6 +25,8 @@ public class SystemData extends PersistentObject {
     private String id;
     private String name;
     private String description;
+    private Date startTime;
+    private Date endTime;
 
     public void setData(PersistentObject persistentObject) {
         SystemData systemData = (SystemData) persistentObject;
@@ -69,6 +74,24 @@ public class SystemData extends PersistentObject {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Column(name = "START_TIME")
+    public Date getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(Date startTime) {
+        this.startTime = startTime;
+    }
+
+    @Column(name = "END_TIME")
+    public Date getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
     }
 
 }

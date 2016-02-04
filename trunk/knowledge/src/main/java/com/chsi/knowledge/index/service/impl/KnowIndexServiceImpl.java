@@ -124,35 +124,39 @@ public class KnowIndexServiceImpl extends BaseDbService implements KnowIndexServ
 
     @Override
     public KnowListVO<KnowledgeVO> searchKnow(String keywords, String systemId, int start, int pageSize) {
-        SearchServiceClient searchClient = SearchServiceClientFactory.getSearchServiceClient();
-        if (start < 0) {
-            start = 0;
-        }
-        Map<String, String> queryParams = new HashMap<String, String>();
-        queryParams.put("qf", "title^25 content^10 key_words^6 tags^5");
-        queryParams.put("defType", "edismax");
-        queryParams.put("bf", "recip(rord(visit_cnt),1,1000,1000)^50 recip(rord(sort),1,100,100)^1");//bf计算出来的值位于0-1之间最合适
-        Page<KnowledgeVO> page = searchClient.searchKnow(keywords, systemId, queryParams, start, pageSize);
-        Pagination pagination = new Pagination(page.getTotalCount(), page.getPageCount(), page.getCurPage());
-        KnowListVO<KnowledgeVO> knowListVO = new KnowListVO<KnowledgeVO>(page.getList(), pagination);
-        return knowListVO;
-    }
-
-    @Override
-    public KnowListVO<KnowledgeVO> searchKnow(String keywords, int start, int pageSize) {
-        SearchServiceClient searchClient = SearchServiceClientFactory.getSearchServiceClient();
+//        SearchServiceClient searchClient = SearchServiceClientFactory.getSearchServiceClient();
         if (start < 0) {
             start = 0;
         }
         Map<String, String> queryParams = new HashMap<String, String>();
         queryParams.put("q", keywords);
-        queryParams.put("qf", "title^25 content^10 key_words^6 tags^5");
+        queryParams.put("fq", String.format("system_id:%s", systemId));
+        /*queryParams.put("qf", "title^25 content^10 key_words^6 tags^5");
+        queryParams.put("defType", "edismax");
+        queryParams.put("bf", "recip(rord(visit_cnt),1,1000,1000)^50 recip(rord(sort),1,100,100)^1");//bf计算出来的值位于0-1之间最合适
+        Page<KnowledgeVO> page = searchClient.searchKnow(keywords, systemId, queryParams, start, pageSize);
+        Pagination pagination = new Pagination(page.getTotalCount(), page.getPageCount(), page.getCurPage());
+        KnowListVO<KnowledgeVO> knowListVO = new KnowListVO<KnowledgeVO>(page.getList(), pagination);
+        return knowListVO;*/
+        return searchKnow(queryParams, start, pageSize);
+    }
+
+    @Override
+    public KnowListVO<KnowledgeVO> searchKnow(String keywords, int start, int pageSize) {
+//        SearchServiceClient searchClient = SearchServiceClientFactory.getSearchServiceClient();
+        if (start < 0) {
+            start = 0;
+        }
+        Map<String, String> queryParams = new HashMap<String, String>();
+        queryParams.put("q", keywords);
+        return searchKnow(queryParams, start, pageSize);
+        /*queryParams.put("qf", "title^25 content^10 key_words^6 tags^5");
         queryParams.put("defType", "edismax");
         queryParams.put("bf", "recip(rord(visit_cnt),1,1000,1000)^50 recip(rord(sort),1,100,100)^1");//bf计算出来的值位于0-1之间最合适
         Page<KnowledgeVO> page = searchClient.searchKnow(queryParams, start, pageSize);
         Pagination pagination = new Pagination(page.getTotalCount(), page.getPageCount(), page.getCurPage());
         KnowListVO<KnowledgeVO> knowListVO = new KnowListVO<KnowledgeVO>(page.getList(), pagination);
-        return knowListVO;
+        return knowListVO;*/
     }
 
     @Override

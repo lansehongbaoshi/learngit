@@ -38,7 +38,7 @@ function autoSearchFn(){
 		return false;	
 	}
 	$('#hot_lists').hide();
-	ajaxJSONP('allsearch',text,inputSearch,true);
+	ajaxJSONP('quickall',text,inputSearch,true);
 }
 //取消和清除事件
 function clearFn(){
@@ -62,11 +62,12 @@ function searchAll(){
 // 配置项
 var  kn_local_data = {
 	url:"http://kl.chsi.com.cn",
-	allsearch:"/search/all.action"
+	quickall:"/search/quickAll.action",
+	allsearch:"/search/allSearch.action"
 }
 //通用ajax函数
 function ajaxJSONP(url,text,callback,flag){
-	var _url = kn_local_data['url']+kn_local_data[url];//http://kl.chsi.com.cn/search/all.action?keywords=test
+	var _url = kn_local_data['url']+kn_local_data[url];
 	var data = "keywords="+text; 
 	InputText = text;
 	$.ajax({ 

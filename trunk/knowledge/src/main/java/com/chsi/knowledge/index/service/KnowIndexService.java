@@ -43,6 +43,7 @@ public interface KnowIndexService {
     * @param pageSize
     * @return
     */
+   @Deprecated
    KnowListVO<KnowledgeVO> searchKnow(String keywords, int start, int pageSize);
    
    /**

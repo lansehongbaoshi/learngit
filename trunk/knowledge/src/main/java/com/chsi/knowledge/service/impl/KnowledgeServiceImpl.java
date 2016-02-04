@@ -64,6 +64,7 @@ public class KnowledgeServiceImpl extends BaseDbService implements KnowledgeServ
         CmsServiceClient cmsServiceClient = CmsServiceClientFactory.getCmsServiceClient();
         cmsServiceClient.saveOrUpdateArticle(article);
         knowledgeDataDAO.update(knowledgeData);
+        ManageCacheUtil.removeKnowledgeDataById(knowledgeData.getId());
     }
 
     private ArticleStatusType getStatus(KnowledgeStatus knowledgeStatus) {
@@ -203,11 +204,13 @@ public class KnowledgeServiceImpl extends BaseDbService implements KnowledgeServ
     @Override
     public void delete(KnowledgeData knowledgeData) {
         knowledgeDataDAO.delete(knowledgeData);
+        ManageCacheUtil.removeKnowledgeDataById(knowledgeData.getId());
     }
 
     @Override
     public void update(KnowledgeData knowledgeData) {
         knowledgeDataDAO.update(knowledgeData);
+        ManageCacheUtil.removeKnowledgeDataById(knowledgeData.getId());
     }
 
     @Override
