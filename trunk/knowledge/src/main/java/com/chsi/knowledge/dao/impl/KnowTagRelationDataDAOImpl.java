@@ -59,6 +59,13 @@ public class KnowTagRelationDataDAOImpl extends BaseHibernateDAO implements Know
         List<KnowTagRelationData> list = query.list();
         return list;
     }
+    
+    public List<KnowTagRelationData> getAllKnowTagDatas(String tagId) {
+        String hql = SELECT_KNOWTAGRELATION + W + TAG_ID;
+        Query query = hibernateUtil.getSession().createQuery(hql).setString("tagId", tagId);
+        List<KnowTagRelationData> list = query.list();
+        return list;
+    }
 
     @SuppressWarnings("unchecked")
     @Override

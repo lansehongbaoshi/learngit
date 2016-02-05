@@ -163,7 +163,7 @@ public class TagAction extends AjaxAction{
         if (!ValidatorUtil.isNull(id)) {
             TagData tagData = tagService.getTagData(id);
             if(tagData!=null) {
-                List<KnowTagRelationData>  list = knowTagRelationService.getKnowTagDatas(id);
+                List<KnowTagRelationData>  list = knowTagRelationService.getAllKnowTagDatas(id);
                 if(list.size()>0) {
                     ajaxMessage.addMessage("删除标签前必须先清空使用该标签的知识！");
                     ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);

@@ -2,12 +2,18 @@ package com.chsi.knowledge.htgl.action;
 
 import java.util.List;
 
+import com.chsi.cms.client.CmsServiceClient;
+import com.chsi.cms.client.CmsServiceClientFactory;
+import com.chsi.framework.util.ValidatorUtil;
 import com.chsi.knowledge.Constants;
 import com.chsi.knowledge.action.base.AjaxAction;
 import com.chsi.knowledge.dic.KnowledgeStatus;
 import com.chsi.knowledge.index.service.KnowIndexService;
+import com.chsi.knowledge.pojo.KnowTagRelationData;
 import com.chsi.knowledge.pojo.KnowledgeData;
+import com.chsi.knowledge.service.KnowTagRelationService;
 import com.chsi.knowledge.service.KnowledgeService;
+import com.chsi.knowledge.util.ManageCacheUtil;
 
 public class RecycleAction extends AjaxAction {
 
@@ -18,6 +24,7 @@ public class RecycleAction extends AjaxAction {
     
     private KnowledgeService knowledgeService;
     private KnowIndexService knowIndexService;
+    private KnowTagRelationService knowTagRelationService;
     
     private String systemId;
     private String klId;
@@ -40,6 +47,29 @@ public class RecycleAction extends AjaxAction {
             knowledgeService.update(knowledgeData);
             knowIndexService.updateKnowIndex(klId);
             ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
+        }
+        writeJSON(ajaxMessage);
+    }
+    
+  //彻底、完全删除，无法恢复
+    public void delKnowledgePermanently() throws Exception {
+        if (!ValidatorUtil.isNull(klId)) {
+            KnowledgeData data = knowledgeService.getKnowledgeById(klId);
+            if(data!=null) {
+                knowIndexService.deleteKnowIndexBySolr(data.getId());// 删索引
+                knowTagRelationService.del(data.getId());
+                List<KnowTagRelationData> ktrList = knowTagRelationService.getKnowTagRelationByKnowId(data.getId());
+                for(KnowTagRelationData one:ktrList) {
+                    ManageCacheUtil.removeKnowTag(one.getTagData().getId());
+                }
+                knowledgeService.delete(data);
+                CmsServiceClient cmsServiceClient = CmsServiceClientFactory.getCmsServiceClient();
+                cmsServiceClient.deleteArticle(data.getCmsId());// 从新闻系统删除
+            }
+            ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
+        } else {
+            ajaxMessage.addMessage("id不能为空！");
+            ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
         }
         writeJSON(ajaxMessage);
     }
@@ -82,5 +112,13 @@ public class RecycleAction extends AjaxAction {
 
     public void setKnowIndexService(KnowIndexService knowIndexService) {
         this.knowIndexService = knowIndexService;
+    }
+
+    public KnowTagRelationService getKnowTagRelationService() {
+        return knowTagRelationService;
+    }
+
+    public void setKnowTagRelationService(KnowTagRelationService knowTagRelationService) {
+        this.knowTagRelationService = knowTagRelationService;
     }
 }

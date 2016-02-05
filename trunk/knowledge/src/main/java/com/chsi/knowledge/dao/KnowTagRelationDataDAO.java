@@ -40,6 +40,13 @@ public interface KnowTagRelationDataDAO {
      List<KnowTagRelationData> getKnowTagDatas(String tagId);
      
      /**
+      * 不考虑状态，所有关联的知识
+      * @param tagId
+      * @return
+      */
+     List<KnowTagRelationData> getAllKnowTagDatas(String tagId);
+     
+     /**
       * 取出该条知识属于的所有 关联关系
       * @param knowledgeStatus
       * @param knowledgeId

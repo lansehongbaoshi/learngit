@@ -144,6 +144,8 @@
         </action>
         <action name="list" class="recycleActionBean" method="list"></action>
         <action name="rollback" class="recycleActionBean" method="rollback"></action>
+        <action name="delKnowledgePermanently" class="recycleActionBean" method="delKnowledgePermanently">
+        </action>
     </package>
     
     <package name="htgl.file" extends="knowledge-default" namespace="/htgl/file">

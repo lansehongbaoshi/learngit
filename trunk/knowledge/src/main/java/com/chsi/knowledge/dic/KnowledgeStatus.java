@@ -6,7 +6,7 @@ package com.chsi.knowledge.dic;
  */
 public enum KnowledgeStatus {
 
-    YSH, WSH, YSC; //已审核、未审核、已删除
+    YSH, WSH, YSC, CDSC; //已审核、未审核、已删除、彻底删除
 
     public String toString() {
         switch (this) {
@@ -16,6 +16,8 @@ public enum KnowledgeStatus {
             return "未审核"; // 1
         case YSC:
             return "已删除"; // 2
+        case CDSC:
+            return "彻底删除"; // 3
         }
         return super.toString();
     }
@@ -32,6 +34,8 @@ public enum KnowledgeStatus {
             return KnowledgeStatus.WSH;
         case 2:
             return KnowledgeStatus.YSC;
+        case 3:
+            return KnowledgeStatus.CDSC;
         default:
             throw new IllegalStateException("无此消息管理对象类型:" + ordinal);
         }

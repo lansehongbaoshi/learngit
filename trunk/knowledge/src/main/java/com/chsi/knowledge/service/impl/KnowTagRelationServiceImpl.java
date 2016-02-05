@@ -51,5 +51,10 @@ public class KnowTagRelationServiceImpl extends BaseDbService implements KnowTag
     public List<KnowTagRelationData> getKnowTagDatas(String tagId) {
         return knowTagRelationDataDAO.getKnowTagDatas(tagId);
     }
+
+    @Override
+    public List<KnowTagRelationData> getAllKnowTagDatas(String tagId) {
+        return knowTagRelationDataDAO.getAllKnowTagDatas(tagId);
+    }
     
 }

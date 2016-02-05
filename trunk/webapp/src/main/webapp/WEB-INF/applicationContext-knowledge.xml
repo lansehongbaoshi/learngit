@@ -71,6 +71,7 @@
     <bean id="recycleActionBean"  class="com.chsi.knowledge.htgl.action.RecycleAction"  scope="request">
         <property name="knowledgeService" ref="knowledgeService" />
         <property name="knowIndexService" ref="knowIndexService" />
+        <property name="knowTagRelationService" ref="knowTagRelationService" />
     </bean>
    
     <bean id="fileActionBean"  class="com.chsi.knowledge.file.action.FileAction"  scope="request">
