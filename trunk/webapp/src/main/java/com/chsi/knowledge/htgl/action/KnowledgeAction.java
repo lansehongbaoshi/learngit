@@ -271,29 +271,29 @@ public class KnowledgeAction extends AjaxAction {
             request.put(Constants.REQUEST_ERROR, error);
             return ERROR;
         }
+        LoginUserVO loginUserVO = getLoginUserVO();
         if (!ValidatorUtil.isNull(systemId) && !ValidatorUtil.isNull(id) && !ValidatorUtil.isNull(title) && !ValidatorUtil.isNull(content) && !ValidatorUtil.isNull(sort) && tagName != null && tagName.length > 0 && !ValidatorUtil.isNull(keywords)) {
+            KnowledgeData data = knowledgeService.getKnowledgeById(id);
+            data.setKeywords(keywords);
+            data.setSort(Integer.parseInt(sort));
+            data.setUpdateTime(Calendar.getInstance());
+            data.setUpdater(getLoginedUserId());
+            knowledgeService.update(data, title, content, loginUserVO.getAcc().getId());
+            knowIndexService.updateKnowIndex(data.getId());
+            ManageCacheUtil.removeKnowledgeDataById(data.getId());
+            
             knowTagRelationService.del(id);
             for (String one : tagName) {
                 TagData tagData = tagService.getTagData(systemId, one);
                 if (tagData != null) {
-                    KnowledgeData data = knowledgeService.getKnowledgeById(id);
-                    LoginUserVO loginUserVO = getLoginUserVO();
-
-                    data.setKeywords(keywords);
-                    data.setSort(Integer.parseInt(sort));
-                    data.setUpdateTime(Calendar.getInstance());
-                    data.setUpdater(getLoginedUserId());
-
                     KnowTagRelationData newKnowTagRelationData = new KnowTagRelationData();
                     newKnowTagRelationData.setKnowledgeData(data);
                     newKnowTagRelationData.setTagData(tagData);
                     knowTagRelationService.save(newKnowTagRelationData);
                     ManageCacheUtil.removeKnowTag(tagData.getId());
-
-                    knowledgeService.update(data, title, content, loginUserVO.getAcc().getId());
-                    knowIndexService.updateKnowIndex(data.getId());
                 }
             }
+            
             return SUCCESS;
         }
         request.put(Constants.REQUEST_ERROR, "参数不能为空");

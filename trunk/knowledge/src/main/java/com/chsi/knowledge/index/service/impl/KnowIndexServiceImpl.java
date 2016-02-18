@@ -169,9 +169,9 @@ public class KnowIndexServiceImpl extends BaseDbService implements KnowIndexServ
         queryParams.put("defType", "edismax");
         String BF = queryParams.get("bf");
         if(BF!=null) {
-            BF += " recip(rord(visit_cnt),1,1000,1000)^50 recip(rord(sort),1,100,100)^1";
+            BF += " ord(visit_cnt)^1 div(sort,1000)^1";
         } else {
-            BF = "recip(rord(visit_cnt),1,1000,1000)^50 recip(rord(sort),1,100,100)^1";
+            BF = "ord(visit_cnt)^1 div(sort,1000)^1";
         }
         queryParams.put("bf", BF);
         Page<KnowledgeVO> page = searchClient.searchKnow(queryParams, start, pageSize);

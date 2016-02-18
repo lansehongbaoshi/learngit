@@ -92,6 +92,9 @@
                     <th width="100" class="hidden-100" tabindex="0"
                       aria-controls="dynamic-table" rowspan="1"
                       colspan="1">标签排序</th>
+                    <th width="100" class="hidden-100" tabindex="0"
+                      aria-controls="dynamic-table" rowspan="1"
+                      colspan="1">知识数目</th>
                     <th class="sorting_disabled" rowspan="1" colspan="1"
                       aria-label=""></th>
                   </tr>
@@ -148,7 +151,7 @@
                           for (var i = 0; i < json.o.length; i++) {
                               var tag = json.o[i];
                               var odd_even = (i%2==0)?"even":"odd";
-                           str = str + (" <tr role=\"row\" class=\""+odd_even+"\"><td>"+ tag.name +"</td><td class=\"hidden-260\">" + tag.description + "</td><td class=\"hidden-100\">" + tag.sort + "</td><td><div class=\"hidden-sm hidden-xs action-buttons\" data-id=\"" + tag.id +"\"> <a class=\"green\" title=\"修改\" href='/htgl/tag/updateIndex.action?id=" + tag.id +"'><i class=\"ace-icon fa fa-pencil bigger-130\"></i> </a> <a title=\"删除\" class=\"red delBtn\" href=\"javascript:void(0)\"> <i class=\"ace-icon fa fa-trash-o bigger-130\"></i> </a></div>" + "</td></tr>");
+                           str = str + (" <tr role=\"row\" class=\""+odd_even+"\"><td>"+ tag.name +"</td><td class=\"hidden-260\">" + tag.description + "</td><td class=\"hidden-100\">" + tag.sort + "</td><td class=\"hidden-100\">" + tag.knowCnt + "</td><td><div class=\"hidden-sm hidden-xs action-buttons\" data-id=\"" + tag.id +"\"> <a class=\"green\" title=\"修改\" href='/htgl/tag/updateIndex.action?id=" + tag.id +"'><i class=\"ace-icon fa fa-pencil bigger-130\"></i> </a> <a title=\"删除\" class=\"red delBtn\" href=\"javascript:void(0)\"> <i class=\"ace-icon fa fa-trash-o bigger-130\"></i> </a></div>" + "</td></tr>");
                            
                           }
                           $("#tags_result").html(str);

@@ -1,12 +1,12 @@
 package com.chsi.knowledge.pojo;
 
-import java.util.Calendar;
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -27,6 +27,8 @@ public class SystemData extends PersistentObject {
     private String description;
     private Date startTime;
     private Date endTime;
+    
+    private int tagCnt;
 
     public void setData(PersistentObject persistentObject) {
         SystemData systemData = (SystemData) persistentObject;
@@ -92,6 +94,15 @@ public class SystemData extends PersistentObject {
 
     public void setEndTime(Date endTime) {
         this.endTime = endTime;
+    }
+
+    @Transient
+    public int getTagCnt() {
+        return tagCnt;
+    }
+
+    public void setTagCnt(int tagCnt) {
+        this.tagCnt = tagCnt;
     }
 
 }

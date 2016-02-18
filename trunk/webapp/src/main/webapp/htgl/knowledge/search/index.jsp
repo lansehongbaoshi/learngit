@@ -239,6 +239,7 @@ String ctxPath = request.getContextPath();
                         }
                     }
                 );
-            })
+            });
+            
         })
     </script>

@@ -116,6 +116,10 @@ public class SystemAction extends AjaxAction{
     
     public String listSystems() throws Exception{
         systemDatas = systemService.getSystems();
+        for(SystemData data:systemDatas) {
+            List<TagData> list = ManageCacheUtil.getTagList(data.getId());
+            data.setTagCnt(list==null?0:list.size());
+        }
         return SUCCESS;
     }
     

@@ -7,6 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
@@ -28,6 +29,8 @@ public class TagData extends PersistentObject {
     private String name;
     private String description;
     private int sort;
+    
+    private int knowCnt;//关联的知识数量
 
     public void setData(PersistentObject persistentObject) {
         TagData tagData = (TagData) persistentObject;
@@ -101,7 +104,14 @@ public class TagData extends PersistentObject {
     public void setSort(int sort) {
         this.sort = sort;
     }
-    
-    
+
+    @Transient
+    public int getKnowCnt() {
+        return knowCnt;
+    }
+
+    public void setKnowCnt(int knowCnt) {
+        this.knowCnt = knowCnt;
+    }
 
 }

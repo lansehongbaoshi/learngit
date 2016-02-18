@@ -116,6 +116,10 @@ public class TagAction extends AjaxAction{
 
     public void list() throws Exception {
         tags = tagService.get(systemId);
+        for(TagData tag:tags) {
+            List<KnowTagRelationData> list1 = ManageCacheUtil.getKnowTag(tag.getId());
+            tag.setKnowCnt(list1==null?0:list1.size());
+        }
         ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
         ajaxMessage.setO(tags);
         writeJSON(ajaxMessage);

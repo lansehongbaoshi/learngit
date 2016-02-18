@@ -18,7 +18,7 @@
             </button>
 
             <div class="navbar-header pull-left">
-                <a href="index.html" class="navbar-brand">
+                <a href="/htgl/index.action" class="navbar-brand">
                     <small>
 							<i class="fa fa-leaf"></i> 学信网知识库管理系统
 						</small>
@@ -30,17 +30,13 @@
                    
 
                     <li class="light-blue">
-                        <a href="#">
-                            
-                            <span>
+                            <span style="color:white;">
 									<small>欢迎，</small>
 									<%=com.chsi.knowledge.util.RemoteCallUtil.getXm() %>
 								</span>
-
-                           
-                        </a>
-
-                       
+                       <span>
+                       <a href="<%=com.chsi.knowledge.util.RemoteCallUtil.getAccountUrl() %>/passport/logout"><small style="color:white;">退出</small></a>
+                       </span>
                     </li>
                 </ul>
             </div>
