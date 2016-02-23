@@ -156,12 +156,12 @@ public class ManageCacheUtil {
             SystemService systemService = ServiceFactory.getSystemService();
             List<SystemData> list = systemService.getSystems();
             for(SystemData data:list) {
-                if(now.before(data.getEndTime()) && now.after(data.getStartTime())) {
+                if(data.getEndTime()!=null&&now.before(data.getEndTime()) && data.getStartTime()!=null && now.after(data.getStartTime())) {
                     underwaySystem = data.getId();
                     break;
                 }
             }
-            MemCachedUtil.add(key, underwaySystem);
+            MemCachedUtil.set(key, underwaySystem);
         }
         return underwaySystem;
     }

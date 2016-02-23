@@ -94,4 +94,14 @@ public class MemCachedUtil {
         return cacheClient.add(key, obj, CacheExpireTimeUtil.getExpireTimeInHour(Constants.CACHE_EXPIRE_TIME_IN_HOUR));
     }
     
+    public static boolean set(String key, Object obj) {
+        if (ValidatorUtil.isNull(key)) {
+            throw new IllegalArgumentException("替代缓存:key未赋值");
+        }
+        if (null == obj) {
+            throw new IllegalArgumentException("替代缓存:obj未赋值");
+        }
+        return cacheClient.set(key, obj, CacheExpireTimeUtil.getExpireTimeInHour(Constants.CACHE_EXPIRE_TIME_IN_HOUR));
+    }
+    
 }
