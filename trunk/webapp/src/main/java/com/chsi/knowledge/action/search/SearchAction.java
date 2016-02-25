@@ -41,7 +41,7 @@ public class SearchAction extends AjaxAction {
     private String callback;
     private QueueService queueService = ServiceFactory.getQueueService();
 
-    // 指定系统内搜索
+    // 指定系统内,关键字自动完成
     public void quickSearchKnow() throws Exception {
         keywords = SearchUtil.keywordsFilter(keywords);
         if (ValidatorUtil.isNull(keywords)) {
@@ -51,7 +51,9 @@ public class SearchAction extends AjaxAction {
         } else {
             ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
             KnowListVO<KnowledgeVO> listVO = knowIndexService.searchKnow(keywords, systemId, (curPage - 1) * Constants.SEARCH_PAGE_SIZE, Constants.SEARCH_PAGE_SIZE);
-            ajaxMessage.setO(SearchUtil.exchangeResultList(listVO, keywords, 14));
+            List<SearchVO> list = SearchUtil.exchangeResultList(listVO, keywords, 14);
+            saveSearchLog(list);
+            ajaxMessage.setO(list);
         }
         writeCallbackJSON(callback);
     }
@@ -89,6 +91,7 @@ public class SearchAction extends AjaxAction {
             }
             KnowListVO<KnowledgeVO> listVO = knowIndexService.searchKnow(queryParams, (curPage - 1) * Constants.SEARCH_PAGE_SIZE, Constants.SEARCH_PAGE_SIZE);
             List<SearchVO> list = SearchUtil.exchangeResultList(listVO, keywords, 14);
+            saveSearchLog(list);
             KnowListVO<SearchVO> result = new KnowListVO<SearchVO>(list, listVO.getPagination());
             ajaxMessage.setO(result);
         }

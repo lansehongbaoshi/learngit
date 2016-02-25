@@ -38,7 +38,7 @@ public class SearchAction extends AjaxAction {
     private String tag;
     private int curPage;
     private String callback;
-    private QueueService queueService = ServiceFactory.getQueueService();
+//    private QueueService queueService = ServiceFactory.getQueueService();
 
     // 指定系统内搜索,不过滤关键字（如：*:*）
     public void searchAllKnow() throws Exception {
@@ -59,7 +59,7 @@ public class SearchAction extends AjaxAction {
         }*/
         KnowListVO<KnowledgeVO> listVO = knowIndexService.searchKnow(queryParams, (curPage - 1) * Constants.PAGE_SIZE, Constants.PAGE_SIZE);
         List<SearchVO> list = SearchUtil.exchangeResultList(listVO, keywords, 40);
-        saveSearchLog(list);
+        //saveSearchLog(list);
         KnowListVO<SearchVO> result = new KnowListVO<SearchVO>(list, listVO.getPagination());
         ajaxMessage.setO(result);
         writeCallbackJSON(callback);
@@ -137,7 +137,7 @@ public class SearchAction extends AjaxAction {
         this.callback = callback;
     }
 
-    private void saveSearchLog(List<SearchVO> list) {
+    /*private void saveSearchLog(List<SearchVO> list) {
         SearchLogData data = new SearchLogData();
         data.setKeyword(this.keywords);
         data.setSystemId(this.systemId);
@@ -155,5 +155,5 @@ public class SearchAction extends AjaxAction {
         data.setUserId(CallInfoHelper.getCurrentUser());
         data.setUserIP(CallInfoHelper.getCurrentUserIp());
         queueService.addSearchLog(data);
-    }
+    }*/
 }

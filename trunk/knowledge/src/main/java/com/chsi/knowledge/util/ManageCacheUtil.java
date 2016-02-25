@@ -129,7 +129,7 @@ public class ManageCacheUtil {
         if(result == null) {
             SearchService searchService = ServiceFactory.getSearchService();
             result = searchService.getTopSearchKnow(5);
-            MemCachedUtil.add(key, result);
+            MemCachedUtil.set(key, result);
         }
         return result;
     }

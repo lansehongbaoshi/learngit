@@ -58,6 +58,24 @@ public class SearchUtil {
     }
     
     /**
+     * 是否是规范的关键词搜索
+     * @param keyword
+     * @return
+     */
+    public static boolean isGoodKeyword(String keyword) {
+        String regex = "^[A-Za-z0-9]+|如何|为什么$";
+        if(keyword!=null) {
+            String result = keyword.replaceAll(regex, "");
+            if(ValidatorUtil.isNull(result)) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    /**
      * 数据格式转换
      * @param listVO
      * @param searchWords
