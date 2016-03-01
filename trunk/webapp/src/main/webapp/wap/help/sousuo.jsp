@@ -6,7 +6,7 @@ import="com.chsi.knowledge.pojo.KnowledgeData,com.chsi.knowledge.util.ManageCach
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta charset="utf-8">
-    <title>搜索</title>
+    <title>搜索_学信网帮助中心</title>
     <link href="../../css/wap/help/reset.css" rel="stylesheet"/>
     <link href="../../css/wap/help/style.css" rel="stylesheet"/>
     <!--[if lt IE 9]><script src="../../js/wap/respond.js"></script><![endif]-->

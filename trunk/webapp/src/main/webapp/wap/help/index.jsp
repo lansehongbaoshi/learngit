@@ -9,7 +9,7 @@ List<KnowledgeData> list = ManageCacheUtil.getTopKnowl();
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta charset="utf-8">
-    <title>帮助</title>
+    <title>学信网帮助中心</title>
     <link href="../../css/wap/help/reset.css" rel="stylesheet"/>
     <link href="../../css/wap/help/style.css" rel="stylesheet"/>
     <!--[if lt IE 9]>
@@ -82,34 +82,6 @@ List<KnowledgeData> list = ManageCacheUtil.getTopKnowl();
                   </div>
               </div>
       </div>
-      <!--<div class="footer">
-        <ul>
-          <li>
-            <dl>
-              <dt><img src="../../images/wap/help/footer01.png"/></dt>
-              <dd>学信网</dd>
-            </dl>
-          </li>
-          <li>
-            <dl>
-              <dt><img src="../../images/wap/help/footer02.png"/></dt>
-              <dd>新闻</dd>
-            </dl>
-          </li>
-          <li>
-            <dl>
-              <dt><img src="../../images/wap/help/footer03_1.png"/></dt>
-              <dd>消息中心</dd>
-            </dl>
-          </li>
-          <li>
-            <dl>
-              <dt><img src="../../images/wap/help/footer04.png"/></dt>
-              <dd>个人中心</dd>
-            </dl>
-          </li>
-        </ul>
-      </div>-->
     </div>
   </body>
 </html>

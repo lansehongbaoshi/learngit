@@ -31,7 +31,7 @@ int otherNum = 5;
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     
     <meta charset="utf-8">
-    <title>查看解决方案</title>
+    <title>查看解决方案_学信网帮助中心</title>
     <link href="../../css/wap/help/reset.css" rel="stylesheet"/>
     <link href="../../css/wap/help/style.css" rel="stylesheet"/>
     <!--[if lt IE 9]>

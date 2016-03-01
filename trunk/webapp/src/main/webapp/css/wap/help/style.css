@@ -37,8 +37,8 @@
     position: relative;
 }
 .sou{
-	width: 120px;
-    width: 10.0rem;
+	width: 180px;
+    width: 12.85rem;
     height: 29px;
     height: 2.417rem;
     line-height: 29px;
@@ -48,8 +48,8 @@
     color: rgb(153,153,153);
     position: absolute;
     left: 50%;
-    margin-left: -72px;
-    margin-left: -6.0rem;
+    margin-left: -44px;
+    margin-left: -3.14rem;
     font-size: 13px;
     font-size: 1.083rem;
     top: 50%;
@@ -73,15 +73,24 @@
     height: 38px;
     height: 3.167rem;
     position: relative;
-    margin-right: 36px;
-    margin-right: 3.0rem;
+    margin-left: 40px;
+    margin-left: 2.85rem;
+}
+.search .back_index{
+    display: inline-block;
+    width: 70px;
+    height: 50px;
+    margin-left: -50px;
+    width: 5.0rem;
+    height: 3.57rem;
+    margin-left: -3.57rem;
 }
 .search .text img{    position: absolute;
     top: 6px;
-    right: -36px;
+    left: -40px;
     width: 28px;
     top: 0.43rem;
-    right: -2.57rem;
+    left: -2.85rem;
     width:2rem;}
 .hot{
     width: 100%;
