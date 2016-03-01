@@ -32,12 +32,9 @@ int otherNum = 5;
     
     <meta charset="utf-8">
     <title>查看解决方案_学信网帮助中心</title>
-    <link href="../../css/wap/help/reset.css" rel="stylesheet"/>
-    <link href="../../css/wap/help/style.css" rel="stylesheet"/>
-    <!--[if lt IE 9]>
-        <script src="../../js/wap/respond.js"></script>
-    <![endif]--> 
-    <script type="text/javascript" src="../../js/jquery-1.11.1.min.js"></script>
+    <link href="http://t1.chei.com.cn/common/wap/help/css/reset.css" rel="stylesheet"/>
+    <link href="http://t2.chei.com.cn/common/wap/help/css/style.css" rel="stylesheet"/>
+    <!--[if lt IE 9]><script src="'http://t3.chei.com.cn/common/wap/help/js/respond.js"></script><![endif]-->
   </head>
   <body>
     <div id="wrap">
@@ -92,7 +89,7 @@ int otherNum = 5;
 	                      <a href="/wap/help/ckjjfa.jsp?id=<%=data.getId() %>">
 	                      	<div>
 		                      	<i><%=article.getTitle() %></i>
-		                      	<span><img src="../../images/wap/help/more.png"/></span>
+		                      	<span><img src="http://t1.chei.com.cn/common/wap/help/images/more.png"/></span>
 	                      	</div>
 	                      </a>
                       </li>

@@ -7,11 +7,12 @@ import="com.chsi.knowledge.pojo.KnowledgeData,com.chsi.knowledge.util.ManageCach
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta charset="utf-8">
     <title>搜索_学信网帮助中心</title>
-    <link href="../../css/wap/help/reset.css" rel="stylesheet"/>
-    <link href="../../css/wap/help/style.css" rel="stylesheet"/>
-    <!--[if lt IE 9]><script src="../../js/wap/respond.js"></script><![endif]-->
-    <script type="text/javascript" src="../../js/jquery-1.11.1.min.js"></script>    
-    <script type="text/javascript" src='../../js/wap/template.js'></script>
+    <link href="http://t1.chei.com.cn/common/wap/help/css/reset.css" rel="stylesheet"/>
+    <link href="http://t2.chei.com.cn/common/wap/help/css/style.css" rel="stylesheet"/>
+    <!--[if lt IE 9]><script src="'http://t3.chei.com.cn/common/wap/help/js/respond.js"></script><![endif]-->
+    <script type="text/javascript" src="http://t4.chei.com.cn/common/jquery/2.1.1/jquery.min.js"></script>
+  
+    <script type="text/javascript" src='http://t1.chei.com.cn/common/wap/help/js/template.js'></script>
 <script type="text/javascript">
 var InputText = '';
 $(function(){
@@ -151,9 +152,9 @@ template.helper('hightWord', function (k,o) {
  {{each o.knows as value i}} 
  <li>
  	<a class="ui-corner-all"  href="/wap/help/ckjjfa.jsp?id={{value.knowId}}">
- 		<h1><span><img src="../../images/wap/help/ask.png"/></span> {{#hightWord(value.keywords,value.title)}}</h1>
+ 		<h1><span><img src="http://t2.chei.com.cn/common/wap/help/images/ask.png"/></span> {{#hightWord(value.keywords,value.title)}}</h1>
 	</a>
- 	<p><span><img src="../../images/wap/help/answer.png"/></span>{{#hightWord(value.keywords,value.summary)}}</p>
+ 	<p><span><img src="http://t3.chei.com.cn/common/wap/help/images/answer.png"/></span>{{#hightWord(value.keywords,value.summary)}}</p>
  </li> 
   {{/each}}	
   {{else}}

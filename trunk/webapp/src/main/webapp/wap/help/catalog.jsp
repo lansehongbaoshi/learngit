@@ -15,14 +15,8 @@ int knowNum = 2;//显示几个标签
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-
     <meta charset="utf-8">
     <title><%=systemData.getName() %>_学信网帮助中心</title>
-    <link href="../../css/wap/help/reset.css" rel="stylesheet"/>
-    <link href="../../css/wap/help/style.css" rel="stylesheet"/>
-    <!--[if lt IE 9]>
-        <script src="../../js/wap/respond.js"></script>
-      <![endif]-->
   </head>
   <body>
     <div id="wrap">
@@ -43,7 +37,7 @@ int knowNum = 2;//显示几个标签
             <li <%if(j>=knowNum) out.print("style=\"display:none;\"");%>>
             	<a href="/wap/help/ckjjfa.jsp?id=<%=knowId %>">
             		<div>
-	            		<span><img src="../../images/wap/help/more.png"/></span>
+	            		<span><img src="http://t1.chei.com.cn/common/wap/help/images/more.png"/></span>
 	            		<i><%=article.getTitle() %></i>
             		</div>
             	</a>
@@ -52,7 +46,7 @@ int knowNum = 2;//显示几个标签
           </ul>
           <%if(list.size()>knowNum){ %>
           <div class="more_que">
-            <span class="">查看更多<img src="../../images/wap/help/ckgd.png"/></span>
+            <span class="">查看更多<img src="http://t2.chei.com.cn/common/wap/help/images/ckgd.png"/></span>
           </div>
           <%} %>
         </div>

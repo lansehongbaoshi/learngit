@@ -10,11 +10,6 @@ List<KnowledgeData> list = ManageCacheUtil.getTopKnowl();
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta charset="utf-8">
     <title>学信网帮助中心</title>
-    <link href="../../css/wap/help/reset.css" rel="stylesheet"/>
-    <link href="../../css/wap/help/style.css" rel="stylesheet"/>
-    <!--[if lt IE 9]>
-        <script src="../../js/wap/respond.js"></script>
-      <![endif]-->
   </head>
   <body>
     <div id="wrap">
@@ -30,7 +25,7 @@ List<KnowledgeData> list = ManageCacheUtil.getTopKnowl();
 	                          <a href="/wap/help/ckjjfa.jsp?id=<%=one.getId()%>">
 	                          	<div>
 		                          	<i><%=one.getArticle().getTitle() %></i>
-		                          	<span><img src="../../images/wap/help/more.png"/></span>
+		                          	<span><img src="http://t1.chei.com.cn/common/wap/help/images/more.png"/></span>
 	                          	</div>
 	                          </a>
                           </li>
@@ -43,7 +38,7 @@ List<KnowledgeData> list = ManageCacheUtil.getTopKnowl();
                   <div class="first">
                       <dl>
                       	<a href="#">
-                          <dt><img src="../../images/wap/help/user.png"/></dt>
+                          <dt><img src="http://t2.chei.com.cn/common/wap/help/images/user.png"/></dt>
                           <dd>
                               <h3>账户问题</h3>
                               <p>忘记密码、身份证重复等</p>
@@ -52,7 +47,7 @@ List<KnowledgeData> list = ManageCacheUtil.getTopKnowl();
                       </dl>
                       <dl class="none">
                       	<a href="/wap/help/catalog.jsp?id=yz_wb">
-                          <dt><img src="../../images/wap/help/yanzhao.png"/></dt>
+                          <dt><img src="http://t3.chei.com.cn/common/wap/help/images/yanzhao.png"/></dt>
                           <dd>
                               <h3>研招网报</h3>
                               <p>打印准考证、报名资格等</p>
@@ -63,7 +58,7 @@ List<KnowledgeData> list = ManageCacheUtil.getTopKnowl();
                   <div class="second">
                       <dl>
                       	<a href="/wap/help/catalog.jsp?id=zb">
-                          <dt><img src="../../images/wap/help/zhengbing.png"/></dt>
+                          <dt><img src="http://t4.chei.com.cn/common/wap/help/images/zhengbing.png"/></dt>
                           <dd>
                               <h3>征兵网</h3>
                               <p>常见问题、报名条件</p>
@@ -72,7 +67,7 @@ List<KnowledgeData> list = ManageCacheUtil.getTopKnowl();
                       </dl>
                       <dl class="none">
                       	<a href="#">
-                          <dt><img src="../../images/wap/help/dangan.png"/></dt>
+                          <dt><img src="http://t1.chei.com.cn/common/wap/help/images/dangan.png"/></dt>
                           <dd>
                               <h3>学信档案</h3>
                               <p>图片校对、高等教育等</p>
