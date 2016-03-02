@@ -533,8 +533,8 @@
 .huifu .has_reply{
 	text-align: center;
     color: #999;
-    margin: -20px 0 0 15px;
-    margin: -1.2rem 0 0 1rem;
+    margin: -10px 0 0 15px;
+    margin: -0.71rem 0 0 1rem;
 }
 .bot .bot_txt{color:#999}
 .bot .huifu_end{
