@@ -37,10 +37,10 @@ List<KnowledgeData> list = ManageCacheUtil.getTopKnowl();
                 <span class="fg_line"></span>
                   <div class="first">
                       <dl>
-                      	<a href="#">
+                      	<a href="/wap/help/catalog.jsp?id=account">
                           <dt><img src="http://t2.chei.com.cn/common/wap/help/images/user.png"/></dt>
                           <dd>
-                              <h3>账户问题</h3>
+                              <h3>学信帐号</h3>
                               <p>忘记密码、身份证重复等</p>
                           </dd>
                         </a>
@@ -49,7 +49,7 @@ List<KnowledgeData> list = ManageCacheUtil.getTopKnowl();
                       	<a href="/wap/help/catalog.jsp?id=yz_wb">
                           <dt><img src="http://t3.chei.com.cn/common/wap/help/images/yanzhao.png"/></dt>
                           <dd>
-                              <h3>研招网报</h3>
+                              <h3>研招统考</h3>
                               <p>打印准考证、报名资格等</p>
                           </dd>
                         </a>
@@ -60,13 +60,13 @@ List<KnowledgeData> list = ManageCacheUtil.getTopKnowl();
                       	<a href="/wap/help/catalog.jsp?id=zb">
                           <dt><img src="http://t4.chei.com.cn/common/wap/help/images/zhengbing.png"/></dt>
                           <dd>
-                              <h3>征兵网</h3>
+                              <h3>应征报名</h3>
                               <p>常见问题、报名条件</p>
                           </dd>
                         </a>
                       </dl>
                       <dl class="none">
-                      	<a href="#">
+                      	<a href="/wap/help/catalog.jsp?id=my">
                           <dt><img src="http://t1.chei.com.cn/common/wap/help/images/dangan.png"/></dt>
                           <dd>
                               <h3>学信档案</h3>
