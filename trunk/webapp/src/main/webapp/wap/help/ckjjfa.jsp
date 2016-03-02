@@ -7,6 +7,7 @@ import="com.chsi.knowledge.pojo.*,com.chsi.knowledge.service.*,java.util.List" %
 <%@ taglib uri="/struts-tags" prefix="s"%>
 <% 
 String id = request.getParameter("id");
+String keywords = request.getParameter("keywords");
 KnowledgeService knowledgeService = ServiceFactory.getKnowledgeService();
 KnowledgeData knowledgeData = ManageCacheUtil.getKnowledgeDataById(id);
 
@@ -154,6 +155,9 @@ $(function(){
 				.click(function(){submitFn(val,textarea)});			
 		}	
 	});
+	<%if(keywords!=null){%>
+	$.post("/search/allSearch.action", {keywords:'<%=keywords %>'});
+	<%}%>
 });
 
 var _url = "/view/discuss.action";

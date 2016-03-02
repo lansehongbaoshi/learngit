@@ -50,7 +50,7 @@
     <bean id="tagService" class="com.chsi.knowledge.service.impl.TagServiceImpl" parent="baseDbService" />
     <bean id="systemService" class="com.chsi.knowledge.service.impl.SystemServiceImpl" parent="baseDbService" />
     <bean id="knowTagRelationService" class="com.chsi.knowledge.service.impl.KnowTagRelationServiceImpl" parent="baseDbService" />
-    <bean id="searchService" class="com.chsi.knowledge.service.impl.SearchServiceImpl" parent="baseDbService" />
+    <bean id="commonServiceImpl" class="com.chsi.knowledge.service.impl.CommonServiceImpl" parent="baseDbService" />
     
     <bean id="solrServerKnow" class="org.apache.solr.client.solrj.impl.HttpSolrServer" parent="baseSolrServer">
         <constructor-arg index="0"><value>http://solr.chsi.com.cn:8983/solr/know/</value></constructor-arg>    

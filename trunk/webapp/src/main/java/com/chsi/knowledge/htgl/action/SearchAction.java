@@ -1,20 +1,14 @@
 package com.chsi.knowledge.htgl.action;
 
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.chsi.framework.callcontrol.CallInfoHelper;
 import com.chsi.framework.util.ValidatorUtil;
 import com.chsi.knowledge.Constants;
 import com.chsi.knowledge.action.base.AjaxAction;
 import com.chsi.knowledge.index.service.KnowIndexService;
-import com.chsi.knowledge.pojo.SearchLogData;
 import com.chsi.knowledge.service.KnowledgeService;
-import com.chsi.knowledge.service.QueueService;
-import com.chsi.knowledge.service.SearchService;
-import com.chsi.knowledge.service.ServiceFactory;
 import com.chsi.knowledge.service.SystemService;
 import com.chsi.knowledge.util.SearchUtil;
 import com.chsi.knowledge.vo.KnowListVO;
@@ -32,7 +26,6 @@ public class SearchAction extends AjaxAction {
     private KnowIndexService knowIndexService;
     private KnowledgeService knowledgeService;
     private SystemService systemService;
-    private SearchService searchService;
     private String keywords;
     private String systemId;
     private String tag;
@@ -79,14 +72,6 @@ public class SearchAction extends AjaxAction {
 
     public void setSystemService(SystemService systemService) {
         this.systemService = systemService;
-    }
-
-    public SearchService getSearchService() {
-        return searchService;
-    }
-
-    public void setSearchService(SearchService searchService) {
-        this.searchService = searchService;
     }
 
     public String getKeywords() {

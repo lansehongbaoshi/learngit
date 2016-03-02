@@ -1,8 +1,8 @@
 package com.chsi.knowledge.thread;
 
 import com.chsi.knowledge.pojo.SearchLogData;
+import com.chsi.knowledge.service.CommonService;
 import com.chsi.knowledge.service.QueueService;
-import com.chsi.knowledge.service.SearchService;
 import com.chsi.knowledge.service.ServiceFactory;
 /**
  * 记录搜索日志线程，从队列获取搜索日志保存到数据库
@@ -11,12 +11,12 @@ import com.chsi.knowledge.service.ServiceFactory;
 public class RecordSearchLogThread  extends BaseThread{
 
     private QueueService queueService;
-    private SearchService searchService;
+    private CommonService commonService;
     
     public RecordSearchLogThread(){
         super();
         queueService = ServiceFactory.getQueueService();
-        searchService = ServiceFactory.getSearchService();
+        commonService = ServiceFactory.getCommonService();
     }
     
     @Override
@@ -26,7 +26,7 @@ public class RecordSearchLogThread  extends BaseThread{
             try { 
                 data = queueService.getSearchLog();
                 if (null != data){
-                    searchService.save(data);
+                    commonService.save(data);
                 }
                 sleep(100);
             } catch (Exception e) {

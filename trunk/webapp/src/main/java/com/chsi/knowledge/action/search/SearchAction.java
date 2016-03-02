@@ -14,7 +14,6 @@ import com.chsi.knowledge.pojo.KnowledgeData;
 import com.chsi.knowledge.pojo.SearchLogData;
 import com.chsi.knowledge.service.KnowledgeService;
 import com.chsi.knowledge.service.QueueService;
-import com.chsi.knowledge.service.SearchService;
 import com.chsi.knowledge.service.ServiceFactory;
 import com.chsi.knowledge.service.SystemService;
 import com.chsi.knowledge.util.ManageCacheUtil;
@@ -34,7 +33,6 @@ public class SearchAction extends AjaxAction {
     private KnowIndexService knowIndexService;
     private KnowledgeService knowledgeService;
     private SystemService systemService;
-    private SearchService searchService;
     private String keywords;
     private String systemId;
     private int curPage;
@@ -52,7 +50,7 @@ public class SearchAction extends AjaxAction {
             ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
             KnowListVO<KnowledgeVO> listVO = knowIndexService.searchKnow(keywords, systemId, (curPage - 1) * Constants.SEARCH_PAGE_SIZE, Constants.SEARCH_PAGE_SIZE);
             List<SearchVO> list = SearchUtil.exchangeResultList(listVO, keywords, 14);
-            saveSearchLog(list);
+//            saveSearchLog(list);
             ajaxMessage.setO(list);
         }
         writeCallbackJSON(callback);
@@ -91,7 +89,7 @@ public class SearchAction extends AjaxAction {
             }
             KnowListVO<KnowledgeVO> listVO = knowIndexService.searchKnow(queryParams, (curPage - 1) * Constants.SEARCH_PAGE_SIZE, Constants.SEARCH_PAGE_SIZE);
             List<SearchVO> list = SearchUtil.exchangeResultList(listVO, keywords, 14);
-            saveSearchLog(list);
+//            saveSearchLog(list);
             KnowListVO<SearchVO> result = new KnowListVO<SearchVO>(list, listVO.getPagination());
             ajaxMessage.setO(result);
         }
@@ -154,14 +152,6 @@ public class SearchAction extends AjaxAction {
 
     public void setSystemService(SystemService systemService) {
         this.systemService = systemService;
-    }
-
-    public SearchService getSearchService() {
-        return searchService;
-    }
-
-    public void setSearchService(SearchService searchService) {
-        this.searchService = searchService;
     }
 
     public String getKeywords() {

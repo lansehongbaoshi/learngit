@@ -12,7 +12,7 @@ import com.chsi.knowledge.pojo.KnowledgeData;
 public interface KnowledgeDataDAO {
     
     /**
-     * 某个系统的所有知识点
+     * 某个系统的所有知识点（包括已发布、已删除等）
      * @param systemId
      * @return
      */

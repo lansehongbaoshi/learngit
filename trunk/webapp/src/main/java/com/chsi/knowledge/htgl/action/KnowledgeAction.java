@@ -331,6 +331,7 @@ public class KnowledgeAction extends AjaxAction {
                     // 保存知识与标签关系
                     KnowTagRelationData knowTagRelationData = new KnowTagRelationData(null, knowledgeData, tagData);
                     knowTagRelationService.save(knowTagRelationData);
+                    ManageCacheUtil.removeKnowTag(tagData.getId());
                 }
             }
         }

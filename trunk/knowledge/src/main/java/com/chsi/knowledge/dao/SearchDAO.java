@@ -11,7 +11,7 @@ public interface SearchDAO {
     
     void del(PersistentObject po);
     
-    List<String> getTopKeyword(int n);
+    List<Object[]> getTopKeyword(int n, Calendar startTime, Calendar endTime);
     
     List<String> getTopVisitKnowl(int n);
     
@@ -19,7 +19,7 @@ public interface SearchDAO {
      * 查询SYSTEM_ID,KEYWORD,USER_IP都相同的数据
      * @return
      */
-    List<Object[]> getDuplicatedDatas();
+    List<Object[]> getDuplicatedDatas(Calendar startTime, Calendar endTime);
     
     List<SearchLogData> getTheDuplicatedData(String systemId, String keyword, String userIP);
     

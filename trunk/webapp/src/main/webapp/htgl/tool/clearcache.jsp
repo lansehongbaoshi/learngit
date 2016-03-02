@@ -37,7 +37,7 @@ function checkForm(abc){
 </head>
 <body>
 <br />
-<form action="<%=ctxPath%>/htgl/clearcache.jsp" method="post" style="margin:0; display:inline;" onsubmit="return checkForm(this)">
+<form action="<%=ctxPath%>/htgl/tool/clearcache.jsp" method="post" style="margin:0; display:inline;" onsubmit="return checkForm(this)">
 	  缓存key：<input type="text" style="width:340px;" title="全匹配" id="key" name="key" value="" /> <font color="blue">(全匹配)</font>
       <input type="submit" value="提交" class="xlbutton"/>
 </form>

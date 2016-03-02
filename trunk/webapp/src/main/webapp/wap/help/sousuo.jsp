@@ -18,6 +18,9 @@ var InputText = '';
 $(function(){
 	searchInputFn();
 	clearFn();
+	/* $(".hot_search_questions .ui-corner-all").on("click", function(){
+		$.post("/search/allSearch.action",{keywords:$("#search_input").val()});
+	}); */
 })
 function inputSearch(json){
 	if(!json.flag){ alert(json.errorMessages); return;}
@@ -137,7 +140,7 @@ template.helper('hightWord', function (k,o) {
 {{if o.knows.length>0 }}
  {{each o.knows as value i}} 
  <li>
- 	<a class="ui-corner-all"  href="/wap/help/ckjjfa.jsp?id={{value.knowId}}">{{#hightWord(value.keywords,value.title)}}
+ 	<a class="ui-corner-all"  href="/wap/help/ckjjfa.jsp?id={{value.knowId}}&keywords={{value.keywords}}">{{#hightWord(value.keywords,value.title)}}
 	</a>
  </li> 
  {{/each}}	

@@ -11,5 +11,6 @@
         <mapping class="com.chsi.knowledge.pojo.TagData" />  
         <mapping class="com.chsi.knowledge.pojo.KnowTagRelationData" /> 
         <mapping class="com.chsi.knowledge.pojo.SearchLogData" /> 
+        <mapping class="com.chsi.knowledge.pojo.KnowledgeVisitLogData" /> 
      </session-factory>
 </hibernate-configuration>

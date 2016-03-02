@@ -9,8 +9,8 @@ import com.chsi.knowledge.pojo.KnowTagRelationData;
 import com.chsi.knowledge.pojo.KnowledgeData;
 import com.chsi.knowledge.pojo.SystemData;
 import com.chsi.knowledge.pojo.TagData;
+import com.chsi.knowledge.service.CommonService;
 import com.chsi.knowledge.service.KnowledgeService;
-import com.chsi.knowledge.service.SearchService;
 import com.chsi.knowledge.service.ServiceFactory;
 import com.chsi.knowledge.service.SystemService;
 import com.chsi.knowledge.service.TagService;
@@ -127,8 +127,8 @@ public class ManageCacheUtil {
         String key = CACHE_KEY_ + SEP + "getTopSearchKnow";
         List<KnowledgeVO> result = MemCachedUtil.get(key);
         if(result == null) {
-            SearchService searchService = ServiceFactory.getSearchService();
-            result = searchService.getTopSearchKnow(5);
+            CommonService commonService = ServiceFactory.getCommonService();
+            result = commonService.getTopSearchKnow(5);
             MemCachedUtil.set(key, result);
         }
         return result;
@@ -138,8 +138,8 @@ public class ManageCacheUtil {
         String key = CACHE_KEY_ + SEP + "getTopKnowl";
         List<KnowledgeData> result = MemCachedUtil.get(key);
         if(result == null) {
-            SearchService searchService = ServiceFactory.getSearchService();
-            result = searchService.getTopKnowl(6);
+            CommonService commonService = ServiceFactory.getCommonService();
+            result = commonService.getTopKnowl(6);
             MemCachedUtil.add(key, result);
         }
         return result;

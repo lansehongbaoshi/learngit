@@ -12,9 +12,9 @@ import com.chsi.knowledge.dao.SearchDAO;
 import com.chsi.knowledge.pojo.SearchLogData;
 
 public class SearchDAOImpl extends BaseHibernateDAO implements SearchDAO {
-    private static String TOP_KEYWORD = "SELECT KEYWORD FROM (SELECT KEYWORD,COUNT(1) CNT FROM SEARCH_LOG GROUP BY KEYWORD ORDER BY CNT DESC) WHERE ROWNUM<:N";
+    private static String TOP_KEYWORD = "SELECT SYSTEM_ID,KEYWORD FROM (SELECT SYSTEM_ID,KEYWORD,COUNT(1) CNT FROM SEARCH_LOG WHERE CREATE_TIME BETWEEN :START_TIME AND :END_TIME GROUP BY SYSTEM_ID,KEYWORD ORDER BY CNT DESC) WHERE ROWNUM<:N";
     private static String TOP_VISIT = "SELECT ID FROM (SELECT ID FROM KNOWLEDGE ORDER BY VISIT_CNT DESC,SORT DESC) WHERE ROWNUM<:N";
-    private static String DUPLICATED_DATA = "SELECT SYSTEM_ID,KEYWORD,USER_IP,COUNT(*) AS CNT FROM SEARCH_LOG GROUP BY SYSTEM_ID,KEYWORD,USER_IP HAVING COUNT(*)>1";
+    private static String DUPLICATED_DATA = "SELECT SYSTEM_ID,KEYWORD,USER_IP,COUNT(*) AS CNT FROM SEARCH_LOG WHERE CREATE_TIME BETWEEN :START_TIME AND :END_TIME GROUP BY SYSTEM_ID,KEYWORD,USER_IP HAVING COUNT(*)>1";
     private static String fetch_search_log_data = "select p from SearchLogData p ";
     private static String condition_system_id = " p.systemId=:systemId ";
     private static String condition_system_id_null = " p.systemId is null ";
@@ -38,9 +38,11 @@ public class SearchDAOImpl extends BaseHibernateDAO implements SearchDAO {
     }
 
     @Override
-    public List<String> getTopKeyword(int n) {
+    public List<Object[]> getTopKeyword(int n, Calendar startTime, Calendar endTime) {
         Query query = hibernateUtil.getSession().createSQLQuery(TOP_KEYWORD);
         query.setInteger("N", n);
+        query.setCalendar("START_TIME", startTime);
+        query.setCalendar("END_TIME", endTime);
         return query.list();
     }
 
@@ -52,8 +54,10 @@ public class SearchDAOImpl extends BaseHibernateDAO implements SearchDAO {
     }
 
     @Override
-    public List<Object[]> getDuplicatedDatas() {
+    public List<Object[]> getDuplicatedDatas(Calendar startTime, Calendar endTime) {
         Query query = hibernateUtil.getSession().createSQLQuery(DUPLICATED_DATA);
+        query.setCalendar("START_TIME", startTime);
+        query.setCalendar("END_TIME", endTime);
         return query.list();
     }
 
@@ -87,7 +91,7 @@ public class SearchDAOImpl extends BaseHibernateDAO implements SearchDAO {
     public List<SearchLogData> getSearchLogData(Calendar startTime, Calendar endTime) {
         String hql = fetch_search_log_data;
         if(startTime!=null && endTime!=null) {
-            hql += condition_create_time;
+            hql += where + condition_create_time;
         }
         Query query = hibernateUtil.getSession().createQuery(hql);
         if(startTime!=null && endTime!=null) {

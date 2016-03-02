@@ -3,6 +3,7 @@ package com.chsi.knowledge.service;
 import com.chsi.framework.service.spring.SpringBeanLocator;
 import com.chsi.knowledge.ServiceConstants;
 import com.chsi.knowledge.index.service.KnowIndexService;
+import com.chsi.knowledge.service.impl.CommonServiceImpl;
 
 public class ServiceFactory {
     private static SpringBeanLocator springBeanLocator = SpringBeanLocator.getInstance(ServiceConstants.SERVICE_IMPL_CONF);
@@ -31,8 +32,8 @@ public class ServiceFactory {
         return SpringBeanLocator.getInstance("chsi-knowledge.xml").getBean("queueService");
     }
     
-    public static SearchService getSearchService(){
-        return springBeanLocator.getBean(ServiceConstants.SEARCH_SERVICE);
+    public static CommonServiceImpl getCommonService(){
+        return springBeanLocator.getBean(ServiceConstants.COMMON_SERVICE);
     }
     
     public static KnowIndexService getKnowIndexService(){

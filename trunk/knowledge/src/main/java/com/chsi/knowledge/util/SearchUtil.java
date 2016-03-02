@@ -63,7 +63,7 @@ public class SearchUtil {
      * @return
      */
     public static boolean isGoodKeyword(String keyword) {
-        String regex = "^[A-Za-z0-9]+|如何|为什么$";
+        String regex = "^[A-Za-z0-9]+|如何|为什么|我|关于$";
         if(keyword!=null) {
             String result = keyword.replaceAll(regex, "");
             if(ValidatorUtil.isNull(result)) {
