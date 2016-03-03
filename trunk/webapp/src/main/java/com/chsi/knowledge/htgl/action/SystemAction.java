@@ -4,6 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.zookeeper.server.Request;
+
 import com.chsi.framework.util.ValidatorUtil;
 import com.chsi.knowledge.Constants;
 import com.chsi.knowledge.action.base.AjaxAction;
@@ -27,8 +29,8 @@ public class SystemAction extends AjaxAction{
     private String id;
     private String name;
     private String description;
-    private String startTime;
-    private String endTime;
+//    private String startTime;
+//    private String endTime;
     
     private SystemData systemData;
     private List<SystemData> systemDatas;
@@ -73,21 +75,21 @@ public class SystemAction extends AjaxAction{
         this.description = description;
     }
 
-    public String getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(String startTime) {
-        this.startTime = startTime;
-    }
-
-    public String getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(String endTime) {
-        this.endTime = endTime;
-    }
+//    public String getStartTime() {
+//        return startTime;
+//    }
+//
+//    public void setStartTime(String startTime) {
+//        this.startTime = startTime;
+//    }
+//
+//    public String getEndTime() {
+//        return endTime;
+//    }
+//
+//    public void setEndTime(String endTime) {
+//        this.endTime = endTime;
+//    }
 
     public SystemData getSystemData() {
         return systemData;
@@ -138,14 +140,17 @@ public class SystemAction extends AjaxAction{
             return ERROR;
         }
         SystemData data = new SystemData(id, name, description);
-        if(!ValidatorUtil.isNull(startTime) && !ValidatorUtil.isNull(endTime)) {
-            SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            Date startDate =sdf.parse(startTime);
-            Date endDate =sdf.parse(endTime);
-            data.setStartTime(startDate);
-            data.setEndTime(endDate);
-        }
-        systemService.save(data);
+//        if(!ValidatorUtil.isNull(startTime) && !ValidatorUtil.isNull(endTime)) {
+//            SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//            Date startDate =sdf.parse(startTime);
+//            Date endDate =sdf.parse(endTime);
+//            data.setStartTime(startDate);
+//            data.setEndTime(endDate);
+//        }
+        
+        String[] startTime = getParameters().get("startTime");
+        String[] endTime = getParameters().get("endTime");
+        systemService.save(data, startTime, endTime);
         ManageCacheUtil.addSystem(id, data);
         ManageCacheUtil.removeUnderwaySystem();
         return SUCCESS;
@@ -164,18 +169,20 @@ public class SystemAction extends AjaxAction{
         }
         data.setName(name);
         data.setDescription(description);
-        if((!ValidatorUtil.isNull(startTime) && !ValidatorUtil.isNull(endTime))) {
-            SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            Date startDate =sdf.parse(startTime);
-            Date endDate =sdf.parse(endTime);
-            data.setStartTime(startDate);
-            data.setEndTime(endDate);
-        }
-        if((ValidatorUtil.isNull(startTime) && ValidatorUtil.isNull(endTime))) {
-            data.setStartTime(null);
-            data.setEndTime(null);
-        }
-        systemService.update(data);
+//        if((!ValidatorUtil.isNull(startTime) && !ValidatorUtil.isNull(endTime))) {
+//            SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//            Date startDate =sdf.parse(startTime);
+//            Date endDate =sdf.parse(endTime);
+//            data.setStartTime(startDate);
+//            data.setEndTime(endDate);
+//        }
+//        if((ValidatorUtil.isNull(startTime) && ValidatorUtil.isNull(endTime))) {
+//            data.setStartTime(null);
+//            data.setEndTime(null);
+//        }
+        String[] startTime = getParameters().get("startTime");
+        String[] endTime = getParameters().get("endTime");
+        systemService.update(data, startTime, endTime);
         ManageCacheUtil.removeSystem(id);
         ManageCacheUtil.removeUnderwaySystem();
         return SUCCESS;

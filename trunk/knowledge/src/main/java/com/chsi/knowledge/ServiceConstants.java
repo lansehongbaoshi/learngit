@@ -9,6 +9,7 @@ public class ServiceConstants {
     public static final String KNOWLEDGEDATA_DAO = "knowledgeDataDAO";
     public static final String TAGDATA_DAO = "tagDataDAO";
     public static final String SYSTEMDATA_DAO = "systemDataDAO";
+    public static final String SYSTEMOPENTIME_DAO = "systemOpenTimeDAO";
     public static final String KNOWTAGRELATIONDATA_DAO  = "knowTagRelationDataDAO";
     public static final String SEARCH_DAO  = "searchDAO";
     

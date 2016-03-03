@@ -1,5 +1,6 @@
 package com.chsi.knowledge.service;
 
+import java.text.ParseException;
 import java.util.List;
 
 import com.chsi.knowledge.pojo.SystemData;
@@ -19,8 +20,10 @@ public interface SystemService {
     
     void save(SystemData systemData);
     
-    void update(SystemData systemData);
+    void save(SystemData systemData,String[] startTime, String[] endTime) throws ParseException;
     
+    void update(SystemData systemData);
+    void update(SystemData systemData, String[] startTime, String[] endTime) throws ParseException;
     void delete(SystemData systemData);
     
     /**

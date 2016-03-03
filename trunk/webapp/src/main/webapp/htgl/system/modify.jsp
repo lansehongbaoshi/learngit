@@ -36,12 +36,21 @@
         <p>
           系统描述：<input type="text" name="description" value="<s:property value='systemData.description' />" style="width: 400px;">
         </p>
-        <p>
-          开始时间：<input type="text" name="startTime" value="<s:date name="systemData.startTime" format="yyyy-MM-dd HH:mm:ss"/>" style="width: 400px;">
-        </p>
-        <p>
-          结束时间：<input type="text" name="endTime" value="<s:date name="systemData.endTime" format="yyyy-MM-dd HH:mm:ss"/>" style="width: 400px;">
-        </p>
+               
+	    <p>
+           开放时间段：<input type="button" value="+" onclick="addLi()"><br>
+           <ol>
+           
+          <s:iterator value="systemData.list" var="time">
+	           <li>
+	               <input type="text" name="startTime" value="<s:date name="#time.startTime" format="yyyy-MM-dd HH:mm:ss"/>" style="width: 400px;">—<input type="text" name="endTime" value="<s:date name="#time.endTime" format="yyyy-MM-dd HH:mm:ss"/>" style="width: 400px;">&nbsp;&nbsp;<input type="button" value="x" onclick="removeLi(this)">
+               </li>
+	      </s:iterator>
+           
+
+           </ol>
+         </p>
+        
         <div class="clear"></div>
         <div class="clearfix form-actions">
           <div class="col-md-offset-3 col-md-9">
@@ -58,7 +67,13 @@
     </form>
   </div>
 </div>
-<script>
-$(function(){
-})
+<script type="text/javascript">
+function addLi(){
+    $("ol").append("<li><input type='text' name='startTime' style='width: 400px;'>—<input type='text' name='endTime' style='width: 400px;'>&nbsp;&nbsp;<input type='button' value='x' onclick='removeLi(this)'></li>");
+}
+
+function removeLi(obj){
+    $(obj).parent().remove();
+}
+
 </script>

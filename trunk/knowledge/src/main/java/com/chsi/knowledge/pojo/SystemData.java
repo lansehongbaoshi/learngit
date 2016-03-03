@@ -1,6 +1,7 @@
 package com.chsi.knowledge.pojo;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -27,6 +28,7 @@ public class SystemData extends PersistentObject {
     private String description;
     private Date startTime;
     private Date endTime;
+    private List<SystemOpenTimeData> list;
     
     private int tagCnt;
 
@@ -103,6 +105,15 @@ public class SystemData extends PersistentObject {
 
     public void setTagCnt(int tagCnt) {
         this.tagCnt = tagCnt;
+    }
+
+    @Transient
+    public List<SystemOpenTimeData> getList() {
+        return list;
+    }
+
+    public void setList(List<SystemOpenTimeData> list) {
+        this.list = list;
     }
 
 }

@@ -130,5 +130,11 @@
             <ref local="sessionFactory" />
         </property>
     </bean>
+    
+    <bean id="systemOpenTimeDAO" class="com.chsi.knowledge.dao.impl.SystemOpenTimeDAOImpl">
+        <property name="sessionFactory">
+            <ref local="sessionFactory" />
+        </property>
+    </bean>
 
 </beans>

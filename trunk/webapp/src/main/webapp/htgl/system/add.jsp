@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="/struts-tags" prefix="s"%>
  <!--breadcrumbs-->
 
     <div class="breadcrumbs" id="breadcrumbs">
@@ -39,9 +40,15 @@
                     <p>
                        系统描述：<input type="text" name="description" value="" style="width: 400px;">
                     </p>
-
-                   
-                       
+                    
+                    <p>
+                    开放时间段：<input type="button" value="+" onclick="addLi()"><br>
+                    <ol>
+                        <li>
+							<input type="text" name="startTime"  style="width: 400px;">—<input type="text" name="endTime" style="width: 400px;">&nbsp;&nbsp;<input type="button" value="x" onclick="removeLi(this)">
+                        </li>
+                    </ol>
+                    </p>
                     
                         <div class="clear"></div>
                         <div class="clearfix form-actions">
@@ -65,9 +72,15 @@
 
             </div> 
               
-<script>
-$(function(){
-})
+<script type="text/javascript">
+function addLi(){
+	$("ol").append("<li><input type='text' name='startTime' style='width: 400px;'>—<input type='text' name='endTime' style='width: 400px;'>&nbsp;&nbsp;<input type='button' value='x' onclick='removeLi(this)'></li>");
+}
+
+function removeLi(obj){
+	$(obj).parent().remove();
+}
+
 </script>
 
 

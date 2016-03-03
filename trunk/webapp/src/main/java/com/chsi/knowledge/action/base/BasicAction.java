@@ -5,6 +5,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.struts2.interceptor.ParameterAware;
 import org.apache.struts2.interceptor.RequestAware;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
@@ -18,7 +19,7 @@ import com.opensymphony.xwork2.ActionContext;
  *  BasicAction 实现大多接口，子类不用再去重复实现
  * @author chenjian
  */
-public class BasicAction extends BasicSupportAction implements RequestAware,
+public class BasicAction extends BasicSupportAction implements ParameterAware,RequestAware,
          ServletResponseAware, ServletRequestAware, SessionAware {
 
     private static final long serialVersionUID = 1L;
@@ -26,7 +27,8 @@ public class BasicAction extends BasicSupportAction implements RequestAware,
     protected HttpServletRequest httpRequest;
     protected Map<String, Object> session;
     protected Map<String, Object> request;
-
+    private Map<String, String[]> parameters;
+    
     protected String getLoginedUserId() {
         return WebAppUtil.getUserId();
     }
@@ -61,6 +63,14 @@ public class BasicAction extends BasicSupportAction implements RequestAware,
 
     public void setServletRequest(HttpServletRequest arg0) {
         this.httpRequest = arg0;
+    }
+
+    public Map<String, String[]> getParameters() {
+        return parameters;
+    }
+
+    public void setParameters(Map<String, String[]> parameters) {
+        this.parameters = parameters;
     }
 
 }
