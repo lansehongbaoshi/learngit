@@ -48,8 +48,10 @@
     color: rgb(153,153,153);
     position: absolute;
     left: 50%;
-    margin-left: -44px;
-    margin-left: -3.14rem;
+    margin-left: -100px;
+    margin-left: -7.14rem;
+    padding-left:56px;
+    padding-left:4.0rem;
     font-size: 13px;
     font-size: 1.083rem;
     top: 50%;
@@ -58,6 +60,8 @@
      z-index:99;
 }
 .sou img{
+    margin-left:56px;
+    margin-left:4.0rem;
 	position: absolute;
 	left: 0;
 	display: block;
