@@ -19,11 +19,11 @@ public interface SystemService {
     SystemData getSystemById(String id);
     
     void save(SystemData systemData);
-    
     void save(SystemData systemData,String[] startTime, String[] endTime) throws ParseException;
     
     void update(SystemData systemData);
     void update(SystemData systemData, String[] startTime, String[] endTime) throws ParseException;
+    
     void delete(SystemData systemData);
     
     /**
@@ -31,5 +31,7 @@ public interface SystemService {
      * @return
      */
     List<SystemData> getSystems();
+    
+    List<String> getSystemId();
     
 }
