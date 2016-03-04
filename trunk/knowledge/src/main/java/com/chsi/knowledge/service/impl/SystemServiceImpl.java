@@ -47,14 +47,16 @@ public class SystemServiceImpl extends BaseDbService implements SystemService{
     @Override
     public void save(SystemData systemData,String[] startTime, String[] endTime) throws ParseException {
         systemDataDAO.save(systemData);
-        if(startTime.length >0 && endTime.length >0){
-            for(int i=0;i<startTime.length;i++){
-                if(!"".equals(startTime[i]) || !"".equals(endTime[i])){
-                    SystemOpenTimeData systemOpenTimeData = new SystemOpenTimeData();
-                    systemOpenTimeData.setSystemId(systemData.getId());
-                    systemOpenTimeData.setStartTime(getCalendar(startTime[i]));
-                    systemOpenTimeData.setEndTime(getCalendar(endTime[i]));
-                    systemOpenTimeDAO.save(systemOpenTimeData);
+        if(startTime != null && endTime != null){
+            if(startTime.length >0 && endTime.length >0){
+                for(int i=0;i<startTime.length;i++){
+                    if(!"".equals(startTime[i]) || !"".equals(endTime[i])){
+                        SystemOpenTimeData systemOpenTimeData = new SystemOpenTimeData();
+                        systemOpenTimeData.setSystemId(systemData.getId());
+                        systemOpenTimeData.setStartTime(getCalendar(startTime[i]));
+                        systemOpenTimeData.setEndTime(getCalendar(endTime[i]));
+                        systemOpenTimeDAO.save(systemOpenTimeData);
+                    }
                 }
             }
         }
@@ -79,14 +81,16 @@ public class SystemServiceImpl extends BaseDbService implements SystemService{
         systemDataDAO.update(systemData);
         ManageCacheUtil.removeSystem(systemData.getId());
         systemOpenTimeDAO.delete(systemData.getId());
-        if(startTime.length >0 && endTime.length >0){
-            for(int i=0;i<startTime.length;i++){
-                if(!"".equals(startTime[i]) || !"".equals(endTime[i])){
-                    SystemOpenTimeData systemOpenTimeData = new SystemOpenTimeData();
-                    systemOpenTimeData.setSystemId(systemData.getId());
-                    systemOpenTimeData.setStartTime(getCalendar(startTime[i]));
-                    systemOpenTimeData.setEndTime(getCalendar(endTime[i]));
-                    systemOpenTimeDAO.save(systemOpenTimeData);
+        if(startTime != null && endTime != null){
+            if(startTime.length >0 && endTime.length >0){
+                for(int i=0;i<startTime.length;i++){
+                    if(!"".equals(startTime[i]) || !"".equals(endTime[i])){
+                        SystemOpenTimeData systemOpenTimeData = new SystemOpenTimeData();
+                        systemOpenTimeData.setSystemId(systemData.getId());
+                        systemOpenTimeData.setStartTime(getCalendar(startTime[i]));
+                        systemOpenTimeData.setEndTime(getCalendar(endTime[i]));
+                        systemOpenTimeDAO.save(systemOpenTimeData);
+                    }
                 }
             }
         }

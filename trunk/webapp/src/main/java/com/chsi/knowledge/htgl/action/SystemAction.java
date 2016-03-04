@@ -122,7 +122,7 @@ public class SystemAction extends AjaxAction{
             List<TagData> list = ManageCacheUtil.getTagList(data.getId());
             data.setTagCnt(list==null?0:list.size());
         }
-        List<String> strList = systemService.getSystemId();//测试用的
+        //List<String> strList = systemService.getSystemId();//测试用的
         return SUCCESS;
     }
     
