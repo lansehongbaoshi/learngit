@@ -89,11 +89,12 @@
     height: 3.57rem;
     margin-left: -3.57rem;
 }
-.search .text img{    position: absolute;
-    top: 6px;
+.search .text img{    
+    position: absolute;
+    top: 8px;
     left: -40px;
     width: 28px;
-    top: 0.43rem;
+    top: 0.57rem;
     left: -2.85rem;
     width:2rem;}
 .hot{
