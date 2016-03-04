@@ -40,7 +40,7 @@ List<KnowledgeData> list = ManageCacheUtil.getTopKnowl();
                       	<a href="/wap/help/catalog.jsp?id=account">
                           <dt><img src="http://t2.chei.com.cn/common/wap/help/images/user.png"/></dt>
                           <dd>
-                              <h3>学信帐号</h3>
+                              <h3>学信账号</h3>
                               <p>忘记密码、身份证重复等</p>
                           </dd>
                         </a>
@@ -61,7 +61,7 @@ List<KnowledgeData> list = ManageCacheUtil.getTopKnowl();
                           <dt><img src="http://t4.chei.com.cn/common/wap/help/images/zhengbing.png"/></dt>
                           <dd>
                               <h3>应征报名</h3>
-                              <p>常见问题、报名条件</p>
+                              <p>常见问题、报名条件等</p>
                           </dd>
                         </a>
                       </dl>
