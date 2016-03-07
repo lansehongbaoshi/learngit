@@ -40,7 +40,7 @@ List<KnowledgeData> list = ManageCacheUtil.getTopKnowl();
                       	<a href="/wap/help/catalog.jsp?id=account">
                           <dt><img src="http://t2.chei.com.cn/common/wap/help/images/user.png"/></dt>
                           <dd>
-                              <h3>学信账号</h3>
+                              <h3>学信网账号</h3>
                               <p>忘记密码、身份证重复等</p>
                           </dd>
                         </a>
