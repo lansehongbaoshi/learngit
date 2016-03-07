@@ -1,5 +1,6 @@
 package com.chsi.knowledge.action.search;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -43,31 +44,31 @@ public class SearchAction extends AjaxAction {
     public void quickSearchKnow() throws Exception {
         keywords = SearchUtil.keywordsFilter(keywords);
         if (ValidatorUtil.isNull(keywords)) {
-            ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
+            ajaxMessage.setO(new ArrayList<SearchVO>());
         } else if (null == systemService.getSystemById(systemId)) {
-            ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
+            ajaxMessage.setO(new ArrayList<SearchVO>());
         } else {
-            ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
             KnowListVO<KnowledgeVO> listVO = knowIndexService.searchKnow(keywords, systemId, (curPage - 1) * Constants.SEARCH_PAGE_SIZE, Constants.SEARCH_PAGE_SIZE);
             List<SearchVO> list = SearchUtil.exchangeResultList(listVO, keywords, 14);
 //            saveSearchLog(list);
             ajaxMessage.setO(list);
         }
+        ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
         writeCallbackJSON(callback);
     }
 
     // 指定系统内搜索
     public void searchAllKnow() throws Exception {
         keywords = SearchUtil.keywordsFilter(keywords);
-        if (ValidatorUtil.isNull(keywords)) {
-            ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
-        } else if (null == systemService.getSystemById(systemId)) {
+        if (null == systemService.getSystemById(systemId)) {
             ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
         } else {
             ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
             KnowListVO<KnowledgeVO> listVO = knowIndexService.searchKnow(keywords, systemId, (curPage - 1) * Constants.PAGE_SIZE, Constants.PAGE_SIZE);
             List<SearchVO> list = SearchUtil.exchangeResultList(listVO, keywords, 40);
-            saveSearchLog(list);
+            if(!ValidatorUtil.isNull(keywords)) {
+                saveSearchLog(list);
+            }
             KnowListVO<SearchVO> result = new KnowListVO<SearchVO>(list, listVO.getPagination());
             ajaxMessage.setO(result);
         }
@@ -77,22 +78,22 @@ public class SearchAction extends AjaxAction {
     // 全系统搜索（自动完成处用），对外使用（如帮助中心）
     public String quickAll() throws Exception {
         keywords = SearchUtil.keywordsFilter(keywords);
-        if (ValidatorUtil.isNull(keywords)) {
-            ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
-        } else {
-            ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
-            Map<String, String> queryParams = new HashMap<String, String>();
-            queryParams.put("q", keywords);
-            String system = ManageCacheUtil.getUnderwaySystem();
-            if(system!=null) {
-                queryParams.put("bf", String.format("if(exists(query({!v='system_id:%s'})),1,0)", system));
+        Map<String, String> queryParams = new HashMap<String, String>();
+        queryParams.put("q", keywords);
+        List<String> systems = ManageCacheUtil.getUnderwaySystem();
+        if(systems!=null) {
+            StringBuffer sb = new StringBuffer();
+            for(String system:systems) {
+                sb.append(String.format("query({!v='system_id:%s'}) ", system));
             }
-            KnowListVO<KnowledgeVO> listVO = knowIndexService.searchKnow(queryParams, (curPage - 1) * Constants.SEARCH_PAGE_SIZE, Constants.SEARCH_PAGE_SIZE);
-            List<SearchVO> list = SearchUtil.exchangeResultList(listVO, keywords, 14);
-//            saveSearchLog(list);
-            KnowListVO<SearchVO> result = new KnowListVO<SearchVO>(list, listVO.getPagination());
-            ajaxMessage.setO(result);
+            queryParams.put("bf", sb.toString());
         }
+        KnowListVO<KnowledgeVO> listVO = knowIndexService.searchKnow(queryParams, (curPage - 1) * Constants.SEARCH_PAGE_SIZE, Constants.SEARCH_PAGE_SIZE);
+        List<SearchVO> list = SearchUtil.exchangeResultList(listVO, keywords, 14);
+//            saveSearchLog(list);
+        KnowListVO<SearchVO> result = new KnowListVO<SearchVO>(list, listVO.getPagination());
+        ajaxMessage.setO(result);
+        ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
         writeCallbackJSON(callback);
         return NONE;
     }
@@ -100,22 +101,24 @@ public class SearchAction extends AjaxAction {
     // 全系统搜索，对外使用（如帮助中心）
     public String allSearch() throws Exception {
         keywords = SearchUtil.keywordsFilter(keywords);
-        if (ValidatorUtil.isNull(keywords)) {
-            ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
-        } else {
-            ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
-            Map<String, String> queryParams = new HashMap<String, String>();
-            queryParams.put("q", keywords);
-            String system = ManageCacheUtil.getUnderwaySystem();
-            if(system!=null&&!system.equals("none")) {
-                queryParams.put("bf", String.format("if(exists(query({!v='system_id:%s'})),0.5,0)^10", system));
+        ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
+        Map<String, String> queryParams = new HashMap<String, String>();
+        queryParams.put("q", keywords);
+        List<String> systems = ManageCacheUtil.getUnderwaySystem();
+        if(systems!=null) {
+            StringBuffer sb = new StringBuffer();
+            for(String system:systems) {
+                sb.append(String.format("query({!v='system_id:%s'}) ", system));
             }
-            KnowListVO<KnowledgeVO> listVO = knowIndexService.searchKnow(queryParams, (curPage - 1) * Constants.PAGE_SIZE, Constants.PAGE_SIZE);
-            List<SearchVO> list = SearchUtil.exchangeResultList(listVO, keywords, 40);
-            saveSearchLog(list);
-            KnowListVO<SearchVO> result = new KnowListVO<SearchVO>(list, listVO.getPagination());
-            ajaxMessage.setO(result);
+            queryParams.put("bf", sb.toString());
         }
+        KnowListVO<KnowledgeVO> listVO = knowIndexService.searchKnow(queryParams, (curPage - 1) * Constants.PAGE_SIZE, Constants.PAGE_SIZE);
+        List<SearchVO> list = SearchUtil.exchangeResultList(listVO, keywords, 40);
+        if(!ValidatorUtil.isNull(keywords)) {
+            saveSearchLog(list);
+        }
+        KnowListVO<SearchVO> result = new KnowListVO<SearchVO>(list, listVO.getPagination());
+        ajaxMessage.setO(result);
         writeCallbackJSON(callback);
         return NONE;
     }

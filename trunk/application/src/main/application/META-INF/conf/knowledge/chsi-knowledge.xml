@@ -125,7 +125,7 @@
         </property>
     </bean> 
     
-    <bean id="searchDAO" class="com.chsi.knowledge.dao.impl.SearchDAOImpl">
+    <bean id="commonDAO" class="com.chsi.knowledge.dao.impl.CommonDAOImpl">
         <property name="sessionFactory">
             <ref local="sessionFactory" />
         </property>

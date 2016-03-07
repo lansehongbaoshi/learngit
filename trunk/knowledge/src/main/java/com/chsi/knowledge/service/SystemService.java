@@ -32,6 +32,10 @@ public interface SystemService {
      */
     List<SystemData> getSystems();
     
+    /**
+     * 获取当前处于开放状态的系统id
+     * @return
+     */
     List<String> getSystemId();
     
 }

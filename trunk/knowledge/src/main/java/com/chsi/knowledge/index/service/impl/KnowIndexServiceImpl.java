@@ -169,7 +169,7 @@ public class KnowIndexServiceImpl extends BaseDbService implements KnowIndexServ
         queryParams.put("defType", "edismax");
         String BF = queryParams.get("bf");
         if(BF!=null) {
-            BF += " ord(visit_cnt)^1 div(sort,1000)^1";
+            BF += "ord(visit_cnt)^1 div(sort,1000)^1";
         } else {
             BF = "ord(visit_cnt)^1 div(sort,1000)^1";
         }

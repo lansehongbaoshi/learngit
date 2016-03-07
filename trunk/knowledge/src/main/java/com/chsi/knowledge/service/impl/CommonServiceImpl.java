@@ -8,7 +8,7 @@ import com.chsi.framework.pojos.PersistentObject;
 import com.chsi.framework.service.BaseDbService;
 import com.chsi.framework.util.TimeUtil;
 import com.chsi.knowledge.ServiceConstants;
-import com.chsi.knowledge.dao.SearchDAO;
+import com.chsi.knowledge.dao.CommonDAO;
 import com.chsi.knowledge.dic.KnowledgeStatus;
 import com.chsi.knowledge.index.service.KnowIndexService;
 import com.chsi.knowledge.pojo.KnowledgeData;
@@ -23,10 +23,10 @@ import com.chsi.knowledge.util.SearchUtil;
 import com.chsi.search.client.vo.KnowledgeVO;
 
 public class CommonServiceImpl extends BaseDbService implements CommonService {
-    private SearchDAO searchDAO;
+    private CommonDAO commonDAO;
 
     protected void doCreate() {
-        searchDAO = getDAO(ServiceConstants.SEARCH_DAO, SearchDAO.class);
+        commonDAO = getDAO(ServiceConstants.COMMON_DAO, CommonDAO.class);
     }
 
     protected void doRemove() {
@@ -34,13 +34,13 @@ public class CommonServiceImpl extends BaseDbService implements CommonService {
     }
 
     public void save(PersistentObject po) {
-        searchDAO.save(po);
+        commonDAO.save(po);
     }
 
     public List<KnowledgeVO> getTopSearchKnow(int n) {
         Calendar startTime = Calendar.getInstance();
         startTime.add(Calendar.DAY_OF_MONTH, -10);
-        List<Object[]> systemAndKeywords = searchDAO.getTopKeyword(n*4, startTime, Calendar.getInstance());//防止出现无效的关键词（即：没有搜索结果的关键词）所以多搜点
+        List<Object[]> systemAndKeywords = commonDAO.getTopKeyword(n*4, startTime, Calendar.getInstance());//防止出现无效的关键词（即：没有搜索结果的关键词）所以多搜点
         List<KnowledgeVO> result = new ArrayList<KnowledgeVO>();
         KnowIndexService knowIndexService = ServiceFactory.getKnowIndexService();
         for(Object[] objs:systemAndKeywords) {
@@ -63,10 +63,17 @@ public class CommonServiceImpl extends BaseDbService implements CommonService {
     }
 
     public List<KnowledgeData> getTopKnowl(int n) {
-        List<String> knowIds = searchDAO.getTopVisitKnowl(n);
+        Calendar startTime = Calendar.getInstance();
+        startTime.add(Calendar.DAY_OF_MONTH, -10);
+        Calendar endTime = Calendar.getInstance();
+        SystemService systemService = ServiceFactory.getSystemService();
+        List<String> systems = systemService.getSystemId();
+        List<String> knowIds = commonDAO.getTopVisitKnowl(systems, startTime, endTime);
         KnowledgeService knowledgeService = ServiceFactory.getKnowledgeService();
         List<KnowledgeData> result = new ArrayList<KnowledgeData>();
-        for(String id:knowIds) {
+        for(int i=0;i<knowIds.size();i++) {
+            if(result.size()==n) break;
+            String id = knowIds.get(i);
             KnowledgeData data = knowledgeService.getKnowledgeWithArticleById(id);
             if(data!=null) {
                 result.add(data);
@@ -84,7 +91,7 @@ public class CommonServiceImpl extends BaseDbService implements CommonService {
         cal.set(Calendar.SECOND, 0);
         Calendar cal2 = (Calendar)cal.clone();
         cal2.add(Calendar.DAY_OF_MONTH, 1);
-        List<Object[]> list = searchDAO.getDuplicatedDatas(cal, cal2);
+        List<Object[]> list = commonDAO.getDuplicatedDatas(cal, cal2);
         log.info("冗余关键词总量："+list.size());
         int cnt = 0;
         for(Object[] objs:list) {
@@ -92,10 +99,10 @@ public class CommonServiceImpl extends BaseDbService implements CommonService {
             String keyword = (String)objs[1];
             String userIP = (String)objs[2];
 //            log.info(String.format("冗余关键词{systemId:'%s',keyword:'%s',userIP:'%s'}", systemId, keyword, userIP));
-            List<SearchLogData> logs = searchDAO.getTheDuplicatedData(systemId, keyword, userIP);
+            List<SearchLogData> logs = commonDAO.getTheDuplicatedData(systemId, keyword, userIP);
             for(int i=0;i<logs.size()-1;i++) {
                 SearchLogData logData = logs.get(i);
-                searchDAO.del(logData);
+                commonDAO.del(logData);
                 log.info(String.format("删除冗余SEARCH_LOG{id:'%s',systemId:'%s',keyword:'%s',userIP:'%s',userID:'%s',createTime:'%s'}", logData.getId(), systemId, keyword, userIP, logData.getUserId(), TimeUtil.getTime(logData.getCreateTime(), "yyyyMMdd HH:mm:ss")));
                 cnt++;
             }
@@ -112,11 +119,11 @@ public class CommonServiceImpl extends BaseDbService implements CommonService {
         cal.set(Calendar.SECOND, 0);
         Calendar cal2 = (Calendar)cal.clone();
         cal2.add(Calendar.DAY_OF_MONTH, 1);
-        List<SearchLogData> logs = searchDAO.getSearchLogData(cal, cal2);
+        List<SearchLogData> logs = commonDAO.getSearchLogData(cal, cal2);
         int cnt = 0;
         for(SearchLogData logData:logs) {
             if(!SearchUtil.isGoodKeyword(logData.getKeyword()) && logData.getSearchResult()==null) {//学历认证涉及到英文，所以再加上搜索为空作为条件
-                searchDAO.del(logData);
+                commonDAO.del(logData);
                 log.info(String.format("删除垃圾SEARCH_LOG{id:'%s',systemId:'%s',keyword:'%s',userIP:'%s',userID:'%s',createTime:'%s'}", logData.getId(), logData.getSystemId(), logData.getKeyword(), logData.getUserIP(), logData.getUserId(), TimeUtil.getTime(logData.getCreateTime(), "yyyyMMdd HH:mm:ss")));
                 cnt++;
             }
@@ -134,7 +141,7 @@ public class CommonServiceImpl extends BaseDbService implements CommonService {
             List<KnowledgeData> list2 = knowledgeService.get(systemId, KnowledgeStatus.YSH);
             for(KnowledgeData knowlData:list2) {
                 KnowledgeVisitLogData pojo = new KnowledgeVisitLogData(knowlData);
-                searchDAO.save(pojo);
+                commonDAO.save(pojo);
             }
         }
     }

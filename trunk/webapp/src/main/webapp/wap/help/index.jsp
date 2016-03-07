@@ -19,17 +19,46 @@ List<KnowledgeData> list = ManageCacheUtil.getTopKnowl();
                   <div class="hot">
                       <h2>热门问题</h2>
                       <ul class="hot_list">
-                      <%for(int i=0;i<list.size();i++) {
-                          KnowledgeData one = list.get(i);%>
-                          <li<%if(i==(list.size()-1)) out.print(" class=\"last\"");%>>
-	                          <a href="/wap/help/ckjjfa.jsp?id=<%=one.getId()%>">
-	                          	<div>
-		                          	<i><%=one.getArticle().getTitle() %></i>
-		                          	<span><img src="http://t1.chei.com.cn/common/wap/help/images/more.png"/></span>
-	                          	</div>
-	                          </a>
+                          <li class="">
+                            <a href="/wap/help/ckjjfa.jsp?id=nfd8sbgsnwheb5sr">
+                              <div>
+                                <i>参加调剂有哪些基本要求？</i>
+                                <span><img src="http://t1.chei.com.cn/common/wap/help/images/more.png"/></span>
+                              </div>
+                            </a>
                           </li>
-                       <%} %>
+                          <li class="">
+                            <a href="/wap/help/ckjjfa.jsp?id=qfascuunbfipbi1s">
+                              <div>
+                                <i>3个志愿如何填写?有何区别?</i>
+                                <span><img src="http://t1.chei.com.cn/common/wap/help/images/more.png"/></span>
+                              </div>
+                            </a>
+                          </li>
+                          <li class="">
+                            <a href="/wap/help/ckjjfa.jsp?id=vnhiwuvw761y6dvn">
+                              <div>
+                                <i>是否可以接受两个（或3个）招生单位的“复试通知 ”？</i>
+                                <span><img src="http://t1.chei.com.cn/common/wap/help/images/more.png"/></span>
+                              </div>
+                            </a>
+                          </li>
+                          <li class="">
+                            <a href="/wap/help/ckjjfa.jsp?id=3n70a23kntao1teh">
+                              <div>
+                                <i>哪些考生可参加调剂？</i>
+                                <span><img src="http://t1.chei.com.cn/common/wap/help/images/more.png"/></span>
+                              </div>
+                            </a>
+                          </li>
+                          <li class="last">
+                            <a href="/wap/help/ckjjfa.jsp?id=6ngt5xjxaulsuk1f">
+                              <div>
+                                <i>网上调剂的操作流程是什么样的？</i>
+                                <span><img src="http://t1.chei.com.cn/common/wap/help/images/more.png"/></span>
+                              </div>
+                            </a>
+                          </li>
                       </ul>
                   </div>
               </div>

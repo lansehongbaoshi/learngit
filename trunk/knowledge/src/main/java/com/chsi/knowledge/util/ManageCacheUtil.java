@@ -1,7 +1,5 @@
 package com.chsi.knowledge.util;
 
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import com.chsi.knowledge.dic.KnowledgeStatus;
@@ -37,7 +35,7 @@ public class ManageCacheUtil {
         if(data==null) {
             KnowledgeService knowledgeService = ServiceFactory.getKnowledgeService();
             data = knowledgeService.getKnowledgeWithArticleById(id);
-            MemCachedUtil.add(key, data);
+            MemCachedUtil.set(key, data);
         }
         return data;
     }
@@ -52,7 +50,7 @@ public class ManageCacheUtil {
             List<KnowTagRelationData> list) {
         String key = KNOWTAG_PREFIX + SEP + tagId;
         if (null != list) {
-            return MemCachedUtil.add(key, list);
+            return MemCachedUtil.set(key, list);
         }
         return false;
     }
@@ -63,7 +61,7 @@ public class ManageCacheUtil {
         if(list==null) {
             KnowledgeService knowledgeService = ServiceFactory.getKnowledgeService();
             list = knowledgeService.getKnowTagDatas(tagId, KnowledgeStatus.YSH);
-            MemCachedUtil.add(key, list);
+            MemCachedUtil.set(key, list);
         }
         return list;
     }
@@ -77,7 +75,7 @@ public class ManageCacheUtil {
     public static boolean addTagList(String systemId, List<TagData> list) {
         String key = TAG_PREFIX + SEP + systemId;
         if (null != list) {
-            return MemCachedUtil.add(key, list);
+            return MemCachedUtil.set(key, list);
         }
         return false;
     }
@@ -88,7 +86,7 @@ public class ManageCacheUtil {
         if(list==null) {
             TagService tagService = ServiceFactory.getTagService();
             list = tagService.get(systemId);
-            MemCachedUtil.add(key, list);
+            MemCachedUtil.set(key, list);
         }
         return list;
     }
@@ -102,7 +100,7 @@ public class ManageCacheUtil {
     public static boolean addSystem(String systemId, SystemData systemData) {
         String key = SYSTEM_PREFIX + SEP + systemId;
         if (null != systemData) {
-            return MemCachedUtil.add(key, systemData);
+            return MemCachedUtil.set(key, systemData);
         }
         return false;
     }
@@ -113,7 +111,7 @@ public class ManageCacheUtil {
         if(data==null) {
             SystemService systemService = ServiceFactory.getSystemService();
             data = systemService.getSystemById(systemId);
-            MemCachedUtil.add(key, data);
+            MemCachedUtil.set(key, data);
         }
         return data;
     }
@@ -139,31 +137,22 @@ public class ManageCacheUtil {
         List<KnowledgeData> result = MemCachedUtil.get(key);
         if(result == null) {
             CommonService commonService = ServiceFactory.getCommonService();
-            result = commonService.getTopKnowl(6);
-            MemCachedUtil.add(key, result);
+            result = commonService.getTopKnowl(5);
+            MemCachedUtil.set(key, result);
         }
         return result;
     }
     
     //当前时间处于开放时期的系统
-    public static String getUnderwaySystem() {
+    public static List<String> getUnderwaySystem() {
         String key = CACHE_KEY_ + SEP + "getUnderwaySystem";
-        String underwaySystem = MemCachedUtil.get(key);
-        if(underwaySystem==null) {
-            underwaySystem = "none";
-            Calendar cal = Calendar.getInstance();
-            Date now = cal.getTime();
+        List<String> underwaySystems = MemCachedUtil.get(key);
+        if(underwaySystems==null) {
             SystemService systemService = ServiceFactory.getSystemService();
-            List<SystemData> list = systemService.getSystems();
-            for(SystemData data:list) {
-                if(data.getEndTime()!=null&&now.before(data.getEndTime()) && data.getStartTime()!=null && now.after(data.getStartTime())) {
-                    underwaySystem = data.getId();
-                    break;
-                }
-            }
-            MemCachedUtil.set(key, underwaySystem);
+            underwaySystems = systemService.getSystemId();
+            MemCachedUtil.set(key, underwaySystems);
         }
-        return underwaySystem;
+        return underwaySystems;
     }
     
     public static void removeUnderwaySystem() {
