@@ -466,10 +466,6 @@
     font-size: 14px;
     font-size: 1.167rem;
 }
-.cont .article p span{
-    -webkit-transform:scale(0.95);
-    display: block;
-}
 .cont .article a{color: #36AAA4}
 .cont .article a:hover{ text-decoration:underline;}
 .cont .article img{width:88%;}
