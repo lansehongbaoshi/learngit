@@ -1,5 +1,6 @@
 package com.chsi.knowledge.dao.impl;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -10,11 +11,14 @@ import com.chsi.framework.pojos.PersistentObject;
 import com.chsi.framework.util.ValidatorUtil;
 import com.chsi.knowledge.dao.CommonDAO;
 import com.chsi.knowledge.pojo.SearchLogData;
+import com.chsi.knowledge.pojo.SystemOpenTimeData;
+import com.chsi.knowledge.vo.CntVO;
 
 public class CommonDAOImpl extends BaseHibernateDAO implements CommonDAO {
     private static String TOP_KEYWORD = "SELECT SYSTEM_ID,KEYWORD FROM (SELECT SYSTEM_ID,KEYWORD,COUNT(1) CNT FROM SEARCH_LOG WHERE CREATE_TIME BETWEEN :START_TIME AND :END_TIME GROUP BY SYSTEM_ID,KEYWORD ORDER BY CNT DESC) WHERE ROWNUM<:N";
     private static String TOP_VISIT = "SELECT ID FROM (SELECT ID FROM KNOWLEDGE ORDER BY VISIT_CNT DESC,SORT DESC) WHERE ROWNUM<:N";
-    private static String TOP_VISIT_RECENTLY = "SELECT A.KNOWLEDGE_ID FROM SYS_KNOW A,KNOWLEDGE_VISIT_LOG B WHERE A.SYSTEM_ID IN :SYSTEMS AND A.KNOWLEDGE_ID=B.KNOWLEDGE_ID AND CREATE_TIME BETWEEN :START_TIME AND :END_TIME GROUP BY A.KNOWLEDGE_ID ORDER BY MAX(VISIT_CNT)-MIN(VISIT_CNT) DESC";
+    private static String TOP_VISIT_RECENTLY_SYSTEM = "SELECT A.KNOWLEDGE_ID,MAX(VISIT_CNT)-MIN(VISIT_CNT) FROM SYS_KNOW A,KNOWLEDGE_VISIT_LOG B WHERE A.SYSTEM_ID= :SYSTEM_ID AND A.KNOWLEDGE_ID=B.KNOWLEDGE_ID AND CREATE_TIME BETWEEN :START_TIME AND :END_TIME GROUP BY A.KNOWLEDGE_ID ORDER BY 2 DESC";
+    private static String TOP_VISIT_RECENTLY_TAG = "SELECT A.KNOWLEDGE_ID,MAX(VISIT_CNT)-MIN(VISIT_CNT) FROM KNOWLEDGE_TAG_RELATION A,KNOWLEDGE_VISIT_LOG B WHERE A.TAG_ID IN :TAG_IDS AND A.KNOWLEDGE_ID=B.KNOWLEDGE_ID AND CREATE_TIME BETWEEN :START_TIME AND :END_TIME GROUP BY A.KNOWLEDGE_ID ORDER BY 2 DESC";
     private static String DUPLICATED_DATA = "SELECT SYSTEM_ID,KEYWORD,USER_IP,COUNT(*) AS CNT FROM SEARCH_LOG WHERE CREATE_TIME BETWEEN :START_TIME AND :END_TIME GROUP BY SYSTEM_ID,KEYWORD,USER_IP HAVING COUNT(*)>1";
     private static String fetch_search_log_data = "select p from SearchLogData p ";
     private static String condition_system_id = " p.systemId=:systemId ";
@@ -48,18 +52,30 @@ public class CommonDAOImpl extends BaseHibernateDAO implements CommonDAO {
     }
 
     @Override
-    public List<String> getTopVisitKnowl(List<String> systems, Calendar startTime, Calendar endTime) {
-        String sql = TOP_VISIT_RECENTLY;
-        if(systems.size()==0) {
-            sql = TOP_VISIT_RECENTLY.replaceAll("A.SYSTEM_ID IN :SYSTEMS AND", "");
-        }
-        Query query = hibernateUtil.getSession().createSQLQuery(sql);
-        if(systems.size()!=0) {
-            query.setParameterList("SYSTEMS", systems);
+    public List<CntVO> getTopVisitKnowl(SystemOpenTimeData sotd, Calendar startTime, Calendar endTime) {
+        Query query;
+        if(sotd.getTagIds()!=null) {
+            query = hibernateUtil.getSession().createSQLQuery(TOP_VISIT_RECENTLY_TAG);
+            String tagIds = sotd.getTagIds();
+            query.setParameterList("TAG_IDS", tagIds.split(","));
+        } else {
+            query = hibernateUtil.getSession().createSQLQuery(TOP_VISIT_RECENTLY_SYSTEM);
+            query.setString("SYSTEM_ID", sotd.getSystemId());
         }
         query.setCalendar("START_TIME", startTime);
         query.setCalendar("END_TIME", endTime);
-        return query.list();
+        
+        List<Object[]> list = query.list();
+        List<CntVO> result = new ArrayList<CntVO>();
+        for(Object[] objs:list) {
+            CntVO vo = new CntVO();
+            String id = (String)objs[0];
+            Number cnt = (Number)objs[1];
+            vo.setId(id);
+            vo.setCnt(cnt.intValue());
+            result.add(vo);
+        }
+        return result;
     }
 
     @Override

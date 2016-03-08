@@ -1,8 +1,11 @@
 package com.chsi.knowledge.service.impl;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.chsi.framework.pojos.PersistentObject;
 import com.chsi.framework.service.BaseDbService;
@@ -15,11 +18,13 @@ import com.chsi.knowledge.pojo.KnowledgeData;
 import com.chsi.knowledge.pojo.KnowledgeVisitLogData;
 import com.chsi.knowledge.pojo.SearchLogData;
 import com.chsi.knowledge.pojo.SystemData;
+import com.chsi.knowledge.pojo.SystemOpenTimeData;
 import com.chsi.knowledge.service.CommonService;
 import com.chsi.knowledge.service.KnowledgeService;
 import com.chsi.knowledge.service.ServiceFactory;
 import com.chsi.knowledge.service.SystemService;
 import com.chsi.knowledge.util.SearchUtil;
+import com.chsi.knowledge.vo.CntVO;
 import com.chsi.search.client.vo.KnowledgeVO;
 
 public class CommonServiceImpl extends BaseDbService implements CommonService {
@@ -67,14 +72,20 @@ public class CommonServiceImpl extends BaseDbService implements CommonService {
         startTime.add(Calendar.DAY_OF_MONTH, -10);
         Calendar endTime = Calendar.getInstance();
         SystemService systemService = ServiceFactory.getSystemService();
-        List<String> systems = systemService.getSystemId();
-        List<String> knowIds = commonDAO.getTopVisitKnowl(systems, startTime, endTime);
+        List<SystemOpenTimeData> systems = systemService.getSystemId();
+        Set<CntVO> set = new HashSet<CntVO>();
+        for(SystemOpenTimeData data:systems) {
+            List<CntVO> list = commonDAO.getTopVisitKnowl(data, startTime, endTime);
+            set.addAll(list);
+        }
+        CntVO[] array = (CntVO[])set.toArray();
+        Arrays.sort(array);
         KnowledgeService knowledgeService = ServiceFactory.getKnowledgeService();
         List<KnowledgeData> result = new ArrayList<KnowledgeData>();
-        for(int i=0;i<knowIds.size();i++) {
+        for(int i=array.length-1;i>=0;i--) {
             if(result.size()==n) break;
-            String id = knowIds.get(i);
-            KnowledgeData data = knowledgeService.getKnowledgeWithArticleById(id);
+            CntVO vo = array[i];
+            KnowledgeData data = knowledgeService.getKnowledgeWithArticleById(vo.getId());
             if(data!=null) {
                 result.add(data);
             }

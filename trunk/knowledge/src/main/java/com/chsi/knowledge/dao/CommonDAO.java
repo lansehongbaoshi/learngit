@@ -5,6 +5,8 @@ import java.util.List;
 
 import com.chsi.framework.pojos.PersistentObject;
 import com.chsi.knowledge.pojo.SearchLogData;
+import com.chsi.knowledge.pojo.SystemOpenTimeData;
+import com.chsi.knowledge.vo.CntVO;
 
 public interface CommonDAO {
     void save(PersistentObject po);
@@ -13,7 +15,7 @@ public interface CommonDAO {
     
     List<Object[]> getTopKeyword(int n, Calendar startTime, Calendar endTime);
     
-    List<String> getTopVisitKnowl(List<String> systems, Calendar startTime, Calendar endTime);
+    List<CntVO> getTopVisitKnowl(SystemOpenTimeData sotd, Calendar startTime, Calendar endTime);
     
     /**
      * 查询SYSTEM_ID,KEYWORD,USER_IP都相同的数据

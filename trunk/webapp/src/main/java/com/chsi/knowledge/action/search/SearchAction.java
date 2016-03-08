@@ -13,6 +13,7 @@ import com.chsi.knowledge.action.base.AjaxAction;
 import com.chsi.knowledge.index.service.KnowIndexService;
 import com.chsi.knowledge.pojo.KnowledgeData;
 import com.chsi.knowledge.pojo.SearchLogData;
+import com.chsi.knowledge.pojo.SystemOpenTimeData;
 import com.chsi.knowledge.service.KnowledgeService;
 import com.chsi.knowledge.service.QueueService;
 import com.chsi.knowledge.service.ServiceFactory;
@@ -80,11 +81,19 @@ public class SearchAction extends AjaxAction {
         keywords = SearchUtil.keywordsFilter(keywords);
         Map<String, String> queryParams = new HashMap<String, String>();
         queryParams.put("q", keywords);
-        List<String> systems = ManageCacheUtil.getUnderwaySystem();
+        List<SystemOpenTimeData> systems = ManageCacheUtil.getUnderwaySystem();
         if(systems!=null) {
             StringBuffer sb = new StringBuffer();
-            for(String system:systems) {
-                sb.append(String.format("query({!v='system_id:%s'}) ", system));
+            for(SystemOpenTimeData system:systems) {
+                String tagIds = system.getTagIds();
+                if(tagIds==null) {
+                    sb.append(String.format("query({!v='system_id:%s'}) ", system));
+                } else {
+                    String[] strs = tagIds.split(",");
+                    for(String str:strs) {
+                        sb.append(String.format("query({!v='tag_ids:%s'}) ", str));
+                    }
+                }
             }
             queryParams.put("bf", sb.toString());
         }
@@ -104,11 +113,19 @@ public class SearchAction extends AjaxAction {
         ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
         Map<String, String> queryParams = new HashMap<String, String>();
         queryParams.put("q", keywords);
-        List<String> systems = ManageCacheUtil.getUnderwaySystem();
+        List<SystemOpenTimeData> systems = ManageCacheUtil.getUnderwaySystem();
         if(systems!=null) {
             StringBuffer sb = new StringBuffer();
-            for(String system:systems) {
-                sb.append(String.format("query({!v='system_id:%s'}) ", system));
+            for(SystemOpenTimeData system:systems) {
+                String tagIds = system.getTagIds();
+                if(tagIds==null) {
+                    sb.append(String.format("query({!v='system_id:%s'}) ", system));
+                } else {
+                    String[] strs = tagIds.split(",");
+                    for(String str:strs) {
+                        sb.append(String.format("query({!v='tag_ids:%s'}) ", str));
+                    }
+                }
             }
             queryParams.put("bf", sb.toString());
         }

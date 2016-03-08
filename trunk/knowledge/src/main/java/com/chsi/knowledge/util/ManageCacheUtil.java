@@ -6,6 +6,7 @@ import com.chsi.knowledge.dic.KnowledgeStatus;
 import com.chsi.knowledge.pojo.KnowTagRelationData;
 import com.chsi.knowledge.pojo.KnowledgeData;
 import com.chsi.knowledge.pojo.SystemData;
+import com.chsi.knowledge.pojo.SystemOpenTimeData;
 import com.chsi.knowledge.pojo.TagData;
 import com.chsi.knowledge.service.CommonService;
 import com.chsi.knowledge.service.KnowledgeService;
@@ -132,6 +133,7 @@ public class ManageCacheUtil {
         return result;
     }
     
+    //热点问题
     public static List<KnowledgeData> getTopKnowl() {
         String key = CACHE_KEY_ + SEP + "getTopKnowl";
         List<KnowledgeData> result = MemCachedUtil.get(key);
@@ -144,9 +146,9 @@ public class ManageCacheUtil {
     }
     
     //当前时间处于开放时期的系统
-    public static List<String> getUnderwaySystem() {
+    public static List<SystemOpenTimeData> getUnderwaySystem() {
         String key = CACHE_KEY_ + SEP + "getUnderwaySystem";
-        List<String> underwaySystems = MemCachedUtil.get(key);
+        List<SystemOpenTimeData> underwaySystems = MemCachedUtil.get(key);
         if(underwaySystems==null) {
             SystemService systemService = ServiceFactory.getSystemService();
             underwaySystems = systemService.getSystemId();
