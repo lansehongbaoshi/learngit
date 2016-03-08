@@ -1,8 +1,8 @@
 package com.chsi.knowledge.service.impl;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -78,13 +78,14 @@ public class CommonServiceImpl extends BaseDbService implements CommonService {
             List<CntVO> list = commonDAO.getTopVisitKnowl(data, startTime, endTime);
             set.addAll(list);
         }
-        CntVO[] array = (CntVO[])set.toArray();
-        Arrays.sort(array);
+        List<CntVO> list = new ArrayList<CntVO>();
+        list.addAll(set);
+        Collections.sort(list);
         KnowledgeService knowledgeService = ServiceFactory.getKnowledgeService();
         List<KnowledgeData> result = new ArrayList<KnowledgeData>();
-        for(int i=array.length-1;i>=0;i--) {
+        for(int i=list.size()-1;i>=0;i--) {
             if(result.size()==n) break;
-            CntVO vo = array[i];
+            CntVO vo = list.get(i);
             KnowledgeData data = knowledgeService.getKnowledgeWithArticleById(vo.getId());
             if(data!=null) {
                 result.add(data);
