@@ -27,6 +27,7 @@ public class SystemOpenTimeData extends PersistentObject {
     private String systemId;
     private Calendar startTime;
     private Calendar endTime;
+    private String tagIds;
     
     @Id
     @Column(name = "ID")
@@ -61,6 +62,15 @@ public class SystemOpenTimeData extends PersistentObject {
     }
     public void setEndTime(Calendar endTime) {
         this.endTime = endTime;
+    }
+    
+    
+    @Column(name = "TAG_IDS")
+    public String getTagIds() {
+        return tagIds;
+    }
+    public void setTagIds(String tagIds) {
+        this.tagIds = tagIds;
     }
     
     

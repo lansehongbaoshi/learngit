@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.util.List;
 
 import com.chsi.knowledge.pojo.SystemData;
+import com.chsi.knowledge.pojo.SystemOpenTimeData;
 
 /**
  * 系统业务逻辑层接口
@@ -36,6 +37,6 @@ public interface SystemService {
      * 获取当前处于开放状态的系统id
      * @return
      */
-    List<String> getSystemId();
+    List<SystemOpenTimeData> getSystemId();
     
 }

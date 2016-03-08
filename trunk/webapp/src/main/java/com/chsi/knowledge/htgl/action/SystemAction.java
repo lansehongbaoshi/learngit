@@ -1,10 +1,6 @@
 package com.chsi.knowledge.htgl.action;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-
-import org.apache.zookeeper.server.Request;
 
 import com.chsi.framework.util.ValidatorUtil;
 import com.chsi.knowledge.Constants;
