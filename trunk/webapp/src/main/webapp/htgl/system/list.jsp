@@ -92,11 +92,12 @@
             在这里添加一些文本
          </div>
          <div class="modal-footer">
-            <button type="button" class="btn btn-default" 
-               data-dismiss="modal">关闭
-            </button>
+
             <button type="button" class="btn btn-primary save">
                保存
+            </button>
+                        <button type="button" class="btn btn-default" 
+               data-dismiss="modal">关闭
             </button>
          </div>
       </div><!-- /.modal-content -->
