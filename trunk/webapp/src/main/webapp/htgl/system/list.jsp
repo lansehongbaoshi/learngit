@@ -120,6 +120,7 @@ $(".save").click(function(){
      function(data){
          if(data.flag=='true') {
              alert("保存成功");
+             $(".btn-default").trigger("click");
          } 
      }
      )
