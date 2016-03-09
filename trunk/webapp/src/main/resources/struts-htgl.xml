@@ -99,6 +99,11 @@
         <action name="delSystem" class="systemActionBean" method="delete">
             <result name="success" type="redirect">/htgl/system/listSystems.action</result>
         </action>
+        <action name="list" class="systemActionBean" method="list">
+            <result name="success">/htgl/system/addTag.jsp</result>
+        </action>
+        <action name="updateTag" class="systemActionBean" method="updateTag">
+        </action>
     </package>
     
     <package name="htgl.tag" extends="knowledge-default" namespace="/htgl/tag">

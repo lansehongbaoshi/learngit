@@ -5,7 +5,9 @@ import java.util.List;
 import com.chsi.framework.util.ValidatorUtil;
 import com.chsi.knowledge.Constants;
 import com.chsi.knowledge.action.base.AjaxAction;
+import com.chsi.knowledge.pojo.KnowTagRelationData;
 import com.chsi.knowledge.pojo.SystemData;
+import com.chsi.knowledge.pojo.SystemOpenTimeData;
 import com.chsi.knowledge.pojo.TagData;
 import com.chsi.knowledge.service.SystemService;
 import com.chsi.knowledge.service.TagService;
@@ -25,11 +27,9 @@ public class SystemAction extends AjaxAction{
     private String id;
     private String name;
     private String description;
-//    private String startTime;
-//    private String endTime;
-    
     private SystemData systemData;
     private List<SystemData> systemDatas;
+    private List<TagData> tagDatas;
     
     public SystemService getSystemService() {
         return systemService;
@@ -101,6 +101,14 @@ public class SystemAction extends AjaxAction{
 
     public void setSystemDatas(List<SystemData> systemDatas) {
         this.systemDatas = systemDatas;
+    }
+
+    public List<TagData> getTagDatas() {
+        return tagDatas;
+    }
+
+    public void setTagDatas(List<TagData> tagDatas) {
+        this.tagDatas = tagDatas;
     }
 
     protected AjaxMessage ajaxMessage = new AjaxMessage();
@@ -204,6 +212,28 @@ public class SystemAction extends AjaxAction{
             ajaxMessage.addMessage("id不能为空！");
             ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
         }
+        writeJSON(ajaxMessage);
+        return NONE;
+    }
+    
+    public String list() throws Exception {
+        SystemOpenTimeData systemOpenTimeData = systemService.getSystemOpenTimeDataById(id);
+        tagDatas = tagService.get(systemOpenTimeData.getSystemId());
+        String tagIds = systemOpenTimeData.getTagIds();
+        if(tagIds != null && !"".equals(tagIds)){
+            for(TagData data:tagDatas){
+                if(tagIds.indexOf(data.getId()) > -1)
+                    data.setFlag(true);
+            }
+        }
+        return SUCCESS;
+    }
+    
+    public String updateTag() throws Exception {
+        SystemOpenTimeData systemOpenTimeData = systemService.getSystemOpenTimeDataById(id);
+        systemOpenTimeData.setTagIds(name);
+        systemService.update(systemOpenTimeData);
+        ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
         writeJSON(ajaxMessage);
         return NONE;
     }

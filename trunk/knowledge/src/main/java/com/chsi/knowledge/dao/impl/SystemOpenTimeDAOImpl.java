@@ -18,6 +18,7 @@ public class SystemOpenTimeDAOImpl extends BaseHibernateDAO implements SystemOpe
     
     
     private static String CONDITION_SYSTEM_ID = " where p.systemId=:systemId ";
+    private static String CONDITION_ID = " where p.id=:id ";
     private static String CONDITION_Time = " where :time between p. ";
     
     
@@ -42,6 +43,15 @@ public class SystemOpenTimeDAOImpl extends BaseHibernateDAO implements SystemOpe
         String dateTime = dateformat.format(date);
         Query query = hibernateUtil.getSession().createQuery(SELECT_SYSTEMID).setString("systime", dateTime);
         return query.list();
+    }
+    @Override
+    public SystemOpenTimeData getDataById(String id) {
+        Query query = hibernateUtil.getSession().createQuery(SELECT_SYSTEMOPENTIMEDATA+CONDITION_ID).setString("id", id);
+        return (SystemOpenTimeData)query.uniqueResult();
+    }
+    @Override
+    public void update(SystemOpenTimeData systemOpenTimeData) {
+        hibernateUtil.update(systemOpenTimeData);
     }
     
 }

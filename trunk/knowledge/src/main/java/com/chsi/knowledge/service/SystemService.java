@@ -18,11 +18,13 @@ public interface SystemService {
      * @return
      */
     SystemData getSystemById(String id);
+    SystemOpenTimeData getSystemOpenTimeDataById(String id);
     
     void save(SystemData systemData);
     void save(SystemData systemData,String[] startTime, String[] endTime) throws ParseException;
     
     void update(SystemData systemData);
+    void update(SystemOpenTimeData systemOpenTimeData);
     void update(SystemData systemData, String[] startTime, String[] endTime) throws ParseException;
     
     void delete(SystemData systemData);

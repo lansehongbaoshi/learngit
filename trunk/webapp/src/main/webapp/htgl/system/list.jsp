@@ -53,10 +53,9 @@
                       <td class="hidden-260"><s:property value="#data.description" /></td>
                       <td class="hidden-200"><s:property value="#data.tagCnt" /></td>
                       <td class="hidden-200">
-                      <s:iterator value="#data.list" var="time">
-                      <s:date name="#time.startTime" format="yyyy-MM-dd HH:mm:ss"/>—<s:date name="#time.endTime" format="yyyy-MM-dd HH:mm:ss"/><br>
-                      </s:iterator>
-                      
+	                      <s:iterator value="#data.list" var="time">
+	                          <a href="javascript:void(0)" data-toggle="modal" data-target="#myModal" onclick="openWindow('<s:property value="#time.id"/>')"><s:date name="#time.startTime" format="yyyy-MM-dd HH:mm:ss"/>—<s:date name="#time.endTime" format="yyyy-MM-dd HH:mm:ss"/></a>
+	                      </s:iterator>
                       </td>
                       <td class="hidden-260">
                         <div class="hidden-sm hidden-xs action-buttons" data-id="<s:property value='#data.id'/>">
@@ -75,7 +74,58 @@
     </div>
   </div>
 </div>
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" 
+   aria-labelledby="myModalLabel" aria-hidden="true">
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-header">
+            <button type="button" class="close" 
+               data-dismiss="modal" aria-hidden="true">
+                  &times;
+            </button>
+            <h4 class="modal-title" id="myModalLabel">
+               添加标签
+            </h4>
+         </div>
+         <div class="modal-body">
+            在这里添加一些文本
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-default" 
+               data-dismiss="modal">关闭
+            </button>
+            <button type="button" class="btn btn-primary save">
+               保存
+            </button>
+         </div>
+      </div><!-- /.modal-content -->
+</div><!-- /.modal -->
+
+<script type="text/javascript">
+function openWindow(obj){
+	$(".modal-body").load("/htgl/system/list.action",{id:obj});
+}
+$(".save").click(function(){
+   var str ="";
+   var saveId = $(".saveId").val();
+    $("input:checked").each(function(){
+        str += $(this).val() + ",";
+    });
+    str = str.substring(0,str.length-1)
+     $.getJSON(
+     "/htgl/system/updateTag.action",
+     {id:saveId,name:str},
+     function(data){
+         if(data.flag=='true') {
+             alert("保存成功");
+         } 
+     }
+     )
+})
+</script>
 <script>
+
             $(function () {
             	$(document).on("click",".delBtn",function() {
                 	if(confirm("删除后将不可恢复，确定删除该系统？")) {

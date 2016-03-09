@@ -31,6 +31,7 @@ public class TagData extends PersistentObject {
     private int sort;
     
     private int knowCnt;//关联的知识数量
+    private boolean flag;
 
     public void setData(PersistentObject persistentObject) {
         TagData tagData = (TagData) persistentObject;
@@ -112,6 +113,14 @@ public class TagData extends PersistentObject {
 
     public void setKnowCnt(int knowCnt) {
         this.knowCnt = knowCnt;
+    }
+    @Transient
+    public boolean isFlag() {
+        return flag;
+    }
+
+    public void setFlag(boolean flag) {
+        this.flag = flag;
     }
 
 }

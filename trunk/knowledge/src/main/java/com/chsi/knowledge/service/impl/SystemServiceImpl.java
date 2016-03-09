@@ -119,6 +119,16 @@ public class SystemServiceImpl extends BaseDbService implements SystemService{
         return systemOpenTimeDAO.getSystemId();
     }
 
+    @Override
+    public SystemOpenTimeData getSystemOpenTimeDataById(String id) {
+        return systemOpenTimeDAO.getDataById(id);
+    }
+
+    @Override
+    public void update(SystemOpenTimeData systemOpenTimeData) {
+        systemOpenTimeDAO.update(systemOpenTimeData);
+    }
+
 
 
 }
