@@ -49,8 +49,8 @@ List<KnowledgeData> list = ManageCacheUtil.getTopKnowl();
                       	<a href="/wap/help/catalog.jsp?id=yz_wb">
                           <dt><img src="http://t3.chei.com.cn/common/wap/help/images/yanzhao.png"/></dt>
                           <dd>
-                              <h3>研招统考</h3>
-                              <p>打印准考证、报名资格等</p>
+                              <h3>研招</h3>
+                              <p>网上报名、调剂、推免等</p>
                           </dd>
                         </a>
                       </dl>
@@ -61,7 +61,7 @@ List<KnowledgeData> list = ManageCacheUtil.getTopKnowl();
                           <dt><img src="http://t4.chei.com.cn/common/wap/help/images/zhengbing.png"/></dt>
                           <dd>
                               <h3>应征报名</h3>
-                              <p>常见问题、报名条件等</p>
+                              <p>兵役登记、应征报名等</p>
                           </dd>
                         </a>
                       </dl>
@@ -70,7 +70,7 @@ List<KnowledgeData> list = ManageCacheUtil.getTopKnowl();
                           <dt><img src="http://t1.chei.com.cn/common/wap/help/images/dangan.png"/></dt>
                           <dd>
                               <h3>学信档案</h3>
-                              <p>图片校对、高等教育等</p>
+                              <p>学籍学历、图像校对等</p>
                           </dd>
                         </a>
                       </dl>
