@@ -99,13 +99,13 @@
     width:2rem;}
 .hot{
     width: 100%;
-    border-top: 1px #ffffff solid;
 }
-.hot h2{
+.hot_title{
     width: 100%;
     height: 46px;
     height: 3.833rem;
     border-bottom: 1px #d5d6da solid;
+    border-top: 1px #ffffff solid;
     line-height: 46px;
     line-height: 3.833rem;
     color: #999999;
@@ -122,9 +122,16 @@
     line-height: 47px;
     line-height: 3.917rem;
     height: 47px;
-    height: 3.917rem;
+    height: 3.917rem;     
+	margin-left: 12px;
+	margin-left: 1.0rem;  
+    
+    border-bottom: 1px #DDDDDD solid;
+    position:relative; 
 }
-.hot_list li a{
+.hot_list .hl_title{float:left;
+cursor:pointer;}
+.hot_list .hl_a{
 	font-size: 14px;
 	font-size: 1.167rem;
 	color: #333333;
@@ -132,36 +139,25 @@
 	line-height: 47px;
 	line-height: 3.917rem;
 	height: 47px;
-	height: 3.917rem;
-	padding-left: 12px;
-	padding-left: 1.0rem;
-}
-.hot_list li a div{
-	border-bottom: 1px #DDDDDD solid;
-	overflow: hidden;
-}
-.hot_list li.last a div{
-	border: none;
-}
-.hot_list li a i{
-	float: left;
-	width: 90%;
-	display: block;
-	overflow: hidden;
+	height: 3.917rem;    
+    overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
+    padding-right: 40px;
+    padding-right: 2.85rem;
 }
-.hot_list li a span{
-	float: right;
-	margin-top: 18px;
-	margin-top: 1.5rem;
-	margin-right: 12px;
-	margin-right: 1.0rem;
+.hot_list li.last{
+	border: none;
 }
-.hot_list li a span img{
+.hot_list .hl_next_img{
 	display: block;
 	width: 8px;
-	width: 0.667rem;
+	width: 0.667rem;    
+    position: absolute;
+    top: 20px;
+    right: 14px;
+    top: 1.42rem;
+    right: 1rem;
 }
 .part{
 	background: white;
@@ -230,42 +226,6 @@
 	display: block;
 	width: 100%;
 }
-/*.footer{
-	width: 100%;
-    height:4.0rem;
-    height: 48px;
-    background: #ffffff;
-    border-top: 1px solid #c3c3c3;
-    position: absolute;
-    bottom: 0;
-}
-.footer ul{
-	width: 100%;
-    height:4.0rem;
-    height: 48px;
-}
-.footer ul li{
-	width: 25%;
-	float: left;
-	height:4.0rem;
-    height: 48px;
-}
-.footer ul li dl{
-	margin-top: 0.5rem;
-	margin-top: 6px;
-}
-.footer ul li dl dt{
-	margin-bottom: 0.2rem;
-}
-.footer ul li dl dt img{
-	display: block;
-    width: 1.417rem;
-    width: 17px;
-    margin: 0 auto;
-}
-.footer ul li dl dd{
-	text-align: center;
-}*/
 /*搜索页面*/
 .section_search{
 	background: white;
@@ -354,17 +314,19 @@
     line-height: 1.09rem;
     cursor: pointer;
 }
-.hot_search_questions{
+.hot_search_list{
 	width: 100%;
 }
-.hot_search_questions li{
+.hot_search_list li{
 	border-bottom: 1px solid #cccccc;
 	line-height: 47px;
 	line-height: 3.917rem;
-	text-indent: 12px;
-	text-indent: 1.0rem;
+	padding-left: 14px;
+	padding-left: 1.0rem;
 }
-.hot_search_questions li a{
+.hot_search_list li span{float:left;
+cursor:pointer;}
+.hot_search_list li a{
 	font-size: 14px;
 	font-size: 1.167rem;
 	color: #333333;
@@ -435,14 +397,20 @@
 .findUser h2{
 	line-height: 36px;
     line-height: 2.57rem;
-    border-bottom: 1px #DDDDDD solid;
     font-size: 18px;
     font-size: 1.5rem;
     color: #333;
     font-weight: normal;
-	padding: 14px 0;
-	padding: 1rem 0;
+	padding: 14px 0 0;
+	padding: 1rem 0 0;
 }
+.question_source{
+    border-bottom: 1px #DDDDDD solid;
+    text-align: center;
+    padding-bottom: 14px;
+    padding-bottom: 1rem;
+    color: #999;
+}    
 .cont .article{
 	margin-top: 21px;
     margin-top: 1.75rem;

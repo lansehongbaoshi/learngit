@@ -34,7 +34,7 @@ int otherNum = 5;
     <meta charset="utf-8">
     <title>查看解决方案_学信网帮助中心</title>
     <link href="http://t1.chei.com.cn/common/wap/help/css/reset.css" rel="stylesheet"/>
-    <link href="http://t2.chei.com.cn/common/wap/help/css/style.css?20160307" rel="stylesheet"/>
+    <link href="/css/wap/help/style.css" rel="stylesheet"/>
     <!--[if lt IE 9]><script src="'http://t3.chei.com.cn/common/wap/help/js/respond.js"></script><![endif]-->
   </head>
   <body>
@@ -43,6 +43,7 @@ int otherNum = 5;
         <s:include value="searchbox.jsp"></s:include>
         <div class="findUser">
                   <h2><%=knowledgeData.getArticle().getTitle() %></h2>
+                  <div class='question_source'>问题来源：<a href='#'>学信网账号</a>&nbsp;&nbsp;&nbsp;更新于：2016.03.11</div>
                     <div class="cont">
                       <div class="article">
                           <%=knowledgeData.getArticle().getContent() %>

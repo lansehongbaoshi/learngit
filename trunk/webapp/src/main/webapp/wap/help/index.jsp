@@ -17,16 +17,15 @@ List<KnowledgeData> list = ManageCacheUtil.getTopKnowl();
         <div class="question">
                   <s:include value="searchbox.jsp"></s:include>
                   <div class="hot">
-                      <h2>热门问题</h2>
-                      <ul class="hot_list">
+                      <h2 class='hot_title'>热门问题</h2>
+                      <ul class="hot_list"> 
                       <%for(int i=0;i<list.size();i++) {
                           KnowledgeData one = list.get(i);%>
                           <li<%if(i==(list.size()-1)) out.print(" class=\"last\"");%>>
-	                          <a href="/wap/help/ckjjfa.jsp?id=<%=one.getId()%>">
-	                          	<div>
-		                          	<i><%=one.getArticle().getTitle() %></i>
-		                          	<span><img src="http://t1.chei.com.cn/common/wap/help/images/more.png"/></span>
-	                          	</div>
+	                          <span class='hl_title' onClick="window.location.href='###'">【学信网账号】</span>
+                              <a class='hl_a' href="/wap/help/ckjjfa.jsp?id=<%=one.getId()%>">
+	                          	<%=one.getArticle().getTitle() %>
+		                        <img class='hl_next_img' src="http://t1.chei.com.cn/common/wap/help/images/more.png"/>
 	                          </a>
                           </li>
                        <%} %>

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <link href="http://t1.chei.com.cn/common/wap/help/css/reset.css" rel="stylesheet"/>
-<link href="http://t2.chei.com.cn/common/wap/help/css/style.css?20160307" rel="stylesheet"/>
+<link href="/css/wap/help/style.css" rel="stylesheet"/>
 <!--[if lt IE 9]><script src="'http://t3.chei.com.cn/common/wap/help/js/respond.js"></script><![endif]-->
 <script type="text/javascript" src="http://t4.chei.com.cn/common/jquery/2.1.1/jquery.min.js"></script>
 

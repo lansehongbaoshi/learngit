@@ -8,7 +8,7 @@ import="com.chsi.knowledge.pojo.KnowledgeData,com.chsi.knowledge.util.ManageCach
     <meta charset="utf-8">
     <title>搜索_学信网帮助中心</title>
     <link href="http://t1.chei.com.cn/common/wap/help/css/reset.css" rel="stylesheet"/>
-    <link href="http://t2.chei.com.cn/common/wap/help/css/style.css?20160307" rel="stylesheet"/>
+    <link href="/css/wap/help/style.css" rel="stylesheet"/>
     <!--[if lt IE 9]><script src="'http://t3.chei.com.cn/common/wap/help/js/respond.js"></script><![endif]-->
     <script type="text/javascript" src="http://t4.chei.com.cn/common/jquery/2.1.1/jquery.min.js"></script>
   
@@ -18,9 +18,6 @@ var InputText = '';
 $(function(){
 	searchInputFn();
 	clearFn();
-	/* $(".hot_search_questions .ui-corner-all").on("click", function(){
-		$.post("/search/allSearch.action",{keywords:$("#search_input").val()});
-	}); */
 })
 function inputSearch(json){
 	if(!json.flag){ alert(json.errorMessages); return;}
@@ -88,11 +85,6 @@ function ajaxJSONP(url,text,callback,flag){
 		success: callback,
 		error: function(XMLHttpRequest, textStatus, errorThrown){
 			console.log(textStatus+":"+data);
-			//console.log(XMLHttpRequest);
-			//console.log(errorThrown);
-            //if(flag && InputText!=''){
-            //    ajaxJSONP('allsearch',InputText,'inputSearch');
-            //}
 		}
 	});
 	return false;
@@ -126,10 +118,11 @@ template.helper('hightWord', function (k,o) {
           </div>
         </div>
         <div class='keyupTest'></div>
-        <ul class="hot_search_questions" id='hot_lists'>
+        <ul class="hot_search_list" id='hot_lists'>
         <%if(knows!=null){ 
            for(KnowledgeVO vo:knows){%>
-           <li><a href="/wap/help/ckjjfa.jsp?id=<%=vo.getKnowledgeId() %>"><%=vo.getTitle() %></a></li>
+           <li>
+            <span onClick="window.location.href='###'">【学信网账号】</span><a href="/wap/help/ckjjfa.jsp?id=<%=vo.getKnowledgeId() %>"><%=vo.getTitle() %></a></li>
            <%} %>
         <%} %>
         </ul>
