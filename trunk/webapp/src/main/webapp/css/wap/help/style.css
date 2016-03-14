@@ -419,7 +419,9 @@ cursor:pointer;}
     padding-bottom: 14px;
     padding-bottom: 1rem;
     color: #999;
-}    
+}  
+.question_source a{    color: #999;
+    text-decoration: underline;}  
 .cont .article{
 	margin-top: 21px;
     margin-top: 1.75rem;

@@ -88,7 +88,6 @@ int otherNum = 5;
                       realnum++;
                   %>
                       <li<%if(i==list.size()-1 || realnum==otherNum) out.print(" class=\"last\"");%>>
-                      <span class='hl_title' onClick="window.location.href='###'">【学信网账号】</span>
 	                      <a class='hl_a' href="/wap/help/ckjjfa.jsp?id=<%=data.getId() %>">
 	                      	<%=article.getTitle() %>
 		                    <img class='hl_next_img' src="http://t1.chei.com.cn/common/wap/help/images/more.png"/>
