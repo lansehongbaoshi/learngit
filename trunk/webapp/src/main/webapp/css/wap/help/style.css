@@ -99,6 +99,7 @@
     width:2rem;}
 .hot{
     width: 100%;
+     position: relative;
 }
 .hot_title{
     width: 100%;
@@ -114,6 +115,14 @@
     text-indent: 12px;
     text-indent: 1.0rem; 
     font-weight: normal;
+}
+.hot_more{
+    position: absolute;
+    top: 17px;
+    right: 15px;
+    top: 1.21rem;
+    right: 1.07rem;
+    color: #238cff;
 }
 .hot_list{
     background: #ffffff;
@@ -434,7 +443,7 @@ cursor:pointer;}
     font-size: 14px;
     font-size: 1.167rem;
 }
-.cont .article a{color: #36AAA4}
+.cont .article a{color: #238cff}
 .cont .article a:hover{ text-decoration:underline;}
 .cont .article img{width:88%;}
 .bot{

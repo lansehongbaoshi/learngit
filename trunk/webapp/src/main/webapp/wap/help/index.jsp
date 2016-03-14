@@ -18,6 +18,7 @@ List<KnowledgeData> list = ManageCacheUtil.getTopKnowl();
                   <s:include value="searchbox.jsp"></s:include>
                   <div class="hot">
                       <h2 class='hot_title'>热门问题</h2>
+                      <div class='hot_more'>更多>></div>
                       <ul class="hot_list"> 
                       <%for(int i=0;i<list.size();i++) {
                           KnowledgeData one = list.get(i);%>
