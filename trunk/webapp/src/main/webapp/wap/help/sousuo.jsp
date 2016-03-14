@@ -129,7 +129,7 @@ template.helper('hightWord', function (k,o) {
         <div id='ask_list'></div>
 <!--自动完成内容-->
 <script id="input_list_detail" type="text/html">
-<ul class="hot_search_questions">
+<ul class="hot_search_list">
 {{if o.knows.length>0 }}
  {{each o.knows as value i}} 
  <li>
