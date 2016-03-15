@@ -116,4 +116,8 @@ public class SystemData extends PersistentObject {
         this.list = list;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        return this.getId().equals(((SystemData)obj).getId());
+    }
 }

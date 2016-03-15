@@ -11,7 +11,6 @@ import com.chsi.framework.util.ValidatorUtil;
 import com.chsi.knowledge.Constants;
 import com.chsi.knowledge.action.base.AjaxAction;
 import com.chsi.knowledge.index.service.KnowIndexService;
-import com.chsi.knowledge.pojo.KnowledgeData;
 import com.chsi.knowledge.pojo.SearchLogData;
 import com.chsi.knowledge.pojo.SystemOpenTimeData;
 import com.chsi.knowledge.service.KnowledgeService;
@@ -145,15 +144,6 @@ public class SearchAction extends AjaxAction {
         List<KnowledgeVO> strs = ManageCacheUtil.getTopSearchKnow();
         ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
         ajaxMessage.setO(strs);
-        writeJSON(ajaxMessage);
-        return NONE;
-    }
-
-    // 访问最热的n个知识点
-    public String topKnowl() throws Exception {
-        List<KnowledgeData> result = ManageCacheUtil.getTopKnowl();
-        ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
-        ajaxMessage.setO(result);
         writeJSON(ajaxMessage);
         return NONE;
     }

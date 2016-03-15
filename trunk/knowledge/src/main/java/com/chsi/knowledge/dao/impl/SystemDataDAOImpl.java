@@ -50,4 +50,13 @@ public class SystemDataDAOImpl extends BaseHibernateDAO implements SystemDataDAO
         hibernateUtil.delete(systemData);
     }
 
+    @Override
+    public String getSystemIdByKnowledgeId(String knowledgeId) {
+        String sql = "SELECT SYSTEM_ID FROM SYS_KNOW WHERE KNOWLEDGE_ID=:KNOWLEDGE_ID";
+        Query query = hibernateUtil.getSession().createSQLQuery(sql);
+        query.setString("KNOWLEDGE_ID", knowledgeId);
+        List list = query.list();
+        return list.size()>0?(String)list.get(0):null;
+    }
+
 }

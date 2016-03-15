@@ -22,7 +22,7 @@ int knowNum = 2;//显示几个标签
     <div id="wrap">
       <div class="section">
         <s:include value="searchbox.jsp"></s:include>
-        <h2 class='hot_title'>学信网账号</h2>
+        <h2 class='hot_title'><%=systemData.getName() %></h2>
         <%for(int i=0;i<tags.size();i++){
             TagData tagData = tags.get(i);
             %>

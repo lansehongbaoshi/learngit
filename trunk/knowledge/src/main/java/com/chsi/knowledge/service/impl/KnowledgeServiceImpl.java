@@ -19,6 +19,7 @@ import com.chsi.knowledge.pojo.SystemData;
 import com.chsi.knowledge.pojo.TagData;
 import com.chsi.knowledge.service.KnowledgeService;
 import com.chsi.knowledge.service.ServiceFactory;
+import com.chsi.knowledge.service.SystemService;
 import com.chsi.knowledge.service.TagService;
 import com.chsi.knowledge.util.ManageCacheUtil;
 import com.chsi.knowledge.util.Navigation;
@@ -118,6 +119,9 @@ public class KnowledgeServiceImpl extends BaseDbService implements KnowledgeServ
             CmsServiceClient cmsServiceClient = CmsServiceClientFactory.getCmsServiceClient();
             Article article = cmsServiceClient.getArticle(knowledgeData.getCmsId());
             knowledgeData.setArticle(article);
+            SystemService systemService = ServiceFactory.getSystemService();
+            SystemData systemData = systemService.getSystemDataByKnowledgeId(id);
+            knowledgeData.setSystemData(systemData);
         }
         return knowledgeData;
     }

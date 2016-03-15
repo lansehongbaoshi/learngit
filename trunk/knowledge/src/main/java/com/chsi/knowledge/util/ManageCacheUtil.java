@@ -1,6 +1,8 @@
 package com.chsi.knowledge.util;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.chsi.knowledge.dic.KnowledgeStatus;
 import com.chsi.knowledge.pojo.KnowTagRelationData;
@@ -133,13 +135,46 @@ public class ManageCacheUtil {
         return result;
     }
     
-    //热点问题
-    public static List<KnowledgeData> getTopKnowl() {
+    //首页的热点问题
+    public static List<KnowledgeData> getIndexTopKnowl(int cnt) {
         String key = CACHE_KEY_ + SEP + "getTopKnowl";
         List<KnowledgeData> result = MemCachedUtil.get(key);
         if(result == null) {
             CommonService commonService = ServiceFactory.getCommonService();
-            result = commonService.getTopKnowl(5);
+            result = commonService.getTopKnowl(cnt);
+            MemCachedUtil.set(key, result);
+        }
+        return result;
+    }
+    
+    //首页点击查看更多显示各个开放系统的热点问题
+    public static Map<SystemData, List<KnowledgeData>> getCatalogTopKnowl(int cnt) {
+        String key = CACHE_KEY_ + SEP + "getCatalogTopKnowl";
+        Map<SystemData, List<KnowledgeData>> result = MemCachedUtil.get(key);
+        if(result == null) {
+            result = new HashMap<SystemData, List<KnowledgeData>>();
+            CommonService commonService = ServiceFactory.getCommonService();
+            SystemService systemService = ServiceFactory.getSystemService();
+            List<SystemOpenTimeData> openSystems = systemService.getOpenSystems();
+            for(SystemOpenTimeData data:openSystems) {
+                List<KnowledgeData> list = commonService.getTopKnowlBySystem(data, cnt);
+                SystemData systemData = getSystem(data.getSystemId());
+                result.put(systemData, list);
+            }
+            MemCachedUtil.set(key, result);
+        }
+        return result;
+    }
+    
+    //首页
+    public static List<KnowledgeData> getSystemTopKnowl(String systemId) {
+        String key = CACHE_KEY_ + SEP + "getCatalogTopKnowl";
+        List<KnowledgeData> result = MemCachedUtil.get(key);
+        if(result == null) {
+            CommonService commonService = ServiceFactory.getCommonService();
+            SystemService systemService = ServiceFactory.getSystemService();
+            List<SystemOpenTimeData> openSystems = systemService.getOpenSystems();
+            result = commonService.getTopKnowl(openSystems.size()*10);
             MemCachedUtil.set(key, result);
         }
         return result;
@@ -151,7 +186,7 @@ public class ManageCacheUtil {
         List<SystemOpenTimeData> underwaySystems = MemCachedUtil.get(key);
         if(underwaySystems==null) {
             SystemService systemService = ServiceFactory.getSystemService();
-            underwaySystems = systemService.getSystemId();
+            underwaySystems = systemService.getOpenSystems();
             MemCachedUtil.set(key, underwaySystems);
         }
         return underwaySystems;

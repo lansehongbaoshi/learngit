@@ -25,4 +25,5 @@ public interface SystemDataDAO {
      */
     List<SystemData> getSystems();
     
+    String getSystemIdByKnowledgeId(String knowledgeId);
 }

@@ -39,6 +39,8 @@ public interface SystemService {
      * 获取当前处于开放状态的系统id
      * @return
      */
-    List<SystemOpenTimeData> getSystemId();
+    List<SystemOpenTimeData> getOpenSystems();
+    
+    SystemData getSystemDataByKnowledgeId(String knowledgeId);
     
 }

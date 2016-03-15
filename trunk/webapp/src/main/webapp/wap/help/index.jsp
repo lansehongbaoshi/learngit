@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
-import="com.chsi.knowledge.pojo.KnowledgeData,com.chsi.knowledge.util.ManageCacheUtil,java.util.List" %>
+import="com.chsi.knowledge.pojo.KnowledgeData,com.chsi.knowledge.util.ManageCacheUtil,java.util.*" %>
 <%@ taglib uri="/struts-tags" prefix="s"%>
 <%
-List<KnowledgeData> list = ManageCacheUtil.getTopKnowl();
+List<KnowledgeData> list = ManageCacheUtil.getIndexTopKnowl(5);
 %>
 <!DOCTYPE html>
 <html>
@@ -18,12 +18,12 @@ List<KnowledgeData> list = ManageCacheUtil.getTopKnowl();
                   <s:include value="searchbox.jsp"></s:include>
                   <div class="hot">
                       <h2 class='hot_title'>热门问题</h2>
-                      <div class='hot_more'>更多>></div>
+                      <div class='hot_more'><a href="/wap/help/hotmore.jsp">更多>></a></div>
                       <ul class="hot_list"> 
                       <%for(int i=0;i<list.size();i++) {
                           KnowledgeData one = list.get(i);%>
                           <li<%if(i==(list.size()-1)) out.print(" class=\"last\"");%>>
-	                          <span class='hl_title' onClick="window.location.href='###'">【学信网账号】</span>
+	                          <span class='hl_title' onClick="window.location.href='/wap/help/hotmore.jsp?id=<%=one.getSystemData().getId() %>'">【<%=one.getSystemData().getName() %>】</span>
                               <a class='hl_a' href="/wap/help/ckjjfa.jsp?id=<%=one.getId()%>">
 	                          	<%=one.getArticle().getTitle() %>
 		                        <img class='hl_next_img' src="http://t1.chei.com.cn/common/wap/help/images/more.png"/>

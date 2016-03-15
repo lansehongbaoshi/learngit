@@ -37,7 +37,7 @@ public class SystemOpenTimeDAOImpl extends BaseHibernateDAO implements SystemOpe
         return query.list();
     }
     @Override
-    public List<SystemOpenTimeData> getSystemId() {
+    public List<SystemOpenTimeData> getOpenSystems() {
         SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date=new Date();
         String dateTime = dateformat.format(date);

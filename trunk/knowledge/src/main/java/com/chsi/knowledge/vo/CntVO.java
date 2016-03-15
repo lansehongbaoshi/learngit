@@ -1,8 +1,15 @@
 package com.chsi.knowledge.vo;
 
 public class CntVO implements Comparable<CntVO>{
+    private String systemId;
     private String id;
     private int cnt;
+    public String getSystemId() {
+        return systemId;
+    }
+    public void setSystemId(String systemId) {
+        this.systemId = systemId;
+    }
     public String getId() {
         return id;
     }

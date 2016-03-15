@@ -115,8 +115,8 @@ public class SystemServiceImpl extends BaseDbService implements SystemService{
     }
 
     @Override
-    public List<SystemOpenTimeData> getSystemId() {
-        return systemOpenTimeDAO.getSystemId();
+    public List<SystemOpenTimeData> getOpenSystems() {
+        return systemOpenTimeDAO.getOpenSystems();
     }
 
     @Override
@@ -129,6 +129,13 @@ public class SystemServiceImpl extends BaseDbService implements SystemService{
         systemOpenTimeDAO.update(systemOpenTimeData);
     }
 
-
+    @Override
+    public SystemData getSystemDataByKnowledgeId(String knowledgeId) {
+        String systemId = systemDataDAO.getSystemIdByKnowledgeId(knowledgeId);
+        if(systemId!=null) {
+            return ManageCacheUtil.getSystem(systemId);
+        }
+        return null;
+    }
 
 }

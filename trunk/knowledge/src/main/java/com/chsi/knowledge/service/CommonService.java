@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.chsi.framework.pojos.PersistentObject;
 import com.chsi.knowledge.pojo.KnowledgeData;
+import com.chsi.knowledge.pojo.SystemOpenTimeData;
 import com.chsi.search.client.vo.KnowledgeVO;
 
 public interface CommonService {
@@ -37,4 +38,12 @@ public interface CommonService {
      * 记录知识访问量日志
      */
     void recordVisitLog();
+    
+    /**
+     * 获取某个系统或某个标签的最多访问知识
+     * @param systemOpenTimeData
+     * @param total
+     * @return
+     */
+    List<KnowledgeData> getTopKnowlBySystem(SystemOpenTimeData systemOpenTimeData, int total);
 }

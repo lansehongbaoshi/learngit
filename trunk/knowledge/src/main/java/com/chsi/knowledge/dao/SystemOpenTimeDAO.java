@@ -16,5 +16,5 @@ public interface SystemOpenTimeDAO {
     
     public SystemOpenTimeData getDataById(String id);
     
-    public List<SystemOpenTimeData> getSystemId();
+    public List<SystemOpenTimeData> getOpenSystems();
 }

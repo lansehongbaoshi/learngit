@@ -3,9 +3,7 @@ package com.chsi.knowledge.service.impl;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import com.chsi.framework.pojos.PersistentObject;
 import com.chsi.framework.service.BaseDbService;
@@ -23,6 +21,7 @@ import com.chsi.knowledge.service.CommonService;
 import com.chsi.knowledge.service.KnowledgeService;
 import com.chsi.knowledge.service.ServiceFactory;
 import com.chsi.knowledge.service.SystemService;
+import com.chsi.knowledge.util.ManageCacheUtil;
 import com.chsi.knowledge.util.SearchUtil;
 import com.chsi.knowledge.vo.CntVO;
 import com.chsi.search.client.vo.KnowledgeVO;
@@ -67,26 +66,32 @@ public class CommonServiceImpl extends BaseDbService implements CommonService {
         return result;
     }
 
-    public List<KnowledgeData> getTopKnowl(int n) {
+    public List<KnowledgeData> getTopKnowl(int total) {
+        SystemService systemService = ServiceFactory.getSystemService();
+        List<SystemOpenTimeData> systems = systemService.getOpenSystems();
+        List<Integer> iList = splitCnt(total, systems.size());
+        List<KnowledgeData> result = new ArrayList<KnowledgeData>();
+        for(int i=0;i<systems.size();i++) {
+            SystemOpenTimeData data = systems.get(i);
+            int myCnt = iList.get(i);
+            List<KnowledgeData> list2 = getTopKnowlBySystem(data, myCnt);
+            result.addAll(list2);
+        }
+        return result;
+    }
+    
+    public List<KnowledgeData> getTopKnowlBySystem(SystemOpenTimeData systemOpenTimeData, int total) {
         Calendar startTime = Calendar.getInstance();
         startTime.add(Calendar.DAY_OF_MONTH, -10);
         Calendar endTime = Calendar.getInstance();
-        SystemService systemService = ServiceFactory.getSystemService();
-        List<SystemOpenTimeData> systems = systemService.getSystemId();
-        Set<CntVO> set = new HashSet<CntVO>();
-        for(SystemOpenTimeData data:systems) {
-            List<CntVO> list = commonDAO.getTopVisitKnowl(data, startTime, endTime);
-            set.addAll(list);
-        }
-        List<CntVO> list = new ArrayList<CntVO>();
-        list.addAll(set);
-        Collections.sort(list);
-        KnowledgeService knowledgeService = ServiceFactory.getKnowledgeService();
+        List<CntVO> listTemp = commonDAO.getTopVisitKnowl(systemOpenTimeData, startTime, endTime);
+        Collections.sort(listTemp);
+        int startIndex = listTemp.size()-total;
+        List<CntVO> list = listTemp.subList(startIndex>=0?startIndex:0, listTemp.size());
         List<KnowledgeData> result = new ArrayList<KnowledgeData>();
-        for(int i=list.size()-1;i>=0;i--) {
-            if(result.size()==n) break;
+        for(int i=0;i<list.size();i++) {
             CntVO vo = list.get(i);
-            KnowledgeData data = knowledgeService.getKnowledgeWithArticleById(vo.getId());
+            KnowledgeData data = ManageCacheUtil.getKnowledgeDataById(vo.getId());
             if(data!=null) {
                 result.add(data);
             }
@@ -158,4 +163,18 @@ public class CommonServiceImpl extends BaseDbService implements CommonService {
         }
     }
     
+    //把total均分为n份，无法均分时把余数依次累加到前面
+    private List<Integer> splitCnt(int total, int n) {
+        int every = total/n;
+        int mod = total%n;
+        List<Integer> result = new ArrayList<Integer>();
+        for(int i=0;i<n;i++) {
+            result.add(every);
+        }
+        for(int j=0;j<mod;j++) {
+            int cnt = result.get(j);
+            result.set(j, cnt+1);
+        }
+        return result;
+    }
 }

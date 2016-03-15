@@ -13,6 +13,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
 
 import com.chsi.framework.pojos.PersistentObject;
+import com.chsi.framework.util.TimeUtil;
 import com.chsi.knowledge.dic.KnowledgeStatus;
 import com.chsi.knowledge.util.RemoteCallUtil;
 import com.chsi.knowledge.util.SearchUtil;
@@ -40,6 +41,7 @@ public class KnowledgeData extends PersistentObject {
     private String updater;
     private Calendar updateTime;
     private Article article;//临时变量
+    private SystemData systemData;
 
     public void setData(PersistentObject persistentObject) {
         KnowledgeData knowledgeData = (KnowledgeData) persistentObject;
@@ -203,5 +205,28 @@ public class KnowledgeData extends PersistentObject {
         } else {
             return "";
         }
+    }
+
+    @Transient
+    public SystemData getSystemData() {
+        return systemData;
+    }
+
+    public void setSystemData(SystemData systemData) {
+        this.systemData = systemData;
+    }
+    
+    @Transient
+    public String getLastOperTime(String format) {
+        Calendar lastTime = null;
+        if(this.updateTime!=null) {
+            lastTime = this.updateTime;
+        } else {
+            lastTime = this.createTime;
+        }
+        if(lastTime!=null) {
+            return TimeUtil.getTime(lastTime, format);
+        }
+        return "";
     }
 }
