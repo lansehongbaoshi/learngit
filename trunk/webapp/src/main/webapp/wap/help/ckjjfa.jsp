@@ -114,6 +114,7 @@ int otherNum = 5;
             </div>
     </div>
   </body>
+<script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 <script type="text/javascript">
 $(function(){
 	$('.huifu').delegate('li','click',function(e){
@@ -208,5 +209,22 @@ function submitFn(selectTxt,textarea){
 		}
 	});
 };
+
+//微信中图片可预览效果的实现。
+$(document).on('click', '.article img',function(event) {
+    var imgArray = [];
+    var curImageSrc = $(this).attr('src');
+    var oParent = $(this).parent();
+    if (curImageSrc && !oParent.attr('href')) {
+        $('.article img').each(function(index, el) {
+            var itemSrc = $(this).attr('src');
+            imgArray.push(itemSrc);
+        });
+        wx.previewImage({
+            current: curImageSrc,
+            urls: imgArray
+        });
+    }
+});
 </script>  
 </html>

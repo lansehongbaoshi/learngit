@@ -442,8 +442,6 @@ cursor:pointer;}
 .cont .article p{
 	line-height: 25px;
     line-height: 2.083rem;
-    text-indent: 24px;
-    text-indent: 2.0em;
     font-size: 14px;
     font-size: 1.167rem;
 }

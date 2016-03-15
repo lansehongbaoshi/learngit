@@ -23,12 +23,13 @@ if(id!=null) {
     <div id="wrap">
       <div class="section">
         <s:include value="searchbox.jsp"></s:include>
+        <h2 class='hot_title'>热门问题列表</h2> 
         <%
             for(SystemData systemData:result.keySet()) {
                 if(theSystemData!=null&&!theSystemData.equals(systemData)) continue;
-        %>
-        <h2 class='hot_title'><%=systemData.getName() %></h2>
+        %>        
         <div class="question_part">
+          <h2><%=systemData.getName() %></h2>
           <ul>
           <%
           List<KnowledgeData> list = result.get(systemData);
