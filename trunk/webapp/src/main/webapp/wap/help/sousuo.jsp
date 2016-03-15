@@ -122,7 +122,7 @@ template.helper('hightWord', function (k,o) {
         <%if(knows!=null){ 
            for(KnowledgeVO vo:knows){%>
            <li>
-            <span onClick="window.location.href='###'">【学信网账号】</span><a href="/wap/help/ckjjfa.jsp?id=<%=vo.getKnowledgeId() %>"><%=vo.getTitle() %></a></li>
+            <span onClick="window.location.href='/wap/help/catalog.jsp?id=<%=vo.getSystemId() %>'">【<%=ManageCacheUtil.getSystem(vo.getSystemId()).getName() %>】</span><a href="/wap/help/ckjjfa.jsp?id=<%=vo.getKnowledgeId() %>"><%=vo.getTitle() %></a></li>
            <%} %>
         <%} %>
         </ul>
