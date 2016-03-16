@@ -15,17 +15,16 @@
 .hot_more:hover{color:#147DF1}
 .hot_list{background:#fff}
 .hot_list li{line-height:47px;line-height:3.917rem;height:47px;height:3.917rem;margin-left:12px;margin-left:1rem;border-bottom:1px #DDD solid;position:relative}
-.hot_list .hl_title{font-size:14px;font-size:1.167rem;float:left;cursor:pointer}
+.hot_list .hl_title{font-size:14px;font-size:1.167rem;float:left;cursor:pointer;color:#238cff}
 .hot_list .hl_a{font-size:14px;font-size:1.167rem;color:#333;display:block;line-height:47px;line-height:3.917rem;height:47px;height:3.917rem;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;padding-right:40px;padding-right:2.85rem}
 .hot_list li.last{border:none}
 .hot_list .hl_next_img{display:block;width:8px;width:.667rem;position:absolute;top:20px;right:14px;top:1.42rem;right:1rem}
 .part{background:#fff;padding:12.5px 0;padding:1.0417rem;overflow:hidden;margin-top:15px;margin-top:1.25rem;width:100%;box-sizing:border-box;position:relative}
 .part .fg_line{display:block;width:1px;background:#DDD;height:80%;position:absolute;top:10%;left:50%}
 .part div{overflow:hidden;width:100%}
-.part div dl{width:50%;float:left;border-bottom:1px #DDD solid}
+.part div dl{width:50%;float:left;border-bottom:1px #DDD solid;padding:12px 0;padding:1rem 0}
 .part div dl a{display:block}
-.part div.first dl{padding-bottom:12px;padding-bottom:1rem}
-.part div.second dl{border-bottom:none;padding-top:12px;padding-top:1rem}
+.part div.last dl{border-bottom:0;}
 .part div dl dd{text-align:center}
 .part div dl dd h3{font-size:14px;font-size:1.167rem;color:#3d4245;line-height:24px;line-height:2rem;margin-top:6px;margin-top:.5rem;color:#333;font-weight:400}
 .part div dl dd p{color:#999;-webkit-transform:scale(.98)}
@@ -41,16 +40,16 @@
 .clearr{position:absolute;right:63px;right:4.5rem;display:block;width:16px;height:16px;width:1.14rem;height:1.14rem;background:#999;color:#fff;font-size:1.15rem;top:9px;top:.64rem;border-radius:100%;text-align:center;line-height:15px;line-height:1.09rem;cursor:pointer}
 .hot_search_list{width:100%}
 .hot_search_list li{border-bottom:1px solid #ccc;line-height:47px;line-height:3.917rem;padding-left:14px;padding-left:1rem}
-.hot_search_list li span{font-size:14px;font-size:1.167rem;float:left;cursor:pointer}
+.hot_search_list li span{font-size:14px;font-size:1.167rem;float:left;cursor:pointer;color:#238cff}
 .hot_search_list li a{font-size:14px;font-size:1.167rem;color:#333;display:block;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;padding-right:14px;padding-right:1rem}
 .ask_answer{width:100%}
 .ask_answer li{border-bottom:1px solid #ccc;padding:12px;padding:1rem}
 .ask_answer li.last{border-bottom:0;color:#c30;text-align:center}
 .ask_answer li h1{font-size:15px;font-size:1.25rem;line-height:30px;line-height:2.5rem;text-indent:6px;text-indent:.5rem;color:#3d4245;font-weight:400}
 .ask_answer h1 span{float:left;margin-top:8px;margin-top:.65rem}
-.ask_answer h1 .hl-title{margin-top:0;}
+.ask_answer h1 .hl-title{margin-top:0; cursor:pointer;color:#238cff}
 .ask_answer h1 img{display:block;width:15px;width:1.25rem}
-.ask_answer li p{font-size:15px;font-size:1.25rem;text-indent:6px;text-indent:.5rem;color:#999;line-height:25px;line-height:2.083rem}
+.ask_answer li p{font-size:15px;font-size:1.25rem;text-indent:6px;text-indent:.5rem;color:#999;line-height:25px;line-height:2.083rem; cursor:pointer;}
 .ask_answer li p span{float:left;margin-top:6px;margin-top:.4rem}
 .ask_answer li p span img{display:block;width:15px;width:1.25rem}
 .findUser{background:#fff;border-bottom:1px #d5d6da solid;padding:0 12px 12px;padding:0 1rem 1rem;overflow:hidden}

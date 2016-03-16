@@ -35,33 +35,13 @@ List<KnowledgeData> list = ManageCacheUtil.getIndexTopKnowl(5);
               </div>
               <div class="part">
                 <span class="fg_line"></span>
-                  <div class="first">
+                  <div>
                       <dl>
                       	<a href="/wap/help/catalog.jsp?id=account">
                           <dt><img src="http://t2.chei.com.cn/common/wap/help/images/user.png"/></dt>
                           <dd>
                               <h3>学信网账号</h3>
                               <p>忘记密码、身份证重复等</p>
-                          </dd>
-                        </a>
-                      </dl>
-                      <dl class="none">
-                      	<a href="/wap/help/catalog.jsp?id=yz_wb">
-                          <dt><img src="http://t3.chei.com.cn/common/wap/help/images/yanzhao.png"/></dt>
-                          <dd>
-                              <h3>研招</h3>
-                              <p>网上报名、调剂、推免等</p>
-                          </dd>
-                        </a>
-                      </dl>
-                  </div>
-                  <div class="second">
-                      <dl>
-                      	<a href="/wap/help/catalog.jsp?id=zb">
-                          <dt><img src="http://t4.chei.com.cn/common/wap/help/images/zhengbing.png"/></dt>
-                          <dd>
-                              <h3>应征报名</h3>
-                              <p>兵役登记、应征报名等</p>
                           </dd>
                         </a>
                       </dl>
@@ -73,7 +53,38 @@ List<KnowledgeData> list = ManageCacheUtil.getIndexTopKnowl(5);
                               <p>学籍学历、图像校对等</p>
                           </dd>
                         </a>
+                      </dl>                      
+                  </div>                  
+                  <div>
+                      <dl>
+                      	<a href="/wap/help/catalog.jsp?id=yz_wb">
+                          <dt><img src="http://t3.chei.com.cn/common/wap/help/images/yanzhao.png"/></dt>
+                          <dd>
+                              <h3>研招统考</h3>
+                              <p>网上报名、调剂、推免等</p>
+                          </dd>
+                        </a>
                       </dl>
+                      <dl class="none">
+                      	<a href="/wap/help/catalog.jsp?id=yz_tm">
+                          <dt><img src="http://t3.chei.com.cn/common/wap/help/images/yanzhao.png"/></dt>
+                          <dd>
+                              <h3>研招推免</h3>
+                              <p>网上报名、调剂、推免等</p>
+                          </dd>
+                        </a>
+                      </dl>                      
+                  </div> 
+                  <div class="last">
+                      <dl>
+                      	<a href="/wap/help/catalog.jsp?id=zb">
+                          <dt><img src="http://t4.chei.com.cn/common/wap/help/images/zhengbing.png"/></dt>
+                          <dd>
+                              <h3>应征报名</h3>
+                              <p>兵役登记、应征报名等</p>
+                          </dd>
+                        </a>
+                      </dl>                      
                   </div>
               </div>
       </div>
