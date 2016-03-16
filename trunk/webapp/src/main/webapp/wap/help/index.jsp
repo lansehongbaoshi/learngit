@@ -61,7 +61,7 @@ List<KnowledgeData> list = ManageCacheUtil.getIndexTopKnowl(5);
                           <dt><img src="http://t3.chei.com.cn/common/wap/help/images/yanzhao.png"/></dt>
                           <dd>
                               <h3>研招统考</h3>
-                              <p>网上报名、调剂、推免等</p>
+                              <p>报名、准考证和调剂等</p>
                           </dd>
                         </a>
                       </dl>
@@ -70,7 +70,7 @@ List<KnowledgeData> list = ManageCacheUtil.getIndexTopKnowl(5);
                           <dt><img src="http://t3.chei.com.cn/common/wap/help/images/yanzhao.png"/></dt>
                           <dd>
                               <h3>研招推免</h3>
-                              <p>网上报名、调剂、推免等</p>
+                              <p>资格、志愿填报和录取等</p>
                           </dd>
                         </a>
                       </dl>                      
