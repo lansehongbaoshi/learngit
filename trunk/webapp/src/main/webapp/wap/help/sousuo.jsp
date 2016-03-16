@@ -133,7 +133,7 @@ template.helper('hightWord', function (k,o) {
 {{if o.knows.length>0 }}
  {{each o.knows as value i}} 
  <li>
-    <span class='hl-title'>【学信网账号】</span>
+    <span class='hl-title' onClick="window.location.href='/wap/help/catalog.jsp?id={{value.systemId}}'">【{{value.system}}】</span>
  	<a class="ui-corner-all"  href="/wap/help/ckjjfa.jsp?id={{value.knowId}}&keywords={{value.keywords}}">{{#hightWord(value.keywords,value.title)}}
 	</a>
  </li> 
@@ -149,7 +149,7 @@ template.helper('hightWord', function (k,o) {
  {{each o.knows as value i}} 
  <li>
     <a class="ui-corner-all"  href="/wap/help/ckjjfa.jsp?id={{value.knowId}}">
- 		<h1><span><img src="http://t2.chei.com.cn/common/wap/help/images/ask.png"/></span> <span class='hl-title'>【学信网账号】</span>{{#hightWord(value.keywords,value.title)}}</h1>
+ 		<h1><span><img src="http://t2.chei.com.cn/common/wap/help/images/ask.png"/></span> <span class='hl-title' onClick="window.location.href='/wap/help/catalog.jsp?id={{value.systemId}}'">【{{value.system}}】</span>{{#hightWord(value.keywords,value.title)}}</h1>
 	</a>
  	<p><span><img src="http://t3.chei.com.cn/common/wap/help/images/answer.png"/></span>{{#hightWord(value.keywords,value.summary)}}</p>
  </li> 
