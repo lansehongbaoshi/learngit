@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!-- <!DOCTYPE tiles-definitions PUBLIC
+        "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/tiles-config_2_0.dtd"> -->
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+<tiles-definitions>
+    
+    <!-- 用不到了 -->
+     <!-- knowledge layout框架 -->
+   <definition name="htgl.admin.main" template="/layout/admin.jsp" >
+        <put-attribute name="title" value="学信网知识库管理系统"/>
+    </definition>
+   <definition name="htgl.knowledge.modal" template="/layout/modal.jsp" >
+        <put-attribute name="title" value="知识库"/>
+    </definition>
+    
+   <!--  tag部分 -->
+    <definition name="htgl.tag.tagList" extends="htgl.knowledge.modal" >
+        <put-attribute name="content" value="/htgl/tag/tagList.jsp"/>
+    </definition>
+    
+    <!--knowledge部分  -->
+    <definition name="htgl.knowledge.knowledgeList" extends="htgl.knowledge.modal" >
+        <put-attribute name="content" value="/htgl/knowledge/knowledgeList.jsp"/>
+    </definition>
+    
+    <definition name="htgl.knowledge.knowledge" extends="htgl.knowledge.modal" >
+        <put-attribute name="content" value="/htgl/knowledge/knowledge.jsp"/>
+    </definition>
+    
+    <!--后台管理页面  -->
+    <definition name="htgl.index" extends="htgl.admin.main" >
+        <put-attribute name="body" value="/htgl/index.jsp"/>
+    </definition>
+    
+    <!-- search部分 -->
+    <definition name="htgl.search.index" extends="htgl.admin.main" >
+        <put-attribute name="body" value="/htgl/search/index.jsp"/>
+    </definition>
+    <!--知识点相关  -->
+    <definition name="htgl.knowledge.search.index" extends="htgl.admin.main" >
+        <put-attribute name="body" value="/htgl/knowledge/search/index.jsp"/>
+    </definition>
+    <definition name="htgl.knowledge.modify.index" extends="htgl.admin.main" >
+        <put-attribute name="body" value="/htgl/knowledge/modify/index.jsp"/>
+    </definition>
+    <definition name="htgl.knowledge.add.index" extends="htgl.admin.main" >
+        <put-attribute name="body" value="/htgl/knowledge/add/index.jsp"/>
+    </definition>
+    <definition name="htgl.knowledge.show" extends="htgl.admin.main" >
+        <put-attribute name="body" value="/htgl/knowledge/show.jsp"/>
+    </definition>
+    
+    <!--系统相关  -->
+    <definition name="htgl.system.list" extends="htgl.admin.main" >
+        <put-attribute name="body" value="/htgl/system/list.jsp"/>
+    </definition>
+    <definition name="htgl.system.modify" extends="htgl.admin.main" >
+        <put-attribute name="body" value="/htgl/system/modify.jsp"/>
+    </definition>
+    <definition name="htgl.system.add" extends="htgl.admin.main" >
+        <put-attribute name="body" value="/htgl/system/add.jsp"/>
+    </definition>
+    <!--标签相关  -->
+    <definition name="htgl.tag.list" extends="htgl.admin.main" >
+        <put-attribute name="body" value="/htgl/tag/list.jsp"/>
+    </definition>
+    <definition name="htgl.tag.modify" extends="htgl.admin.main" >
+        <put-attribute name="body" value="/htgl/tag/modify.jsp"/>
+    </definition>
+    <definition name="htgl.tag.add" extends="htgl.admin.main" >
+        <put-attribute name="body" value="/htgl/tag/add.jsp"/>
+    </definition>
+    <!-- 回收站 -->
+    <definition name="htgl.recycle.index" extends="htgl.admin.main" >
+        <put-attribute name="body" value="/htgl/recycle/index.jsp"/>
+    </definition>
+    
+</tiles-definitions> 

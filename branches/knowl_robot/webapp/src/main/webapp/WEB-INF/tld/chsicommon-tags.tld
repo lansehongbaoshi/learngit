@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE taglib PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN" "http://java.sun.com/dtd/web-jsptaglibrary_1_2.dtd">
+<taglib>
+    <tlib-version>2.2.3</tlib-version>
+    <jsp-version>1.2</jsp-version>
+    <short-name>chsi-common</short-name>
+    <uri>http://www.chsi.com.cn/commontag</uri>
+    <display-name>Chsi Common Tag Library</display-name>
+    <description>chsi common tag</description>
+
+    <tag>
+        <name>cache</name>
+        <tag-class>com.chsi.cache.web.tag.CacheTag</tag-class>
+        <body-content>JSP</body-content>
+        <description>A tag to cache post-processed JSP contents</description>
+
+        <attribute>
+            <name>time</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+
+        <attribute>
+            <name>duration</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+
+        <attribute>
+            <name>scope</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+
+        <attribute>
+            <name>refresh</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+
+        <attribute>
+            <name>mode</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+
+        <attribute>
+            <name>key</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+
+        <attribute>
+            <name>language</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+
+    <tag>
+        <name>usecached</name>
+        <tag-class>com.chsi.cache.web.tag.UseCachedTag</tag-class>
+        <description>A tag to tell the cache to use the cached version</description>
+
+        <attribute>
+            <name>use</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag> 
+     
+    <tag>
+      <name>strcut</name>
+      <tag-class>com.chsi.framework.web.tag.StringCutTag</tag-class>
+      <body-content>JSP</body-content>
+      <description><![CDATA[字符串剪切]]></description>
+      <attribute>
+         <name>value</name>
+         <required>true</required>
+         <rtexprvalue>true</rtexprvalue>
+      </attribute>
+      <attribute>
+         <name>length</name>
+         <required>true</required>
+         <rtexprvalue>true</rtexprvalue>
+      </attribute>
+   </tag>
+   
+   <tag>
+
+      <name>strIntMap</name>
+      <tag-class>com.chsi.framework.web.tag.StringIntMapShowTag</tag-class>
+      <body-content>JSP</body-content>
+      <description><![CDATA[根据key值取Map值]]></description>
+
+      <attribute>
+         <name>key</name>
+         <required>true</required>
+         <rtexprvalue>true</rtexprvalue>
+
+      </attribute>
+      <attribute>
+         <name>map</name>
+         <required>true</required>
+         <rtexprvalue>true</rtexprvalue>
+
+      </attribute>
+      <attribute>
+         <name>var</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+
+      </attribute>
+      <attribute>
+         <name>sumHorizontal</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+
+      </attribute>
+      <attribute>
+         <name>sumVertical</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+
+      </attribute>
+      <attribute>
+         <name>sum</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+
+      </attribute>
+
+   </tag>
+   <tag>
+
+      <name>pageContextOut</name>
+      <tag-class>com.chsi.framework.web.tag.PageContextOutTag</tag-class>
+      <body-content>JSP</body-content>
+      <description><![CDATA[打印pageContext域中object对象的值]]></description>
+
+      <attribute>
+         <name>object</name>
+         <required>true</required>
+         <rtexprvalue>true</rtexprvalue>
+
+      </attribute>
+
+   </tag> 
+  <tag>
+      <name>outCurrentUserName</name>
+      <tag-class>com.chsi.framework.web.tag.OutCurrentUserNameTag</tag-class>
+      <body-content>EMPTY</body-content>
+      <description><![CDATA[打印出登录用户的用户名]]></description>
+      <attribute>
+         <name>anonymous</name>
+         <required>false</required>
+         <rtexprvalue>false</rtexprvalue>
+      </attribute>
+      <attribute>
+         <name>salutatory</name>
+         <required>false</required>
+         <rtexprvalue>false</rtexprvalue>
+      </attribute>
+   </tag> 
+   <tag>
+      <name>unlogin</name>
+      <tag-class>com.chsi.framework.web.tag.UnLoginTag</tag-class>
+      <body-content>JSP</body-content>
+      <description><![CDATA[如果用户未登录，则执行标签体中的内容]]></description>
+   </tag> 
+   <tag>
+      <name>logined</name>
+      <tag-class>com.chsi.framework.web.tag.LoginedTag</tag-class>
+      <body-content>JSP</body-content>
+      <description><![CDATA[如果用户已登录，则执行标签体中的内容]]></description>
+   </tag>
+   <tag>
+      <name>outCurrentYear</name>
+      <tag-class>com.chsi.framework.web.tag.CurrentYearTag</tag-class>
+      <body-content>EMPTY</body-content>
+      <description><![CDATA[打印出当前年份信息]]></description>
+      <attribute>
+         <name>year</name>
+         <required>false</required>
+         <rtexprvalue>false</rtexprvalue>
+      </attribute>
+   </tag>
+   <tag>
+      <name>spath</name>
+      <tag-class>com.chsi.framework.web.tag.StaticResourcePathTag</tag-class>
+      <body-content>JSP</body-content>
+      <description><![CDATA[输出静态资源地址]]></description>
+      <attribute>
+         <name>path</name>
+         <required>true</required>
+         <rtexprvalue>false</rtexprvalue>
+      </attribute>      
+      <attribute>
+         <name>commonResource</name>
+         <required>false</required>
+         <rtexprvalue>false</rtexprvalue>
+      </attribute>   
+      <attribute>
+         <name>appname</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+      </attribute> 
+   </tag>
+</taglib>

@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <constant name="struts.enable.DynamicMethodInvocation" value="true" />
+    <constant name="struts.custom.i18n.resources" value="MessageResources"></constant>
+    <package name="knowledge-default" extends="tiles-default"
+        namespace="">
+        <interceptors>
+            <interceptor name="chsiTransactionInterceptors"
+                class="com.chsi.framework.transaction.struts2.TranactionInterceptor" />
+            <!--有事务 -->
+            <interceptor-stack name="chsiDefaultStack">
+                <interceptor-ref name="chsiTransactionInterceptors">
+                    <param name="localTransaction">true</param>
+                </interceptor-ref>
+                <interceptor-ref name="exception">
+                    <param name="logEnabled">true</param>
+                    <param name="logCategory">com.chsi.archive.unhandled</param>
+                    <param name="logLevel">ERROR</param>
+                </interceptor-ref>
+                <interceptor-ref name="servletConfig" />
+                <interceptor-ref name="i18n" />
+                <interceptor-ref name="chain" />
+                <interceptor-ref name="scopedModelDriven" />
+                <interceptor-ref name="modelDriven" />
+                <interceptor-ref name="fileUpload">
+                    <param name="allowedTypes">image/jpeg,image/pjpeg,image/png,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document</param>
+                    <param name="allowedExtensions">jpg,jpeg,jpe,jfif,png,xls,xlsx,doc,docx</param>
+                    <param name="maximumSize">5242880</param> <!--5M -->
+                </interceptor-ref>
+                <interceptor-ref name="checkbox" />
+                <interceptor-ref name="actionMappingParams" />
+                <interceptor-ref name="params">
+                    <param name="excludeParams">dojo\..*,^struts\..*</param>
+                </interceptor-ref>
+                <interceptor-ref name="alias" />
+                <interceptor-ref name="conversionError" />
+                <interceptor-ref name="validation">
+                    <param name="excludeMethods">input,back,cancel,browse</param>
+                    <param name="validateAnnotatedMethodOnly">true</param>
+                    <param name="programmatic">true</param>
+                </interceptor-ref>
+                <interceptor-ref name="workflow">
+                    <param name="excludeMethods">input,back,cancel,browse</param>
+                </interceptor-ref>
+            </interceptor-stack>
+            <!--无事务 -->
+            <interceptor-stack name="chsiNoTransactionDefaultStack">
+                <interceptor-ref name="exception">
+                    <param name="logEnabled">true</param>
+                    <param name="logCategory">com.chsi.archive.unhandled</param>
+                    <param name="logLevel">ERROR</param>
+                </interceptor-ref>
+                <interceptor-ref name="servletConfig" />
+                <interceptor-ref name="i18n" />
+                <interceptor-ref name="chain" />
+                <interceptor-ref name="scopedModelDriven" />
+                <interceptor-ref name="modelDriven" />
+                <interceptor-ref name="fileUpload" />
+                <interceptor-ref name="checkbox" />
+                <interceptor-ref name="actionMappingParams" />
+                <interceptor-ref name="params">
+                    <param name="excludeParams">dojo\..*,^struts\..*</param>
+                </interceptor-ref>
+                <interceptor-ref name="alias" />
+                <interceptor-ref name="conversionError" />
+                <interceptor-ref name="validation">
+                    <param name="excludeMethods">input,back,cancel,browse</param>
+                    <param name="validateAnnotatedMethodOnly">true</param>
+                    <param name="programmatic">false</param>
+                </interceptor-ref>
+                <interceptor-ref name="workflow">
+                    <param name="excludeMethods">input,back,cancel,browse</param>
+                </interceptor-ref>
+            </interceptor-stack>
+        </interceptors>
+        <default-interceptor-ref name="chsiDefaultStack" />
+        <global-results> 
+            <result name="global.error">/error/error.jsp</result>
+            <result name="global.exception">/error/error.jsp</result>
+            <result name="error">/error/index.jsp</result>
+        </global-results>
+
+        <!-- 程序中未捕获的异常，使用声明式异常处理 -->
+        <!-- <global-exception-mappings> <exception-mapping result="global.exception" 
+            exception="java.lang.Exception" /> </global-exception-mappings> <action name="index" 
+            class="index"> <result name="success" type="redirect">/htgl/indexAction</result> 
+            <result name="indexJsp" type="dispatcher">/index.jsp</result> </action> <global-results> 
+            <result name="Exception" type="tiles"></result> </global-results> <global-exception-mappings> 
+            <exception-mapping exception="java.lang.Exception" result="Exception" /> 
+            </global-exception-mappings> -->
+    </package>
+
+    <include file="struts-knowledge.xml"></include>
+    <include file="struts-manage.xml"></include>
+    <include file="struts-search.xml"></include>
+    <include file="struts-htgl.xml"></include>
+    <include file="struts-file.xml"></include>
+</struts>

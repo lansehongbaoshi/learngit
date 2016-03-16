@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans>
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location">
+            <value>classpath:chsi-knowledge.properties</value>
+        </property>
+        <property name="ignoreUnresolvablePlaceholders" value="true" />
+    </bean>
+
+    <!-- 依赖于运行环境的变量，一般以sys.开头，以示区别 -->
+    <bean id="sysPropertyConfigurer" class="com.chsi.framework.config.spring.ConfigurablePropertyPlaceholder">
+        <property name="propertyLocationSystemProperty" value="propertyPath" />
+        <property name="defaultPropertyFileName" value="server.properties" />
+        <property name="ignoreResourceNotFound" value="false" />
+    </bean>
+
+    <bean id="zooKeeperConfigManager" class="com.chsi.framework.config.dyna.ConfigManagerZookeeperImpl">
+        <constructor-arg index="0">
+            <value>${sys.zookeeperConnectString}</value>
+        </constructor-arg>
+    </bean>
+
+    <bean id="queue" class="com.chsi.framework.queue.TyrantBasedMessageQueue" init-method="init">
+        <property name="configManager" ref="zooKeeperConfigManager" />
+        <property name="configKey">
+            <value>${queue.configKey}</value>
+        </property>
+    </bean>
+    <bean id="queueService" class="com.chsi.knowledge.service.impl.QueueServiceImpl">
+        <property name="queue">
+            <ref local="queue" />
+        </property>
+    </bean>
+</beans>
