@@ -15,7 +15,6 @@
 .hot_more:hover{color:#147DF1}
 .hot_list{background:#fff}
 .hot_list li{line-height:47px;line-height:3.917rem;height:47px;height:3.917rem;margin-left:12px;margin-left:1rem;border-bottom:1px #DDD solid;position:relative}
-.hot_list .hl_title{font-size:14px;font-size:1.167rem;float:left;cursor:pointer;color:#238cff}
 .hot_list .hl_a{font-size:14px;font-size:1.167rem;color:#333;display:block;line-height:47px;line-height:3.917rem;height:47px;height:3.917rem;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;padding-right:40px;padding-right:2.85rem}
 .hot_list li.last{border:none}
 .hot_list .hl_next_img{display:block;width:8px;width:.667rem;position:absolute;top:20px;right:14px;top:1.42rem;right:1rem}
@@ -47,7 +46,6 @@
 .ask_answer li.last{border-bottom:0;color:#c30;text-align:center}
 .ask_answer li h1{font-size:15px;font-size:1.25rem;line-height:30px;line-height:2.5rem;text-indent:6px;text-indent:.5rem;color:#3d4245;font-weight:400}
 .ask_answer h1 span{float:left;margin-top:8px;margin-top:.65rem}
-.ask_answer h1 .hl-title{margin-top:0; cursor:pointer;color:#238cff}
 .ask_answer h1 img{display:block;width:15px;width:1.25rem}
 .ask_answer li p{font-size:15px;font-size:1.25rem;text-indent:6px;text-indent:.5rem;color:#999;line-height:25px;line-height:2.083rem; cursor:pointer;}
 .ask_answer li p span{float:left;margin-top:6px;margin-top:.4rem}
@@ -55,8 +53,8 @@
 .findUser{background:#fff;border-bottom:1px #d5d6da solid;padding:0 12px 12px;padding:0 1rem 1rem;overflow:hidden}
 .findUser h2{line-height:36px;line-height:2.57rem;font-size:18px;font-size:1.5rem;color:#333;font-weight:400;padding:14px 0 0;padding:1rem 0 0}
 .question_source{border-bottom:1px #DDD solid;text-align:left;padding:7px 0 14px;padding:.5rem 0 1rem;color:#999}
-.question_source a{color:#999}
-.question_source a:hover{color:#666}
+.question_source a{color:#238cff}
+.question_source a:hover{color:#238cff}
 .cont .article{margin-top:21px;margin-top:1.75rem;color:#333}
 .cont .article h6{line-height:18px;line-height:1.5rem;font-size:15px;font-size:1.25rem}
 .cont .article h6 span{-webkit-transform:scale(.95);display:block}
