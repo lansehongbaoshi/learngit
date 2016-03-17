@@ -118,6 +118,15 @@ public class SystemData extends PersistentObject {
 
     @Override
     public boolean equals(Object obj) {
-        return this.getId().equals(((SystemData)obj).getId());
+        if(obj!=null&&obj.getClass().equals(this.getClass())) {
+            SystemData data = (SystemData)obj;
+            return this.getId().equals(data.getId());
+        }
+        return false;
+    }
+    
+    @Override
+    public int hashCode() {
+        return this.getId().hashCode();
     }
 }

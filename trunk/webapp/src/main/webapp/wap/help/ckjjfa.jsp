@@ -109,7 +109,7 @@ int otherNum = 5;
                     <li><label for='sel2'><input type="radio" name="sel" id='sel2' value='操作后不成功'/>操作后不成功</label></li>
                     <li><label for='sel3'><input type="radio" name="sel" id='sel3' value='其他'/>其他</label></li>
                   </ul>
-                  <textarea class='text_area' placeholder="谢谢您帮我们发现了新大陆，和小编说说呗!"></textarea>
+                  <textarea class='text_area' placeholder=""></textarea>
                 </div>
             </div>
     </div>
