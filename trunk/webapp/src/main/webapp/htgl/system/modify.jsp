@@ -28,6 +28,9 @@
     <form name="" action="/htgl/system/updateSystem.action" method="get">
       <div class="col-xs-12">
         <p>
+          系统位置： <input type="text" name="sort" value="<s:property value='systemData.sort' />" style="width: 400px;">
+        </p>
+        <p>
           系统代码： <input type="text" name="id" value="<s:property value='systemData.id' />" style="width: 400px;"><span>（说明：填写系统ID，数字或者字母）</span>
         </p>
         <p>

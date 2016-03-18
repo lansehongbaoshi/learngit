@@ -15,7 +15,7 @@ public class SystemDataDAOImpl extends BaseHibernateDAO implements SystemDataDAO
     private static final String W = " where ";
     private static final String ID = " p.id=:id";
     
-    private static final String ORDER_BY_START_TIME = " order by p.startTime";
+    private static final String ORDER_BY_START_TIME = " order by p.sort";
     
     @SuppressWarnings("unchecked")
     @Override
