@@ -121,7 +121,7 @@ template.helper('hightWord', function (k,o) {
         <ul class="hot_search_list" id='hot_lists'>
         <%if(knows!=null){ 
            for(KnowledgeVO vo:knows){%>
-           <li><a href="/wap/help/ckjjfa.jsp?id=<%=vo.getKnowledgeId() %>">【<%=ManageCacheUtil.getSystem(vo.getSystemId()).getName() %>】<%=vo.getTitle() %></a></li>
+           <li><a href="/wap/help/ckjjfa.jsp?id=<%=vo.getKnowledgeId() %>">[<%=ManageCacheUtil.getSystem(vo.getSystemId()).getName() %>]<%=vo.getTitle() %></a></li>
            <%} %>
         <%} %>
         </ul>
@@ -132,7 +132,7 @@ template.helper('hightWord', function (k,o) {
 {{if o.knows.length>0 }}
  {{each o.knows as value i}} 
  <li>
- 	<a class="ui-corner-all"  href="/wap/help/ckjjfa.jsp?id={{value.knowId}}&keywords={{value.keywords}}">【{{value.system}}】{{#hightWord(value.keywords,value.title)}}
+ 	<a class="ui-corner-all"  href="/wap/help/ckjjfa.jsp?id={{value.knowId}}&keywords={{value.keywords}}">[{{value.system}}]{{#hightWord(value.keywords,value.title)}}
 	</a>
  </li> 
  {{/each}}	
@@ -146,7 +146,7 @@ template.helper('hightWord', function (k,o) {
 {{if o.knows.length>0 }}
  {{each o.knows as value i}} 
  <li>
-    <h1><span><img src="http://t2.chei.com.cn/common/wap/help/images/ask.png"/></span><a  href="/wap/help/ckjjfa.jsp?id={{value.knowId}}">【{{value.system}}】{{#hightWord(value.keywords,value.title)}}</a></h1>	
+    <h1><span><img src="http://t2.chei.com.cn/common/wap/help/images/ask.png"/></span><a  href="/wap/help/ckjjfa.jsp?id={{value.knowId}}">[{{value.system}}]{{#hightWord(value.keywords,value.title)}}</a></h1>	
  	<p onClick="window.location.href='/wap/help/ckjjfa.jsp?id={{value.knowId}}'"><span><img src="http://t3.chei.com.cn/common/wap/help/images/answer.png"/></span>{{#hightWord(value.keywords,value.summary)}}</p>
  </li> 
   {{/each}}	
