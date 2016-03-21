@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
-import="com.chsi.knowledge.pojo.KnowledgeData,com.chsi.knowledge.util.ManageCacheUtil,java.util.*" %>
+import="com.chsi.knowledge.pojo.*,com.chsi.knowledge.util.ManageCacheUtil,java.util.*" %>
 <%@ taglib uri="/struts-tags" prefix="s"%>
 <%
 List<KnowledgeData> list = ManageCacheUtil.getIndexTopKnowl(5);
@@ -34,52 +34,52 @@ List<KnowledgeData> list = ManageCacheUtil.getIndexTopKnowl(5);
               <div class="part">
                 <span class="fg_line"></span>
                   <div>
-                      <dl>
+                      <dl><%SystemData systemData = ManageCacheUtil.getSystem("account"); %>
                       	<a href="/wap/help/catalog.jsp?id=account">
                           <dt><img src="http://t2.chei.com.cn/common/wap/help/images/user.png"/></dt>
                           <dd>
-                              <h3>学信网账号</h3>
-                              <p>忘记密码、身份证重复等</p>
+                              <h3><%=systemData.getName() %></h3>
+                              <p><%=systemData.getDescription() %></p>
                           </dd>
                         </a>
                       </dl>
-                      <dl class="none">
+                      <dl class="none"><%systemData = ManageCacheUtil.getSystem("my"); %>
                       	<a href="/wap/help/catalog.jsp?id=my">
                           <dt><img src="http://t1.chei.com.cn/common/wap/help/images/dangan.png"/></dt>
                           <dd>
-                              <h3>学信档案</h3>
-                              <p>学籍学历、图像校对等</p>
+                              <h3><%=systemData.getName() %></h3>
+                              <p><%=systemData.getDescription() %></p>
                           </dd>
                         </a>
                       </dl>                      
                   </div>                  
                   <div>
-                      <dl>
+                      <dl><%systemData = ManageCacheUtil.getSystem("yz_wb"); %>
                       	<a href="/wap/help/catalog.jsp?id=yz_wb">
                           <dt><img src="http://t3.chei.com.cn/common/wap/help/images/yanzhao.png"/></dt>
                           <dd>
-                              <h3>研招统考</h3>
-                              <p>报名、准考证和调剂等</p>
+                              <h3><%=systemData.getName() %></h3>
+                              <p><%=systemData.getDescription() %></p>
                           </dd>
                         </a>
                       </dl>
-                      <dl class="none">
+                      <dl class="none"><%systemData = ManageCacheUtil.getSystem("yz_tm"); %>
                       	<a href="/wap/help/catalog.jsp?id=yz_tm">
                           <dt><img src="http://t3.chei.com.cn/common/wap/help/images/yanzhao.png"/></dt>
                           <dd>
-                              <h3>研招推免</h3>
-                              <p>资格、志愿填报和录取等</p>
+                              <h3><%=systemData.getName() %></h3>
+                              <p><%=systemData.getDescription() %></p>
                           </dd>
                         </a>
                       </dl>                      
                   </div> 
                   <div class="last">
-                      <dl>
+                      <dl><%systemData = ManageCacheUtil.getSystem("zb"); %>
                       	<a href="/wap/help/catalog.jsp?id=zb">
                           <dt><img src="http://t4.chei.com.cn/common/wap/help/images/zhengbing.png"/></dt>
                           <dd>
-                              <h3>应征报名</h3>
-                              <p>兵役登记、应征报名等</p>
+                              <h3><%=systemData.getName() %></h3>
+                              <p><%=systemData.getDescription() %></p>
                           </dd>
                         </a>
                       </dl>                      

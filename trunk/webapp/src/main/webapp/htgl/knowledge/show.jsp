@@ -25,6 +25,29 @@ if("update".equals(from)) {
                 <script type="text/javascript">
                     $(function(){
                     	showSearchResult($("#kId").val(),0);
+                    	$("a[data-action='update-time']").on("click",function(){
+                    		if(confirm("确定要修改该知识的更新时间为当前时间？")) {
+                    			document.location.href="/htgl/knowledge/updateKnowledgeTime.action?id=<s:property value=" knowledgeData.id " />";
+                    		}
+                    	});
+                    	$(document).on("click","a[data-action='delete']",function() {
+                        	if(confirm("确定要删除该知识点？")) {
+            	            	var knowId = '<s:property value=" knowledgeData.id " />';
+            	            	$.getJSON(
+                        			"<%=ctxPath%>/htgl/knowledge/delKnowledge.action",
+                        			{id:knowId},
+                        			function(data){
+                        				if(data.flag=='true') {
+                        					alert("删除成功");
+                        					document.location.href="/htgl/knowledge/searchindex.action";
+                        				} else {
+                        					var errMsg = data.errorMessages.pop();
+                        					alert(errMsg);
+                        				}
+                        			}
+            	            	)
+                        	}
+                        });
                 	}); 
                 
                     try {
@@ -99,12 +122,16 @@ if("update".equals(from)) {
                                                 <h2 class="widget-title"><s:property value=" knowledgeData.article.title " /></h2>
 
                                                 <div class="widget-toolbar no-border">
-                                                    <a href="#" data-action="settings">
-                                                        <i class="ace-icon fa fa-cog"></i>
+                                                    <a href="#" data-action="update-time">
+                                                        <i class="ace-icon fa fa-clock-o"></i>
                                                     </a>
 
-                                                    <a href="#" data-action="reload">
-                                                        <i class="ace-icon fa fa-refresh"></i>
+                                                    <a href="/htgl/knowledge/modifyindex.action?id=<s:property value=" knowledgeData.id " />&systemId=<s:property value=" knowledgeData.systemData.id " />" >
+                                                        <i class="ace-icon fa fa-pencil"></i>
+                                                    </a>
+                                                    
+                                                    <a href="#" data-action="delete">
+                                                        <i class="ace-icon fa fa-trash"></i>
                                                     </a>
 
                                                     <a href="#" data-action="collapse">
