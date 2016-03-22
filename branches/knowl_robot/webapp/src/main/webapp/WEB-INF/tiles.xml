@@ -78,4 +78,9 @@
         <put-attribute name="body" value="/htgl/recycle/index.jsp"/>
     </definition>
     
+    <!-- 机器人 -->
+    <definition name="robot.index" extends="htgl.knowledge.modal" >
+        <put-attribute name="body" value="/robot/index.jsp"/>
+    </definition>
+    
 </tiles-definitions> 

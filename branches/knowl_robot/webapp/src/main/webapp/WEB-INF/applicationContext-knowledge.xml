@@ -81,5 +81,10 @@
         <property name="systemService" ref="systemService" />
         <property name="knowledgeService" ref="knowledgeService" />
     </bean>
+    
+    <bean id="qaActionBean"  class="com.chsi.knowledge.robot.action.QAAction"  scope="request">
+        <property name="robotService" ref="robotService" />
+        <property name="knowIndexService" ref="knowIndexService" />
+    </bean>
    
 </beans>

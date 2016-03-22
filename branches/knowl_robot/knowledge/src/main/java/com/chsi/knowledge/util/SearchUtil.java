@@ -76,7 +76,7 @@ public class SearchUtil {
     }
     
     /**
-     * 数据格式转换
+     * 数据格式转换,截断知识保证不超过一定字符数
      * @param listVO
      * @param searchWords
      * @return

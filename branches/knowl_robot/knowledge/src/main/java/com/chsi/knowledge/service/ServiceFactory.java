@@ -40,4 +40,8 @@ public class ServiceFactory {
         return springBeanLocator.getBean(ServiceConstants.KNOWLEDGE_INDEX_SERVICE);
     }
     
+    public static RobotService getRobotService(){
+        return springBeanLocator.getBean(ServiceConstants.ROBOT_SERVICE);
+    }
+    
 }

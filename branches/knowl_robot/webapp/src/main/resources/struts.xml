@@ -99,4 +99,5 @@
     <include file="struts-search.xml"></include>
     <include file="struts-htgl.xml"></include>
     <include file="struts-file.xml"></include>
+    <include file="struts-robot.xml"></include>
 </struts>
