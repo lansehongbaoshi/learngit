@@ -14,7 +14,7 @@ public class SystemOpenTimeDAOImpl extends BaseHibernateDAO implements SystemOpe
 
     private static String SELECT_SYSTEMOPENTIMEDATA = "select p from SystemOpenTimeData p ";
     private static String DELETE_SYSTEMOPENTIMEDATA = "delete SystemOpenTimeData p ";
-    private static String SELECT_SYSTEMID = "select p from SystemOpenTimeData p where :systime < TO_char(p.endTime, 'yyyy-mm-dd hh24:mi:ss') and :systime > TO_char(p.startTime,'yyyy-mm-dd hh24:mi:ss') ";
+    private static String SELECT_SYSTEMID = "select p from SystemOpenTimeData p,SystemData s where p.systemId=s.id and :systime < TO_char(p.endTime, 'yyyy-mm-dd hh24:mi:ss') and :systime > TO_char(p.startTime,'yyyy-mm-dd hh24:mi:ss') order by s.sort";
     
     
     private static String CONDITION_SYSTEM_ID = " where p.systemId=:systemId ";

@@ -299,6 +299,19 @@ public class KnowledgeAction extends AjaxAction {
         request.put(Constants.REQUEST_ERROR, "参数不能为空");
         return ERROR;
     }
+    
+    //更新知识最后更新时间
+    public String updateKnowledgeTime() throws Exception {
+        if(!ValidatorUtil.isNull(id)) {
+            KnowledgeData data = knowledgeService.getKnowledgeById(id);
+            if(data!=null) {
+                data.setUpdateTime(Calendar.getInstance());
+                data.setUpdater(getLoginedUserId());
+                knowledgeService.update(data);
+            }
+        }
+        return SUCCESS;
+    }
 
     public String addKnowledge() throws Exception {
         String error = "";

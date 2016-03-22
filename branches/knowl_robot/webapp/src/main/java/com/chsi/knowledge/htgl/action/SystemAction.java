@@ -30,6 +30,7 @@ public class SystemAction extends AjaxAction{
     private SystemData systemData;
     private List<SystemData> systemDatas;
     private List<TagData> tagDatas;
+    private int sort;
     
     public SystemService getSystemService() {
         return systemService;
@@ -111,6 +112,16 @@ public class SystemAction extends AjaxAction{
         this.tagDatas = tagDatas;
     }
 
+    public int getSort() {
+        return sort;
+    }
+
+    public void setSort(int sort) {
+        this.sort = sort;
+    }
+
+
+
     protected AjaxMessage ajaxMessage = new AjaxMessage();
     
     public void getSystems() throws Exception{
@@ -126,7 +137,7 @@ public class SystemAction extends AjaxAction{
             List<TagData> list = ManageCacheUtil.getTagList(data.getId());
             data.setTagCnt(list==null?0:list.size());
         }
-        //List<String> strList = systemService.getSystemId();//测试用的
+//        List<SystemOpenTimeData> strList = systemService.getOpenSystems();//测试用的
         return SUCCESS;
     }
     
@@ -144,7 +155,7 @@ public class SystemAction extends AjaxAction{
             request.put(Constants.REQUEST_ERROR, "参数不能为空");
             return ERROR;
         }
-        SystemData data = new SystemData(id, name, description);
+        SystemData data = new SystemData(id, name, description, sort);
 //        if(!ValidatorUtil.isNull(startTime) && !ValidatorUtil.isNull(endTime)) {
 //            SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 //            Date startDate =sdf.parse(startTime);
@@ -174,6 +185,7 @@ public class SystemAction extends AjaxAction{
         }
         data.setName(name);
         data.setDescription(description);
+        data.setSort(sort);
 //        if((!ValidatorUtil.isNull(startTime) && !ValidatorUtil.isNull(endTime))) {
 //            SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 //            Date startDate =sdf.parse(startTime);

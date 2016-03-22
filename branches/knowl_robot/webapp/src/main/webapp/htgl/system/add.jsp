@@ -33,6 +33,9 @@
             
                 <div class="col-xs-12">
                     <p>
+		          系统位置： <input type="text" name="sort" value="" style="width: 400px;">
+		           </p>
+                    <p>
                         系统代码：<input type="text" name="id" value="" style="width: 400px;"><span>（说明：填写系统简称代码，如征兵就写“zb”）<span>
                     </p>
                     <p>系统名称：<input type="text" name="name" value="" style="width: 400px;" >

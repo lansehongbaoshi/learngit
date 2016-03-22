@@ -86,14 +86,15 @@ public class CommonServiceImpl extends BaseDbService implements CommonService {
         Calendar endTime = Calendar.getInstance();
         List<CntVO> listTemp = commonDAO.getTopVisitKnowl(systemOpenTimeData, startTime, endTime);
         Collections.sort(listTemp);
-        int startIndex = listTemp.size()-total;
-        List<CntVO> list = listTemp.subList(startIndex>=0?startIndex:0, listTemp.size());
         List<KnowledgeData> result = new ArrayList<KnowledgeData>();
-        for(int i=0;i<list.size();i++) {
-            CntVO vo = list.get(i);
+        int cnt = 0;
+        for(int i=listTemp.size()-1;i>-1;i--) {
+            if(cnt>=total) break;
+            CntVO vo = listTemp.get(i);
             KnowledgeData data = ManageCacheUtil.getKnowledgeDataById(vo.getId());
             if(data!=null) {
                 result.add(data);
+                cnt++;
             }
         }
         return result;

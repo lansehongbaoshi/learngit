@@ -26,23 +26,31 @@ public class SystemData extends PersistentObject {
     private String id;
     private String name;
     private String description;
-    private Date startTime;
-    private Date endTime;
     private List<SystemOpenTimeData> list;
     
     private int tagCnt;
+    private Integer sort;
 
     public void setData(PersistentObject persistentObject) {
         SystemData systemData = (SystemData) persistentObject;
         this.id = systemData.getId();
         this.name = systemData.getName();
         this.description = systemData.getDescription();
+        this.sort = systemData.getSort();
     }
     
     public SystemData(){
         super();
     }
 
+    public SystemData(String id, String name, String description, int sort) {
+        super();
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.sort = sort;
+    }
+    
     public SystemData(String id, String name, String description) {
         super();
         this.id = id;
@@ -80,22 +88,13 @@ public class SystemData extends PersistentObject {
         this.description = description;
     }
 
-    @Column(name = "START_TIME")
-    public Date getStartTime() {
-        return startTime;
+    @Column(name = "SORT")
+    public Integer getSort() {
+        return sort;
     }
 
-    public void setStartTime(Date startTime) {
-        this.startTime = startTime;
-    }
-
-    @Column(name = "END_TIME")
-    public Date getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(Date endTime) {
-        this.endTime = endTime;
+    public void setSort(Integer sort) {
+        this.sort = sort;
     }
 
     @Transient
@@ -118,6 +117,15 @@ public class SystemData extends PersistentObject {
 
     @Override
     public boolean equals(Object obj) {
-        return this.getId().equals(((SystemData)obj).getId());
+        if(obj!=null&&obj.getClass().equals(this.getClass())) {
+            SystemData data = (SystemData)obj;
+            return this.getId().equals(data.getId());
+        }
+        return false;
+    }
+    
+    @Override
+    public int hashCode() {
+        return this.getId().hashCode();
     }
 }

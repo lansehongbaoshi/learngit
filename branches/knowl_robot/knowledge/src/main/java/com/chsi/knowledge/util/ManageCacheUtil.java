@@ -1,6 +1,6 @@
 package com.chsi.knowledge.util;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -147,12 +147,12 @@ public class ManageCacheUtil {
         return result;
     }
     
-    //首页点击查看更多显示各个开放系统的热点问题
+    //首页点击查看更多显示各个系统的热点问题
     public static Map<SystemData, List<KnowledgeData>> getCatalogTopKnowl(int cnt) {
         String key = CACHE_KEY_ + SEP + "getCatalogTopKnowl";
         Map<SystemData, List<KnowledgeData>> result = MemCachedUtil.get(key);
         if(result == null) {
-            result = new HashMap<SystemData, List<KnowledgeData>>();
+            result = new LinkedHashMap<SystemData, List<KnowledgeData>>();
             CommonService commonService = ServiceFactory.getCommonService();
             SystemService systemService = ServiceFactory.getSystemService();
             List<SystemOpenTimeData> openSystems = systemService.getOpenSystems();
@@ -161,20 +161,15 @@ public class ManageCacheUtil {
                 SystemData systemData = getSystem(data.getSystemId());
                 result.put(systemData, list);
             }
-            MemCachedUtil.set(key, result);
-        }
-        return result;
-    }
-    
-    //首页
-    public static List<KnowledgeData> getSystemTopKnowl(String systemId) {
-        String key = CACHE_KEY_ + SEP + "getCatalogTopKnowl";
-        List<KnowledgeData> result = MemCachedUtil.get(key);
-        if(result == null) {
-            CommonService commonService = ServiceFactory.getCommonService();
-            SystemService systemService = ServiceFactory.getSystemService();
-            List<SystemOpenTimeData> openSystems = systemService.getOpenSystems();
-            result = commonService.getTopKnowl(openSystems.size()*10);
+            
+            List<SystemData> systems = systemService.getSystems();
+            systems.removeAll(result.keySet());
+            SystemOpenTimeData openData = new SystemOpenTimeData();
+            for(SystemData data:systems) {
+                openData.setSystemId(data.getId());//模拟SystemOpenTimeData
+                List<KnowledgeData> list = commonService.getTopKnowlBySystem(openData, cnt);
+                result.put(data, list);
+            }
             MemCachedUtil.set(key, result);
         }
         return result;
