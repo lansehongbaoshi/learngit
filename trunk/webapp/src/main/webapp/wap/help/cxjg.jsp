@@ -8,7 +8,7 @@ import="" %>
     <meta charset="utf-8">
     <title>查询结果_学信网帮助中心</title>
     <link href="http://t1.chei.com.cn/common/wap/help/css/reset.css" rel="stylesheet"/>
-    <link href="/css/wap/help/style.css" rel="stylesheet"/>
+    <link href="http://t2.chei.com.cn/common/wap/help/css/style.css?20160323" rel="stylesheet"/>
     <!--[if lt IE 9]><script src="'http://t3.chei.com.cn/common/wap/help/js/respond.js"></script><![endif]-->
   </head>
   <body>
