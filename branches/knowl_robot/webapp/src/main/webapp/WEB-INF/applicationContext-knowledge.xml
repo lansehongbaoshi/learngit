@@ -86,5 +86,9 @@
         <property name="robotService" ref="robotService" />
         <property name="knowIndexService" ref="knowIndexService" />
     </bean>
+    
+    <bean id="robotSetActionBean"  class="com.chsi.knowledge.htgl.action.RobotSetAction"  scope="request">
+        <property name="robotService" ref="robotService" />
+    </bean>
    
 </beans>

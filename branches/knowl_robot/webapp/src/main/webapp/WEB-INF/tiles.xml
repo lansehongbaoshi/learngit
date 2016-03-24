@@ -80,7 +80,20 @@
     
     <!-- 机器人 -->
     <definition name="robot.index" extends="htgl.knowledge.modal" >
+        <put-attribute name="title" value="学信网机器人"/>
         <put-attribute name="content" value="/robot/index.jsp"/>
     </definition>
+    
+    <!-- 机器人配置 -->
+    <definition name="htgl.robot.set.list" extends="htgl.admin.main" >
+        <put-attribute name="body" value="/htgl/robot/set/list.jsp"/>
+    </definition>
+    <definition name="htgl.robot.set.add" extends="htgl.admin.main" >
+        <put-attribute name="body" value="/htgl/robot/set/add.jsp"/>
+    </definition>
+    <definition name="htgl.robot.set.modify" extends="htgl.admin.main" >
+        <put-attribute name="body" value="/htgl/robot/set/modify.jsp"/>
+    </definition>
+    
     
 </tiles-definitions> 

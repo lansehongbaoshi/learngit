@@ -97,6 +97,14 @@ com.chsi.knowledge.vo.LoginUserVO user = com.chsi.knowledge.web.util.WebAppUtil.
 
 						<b class="arrow"></b>
 					</li>
+					<li id="robot_menu" class="">
+						<a href="/htgl/robot/set/list">
+							<i class="menu-icon fa fa-gear"></i>
+							<span class="menu-text"> 机器人配置 </span>
+						</a>
+
+						<b class="arrow"></b>
+					</li>
 					 
 
 				

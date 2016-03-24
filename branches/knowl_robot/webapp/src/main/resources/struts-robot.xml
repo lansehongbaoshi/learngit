@@ -16,6 +16,8 @@
         <action name="index" class="qaActionBean" method="index">
             <result name="success" type="tiles">robot.index</result>
         </action>
+        <action name="qa" class="qaActionBean" method="qa">
+        </action>
     </package>
     
 </struts>

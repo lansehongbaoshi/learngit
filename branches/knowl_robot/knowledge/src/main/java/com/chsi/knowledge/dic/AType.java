@@ -1,5 +1,5 @@
 package com.chsi.knowledge.dic;
 
 public enum AType {
-    NONE,DEFINITE,INDEFINITE;
+    NONE,DEFINITE,INDEFINITE,ROBOT;
 }

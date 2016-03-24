@@ -17,7 +17,7 @@ import com.chsi.framework.pojos.PersistentObject;
  *
  */
 @Entity
-@Table(name = "QA_LOG")
+@Table(name = "A_LOG")
 @DynamicUpdate(value = true)
 public class ALogData extends PersistentObject {
     

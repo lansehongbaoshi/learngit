@@ -182,4 +182,32 @@
         </action>
     </package>
     
+    <package name="htgl.robot.set" extends="knowledge-default" namespace="/htgl/robot/set">
+        <interceptors>
+          <interceptor-stack name="knowledgeStack">
+              <interceptor-ref name="chsiDefaultStack"></interceptor-ref>
+              <interceptor-ref name="store">
+                  <param name="operationMode">AUTOMATIC</param>
+              </interceptor-ref>
+          </interceptor-stack>
+        </interceptors>
+        <action name="list" class="robotSetActionBean" method="list">
+            <result name="success" type="tiles">htgl.robot.set.list</result>
+        </action>
+        <action name="addIndex">
+            <result name="success" type="tiles">htgl.robot.set.add</result>
+        </action>
+        <action name="add" class="robotSetActionBean" method="add">
+            <result name="success" type="redirect">/htgl/robot/set/list</result>
+        </action>
+        <action name="updateIndex" class="robotSetActionBean" method="updateIndex">
+            <result name="success" type="tiles">htgl.robot.set.modify</result>
+        </action>
+        <action name="update" class="robotSetActionBean" method="update">
+            <result name="success" type="redirect">/htgl/robot/set/list</result>
+        </action>
+        <action name="delete" class="robotSetActionBean" method="delete">
+        </action>
+    </package>
+    
 </struts>
