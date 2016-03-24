@@ -8,7 +8,7 @@ import="com.chsi.knowledge.pojo.KnowledgeData,com.chsi.knowledge.util.ManageCach
 <script>
 var sessionId = "<s:property value='sessionId'/>";
 $(function(){
-	$("#showbox").html("<div class='robot'>你好，我是学信网机器人，有什么可以帮助您的</div>");
+	$("#showbox").html("<div class='robot'>你好，我是学信网机器人，有什么可以帮助您的？</div>");
 	$("#sendBtn").on("click",function(){
 		var q = $("#inputbox").val();
 		$("#showbox").append("<div class='person'>"+q+"</div>");
@@ -18,11 +18,13 @@ $(function(){
     			//console.log(result);
     			var a="<div class='robot'>";
     			if(data.AType=='INDEFINITE') {
-    				a+="您的意思是：<br>"
+    				a+="您的意思是?<br>"
     				for(i in data.result) {
     					var knowl = data.result[i];
     					a+="<a class='indefinite' data-id='"+knowl.knowId+"' href='javascript:void(0)'>"+"["+knowl.system+"]"+knowl.title+"</a><br>";
     				}
+    			}else if(data.AType=='NONE'){
+    				a+=data.content+"<br>";
     			}else{
     				a+=data.content+"<br>";
     			}

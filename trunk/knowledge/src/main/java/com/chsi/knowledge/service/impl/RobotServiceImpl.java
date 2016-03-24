@@ -91,7 +91,12 @@ public class RobotServiceImpl extends BaseDbService implements RobotService {
                     }
                 } else {
                     list = knowIndexService.searchTitle(keywords, 0, 5);
-                    aType = AType.INDEFINITE;
+                    if(list.getKnows().size()>0) {
+                        aType = AType.INDEFINITE;
+                    } else {
+                        aType = AType.NONE;
+                        answerVO.setContent("你说什么呢，我没明白你的意思呢");
+                    }
                 }
                 answerVO.setAType(aType);
                 
