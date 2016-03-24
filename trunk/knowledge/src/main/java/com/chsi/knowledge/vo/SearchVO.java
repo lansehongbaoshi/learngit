@@ -20,6 +20,14 @@ public class SearchVO {
     private int visitCnt;
     private int sort;
     
+    public SearchVO(String systemId, String system, String knowId, String title, String summary) {
+        this.systemId = systemId;
+        this.system = system;
+        this.title = title;
+        this.summary = summary;
+        this.knowId = knowId;
+    }
+    
     public SearchVO(String systemId, String system, String tags, String title, String summary, String knowId, List<String> tagIds, String keywords, int visitCnt, int sort){
         this.systemId = systemId;
         this.system = system;

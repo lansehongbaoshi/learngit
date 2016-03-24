@@ -13,5 +13,10 @@
         <mapping class="com.chsi.knowledge.pojo.SearchLogData" /> 
         <mapping class="com.chsi.knowledge.pojo.KnowledgeVisitLogData" /> 
         <mapping class="com.chsi.knowledge.pojo.SystemOpenTimeData" /> 
+        <mapping class="com.chsi.knowledge.pojo.QALogData" /> 
+        <mapping class="com.chsi.knowledge.pojo.QASessionData" /> 
+        <mapping class="com.chsi.knowledge.pojo.RobotQSetData" /> 
+        <mapping class="com.chsi.knowledge.pojo.RobotASetData" /> 
+        <mapping class="com.chsi.knowledge.pojo.ALogData" /> 
      </session-factory>
 </hibernate-configuration>

@@ -12,6 +12,7 @@ public class ServiceConstants {
     public static final String SYSTEMOPENTIME_DAO = "systemOpenTimeDAO";
     public static final String KNOWTAGRELATIONDATA_DAO  = "knowTagRelationDataDAO";
     public static final String COMMON_DAO  = "commonDAO";
+    public static final String ROBOT_DAO  = "robotDAO";
     
     
     //SERVICE层
@@ -22,6 +23,7 @@ public class ServiceConstants {
     public static final String KNOWTAGRELATIONDATA_SERVICE  = "knowTagRelationService";
     public static final String COMMON_SERVICE  = "commonServiceImpl";
     public static final String KNOWLEDGE_INDEX_SERVICE  = "knowIndexService";
+    public static final String ROBOT_SERVICE  = "robotService";
     
     public static final String SERVICE_IMPL_CONF = "META-INF/conf/knowledge/serviceImpl.xml";
     
