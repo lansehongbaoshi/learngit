@@ -27,5 +27,7 @@ public interface RobotService {
      */
     Map<RobotQSetData, List<RobotASetData>> getRobotQASet(String qID);
     
+    List<RobotASetData> getAByExplicitQ(String q);
+    
     void deleteRobotQASet(String id);
 }

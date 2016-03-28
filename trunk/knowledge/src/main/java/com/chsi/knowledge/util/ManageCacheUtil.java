@@ -7,11 +7,13 @@ import java.util.Map;
 import com.chsi.knowledge.dic.KnowledgeStatus;
 import com.chsi.knowledge.pojo.KnowTagRelationData;
 import com.chsi.knowledge.pojo.KnowledgeData;
+import com.chsi.knowledge.pojo.RobotASetData;
 import com.chsi.knowledge.pojo.SystemData;
 import com.chsi.knowledge.pojo.SystemOpenTimeData;
 import com.chsi.knowledge.pojo.TagData;
 import com.chsi.knowledge.service.CommonService;
 import com.chsi.knowledge.service.KnowledgeService;
+import com.chsi.knowledge.service.RobotService;
 import com.chsi.knowledge.service.ServiceFactory;
 import com.chsi.knowledge.service.SystemService;
 import com.chsi.knowledge.service.TagService;
@@ -190,5 +192,16 @@ public class ManageCacheUtil {
     public static void removeUnderwaySystem() {
         String key = CACHE_KEY_ + SEP + "getUnderwaySystem";
         MemCachedUtil.removeByKey(key);
+    }
+    
+    public static List<RobotASetData> getRobotASetByQ(String q) {
+        String key = CACHE_KEY_ + SEP + "getRobotASetByQ" + q;
+        List<RobotASetData> result = MemCachedUtil.get(key);
+        if(result==null) {
+            RobotService robotService = ServiceFactory.getRobotService();
+            result = robotService.getAByExplicitQ(q);
+            MemCachedUtil.set(key, result);
+        }
+        return result;
     }
 }

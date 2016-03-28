@@ -11,7 +11,8 @@ import com.chsi.knowledge.pojo.RobotASetData;
 import com.chsi.knowledge.pojo.RobotQSetData;
 
 public class RobotDAOImpl extends BaseHibernateDAO implements RobotDAO{
-    private static String query_robot_a = "select aa from RobotQSetData qq,RobotASetData aa where aa.qId=qq.id and qq.q like (:q)";
+    private static String query_robot_a_by_like_q = "select aa from RobotQSetData qq,RobotASetData aa where aa.qId=qq.id and qq.q like (:q)";
+    private static String query_robot_a_by_q = "select aa from RobotQSetData qq,RobotASetData aa where aa.qId=qq.id and qq.q = :q";
     private static String query_all_q = "from RobotQSetData";
     private static String from_a = "from RobotQSetData";
     private static String query_a_by_q = "select p from RobotASetData p where p.qId=:qId";
@@ -24,7 +25,7 @@ public class RobotDAOImpl extends BaseHibernateDAO implements RobotDAO{
 
     @Override
     public List<RobotASetData> getAByQ(String q) {
-        String hql = query_robot_a;
+        String hql = query_robot_a_by_like_q;
         Query query = hibernateUtil.getSession().createQuery(hql);
         query.setString("q", "%"+q+"%");
         return query.list();
@@ -64,6 +65,14 @@ public class RobotDAOImpl extends BaseHibernateDAO implements RobotDAO{
         Query query = hibernateUtil.getSession().createQuery(hql);
         query.setString("id", id);
         return (RobotASetData)query.uniqueResult();
+    }
+
+    @Override
+    public List<RobotASetData> getAByExplicitQ(String q) {
+        String hql = query_robot_a_by_q;
+        Query query = hibernateUtil.getSession().createQuery(hql);
+        query.setString("q", q);
+        return query.list();
     }
 
 }

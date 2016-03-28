@@ -113,8 +113,9 @@ public class ManageAction extends BasicAction{
     //把某个系统的所有知识点刷到搜索引擎的索引
     public String refreshIndex() throws Exception {
         if(!ValidatorUtil.isNull(systemId)) {
-            List<KnowledgeData> list = knowledgeService.get(systemId);
+            List<KnowledgeData> list = knowledgeService.get(systemId, KnowledgeStatus.YSH);
             if (null != list) {
+                log.info(systemId+"开始刷索引，共"+list.size());
                 for (KnowledgeData temp : list) {
                     try{
                         knowIndexService.updateKnowIndex(temp.getId());
@@ -124,6 +125,7 @@ public class ManageAction extends BasicAction{
                         log.error(String.format("{method:'refreshIndex',knowId:'%s',result:'fail'}", temp.getId()));
                     }
                 }
+                log.info(systemId+"结束刷索引");
             }
         }
         return INPUT;
@@ -133,6 +135,7 @@ public class ManageAction extends BasicAction{
         if(!ValidatorUtil.isNull(systemId)) {
             List<KnowledgeData> list = knowledgeService.get(systemId);
             if (null != list) {
+                log.info(systemId+"开始删索引，共"+list.size());
                 for (KnowledgeData temp : list) {
                     try{
                         knowIndexService.deleteKnowIndex(temp.getId());
@@ -142,6 +145,7 @@ public class ManageAction extends BasicAction{
                         log.error(String.format("{method:'deleteIndex',knowId:'%s',result:'fail'}", temp.getId()));
                     }
                 }
+                log.info(systemId+"结束删索引");
             }
         }
         return INPUT;

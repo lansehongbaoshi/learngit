@@ -95,7 +95,10 @@ public class RobotServiceImpl extends BaseDbService implements RobotService {
                         aType = AType.INDEFINITE;
                     } else {
                         aType = AType.NONE;
-                        answerVO.setContent("你说什么呢，我没明白你的意思呢");
+                        robotAList = ManageCacheUtil.getRobotASetByQ("?");
+                        int randomIndex = (int)(Math.random()*robotAList.size());
+                        String content = robotAList.get(randomIndex).getA();
+                        answerVO.setContent(content);
                     }
                 }
                 answerVO.setAType(aType);
@@ -146,5 +149,10 @@ public class RobotServiceImpl extends BaseDbService implements RobotService {
             robotDAO.del(data);
         }
         robotDAO.del(robotQSetData);
+    }
+
+    @Override
+    public List<RobotASetData> getAByExplicitQ(String q) {
+        return robotDAO.getAByExplicitQ(q);
     }
 }

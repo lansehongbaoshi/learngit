@@ -1,5 +1,7 @@
 package com.chsi.knowledge.thread;
 
+import net.sf.json.JSONObject;
+
 import com.chsi.knowledge.pojo.SearchLogData;
 import com.chsi.knowledge.service.CommonService;
 import com.chsi.knowledge.service.QueueService;
@@ -30,6 +32,9 @@ public class RecordSearchLogThread  extends BaseThread{
                 }
                 sleep(100);
             } catch (Exception e) {
+                if(data!=null) {
+                    log.error(JSONObject.fromObject(data).toString());
+                }
                 log.error(e);
             }
         }

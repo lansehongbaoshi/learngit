@@ -16,11 +16,18 @@ public interface RobotDAO {
     RobotASetData getRobotASetData(String id);
     
     /**
-     * 根据问题查询配置的答案
+     * 根据问题模糊查询配置的答案
      * @param q
      * @return
      */
     List<RobotASetData> getAByQ(String q);
+    
+    /**
+     * 根据问题精确查询配置的答案
+     * @param q
+     * @return
+     */
+    List<RobotASetData> getAByExplicitQ(String q);
     
     List<RobotQSetData> allQ();
     
