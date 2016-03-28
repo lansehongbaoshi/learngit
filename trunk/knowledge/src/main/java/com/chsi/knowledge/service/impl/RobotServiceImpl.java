@@ -90,7 +90,7 @@ public class RobotServiceImpl extends BaseDbService implements RobotService {
                         aType = AType.INDEFINITE;
                     }
                 } else {
-                    list = knowIndexService.searchTitle(keywords, 0, 5);
+                    list = knowIndexService.searchTitle(keywords, 0, 5);//全匹配搜索不到再分词搜索
                     if(list.getKnows().size()>0) {
                         aType = AType.INDEFINITE;
                     } else {
