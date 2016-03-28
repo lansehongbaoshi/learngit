@@ -1,1 +1,0 @@
-mvn -Dtest package -DfailIfNoTests=false
