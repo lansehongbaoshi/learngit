@@ -95,5 +95,12 @@
         <put-attribute name="body" value="/htgl/robot/set/modify.jsp"/>
     </definition>
     
+    <!-- 统计 -->
+    <definition name="htgl.total.list" extends="htgl.admin.main" >
+        <put-attribute name="body" value="/htgl/total/list.jsp"/>
+    </definition>
+    <definition name="htgl.total.option" extends="htgl.admin.main" >
+        <put-attribute name="body" value="/htgl/total/option.jsp"/>
+    </definition>
     
 </tiles-definitions> 

@@ -5,6 +5,7 @@ import java.util.List;
 import com.chsi.framework.pojos.PersistentObject;
 import com.chsi.knowledge.pojo.KnowledgeData;
 import com.chsi.knowledge.pojo.SystemOpenTimeData;
+import com.chsi.knowledge.vo.LineChartVO;
 import com.chsi.search.client.vo.KnowledgeVO;
 
 public interface CommonService {
@@ -46,4 +47,6 @@ public interface CommonService {
      * @return
      */
     List<KnowledgeData> getTopKnowlBySystem(SystemOpenTimeData systemOpenTimeData, int total);
+    
+    LineChartVO getTopKnowlVisitLog(String systemId, int topCnt, String startTime, String endTime);
 }

@@ -32,4 +32,7 @@ public interface CommonDAO {
      * @return
      */
     List<SearchLogData> getSearchLogData(Calendar startTime, Calendar endTime);
+    
+    
+    List<Long> totalVisitLog(String kowId, String startTime, String endTime);
 }

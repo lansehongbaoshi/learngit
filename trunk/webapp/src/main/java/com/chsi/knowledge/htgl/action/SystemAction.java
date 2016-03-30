@@ -5,7 +5,6 @@ import java.util.List;
 import com.chsi.framework.util.ValidatorUtil;
 import com.chsi.knowledge.Constants;
 import com.chsi.knowledge.action.base.AjaxAction;
-import com.chsi.knowledge.pojo.KnowTagRelationData;
 import com.chsi.knowledge.pojo.SystemData;
 import com.chsi.knowledge.pojo.SystemOpenTimeData;
 import com.chsi.knowledge.pojo.TagData;
@@ -30,7 +29,7 @@ public class SystemAction extends AjaxAction{
     private SystemData systemData;
     private List<SystemData> systemDatas;
     private List<TagData> tagDatas;
-    private int sort;
+    private String sort;
     
     public SystemService getSystemService() {
         return systemService;
@@ -112,15 +111,13 @@ public class SystemAction extends AjaxAction{
         this.tagDatas = tagDatas;
     }
 
-    public int getSort() {
+    public String getSort() {
         return sort;
     }
 
-    public void setSort(int sort) {
+    public void setSort(String sort) {
         this.sort = sort;
     }
-
-
 
     protected AjaxMessage ajaxMessage = new AjaxMessage();
     
@@ -155,7 +152,7 @@ public class SystemAction extends AjaxAction{
             request.put(Constants.REQUEST_ERROR, "参数不能为空");
             return ERROR;
         }
-        SystemData data = new SystemData(id, name, description, sort);
+        SystemData data = new SystemData(id, name, description, ValidatorUtil.isNumber(sort)?Integer.parseInt(sort):0);
 //        if(!ValidatorUtil.isNull(startTime) && !ValidatorUtil.isNull(endTime)) {
 //            SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 //            Date startDate =sdf.parse(startTime);
@@ -185,7 +182,7 @@ public class SystemAction extends AjaxAction{
         }
         data.setName(name);
         data.setDescription(description);
-        data.setSort(sort);
+        data.setSort(ValidatorUtil.isNumber(sort)?Integer.parseInt(sort):0);
 //        if((!ValidatorUtil.isNull(startTime) && !ValidatorUtil.isNull(endTime))) {
 //            SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 //            Date startDate =sdf.parse(startTime);

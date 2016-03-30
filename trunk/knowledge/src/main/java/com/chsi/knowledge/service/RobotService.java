@@ -7,6 +7,7 @@ import com.chsi.framework.pojos.PersistentObject;
 import com.chsi.knowledge.pojo.RobotASetData;
 import com.chsi.knowledge.pojo.RobotQSetData;
 import com.chsi.knowledge.vo.AnswerVO;
+import com.chsi.knowledge.vo.PieVO;
 
 public interface RobotService {
     void save(PersistentObject pojo);
@@ -30,4 +31,12 @@ public interface RobotService {
     List<RobotASetData> getAByExplicitQ(String q);
     
     void deleteRobotQASet(String id);
+    
+    List<PieVO> totalSession();
+    
+    /**
+     * 统计问题情况，包括：没答案、确定答案、不确定答案
+     * @return
+     */
+    List<PieVO> totalQ();
 }

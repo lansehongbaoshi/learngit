@@ -24,6 +24,8 @@ import com.chsi.knowledge.service.SystemService;
 import com.chsi.knowledge.util.ManageCacheUtil;
 import com.chsi.knowledge.util.SearchUtil;
 import com.chsi.knowledge.vo.CntVO;
+import com.chsi.knowledge.vo.LineChartVO;
+import com.chsi.knowledge.vo.SeriesVO;
 import com.chsi.search.client.vo.KnowledgeVO;
 
 public class CommonServiceImpl extends BaseDbService implements CommonService {
@@ -176,6 +178,45 @@ public class CommonServiceImpl extends BaseDbService implements CommonService {
             int cnt = result.get(j);
             result.set(j, cnt+1);
         }
+        return result;
+    }
+
+    @Override
+    public LineChartVO getTopKnowlVisitLog(String systemId, int topCnt, String startTime, String endTime) {
+        SystemOpenTimeData sotd = new SystemOpenTimeData();
+        sotd.setSystemId(systemId);
+        Calendar cal1 = TimeUtil.getCalendar(startTime);
+        Calendar cal2 = TimeUtil.getCalendar(endTime);
+        cal2.set(Calendar.HOUR_OF_DAY, 24);
+        List<CntVO> list = commonDAO.getTopVisitKnowl(sotd, cal1, cal2);
+        List<String> legend = new ArrayList<String>();
+        List<SeriesVO> series = new ArrayList<SeriesVO>();
+        for(int i=0;i<topCnt;i++) {
+            CntVO cntVO = list.get(i);
+            String knowlId = cntVO.getId();
+            KnowledgeData knowledgeData = ManageCacheUtil.getKnowledgeDataById(knowlId);
+            String title = knowledgeData.getArticle().getTitle();
+            legend.add(title);
+            List<Long> datas = commonDAO.totalVisitLog(knowlId, startTime, endTime);
+            SeriesVO seriesVO = new SeriesVO(title, datas);
+            series.add(seriesVO);
+        }
+        List<String> xAxis = getDays(startTime, endTime);
+        return new LineChartVO(legend, xAxis, series);
+    }
+    
+    //获取两个日期间的所有日期
+    private List<String> getDays(String startTime, String endTime) {
+        List<String> result = new ArrayList<String>();
+        String str = startTime;
+        Calendar cal;
+        while(!endTime.equals(str)) {
+            result.add(str);
+            cal = TimeUtil.getCalendar(str);
+            cal.add(Calendar.DAY_OF_YEAR, 1);
+            str = TimeUtil.getTime(cal, "yyyyMMdd");
+        }
+        result.add(endTime);
         return result;
     }
 }

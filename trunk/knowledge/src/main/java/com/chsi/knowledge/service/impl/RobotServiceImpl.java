@@ -25,6 +25,7 @@ import com.chsi.knowledge.util.ManageCacheUtil;
 import com.chsi.knowledge.vo.AnswerVO;
 import com.chsi.knowledge.vo.KnowListVO;
 import com.chsi.knowledge.vo.SearchVO;
+import com.chsi.knowledge.vo.PieVO;
 import com.chsi.search.client.vo.KnowledgeVO;
 
 public class RobotServiceImpl extends BaseDbService implements RobotService {
@@ -71,7 +72,7 @@ public class RobotServiceImpl extends BaseDbService implements RobotService {
             answerVO = new AnswerVO<SearchVO>();
             q = q==null?"":q.trim();
             List<RobotASetData> robotAList = robotDAO.getAByQ(q);//先查是否是打招呼
-            if(robotAList.size()>0) {
+            if(robotAList.size()>0) {//机器人常用语回答不记录后台日志
                 int randomIndex = (int)(Math.random()*robotAList.size());
                 String content = robotAList.get(randomIndex).getA();
                 answerVO.setAType(AType.ROBOT);
@@ -154,5 +155,15 @@ public class RobotServiceImpl extends BaseDbService implements RobotService {
     @Override
     public List<RobotASetData> getAByExplicitQ(String q) {
         return robotDAO.getAByExplicitQ(q);
+    }
+
+    @Override
+    public List<PieVO> totalSession() {
+        return robotDAO.totalSession();
+    }
+
+    @Override
+    public List<PieVO> totalQ() {
+        return robotDAO.totalQ();
     }
 }

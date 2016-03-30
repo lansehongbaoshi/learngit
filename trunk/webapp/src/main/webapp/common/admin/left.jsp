@@ -105,6 +105,14 @@ com.chsi.knowledge.vo.LoginUserVO user = com.chsi.knowledge.web.util.WebAppUtil.
 
 						<b class="arrow"></b>
 					</li>
+					<li id="total_menu" class="">
+						<a href="/htgl/total/list">
+							<i class="menu-icon fa fa-area-chart"></i>
+							<span class="menu-text"> 统计分析 </span>
+						</a>
+
+						<b class="arrow"></b>
+					</li>
 					 
 
 				
