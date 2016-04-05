@@ -1,4 +1,19 @@
 @charset "utf-8";
+	/*初始化*/
+body, p, ul, ol, li, form, img, h1, h2, h3, select, input ,textarea{ margin: 0; padding: 0; }
+body { background: #fff; color: #333333; text-align: left; font: 14px/28px Tahoma, Helvetica, Arial, 'Microsoft YaHei', \5FAE\8F6F\96C5\9ED1, SimSun, sans-serif; }
+ul, li { list-style: none; }
+img { border: 0; }
+input { padding-top: 0; padding-bottom: 0; }
+input::-moz-focus-inner {border:none; padding:0; }
+select, input { vertical-align: middle; }
+select, input, textarea { font-size: 14px; font-family: Tahoma, Helvetica, Arial, 'Microsoft YaHei', \5FAE\8F6F\96C5\9ED1, SimSun, sans-serif; }
+input[type="text"], input[type="password"], textarea { outline-style: none; -webkit-appearance: none; }
+textarea { resize: none; }
+a { color: #333333; text-decoration: none; }
+a:hover { text-decoration: underline; }
+.clearfix:after { content: "\0020"; display: block; height: 0; clear: both; }
+.clearfix { zoom: 1; }
     /*头部样式*/
 html,body {height:100%;}
 body {
