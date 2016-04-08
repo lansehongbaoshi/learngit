@@ -20,8 +20,7 @@ if (null == session.getAttribute(visitedFlag)) {
 String discussedFlag = Constants.DISCUSS + id;
 boolean isDiscussed = null != session.getAttribute(discussedFlag);
 
-KnowTagRelationService knowTagRelationService = ServiceFactory.getKnowTagRelationService();
-List<KnowTagRelationData> list = knowTagRelationService.getKnowTagRelationByKnowId(id);
+List<KnowTagRelationData> list = ManageCacheUtil.getKnowTagRelationByKnowId(id);
 TagData tagData = list.get(0).getTagData();
 list = ManageCacheUtil.getKnowTag(tagData.getId());
 int otherNum = 5;

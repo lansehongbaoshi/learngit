@@ -4,6 +4,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.chsi.knowledge.Constants;
 import com.chsi.knowledge.dic.KnowledgeStatus;
 import com.chsi.knowledge.pojo.KnowTagRelationData;
 import com.chsi.knowledge.pojo.KnowledgeData;
@@ -12,11 +13,13 @@ import com.chsi.knowledge.pojo.SystemData;
 import com.chsi.knowledge.pojo.SystemOpenTimeData;
 import com.chsi.knowledge.pojo.TagData;
 import com.chsi.knowledge.service.CommonService;
+import com.chsi.knowledge.service.KnowTagRelationService;
 import com.chsi.knowledge.service.KnowledgeService;
 import com.chsi.knowledge.service.RobotService;
 import com.chsi.knowledge.service.ServiceFactory;
 import com.chsi.knowledge.service.SystemService;
 import com.chsi.knowledge.service.TagService;
+import com.chsi.knowledge.vo.ViewKnowsVO;
 import com.chsi.search.client.vo.KnowledgeVO;
 
 /**
@@ -66,6 +69,17 @@ public class ManageCacheUtil {
         if(list==null) {
             KnowledgeService knowledgeService = ServiceFactory.getKnowledgeService();
             list = knowledgeService.getKnowTagDatas(tagId, KnowledgeStatus.YSH);
+            MemCachedUtil.set(key, list);
+        }
+        return list;
+    }
+    
+    public static List<KnowTagRelationData> getKnowTagRelationByKnowId(String knowId) {
+        String key = KNOWTAG_PREFIX + SEP + knowId;
+        List<KnowTagRelationData> list = MemCachedUtil.get(key);
+        if(list==null) {
+            KnowTagRelationService knowTagRelationService = ServiceFactory.getKnowTagRelationService();
+            list = knowTagRelationService.getKnowTagRelationByKnowId(knowId);
             MemCachedUtil.set(key, list);
         }
         return list;
@@ -194,13 +208,28 @@ public class ManageCacheUtil {
         MemCachedUtil.removeByKey(key);
     }
     
-    public static List<RobotASetData> getRobotASetByQ(String q) {
+    //特殊回答配置，如：见面招呼语“#noanswer”、未找到答案时的回答“#hello”
+    public static String getRobotABySpecialQ(String q) {
         String key = CACHE_KEY_ + SEP + "getRobotASetByQ" + q;
         List<RobotASetData> result = MemCachedUtil.get(key);
         if(result==null) {
             RobotService robotService = ServiceFactory.getRobotService();
             result = robotService.getAByExplicitQ(q);
             MemCachedUtil.set(key, result);
+        }
+        int randomIndex = (int)(Math.random()*result.size());
+        String content = result.get(randomIndex).getA();
+        return content;
+    }
+    
+    //查询某标签下的所有知识标题接口及系统下所有标签等
+    public static ViewKnowsVO getViewKnowsVO(String systemId, String tagId, int curPage) {
+        String key = CACHE_KEY_ + SEP + "getViewKnowsVO" + systemId + tagId + curPage;
+        ViewKnowsVO result = MemCachedUtil.get(key);
+        if(result==null) {
+            KnowledgeService knowledgeService = ServiceFactory.getKnowledgeService();
+            SystemData system = getSystem(systemId);
+            result = knowledgeService.getViewKnowsVO(system, tagId, (curPage - 1) * Constants.PAGE_SIZE, Constants.PAGE_SIZE);
         }
         return result;
     }

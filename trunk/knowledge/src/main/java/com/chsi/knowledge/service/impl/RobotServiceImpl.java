@@ -96,9 +96,7 @@ public class RobotServiceImpl extends BaseDbService implements RobotService {
                         aType = AType.INDEFINITE;
                     } else {
                         aType = AType.NONE;
-                        robotAList = ManageCacheUtil.getRobotASetByQ("?");
-                        int randomIndex = (int)(Math.random()*robotAList.size());
-                        String content = robotAList.get(randomIndex).getA();
+                        String content = ManageCacheUtil.getRobotABySpecialQ("#noanswer");
                         answerVO.setContent(content);
                     }
                 }

@@ -13,6 +13,7 @@ import com.chsi.knowledge.service.QueueService;
 import com.chsi.knowledge.service.ServiceFactory;
 import com.chsi.knowledge.service.SystemService;
 import com.chsi.knowledge.service.TagService;
+import com.chsi.knowledge.util.ManageCacheUtil;
 import com.chsi.knowledge.vo.ViewKnowVO;
 import com.chsi.knowledge.vo.ViewKnowsVO;
 import com.opensymphony.xwork2.ActionContext;
@@ -38,7 +39,7 @@ public class KnowledgeAction extends AjaxAction{
 
     //查询所有标签及某个标签下的所有知识（公开的）
     public void getKnowledgeList() throws Exception{
-        SystemData systemData = systemService.getSystemById(systemId);
+        SystemData systemData = ManageCacheUtil.getSystem(systemId);
         if (null == systemData) {
             ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
         } else {
@@ -49,7 +50,7 @@ public class KnowledgeAction extends AjaxAction{
                     tagId = tagService.getTagData(systemId, "报名资格").getId();
                 }
             }
-            ViewKnowsVO viewKnowsVO = knowledgeService.getViewKnowsVO(systemData, tagId, (curPage - 1) * Constants.PAGE_SIZE, Constants.PAGE_SIZE);
+            ViewKnowsVO viewKnowsVO = ManageCacheUtil.getViewKnowsVO(systemId, tagId, curPage);
             ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
             ajaxMessage.setO(viewKnowsVO);
         }

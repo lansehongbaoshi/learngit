@@ -67,13 +67,13 @@ function input() {
 }
 	//点击常见问题
 $(function(){
-	$("#showbox").html("<div class='clearfix'><div class='robot'><div class='icon1'></div>你好，我是学信网机器人，有什么可以帮助您的？</div></div>");
+	$("#showbox").html("<div class='clearfix'><div class='robot'><div class='icon1'></div><s:property value='hello'/></div></div>");
 	$("#sendBtn").on("click",function(){
 		if($("#inputbox").val().length>100){
 			alert("字数超过限制！");
 		}else{
 			input();
-		}				
+		}
 	});
 	$("#inputbox").keydown(function(event) {
 		if(event.keyCode==13) {
@@ -150,7 +150,7 @@ $(function(){
 	<div class="left">
 		<div id="showbox"></div>
 		<div id="sendbox">
-			<textarea id="inputbox" maxlength="100" placeholder="请用一句话简要描述您的问题，比如'账户忘记密码？'"></textarea>
+			<textarea id="inputbox" maxlength="100" placeholder="请用一句话简要描述您的问题，比如'如何找回用户名和密码？'"></textarea>
 			<input id="sendBtn" type="button" value="发送">
 			<span id="contentwordage"></span>
 		</div>
@@ -159,11 +159,11 @@ $(function(){
 		<div class="normal-question">
 			<div id="kn_labels" >
 				<ul class="clearfix">
-					<li onclick="ajaxJSONP('systemId=zb&tagId=7ew6t0bn978knoqp','knList')" class="selected">学信网账号</li>
-					<li onclick="ajaxJSONP('systemId=zb&tagId=lmaxksjbjh5ft3','knList')">学信档案</li>
-					<li onclick="ajaxJSONP('systemId=zb&tagId=g2k1zpdyjlzj826s','knList')" style="margin-right: 0;">研招统考</li>
-					<li onclick="ajaxJSONP('systemId=zb&tagId=tskyrl0tg06sapbm','knList')">全国征兵网</li>
-					<li onclick="ajaxJSONP('systemId=zb&tagId=v4684my9nbu0uhrh','knList')">研招推免</li>
+					<li onclick="ajaxJSONP('systemId=account&tagId=uprkf85mr1n6jo57','knList')" class="selected">学信网账号</li>
+					<li onclick="ajaxJSONP('systemId=my&tagId=o170014zvshroheu','knList')">学信档案</li>
+					<li onclick="ajaxJSONP('systemId=yz_wb&tagId=fn51191g0mnglpqc','knList')" style="margin-right: 0;">研招统考</li>
+					<li onclick="ajaxJSONP('systemId=yz_tm&tagId=xpc1h2dwm08bvdq1','knList')">研招推免</li>
+                    <li onclick="ajaxJSONP('systemId=zb&tagId=lmaxksjbjh5ft3','knList')">应征报名</li>
 				</ul>
 			</div>
 			<div id="kn_lists">
