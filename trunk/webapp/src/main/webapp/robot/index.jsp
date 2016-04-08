@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
 import="com.chsi.knowledge.pojo.KnowledgeData,com.chsi.knowledge.util.ManageCacheUtil,java.util.*" %>
 <%@ taglib uri="/struts-tags" prefix="s"%>
+<link rel="stylesheet" href="http://t2.chei.com.cn/common/zbbm/js/autocomplete/jqueryui.autocomplete.css" />
+<script src="http://t3.chei.com.cn/common/zbbm/js/autocomplete/jqueryui.autocomplete.js"></script>
 <script src='http://t1.chei.com.cn/common/wap/help/js/template.js'></script>
 <script src="http://t1.chei.com.cn/common/kn/js/kn_page.js"></script>
 <style>
@@ -8,15 +10,16 @@ import="com.chsi.knowledge.pojo.KnowledgeData,com.chsi.knowledge.util.ManageCach
 .logo { position: relative; width:1000px; height: 90px; margin:0 auto; background: #afafaf; text-align:center; color: #fff; font-size: 22px;}
 .logo .switch { position: absolute; right: 0; top: 0; background: #f30;}	
 .main { width:998px; margin:0 auto; background: #f1f1f1; border:1px solid #b8b8b8;  border-top:none;}
-.main .left { float: left; width: 630px; }
+.main .left { float: left; width: 630px; position: relative; }
 .main .left #showbox { height: 380px; padding-top: 25px; border-bottom: 1px solid #b8b8b8; overflow-y: auto;overflow-x: hidden; }
 .main .left #sendbox { position: relative; height: 140px;   background: #fff; }
 .main .left #sendbox #inputbox { width: 610px; height: 80px; padding: 10px; line-height: 25px; border: none;  }
 .main .left #sendbox #sendBtn { position: absolute; right: 25px; bottom: 10px; display: inline-block; width: 100px; height: 30px; line-height: 28px; border: 1px solid #333; text-align: center; cursor: pointer; }
 .main .left #sendbox #contentwordage { position: absolute; left: 10px; bottom: 10px;  color: #999;}
 .main .left #sendbox #contentwordage .red { color: #f30;}
+.main .left .all_tips { position: absolute; bottom: 140px; left: 0; }
 .main .right{ float: right; width: 367px; border-left: 1px solid #b8b8b8;}
-.main .right .normal-question { height: 480px; border-bottom: 1px solid #b8b8b8;}
+.main .right .normal-question { height: 481px; }
 #kn_labels { padding: 20px 30px 0 30px; }
 #kn_labels ul li { float: left; margin:0 18px 20px 0 ; width: 90px; height: 35px; line-height: 35px; text-align: center;  background: #e2e2e2; cursor: pointer;  }
 #kn_labels ul li.selected { color: #fff; background: #999999;}
@@ -73,6 +76,9 @@ $(function(){
 			alert("字数超过限制！");
 		}else{
 			input();
+	        var pattern = "还可以输入<span class='red'>100</span>个字";
+            $('#contentwordage').html(pattern);	
+ 	        $('#ui-id-1').hide();           
 		}
 	});
 	$("#inputbox").keydown(function(event) {
@@ -82,6 +88,9 @@ $(function(){
 			}else{	
 				input();
 				event.preventDefault();
+		        var pattern = "还可以输入<span class='red'>100</span>个字";
+	            $('#contentwordage').html(pattern);
+	            $('#ui-id-1').hide();
 			}
 		}
 	});
@@ -124,18 +133,18 @@ $(function(){
 	});
 	//控制可以输入字数
 	var limitNum = 100;
-    var pattern = "还可以输入<span class='red'>"+ limitNum + "</span>字符";
-    $('#contentwordage').html(pattern);
-    $('#inputbox').keyup(function(){
+    var pattern = "还可以输入<span class='red'>"+ limitNum + "</span>个字";
+    $('#contentwordage').html(pattern);   
+    $('#inputbox').bind("input propertychange",function(){
 	        var remain = $(this).val().length;
 	        if(remain > 100){
 	                pattern = "<span class='red'>字数超过限制！</span>";
 	            }else{
 	                var result = limitNum - remain;
-	                pattern = "还可以输入<span class='red'>" + result + "</span>字符";
+	                pattern = "还可以输入<span class='red'>" + result + "</span>个字";
 	            }
 	            $('#contentwordage').html(pattern);
-        });
+       });
     //控制选择标签变色
  	$("#kn_labels ul li").bind("click",function(){
 		$(this).addClass("selected").siblings().removeClass("selected");		
@@ -150,10 +159,11 @@ $(function(){
 	<div class="left">
 		<div id="showbox"></div>
 		<div id="sendbox">
-			<textarea id="inputbox" maxlength="100" placeholder="请用一句话简要描述您的问题，比如'如何找回用户名和密码？'"></textarea>
+			<textarea id="inputbox" maxlength="100" autocomplete="off" placeholder="请用一句话简要描述您的问题，比如'如何找回用户名和密码？'"></textarea>
 			<input id="sendBtn" type="button" value="发送">
 			<span id="contentwordage"></span>
 		</div>
+		<div class="all_tips"></div>
 	</div>
 	<div class="right">
 		<div class="normal-question">
@@ -218,9 +228,10 @@ function ajaxJSONP(data,callback){
     }    
   //列表翻页
  function knList(json){
-     if(!json.flag){ alert(json.errorMessages); return;}
-     $("#kn_list").html(template('snippet_list',json["o"]));
-     drawPage("#pagenation_list",json["o"]);
+	if(!json.flag){ alert(json.errorMessages); return;}
+	$("#pagenation_list span").remove();
+    $("#kn_list").html(template('snippet_list',json["o"]));
+    drawPage("#pagenation_list",json["o"]);
 	$("#kn_list a").on("click",function(){
 		var q=$(this).text();
 		$("#showbox").append("<div class='clearfix'><div class='person'><div class='icon2'></div>"+q+"</div></div");
@@ -252,8 +263,8 @@ function ajaxJSONP(data,callback){
 }    
  function knListPage(json){
      if(!json.flag){ alert(json.errorMessages); return;}
-     $("#kn_list").html(template('snippet_list',json["o"]));
-		$("#kn_list a").on("click",function(){
+    $("#kn_list").html(template('snippet_list',json["o"]));   
+	$("#kn_list a").on("click",function(){
 		var q=$(this).text();
 		$("#showbox").append("<div class='clearfix'><div class='person'><div class='icon2'></div>"+q+"</div></div");
 		var height = $("#showbox").prop('scrollHeight');//原来的高度	
@@ -301,17 +312,94 @@ function drawPage(ele,obj){
 		,disabledClass:"kn-page_up_no"		//上下页-不可用时样式
     	,paging:function(page){ //分页事件触发时callback函数
             _last_tag["param"]["curPage"] = page;
-             ajaxJSONP($.param(_last_tag["param"]),'knListPage')		
+             ajaxJSONP($.param(_last_tag["param"]),'knListPage');          
         }           
 	}); 
 }     
- 
+$(function() {
+		$('#inputbox').autocomplete({
+			minLength: 0,
+            max: 0,
+            delay: 500,
+            autoFill:false,
+            source: function (request, response) {
+                var term = request.term;
+                var postdata = {"keywords":request.term};
+                var _url = "http://kl.chsi.com.cn/search/quickAll.action";
+	            $.ajax({ 
+		            type: "get",
+		            cache: false,
+		            async: true,
+		            crossDomain:true,
+		            url: _url,  
+		            data:postdata, 
+		            dataType: "jsonp",
+		            jsonp: "callback", //回调函数的参数  
+		            jsonpCallback: "parseAutoSearch", //回调函数的名称  
+		            success: function(data) {
+		                response($.map(data["o"].knows, function(item){
+		                    return {
+				                value: item.title,
+				                tagId: item.tagIds[0],  
+				                keywords: item.keywords,
+				                label:item.title,
+				                desc: item.summary
+				            }
+		                }));
+		            },
+		            error: function(XMLHttpRequest, textStatus, errorThrown){
+		                alert(textStatus+'请求时发生了错误，请稍后再试');  
+		            }  
+        		}); 
+            },
+			focus: function(event, ui) {
+			},
+            select: function(event, ui){
+            	var q=ui.item.value;
+				$("#showbox").append("<div class='clearfix'><div class='person'><div class='icon2'></div>"+q+"</div></div");
+				var height = $("#showbox").prop('scrollHeight');//原来的高度	
+				$("#showbox").scrollTop(height);//滚动到原来的高度，正好从最新用户输入开始显示								
+				$.post("/robot/qa.action",{sessionId:sessionId,q:q},function(result){
+					if(result.flag=='true') {
+						var data = result.o;
+						//console.loautoFillg(result);
+						var a="<div class='clearfix'><div class='robot'><div class='icon1'></div>";
+						if(data.AType=='INDEFINITE') {
+							a+="您的意思是?<br>"
+							for(i in data.result) {
+								var knowl = data.result[i];
+								a+="<a class='indefinite' data-id='"+knowl.knowId+"' href='javascript:void(0)'>"+"["+knowl.system+"]"+knowl.title+"</a><br>";
+							}
+						}else if(data.AType=='NONE'){
+							a+=data.content+"<br>";
+						}else{
+							a+=data.content+"<br>";
+						}
+						a+="</div></div>";
+						$("#showbox").append(a);	
+						var height = $("#showbox").prop('scrollHeight');//原来的高度	
+						$("#showbox").scrollTop(height);//滚动到原来的高度，正好从最新用户输入开始显示										
+					}
+				},'json');	
+				$("#inputbox").val('');		      
+		        var pattern = "还可以输入<span class='red'>100</span>个字";
+	            $('#contentwordage').html(pattern);
+				return false;				
+           },
+           position: { my : "left bottom", at: "left bottom",of: ".all_tips" } 
+		}).data("ui-autocomplete")._renderItem = function (ul, item) {   
+        	var reg = new RegExp("("+item.keywords+")","g");
+        	item.desc =  item.desc.replace(reg, "<strong style='color:#c30'>$1</strong>");
+        	item.label =  item.label.replace(reg, "<strong style='color:#c30'>$1</strong>");          
+            return $("<li>").append("<a>"+item.label+ "</a>").appendTo(ul);
+		};
+});
 
     
 //初始化
-    $(function(){ 
-       ajaxJSONP('systemId=zb&tagId=7ew6t0bn978knoqp','knList');   
-    });
+$(function(){ 
+   ajaxJSONP('systemId=account&tagId=uprkf85mr1n6jo57','knList');   
+});
          
     
 
