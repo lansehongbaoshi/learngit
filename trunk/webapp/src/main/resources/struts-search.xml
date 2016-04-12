@@ -17,6 +17,7 @@
         <action name="searchAllKnow" class="searchActionBean" method="searchAllKnow"></action>
         <action name="quickAll" class="searchActionBean" method="quickAll"></action>
         <action name="allSearch" class="searchActionBean" method="allSearch"></action>
+        <action name="autoTitle" class="searchActionBean" method="autoTitle"></action>
         <action name="top" class="searchActionBean" method="topKeywords"></action>
     </package>
     

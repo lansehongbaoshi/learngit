@@ -180,14 +180,11 @@ public class KnowIndexServiceImpl extends BaseDbService implements KnowIndexServ
     }
 
     @Override
-    public KnowListVO<KnowledgeVO> searchTitle(String keywords, int start, int pageSize) {
+    public KnowListVO<KnowledgeVO> customSearch(Map<String, String> queryParams, int start, int pageSize) {
         SearchServiceClient searchClient = SearchServiceClientFactory.getSearchServiceClient();
         if (start < 0) {
             start = 0;
         }
-        Map<String, String> queryParams = new HashMap<String, String>();
-        queryParams.put("q", keywords);
-        queryParams.put("qf", "title");
         queryParams.put("defType", "edismax");
         String BF = "ord(visit_cnt)^1 div(sort,1000)^1";
         queryParams.put("bf", BF);

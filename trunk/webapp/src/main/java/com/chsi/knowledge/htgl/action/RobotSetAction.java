@@ -9,6 +9,7 @@ import com.chsi.knowledge.action.base.AjaxAction;
 import com.chsi.knowledge.pojo.RobotASetData;
 import com.chsi.knowledge.pojo.RobotQSetData;
 import com.chsi.knowledge.service.RobotService;
+import com.chsi.knowledge.util.ManageCacheUtil;
 /**
  * 后台管理 机器人配置
  * @author zhangzh
@@ -73,6 +74,7 @@ public class RobotSetAction extends AjaxAction{
                 robotService.save(robotASetData);
             }
             robotService.deleteRobotQASet(id);
+            ManageCacheUtil.removeRobotABySpecialQ(q);
         }
         return SUCCESS;
     }

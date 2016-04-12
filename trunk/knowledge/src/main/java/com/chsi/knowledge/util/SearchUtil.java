@@ -106,4 +106,13 @@ public class SearchUtil {
         return searchList;
     }
     
+    public static String formatFullMatchKeyword(String keyword) {
+        String result = "";
+        if(!ValidatorUtil.isNull(keyword)) {
+            String formatKeyword = keyword.replaceAll("\"", "\\\\\"");
+            result = String.format("\"%s\"", formatKeyword);
+        }
+        return result;
+    }
+    
 }

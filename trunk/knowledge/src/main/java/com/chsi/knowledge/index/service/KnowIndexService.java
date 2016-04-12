@@ -58,11 +58,10 @@ public interface KnowIndexService {
    KnowListVO<KnowledgeVO> searchKnow(Map<String, String> queryParams, int start, int pageSize);
    
    /**
-    * 检索标题
-    * @param keywords
+    * 
+    * @param queryParams
     * @param start
     * @param pageSize
-    * @return
     */
-   KnowListVO<KnowledgeVO> searchTitle(String keywords, int start, int pageSize);
+   KnowListVO<KnowledgeVO> customSearch(Map<String, String> queryParams, int start, int pageSize);
 }

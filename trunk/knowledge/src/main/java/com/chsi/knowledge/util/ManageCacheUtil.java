@@ -222,6 +222,11 @@ public class ManageCacheUtil {
         return content;
     }
     
+    public static void removeRobotABySpecialQ(String q) {
+        String key = CACHE_KEY_ + SEP + "getRobotASetByQ" + q;
+        MemCachedUtil.removeByKey(key);
+    }
+    
     //查询某标签下的所有知识标题接口及系统下所有标签等
     public static ViewKnowsVO getViewKnowsVO(String systemId, String tagId, int curPage) {
         String key = CACHE_KEY_ + SEP + "getViewKnowsVO" + systemId + tagId + curPage;

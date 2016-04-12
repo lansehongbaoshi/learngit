@@ -105,6 +105,22 @@ public class SearchAction extends AjaxAction {
         writeCallbackJSON(callback);
         return NONE;
     }
+    
+    // 全系统搜索标题（自动完成处用,如机器人）
+    public String autoTitle() throws Exception {
+        keywords = SearchUtil.keywordsFilter(keywords);
+        Map<String, String> queryParams = new HashMap<String, String>();
+        queryParams.put("q", keywords);
+        queryParams.put("qf", "title");
+        KnowListVO<KnowledgeVO> listVO = knowIndexService.customSearch(queryParams, (curPage - 1) * Constants.SEARCH_PAGE_SIZE, Constants.SEARCH_PAGE_SIZE);
+        List<SearchVO> list = SearchUtil.exchangeResultList(listVO, keywords, 14);
+//            saveSearchLog(list);
+        KnowListVO<SearchVO> result = new KnowListVO<SearchVO>(list, listVO.getPagination());
+        ajaxMessage.setO(result);
+        ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
+        writeCallbackJSON(callback);
+        return NONE;
+    }
 
     // 全系统搜索，对外使用（如帮助中心）
     public String allSearch() throws Exception {
@@ -147,7 +163,7 @@ public class SearchAction extends AjaxAction {
         writeJSON(ajaxMessage);
         return NONE;
     }
-
+    
     public KnowIndexService getKnowIndexService() {
         return knowIndexService;
     }

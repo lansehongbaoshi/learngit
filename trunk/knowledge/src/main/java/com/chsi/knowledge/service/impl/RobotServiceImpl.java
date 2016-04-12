@@ -2,6 +2,7 @@ package com.chsi.knowledge.service.impl;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +23,7 @@ import com.chsi.knowledge.pojo.RobotQSetData;
 import com.chsi.knowledge.service.RobotService;
 import com.chsi.knowledge.service.ServiceFactory;
 import com.chsi.knowledge.util.ManageCacheUtil;
+import com.chsi.knowledge.util.SearchUtil;
 import com.chsi.knowledge.vo.AnswerVO;
 import com.chsi.knowledge.vo.KnowListVO;
 import com.chsi.knowledge.vo.SearchVO;
@@ -65,6 +67,7 @@ public class RobotServiceImpl extends BaseDbService implements RobotService {
             SearchVO searchVO = new SearchVO(knowledgeData.getSystemData().getId(), knowledgeData.getSystemData().getName(), knowId, knowledgeData.getArticle().getTitle(), knowledgeData.getArticle().getContent());
             answerVO = new AnswerVO<SearchVO>();
             answerVO.setAType(AType.DEFINITE);
+            answerVO.setContent(knowledgeData.getArticle().getContent());
             List<SearchVO> list = new ArrayList<SearchVO>();
             list.add(searchVO);
             answerVO.setResult(list);
@@ -79,9 +82,12 @@ public class RobotServiceImpl extends BaseDbService implements RobotService {
                 answerVO.setContent(content);
             } else {
                 String keywords = q;
+                String definiteKeyword = SearchUtil.formatFullMatchKeyword(keywords);
+                Map<String, String> queryParams = new HashMap<String, String>();
+                queryParams.put("q", definiteKeyword);
+                queryParams.put("qf", "title");
                 KnowIndexService knowIndexService = ServiceFactory.getKnowIndexService();
-                String definiteKeyword = String.format("\"%s\"", keywords);
-                KnowListVO<KnowledgeVO> list = knowIndexService.searchTitle(definiteKeyword, 0, 5);//不分词，全匹配搜索
+                KnowListVO<KnowledgeVO> list = knowIndexService.customSearch(queryParams, 0, 5);//不分词，全匹配搜索
                 AType aType = null;
                 if(list.getKnows().size()>0) {
                     if(list.getKnows().size()==1) {
@@ -91,7 +97,8 @@ public class RobotServiceImpl extends BaseDbService implements RobotService {
                         aType = AType.INDEFINITE;
                     }
                 } else {
-                    list = knowIndexService.searchTitle(keywords, 0, 5);//全匹配搜索不到再分词搜索
+                    queryParams.put("q", keywords);
+                    list = knowIndexService.customSearch(queryParams, 0, 5);//全匹配搜索不到再分词搜索
                     if(list.getKnows().size()>0) {
                         aType = AType.INDEFINITE;
                     } else {
