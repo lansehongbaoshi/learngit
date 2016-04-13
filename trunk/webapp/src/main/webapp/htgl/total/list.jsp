@@ -81,7 +81,11 @@ function getNames(values){
     		data.type = type;
     		if(type=='visitlog') {
     			$("#knowl_condition").show();
+    			var myChart = echarts.init(document.getElementById('main'));
+      			myChart.setOption({});
     			return;
+    		} else {
+    			$("#knowl_condition").hide();
     		}
     		$.post("/htgl/total/option.jsp",data,function(result){
         		var option = eval(result);
