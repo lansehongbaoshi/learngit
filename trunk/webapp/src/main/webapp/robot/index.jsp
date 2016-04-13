@@ -20,6 +20,7 @@ import="com.chsi.knowledge.pojo.KnowledgeData,com.chsi.knowledge.util.ManageCach
 .main .left .all_tips { position: absolute; bottom: 140px; left: 0; }
 .main .right{ float: right; width: 367px; border-left: 1px solid #b8b8b8;}
 .main .right .normal-question { height: 481px; }
+#ui-id-1 {max-width: 624px;}
 #kn_labels { padding: 20px 30px 0 30px; }
 #kn_labels ul li { float: left; margin:0 18px 20px 0 ; width: 90px; height: 35px; line-height: 35px; text-align: center;  background: #e2e2e2; cursor: pointer;  }
 #kn_labels ul li.selected { color: #fff; background: #999999;}
@@ -83,14 +84,16 @@ $(function(){
 	});
 	$("#inputbox").keydown(function(event) {
 		if(event.keyCode==13) {
-			if($("#inputbox").val().length>100){
-				alert("字数超过限制！");
-			}else{	
-				input();
-				event.preventDefault();
-		        var pattern = "还可以输入<span class='red'>100</span>个字";
-	            $('#contentwordage').html(pattern);
-	            $('#ui-id-1').hide();
+			if($("#judge").val()==""){
+				if($("#inputbox").val().length>100){
+					alert("字数超过限制！");
+				}else{	
+					input();
+					event.preventDefault();
+			        var pattern = "还可以输入<span class='red'>100</span>个字";
+		            $('#contentwordage').html(pattern);
+		            $('#ui-id-1').hide();
+				}
 			}
 		}
 	});
@@ -143,7 +146,8 @@ $(function(){
 	                var result = limitNum - remain;
 	                pattern = "还可以输入<span class='red'>" + result + "</span>个字";
 	            }
-	            $('#contentwordage').html(pattern);
+	        $('#contentwordage').html(pattern);
+	        $("#judge").val("");
        });
     //控制选择标签变色
  	$("#kn_labels ul li").bind("click",function(){
@@ -160,6 +164,7 @@ $(function(){
 		<div id="showbox"></div>
 		<div id="sendbox">
 			<textarea id="inputbox" maxlength="100" autocomplete="off" placeholder="请用一句话简要描述您的问题，比如'如何找回用户名和密码？'"></textarea>
+			<input id="judge" type="hidden" value="" />
 			<input id="sendBtn" type="button" value="发送">
 			<span id="contentwordage"></span>
 		</div>
@@ -192,7 +197,7 @@ $(function(){
 			<script id="snippet_list" type="text/html">
 				<ul>
 				 {{each knowListVO.knows as value i}}  
-				       <li><span> {{(knowListVO.pagination.curPage-1)*knowListVO.pagination.pageCount+i+1}}. <a  href="javascript:;">{{value.title}}</a></span></li>
+				       <li><span> {{(knowListVO.pagination.curPage-1)*knowListVO.pagination.pageCount+i+1}}. <a  href="javascript:;" data-id="{{value.param.id}}">{{value.title}}</a></span></li>
 				 {{/each}}	
 				</ul>
 			</script>				
@@ -237,26 +242,17 @@ function ajaxJSONP(data,callback){
 		$("#showbox").append("<div class='clearfix'><div class='person'><div class='icon2'></div>"+q+"</div></div");
 		var height = $("#showbox").prop('scrollHeight');//原来的高度	
 		$("#showbox").scrollTop(height);//滚动到原来的高度，正好从最新用户输入开始显示								
-		$.post("/robot/qa.action",{sessionId:sessionId,q:q},function(result){
+		var knowId = $(this).data("id");
+		$.post("/robot/qa.action",{sessionId:sessionId,knowId:knowId},function(result){
 			if(result.flag=='true') {
-				var data = result.o;
-				//console.log(result);
-				var a="<div class='clearfix'><div class='robot'><div class='icon1'></div>";
-				if(data.AType=='INDEFINITE') {
-					a+="您的意思是?<br>"
-					for(i in data.result) {
-						var knowl = data.result[i];
-						a+="<a class='indefinite' data-id='"+knowl.knowId+"' href='javascript:void(0)'>"+"["+knowl.system+"]"+knowl.title+"</a>";
-					}
-				}else if(data.AType=='NONE'){
-					a+=data.content;
-				}else{
-					a+=data.content;
-				}
-				a+="</div></div>";
-				$("#showbox").append(a);	
-				var height = $("#showbox").prop('scrollHeight');//原来的高度	
-				$("#showbox").scrollTop(height);//滚动到原来的高度，正好从最新用户输入开始显示										
+    			var data = result.o;
+    			//console.log(result);
+    			var a="<div class='clearfix'><div class='robot'><div class='icon1'></div>";
+  				a+=data.result[0].summary;
+    			a+="</div></div>";
+    			$("#showbox").append(a);
+    			var height = $("#showbox").prop('scrollHeight');//原来的高度	
+				$("#showbox").scrollTop(height);//滚动到原来的高度，正好从最新用户输入开始显示					
 			}
 		},'json');
 	});      
@@ -269,26 +265,17 @@ function ajaxJSONP(data,callback){
 		$("#showbox").append("<div class='clearfix'><div class='person'><div class='icon2'></div>"+q+"</div></div");
 		var height = $("#showbox").prop('scrollHeight');//原来的高度	
 		$("#showbox").scrollTop(height);//滚动到原来的高度，正好从最新用户输入开始显示								
-		$.post("/robot/qa.action",{sessionId:sessionId,q:q},function(result){
+		var knowId = $(this).data("id");
+		$.post("/robot/qa.action",{sessionId:sessionId,knowId:knowId},function(result){
 			if(result.flag=='true') {
-				var data = result.o;
-				//console.log(result);
-				var a="<div class='clearfix'><div class='robot'><div class='icon1'></div>";
-				if(data.AType=='INDEFINITE') {
-					a+="您的意思是?<br>"
-					for(i in data.result) {
-						var knowl = data.result[i];
-						a+="<a class='indefinite' data-id='"+knowl.knowId+"' href='javascript:void(0)'>"+"["+knowl.system+"]"+knowl.title+"</a>";
-					}
-				}else if(data.AType=='NONE'){
-					a+=data.content;
-				}else{
-					a+=data.content;
-				}
-				a+="</div></div>";
-				$("#showbox").append(a);	
-				var height = $("#showbox").prop('scrollHeight');//原来的高度	
-				$("#showbox").scrollTop(height);//滚动到原来的高度，正好从最新用户输入开始显示										
+    			var data = result.o;
+    			//console.log(result);
+    			var a="<div class='clearfix'><div class='robot'><div class='icon1'></div>";
+  				a+=data.result[0].summary;
+    			a+="</div></div>";
+    			$("#showbox").append(a);
+    			var height = $("#showbox").prop('scrollHeight');//原来的高度	
+				$("#showbox").scrollTop(height);//滚动到原来的高度，正好从最新用户输入开始显示					
 			}
 		},'json');
 	});     
@@ -320,7 +307,7 @@ $(function() {
 		$('#inputbox').autocomplete({
 			minLength: 0,
             max: 0,
-            delay: 200,
+            delay: 100,
             autoFill:false,
             source: function (request, response) {
                 var term = request.term;
@@ -340,7 +327,6 @@ $(function() {
 		                response($.map(data["o"].knows, function(item){
 		                    return {
 				                value: item.title,
-				                Id: item.id,  
 				                keywords: item.keywords,
 				                label:item.title,
 				                desc: item.summary,
@@ -354,10 +340,16 @@ $(function() {
         		}); 
             },
 			focus: function(event, ui) {
+				 $("#judge").val(ui.item.value);					
+			},
+			change: function(event, ui) {
+				 $("#judge").val("");					
 			},
             select: function(event, ui){
-				var knowId = ui.item.Id;
-				$.post("/robot/qa.action",{sessionId:sessionId,knowId:knowId},function(result){
+            	var knowId = ui.item.knowId;
+            	var q=ui.item.value;           	
+            	$("#showbox").append("<div class='clearfix'><div class='person'><div class='icon2'></div>"+q+"</div></div");
+            	$.post("/robot/qa.action",{sessionId:sessionId,knowId:knowId},function(result){
 					if(result.flag=='true') {
 		    			var data = result.o;
 		    			//console.log(result);
@@ -368,10 +360,11 @@ $(function() {
 		    			var height = $("#showbox").prop('scrollHeight');//原来的高度	
 						$("#showbox").scrollTop(height);//滚动到原来的高度，正好从最新用户输入开始显示					
 					}
-				},'json');	
-				$("#inputbox").val('');		      
+				},'json');         
 		        var pattern = "还可以输入<span class='red'>100</span>个字";
-	            $('#contentwordage').html(pattern);
+	            $('#contentwordage').html(pattern);	 
+	            $("#judge").val("");
+	            $("#inputbox").val("");	
 				return false;				
            },
            position: { my : "left bottom", at: "left bottom",of: ".all_tips" } 
