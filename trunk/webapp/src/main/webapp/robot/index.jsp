@@ -53,12 +53,12 @@ function input() {
 				a+="您的意思是?<br>"
 				for(i in data.result) {
 					var knowl = data.result[i];
-					a+="<a class='indefinite' data-id='"+knowl.knowId+"' href='javascript:void(0)'>"+"["+knowl.system+"]"+knowl.title+"</a><br>";
+					a+="<a class='indefinite' data-id='"+knowl.knowId+"' href='javascript:void(0)'>"+"["+knowl.system+"]"+knowl.title+"</a>";
 				}
 			}else if(data.AType=='NONE'){
-				a+=data.content+"<br>";
+				a+=data.content;
 			}else{
-				a+=data.content+"<br>";
+				a+=data.content;
 			}
 			a+="</div></div>";
 			$("#showbox").append(a);	
@@ -102,7 +102,7 @@ $(function(){
     			var data = result.o;
     			//console.log(result);
     			var a="<div class='clearfix'><div class='robot'><div class='icon1'></div>";
-  				a+=data.result[0].summary+"<br>";
+  				a+=data.result[0].summary;
     			a+="</div></div>";
     			$("#showbox").append(a);
     			var height = $("#showbox").prop('scrollHeight');//原来的高度	
@@ -246,12 +246,12 @@ function ajaxJSONP(data,callback){
 					a+="您的意思是?<br>"
 					for(i in data.result) {
 						var knowl = data.result[i];
-						a+="<a class='indefinite' data-id='"+knowl.knowId+"' href='javascript:void(0)'>"+"["+knowl.system+"]"+knowl.title+"</a><br>";
+						a+="<a class='indefinite' data-id='"+knowl.knowId+"' href='javascript:void(0)'>"+"["+knowl.system+"]"+knowl.title+"</a>";
 					}
 				}else if(data.AType=='NONE'){
-					a+=data.content+"<br>";
+					a+=data.content;
 				}else{
-					a+=data.content+"<br>";
+					a+=data.content;
 				}
 				a+="</div></div>";
 				$("#showbox").append(a);	
@@ -278,12 +278,12 @@ function ajaxJSONP(data,callback){
 					a+="您的意思是?<br>"
 					for(i in data.result) {
 						var knowl = data.result[i];
-						a+="<a class='indefinite' data-id='"+knowl.knowId+"' href='javascript:void(0)'>"+"["+knowl.system+"]"+knowl.title+"</a><br>";
+						a+="<a class='indefinite' data-id='"+knowl.knowId+"' href='javascript:void(0)'>"+"["+knowl.system+"]"+knowl.title+"</a>";
 					}
 				}else if(data.AType=='NONE'){
-					a+=data.content+"<br>";
+					a+=data.content;
 				}else{
-					a+=data.content+"<br>";
+					a+=data.content;
 				}
 				a+="</div></div>";
 				$("#showbox").append(a);	
@@ -320,7 +320,7 @@ $(function() {
 		$('#inputbox').autocomplete({
 			minLength: 0,
             max: 0,
-            delay: 500,
+            delay: 200,
             autoFill:false,
             source: function (request, response) {
                 var term = request.term;
@@ -340,7 +340,7 @@ $(function() {
 		                response($.map(data["o"].knows, function(item){
 		                    return {
 				                value: item.title,
-				                tagId: item.tagIds[0],  
+				                Id: item.id,  
 				                keywords: item.keywords,
 				                label:item.title,
 				                desc: item.summary,
@@ -356,30 +356,17 @@ $(function() {
 			focus: function(event, ui) {
 			},
             select: function(event, ui){
-            	var q=ui.item.value;
-				$("#showbox").append("<div class='clearfix'><div class='person'><div class='icon2'></div>"+q+"</div></div");
-				var height = $("#showbox").prop('scrollHeight');//原来的高度	
-				$("#showbox").scrollTop(height);//滚动到原来的高度，正好从最新用户输入开始显示								
-				$.post("/robot/qa.action",{sessionId:sessionId,knowId:ui.item.knowId},function(result){
+				var knowId = ui.item.Id;
+				$.post("/robot/qa.action",{sessionId:sessionId,knowId:knowId},function(result){
 					if(result.flag=='true') {
-						var data = result.o;
-						//console.loautoFillg(result);
-						var a="<div class='clearfix'><div class='robot'><div class='icon1'></div>";
-						if(data.AType=='INDEFINITE') {
-							a+="您的意思是?<br>"
-							for(i in data.result) {
-								var knowl = data.result[i];
-								a+="<a class='indefinite' data-id='"+knowl.knowId+"' href='javascript:void(0)'>"+"["+knowl.system+"]"+knowl.title+"</a><br>";
-							}
-						}else if(data.AType=='NONE'){
-							a+=data.content+"<br>";
-						}else{
-							a+=data.content+"<br>";
-						}
-						a+="</div></div>";
-						$("#showbox").append(a);	
-						var height = $("#showbox").prop('scrollHeight');//原来的高度	
-						$("#showbox").scrollTop(height);//滚动到原来的高度，正好从最新用户输入开始显示										
+		    			var data = result.o;
+		    			//console.log(result);
+		    			var a="<div class='clearfix'><div class='robot'><div class='icon1'></div>";
+		  				a+=data.result[0].summary;
+		    			a+="</div></div>";
+		    			$("#showbox").append(a);
+		    			var height = $("#showbox").prop('scrollHeight');//原来的高度	
+						$("#showbox").scrollTop(height);//滚动到原来的高度，正好从最新用户输入开始显示					
 					}
 				},'json');	
 				$("#inputbox").val('');		      
