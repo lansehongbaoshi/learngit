@@ -9,21 +9,22 @@ import="com.chsi.knowledge.pojo.KnowledgeData,com.chsi.knowledge.util.ManageCach
 .content { padding: 25px 0 30px 0;}
 .logo { position: relative; width:1000px; height: 90px; margin:0 auto; background: #afafaf; text-align:center; color: #fff; font-size: 22px;}
 .logo .switch { position: absolute; right: 0; top: 0; background: #f30;}	
-.main { width:998px; margin:0 auto; background: #f1f1f1; border:1px solid #b8b8b8;  border-top:none;}
-.main .left { float: left; width: 630px; position: relative; }
-.main .left #showbox { height: 380px; padding-top: 25px; border-bottom: 1px solid #b8b8b8; overflow-y: auto;overflow-x: hidden; }
+.main { width:999px; margin:0 auto; background: #f1f1f1; border: 1px solid #d3d3d3; border-right: none;  border-top:none;}
+.main .left { float: left; width: 670px; position: relative; }
+.main .left #showbox { height: 380px; padding-top: 25px; border-bottom: 1px solid #d3d3d3; overflow-y: auto;overflow-x: hidden; }
 .main .left #sendbox { position: relative; height: 140px;   background: #fff; }
 .main .left #sendbox #inputbox { width: 610px; height: 80px; padding: 10px; line-height: 25px; border: none;  }
 .main .left #sendbox #sendBtn { position: absolute; right: 25px; bottom: 10px; display: inline-block; width: 100px; height: 30px; line-height: 28px; border: 1px solid #333; text-align: center; cursor: pointer; }
 .main .left #sendbox #contentwordage { position: absolute; left: 10px; bottom: 10px;  color: #999;}
 .main .left #sendbox #contentwordage .red { color: #f30;}
 .main .left .all_tips { position: absolute; bottom: 140px; left: 0; }
-.main .right{ float: right; width: 367px; border-left: 1px solid #b8b8b8;}
+.main .right{ float: right; width: 327px; border-left: 1px solid #d3d3d3;}
 .main .right .normal-question { height: 481px; }
 #ui-id-1 {max-width: 624px;}
-#kn_labels { padding: 20px 30px 0 30px; }
-#kn_labels ul li { float: left; margin:0 18px 20px 0 ; width: 90px; height: 35px; line-height: 35px; text-align: center;  background: #e2e2e2; cursor: pointer;  }
-#kn_labels ul li.selected { color: #fff; background: #999999;}
+#kn_labels {  }
+#kn_labels ul li { float: left;  width: 108px; height: 50px; line-height: 50px; text-align: center; color: #666;  border-right: 1px solid #d3d3d3; border-bottom: 1px solid #d3d3d3; }
+#kn_labels ul li.cn {cursor: pointer;}
+#kn_labels ul li.selected { background: #fff; color: #333;}
 #kn_lists {padding: 0px 30px 20px 30px;}
 #kn_lists .top_title { margin-bottom: 10px; color: #000; font-weight: 800;}
 #kn_lists ul li { line-height: 26px; cursor: pointer; }
@@ -31,10 +32,12 @@ import="com.chsi.knowledge.pojo.KnowledgeData,com.chsi.knowledge.util.ManageCach
 #kn_lists .pagenation .kn-page_up_no { display:inline-block ; width: 50px; height: 25px; margin-right: 10px; line-height: 25px;;  text-align: center;  background: #e2e2e2; cursor: default; }
 #kn_lists .pagenation .kn-pagination_down {  display:inline-block ; width: 50px; height: 25px; margin-right: 10px; line-height: 25px;;  text-align: center;   color: #fff; background: #999999; cursor: pointer; }
 .main .right .advert{ height: 65px; }
-.robot{ position:relative; float: left; max-width: 450px; margin-left: 70px; margin-bottom: 25px;  padding: 10px; border: 1px solid #b8b8b8; border-radius: 5px; background-color: #fff; word-break: break-all; word-wrap: break-word;}
+.system {color: #999; margin-left: 10px;}
+.system_1 {color: #999;}
+.robot{ position:relative; float: left; max-width: 450px; margin-left: 70px; margin-bottom: 25px;  padding: 10px; border: 1px solid #d3d3d3; border-radius: 5px; background-color: #fff; word-break: break-all; word-wrap: break-word;}
 .robot .icon1 { position: absolute; left:-66px; top: -6px; width: 62px; height: 62px; background: url(../images/wap/help/icon_yz.png) no-repeat ;}
 .robot a { color:#0e6c9c;}
-.person{position:relative; float: right; max-width: 450px;  margin-right: 70px; margin-bottom: 25px;  padding: 10px; border: 1px solid #b8b8b8; border-radius: 5px; background-color: #fff; word-break: break-all; word-wrap: break-word;}
+.person{position:relative; float: right; max-width: 450px;  margin-right: 70px; margin-bottom: 25px;  padding: 10px; border: 1px solid #d3d3d3; border-radius: 5px; background-color: #fff; word-break: break-all; word-wrap: break-word;}
 .person .icon2 { position: absolute; right: -66px; top: -6px; width: 62px; height: 62px; background: url(../images/wap/help/icon_zh.png) no-repeat ;}
 </style>
 <script>
@@ -51,16 +54,18 @@ function input() {
 			//console.log(result);
 			var a="<div class='clearfix'><div class='robot'><div class='icon1'></div>";
 			if(data.AType=='INDEFINITE') {
-				a+="您的意思是?<br>"
+				a+="您的意思是?"
 				for(i in data.result) {
 					var knowl = data.result[i];
-					a+="<a class='indefinite' data-id='"+knowl.knowId+"' href='javascript:void(0)'>"+"["+knowl.system+"]"+knowl.title+"</a>";
+					a+="<br /><a class='indefinite' data-id='"+knowl.knowId+"' href='javascript:void(0)'>"+"["+knowl.system+"]"+knowl.title+"</a>";
 				}
 			}else if(data.AType=='NONE'){
 				a+=data.content;
+				a+="<span class='system_1' data-id='"+data.result[0].systemId+"'>["+data.result[0].system+"]</span>";
 			}else{
 				a+=data.content;
-			}
+				a+="<span class='system_1' data-id='"+data.result[0].systemId+"'>["+data.result[0].system+"]</span>";
+			}			
 			a+="</div></div>";
 			$("#showbox").append(a);	
 			var height = $("#showbox").prop('scrollHeight');//原来的高度	
@@ -106,6 +111,7 @@ $(function(){
     			//console.log(result);
     			var a="<div class='clearfix'><div class='robot'><div class='icon1'></div>";
   				a+=data.result[0].summary;
+  				a+="<span class='system_1' data-id='"+data.result[0].systemId+"'>["+data.result[0].system+"]</span>";
     			a+="</div></div>";
     			$("#showbox").append(a);
     			var height = $("#showbox").prop('scrollHeight');//原来的高度	
@@ -150,7 +156,7 @@ $(function(){
 	        $("#judge").val("");
        });
     //控制选择标签变色
- 	$("#kn_labels ul li").bind("click",function(){
+ 	$("#kn_labels ul .cn").bind("click",function(){
 		$(this).addClass("selected").siblings().removeClass("selected");		
 	}); 
 })
@@ -174,11 +180,12 @@ $(function(){
 		<div class="normal-question">
 			<div id="kn_labels" >
 				<ul class="clearfix">
-					<li onclick="ajaxJSONP('systemId=account&tagId=uprkf85mr1n6jo57','knList')" class="selected">学信网账号</li>
-					<li onclick="ajaxJSONP('systemId=my&tagId=o170014zvshroheu','knList')">学信档案</li>
-					<li onclick="ajaxJSONP('systemId=yz_wb&tagId=fn51191g0mnglpqc','knList')" style="margin-right: 0;">研招统考</li>
-					<li onclick="ajaxJSONP('systemId=yz_tm&tagId=xpc1h2dwm08bvdq1','knList')">研招推免</li>
-                    <li onclick="ajaxJSONP('systemId=zb&tagId=lmaxksjbjh5ft3','knList')">应征报名</li>
+					<li class="selected cn" onclick="ajaxJSONP('systemId=account&tagId=uprkf85mr1n6jo57','knList')" >学信网账号</li>
+					<li class="cn" onclick="ajaxJSONP('systemId=my&tagId=o170014zvshroheu','knList')">学信档案</li>
+					<li class="cn" onclick="ajaxJSONP('systemId=yz_wb&tagId=fn51191g0mnglpqc','knList')" style="margin-right: 0;">研招统考</li>
+					<li class="cn" onclick="ajaxJSONP('systemId=yz_tm&tagId=xpc1h2dwm08bvdq1','knList')">研招推免</li>
+                    <li class="cn" onclick="ajaxJSONP('systemId=zb&tagId=lmaxksjbjh5ft3','knList')">应征报名</li>
+                    <li></li>
 				</ul>
 			</div>
 			<div id="kn_lists">
@@ -249,6 +256,7 @@ function ajaxJSONP(data,callback){
     			//console.log(result);
     			var a="<div class='clearfix'><div class='robot'><div class='icon1'></div>";
   				a+=data.result[0].summary;
+  				a+="<span class='system_1' data-id='"+data.result[0].systemId+"'>["+data.result[0].system+"]</span>";				
     			a+="</div></div>";
     			$("#showbox").append(a);
     			var height = $("#showbox").prop('scrollHeight');//原来的高度	
@@ -272,6 +280,7 @@ function ajaxJSONP(data,callback){
     			//console.log(result);
     			var a="<div class='clearfix'><div class='robot'><div class='icon1'></div>";
   				a+=data.result[0].summary;
+  				a+="<span class='system_1' data-id='"+data.result[0].systemId+"'>["+data.result[0].system+"]</span>";
     			a+="</div></div>";
     			$("#showbox").append(a);
     			var height = $("#showbox").prop('scrollHeight');//原来的高度	
@@ -328,8 +337,9 @@ $(function() {
 		                    return {
 				                value: item.title,
 				                keywords: item.keywords,
-				                label:item.title,
+				                label: item.title,
 				                desc: item.summary,
+				                system: item.system,
 				                knowId: item.knowId
 				            }
 		                }));
@@ -340,7 +350,7 @@ $(function() {
         		}); 
             },
 			focus: function(event, ui) {
-				 $("#judge").val(ui.item.value);					
+				 $("#judge").val(ui.item.value+"<span class='system'>["+ui.item.system+"]</span>");					
 			},
 			change: function(event, ui) {
 				 $("#judge").val("");					
@@ -355,6 +365,7 @@ $(function() {
 		    			//console.log(result);
 		    			var a="<div class='clearfix'><div class='robot'><div class='icon1'></div>";
 		  				a+=data.result[0].summary;
+  						a+="<span class='system_1' data-id='"+data.result[0].systemId+"'>["+data.result[0].system+"]</span>";
 		    			a+="</div></div>";
 		    			$("#showbox").append(a);
 		    			var height = $("#showbox").prop('scrollHeight');//原来的高度	
@@ -372,7 +383,7 @@ $(function() {
         	var reg = new RegExp("("+item.keywords+")","g");
         	item.desc =  item.desc.replace(reg, "<strong style='color:#c30'>$1</strong>");
         	item.label =  item.label.replace(reg, "<strong style='color:#c30'>$1</strong>");          
-            return $("<li>").append("<a>"+item.label+ "</a>").appendTo(ul);
+            return $("<li>").append("<a>"+item.label+"<span class='system'>["+item.system+"]</span></a>").appendTo(ul);
 		};
 });
 //初始化

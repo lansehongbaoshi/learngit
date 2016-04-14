@@ -1,7 +1,7 @@
 @charset "utf-8";
 	/*初始化*/
 body, p, ul, ol, li, form, img, h1, h2, h3, select, input ,textarea{ margin: 0; padding: 0; }
-body { background: #fff; color: #333333; text-align: left; font: 14px/28px Tahoma, Helvetica, Arial, 'Microsoft YaHei', \5FAE\8F6F\96C5\9ED1, SimSun, sans-serif; }
+body { background: #ccc; color: #333333; text-align: left; font: 14px/28px Tahoma, Helvetica, Arial, 'Microsoft YaHei', \5FAE\8F6F\96C5\9ED1, SimSun, sans-serif; }
 ul, li { list-style: none; }
 img { border: 0; }
 input { padding-top: 0; padding-bottom: 0; }
@@ -18,7 +18,6 @@ a:hover { text-decoration: underline; }
 html,body {height:100%;}
 body {
     font-family:"微软雅黑","Microsoft YaHei";
-    background:url("../img/bg.gif");
 	}
 .wra-head{
 	background:none #fff;
