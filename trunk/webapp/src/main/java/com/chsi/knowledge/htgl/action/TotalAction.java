@@ -5,6 +5,8 @@ import java.util.List;
 import com.chsi.framework.util.ValidatorUtil;
 import com.chsi.knowledge.Constants;
 import com.chsi.knowledge.action.base.AjaxAction;
+import com.chsi.knowledge.dic.AType;
+import com.chsi.knowledge.pojo.QALogData;
 import com.chsi.knowledge.service.RobotService;
 import com.chsi.knowledge.vo.PieVO;
 
@@ -21,6 +23,7 @@ public class TotalAction extends AjaxAction {
     private String type;
     
     private List<PieVO> totalList;
+    private List<QALogData> qaLogList;
 
     public String option() throws Exception {
         if(!ValidatorUtil.isNull(type)) {
@@ -39,6 +42,19 @@ public class TotalAction extends AjaxAction {
         ajaxMessage.setO(totalList);
         ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
         writeJSON(ajaxMessage);
+    }
+    
+    public String listQ() throws Exception {
+        if(!ValidatorUtil.isNull(type)) {
+            if("无答案".equals(type)) {
+                qaLogList = robotService.listQALogDataByAType(AType.NONE);
+            } else if("确定答案".equals(type)) {
+                qaLogList = robotService.listQALogDataByAType(AType.DEFINITE);
+            } else if("不确定答案".equals(type)) {
+                qaLogList = robotService.listQALogDataByAType(AType.INDEFINITE);
+            }
+        }
+        return SUCCESS;
     }
 
     public RobotService getRobotService() {
@@ -63,5 +79,13 @@ public class TotalAction extends AjaxAction {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public List<QALogData> getQaLogList() {
+        return qaLogList;
+    }
+
+    public void setQaLogList(List<QALogData> qaLogList) {
+        this.qaLogList = qaLogList;
     }
 }

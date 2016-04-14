@@ -385,6 +385,9 @@ $(function() {
         	item.label =  item.label.replace(reg, "<strong style='color:#c30'>$1</strong>");          
             return $("<li>").append("<a>"+item.label+"<span class='system'>["+item.system+"]</span></a>").appendTo(ul);
 		};
+		$( window ).on('beforeunload',function() {
+		  $.post("/robot/close.action?sessionId="+sessionId);
+		});
 });
 //初始化
 $(function(){ 

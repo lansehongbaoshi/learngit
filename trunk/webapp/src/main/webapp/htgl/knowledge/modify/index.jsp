@@ -38,26 +38,26 @@ String ctxPath = request.getContextPath();
                             <input type="hidden" name="systemId" value="<s:property value=" systemId " />">
                             <input type="hidden" id="content" name="content" value="">
                              <div class="form-group">
-                                 <label for="" class="col-sm-3 control-label no-padding-top">标题：</label>
+                                 <label for="" class="col-sm-1 control-label no-padding-top">标题：</label>
                                  <div class="col-sm-9">
                                 <input id="title" type="text" name="title" style="width: 400px;" value="<s:property value=" knowledgeData.article.title " />">
                                  </div>
                             </div>
                            
                             <div class="form-group">
-                                <label for="" class="col-sm-3 control-label no-padding-top">关键字：</label>
+                                <label for="" class="col-sm-1 control-label no-padding-top">关键字：</label>
                                 <div class="col-sm-9">
                                     <input id="keywords" type="text" name="keywords" style="width: 200px;" value="<s:property value=" knowledgeData.keywords " />"> <span>（说明：2~3个,英文逗号,隔开）</span>
                                     </div>
                             </div>
                             <div class="form-group">
-                                <label for="" class="col-sm-3 control-label no-padding-top">热点度：</label>
+                                <label for="" class="col-sm-1 control-label no-padding-top">热点度：</label>
                                 <div class="col-sm-9">
                                 <input id="sort" type="text" name="sort" style="width: 100px;" value="<s:property value=" knowledgeData.sort " />"> <span>（说明：1~99之间的数字,数值越大,排序越靠前）</span>
                                 </div>
                             </div>
                             <div class="form-group">
-                             <label for="" class="col-sm-3 control-label no-padding-top">
+                             <label for="" class="col-sm-1 control-label no-padding-top">
                             标签：
                                 </label>
                                 <div class="col-sm-9" id="tag">
@@ -71,11 +71,11 @@ String ctxPath = request.getContextPath();
              
                  <div class="form-horizontal ">
                        <div class="form-group">
-                                <label for="" class="col-sm-3 control-label no-padding-top">
+                                <label for="" class="col-sm-1 control-label no-padding-top">
                             内容：
                                 </label>
                                 <div class="col-sm-9">
-                                <script type="text/plain" id="container" style="width:650px;height:240px;">
+                                <script type="text/plain" id="container" style="width:990px;height:440px;">
 <s:property value="knowledgeData.article.content" escape="false" />
 </script>
                                 </div>

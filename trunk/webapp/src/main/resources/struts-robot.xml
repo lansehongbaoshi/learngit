@@ -18,6 +18,8 @@
         </action>
         <action name="qa" class="qaActionBean" method="qa">
         </action>
+        <action name="close" class="qaActionBean" method="close">
+        </action>
     </package>
     
 </struts>

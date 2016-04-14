@@ -57,6 +57,16 @@ public class QAAction extends AjaxAction {
             writeJSON(ajaxMessage);
         }
     }
+    
+    public void close() throws Exception {
+        if(!ValidatorUtil.isNull(sessionId)) {
+            QASessionData pojo = robotService.getQASessionDataById(sessionId);
+            if(pojo!=null) {
+                pojo.setEndTime(Calendar.getInstance());
+                robotService.update(pojo);
+            }
+        }
+    }
 
     public String getSystemId() {
         return systemId;

@@ -8,9 +8,9 @@
 var templates = [
     {
         "pre":"pre0.png",
-        'title':lang.blank,
-        'preHtml':'<p class="ue_t">&nbsp;欢迎使用UEditor！</p>',
-        "html":'<p class="ue_t">欢迎使用UEditor！</p>'
+        'title':"工作动态模板",
+        'preHtml':'<h2 class="ue_t" style="font-size: 16px;color: #6B6B6B;font-size: 20px;font-weight: bold;text-align: center;">[标题一]</h2><h1 class="ue_t" style="font-size: 20px;font-weight: bold;text-align: center;">[标题二]</h1><p id="" style="margin: 35px 0 19px 0;padding-left: 30px;font-size: 12px;color: #6B6B6B;background: #E9E9E9;"><span class="ue_t">[2016-03-28]</span>　来源：<span class="ue_t">[教育部]</span></p><p class="ue_t" style="text-indent:2em;">[段落一]</p><p class="ue_t" style="text-indent:2em;">[段落二]</p><p class="ue_t" style="text-indent:2em;">[段落三]</p><p class="ue_t" style="text-indent:2em;">[段落四]</p><p style="margin: 16px 0 0 0;padding-right: 30px;text-align: right;font-size: 12px;color: #6B6B6B;background: #E9E9E9;">（责任编辑：<span class="ue_t">[张三]</span>）</p>',
+        "html":'<h2 class="ue_t" style="font-size: 16px;color: #6B6B6B;font-size: 20px;font-weight: bold;text-align: center;">[标题一]</h2><h1 class="ue_t" style="font-size: 20px;font-weight: bold;text-align: center;">[标题二]</h1><p id="" style="margin: 35px 0 19px 0;padding-left: 30px;font-size: 12px;color: #6B6B6B;background: #E9E9E9;"><span class="ue_t">[2016-03-28]</span>　来源：<span class="ue_t">[教育部]</span></p><p class="ue_t" style="text-indent:2em;">[段落一]</p><p class="ue_t" style="text-indent:2em;">[段落二]</p><p class="ue_t" style="text-indent:2em;">[段落三]</p><p class="ue_t" style="text-indent:2em;">[段落四]</p><p style="margin: 16px 0 0 0;padding-right: 30px;text-align: right;font-size: 12px;color: #6B6B6B;background: #E9E9E9;">（责任编辑：<span class="ue_t">[张三]</span>）</p>'
 
     },
     {

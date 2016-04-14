@@ -197,6 +197,9 @@
         <action name="option" class="totalActionBean" method="option">
             <result name="success" type="tiles">htgl.total.option</result>
         </action>
+        <action name="listQ" class="totalActionBean" method="listQ">
+            <result name="success" type="tiles">htgl.total.listQ</result>
+        </action>
     </package>
     
     <package name="htgl.robot.set" extends="knowledge-default" namespace="/htgl/robot/set">

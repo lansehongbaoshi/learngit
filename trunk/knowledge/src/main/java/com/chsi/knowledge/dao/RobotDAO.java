@@ -3,6 +3,9 @@ package com.chsi.knowledge.dao;
 import java.util.List;
 
 import com.chsi.framework.pojos.PersistentObject;
+import com.chsi.knowledge.dic.AType;
+import com.chsi.knowledge.pojo.QALogData;
+import com.chsi.knowledge.pojo.QASessionData;
 import com.chsi.knowledge.pojo.RobotASetData;
 import com.chsi.knowledge.pojo.RobotQSetData;
 import com.chsi.knowledge.vo.PieVO;
@@ -10,7 +13,11 @@ import com.chsi.knowledge.vo.PieVO;
 public interface RobotDAO {
     void save(PersistentObject pojo);
     
+    void update(PersistentObject pojo);
+    
     void del(PersistentObject pojo);
+    
+    QASessionData getQASessionDataById(String id);
     
     RobotQSetData getRobotQSetData(String id);
     
@@ -41,8 +48,15 @@ public interface RobotDAO {
     List<PieVO> totalSession();
     
     /**
-     * 统计问题情况，包括：没答案、确定答案、不确定答案
+     * 统计问题情况，包括：无答案、确定答案、不确定答案
      * @return
      */
     List<PieVO> totalQ();
+    
+    /**
+     * 查询问题列表
+     * @param aType
+     * @return
+     */
+    List<QALogData> listQALogDataByAType(AType aType);
 }

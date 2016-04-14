@@ -9,6 +9,9 @@ import org.hibernate.Query;
 import com.chsi.framework.hibernate.BaseHibernateDAO;
 import com.chsi.framework.pojos.PersistentObject;
 import com.chsi.knowledge.dao.RobotDAO;
+import com.chsi.knowledge.dic.AType;
+import com.chsi.knowledge.pojo.QALogData;
+import com.chsi.knowledge.pojo.QASessionData;
 import com.chsi.knowledge.pojo.RobotASetData;
 import com.chsi.knowledge.pojo.RobotQSetData;
 import com.chsi.knowledge.vo.PieVO;
@@ -17,6 +20,8 @@ public class RobotDAOImpl extends BaseHibernateDAO implements RobotDAO{
     private static String query_robot_a_by_like_q = "select aa from RobotQSetData qq,RobotASetData aa where aa.qId=qq.id and qq.q like (:q)";
     private static String query_robot_a_by_q = "select aa from RobotQSetData qq,RobotASetData aa where aa.qId=qq.id and qq.q = :q";
     private static String query_all_q = "from RobotQSetData";
+    private static String query_qa_log_by_a_type = "from QALogData where aType=:aType";
+    private static String query_qa_session_by_id = "from QASessionData where id=:id";
     private static String from_a = "from RobotQSetData";
     private static String query_a_by_q = "select p from RobotASetData p where p.qId=:qId";
     private static String w_id = " where id=:id";
@@ -24,6 +29,19 @@ public class RobotDAOImpl extends BaseHibernateDAO implements RobotDAO{
     @Override
     public void save(PersistentObject pojo) {
         hibernateUtil.getSession().save(pojo);
+    }
+    
+    @Override
+    public void update(PersistentObject pojo) {
+        hibernateUtil.getSession().update(pojo);
+    }
+    
+    @Override
+    public QASessionData getQASessionDataById(String id) {
+        String hql = query_qa_session_by_id;
+        Query query = hibernateUtil.getSession().createQuery(hql);
+        query.setString("id", id);
+        return (QASessionData)query.uniqueResult();
     }
 
     @Override
@@ -110,6 +128,14 @@ public class RobotDAOImpl extends BaseHibernateDAO implements RobotDAO{
             list.add(new PieVO("不确定答案", ((BigDecimal)objs[2]).longValue()));
         }
         return list;
+    }
+
+    @Override
+    public List<QALogData> listQALogDataByAType(AType aType) {
+        String hql = query_qa_log_by_a_type;
+        Query query = hibernateUtil.getSession().createQuery(hql);
+        query.setInteger("aType", aType.ordinal());
+        return query.list();
     }
 
 }

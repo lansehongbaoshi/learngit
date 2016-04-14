@@ -92,11 +92,11 @@ public class QALogData extends PersistentObject {
     }
 
     @Column(name = "A_TYPE")
-    public AType getAType() {
+    public AType getaType() {
         return aType;
     }
 
-    public void setAType(AType aType) {
+    public void setaType(AType aType) {
         this.aType = aType;
     }
 

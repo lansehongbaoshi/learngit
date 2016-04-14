@@ -91,6 +91,12 @@ function getNames(values){
         		var option = eval(result);
         		var myChart = echarts.init(document.getElementById('main'));
       			myChart.setOption(option);
+      			if(type=='q'){
+        			myChart.on('click', function (params) {
+        				if(params.name=='无答案')
+        			    window.open('/htgl/total/listQ.action?type=' + encodeURIComponent(params.name));
+        			});
+    			}
         	});
     	});
     	$("#knowl_btn").on('click',function(){

@@ -40,7 +40,7 @@
              'fontsize', '|',
           
             'link', 'unlink', 'anchor', '|', 'imagenone', 'imageleft', 'imageright', 'imagecenter', '|',
-            'simpleupload', 'insertimage', '|',
+            'simpleupload', 'insertimage','template', '|',
             'horizontal', 'date', 'time', 'spechars', '|',
             'print', 'preview', 'searchreplace', 'help'
         ]]

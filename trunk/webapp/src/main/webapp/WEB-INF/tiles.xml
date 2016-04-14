@@ -102,5 +102,8 @@
     <definition name="htgl.total.option" extends="htgl.admin.main" >
         <put-attribute name="body" value="/htgl/total/option.jsp"/>
     </definition>
+    <definition name="htgl.total.listQ" extends="htgl.admin.main" >
+        <put-attribute name="body" value="/htgl/total/listQ.jsp"/>
+    </definition>
     
 </tiles-definitions> 

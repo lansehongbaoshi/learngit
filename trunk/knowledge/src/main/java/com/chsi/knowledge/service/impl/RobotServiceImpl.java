@@ -18,6 +18,7 @@ import com.chsi.knowledge.index.service.KnowIndexService;
 import com.chsi.knowledge.pojo.ALogData;
 import com.chsi.knowledge.pojo.KnowledgeData;
 import com.chsi.knowledge.pojo.QALogData;
+import com.chsi.knowledge.pojo.QASessionData;
 import com.chsi.knowledge.pojo.RobotASetData;
 import com.chsi.knowledge.pojo.RobotQSetData;
 import com.chsi.knowledge.service.RobotService;
@@ -48,6 +49,16 @@ public class RobotServiceImpl extends BaseDbService implements RobotService {
         robotDAO.save(pojo);
     }
     
+    @Override
+    public void update(PersistentObject pojo) {
+        robotDAO.update(pojo);
+    }
+    
+    @Override
+    public QASessionData getQASessionDataById(String id) {
+        return robotDAO.getQASessionDataById(id);
+    }
+    
     public AnswerVO answer(String sessionId, String knowId, String q) {
         AnswerVO answerVO = null;
         if (!ValidatorUtil.isNull(knowId)) {// 确定知识时传递knowId、q
@@ -56,7 +67,7 @@ public class RobotServiceImpl extends BaseDbService implements RobotService {
             qaLogData.setSessionId(sessionId);
             qaLogData.setQType(QType.NONCUSTOM);
             qaLogData.setQ(knowledgeData.getArticle().getTitle());
-            qaLogData.setAType(AType.DEFINITE);
+            qaLogData.setaType(AType.DEFINITE);
             qaLogData.setCreateTime(Calendar.getInstance());
             save(qaLogData);
             ALogData aLogData = new ALogData();
@@ -113,7 +124,7 @@ public class RobotServiceImpl extends BaseDbService implements RobotService {
                 qaLogData.setSessionId(sessionId);
                 qaLogData.setQType(QType.CUSTOM);
                 qaLogData.setQ(q);
-                qaLogData.setAType(aType);
+                qaLogData.setaType(aType);
                 qaLogData.setCreateTime(Calendar.getInstance());
                 save(qaLogData);
                 
@@ -171,4 +182,10 @@ public class RobotServiceImpl extends BaseDbService implements RobotService {
     public List<PieVO> totalQ() {
         return robotDAO.totalQ();
     }
+
+    @Override
+    public List<QALogData> listQALogDataByAType(AType aType) {
+        return robotDAO.listQALogDataByAType(aType);
+    }
+    
 }
