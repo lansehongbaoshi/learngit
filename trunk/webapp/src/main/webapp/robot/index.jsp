@@ -31,7 +31,7 @@ import="com.chsi.knowledge.pojo.KnowledgeData,com.chsi.knowledge.util.ManageCach
 #kn_labels ul li.selected { background: #fff; color: #333;}
 #kn_lists {}
 #kn_lists .top_title { padding: 12px; border-bottom: 1px solid #d3d3d3; }
-#kn_lists ul li { padding:2px 12px; height: 35px; line-height: 35px; border-bottom: 1px solid #d3d3d3;  cursor: pointer; color: #666; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
+#kn_lists ul li { padding:2px 12px; height: 35px; line-height: 35px; border-bottom: 1px solid #d3d3d3; color: #666; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
 #kn_lists ul li a { color: #666; }
 #kn_lists .pagenation { padding:30px 12px;}
 #kn_lists .pagenation .kn-page_up_no { display:inline-block ; width: 70px; height: 30px; margin-right: 25px; line-height: 30px; border: 1px solid #d3d3d3; border-radius: 5px;  text-align: center;  background: #f2f2f2; cursor: default; }
@@ -165,6 +165,7 @@ $(function(){
  	$("#kn_labels ul .cn").bind("click",function(){
 		$(this).addClass("selected").siblings().removeClass("selected");		
 	}); 
+	//关闭机器人
 })
 </script>
 <div class="logo">
@@ -188,16 +189,16 @@ $(function(){
 		<div class="normal-question">
 			<div id="kn_labels" >
 				<ul class="clearfix">
-					<li class="selected cn" onclick="ajaxJSONP('systemId=account&tagId=uprkf85mr1n6jo57','knList')" >学信网账号</li>
-					<li class="cn" onclick="ajaxJSONP('systemId=my&tagId=o170014zvshroheu','knList')">学信档案</li>
-					<li class="cn" style="margin-right: 0; border-right: none;" onclick="ajaxJSONP('systemId=yz_wb&tagId=fn51191g0mnglpqc','knList')" >研招统考</li>
-					<li class="cn" onclick="ajaxJSONP('systemId=yz_tm&tagId=xpc1h2dwm08bvdq1','knList')">研招推免</li>
-                    <li class="cn" onclick="ajaxJSONP('systemId=zb&tagId=lmaxksjbjh5ft3','knList')">应征报名</li>
+					<li class="selected cn" onclick="ajaxJSONP('systemId=account','knList')" >学信网账号</li>
+					<li class="cn" onclick="ajaxJSONP('systemId=my','knList')">学信档案</li>
+					<li class="cn" style="margin-right: 0; border-right: none;" onclick="ajaxJSONP('systemId=yz_wb','knList')" >研招统考</li>
+					<li class="cn" onclick="ajaxJSONP('systemId=yz_tm','knList')">研招推免</li>
+                    <li class="cn" onclick="ajaxJSONP('systemId=zb','knList')">应征报名</li>
                     <li style="border-right: none;"></li>
 				</ul>
 			</div>
 			<div id="kn_lists">
-				<div class="top_title">常见问题</div>
+				<div class="top_title">热门问题</div>
 				<div id="kn_list"></div>
 				<!--<ul>
 					<li>1、如何判断网报是否成功？</li>
@@ -211,8 +212,8 @@ $(function(){
 			</div>			
 			<script id="snippet_list" type="text/html">
 				<ul>
-				 {{each knowListVO.knows as value i}}  
-				       <li title="{{value.title}}"><span> {{(knowListVO.pagination.curPage-1)*knowListVO.pagination.pageCount+i+1}}. <a  href="javascript:;" data-id="{{value.param.id}}">{{value.title}}</a></span></li>
+				 {{each o as value i}}  
+				       <li title="{{value.title}}"><span> {{i+1}}. <a  href="javascript:;" data-id="{{value.knowId}}">{{value.title}}</a></span></li>
 				 {{/each}}	
 				</ul>
 			</script>				
@@ -235,7 +236,7 @@ function ajaxJSONP(data,callback){
             cache: false,
             async: true,
             crossDomain:true,
-            url: "/view/getKnowledgeList.action",  
+            url: "/view/getHotKnowledgeList.action",  
             data:data,
             dataType: "jsonp",  
             jsonp: "callback", //回调函数的参数  
@@ -250,8 +251,8 @@ function ajaxJSONP(data,callback){
  function knList(json){
 	if(!json.flag){ alert(json.errorMessages); return;}
 	$("#pagenation_list span").remove();
-    $("#kn_list").html(template('snippet_list',json["o"]));
-    drawPage("#pagenation_list",json["o"]);
+    $("#kn_list").html(template('snippet_list',json)); //直接使用json数据
+//  drawPage("#pagenation_list",json["o"]);
 	$("#kn_list a").on("click",function(){
 		var q=$(this).text();
 		$("#showbox").append("<div class='clearfix'><div class='person'><div class='icon2'></div>"+q+"</div></div");
@@ -273,53 +274,53 @@ function ajaxJSONP(data,callback){
 		},'json');
 	});      
 }    
- function knListPage(json){
-     if(!json.flag){ alert(json.errorMessages); return;}
-    $("#kn_list").html(template('snippet_list',json["o"]));   
-	$("#kn_list a").on("click",function(){
-		var q=$(this).text();
-		$("#showbox").append("<div class='clearfix'><div class='person'><div class='icon2'></div>"+q+"</div></div");
-		var height = $("#showbox").prop('scrollHeight');//原来的高度	
-		$("#showbox").scrollTop(height);//滚动到原来的高度，正好从最新用户输入开始显示								
-		var knowId = $(this).data("id");
-		$.post("/robot/qa.action",{sessionId:sessionId,knowId:knowId},function(result){
-			if(result.flag=='true') {
-    			var data = result.o;
-    			//console.log(result);
-    			var a="<div class='clearfix'><div class='robot'><div class='icon1'></div>";
-  				a+=data.result[0].summary;
-  				a+="<span class='system_1' data-id='"+data.result[0].systemId+"'>["+data.result[0].system+"]</span>";
-    			a+="</div></div>";
-    			$("#showbox").append(a);
-    			var height = $("#showbox").prop('scrollHeight');//原来的高度	
-				$("#showbox").scrollTop(height);//滚动到原来的高度，正好从最新用户输入开始显示					
-			}
-		},'json');
-	});     
+// function knListPage(json){
+//   if(!json.flag){ alert(json.errorMessages); return;}
+//  $("#kn_list").html(template('snippet_list',json["o"]));   
+//	$("#kn_list a").on("click",function(){
+//		var q=$(this).text();
+//		$("#showbox").append("<div class='clearfix'><div class='person'><div class='icon2'></div>"+q+"</div></div");
+//		var height = $("#showbox").prop('scrollHeight');//原来的高度	
+//		$("#showbox").scrollTop(height);//滚动到原来的高度，正好从最新用户输入开始显示								
+//		var knowId = $(this).data("id");
+//		$.post("/robot/qa.action",{sessionId:sessionId,knowId:knowId},function(result){
+//			if(result.flag=='true') {
+//  			var data = result.o;
+//  			//console.log(result);
+//  			var a="<div class='clearfix'><div class='robot'><div class='icon1'></div>";
+//				a+=data.result[0].summary;
+//				a+="<span class='system_1' data-id='"+data.result[0].systemId+"'>["+data.result[0].system+"]</span>";
+//  			a+="</div></div>";
+//  			$("#showbox").append(a);
+//  			var height = $("#showbox").prop('scrollHeight');//原来的高度	
+//				$("#showbox").scrollTop(height);//滚动到原来的高度，正好从最新用户输入开始显示					
+//			}
+//		},'json');
+//	});     
      //drawPage("#pagenation_list",json["o"])
-}  
+//}  
  //分页初始化
-function drawPage(ele,obj){
-     var _last_tag = obj["navigations"].pop();
-  	var _page_obj = obj["knowListVO"].pagination;
-  	if(!!!_page_obj){ return false;}
-   	$(ele).pagefoot({ css:"mj_pagefoot"      //分页脚css样式类
-		,pageSize:_page_obj["pageCount"]  //每页显示的记录数
-    	,displayNum:0  //显示的固定页数
-    	,itemsNum:_page_obj["totalCount"]                //总记录数
-    	,currentNum:_page_obj["curPage"]              //当前页码
-    	,currentClass:"page_current"     //当前页码时样式
-    	,linkClass:"page_normal"             //页码链接样式
-    	,previous:"上一页"      			//上一页显示文本
-    	,next:"下一页"         					 //下一页显示文本
-    	,abledClass:"kn-pagination_down"		//上下页-可用时样式
-		,disabledClass:"kn-page_up_no"		//上下页-不可用时样式
-    	,paging:function(page){ //分页事件触发时callback函数
-            _last_tag["param"]["curPage"] = page;
-             ajaxJSONP($.param(_last_tag["param"]),'knListPage');          
-        }           
-	}); 
-}     
+//function drawPage(ele,obj){
+//   var _last_tag = obj["navigations"].pop();
+//	var _page_obj = obj["knowListVO"].pagination;
+//	if(!!!_page_obj){ return false;}
+// 	$(ele).pagefoot({ css:"mj_pagefoot"      //分页脚css样式类
+//		,pageSize:_page_obj["pageCount"]  //每页显示的记录数
+//  	,displayNum:0  //显示的固定页数
+//  	,itemsNum:_page_obj["totalCount"]                //总记录数
+//  	,currentNum:_page_obj["curPage"]              //当前页码
+//  	,currentClass:"page_current"     //当前页码时样式
+//  	,linkClass:"page_normal"             //页码链接样式
+//  	,previous:"上一页"      			//上一页显示文本
+//  	,next:"下一页"         					 //下一页显示文本
+//  	,abledClass:"kn-pagination_down"		//上下页-可用时样式
+//		,disabledClass:"kn-page_up_no"		//上下页-不可用时样式
+//  	,paging:function(page){ //分页事件触发时callback函数
+//          _last_tag["param"]["curPage"] = page;
+//           ajaxJSONP($.param(_last_tag["param"]),'knListPage');          
+//      }           
+//	}); 
+//}     
 $(function() {
 		$('#inputbox').autocomplete({
 			minLength: 0,
@@ -396,9 +397,31 @@ $(function() {
 		$( window ).on('beforeunload',function() {
 		  $.post("/robot/close.action?sessionId="+sessionId);
 		});
+		//关闭页面
+		$(".switch").click(function(e) {			
+//			CloseWebPage();
+			window.location.href = 'about:blank ';
+		});
+//		function CloseWebPage() {
+//		    if (navigator.userAgent.indexOf("MSIE") > 0) {
+//		        if (navigator.userAgent.indexOf("MSIE 6.0") > 0) {
+//		            window.opener = null;
+//		            window.close();
+//		        } else {
+//		            window.open('', '_top');
+//		            window.top.close();
+//		        }
+//		    } else if (navigator.userAgent.indexOf("Firefox") > 0) {
+//		        window.location.href = 'about:blank ';
+//		    } else {
+//		        window.opener = null;
+//		        window.open('', '_self', '');
+//		        window.close();
+//		    }
+//		}
 });
 //初始化
 $(function(){ 
-   ajaxJSONP('systemId=account&tagId=uprkf85mr1n6jo57','knList');   
+   ajaxJSONP('systemId=account','knList');   
 });
 </script>
