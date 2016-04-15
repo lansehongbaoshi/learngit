@@ -6,38 +6,44 @@ import="com.chsi.knowledge.pojo.KnowledgeData,com.chsi.knowledge.util.ManageCach
 <script src='http://t1.chei.com.cn/common/wap/help/js/template.js'></script>
 <script src="http://t1.chei.com.cn/common/kn/js/kn_page.js"></script>
 <style>
-.content { padding: 25px 0 30px 0;}
-.logo { position: relative; width:1000px; height: 90px; margin:0 auto; background: #afafaf; text-align:center; color: #fff; font-size: 22px;}
-.logo .switch { position: absolute; right: 0; top: 0; background: #f30;}	
+.content { padding: 25px 0 30px 0; background: #ccc;}
+.logo { position: relative; width:1000px; height: 70px; margin:0 auto;  background-color: #28bca4; color: #fff; }
+.logo .logo_img { position: absolute; left: 0px; top: -25px; width: 78px; height: 93px; background: url(../images/wap/help/logo.png) no-repeat;}	
+.logo .logo_title { padding: 10px 0 0 85px; font-size: 22px;}
+.logo .logo_sub { padding: 0px 0 0 85px; font-size: 16px; opacity: 0.5; filter:alpha(opacity=50);}
+.logo .switch { position: absolute; right: 15px; top: 20px; width: 30px; height: 30px; background: url(../images/wap/help/close.png) no-repeat; cursor: pointer;}	
+.logo .switch:hover{ opacity: 0.8; filter:alpha(opacity=80);}
 .main { width:999px; margin:0 auto; background: #f1f1f1; border: 1px solid #d3d3d3; border-right: none;  border-top:none;}
 .main .left { float: left; width: 670px; position: relative; }
-.main .left #showbox { height: 380px; padding-top: 25px; border-bottom: 1px solid #d3d3d3; overflow-y: auto;overflow-x: hidden; }
+.main .left #showbox { height: 529px; padding-top: 25px; border-bottom: 1px solid #d3d3d3; overflow-y: auto;overflow-x: hidden; }
 .main .left #sendbox { position: relative; height: 140px;   background: #fff; }
 .main .left #sendbox #inputbox { width: 610px; height: 80px; padding: 10px; line-height: 25px; border: none;  }
 .main .left #sendbox #sendBtn { position: absolute; right: 25px; bottom: 10px; display: inline-block; width: 100px; height: 30px; line-height: 28px; border: 1px solid #333; text-align: center; cursor: pointer; }
 .main .left #sendbox #contentwordage { position: absolute; left: 10px; bottom: 10px;  color: #999;}
 .main .left #sendbox #contentwordage .red { color: #f30;}
 .main .left .all_tips { position: absolute; bottom: 140px; left: 0; }
-.main .right{ float: right; width: 327px; border-left: 1px solid #d3d3d3;}
-.main .right .normal-question { height: 481px; }
+.main .right{ float: right; width: 327px; height: 695px; border-left: 1px solid #d3d3d3; border-right: 1px solid #d3d3d3; background: #fff;}
+.main .right #kn_lists {}
 #ui-id-1 {max-width: 624px;}
 #kn_labels {  }
-#kn_labels ul li { float: left;  width: 108px; height: 50px; line-height: 50px; text-align: center; color: #666;  border-right: 1px solid #d3d3d3; border-bottom: 1px solid #d3d3d3; }
+#kn_labels ul li { float: left;  width: 108px; height: 50px; line-height: 50px; border-right: 1px solid #d3d3d3; border-bottom: 1px solid #d3d3d3; text-align: center; color: #666;  background: #f1f1f1;}
 #kn_labels ul li.cn {cursor: pointer;}
 #kn_labels ul li.selected { background: #fff; color: #333;}
-#kn_lists {padding: 0px 30px 20px 30px;}
-#kn_lists .top_title { margin-bottom: 10px; color: #000; font-weight: 800;}
-#kn_lists ul li { line-height: 26px; cursor: pointer; }
-#kn_lists .pagenation { margin-top: 12px;}
-#kn_lists .pagenation .kn-page_up_no { display:inline-block ; width: 50px; height: 25px; margin-right: 10px; line-height: 25px;;  text-align: center;  background: #e2e2e2; cursor: default; }
-#kn_lists .pagenation .kn-pagination_down {  display:inline-block ; width: 50px; height: 25px; margin-right: 10px; line-height: 25px;;  text-align: center;   color: #fff; background: #999999; cursor: pointer; }
+#kn_lists {}
+#kn_lists .top_title { padding: 12px; border-bottom: 1px solid #d3d3d3; }
+#kn_lists ul li { padding:2px 12px; height: 35px; line-height: 35px; border-bottom: 1px solid #d3d3d3;  cursor: pointer; color: #666; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
+#kn_lists ul li a { color: #666; }
+#kn_lists .pagenation { padding:30px 12px;}
+#kn_lists .pagenation .kn-page_up_no { display:inline-block ; width: 70px; height: 30px; margin-right: 25px; line-height: 30px; border: 1px solid #d3d3d3; border-radius: 5px;  text-align: center;  background: #f2f2f2; cursor: default; }
+#kn_lists .pagenation .kn-pagination_down {  display:inline-block ; width: 70px; height: 30px; margin-right: 25px; line-height: 30px; border: 1px solid #28bca4;  border-radius: 5px;text-align: center;   color: #fff; background: #28bca4; cursor: pointer; }
+#kn_lists .pagenation .kn-pagination_down:hover{text-decoration: none; opacity: 0.8; filter:alpha(opacity=80);}
 .main .right .advert{ height: 65px; }
 .system {color: #999; margin-left: 10px;}
 .system_1 {color: #999;}
 .robot{ position:relative; float: left; max-width: 450px; margin-left: 70px; margin-bottom: 25px;  padding: 10px; border: 1px solid #d3d3d3; border-radius: 5px; background-color: #fff; word-break: break-all; word-wrap: break-word;}
 .robot .icon1 { position: absolute; left:-66px; top: -6px; width: 62px; height: 62px; background: url(../images/wap/help/icon_yz.png) no-repeat ;}
 .robot a { color:#0e6c9c;}
-.person{position:relative; float: right; max-width: 450px;  margin-right: 70px; margin-bottom: 25px;  padding: 10px; border: 1px solid #d3d3d3; border-radius: 5px; background-color: #fff; word-break: break-all; word-wrap: break-word;}
+.person{position:relative; float: right; max-width: 450px;  margin-right: 70px; margin-bottom: 25px;  padding: 10px; border: 1px solid #28bca4; border-radius: 5px; background-color: #28bca4; color: #fff; word-break: break-all; word-wrap: break-word;}
 .person .icon2 { position: absolute; right: -66px; top: -6px; width: 62px; height: 62px; background: url(../images/wap/help/icon_zh.png) no-repeat ;}
 </style>
 <script>
@@ -122,22 +128,22 @@ $(function(){
 	//控制页面整体高度
 	var _wh = $(window).height();
 	var _lh =$("#showbox").height();
-	var _rh =$(".main .right .advert").height();
+	var _rh =$(".main .right").height();
 	function footerHeight(){
-		if(_wh - _lh > 312){			
-			$("#showbox").css("height",(_wh-312)+"px");
-			$(".main .right .advert").css("height",(_wh-627)+"px");		
+		if(_wh - _lh > 292){			
+			$("#showbox").css("height",(_wh-292)+"px");
+			$(".main .right").css("height",(_wh-126)+"px");		
 		}
 	}
 	footerHeight();
 	$(window).resize(function() {
 		var _wh = $(this).height();
-		if(_wh - _lh > 312){			
-			$("#showbox").css("height",(_wh-312)+"px");
-			$(".main .right .advert").css("height",(_wh-627)+"px");		
+		if(_wh - _lh > 292){			
+			$("#showbox").css("height",(_wh-292)+"px");
+			$(".main .right").css("height",(_wh-126)+"px");		
 		}else{
 			$("#showbox").css("height",_lh+"px");
-			$(".main .right .advert").css("height",_rh+"px");
+			$(".main .right").css("height",_rh+"px");
 		}
 	});
 	//控制可以输入字数
@@ -162,8 +168,10 @@ $(function(){
 })
 </script>
 <div class="logo">
-	学信网机器人
-	<div class="switch">开关</div>
+	<div class="logo_img"></div>
+	<div class="logo_title">学信网机器人 | chsi.com.cn</div>
+	<div class="logo_sub">24小时竭诚为您服务</div>
+	<div class="switch"></div>
 </div>
 <div class="main clearfix">
 	<div class="left">
@@ -182,10 +190,10 @@ $(function(){
 				<ul class="clearfix">
 					<li class="selected cn" onclick="ajaxJSONP('systemId=account&tagId=uprkf85mr1n6jo57','knList')" >学信网账号</li>
 					<li class="cn" onclick="ajaxJSONP('systemId=my&tagId=o170014zvshroheu','knList')">学信档案</li>
-					<li class="cn" onclick="ajaxJSONP('systemId=yz_wb&tagId=fn51191g0mnglpqc','knList')" style="margin-right: 0;">研招统考</li>
+					<li class="cn" style="margin-right: 0; border-right: none;" onclick="ajaxJSONP('systemId=yz_wb&tagId=fn51191g0mnglpqc','knList')" >研招统考</li>
 					<li class="cn" onclick="ajaxJSONP('systemId=yz_tm&tagId=xpc1h2dwm08bvdq1','knList')">研招推免</li>
                     <li class="cn" onclick="ajaxJSONP('systemId=zb&tagId=lmaxksjbjh5ft3','knList')">应征报名</li>
-                    <li></li>
+                    <li style="border-right: none;"></li>
 				</ul>
 			</div>
 			<div id="kn_lists">
@@ -204,12 +212,12 @@ $(function(){
 			<script id="snippet_list" type="text/html">
 				<ul>
 				 {{each knowListVO.knows as value i}}  
-				       <li><span> {{(knowListVO.pagination.curPage-1)*knowListVO.pagination.pageCount+i+1}}. <a  href="javascript:;" data-id="{{value.param.id}}">{{value.title}}</a></span></li>
+				       <li title="{{value.title}}"><span> {{(knowListVO.pagination.curPage-1)*knowListVO.pagination.pageCount+i+1}}. <a  href="javascript:;" data-id="{{value.param.id}}">{{value.title}}</a></span></li>
 				 {{/each}}	
 				</ul>
 			</script>				
 		</div>
-		<div class="advert"></div>
+<!--		<div class="advert"></div>-->
 	</div>
 </div>
 <script type="text/javascript">
