@@ -1,6 +1,7 @@
 package com.chsi.knowledge.view.action;
 
 import java.util.List;
+import java.util.Map;
 
 import com.chsi.knowledge.Constants;
 import com.chsi.knowledge.action.base.AjaxAction;
@@ -48,6 +49,12 @@ public class KnowledgeAction extends AjaxAction{
                     tagId = tagService.getTagData(systemId, "常见问题").getId();
                 } else if("yz_wb".equals(systemId)) {
                     tagId = tagService.getTagData(systemId, "报名资格").getId();
+                } else if("yz_tm".equals(systemId)) {
+                    tagId = tagService.getTagData(systemId, "报名").getId();
+                } else if("account".equals(systemId)) {
+                    tagId = tagService.getTagData(systemId, "常见问题").getId();
+                } else if("my".equals(systemId)) {
+                    tagId = tagService.getTagData(systemId, "学籍查询").getId();
                 }
             }
             ViewKnowsVO viewKnowsVO = ManageCacheUtil.getViewKnowsVO(systemId, tagId, curPage);
@@ -105,6 +112,24 @@ public class KnowledgeAction extends AjaxAction{
         ktrDatas = knowTagRelationService.getKnowTagRelationByKnowId(id);
         kData = knowledgeService.getKnowledgeWithArticleById(id);
         return SUCCESS;
+    }
+    
+    //热门知识列表
+    public void getHotKnowledgeList() throws Exception{
+        SystemData systemData = ManageCacheUtil.getSystem(systemId);
+        if (null == systemData) {
+            ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
+        } else {
+            Map<SystemData, List<KnowledgeData>> map = ManageCacheUtil.getCatalogTopKnowl(10);
+            List<KnowledgeData> list = map.get(systemId);
+            if(list!=null) {
+                ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
+                ajaxMessage.setO(list);
+            } else {
+                ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
+            }
+        }
+        writeCallbackJSON(callback);
     }
     
     public void setCallback(String callback) {

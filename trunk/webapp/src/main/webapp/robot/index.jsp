@@ -65,13 +65,13 @@ function input() {
 					var knowl = data.result[i];
 					a+="<br /><a class='indefinite' data-id='"+knowl.knowId+"' href='javascript:void(0)'>"+"["+knowl.system+"]"+knowl.title+"</a>";
 				}
-			}else if(data.AType=='NONE'){
+			}else if(data.AType=='NONE'||data.AType=='ROBOT'){
 				a+=data.content;
-				a+="<span class='system_1' data-id='"+data.result[0].systemId+"'>["+data.result[0].system+"]</span>";
+				//a+="<span class='system_1' data-id='"+data.result[0].systemId+"'>["+data.result[0].system+"]</span>";
 			}else{
 				a+=data.content;
 				a+="<span class='system_1' data-id='"+data.result[0].systemId+"'>["+data.result[0].system+"]</span>";
-			}			
+			}
 			a+="</div></div>";
 			$("#showbox").append(a);	
 			var height = $("#showbox").prop('scrollHeight');//原来的高度	

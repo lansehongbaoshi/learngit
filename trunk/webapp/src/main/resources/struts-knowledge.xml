@@ -15,6 +15,7 @@
         </interceptors>
         <action name="getKnowledgeList" class="knowledgeViewActionBean" method="getKnowledgeList"></action>
         <action name="getKnowledge" class="knowledgeViewActionBean" method="getKnowledge"></action>
+        <action name="getHotKnowledgeList" class="knowledgeViewActionBean" method="getHotKnowledgeList"></action>
         <action name="getKnowForSearch" class="knowledgeViewActionBean" method="getKnowForSearch">
             <result name="success">/common/knowledge.jsp</result>
         </action>
