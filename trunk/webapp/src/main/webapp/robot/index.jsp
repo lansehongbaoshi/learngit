@@ -14,18 +14,21 @@ import="com.chsi.knowledge.pojo.KnowledgeData,com.chsi.knowledge.util.ManageCach
 .logo .switch { position: absolute; right: 15px; top: 20px; width: 30px; height: 30px; background: url(../images/wap/help/close.png) no-repeat; cursor: pointer;}	
 .logo .switch:hover{ opacity: 0.8; filter:alpha(opacity=80);}
 .main { width:999px; margin:0 auto; background: #f1f1f1; border: 1px solid #d3d3d3; border-right: none;  border-top:none;}
-.main .left { float: left; width: 670px; position: relative; }
+.main .left { float: left; width: 671px; position: relative; }
 .main .left #showbox { height: 529px; padding-top: 25px; border-bottom: 1px solid #d3d3d3; overflow-y: auto;overflow-x: hidden; }
-.main .left #sendbox { position: relative; height: 140px;   background: #fff; }
-.main .left #sendbox #inputbox { width: 610px; height: 80px; padding: 10px; line-height: 25px; border: none;  }
-.main .left #sendbox #sendBtn { position: absolute; right: 25px; bottom: 10px; display: inline-block; width: 100px; height: 30px; line-height: 28px; border: 1px solid #333; text-align: center; cursor: pointer; }
-.main .left #sendbox #contentwordage { position: absolute; left: 10px; bottom: 10px;  color: #999;}
+.main .left #sendbox { position: relative; height: 165px;   background: #fff; }
+.main .left #sendbox .send_top { height: 100px;}
+.main .left #sendbox .send_bottom { height: 65px;  background: #f1f1f1; } 
+.main .left #sendbox #inputbox { width: 651px; height: 80px; padding: 10px; line-height: 25px; border: none;  }
+.main .left #sendbox #sendBtn { position: absolute; right: 10px; bottom: 8px; display: inline-block; width: 92px; height: 45px; line-height: 40px; border: none; background: url(../images/wap/help/send.png) no-repeat; color: #fff; font-size: 16px; text-align: center; cursor: pointer; }
+.main .left #sendbox #contentwordage { position: absolute; left: 10px; bottom: 20px;  color: #999;}
 .main .left #sendbox #contentwordage .red { color: #f30;}
-.main .left .all_tips { position: absolute; bottom: 140px; left: 0; }
-.main .right{ float: right; width: 327px; height: 695px; border-left: 1px solid #d3d3d3; border-right: 1px solid #d3d3d3; background: #fff;}
+.main .left .all_tips { position: absolute; bottom: 165px; left: 0; }
+.main .right{ float: right; width: 326px;  border-left: 1px solid #d3d3d3; border-right: 1px solid #d3d3d3; background: #fff;}
+.main .right .normal-question { height: 655px;}
 .main .right #kn_lists {}
-#ui-id-1 {max-width: 624px;}
-#kn_labels {  }
+#ui-id-1 {max-width: 669px;}
+#kn_labels {  background: #f1f1f1; }
 #kn_labels ul li { float: left;  width: 108px; height: 50px; line-height: 50px; border-right: 1px solid #d3d3d3; border-bottom: 1px solid #d3d3d3; text-align: center; color: #666;  background: #f1f1f1;}
 #kn_labels ul li.cn {cursor: pointer;}
 #kn_labels ul li.selected { background: #fff; color: #333;}
@@ -37,13 +40,13 @@ import="com.chsi.knowledge.pojo.KnowledgeData,com.chsi.knowledge.util.ManageCach
 #kn_lists .pagenation .kn-page_up_no { display:inline-block ; width: 70px; height: 30px; margin-right: 25px; line-height: 30px; border: 1px solid #d3d3d3; border-radius: 5px;  text-align: center;  background: #f2f2f2; cursor: default; }
 #kn_lists .pagenation .kn-pagination_down {  display:inline-block ; width: 70px; height: 30px; margin-right: 25px; line-height: 30px; border: 1px solid #28bca4;  border-radius: 5px;text-align: center;   color: #fff; background: #28bca4; cursor: pointer; }
 #kn_lists .pagenation .kn-pagination_down:hover{text-decoration: none; opacity: 0.8; filter:alpha(opacity=80);}
-.main .right .advert{ height: 65px; }
+.main .right .advert{ height: 65px;  background: #f1f1f1; }
 .system {color: #999; margin-left: 10px;}
 .system_1 {color: #999;}
-.robot{ position:relative; float: left; max-width: 450px; margin-left: 70px; margin-bottom: 25px;  padding: 10px; border: 1px solid #d3d3d3; border-radius: 5px; background-color: #fff; word-break: break-all; word-wrap: break-word;}
+.robot{ position:relative; float: left; max-width: 450px; margin-left: 75px; margin-bottom: 25px;  padding: 10px; border: 1px solid #d3d3d3; border-radius: 5px; background-color: #fff; word-break: break-all; word-wrap: break-word;}
 .robot .icon1 { position: absolute; left:-66px; top: -6px; width: 62px; height: 62px; background: url(../images/wap/help/icon_yz.png) no-repeat ;}
 .robot a { color:#0e6c9c;}
-.person{position:relative; float: right; max-width: 450px;  margin-right: 70px; margin-bottom: 25px;  padding: 10px; border: 1px solid #28bca4; border-radius: 5px; background-color: #28bca4; color: #fff; word-break: break-all; word-wrap: break-word;}
+.person{position:relative; float: right; max-width: 450px;  margin-right: 75px; margin-bottom: 25px;  padding: 10px; border: 1px solid #28bca4; border-radius: 5px; background-color: #28bca4; color: #fff; word-break: break-all; word-wrap: break-word;}
 .person .icon2 { position: absolute; right: -66px; top: -6px; width: 62px; height: 62px; background: url(../images/wap/help/icon_zh.png) no-repeat ;}
 </style>
 <script>
@@ -128,22 +131,18 @@ $(function(){
 	//控制页面整体高度
 	var _wh = $(window).height();
 	var _lh =$("#showbox").height();
-	var _rh =$(".main .right").height();
 	function footerHeight(){
-		if(_wh - _lh > 292){			
-			$("#showbox").css("height",(_wh-292)+"px");
-			$(".main .right").css("height",(_wh-126)+"px");		
+		if(_wh - _lh > 317){			
+			$("#showbox").css("height",(_wh-317)+"px");
+			$(".main .normal-question").css("height",(_wh-191)+"px");		
 		}
 	}
 	footerHeight();
 	$(window).resize(function() {
 		var _wh = $(this).height();
-		if(_wh - _lh > 292){			
-			$("#showbox").css("height",(_wh-292)+"px");
-			$(".main .right").css("height",(_wh-126)+"px");		
-		}else{
-			$("#showbox").css("height",_lh+"px");
-			$(".main .right").css("height",_rh+"px");
+		if(_wh - _lh > 317){			
+			$("#showbox").css("height",(_wh-317)+"px");
+			$(".main .normal-question").css("height",(_wh-191)+"px");		
 		}
 	});
 	//控制可以输入字数
@@ -178,10 +177,14 @@ $(function(){
 	<div class="left">
 		<div id="showbox"></div>
 		<div id="sendbox">
-			<textarea id="inputbox" maxlength="100" autocomplete="off" placeholder="请用一句话简要描述您的问题，比如'如何找回用户名和密码？'"></textarea>
-			<input id="judge" type="hidden" value="" />
-			<input id="sendBtn" type="button" value="发送">
-			<span id="contentwordage"></span>
+			<div class="send_top">
+				<textarea id="inputbox" maxlength="100" autocomplete="off" placeholder="请用一句话简要描述您的问题，比如'如何找回用户名和密码？'"></textarea>
+				<input id="judge" type="hidden" value="" />
+			</div>
+			<div class="send_bottom">
+				<input id="sendBtn" type="button" value="发送">
+				<span id="contentwordage"></span>
+			</div>
 		</div>
 		<div class="all_tips"></div>
 	</div>
@@ -218,7 +221,7 @@ $(function(){
 				</ul>
 			</script>				
 		</div>
-<!--		<div class="advert"></div>-->
+		<div class="advert"></div>
 	</div>
 </div>
 <script type="text/javascript">
