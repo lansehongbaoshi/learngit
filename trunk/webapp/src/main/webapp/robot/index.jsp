@@ -15,7 +15,7 @@ import="com.chsi.knowledge.pojo.KnowledgeData,com.chsi.knowledge.util.ManageCach
 .logo .switch:hover{ opacity: 0.8; filter:alpha(opacity=80);}
 .main { width:999px; margin:0 auto; background: #f1f1f1; border: 1px solid #d3d3d3; border-right: none;  border-top:none;}
 .main .left { float: left; width: 671px; position: relative; }
-.main .left #showbox { height: 529px; padding-top: 25px; border-bottom: 1px solid #d3d3d3; overflow-y: auto;overflow-x: hidden; }
+.main .left #showbox { height: 428px; padding-top: 25px; border-bottom: 1px solid #d3d3d3; overflow-y: auto;overflow-x: hidden; }
 .main .left #sendbox { position: relative; height: 165px;   background: #fff; }
 .main .left #sendbox .send_top { height: 100px;}
 .main .left #sendbox .send_bottom { height: 65px;  background: #f1f1f1; } 
@@ -24,7 +24,7 @@ import="com.chsi.knowledge.pojo.KnowledgeData,com.chsi.knowledge.util.ManageCach
 .main .left #sendbox #contentwordage { position: absolute; left: 10px; bottom: 20px;  color: #999;}
 .main .left #sendbox #contentwordage .red { color: #f30;}
 .main .left .all_tips { position: absolute; bottom: 165px; left: 0; }
-.main .right{ float: right; width: 326px;  border-left: 1px solid #d3d3d3; border-right: 1px solid #d3d3d3; background: #fff;}
+.main .right{ float: right; width: 326px; height: 629px;  border-left: 1px solid #d3d3d3; border-right: 1px solid #d3d3d3; background: #fff;}
 .main .right .normal-question { height: 655px;}
 .main .right #kn_lists {}
 #ui-id-1 {max-width: 669px;}
@@ -66,7 +66,7 @@ function input() {
 				a+="您的意思是?"
 				for(i in data.result) {
 					var knowl = data.result[i];
-					a+="<br /><a class='indefinite' data-id='"+knowl.knowId+"' href='javascript:void(0)'>"+"["+knowl.system+"]"+knowl.title+"</a>";
+					a+="<br /><a class='indefinite' data-id='"+knowl.knowId+"' href='javascript:void(0)'>"+"["+knowl.system+"]<span>"+knowl.title+"</span></a>";
 				}
 			}else if(data.AType=='NONE'||data.AType=='ROBOT'){
 				a+=data.content;
@@ -112,7 +112,7 @@ $(function(){
 		}
 	});
 	$(document).on("click","a.indefinite",function(){
-		$("#showbox").append("<div class='clearfix'><div class='person'><div class='icon2'></div>"+$(this).text()+"</div></div");
+		$("#showbox").append("<div class='clearfix'><div class='person'><div class='icon2'></div>"+$(this).children("span").text()+"</div></div");
 		var knowId = $(this).data("id");
 		$.post("/robot/qa.action",{sessionId:sessionId,knowId:knowId},function(result){
 			if(result.flag=='true') {
@@ -131,10 +131,14 @@ $(function(){
 	//控制页面整体高度
 	var _wh = $(window).height();
 	var _lh =$("#showbox").height();
+	var _rh =$(".main .right").height();
 	function footerHeight(){
 		if(_wh - _lh > 317){			
 			$("#showbox").css("height",(_wh-317)+"px");
-			$(".main .normal-question").css("height",(_wh-191)+"px");		
+			$(".main .right").css("height",(_wh-126)+"px");
+		}else{
+			$("#showbox").css("height",_lh+"px");
+			$(".main .right").css("height",_rh+"px");
 		}
 	}
 	footerHeight();
@@ -142,8 +146,13 @@ $(function(){
 		var _wh = $(this).height();
 		if(_wh - _lh > 317){			
 			$("#showbox").css("height",(_wh-317)+"px");
-			$(".main .normal-question").css("height",(_wh-191)+"px");		
+			$(".main .right").css("height",(_wh-126)+"px");		
+		}else{
+			$("#showbox").css("height",_lh+"px");
+			$(".main .right").css("height",_rh+"px");
 		}
+		var height = $("#showbox").prop('scrollHeight');//原来的高度	
+		$("#showbox").scrollTop(height);//滚动到原来的高度，正好从最新用户输入开始显示		
 	});
 	//控制可以输入字数
 	var limitNum = 100;
@@ -221,7 +230,7 @@ $(function(){
 				</ul>
 			</script>				
 		</div>
-		<div class="advert"></div>
+		<!--<div class="advert"></div>-->
 	</div>
 </div>
 <script type="text/javascript">
