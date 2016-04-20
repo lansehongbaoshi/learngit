@@ -16,22 +16,23 @@ import="com.chsi.knowledge.pojo.KnowledgeData,com.chsi.knowledge.util.ManageCach
 .logo .logo_sub { padding: 0px 0 0 85px; font-size: 16px; opacity: 0.5; filter:alpha(opacity=50);}
 .logo .switch { position: absolute; right: 15px; top: 20px; width: 30px; height: 30px; background: url(../images/wap/help/close.png) no-repeat; cursor: pointer;}	
 .logo .switch:hover{ opacity: 0.8; filter:alpha(opacity=80);}
-.main { width:999px; margin:0 auto; background: #f1f1f1; border: 1px solid #d3d3d3; border-right: none;  border-top:none;}
-.main .left { float: left; width: 671px; position: relative; }
-.main .left #showbox { height: 428px; padding-top: 25px; border-bottom: 1px solid #d3d3d3; overflow-y: auto;overflow-x: hidden; }
+.main { width:1000px; margin:0 auto; background: #f1f1f1; }
+.main .left { float: left; width: 670px; position: relative; padding-top: 12px; }
+.main .left .tp { width: 615px; margin: 0 auto; padding-left: 35px; border-radius: 5px; line-height: 35px; color: #666; background: url(../images/wap/help/tp.png) no-repeat 5px 8px;  background-color: #dffef9; }
+.main .left #showbox { height: 376px; padding-top: 30px; border-bottom: 1px solid #d3d3d3; overflow-y: auto;overflow-x: hidden; }
 .main .left #sendbox { position: relative; height: 165px;   background: #fff; }
 .main .left #sendbox .send_top { height: 100px;}
 .main .left #sendbox .send_bottom { height: 65px;  background: #f1f1f1; } 
-.main .left #sendbox #inputbox { width: 651px; height: 80px; padding: 10px; line-height: 25px; border: none;  }
-.main .left #sendbox #sendBtn { position: absolute; right: 10px; bottom: 8px; display: inline-block; width: 92px; height: 45px; line-height: 40px; border: none; background: url(../images/wap/help/send.png) no-repeat; color: #fff; font-size: 16px; text-align: center; cursor: pointer; }
+.main .left #sendbox #inputbox { width: 650px; height: 80px; padding: 10px; line-height: 25px; border: none;  }
+.main .left #sendbox #sendBtn { position: absolute; right: 10px; bottom: 12px; display: inline-block; width: 90px; padding: 6px 12px;  border: 1px solid transparent; border-radius: 5px; line-height: 1.42857;	box-shadow: 0 0 0 #209683  inset, 0 3px 0 0 #209683; background-color: #28bca4; border-color: #28bca4; color: #fff; font-size: 16px; text-align: center; cursor: pointer; }
 .main .left #sendbox #contentwordage { position: absolute; left: 10px; bottom: 20px;  color: #999;}
 .main .left #sendbox #contentwordage .red { color: #f30;}
 .main .left .all_tips { position: absolute; bottom: 165px; left: 0; }
-.main .right{ float: right; width: 326px; height: 629px;  border-left: 1px solid #d3d3d3; border-right: 1px solid #d3d3d3; background: #fff;}
+.main .right{ float: right; width: 329px; height: 619px;  border-left: 1px solid #d3d3d3; background: #fff;}
 .main .right .normal-question { height: 655px;}
-#ui-id-1 {max-width: 669px;}
+#ui-id-1 {max-width: 670px;}
 #kn_labels {  background: #f1f1f1; }
-#kn_labels ul li { float: left;  width: 108px; height: 50px; line-height: 50px; border-right: 1px solid #d3d3d3; border-bottom: 1px solid #d3d3d3; text-align: center; color: #666;  background: #f1f1f1;}
+#kn_labels ul li { float: left;  width: 109px; height: 50px; line-height: 50px; border-right: 1px solid #d3d3d3; border-bottom: 1px solid #d3d3d3; text-align: center; color: #666;  background: #f1f1f1;}
 #kn_labels ul li.cn {cursor: pointer;}
 #kn_labels ul li.selected { background: #fff; color: #333;}
 #kn_lists .top_title { padding: 12px; border-bottom: 1px solid #d3d3d3; }
@@ -174,9 +175,9 @@ $(function(){
 	var _lh =$("#showbox").height();
 	var _rh =$(".main .right").height();
 	function footerHeight(){
-		if(_wh - _lh > 317){			
-			$("#showbox").css("height",(_wh-317)+"px");
-			$(".main .right").css("height",(_wh-126)+"px");
+		if(_wh - _lh > 368){			
+			$("#showbox").css("height",(_wh-368)+"px");
+			$(".main .right").css("height",(_wh-125)+"px");
 		}else{
 			$("#showbox").css("height",_lh+"px");
 			$(".main .right").css("height",_rh+"px");
@@ -185,9 +186,9 @@ $(function(){
 	footerHeight();
 	$(window).resize(function() {
 		var _wh = $(this).height();
-		if(_wh - _lh > 317){			
-			$("#showbox").css("height",(_wh-317)+"px");
-			$(".main .right").css("height",(_wh-126)+"px");		
+		if(_wh - _lh > 368){			
+			$("#showbox").css("height",(_wh-368)+"px");
+			$(".main .right").css("height",(_wh-125)+"px");		
 		}else{
 			$("#showbox").css("height",_lh+"px");
 			$(".main .right").css("height",_rh+"px");
@@ -261,6 +262,7 @@ $(function(){
 </div>
 <div class="main clearfix">
 	<div class="left">
+		<div class="tp">对话已建立，学信网机器人正在为您服务 ......</div>
 		<div id="showbox"></div>
 		<div id="sendbox">
 			<div class="send_top">
