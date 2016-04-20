@@ -2,9 +2,12 @@
 import="com.chsi.knowledge.pojo.KnowledgeData,com.chsi.knowledge.util.ManageCacheUtil,java.util.*" %>
 <%@ taglib uri="/struts-tags" prefix="s"%>
 <link rel="stylesheet" href="http://t2.chei.com.cn/common/zbbm/js/autocomplete/jqueryui.autocomplete.css" />
+<link rel="stylesheet"  href='http://t1.chsi.com.cn/common/plugins/dialog/6.0.5/css/ui-dialog.css' />
 <script src="http://t3.chei.com.cn/common/zbbm/js/autocomplete/jqueryui.autocomplete.js"></script>
 <script src='http://t1.chei.com.cn/common/wap/help/js/template.js'></script>
 <script src="http://t1.chei.com.cn/common/kn/js/kn_page.js"></script>
+<script src='http://t1.chsi.com.cn/common/plugins/dialog/6.0.5/dialog-min.js'></script>
+<script src='http://t1.chsi.com.cn/common/plugins/dialog/6.0.5/dialog-plus-min.js'></script>
 <style>
 .content { padding: 25px 0 30px 0; background: #ccc;}
 .logo { position: relative; width:1000px; height: 70px; margin:0 auto;  background-color: #28bca4; color: #fff; }
@@ -26,13 +29,11 @@ import="com.chsi.knowledge.pojo.KnowledgeData,com.chsi.knowledge.util.ManageCach
 .main .left .all_tips { position: absolute; bottom: 165px; left: 0; }
 .main .right{ float: right; width: 326px; height: 629px;  border-left: 1px solid #d3d3d3; border-right: 1px solid #d3d3d3; background: #fff;}
 .main .right .normal-question { height: 655px;}
-.main .right #kn_lists {}
 #ui-id-1 {max-width: 669px;}
 #kn_labels {  background: #f1f1f1; }
 #kn_labels ul li { float: left;  width: 108px; height: 50px; line-height: 50px; border-right: 1px solid #d3d3d3; border-bottom: 1px solid #d3d3d3; text-align: center; color: #666;  background: #f1f1f1;}
 #kn_labels ul li.cn {cursor: pointer;}
 #kn_labels ul li.selected { background: #fff; color: #333;}
-#kn_lists {}
 #kn_lists .top_title { padding: 12px; border-bottom: 1px solid #d3d3d3; }
 #kn_lists ul li { padding:2px 12px; height: 35px; line-height: 35px; border-bottom: 1px solid #d3d3d3; color: #666; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
 #kn_lists ul li a { color: #666; }
@@ -42,15 +43,47 @@ import="com.chsi.knowledge.pojo.KnowledgeData,com.chsi.knowledge.util.ManageCach
 #kn_lists .pagenation .kn-pagination_down:hover{text-decoration: none; opacity: 0.8; filter:alpha(opacity=80);}
 .main .right .advert{ height: 65px;  background: #f1f1f1; }
 .system {color: #999; margin-left: 10px;}
-.system_1 {color: #999;}
 .robot{ position:relative; float: left; max-width: 450px; margin-left: 75px; margin-bottom: 25px;  padding: 10px; border: 1px solid #d3d3d3; border-radius: 5px; background-color: #fff; word-break: break-all; word-wrap: break-word;}
 .robot .icon1 { position: absolute; left:-66px; top: -6px; width: 62px; height: 62px; background: url(../images/wap/help/icon_yz.png) no-repeat ;}
 .robot a { color:#0e6c9c;}
+.robot .feedback{color: #999; }
+.robot .feedback .system_1 { float: left;}
+.robot .feedback .title { float: right;}
+.robot label, .robot  input { cursor: pointer;}
+.robot label { margin-left: 5px; }
+.robot input  { margin-left: 2px;}
+.robot img {max-width: 495px;}
+.ui-dialog-footer button.ui-dialog-autofocus { background-color: #28bca4; }
+.ui-dialog-footer button.ui-dialog-autofocus:hover, .ui-dialog-footer button.ui-dialog-autofocus:focus, .ui-dialog-footer button.ui-dialog-autofocus:active { background-color: #28bca4; }
+#kn_feedback { width: 450px; padding: 6px; border: 1px solid #9c9b9a; border-radius: 5px; box-shadow: 0 0 5px #b2b2b2; color: #292929;  }
 .person{position:relative; float: right; max-width: 450px;  margin-right: 75px; margin-bottom: 25px;  padding: 10px; border: 1px solid #28bca4; border-radius: 5px; background-color: #28bca4; color: #fff; word-break: break-all; word-wrap: break-word;}
 .person .icon2 { position: absolute; right: -66px; top: -6px; width: 62px; height: 62px; background: url(../images/wap/help/icon_zh.png) no-repeat ;}
 </style>
 <script>
 var sessionId = "<s:property value='sessionId'/>";
+//评论
+function ajaxJSONP1(data,callback){
+    $.ajax({ 
+            global:true, 
+            type: "post",
+            cache: false,
+            async: true,
+            crossDomain:true,
+            url: "/view/discuss.action",  
+            data:data,
+            dataType: "jsonp",  
+            jsonp: "callback", //回调函数的参数  
+            jsonpCallback: callback, //回调函数的名称
+            error: function(){  
+                alert('请求时发生了错误，请稍后再试');  
+            }  
+        }); 
+         return false;
+}
+function feedback(json){
+    return false;
+}	
+//文本框输入调用
 function input() {
 	var q = $("#inputbox").val();
 	if($.trim(q)=="") return;	
@@ -73,7 +106,11 @@ function input() {
 				//a+="<span class='system_1' data-id='"+data.result[0].systemId+"'>["+data.result[0].system+"]</span>";
 			}else{
 				a+=data.content;
+				a+="<div class='feedback clearfix'>";
 				a+="<span class='system_1' data-id='"+data.result[0].systemId+"'>["+data.result[0].system+"]</span>";
+				a+="<span class='title'>这个回答是否有用？";
+				a+="<span class='help_judge'><label>是<input type='radio'class='helpfulYes' value='1' name='discussStatus' data-id='"+data.result[0].knowId+"' /></label>";
+				a+="<label>否<input type='radio' class='helpfulNo' value='0' name='discussStatus' data-id='"+data.result[0].knowId+"' /></label></span></span></div>";
 			}
 			a+="</div></div>";
 			$("#showbox").append(a);	
@@ -83,7 +120,7 @@ function input() {
 	},'json');
 	$("#inputbox").val('');	
 }
-	//点击常见问题
+//点击常见问题
 $(function(){
 	$("#showbox").html("<div class='clearfix'><div class='robot'><div class='icon1'></div><s:property value='hello'/></div></div>");
 	$("#sendBtn").on("click",function(){
@@ -120,7 +157,11 @@ $(function(){
     			//console.log(result);
     			var a="<div class='clearfix'><div class='robot'><div class='icon1'></div>";
   				a+=data.result[0].summary;
+  				a+="<div class='feedback clearfix'>";
   				a+="<span class='system_1' data-id='"+data.result[0].systemId+"'>["+data.result[0].system+"]</span>";
+  				a+="<span class='title'>这个回答是否有用？";
+				a+="<span class='help_judge' ><label>是<input type='radio'class='helpfulYes' value='1' name='discussStatus' data-id='"+data.result[0].knowId+"' /></label>";
+				a+="<label>否<input type='radio' class='helpfulNo' value='0' name='discussStatus' data-id='"+data.result[0].knowId+"' /></label></span></span></div>";
     			a+="</div></div>";
     			$("#showbox").append(a);
     			var height = $("#showbox").prop('scrollHeight');//原来的高度	
@@ -173,7 +214,43 @@ $(function(){
  	$("#kn_labels ul .cn").bind("click",function(){
 		$(this).addClass("selected").siblings().removeClass("selected");		
 	}); 
-	//关闭机器人
+	//评论
+	$("#showbox").on("click",".helpfulYes",function(){
+		var v=$(this).val();
+		var _d ={"knowledgeId":$(this).data("id"),"discussStatus":v};
+		ajaxJSONP1(_d,"feedback");
+		$(this).parents(".title").html("已收到您的建议。谢谢！");
+	});	
+	$("#showbox").on("click",".helpfulNo",function(){
+		var v=$(this).val();
+		var id=$(this).data("id");
+		var t=$(this).parents(".title");
+		var k=$(this);
+		console.log(t);
+		dialog({
+	                	title:'您的建议（200个字符以内，选填）：',
+	                    content: '<div><textarea maxlength="200" tabindex="1" rows="5" cols="80" id="kn_feedback" name="feedback"></textarea></div>',
+	                    backdropOpacity: 0.2,
+	                    padding:10,
+	                    ok:function () {
+	                    	var content=$("#kn_feedback").val();
+	                    	console.log(id);
+	                    	if($.trim(content).length>=200){ 
+	                    		alert("您输入的评论内容过长，请输200字以内的字符");
+	                    	    return false;
+	                    	}else{	                    	
+		                    	var _c={"knowledgeId":id,"discussStatus":"0","content":$.trim(content)};
+		                    	ajaxJSONP1(_c,"feedback");
+		                		t.html("已收到您的建议。谢谢！");
+	                		}
+	                    },
+	                    okValue:'确定',
+	                    cancel:function () {
+	              			k.attr("checked",false);
+	                    },
+	                    cancelValue: '取消',	                    
+        }).showModal();	
+	});	
 })
 </script>
 <div class="logo">
@@ -257,9 +334,9 @@ function ajaxJSONP(data,callback){
                 alert('请求时发生了错误，请稍后再试');  
             }  
         }); 
-         return false;
-    }    
-  //列表翻页
+    return false;
+}    
+ //列表翻页
  function knList(json){
 	if(!json.flag){ alert(json.errorMessages); return;}
 	$("#pagenation_list span").remove();
@@ -277,7 +354,11 @@ function ajaxJSONP(data,callback){
     			//console.log(result);
     			var a="<div class='clearfix'><div class='robot'><div class='icon1'></div>";
   				a+=data.result[0].summary;
-  				a+="<span class='system_1' data-id='"+data.result[0].systemId+"'>["+data.result[0].system+"]</span>";				
+  				a+="<div class='feedback clearfix'>"
+  				a+="<span class='system_1' data-id='"+data.result[0].systemId+"'>["+data.result[0].system+"]</span>";
+  				a+="<span class='title'>这个回答是否有用？";
+				a+="<span class='help_judge'><label>是<input type='radio'class='helpfulYes' value='1' name='discussStatus' data-id='"+data.result[0].knowId+"' /></label>";
+				a+="<label>否<input type='radio' class='helpfulNo' value='0' name='discussStatus'  data-id='"+data.result[0].knowId+"' /></label></span></span></div>";
     			a+="</div></div>";
     			$("#showbox").append(a);
     			var height = $("#showbox").prop('scrollHeight');//原来的高度	
@@ -332,7 +413,8 @@ function ajaxJSONP(data,callback){
 //           ajaxJSONP($.param(_last_tag["param"]),'knListPage');          
 //      }           
 //	}); 
-//}     
+//}   
+//自动完成
 $(function() {
 		$('#inputbox').autocomplete({
 			minLength: 0,
@@ -386,7 +468,11 @@ $(function() {
 		    			//console.log(result);
 		    			var a="<div class='clearfix'><div class='robot'><div class='icon1'></div>";
 		  				a+=data.result[0].summary;
+		  				a+="<div class='feedback clearfix'>";
   						a+="<span class='system_1' data-id='"+data.result[0].systemId+"'>["+data.result[0].system+"]</span>";
+						a+="<span class='title'>这个回答是否有用？";
+						a+="<span class='help_judge'><label>是<input type='radio' class='helpfulYes' value='1' name='discussStatus'  data-id='"+data.result[0].knowId+"' /></label>";
+						a+="<label>否<input type='radio' class='helpfulNo' value='0' name='discussStatus' data-id='"+data.result[0].knowId+"'/></label></span></span></div>";  						
 		    			a+="</div></div>";
 		    			$("#showbox").append(a);
 		    			var height = $("#showbox").prop('scrollHeight');//原来的高度	
