@@ -5,9 +5,9 @@
 <%
 Calendar cal = Calendar.getInstance();
 cal.add(Calendar.DAY_OF_MONTH, -1);
-String startDate = TimeUtil.getTime(cal, "yyyyMMdd");
-cal.add(Calendar.DAY_OF_MONTH, -9);
 String endDate = TimeUtil.getTime(cal, "yyyyMMdd");
+cal.add(Calendar.DAY_OF_MONTH, -9);
+String startDate = TimeUtil.getTime(cal, "yyyyMMdd");
 %>
 <script src="/js/echarts.min.js"></script>
 <div class="breadcrumbs" id="breadcrumbs">
@@ -49,7 +49,7 @@ String endDate = TimeUtil.getTime(cal, "yyyyMMdd");
             </span>
           </h3>
           <div>
-            <div id="knowl_condition" style="display:none;"><span>系统：<select id="systemIds" class="" name="systemId"></select>排名靠前个数：<input id="topCnt" type="text" name="topCnt">开始日期：<input id="startDate" type="text" name="startDate">截止日期：<input id="endDate" type="text" name="endDate"><button id="knowl_btn">统计</button></span></div>
+            <div id="knowl_condition" style="display:none;"><span>系统：<select id="systemIds" class="" name="systemId"></select>排名靠前个数：<input id="topCnt" type="text" name="topCnt" value="6">开始日期：<input id="startDate" type="text" name="startDate" value="<%=startDate%>">截止日期：<input id="endDate" type="text" name="endDate" value="<%=endDate%>"><button id="knowl_btn">统计</button></span></div>
             <div id="main" style="width: 1000px;height:500px;float:left;"></div>
           </div>
         </div>

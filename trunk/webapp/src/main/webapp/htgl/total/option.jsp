@@ -21,7 +21,7 @@ if(!ValidatorUtil.isNull(type)) {
     String endTime = request.getParameter("endTime");
     LineChartVO vo = commonService.getTopKnowlVisitLog(systemId, Integer.parseInt(topCnt), startTime, endTime);
     %>
-({title:{text:'',x:'center'},tooltip:{trigger:'axis'},legend:{data:<%=JSONArray.fromObject(vo.getLegend()).toString() %>},toolbox:{feature:{saveAsImage:{}}},grid:{left:'3%',right:'4%',bottom:'3%',containLabel:true},xAxis:[{type:'category',boundaryGap:false,data:<%=JSONArray.fromObject(vo.getxAxis()).toString() %>}],yAxis:[{type:'value'}],series:<%=JSONArray.fromObject(vo.getSeries()).toString() %>})
+({title:{text:'',x:'center'},tooltip:{trigger:'axis'},legend:{data:<%=JSONArray.fromObject(vo.getLegend()).toString() %>},toolbox:{show:false},grid:{left:'3%',right:'4%',bottom:'3%',containLabel:true},xAxis:[{type:'category',boundaryGap:false,data:<%=JSONArray.fromObject(vo.getxAxis()).toString() %>}],yAxis:[{type:'value'}],series:<%=JSONArray.fromObject(vo.getSeries()).toString() %>})
 <%}
 } 
 %>

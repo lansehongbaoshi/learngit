@@ -12,7 +12,7 @@ public class SeriesVO {
         this.name = name;
         this.setData(data);
         this.type = "line";
-        this.stack = "总量";
+        this.stack = "";
     }
     
     public String getName() {
