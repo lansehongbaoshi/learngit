@@ -14,6 +14,7 @@ import com.chsi.knowledge.service.QueueService;
 import com.chsi.knowledge.service.ServiceFactory;
 import com.chsi.knowledge.service.SystemService;
 import com.chsi.knowledge.service.TagService;
+import com.chsi.knowledge.util.ConvertUtil;
 import com.chsi.knowledge.util.ManageCacheUtil;
 import com.chsi.knowledge.vo.ViewKnowVO;
 import com.chsi.knowledge.vo.ViewKnowsVO;
@@ -121,10 +122,10 @@ public class KnowledgeAction extends AjaxAction{
             ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
         } else {
             Map<SystemData, List<KnowledgeData>> map = ManageCacheUtil.getCatalogTopKnowl(10);
-            List<KnowledgeData> list = map.get(systemId);
+            List<KnowledgeData> list = map.get(systemData);
             if(list!=null) {
                 ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
-                ajaxMessage.setO(list);
+                ajaxMessage.setO(ConvertUtil.know2SearchVO(list));
             } else {
                 ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
             }

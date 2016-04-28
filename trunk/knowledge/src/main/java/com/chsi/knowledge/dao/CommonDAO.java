@@ -1,5 +1,6 @@
 package com.chsi.knowledge.dao;
 
+import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.List;
 
@@ -34,5 +35,5 @@ public interface CommonDAO {
     List<SearchLogData> getSearchLogData(Calendar startTime, Calendar endTime);
     
     
-    List<Long> totalVisitLog(String kowId, String startTime, String endTime);
+    List<BigDecimal> totalVisitLog(String kowId, String startTime, String endTime);
 }

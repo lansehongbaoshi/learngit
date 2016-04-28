@@ -8,8 +8,12 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.chsi.framework.util.FileUtil;
+import com.chsi.knowledge.pojo.KnowledgeData;
+import com.chsi.knowledge.vo.SearchVO;
 
 /**
  * 字节转换工具类
@@ -77,5 +81,13 @@ public class ConvertUtil {
             }
         }
         return buffer;
+    }
+    
+    public static List<SearchVO> know2SearchVO(List<KnowledgeData> list) {
+        List<SearchVO> result = new ArrayList<SearchVO>();
+        for(KnowledgeData data:list) {
+            result.add(new SearchVO(data.getSystemData().getId(), data.getSystemData().getName(), data.getId(), data.getArticle().getTitle(), ""));
+        }
+        return result;
     }
 }

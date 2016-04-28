@@ -1,5 +1,6 @@
 package com.chsi.knowledge.service.impl;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -187,18 +188,21 @@ public class CommonServiceImpl extends BaseDbService implements CommonService {
         sotd.setSystemId(systemId);
         Calendar cal1 = TimeUtil.getCalendar(startTime);
         Calendar cal2 = TimeUtil.getCalendar(endTime);
+        cal1.set(Calendar.HOUR_OF_DAY, -24);//因为要统计每日访问量，存的是总量，为了减出每日访问量要多统计一天
         cal2.set(Calendar.HOUR_OF_DAY, 24);
         List<CntVO> list = commonDAO.getTopVisitKnowl(sotd, cal1, cal2);
         List<String> legend = new ArrayList<String>();
         List<SeriesVO> series = new ArrayList<SeriesVO>();
-        for(int i=0;i<topCnt;i++) {
+        String startTimeOneDayAgo = TimeUtil.getTime(cal1, "yyyyMMdd");
+        for(int i=0;i<topCnt&&i<list.size();i++) {
             CntVO cntVO = list.get(i);
             String knowlId = cntVO.getId();
             KnowledgeData knowledgeData = ManageCacheUtil.getKnowledgeDataById(knowlId);
             String title = knowledgeData.getArticle().getTitle();
             legend.add(title);
-            List<Long> datas = commonDAO.totalVisitLog(knowlId, startTime, endTime);
-            SeriesVO seriesVO = new SeriesVO(title, datas);
+            List<BigDecimal> datas = commonDAO.totalVisitLog(knowlId, startTimeOneDayAgo, endTime);
+            List<Long> datas2 = getDayVisit(datas);
+            SeriesVO seriesVO = new SeriesVO(title, datas2);
             series.add(seriesVO);
         }
         List<String> xAxis = getDays(startTime, endTime);
@@ -217,6 +221,14 @@ public class CommonServiceImpl extends BaseDbService implements CommonService {
             str = TimeUtil.getTime(cal, "yyyyMMdd");
         }
         result.add(endTime);
+        return result;
+    }
+    
+    private List<Long> getDayVisit(List<BigDecimal> list) {
+        List<Long> result = new ArrayList<Long>();
+        for(int i=1;i<list.size();i++) {
+            result.add(list.get(i).longValue()-list.get(i-1).longValue());
+        }
         return result;
     }
 }

@@ -1,5 +1,6 @@
 package com.chsi.knowledge.dao.impl;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -128,7 +129,7 @@ public class CommonDAOImpl extends BaseHibernateDAO implements CommonDAO {
     }
 
     @Override
-    public List<Long> totalVisitLog(String kowId, String startTime, String endTime) {
+    public List<BigDecimal> totalVisitLog(String kowId, String startTime, String endTime) {
         Query query = hibernateUtil.getSession().createSQLQuery(VISIT_LOG_OF_KNOWLEDGE);
         query.setString("KNOWLEDGE_ID", kowId);
         query.setString("START_TIME", startTime);
