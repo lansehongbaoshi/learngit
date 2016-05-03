@@ -45,7 +45,7 @@ import="com.chsi.knowledge.pojo.KnowledgeData,com.chsi.knowledge.util.ManageCach
 .main .right .advert{ height: 65px;  background: #f1f1f1; }
 .system {color: #999; margin-left: 10px;}
 .robot{ position:relative; float: left; max-width: 450px; margin-left: 75px; margin-bottom: 25px;  padding: 10px; border: 1px solid #d3d3d3; border-radius: 5px; background-color: #fff; word-break: break-all; word-wrap: break-word;}
-.robot .icon1 { position: absolute; left:-66px; top: -6px; width: 62px; height: 62px; background: url(../images/wap/help/icon_yz.png) no-repeat ;}
+.robot .icon1 { position: absolute; left:-66px; top: -6px; width: 62px; height: 62px; background: url(../images/wap/help/icon_robot.png) no-repeat 0 5px;}
 .robot a { color:#0e6c9c;}
 .robot .feedback{color: #999; }
 .robot .feedback .system_1 { float: left;}
@@ -58,7 +58,7 @@ import="com.chsi.knowledge.pojo.KnowledgeData,com.chsi.knowledge.util.ManageCach
 .ui-dialog-footer button.ui-dialog-autofocus:hover, .ui-dialog-footer button.ui-dialog-autofocus:focus, .ui-dialog-footer button.ui-dialog-autofocus:active { background-color: #28bca4; }
 #kn_feedback { width: 450px; padding: 6px; border: 1px solid #9c9b9a; border-radius: 5px; box-shadow: 0 0 5px #b2b2b2; color: #292929;  }
 .person{position:relative; float: right; max-width: 450px;  margin-right: 75px; margin-bottom: 25px;  padding: 10px; border: 1px solid #28bca4; border-radius: 5px; background-color: #28bca4; color: #fff; word-break: break-all; word-wrap: break-word;}
-.person .icon2 { position: absolute; right: -66px; top: -6px; width: 62px; height: 62px; background: url(../images/wap/help/icon_zh.png) no-repeat ;}
+.person .icon2 { position: absolute; right: -66px; top: -6px; width: 62px; height: 62px; background: url(../images/wap/help/icon_user.png) no-repeat 0 5px;}
 </style>
 <script>
 var sessionId = "<s:property value='sessionId'/>";
