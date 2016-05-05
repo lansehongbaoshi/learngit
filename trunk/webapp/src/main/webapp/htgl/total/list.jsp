@@ -14,7 +14,7 @@ String startDate = TimeUtil.getTime(cal, "yyyy-MM-dd");
 <script type="text/javascript" src="/assets/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/assets/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
 <script type="text/javascript" src="/assets/js/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
-<<style>
+<style>
 .form_datetime{
     width:200px;
 }
@@ -158,17 +158,6 @@ function getNames(values){
                 myChart.setOption({});
                 return;
     		}
-/*     		$.post("/htgl/total/option.jsp",data,function(result){
-        		var option = eval(result);
-        		var myChart = echarts.init(document.getElementById('main'));
-      			myChart.setOption(option);
-      			if(type=='q'){
-        			myChart.on('click', function (params) {
-        				if(params.name=='无答案')
-        			    window.open('/htgl/total/listQ.action?type=' + encodeURIComponent(params.name));
-        			});
-    			}
-        	}); */
     	});
     	$("#knowl_btn").on('click',function(){
     		var data = {};
@@ -203,6 +192,10 @@ function getNames(values){
         		var option = eval(result);
         		var myChart = echarts.init(document.getElementById('main'));
       			myChart.setOption(option);
+      			myChart.on('click', function (params) {
+    				if(params.name=='无答案')
+    			    window.open('/htgl/total/listQ.action?start=0&type=' + encodeURIComponent(params.name));
+    			});
         	});
     	});
     	$.getJSON("/htgl/listSystem.action",

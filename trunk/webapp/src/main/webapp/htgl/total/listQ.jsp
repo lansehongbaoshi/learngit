@@ -36,7 +36,7 @@
                   </tr>
                 </thead>
                 <tbody id="systemIds">
-                  <s:iterator value="qaLogList" id="data">
+                  <s:iterator value="page.list" id="data">
                     <tr role="row" class="odd">
                       <td class="hidden-80"><s:date format="yyyy-MM-dd HH:mm:ss" name="#data.createTime"/></td>
                       <td class="hidden-80"><s:property value="#data.q" /></td>
@@ -45,6 +45,7 @@
                 </tbody>
               </table>
             </div>
+            <s:include value="/common/pageNavigator2.jsp"></s:include>
           </div>
         </div>
       </div>

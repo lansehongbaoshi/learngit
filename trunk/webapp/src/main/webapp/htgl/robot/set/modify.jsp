@@ -30,10 +30,10 @@
       <s:iterator value="qaSet" id="entry">
       <input type="hidden" name="id" value="<s:property value='key.id'/>">
         <p>
-          用户：<input type="text" name="q" value="<s:property value="key.q"/>" style="width: 400px;" <s:if test="key.systemDefined">disabled="disabled"</s:if>><span>（说明：多种相似的词汇或句子用","隔开，如：“姓名,名字”）</span>
+          用户：<input type="text" name="q" value="<s:property value="key.q"/>" style="width: 400px;" <s:if test="key.systemDefined">readonly="true"</s:if>><span>（说明：多种相似的词汇或句子用","隔开，如：“姓名,名字”）</span>
         </p>
         <p>
-          机器人：<input type="button" value="+" onclick="addLi()"><br>
+          机器人：<input type="button" value="+" onclick="addLi()"></p>
         <ol>
           <s:iterator value="value" var="a" status="index">
             <li>
@@ -41,7 +41,7 @@
                         </li>
           </s:iterator>
         </ol>
-        </p>
+        
      </s:iterator>
         <div class="clear"></div>
         <div class="clearfix form-actions">

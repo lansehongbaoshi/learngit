@@ -36,13 +36,13 @@
                         用户：<input type="text" name="q" value="" style="width: 400px;"><span>（说明：多种相似的词汇或句子用","隔开，如：“姓名,名字”）</span>
                     </p>
                     <p>
-                    机器人：<input type="button" value="+" onclick="addLi()"><br>
+                    机器人：<input type="button" value="+" onclick="addLi()"></p>
                     <ol>
                         <li>
 							<input type="text" name="a"  style="width: 400px;">&nbsp;&nbsp;<input type="button" value="x" onclick="removeLi(this)">
                         </li>
                     </ol>
-                    </p>
+                    
                     
                         <div class="clear"></div>
                         <div class="clearfix form-actions">

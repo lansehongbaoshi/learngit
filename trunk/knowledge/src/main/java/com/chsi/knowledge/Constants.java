@@ -10,6 +10,7 @@ public class Constants {
      * 每页显示数
      */
     public static final int PAGE_SIZE = 10;
+    public static final int PAGE_SIZE_20 = 20;
     
     /**
      * 自动完成显示数目

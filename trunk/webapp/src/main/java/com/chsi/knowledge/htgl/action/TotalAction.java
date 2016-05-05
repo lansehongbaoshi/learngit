@@ -2,6 +2,9 @@ package com.chsi.knowledge.htgl.action;
 
 import java.util.List;
 
+import org.apache.struts2.ServletActionContext;
+
+import com.chsi.framework.page.Page;
 import com.chsi.framework.util.ValidatorUtil;
 import com.chsi.knowledge.Constants;
 import com.chsi.knowledge.action.base.AjaxAction;
@@ -21,9 +24,11 @@ public class TotalAction extends AjaxAction {
     private RobotService robotService;
     
     private String type;
+    private String start;
     
     private List<PieVO> totalList;
     private List<QALogData> qaLogList;
+    private Page<QALogData> page;
 
     public String option() throws Exception {
         if(!ValidatorUtil.isNull(type)) {
@@ -45,14 +50,16 @@ public class TotalAction extends AjaxAction {
     }
     
     public String listQ() throws Exception {
-        if(!ValidatorUtil.isNull(type)) {
+        if(!ValidatorUtil.isNull(type) && ValidatorUtil.isNumber(start)) {
+            int currentPage = Integer.parseInt(start);
             if("无答案".equals(type)) {
-                qaLogList = robotService.listQALogDataByAType(AType.NONE);
+                page = robotService.pageQALogDataByAType(AType.NONE, currentPage, Constants.PAGE_SIZE_20);
             } else if("确定答案".equals(type)) {
-                qaLogList = robotService.listQALogDataByAType(AType.DEFINITE);
+                page = robotService.pageQALogDataByAType(AType.DEFINITE, currentPage, Constants.PAGE_SIZE_20);
             } else if("不确定答案".equals(type)) {
-                qaLogList = robotService.listQALogDataByAType(AType.INDEFINITE);
+                page = robotService.pageQALogDataByAType(AType.INDEFINITE, currentPage, Constants.PAGE_SIZE_20);
             }
+            ServletActionContext.getRequest().setAttribute("page", page);
         }
         return SUCCESS;
     }
@@ -87,5 +94,21 @@ public class TotalAction extends AjaxAction {
 
     public void setQaLogList(List<QALogData> qaLogList) {
         this.qaLogList = qaLogList;
+    }
+
+    public String getStart() {
+        return start;
+    }
+
+    public void setStart(String start) {
+        this.start = start;
+    }
+
+    public Page<QALogData> getPage() {
+        return page;
+    }
+
+    public void setPage(Page<QALogData> page) {
+        this.page = page;
     }
 }

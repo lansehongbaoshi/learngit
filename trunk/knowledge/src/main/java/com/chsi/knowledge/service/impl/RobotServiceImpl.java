@@ -7,6 +7,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.chsi.framework.page.Page;
 import com.chsi.framework.pojos.PersistentObject;
 import com.chsi.framework.service.BaseDbService;
 import com.chsi.framework.util.ValidatorUtil;
@@ -85,14 +86,14 @@ public class RobotServiceImpl extends BaseDbService implements RobotService {
         } else {
             answerVO = new AnswerVO<SearchVO>();
             q = q==null?"":q.trim();
-            List<RobotASetData> robotAList = robotDAO.getAByQ(q);//先查是否是打招呼
+            String keywords = SearchUtil.keywordsFilter(q);
+            List<RobotASetData> robotAList = robotDAO.getAByQ(keywords);//先查是否是打招呼
             if(robotAList.size()>0) {//机器人常用语回答不记录后台日志
                 int randomIndex = (int)(Math.random()*robotAList.size());
                 String content = robotAList.get(randomIndex).getA();
                 answerVO.setAType(AType.ROBOT);
                 answerVO.setContent(content);
             } else {
-                String keywords = q;
                 String definiteKeyword = SearchUtil.formatFullMatchKeyword(keywords);
                 Map<String, String> queryParams = new HashMap<String, String>();
                 queryParams.put("q", definiteKeyword);
@@ -174,6 +175,16 @@ public class RobotServiceImpl extends BaseDbService implements RobotService {
     }
 
     @Override
+    public List<PieVO> totalSession() {
+        return robotDAO.totalSession();
+    }
+
+    @Override
+    public List<PieVO> totalQ() {
+        return robotDAO.totalQ();
+    }
+    
+    @Override
     public List<PieVO> totalSession(String startTime, String endTime) {
         return robotDAO.totalSession(startTime, endTime);
     }
@@ -189,13 +200,8 @@ public class RobotServiceImpl extends BaseDbService implements RobotService {
     }
 
     @Override
-    public List<PieVO> totalSession() {
-        return robotDAO.totalSession();
-    }
-
-    @Override
-    public List<PieVO> totalQ() {
-        return robotDAO.totalQ();
+    public Page<QALogData> pageQALogDataByAType(AType aType, int currentPage, int pageSize) {
+        return robotDAO.pageQALogDataByAType(aType, currentPage, pageSize);
     }
     
 }

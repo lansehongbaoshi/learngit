@@ -73,6 +73,25 @@
               <td class="hidden-260"><div data-id="65rsrxlmzka9izh8
                     " class="hidden-sm hidden-xs action-buttons"> <a href="/htgl/robot/set/updateIndex.action?id=<s:property value="#id2"/>" target="_self" title="修改" class="green"><i class="ace-icon fa fa-pencil bigger-130"></i> </a> <a href="javascript:void(0)" class="red delBtn" title="删除"> <i class="ace-icon fa fa-trash-o bigger-130"></i> </a> </div></td>
             </tr>
+            <tr class="odd" role="row">
+              <td class="hidden-200"><strong>用户输入无有效文字时机器人回答</strong>（#blank）<br>
+                <small>说明：当用户输入的文字被过滤后是空白时机器人的答复。</small></td>
+              <td class="hidden-200">
+              <s:iterator value="qaSet" id="entry">
+              <s:if test="key.q=='#blank'">
+              <s:set var="id2" value="key.id"/>
+              <s:iterator value="value" var="a" status="index">
+                    <s:property value="#index.index+1"/>
+                    .
+                    <s:property value="#a.a"/>
+                    <br>
+                  </s:iterator>
+              </s:if>
+              </s:iterator>
+              </td>
+              <td class="hidden-260"><div data-id="65rsrxlmzka9izh8
+                    " class="hidden-sm hidden-xs action-buttons"> <a href="/htgl/robot/set/updateIndex.action?id=<s:property value="#id2"/>" target="_self" title="修改" class="green"><i class="ace-icon fa fa-pencil bigger-130"></i> </a> <a href="javascript:void(0)" class="red delBtn" title="删除"> <i class="ace-icon fa fa-trash-o bigger-130"></i> </a> </div></td>
+            </tr>
         </table>
       </div>
       <h3 class="row header smaller lighter blue"> <span class="col-xs-7">自定义对话配置</span> <span class="col-xs-5"> <a href="/htgl/robot/set/addIndex.action" target="_self" class="btn-new-mail pull-right"> <span class="btn btn-primary btn-xs no-border"> <i class="ace-icon fa glyphicon-plus bigger-130"></i> <span class="bigger-110">新增</span></span> </a> </span> </h3>

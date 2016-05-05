@@ -3,6 +3,7 @@ package com.chsi.knowledge.service;
 import java.util.List;
 import java.util.Map;
 
+import com.chsi.framework.page.Page;
 import com.chsi.framework.pojos.PersistentObject;
 import com.chsi.knowledge.dic.AType;
 import com.chsi.knowledge.pojo.QALogData;
@@ -55,4 +56,6 @@ public interface RobotService {
      * @return
      */
     List<QALogData> listQALogDataByAType(AType aType);
+    
+    Page<QALogData> pageQALogDataByAType(AType aType, int currentPage, int pageSize);
 }

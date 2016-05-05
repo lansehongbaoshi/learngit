@@ -2,6 +2,7 @@ package com.chsi.knowledge.dao;
 
 import java.util.List;
 
+import com.chsi.framework.page.Page;
 import com.chsi.framework.pojos.PersistentObject;
 import com.chsi.knowledge.dic.AType;
 import com.chsi.knowledge.pojo.QALogData;
@@ -61,4 +62,11 @@ public interface RobotDAO {
      * @return
      */
     List<QALogData> listQALogDataByAType(AType aType);
+    
+    /**
+     * 分页查询问题列表
+     * @param aType
+     * @return
+     */
+    Page<QALogData> pageQALogDataByAType(AType aType, int currentPage, int pageSize);
 }

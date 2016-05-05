@@ -25,10 +25,10 @@ public class SearchUtil {
      * @return
      */
     public static String keywordsFilter(String keywords) {
-        String filterWords = "[`~!@#$^()=|'+-:;,\\%.<>/?￥…&*（）—【】‘；：”“'。，、？]";
+        String filterWords = "[`~!@#$^()=|'+-:;,\\%.<>/?￥…&*（）—【】‘；：”“'。，、？]吗呢啊嘛呗喽呀哟啦";
         StringBuffer result = new StringBuffer();
         if (ValidatorUtil.isNull(keywords)) {
-            return null;
+            return "";
         }
         for (int i = 0; i < keywords.length(); i++) {
             if (filterWords.indexOf(keywords.charAt(i)) == -1) {
