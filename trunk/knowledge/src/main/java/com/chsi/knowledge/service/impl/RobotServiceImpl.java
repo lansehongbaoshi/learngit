@@ -174,6 +174,21 @@ public class RobotServiceImpl extends BaseDbService implements RobotService {
     }
 
     @Override
+    public List<PieVO> totalSession(String startTime, String endTime) {
+        return robotDAO.totalSession(startTime, endTime);
+    }
+
+    @Override
+    public List<PieVO> totalQ(String startTime, String endTime) {
+        return robotDAO.totalQ(startTime, endTime);
+    }
+
+    @Override
+    public List<QALogData> listQALogDataByAType(AType aType) {
+        return robotDAO.listQALogDataByAType(aType);
+    }
+
+    @Override
     public List<PieVO> totalSession() {
         return robotDAO.totalSession();
     }
@@ -181,11 +196,6 @@ public class RobotServiceImpl extends BaseDbService implements RobotService {
     @Override
     public List<PieVO> totalQ() {
         return robotDAO.totalQ();
-    }
-
-    @Override
-    public List<QALogData> listQALogDataByAType(AType aType) {
-        return robotDAO.listQALogDataByAType(aType);
     }
     
 }

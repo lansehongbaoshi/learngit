@@ -5,11 +5,20 @@
 <%
 Calendar cal = Calendar.getInstance();
 cal.add(Calendar.DAY_OF_MONTH, -1);
-String endDate = TimeUtil.getTime(cal, "yyyyMMdd");
+String endDate = TimeUtil.getTime(cal, "yyyy-MM-dd");
 cal.add(Calendar.DAY_OF_MONTH, -9);
-String startDate = TimeUtil.getTime(cal, "yyyyMMdd");
+String startDate = TimeUtil.getTime(cal, "yyyy-MM-dd");
 %>
 <script src="/js/echarts.min.js"></script>
+<link href="/assets/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+<script type="text/javascript" src="/assets/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/assets/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+<script type="text/javascript" src="/assets/js/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+<<style>
+.form_datetime{
+    width:200px;
+}
+</style>
 <div class="breadcrumbs" id="breadcrumbs">
   <script type="text/javascript">
                 try {
@@ -49,7 +58,45 @@ String startDate = TimeUtil.getTime(cal, "yyyyMMdd");
             </span>
           </h3>
           <div>
-            <div id="knowl_condition" style="display:none;"><span>系统：<select id="systemIds" class="" name="systemId"></select>排名靠前个数：<input id="topCnt" type="text" name="topCnt" value="6">开始日期：<input id="startDate" type="text" name="startDate" value="<%=startDate%>">截止日期：<input id="endDate" type="text" name="endDate" value="<%=endDate%>"><button id="knowl_btn">统计</button></span></div>
+            <div id="knowl_condition" style="display:none;"><span>系统：<select id="systemIds" class="" name="systemId"></select>排名靠前个数：<input id="topCnt" type="text" name="topCnt" value="6"></span>
+            <span>开始日期：</span>                            
+            <div class="input-group date form_datetime a_v_time" style="margin:0;" data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_input1">
+            <input id="startDate" name="startDate" class="form-control for-height32" size="16" type="text" value="<%=startDate%>" readonly>
+            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+            </div>
+            <span> 截止日期：</span>
+            <div class="input-group date form_datetime a_v_time" style="margin:0;" data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_input1">
+            <input id="endDate" name="endDate" class="form-control for-height32" size="16" type="text" value="<%=endDate%>" readonly>
+            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+            </div>
+            <button id="knowl_btn">统计</button>
+            </div>
+            <div id="knowl_session" style="display:none;">
+            <span>开始日期：</span>                            
+            <div class="input-group date form_datetime a_v_time" style="margin:0;" data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_input1">
+            <input id="startDate1" name="startDate" class="form-control for-height32" size="16" type="text" value="<%=startDate%>" readonly>
+            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+            </div>
+            <span> 截止日期：</span>
+            <div class="input-group date form_datetime a_v_time" style="margin:0;" data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_input1">
+            <input id="endDate1" name="endDate" class="form-control for-height32" size="16" type="text" value="<%=endDate%>" readonly>
+            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+            </div>
+            <button id="knowl_btn1">统计</button>
+            </div>
+            <div id="knowl_q" style="display:none;">
+            <span>开始日期：</span>                            
+            <div class="input-group date form_datetime a_v_time" style="margin:0;" data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_input1">
+            <input id="startDate2" name="startDate" class="form-control for-height32" size="16" type="text" value="<%=startDate%>" readonly>
+            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+            </div>
+            <span> 截止日期：</span>
+            <div class="input-group date form_datetime a_v_time" style="margin:0;" data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_input1">
+            <input id="endDate2" name="endDate" class="form-control for-height32" size="16" type="text" value="<%=endDate%>" readonly>
+            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+            </div>
+            <button id="knowl_btn2">统计</button>
+            </div>
             <div id="main" style="width: 1000px;height:500px;float:left;"></div>
           </div>
         </div>
@@ -59,6 +106,16 @@ String startDate = TimeUtil.getTime(cal, "yyyyMMdd");
 </div>
 
 <script type="text/javascript">
+$('.form_datetime').datetimepicker({
+    language:  'zh-CN',
+    weekStart: 1,
+    todayBtn:  1,
+    autoclose: 1,
+    todayHighlight: 1,
+    startView: 2,
+    minView: 2
+});
+
 function countAll(values) {
 	var total = 0;
 	for(var i in values) {
@@ -81,13 +138,27 @@ function getNames(values){
     		data.type = type;
     		if(type=='visitlog') {
     			$("#knowl_condition").show();
+    			$("#knowl_session").hide();
+    			$("#knowl_q").hide();
     			var myChart = echarts.init(document.getElementById('main'));
       			myChart.setOption({});
     			return;
-    		} else {
-    			$("#knowl_condition").hide();
+    		} else if(type=='session') {
+                $("#knowl_condition").hide();
+                $("#knowl_session").show();
+                $("#knowl_q").hide();
+                var myChart = echarts.init(document.getElementById('main'));
+                myChart.setOption({});
+                return;
+    		} else{
+                $("#knowl_condition").hide();
+                $("#knowl_session").hide();
+                $("#knowl_q").show();
+                var myChart = echarts.init(document.getElementById('main'));
+                myChart.setOption({});
+                return;
     		}
-    		$.post("/htgl/total/option.jsp",data,function(result){
+/*     		$.post("/htgl/total/option.jsp",data,function(result){
         		var option = eval(result);
         		var myChart = echarts.init(document.getElementById('main'));
       			myChart.setOption(option);
@@ -97,7 +168,7 @@ function getNames(values){
         			    window.open('/htgl/total/listQ.action?type=' + encodeURIComponent(params.name));
         			});
     			}
-        	});
+        	}); */
     	});
     	$("#knowl_btn").on('click',function(){
     		var data = {};
@@ -106,6 +177,28 @@ function getNames(values){
 			data.topCnt=$("#topCnt").val();
 			data.startTime=$("#startDate").val();
 			data.endTime=$("#endDate").val();
+    		$.post("/htgl/total/option.jsp",data,function(result){
+        		var option = eval(result);
+        		var myChart = echarts.init(document.getElementById('main'));
+      			myChart.setOption(option);
+        	});
+    	});
+    	$("#knowl_btn1").on('click',function(){
+    		var data = {};
+    		data.type = 'session';
+			data.startTime=$("#startDate1").val();
+			data.endTime=$("#endDate1").val();
+    		$.post("/htgl/total/option.jsp",data,function(result){
+        		var option = eval(result);
+        		var myChart = echarts.init(document.getElementById('main'));
+      			myChart.setOption(option);
+        	});
+    	});
+    	$("#knowl_btn2").on('click',function(){
+    		var data = {};
+    		data.type = 'q';
+			data.startTime=$("#startDate2").val();
+			data.endTime=$("#endDate2").val();
     		$.post("/htgl/total/option.jsp",data,function(result){
         		var option = eval(result);
         		var myChart = echarts.init(document.getElementById('main'));

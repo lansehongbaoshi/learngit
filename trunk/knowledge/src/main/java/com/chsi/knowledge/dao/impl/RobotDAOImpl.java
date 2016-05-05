@@ -97,15 +97,15 @@ public class RobotDAOImpl extends BaseHibernateDAO implements RobotDAO{
     }
 
     @Override
-    public List<PieVO> totalSession() {
+    public List<PieVO> totalSession(String startTime, String endTime) {
         List<PieVO> list = new ArrayList<PieVO>();
         
-        String SQL = "SELECT COUNT(*) FROM QA_SESSION";
-        Query query = hibernateUtil.getSession().createSQLQuery(SQL);
+        String SQL = "SELECT COUNT(*) FROM QA_SESSION where to_char(START_TIME,'yyyy-mm-dd') between :startTime and :endTime";
+        Query query = hibernateUtil.getSession().createSQLQuery(SQL).setString("startTime", startTime).setString("endTime", endTime);
         BigDecimal total = (BigDecimal)query.uniqueResult();
         
-        SQL = "SELECT COUNT(DISTINCT SESSION_ID) FROM QA_LOG";
-        query = hibernateUtil.getSession().createSQLQuery(SQL);
+        SQL = "SELECT COUNT(DISTINCT SESSION_ID) FROM QA_LOG where to_char(CREATE_TIME,'yyyy-mm-dd') between :startTime and :endTime";
+        query = hibernateUtil.getSession().createSQLQuery(SQL).setString("startTime", startTime).setString("endTime", endTime);
         BigDecimal cnt = (BigDecimal)query.uniqueResult();
         
         list.add(new PieVO("有效会话", cnt.longValue()));
@@ -115,11 +115,11 @@ public class RobotDAOImpl extends BaseHibernateDAO implements RobotDAO{
     }
 
     @Override
-    public List<PieVO> totalQ() {
+    public List<PieVO> totalQ(String startTime, String endTime) {
         List<PieVO> list = new ArrayList<PieVO>();
         
-        String SQL = "SELECT SUM(DECODE(A_TYPE,0,1,0)) AS N,SUM(DECODE(A_TYPE,1,1,0)) AS D,SUM(DECODE(A_TYPE,2,1,0)) AS I FROM QA_LOG";
-        Query query = hibernateUtil.getSession().createSQLQuery(SQL);
+        String SQL = "SELECT SUM(DECODE(A_TYPE,0,1,0)) AS N,SUM(DECODE(A_TYPE,1,1,0)) AS D,SUM(DECODE(A_TYPE,2,1,0)) AS I FROM QA_LOG where to_char(CREATE_TIME,'yyyy-mm-dd') between :startTime and :endTime";
+        Query query = hibernateUtil.getSession().createSQLQuery(SQL).setString("startTime", startTime).setString("endTime", endTime);
         List<Object[]> result = query.list();
         if(result.size()>0) {
             Object[] objs = result.get(0);
@@ -136,6 +136,40 @@ public class RobotDAOImpl extends BaseHibernateDAO implements RobotDAO{
         Query query = hibernateUtil.getSession().createQuery(hql);
         query.setInteger("aType", aType.ordinal());
         return query.list();
+    }
+
+    @Override
+    public List<PieVO> totalSession() {
+        List<PieVO> list = new ArrayList<PieVO>();
+        
+        String SQL = "SELECT COUNT(*) FROM QA_SESSION ";
+        Query query = hibernateUtil.getSession().createSQLQuery(SQL);
+        BigDecimal total = (BigDecimal)query.uniqueResult();
+        
+        SQL = "SELECT COUNT(DISTINCT SESSION_ID) FROM QA_LOG ";
+        query = hibernateUtil.getSession().createSQLQuery(SQL);
+        BigDecimal cnt = (BigDecimal)query.uniqueResult();
+        
+        list.add(new PieVO("有效会话", cnt.longValue()));
+        list.add(new PieVO("空会话", total.longValue()-cnt.longValue()));
+        
+        return list;
+    }
+
+    @Override
+    public List<PieVO> totalQ() {
+        List<PieVO> list = new ArrayList<PieVO>();
+        
+        String SQL = "SELECT SUM(DECODE(A_TYPE,0,1,0)) AS N,SUM(DECODE(A_TYPE,1,1,0)) AS D,SUM(DECODE(A_TYPE,2,1,0)) AS I FROM QA_LOG ";
+        Query query = hibernateUtil.getSession().createSQLQuery(SQL);
+        List<Object[]> result = query.list();
+        if(result.size()>0) {
+            Object[] objs = result.get(0);
+            list.add(new PieVO("无答案", ((BigDecimal)objs[0]).longValue()));
+            list.add(new PieVO("确定答案", ((BigDecimal)objs[1]).longValue()));
+            list.add(new PieVO("不确定答案", ((BigDecimal)objs[2]).longValue()));
+        }
+        return list;
     }
 
 }

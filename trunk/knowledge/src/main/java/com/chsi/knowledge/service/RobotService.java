@@ -40,12 +40,14 @@ public interface RobotService {
     void deleteRobotQASet(String id);
     
     List<PieVO> totalSession();
+    List<PieVO> totalSession(String startTime, String endTime);
     
     /**
      * 统计问题情况，包括：无答案、确定答案、不确定答案
      * @return
      */
     List<PieVO> totalQ();
+    List<PieVO> totalQ(String startTime, String endTime);
     
     /**
      * 查询问题列表，包括：无答案、确定答案、不确定答案这三种情况
