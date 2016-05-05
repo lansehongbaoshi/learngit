@@ -57,5 +57,5 @@ public interface RobotService {
      */
     List<QALogData> listQALogDataByAType(AType aType);
     
-    Page<QALogData> pageQALogDataByAType(AType aType, int currentPage, int pageSize);
+    Page<QALogData> pageQALogDataByAType(AType aType, int currentPage, int pageSize, String startTime, String endTime);
 }

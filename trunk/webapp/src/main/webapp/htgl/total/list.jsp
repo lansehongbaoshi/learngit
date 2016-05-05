@@ -194,7 +194,7 @@ function getNames(values){
       			myChart.setOption(option);
       			myChart.on('click', function (params) {
     				if(params.name=='无答案')
-    			    window.open('/htgl/total/listQ.action?start=0&type=' + encodeURIComponent(params.name));
+    			    window.open('/htgl/total/listQ.action?start=0&type=' + encodeURIComponent(params.name)+'&startTime='+$("#startDate2").val()+'&endTime='+$("#endDate2").val());
     			});
         	});
     	});

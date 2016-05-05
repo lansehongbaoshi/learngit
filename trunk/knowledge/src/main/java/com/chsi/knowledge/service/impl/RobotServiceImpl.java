@@ -200,8 +200,8 @@ public class RobotServiceImpl extends BaseDbService implements RobotService {
     }
 
     @Override
-    public Page<QALogData> pageQALogDataByAType(AType aType, int currentPage, int pageSize) {
-        return robotDAO.pageQALogDataByAType(aType, currentPage, pageSize);
+    public Page<QALogData> pageQALogDataByAType(AType aType, int currentPage, int pageSize, String startTime, String endTime) {
+        return robotDAO.pageQALogDataByAType(aType, currentPage, pageSize, startTime, endTime);
     }
     
 }

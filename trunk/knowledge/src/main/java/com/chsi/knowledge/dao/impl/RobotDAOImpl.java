@@ -32,6 +32,8 @@ public class RobotDAOImpl extends BaseHibernateDAO implements RobotDAO{
     private static String count = "select count(*) ";
     
     private static String w_id = " where id=:id";
+    private static String a_createTime = " and to_char(createTime,'yyyy-mm-dd') between ? and ?";
+    
     private static String order_by_create_time_desc = " order by createTime desc";
 
     @Override
@@ -185,10 +187,10 @@ public class RobotDAOImpl extends BaseHibernateDAO implements RobotDAO{
     }
 
     @Override
-    public Page<QALogData> pageQALogDataByAType(AType aType, int currentPage, int pageSize) {
-        String countyHql = count + query_qa_log_by_a_type_page;
-        String queryHql = query_qa_log_by_a_type_page + order_by_create_time_desc;
-        Page page = PageUtil.getPage(hibernateUtil.getSession(), currentPage, pageSize, countyHql, queryHql, aType);
+    public Page<QALogData> pageQALogDataByAType(AType aType, int currentPage, int pageSize, String startTime, String endTime) {
+        String countyHql = count + query_qa_log_by_a_type_page + a_createTime;
+        String queryHql = query_qa_log_by_a_type_page + a_createTime + order_by_create_time_desc;
+        Page page = PageUtil.getPage(hibernateUtil.getSession(), currentPage, pageSize, countyHql, queryHql, aType, startTime, endTime);
         return page;
     }
 
