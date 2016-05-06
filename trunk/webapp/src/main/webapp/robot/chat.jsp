@@ -30,7 +30,7 @@ import="com.chsi.knowledge.pojo.KnowledgeData,com.chsi.knowledge.util.ManageCach
 .main .left .all_tips { position: absolute; bottom: 165px; left: 0; }
 .main .right{ float: right; width: 329px; height: 619px;  border-left: 1px solid #d3d3d3; background: #fff;}
 .main .right .normal-question { height: 655px;}
-#ui-id-1 {max-width: 670px;}
+#ui-id-1 {max-width: 665px;}
 #kn_labels {  background: #f1f1f1; }
 #kn_labels ul li { float: left;  width: 109px; height: 50px; line-height: 50px; border-right: 1px solid #d3d3d3; border-bottom: 1px solid #d3d3d3; text-align: center; color: #666;  background: #f1f1f1;}
 #kn_labels ul li.cn {cursor: pointer;}
@@ -48,7 +48,7 @@ import="com.chsi.knowledge.pojo.KnowledgeData,com.chsi.knowledge.util.ManageCach
 .robot .icon1 { position: absolute; left:-66px; top: -6px; width: 62px; height: 62px; background: url(../images/wap/help/icon_robot.png) no-repeat 0 5px;}
 .robot a { color:#0e6c9c;}
 .robot .feedback{color: #999; }
-.robot .feedback .system_1 { float: left;}
+.robot .feedback .system_1 { float: left; color: #0d9c85;}
 .robot .feedback .title { float: right;}
 .robot label, .robot  input { cursor: pointer;}
 .robot label { margin-left: 5px; }
@@ -458,7 +458,8 @@ $(function() {
 				 $("#judge").val(ui.item.value+"<span class='system'>["+ui.item.system+"]</span>");					
 			},
 			change: function(event, ui) {
-				 $("#judge").val("");					
+				 $("#judge").val("");		
+				 $("#inputbox").val("");
 			},
             select: function(event, ui){
             	var knowId = ui.item.knowId;
@@ -478,9 +479,11 @@ $(function() {
 		    			a+="</div></div>";
 		    			$("#showbox").append(a);
 		    			var height = $("#showbox").prop('scrollHeight');//原来的高度	
-						$("#showbox").scrollTop(height);//滚动到原来的高度，正好从最新用户输入开始显示					
+						$("#showbox").scrollTop(height);//滚动到原来的高度，正好从最新用户输入开始显示		
+						$("#judge").val("");
+						$("#inputbox").val("");							 
 					}
-				},'json');         
+				},'json'); 
 		        var pattern = "还可以输入<span class='red'>100</span>个字";
 	            $('#contentwordage').html(pattern);	 
 	            $("#judge").val("");
