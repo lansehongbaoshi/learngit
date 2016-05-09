@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE struts PUBLIC
-        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
-        "http://struts.apache.org/dtds/struts-2.0.dtd">
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
 <struts>
 
     <package name="htgl" extends="knowledge-default" namespace="/htgl">
@@ -49,6 +49,7 @@
         </interceptors>
         <action name="searchindex" class="knowledgeActionBean" method="searchindex">
             <result name="success" type="tiles">htgl.knowledge.search.index</result>
+            <allowed-methods></allowed-methods>
         </action>
         <action name="addindex">
             <result name="success" type="tiles">htgl.knowledge.add.index</result>
@@ -58,6 +59,7 @@
         </action>
         <action name="modifyindex" class="knowledgeActionBean" method="modifyindex">
             <result name="success" type="tiles">htgl.knowledge.modify.index</result>
+            <allowed-methods>modifyindex</allowed-methods>
         </action>
         <action name="updateKnowledge" class="knowledgeActionBean" method="updateKnowledge">
             <result name="success" type="redirect">/htgl/knowledge/showKnowledge.action?id=${id}&amp;from=update</result>

@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <name>Chsi knowledge</name>
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.chsi</groupId>
@@ -27,7 +28,7 @@
         </snapshotRepository>
     </distributionManagement>
     <build>
-       <sourceDirectory>src/main/java</sourceDirectory>
+        <sourceDirectory>src/main/java</sourceDirectory>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -52,14 +53,14 @@
                 <artifactId>maven-eclipse-plugin</artifactId>
                 <version>2.7</version>
             </plugin>
-            <plugin>   
-                <groupId>org.apache.maven.plugins</groupId>   
-                <artifactId>maven-surefire-plugin</artifactId>   
-                <version>2.4.2</version>   
-                <configuration>   
-                    <skipTests>false</skipTests>   
-                </configuration>   
-            </plugin>   
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.4.2</version>
+                <configuration>
+                    <skipTests>false</skipTests>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-scm-plugin</artifactId>
@@ -74,7 +75,7 @@
                 <version>2.3.2</version>
                 <!-- <configuration>
                     <tagBase>https://svn.chsi.com.cn/svn/repos/xlrz/wssq/tags</tagBase>
-                </configuration> -->
+                    </configuration> -->
             </plugin>
         </plugins>
         <extensions>
@@ -86,13 +87,13 @@
         </extensions>
     </build>
     <dependencies>
-       <dependency>
-         <groupId>junit</groupId>
-         <artifactId>junit</artifactId>
-           <version>4.4</version>
-         <scope>test</scope>
-       </dependency>  
-       <dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.4</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>com.chsi</groupId>
             <artifactId>chsi-search-client</artifactId>
             <version>${chsi-search-client.version}</version>
@@ -110,7 +111,7 @@
             <version>${chsi-contact-client.version}</version>
             <scope>provided</scope>
         </dependency>
-   </dependencies>
+    </dependencies>
     <repositories>
         <repository>
             <id>chsi</id>
@@ -120,7 +121,7 @@
             <snapshots>
                 <enabled>true</enabled>
             </snapshots>
-        </repository>      
+        </repository>
         <repository>
             <id>central</id>
             <name>Maven Repository Switchboard</name>
@@ -131,17 +132,17 @@
             </snapshots>
         </repository>
         <repository>
-          <id>maven2-repository.dev.java.net</id>
-          <name>Java.net Repository for Maven</name>
-          <url>http://download.java.net/maven/2/</url>
-          <layout>default</layout>
-        </repository>        
+            <id>maven2-repository.dev.java.net</id>
+            <name>Java.net Repository for Maven</name>
+            <url>http://download.java.net/maven/2/</url>
+            <layout>default</layout>
+        </repository>
         <repository>
-          <id>jboss-repository</id>
-          <name>Jboss Repository for Maven</name>
-          <url>http://repository.jboss.org/maven2</url>
-          <layout>default</layout>
-        </repository>        
+            <id>jboss-repository</id>
+            <name>Jboss Repository for Maven</name>
+            <url>http://repository.jboss.org/maven2</url>
+            <layout>default</layout>
+        </repository>
     </repositories>
     <properties>
         <resource_filters_sub>remote</resource_filters_sub>
@@ -153,6 +154,8 @@
         <commons-digester.version>1.7</commons-digester.version>
         <commons-validator.version>1.1.4</commons-validator.version>
         <commons-httpclient.version>3.1</commons-httpclient.version>
+        <commons-fileupload.version>1.3.1.chsi.2</commons-fileupload.version>
+        <commons-compress.version>1.9</commons-compress.version>
         <!-- struts2 -->
         <spring-core.version>3.1.2.RELEASE</spring-core.version>
         <spring-web.version>3.1.2.RELEASE</spring-web.version>
@@ -162,8 +165,8 @@
         <spring-security-cas-client.version>2.0.4</spring-security-cas-client.version>
         <standard.version>1.1.2</standard.version>
         <ognl.version>3.0.6.chsi.4</ognl.version>
-        
-        <struts2-core.version>2.3.15.2</struts2-core.version>
+
+        <struts2-core.version>2.3.15.2.chsi</struts2-core.version>
         <struts2-spring-plugin.version>2.3.15.2</struts2-spring-plugin.version>
         <struts2-tiles-plugin.version>2.3.15.2</struts2-tiles-plugin.version>
         <xwork-core.version>2.3.15.2.chsi</xwork-core.version>
@@ -171,12 +174,12 @@
         <tiles-core.version>2.0.6</tiles-core.version>
         <tiles-jsp.version>2.0.6</tiles-jsp.version>
         <freemarker.version>2.3.19</freemarker.version>
-        
+
         <hibernate-core.version>4.1.7.Final</hibernate-core.version>
-        
+
         <xalan.version>2.7.0</xalan.version>
         <xml-apis.version>1.0.b2</xml-apis.version>
-        
+
         <tokyotyrant.version>0.11.chsi</tokyotyrant.version>
         <odmg.version>3.0</odmg.version>
         <cglib-nodep.version>2.2.2</cglib-nodep.version>
@@ -190,7 +193,7 @@
         <velocity.version>1.5</velocity.version>
         <velocity-tools-view.version>1.1</velocity-tools-view.version>
         <chsi-cache.version>2.4.2</chsi-cache.version>
-        <chsi-framework.version>2.5.37</chsi-framework.version>
+        <chsi-framework.version>2.5.39-SNAPSHOT</chsi-framework.version>
         <chsi-memcachedclient.version>1.4.0</chsi-memcachedclient.version>
         <chsi-commonutil-client.version>1.0.5</chsi-commonutil-client.version>
         <chsi-cachecfg-remote.version>1.2.0</chsi-cachecfg-remote.version>
@@ -218,7 +221,7 @@
         <druid-version>1.0.7.chsi.1</druid-version>
         <poi.version>3.9</poi.version>
         <poi-ooxml.version>3.9</poi-ooxml.version>
-        <chsi-util.version>1.0.1</chsi-util.version>
+        <chsi-util.version>1.0.7</chsi-util.version>
         <xmlbeans.version>2.3.0</xmlbeans.version>
         <zookeeper-version>3.4.5</zookeeper-version>
         <chsi-cms-client-version>2.5.12-SNAPSHOT</chsi-cms-client-version>

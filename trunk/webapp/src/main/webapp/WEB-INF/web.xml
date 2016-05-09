@@ -32,10 +32,6 @@
         <filter-name>userInputSecureFilter</filter-name>
         <filter-class>com.chsi.framework.web.filter.UserInputSecureFilter</filter-class>
         <init-param>
-            <param-name>whiteParamNames</param-name>
-            <param-value>keywords,title,content,callback,logoutRequest</param-value>
-        </init-param>
-        <init-param>
             <param-name>monitorXss</param-name>
             <param-value>true</param-value>
         </init-param>

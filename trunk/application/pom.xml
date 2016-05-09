@@ -41,17 +41,6 @@
             <version>${commons-beanutils.version}</version>
         </dependency>
         <dependency>
-            <groupId>commons-fileupload</groupId>
-            <artifactId>commons-fileupload</artifactId>
-            <version>1.2.1</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>commons-io</groupId>
-                    <artifactId>commons-io</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
             <groupId>tokyotyrant</groupId>
             <artifactId>tokyotyrant</artifactId>
             <version>${tokyotyrant.version}</version>
@@ -198,6 +187,40 @@
             <groupId>com.chsi</groupId>
             <artifactId>chsi-util</artifactId>
             <version>${chsi-util.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>spring-orm</artifactId>
+                    <groupId>org.springframework</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-beans</artifactId>
+                    <groupId>org.springframework</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-core</artifactId>
+                    <groupId>org.springframework</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-remoting</artifactId>
+                    <groupId>org.springframework</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-tx</artifactId>
+                    <groupId>org.springframework</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>commons-compress</artifactId>
+                    <groupId>org.apache.commons</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>catalina</artifactId>
+                    <groupId>org.apache.tomcat</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>sanselan</artifactId>
+                    <groupId>org.apache.sanselan</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>com.chsi</groupId>
