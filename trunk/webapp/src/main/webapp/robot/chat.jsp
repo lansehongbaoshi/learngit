@@ -19,7 +19,7 @@ import="com.chsi.knowledge.pojo.KnowledgeData,com.chsi.knowledge.util.ManageCach
 .main { width:1000px; margin:0 auto; background: #f1f1f1; }
 .main .left { float: left; width: 670px; position: relative; padding-top: 12px; }
 .main .left .tp { width: 615px; margin: 0 auto; padding-left: 35px; border-radius: 5px; line-height: 35px; color: #666; background: url(../images/wap/help/tp.png) no-repeat 5px 8px;  background-color: #dffef9; }
-.main .left #showbox { height: 376px; padding-top: 30px; border-bottom: 1px solid #d3d3d3; overflow-y: auto;overflow-x: hidden; }
+.main .left #showbox { height: 335px; padding-top: 30px; border-bottom: 1px solid #d3d3d3; overflow-y: auto;overflow-x: hidden; }
 .main .left #sendbox { position: relative; height: 165px;   background: #fff; }
 .main .left #sendbox .send_top { height: 100px;}
 .main .left #sendbox .send_bottom { height: 65px;  background: #f1f1f1; } 
@@ -28,8 +28,7 @@ import="com.chsi.knowledge.pojo.KnowledgeData,com.chsi.knowledge.util.ManageCach
 .main .left #sendbox #contentwordage { position: absolute; left: 10px; bottom: 20px;  color: #999;}
 .main .left #sendbox #contentwordage .red { color: #f30;}
 .main .left .all_tips { position: absolute; bottom: 165px; left: 0; }
-.main .right{ float: right; width: 329px; height: 619px;  border-left: 1px solid #d3d3d3; background: #fff;}
-.main .right .normal-question { height: 655px;}
+.main .right{ float: right; width: 329px; height: 578px;  border-left: 1px solid #d3d3d3; background: #fff;}
 #ui-id-1 {max-width: 665px;}
 #kn_labels {  background: #f1f1f1; }
 #kn_labels ul li { float: left;  width: 109px; height: 50px; line-height: 50px; border-right: 1px solid #d3d3d3; border-bottom: 1px solid #d3d3d3; text-align: center; color: #666;  background: #f1f1f1;}
@@ -44,20 +43,20 @@ import="com.chsi.knowledge.pojo.KnowledgeData,com.chsi.knowledge.util.ManageCach
 #kn_lists .pagenation .kn-pagination_down:hover{text-decoration: none; opacity: 0.8; filter:alpha(opacity=80);}
 .main .right .advert{ height: 65px;  background: #f1f1f1; }
 .system {color: #999; margin-left: 10px;}
-.robot{ position:relative; float: left; max-width: 450px; margin-left: 75px; margin-bottom: 25px;  padding: 10px; border: 1px solid #d3d3d3; border-radius: 5px; background-color: #fff; word-break: break-all; word-wrap: break-word;}
+.robot{ position:relative; float: left; max-width: 480px; margin-left: 75px; margin-bottom: 25px;  padding: 10px; border: 1px solid #d3d3d3; border-radius: 5px; background-color: #fff; word-break: break-all; word-wrap: break-word;}
 .robot .icon1 { position: absolute; left:-66px; top: -6px; width: 62px; height: 62px; background: url(../images/wap/help/icon_robot.png) no-repeat 0 5px;}
 .robot a { color:#0e6c9c;}
-.robot .feedback{color: #999; }
+.robot .feedback{ min-width: 320px; color: #999; }
 .robot .feedback .system_1 { float: left; color: #0d9c85;}
 .robot .feedback .title { float: right;}
 .robot label, .robot  input { cursor: pointer;}
 .robot label { margin-left: 5px; }
-.robot input  { margin-left: 2px;}
-.robot img {max-width: 495px;}
+.robot input  { margin-right: 2px;}
+.robot img {max-width: 480px; cursor: pointer;}
 .ui-dialog-footer button.ui-dialog-autofocus { background-color: #28bca4; }
 .ui-dialog-footer button.ui-dialog-autofocus:hover, .ui-dialog-footer button.ui-dialog-autofocus:focus, .ui-dialog-footer button.ui-dialog-autofocus:active { background-color: #28bca4; }
 #kn_feedback { width: 450px; padding: 6px; border: 1px solid #9c9b9a; border-radius: 5px; box-shadow: 0 0 5px #b2b2b2; color: #292929;  }
-.person{position:relative; float: right; max-width: 450px;  margin-right: 75px; margin-bottom: 25px;  padding: 10px; border: 1px solid #28bca4; border-radius: 5px; background-color: #28bca4; color: #fff; word-break: break-all; word-wrap: break-word;}
+.person{position:relative; float: right; max-width: 480px;  margin-right: 75px; margin-bottom: 25px;  padding: 10px; border: 1px solid #28bca4; border-radius: 5px; background-color: #28bca4; color: #fff; word-break: break-all; word-wrap: break-word;}
 .person .icon2 { position: absolute; right: -66px; top: -6px; width: 62px; height: 62px; background: url(../images/wap/help/icon_user.png) no-repeat 0 5px;}
 </style>
 <script>
@@ -100,7 +99,7 @@ function input() {
 				a+="您的意思是?"
 				for(i in data.result) {
 					var knowl = data.result[i];
-					a+="<br /><a class='indefinite' data-id='"+knowl.knowId+"' href='javascript:void(0)'>"+"["+knowl.system+"]<span>"+knowl.title+"</span></a>";
+					a+="<br /><a class='indefinite' data-id='"+knowl.knowId+"' href='javascript:void(0)'>"+"["+knowl.system+"]  <span>"+knowl.title+"</span></a>";
 				}
 			}else if(data.AType=='NONE'||data.AType=='ROBOT'){
 				a+=data.content;
@@ -110,8 +109,8 @@ function input() {
 				a+="<div class='feedback clearfix'>";
 				a+="<span class='system_1' data-id='"+data.result[0].systemId+"'>["+data.result[0].system+"]</span>";
 				a+="<span class='title'>这个回答是否有用？";
-				a+="<span class='help_judge'><label>是<input type='radio'class='helpfulYes' value='1' name='discussStatus' data-id='"+data.result[0].knowId+"' /></label>";
-				a+="<label>否<input type='radio' class='helpfulNo' value='0' name='discussStatus' data-id='"+data.result[0].knowId+"' /></label></span></span></div>";
+				a+="<span class='help_judge'><label><input type='radio'class='helpfulYes' value='1' name='discussStatus' data-id='"+data.result[0].knowId+"' />是</label>";
+				a+="<label><input type='radio' class='helpfulNo' value='0' name='discussStatus' data-id='"+data.result[0].knowId+"' />否</label></span></span></div>";
 			}
 			a+="</div></div>";
 			$("#showbox").append(a);	
@@ -131,7 +130,7 @@ $(function(){
 			input();
 	        var pattern = "还可以输入<span class='red'>100</span>个字";
             $('#contentwordage').html(pattern);	
- 	        $('#ui-id-1').hide();           
+   	        $('#ui-id-1').hide();           
 		}
 	});
 	$("#inputbox").keydown(function(event) {
@@ -161,8 +160,8 @@ $(function(){
   				a+="<div class='feedback clearfix'>";
   				a+="<span class='system_1' data-id='"+data.result[0].systemId+"'>["+data.result[0].system+"]</span>";
   				a+="<span class='title'>这个回答是否有用？";
-				a+="<span class='help_judge' ><label>是<input type='radio'class='helpfulYes' value='1' name='discussStatus' data-id='"+data.result[0].knowId+"' /></label>";
-				a+="<label>否<input type='radio' class='helpfulNo' value='0' name='discussStatus' data-id='"+data.result[0].knowId+"' /></label></span></span></div>";
+				a+="<span class='help_judge' ><label><input type='radio'class='helpfulYes' value='1' name='discussStatus' data-id='"+data.result[0].knowId+"' />是</label>";
+				a+="<label><input type='radio' class='helpfulNo' value='0' name='discussStatus' data-id='"+data.result[0].knowId+"' />否</label></span></span></div>";
     			a+="</div></div>";
     			$("#showbox").append(a);
     			var height = $("#showbox").prop('scrollHeight');//原来的高度	
@@ -215,6 +214,12 @@ $(function(){
  	$("#kn_labels ul .cn").bind("click",function(){
 		$(this).addClass("selected").siblings().removeClass("selected");		
 	}); 
+	//图片跳转
+	$("#showbox").on("click","img",function(){
+		var s_src=$(this)[0].src;
+//		console.log(s_src);
+		window.open(s_src);
+	});	
 	//评论
 	$("#showbox").on("click",".helpfulYes",function(){
 		var v=$(this).val();
@@ -229,27 +234,27 @@ $(function(){
 		var k=$(this);
 		console.log(t);
 		dialog({
-	                	title:'您的建议（200个字符以内，选填）：',
-	                    content: '<div><textarea maxlength="200" tabindex="1" rows="5" cols="80" id="kn_feedback" name="feedback"></textarea></div>',
-	                    backdropOpacity: 0.2,
-	                    padding:10,
-	                    ok:function () {
-	                    	var content=$("#kn_feedback").val();
-	                    	console.log(id);
-	                    	if($.trim(content).length>=200){ 
-	                    		alert("您输入的评论内容过长，请输200字以内的字符");
-	                    	    return false;
-	                    	}else{	                    	
-		                    	var _c={"knowledgeId":id,"discussStatus":"0","content":$.trim(content)};
-		                    	ajaxJSONP1(_c,"feedback");
-		                		t.html("已收到您的建议。谢谢！");
-	                		}
-	                    },
-	                    okValue:'确定',
-	                    cancel:function () {
-	              			k.attr("checked",false);
-	                    },
-	                    cancelValue: '取消',	                    
+            	title:'您的建议（200个字符以内，选填）：',
+                content: '<div><textarea maxlength="200" tabindex="1" rows="5" cols="80" id="kn_feedback" name="feedback"></textarea></div>',
+                backdropOpacity: 0.2,
+                padding:10,
+                ok:function () {
+                	var content=$("#kn_feedback").val();
+                	console.log(id);
+                	if($.trim(content).length>=200){ 
+                		alert("您输入的评论内容过长，请输200字以内的字符");
+                	    return false;
+                	}else{	                    	
+                    	var _c={"knowledgeId":id,"discussStatus":"0","content":$.trim(content)};
+                    	ajaxJSONP1(_c,"feedback");
+                		t.html("已收到您的建议。谢谢！");
+            		}
+                },
+                okValue:'确定',
+                cancel:function () {
+          			k.attr("checked",false);
+                },
+                cancelValue: '取消'	                    
         }).showModal();	
 	});	
 })
@@ -298,7 +303,7 @@ $(function(){
 					<li>4、网上报名的有效期限？</li>					
 					<li>5、报考硕士研究生是否必须网上报名？</li>					
 				</ul>			-->
-				<div class="pagenation" id="pagenation_list">
+				<!--<div class="pagenation" id="pagenation_list">-->
 				</div>
 			</div>			
 			<script id="snippet_list" type="text/html">
@@ -359,8 +364,8 @@ function ajaxJSONP(data,callback){
   				a+="<div class='feedback clearfix'>"
   				a+="<span class='system_1' data-id='"+data.result[0].systemId+"'>["+data.result[0].system+"]</span>";
   				a+="<span class='title'>这个回答是否有用？";
-				a+="<span class='help_judge'><label>是<input type='radio'class='helpfulYes' value='1' name='discussStatus' data-id='"+data.result[0].knowId+"' /></label>";
-				a+="<label>否<input type='radio' class='helpfulNo' value='0' name='discussStatus'  data-id='"+data.result[0].knowId+"' /></label></span></span></div>";
+				a+="<span class='help_judge'><label><input type='radio'class='helpfulYes' value='1' name='discussStatus' data-id='"+data.result[0].knowId+"' />是</label>";
+				a+="<label><input type='radio' class='helpfulNo' value='0' name='discussStatus'  data-id='"+data.result[0].knowId+"' />否</label></span></span></div>";
     			a+="</div></div>";
     			$("#showbox").append(a);
     			var height = $("#showbox").prop('scrollHeight');//原来的高度	
@@ -459,7 +464,6 @@ $(function() {
 			},
 			change: function(event, ui) {
 				 $("#judge").val("");		
-				 $("#inputbox").val("");
 			},
             select: function(event, ui){
             	var knowId = ui.item.knowId;
@@ -474,8 +478,8 @@ $(function() {
 		  				a+="<div class='feedback clearfix'>";
   						a+="<span class='system_1' data-id='"+data.result[0].systemId+"'>["+data.result[0].system+"]</span>";
 						a+="<span class='title'>这个回答是否有用？";
-						a+="<span class='help_judge'><label>是<input type='radio' class='helpfulYes' value='1' name='discussStatus'  data-id='"+data.result[0].knowId+"' /></label>";
-						a+="<label>否<input type='radio' class='helpfulNo' value='0' name='discussStatus' data-id='"+data.result[0].knowId+"'/></label></span></span></div>";  						
+						a+="<span class='help_judge'><label><input type='radio' class='helpfulYes' value='1' name='discussStatus'  data-id='"+data.result[0].knowId+"' />是</label>";
+						a+="<label><input type='radio' class='helpfulNo' value='0' name='discussStatus' data-id='"+data.result[0].knowId+"'/>否</label></span></span></div>";  						
 		    			a+="</div></div>";
 		    			$("#showbox").append(a);
 		    			var height = $("#showbox").prop('scrollHeight');//原来的高度	
