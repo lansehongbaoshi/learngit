@@ -426,7 +426,7 @@ $(function() {
 		$("#inputbox").autocomplete({
 			minLength: 0,
             max: 0,
-            delay: 100,
+            delay: 200,
             autoFill:false,
             source: function (request, response) {
                 var term = request.term;
@@ -441,7 +441,6 @@ $(function() {
 		            data:postdata, 
 		            dataType: "jsonp",
 		            jsonp: "callback", //回调函数的参数  
-		            jsonpCallback: "parseAutoSearch", //回调函数的名称  
 		            success: function(data) {
 		                response($.map(data["o"].knows, function(item){
 		                    return {
