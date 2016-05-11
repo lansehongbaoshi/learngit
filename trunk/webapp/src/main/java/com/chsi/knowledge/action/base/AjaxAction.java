@@ -37,7 +37,7 @@ public class AjaxAction extends BasicAction{
         if(ValidatorUtil.isNull(callback)){
             json = JSONObject.fromObject(ajaxMessage).toString();
         }else{
-            json = callback+"("+JSONObject.fromObject(ajaxMessage).toString()+")";
+            json = callback+"("+JSONObject.fromObject(ajaxMessage).toString()+");";
         }
         response.getWriter().print(json);
         response.getWriter().flush();

@@ -56,7 +56,6 @@
         <intercept-url pattern="/htgl/admin/druid/**" access="ROLE_XLRZ_MODULE_ADMIN_MODIFY" />
 
         <intercept-url pattern="/htgl/system/**" access="ROLE_KNOWLEDGE_ADMIN" /> 
-        <intercept-url pattern="/htgl/tool/**" access="ROLE_KNOWLEDGE_ADMIN" /> 
         <intercept-url pattern="/htgl/**" access="ROLE_KNOWLEDGE" /> 
         <intercept-url pattern="/manage/**" access="ROLE_KNOWLEDGE_ADMIN" /> 
 

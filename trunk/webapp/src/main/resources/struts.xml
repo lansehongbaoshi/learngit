@@ -1,16 +1,14 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE struts PUBLIC
-    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
-    "http://struts.apache.org/dtds/struts-2.0.dtd">
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
 
 <struts>
     <constant name="struts.enable.DynamicMethodInvocation" value="false" />
     <constant name="struts.custom.i18n.resources" value="MessageResources"></constant>
-    <package name="knowledge-default" extends="tiles-default"
-        namespace="">
+    <package name="knowledge-default" extends="tiles-default" namespace="">
         <interceptors>
-            <interceptor name="chsiTransactionInterceptors"
-                class="com.chsi.framework.transaction.struts2.TranactionInterceptor" />
+            <interceptor name="chsiTransactionInterceptors" class="com.chsi.framework.transaction.struts2.TranactionInterceptor" />
             <!--有事务 -->
             <interceptor-stack name="chsiDefaultStack">
                 <interceptor-ref name="chsiTransactionInterceptors">
@@ -78,19 +76,23 @@
             </interceptor-stack>
         </interceptors>
         <default-interceptor-ref name="chsiDefaultStack" />
-        <global-results> 
+        <global-results>
             <result name="global.error">/error/error.jsp</result>
             <result name="global.exception">/error/error.jsp</result>
             <result name="error">/error/index.jsp</result>
         </global-results>
 
         <!-- 程序中未捕获的异常，使用声明式异常处理 -->
-        <!-- <global-exception-mappings> <exception-mapping result="global.exception" 
-            exception="java.lang.Exception" /> </global-exception-mappings> <action name="index" 
-            class="index"> <result name="success" type="redirect">/htgl/indexAction</result> 
-            <result name="indexJsp" type="dispatcher">/index.jsp</result> </action> <global-results> 
-            <result name="Exception" type="tiles"></result> </global-results> <global-exception-mappings> 
-            <exception-mapping exception="java.lang.Exception" result="Exception" /> 
+        <!-- <global-exception-mappings> <exception-mapping result="global.exception"
+            exception="java.lang.Exception" /> </global-exception-mappings> 
+            <action name="index"
+            class="index"> <result name="success" type="redirect">/htgl/indexAction</result>
+            <result name="indexJsp" type="dispatcher">/index.jsp</result> 
+            </action> <global-results>
+            <result name="Exception" type="tiles"></result> </global-results> 
+            <global-exception-mappings>
+            <exception-mapping exception="java.lang.Exception" result="Exception" 
+            />
             </global-exception-mappings> -->
     </package>
 

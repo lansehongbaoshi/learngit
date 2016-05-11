@@ -29,6 +29,14 @@ public class SystemOpenTimeData extends PersistentObject {
     private Calendar endTime;
     private String tagIds;
     
+    public SystemOpenTimeData() {
+        
+    }
+    
+    public SystemOpenTimeData(String systemId) {
+        this.systemId = systemId;
+    }
+    
     @Id
     @Column(name = "ID")
     @GeneratedValue(generator = "app_seq")

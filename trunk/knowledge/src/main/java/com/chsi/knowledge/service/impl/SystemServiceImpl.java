@@ -35,7 +35,9 @@ public class SystemServiceImpl extends BaseDbService implements SystemService{
     @Override
     public SystemData getSystemById(String id) {
         SystemData systemData = systemDataDAO.getSystemById(id);
-        systemData.setList(systemOpenTimeDAO.getList(id));
+        if(systemData!=null) {
+            systemData.setList(systemOpenTimeDAO.getList(id));
+        }
         return systemData;
     }
 

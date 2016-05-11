@@ -72,6 +72,13 @@ public class CommonServiceImpl extends BaseDbService implements CommonService {
     public List<KnowledgeData> getTopKnowl(int total) {
         SystemService systemService = ServiceFactory.getSystemService();
         List<SystemOpenTimeData> systems = systemService.getOpenSystems();
+        if(systems.size()==0) {
+            systems = new ArrayList<SystemOpenTimeData>();
+            List<SystemData> systemDataList = systemService.getSystems();
+            for(SystemData data:systemDataList) {
+                systems.add(new SystemOpenTimeData(data.getId()));
+            }
+        }
         List<Integer> iList = splitCnt(total, systems.size());
         List<KnowledgeData> result = new ArrayList<KnowledgeData>();
         for(int i=0;i<systems.size();i++) {
@@ -184,8 +191,7 @@ public class CommonServiceImpl extends BaseDbService implements CommonService {
 
     @Override
     public LineChartVO getTopKnowlVisitLog(String systemId, int topCnt, String startTime, String endTime) {
-        SystemOpenTimeData sotd = new SystemOpenTimeData();
-        sotd.setSystemId(systemId);
+        SystemOpenTimeData sotd = new SystemOpenTimeData(systemId);
         Calendar cal1 = TimeUtil.getCalendar(startTime);
         Calendar cal2 = TimeUtil.getCalendar(endTime);
         cal1.set(Calendar.HOUR_OF_DAY, -24);//因为要统计每日访问量，存的是总量，为了减出每日访问量要多统计一天
