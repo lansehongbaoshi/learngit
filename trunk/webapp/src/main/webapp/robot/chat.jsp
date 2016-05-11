@@ -51,7 +51,7 @@ import="com.chsi.knowledge.pojo.KnowledgeData,com.chsi.knowledge.util.ManageCach
 .robot .feedback .title { float: right;}
 .robot label, .robot  input { cursor: pointer;}
 .robot label { margin-left: 5px; }
-.robot input  { margin-right: 2px;}
+.robot input  { margin-right: 2px; vertical-align: -1px;}
 .robot img {max-width: 480px; cursor: pointer;}
 .ui-dialog-footer button.ui-dialog-autofocus { background-color: #28bca4; }
 .ui-dialog-footer button.ui-dialog-autofocus:hover, .ui-dialog-footer button.ui-dialog-autofocus:focus, .ui-dialog-footer button.ui-dialog-autofocus:active { background-color: #28bca4; }
@@ -88,20 +88,20 @@ function input() {
 	var q = $("#inputbox").val();
 	if($.trim(q)=="") return;	
 	$("#showbox").append("<div class='clearfix'><div class='person'><div class='icon2'></div>"+q+"</div></div>");
-	var height = $("#showbox").prop('scrollHeight');//原来的高度	
+	var height = $("#showbox").prop("scrollHeight");//原来的高度	
 	$("#showbox").scrollTop(height);//滚动到原来的高度，正好从最新用户输入开始显示								
 	$.post("/robot/qa.action",{sessionId:sessionId,q:q},function(result){
 		if(result.flag=='true') {
 			var data = result.o;
 			//console.log(result);
 			var a="<div class='clearfix'><div class='robot'><div class='icon1'></div>";
-			if(data.AType=='INDEFINITE') {
+			if(data.AType=="INDEFINITE") {
 				a+="您的意思是?"
 				for(i in data.result) {
 					var knowl = data.result[i];
 					a+="<br /><a class='indefinite' data-id='"+knowl.knowId+"' href='javascript:void(0)'>"+"["+knowl.system+"]  <span>"+knowl.title+"</span></a>";
 				}
-			}else if(data.AType=='NONE'||data.AType=='ROBOT'){
+			}else if(data.AType=="NONE"||data.AType=="ROBOT"){
 				a+=data.content;
 				//a+="<span class='system_1' data-id='"+data.result[0].systemId+"'>["+data.result[0].system+"]</span>";
 			}else{
@@ -114,11 +114,11 @@ function input() {
 			}
 			a+="</div></div>";
 			$("#showbox").append(a);	
-			var height = $("#showbox").prop('scrollHeight');//原来的高度	
+			var height = $("#showbox").prop("scrollHeight");//原来的高度	
 			$("#showbox").scrollTop(height);//滚动到原来的高度，正好从最新用户输入开始显示										
 		}
-	},'json');
-	$("#inputbox").val('');	
+	},"json");
+	$("#inputbox").val("");	
 }
 //点击常见问题
 $(function(){
@@ -234,8 +234,8 @@ $(function(){
 		var k=$(this);
 		console.log(t);
 		dialog({
-            	title:'您的建议（200个字符以内，选填）：',
-                content: '<div><textarea maxlength="200" tabindex="1" rows="5" cols="80" id="kn_feedback" name="feedback"></textarea></div>',
+            	title:"您的建议（200个字符以内，选填）：",
+                content: "<div><textarea maxlength='200' tabindex='1' rows='5' cols='80' id='kn_feedback' name='feedback'></textarea></div>",
                 backdropOpacity: 0.2,
                 padding:10,
                 ok:function () {
@@ -250,11 +250,11 @@ $(function(){
                 		t.html("已收到您的建议。谢谢！");
             		}
                 },
-                okValue:'确定',
+                okValue:"确定",
                 cancel:function () {
           			k.attr("checked",false);
                 },
-                cancelValue: '取消'	                    
+                cancelValue: "取消"	                    
         }).showModal();	
 	});	
 })
@@ -271,7 +271,7 @@ $(function(){
 		<div id="showbox"></div>
 		<div id="sendbox">
 			<div class="send_top">
-				<textarea id="inputbox" maxlength="100" autocomplete="off" placeholder="请用一句话简要描述您的问题，比如'如何找回用户名和密码？'"></textarea>
+				<textarea id="inputbox" maxlength="100" autocomplete="off" placeholder="请用一句话简要描述您的问题，比如：如何找回用户名和密码"></textarea>
 				<input id="judge" type="hidden" value="" />
 			</div>
 			<div class="send_bottom">
@@ -320,7 +320,7 @@ $(function(){
 <script type="text/javascript">
 
 //artTemplate辅助方法
-template.helper('paramStr', function (o) {
+template.helper("paramStr", function (o) {
     return $.param(o);
 });
  
@@ -347,12 +347,12 @@ function ajaxJSONP(data,callback){
  function knList(json){
 	if(!json.flag){ alert(json.errorMessages); return;}
 	$("#pagenation_list span").remove();
-    $("#kn_list").html(template('snippet_list',json)); //直接使用json数据
+    $("#kn_list").html(template("snippet_list",json)); //直接使用json数据
 //  drawPage("#pagenation_list",json["o"]);
 	$("#kn_list a").on("click",function(){
 		var q=$(this).text();
 		$("#showbox").append("<div class='clearfix'><div class='person'><div class='icon2'></div>"+q+"</div></div");
-		var height = $("#showbox").prop('scrollHeight');//原来的高度	
+		var height = $("#showbox").prop("scrollHeight");//原来的高度	
 		$("#showbox").scrollTop(height);//滚动到原来的高度，正好从最新用户输入开始显示								
 		var knowId = $(this).data("id");
 		$.post("/robot/qa.action",{sessionId:sessionId,knowId:knowId},function(result){
@@ -368,10 +368,10 @@ function ajaxJSONP(data,callback){
 				a+="<label><input type='radio' class='helpfulNo' value='0' name='discussStatus'  data-id='"+data.result[0].knowId+"' />否</label></span></span></div>";
     			a+="</div></div>";
     			$("#showbox").append(a);
-    			var height = $("#showbox").prop('scrollHeight');//原来的高度	
+    			var height = $("#showbox").prop("scrollHeight");//原来的高度	
 				$("#showbox").scrollTop(height);//滚动到原来的高度，正好从最新用户输入开始显示					
 			}
-		},'json');
+		},"json");
 	});      
 }    
 // function knListPage(json){
@@ -423,7 +423,7 @@ function ajaxJSONP(data,callback){
 //}   
 //自动完成
 $(function() {
-		$('#inputbox').autocomplete({
+		$("#inputbox").autocomplete({
 			minLength: 0,
             max: 0,
             delay: 100,
@@ -470,7 +470,7 @@ $(function() {
             	var q=ui.item.value;           	
             	$("#showbox").append("<div class='clearfix'><div class='person'><div class='icon2'></div>"+q+"</div></div");
             	$.post("/robot/qa.action",{sessionId:sessionId,knowId:knowId},function(result){
-					if(result.flag=='true') {
+					if(result.flag=="true") {
 		    			var data = result.o;
 		    			//console.log(result);
 		    			var a="<div class='clearfix'><div class='robot'><div class='icon1'></div>";
@@ -487,9 +487,9 @@ $(function() {
 						$("#judge").val("");
 						$("#inputbox").val("");							 
 					}
-				},'json'); 
+				},"json"); 
 		        var pattern = "还可以输入<span class='red'>100</span>个字";
-	            $('#contentwordage').html(pattern);	 
+	            $("#contentwordage").html(pattern);	 
 	            $("#judge").val("");
 	            $("#inputbox").val("");	
 				return false;				
@@ -501,13 +501,13 @@ $(function() {
         	item.label =  item.label.replace(reg, "<strong style='color:#c30'>$1</strong>");          
             return $("<li>").append("<a>"+item.label+"<span class='system'>["+item.system+"]</span></a>").appendTo(ul);
 		};
-		$( window ).on('beforeunload',function() {
+		$(window).on("beforeunload",function() {
 		  $.post("/robot/close.action?sessionId="+sessionId);
 		});
 		//关闭页面
 		$(".switch").click(function(e) {			
 //			CloseWebPage();
-			window.location.href = 'about:blank ';
+			window.location.href = "about:blank";
 		});
 //		function CloseWebPage() {
 //		    if (navigator.userAgent.indexOf("MSIE") > 0) {
@@ -529,6 +529,6 @@ $(function() {
 });
 //初始化
 $(function(){ 
-   ajaxJSONP('systemId=account','knList');   
+   ajaxJSONP("systemId=account","knList");   
 });
 </script>
