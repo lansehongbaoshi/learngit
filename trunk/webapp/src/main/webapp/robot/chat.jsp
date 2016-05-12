@@ -58,6 +58,7 @@ import="com.chsi.knowledge.pojo.KnowledgeData,com.chsi.knowledge.util.ManageCach
 #kn_feedback { width: 450px; padding: 6px; border: 1px solid #9c9b9a; border-radius: 5px; box-shadow: 0 0 5px #b2b2b2; color: #292929;  }
 .person{position:relative; float: right; max-width: 480px;  margin-right: 75px; margin-bottom: 25px;  padding: 10px; border: 1px solid #28bca4; border-radius: 5px; background-color: #28bca4; color: #fff; word-break: break-all; word-wrap: break-word;}
 .person .icon2 { position: absolute; right: -66px; top: -6px; width: 62px; height: 62px; background: url(../images/wap/help/icon_user.png) no-repeat 0 5px;}
+.ui-dialog-content img {max-width: 1200px;}
 </style>
 <script>
 var sessionId = "<s:property value='sessionId'/>";
@@ -199,7 +200,7 @@ $(function(){
 	var limitNum = 100;
     var pattern = "还可以输入<span class='red'>"+ limitNum + "</span>个字";
     $('#contentwordage').html(pattern);   
-    $('#inputbox').bind("input propertychange",function(){
+    $('#inputbox').on("input propertychange",function(){
 	        var remain = $(this).val().length;
 	        if(remain > 100){
 	                pattern = "<span class='red'>字数超过限制！</span>";
@@ -211,15 +212,19 @@ $(function(){
 	        $("#judge").val("");
        });
     //控制选择标签变色
- 	$("#kn_labels ul .cn").bind("click",function(){
+ 	$("#kn_labels ul .cn").on("click",function(){
 		$(this).addClass("selected").siblings().removeClass("selected");		
 	}); 
 	//图片跳转
 	$("#showbox").on("click","img",function(){
 		var s_src=$(this)[0].src;
 //		console.log(s_src);
-		window.open(s_src);
-	});	
+//		window.open(s_src);
+		dialog({
+			title:"查看大图",
+			content: "<img src='"+s_src+"'/>",
+			}).showModal();				
+	});		
 	//评论
 	$("#showbox").on("click",".helpfulYes",function(){
 		var v=$(this).val();
