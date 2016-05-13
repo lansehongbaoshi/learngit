@@ -16,10 +16,15 @@ import="com.chsi.knowledge.pojo.KnowledgeData,com.chsi.knowledge.util.ManageCach
 .logo .logo_sub { padding: 0px 0 0 85px; font-size: 16px; opacity: 0.5; filter:alpha(opacity=50);}
 .logo .switch { position: absolute; right: 15px; top: 20px; width: 30px; height: 30px; background: url(../images/wap/help/close.png) no-repeat; cursor: pointer;}	
 .logo .switch:hover{ opacity: 0.8; filter:alpha(opacity=80);}
+.logo .weixin { position: absolute; right: 60px; top: 0px; width: 70px; height: 70px; line-height: 110px; background: url(../images/wap/help/weixin.png) 15px 10px no-repeat; font-size: 12px; text-align: center; cursor: pointer;}
+.logo .weixin .weixin_l {position: absolute; top: 69px; right: -10px; display: none; width: 180px; height: 180px; border-radius: 3px; box-shadow: 0px 4px 6px #999; background: url(../images/wap/help/chsi.jpg) no-repeat;}
+.logo .weixin .triangle-up {position: absolute; top:62px; right: 30px; display: none; width: 0; height: 0; border-left: 8px solid transparent;border-right: 8px solid transparent; border-bottom: 8px solid #fff;}
+.logo .weixin:hover .weixin_l { display: block;}
+.logo .weixin:hover .triangle-up { display: block;}
 .main { width:1000px; margin:0 auto; background: #f1f1f1; }
 .main .left { float: left; width: 670px; position: relative; padding-top: 12px; }
 .main .left .tp { width: 615px; margin: 0 auto; padding-left: 35px; border-radius: 5px; line-height: 35px; color: #666; background: url(../images/wap/help/tp.png) no-repeat 5px 8px;  background-color: #dffef9; }
-.main .left #showbox { height: 335px; padding-top: 30px; border-bottom: 1px solid #d3d3d3; overflow-y: auto;overflow-x: hidden; }
+.main .left #showbox { position: relative; height: 335px; padding-top: 30px; border-bottom: 1px solid #d3d3d3; overflow-y: scroll;overflow-x: hidden; }
 .main .left #sendbox { position: relative; height: 165px;   background: #fff; }
 .main .left #sendbox .send_top { height: 100px;}
 .main .left #sendbox .send_bottom { height: 65px;  background: #f1f1f1; } 
@@ -43,7 +48,8 @@ import="com.chsi.knowledge.pojo.KnowledgeData,com.chsi.knowledge.util.ManageCach
 #kn_lists .pagenation .kn-pagination_down:hover{text-decoration: none; opacity: 0.8; filter:alpha(opacity=80);}
 .main .right .advert{ height: 65px;  background: #f1f1f1; }
 .system {color: #999; margin-left: 10px;}
-.robot{ position:relative; float: left; max-width: 480px; margin-left: 75px; margin-bottom: 25px;  padding: 10px; border: 1px solid #d3d3d3; border-radius: 5px; background-color: #fff; word-break: break-all; word-wrap: break-word;}
+.marginb { margin-bottom: 25px;}
+.robot{ position:relative; float: left; max-width: 480px; margin-left: 75px; padding: 10px; border: 1px solid #d3d3d3; border-radius: 5px; background-color: #fff; word-break: break-all; word-wrap: break-word;}
 .robot .icon1 { position: absolute; left:-66px; top: -6px; width: 62px; height: 62px; background: url(../images/wap/help/icon_robot.png) no-repeat 0 5px;}
 .robot a { color:#0e6c9c;}
 .robot .feedback{ min-width: 320px; color: #999; }
@@ -56,7 +62,7 @@ import="com.chsi.knowledge.pojo.KnowledgeData,com.chsi.knowledge.util.ManageCach
 .ui-dialog-footer button.ui-dialog-autofocus { background-color: #28bca4; }
 .ui-dialog-footer button.ui-dialog-autofocus:hover, .ui-dialog-footer button.ui-dialog-autofocus:focus, .ui-dialog-footer button.ui-dialog-autofocus:active { background-color: #28bca4; }
 #kn_feedback { width: 450px; padding: 6px; border: 1px solid #9c9b9a; border-radius: 5px; box-shadow: 0 0 5px #b2b2b2; color: #292929;  }
-.person{position:relative; float: right; max-width: 480px;  margin-right: 75px; margin-bottom: 25px;  padding: 10px; border: 1px solid #28bca4; border-radius: 5px; background-color: #28bca4; color: #fff; word-break: break-all; word-wrap: break-word;}
+.person{position:relative; float: right; max-width: 480px;  margin-right: 75px; padding: 10px; border: 1px solid #28bca4; border-radius: 5px; background-color: #28bca4; color: #fff; word-break: break-all; word-wrap: break-word;}
 .person .icon2 { position: absolute; right: -66px; top: -6px; width: 62px; height: 62px; background: url(../images/wap/help/icon_user.png) no-repeat 0 5px;}
 .ui-dialog-content img {max-width: 1200px;}
 </style>
@@ -88,14 +94,14 @@ function feedback(json){
 function input() {
 	var q = $("#inputbox").val();
 	if($.trim(q)=="") return;	
-	$("#showbox").append("<div class='clearfix'><div class='person'><div class='icon2'></div>"+q+"</div></div>");
+	$("#showbox").append("<div class='clearfix marginb'><div class='person'><div class='icon2'></div>"+q+"</div></div>");
 	var height = $("#showbox").prop("scrollHeight");//原来的高度	
 	$("#showbox").scrollTop(height);//滚动到原来的高度，正好从最新用户输入开始显示								
 	$.post("/robot/qa.action",{sessionId:sessionId,q:q},function(result){
 		if(result.flag=='true') {
 			var data = result.o;
 			//console.log(result);
-			var a="<div class='clearfix'><div class='robot'><div class='icon1'></div>";
+			var a="<div class='clearfix marginb'><div class='robot'><div class='icon1'></div>";
 			if(data.AType=="INDEFINITE") {
 				a+="您的意思是?"
 				for(i in data.result) {
@@ -123,7 +129,7 @@ function input() {
 }
 //点击常见问题
 $(function(){
-	$("#showbox").html("<div class='clearfix'><div class='robot'><div class='icon1'></div><s:property value='hello'/></div></div>");
+	$("#showbox").html("<div class='clearfix marginb'><div class='robot'><div class='icon1'></div><s:property value='hello'/></div></div>");
 	$("#sendBtn").on("click",function(){
 		if($("#inputbox").val().length>100){
 			alert("字数超过限制！");
@@ -133,15 +139,15 @@ $(function(){
             $('#contentwordage').html(pattern);	
    	        $('#ui-id-1').hide();           
 		}
-	});
+	});	
 	$("#inputbox").keydown(function(event) {
-		if(event.keyCode==13) {
+		if(event.keyCode==13) {	
+			event.preventDefault();
 			if($("#judge").val()==""){
 				if($("#inputbox").val().length>100){
 					alert("字数超过限制！");
 				}else{	
-					input();
-					event.preventDefault();
+					input();						
 			        var pattern = "还可以输入<span class='red'>100</span>个字";
 		            $('#contentwordage').html(pattern);
 		            $('#ui-id-1').hide();
@@ -150,13 +156,13 @@ $(function(){
 		}
 	});
 	$(document).on("click","a.indefinite",function(){
-		$("#showbox").append("<div class='clearfix'><div class='person'><div class='icon2'></div>"+$(this).children("span").text()+"</div></div");
+		$("#showbox").append("<div class='clearfix marginb'><div class='person'><div class='icon2'></div>"+$(this).children("span").text()+"</div></div");
 		var knowId = $(this).data("id");
 		$.post("/robot/qa.action",{sessionId:sessionId,knowId:knowId},function(result){
 			if(result.flag=='true') {
     			var data = result.o;
     			//console.log(result);
-    			var a="<div class='clearfix'><div class='robot'><div class='icon1'></div>";
+    			var a="<div class='clearfix marginb'><div class='robot'><div class='icon1'></div>";
   				a+=data.result[0].summary;
   				a+="<div class='feedback clearfix'>";
   				a+="<span class='system_1' data-id='"+data.result[0].systemId+"'>["+data.result[0].system+"]</span>";
@@ -200,17 +206,19 @@ $(function(){
 	var limitNum = 100;
     var pattern = "还可以输入<span class='red'>"+ limitNum + "</span>个字";
     $('#contentwordage').html(pattern);   
-    $('#inputbox').on("input propertychange",function(){
-	        var remain = $(this).val().length;
-	        if(remain > 100){
-	                pattern = "<span class='red'>字数超过限制！</span>";
-	            }else{
-	                var result = limitNum - remain;
-	                pattern = "还可以输入<span class='red'>" + result + "</span>个字";
-	            }
-	        $('#contentwordage').html(pattern);
-	        $("#judge").val("");
-       });
+    $('#inputbox').on("input propertychange",function(){		
+        var remain = $(this).val().length;
+        if(remain > 100){
+                pattern = "<span class='red'>字数超过限制！</span>";
+            }else{
+                var result = limitNum - remain;
+                pattern = "还可以输入<span class='red'>" + result + "</span>个字";
+            }
+        $("#contentwordage").html(pattern);       
+    });
+    $('#inputbox').on("keydown",function(){
+    	$("#judge").val("");  
+    });
     //控制选择标签变色
  	$("#kn_labels ul .cn").on("click",function(){
 		$(this).addClass("selected").siblings().removeClass("selected");		
@@ -222,7 +230,7 @@ $(function(){
 //		window.open(s_src);
 		dialog({
 			title:"查看大图",
-			content: "<img src='"+s_src+"'/>",
+			content: "<img src='"+s_src+"'/>"
 			}).showModal();				
 	});		
 	//评论
@@ -269,6 +277,11 @@ $(function(){
 	<div class="logo_title">学信网机器人 | chsi.com.cn</div>
 	<div class="logo_sub">24小时竭诚为您服务</div>
 	<div class="switch"></div>
+	<div class="weixin">
+		扫码关注
+		<span class="triangle-up"></span>
+        <span class="weixin_l"></span> 
+    </div>
 </div>
 <div class="main clearfix">
 	<div class="left">
@@ -280,7 +293,7 @@ $(function(){
 				<input id="judge" type="hidden" value="" />
 			</div>
 			<div class="send_bottom">
-				<input id="sendBtn" type="button" value="发送">
+				<input id="sendBtn" type="button" value="发送"/>
 				<span id="contentwordage"></span>
 			</div>
 		</div>
@@ -356,7 +369,7 @@ function ajaxJSONP(data,callback){
 //  drawPage("#pagenation_list",json["o"]);
 	$("#kn_list a").on("click",function(){
 		var q=$(this).text();
-		$("#showbox").append("<div class='clearfix'><div class='person'><div class='icon2'></div>"+q+"</div></div");
+		$("#showbox").append("<div class='clearfix marginb'><div class='person'><div class='icon2'></div>"+q+"</div></div");
 		var height = $("#showbox").prop("scrollHeight");//原来的高度	
 		$("#showbox").scrollTop(height);//滚动到原来的高度，正好从最新用户输入开始显示								
 		var knowId = $(this).data("id");
@@ -364,7 +377,7 @@ function ajaxJSONP(data,callback){
 			if(result.flag=='true') {
     			var data = result.o;
     			//console.log(result);
-    			var a="<div class='clearfix'><div class='robot'><div class='icon1'></div>";
+    			var a="<div class='clearfix marginb'><div class='robot'><div class='icon1'></div>";
   				a+=data.result[0].summary;
   				a+="<div class='feedback clearfix'>"
   				a+="<span class='system_1' data-id='"+data.result[0].systemId+"'>["+data.result[0].system+"]</span>";
@@ -384,7 +397,7 @@ function ajaxJSONP(data,callback){
 //  $("#kn_list").html(template('snippet_list',json["o"]));   
 //	$("#kn_list a").on("click",function(){
 //		var q=$(this).text();
-//		$("#showbox").append("<div class='clearfix'><div class='person'><div class='icon2'></div>"+q+"</div></div");
+//		$("#showbox").append("<div class='clearfix marginb'><div class='person'><div class='icon2'></div>"+q+"</div></div");
 //		var height = $("#showbox").prop('scrollHeight');//原来的高度	
 //		$("#showbox").scrollTop(height);//滚动到原来的高度，正好从最新用户输入开始显示								
 //		var knowId = $(this).data("id");
@@ -392,7 +405,7 @@ function ajaxJSONP(data,callback){
 //			if(result.flag=='true') {
 //  			var data = result.o;
 //  			//console.log(result);
-//  			var a="<div class='clearfix'><div class='robot'><div class='icon1'></div>";
+//  			var a="<div class='clearfix marginb'><div class='robot'><div class='icon1'></div>";
 //				a+=data.result[0].summary;
 //				a+="<span class='system_1' data-id='"+data.result[0].systemId+"'>["+data.result[0].system+"]</span>";
 //  			a+="</div></div>";
@@ -432,7 +445,6 @@ $(function() {
 			minLength: 0,
             max: 0,
             delay: 200,
-            autoFill:false,
             source: function (request, response) {
                 var term = request.term;
                 var postdata = {"keywords":request.term};
@@ -455,7 +467,7 @@ $(function() {
 				                desc: item.summary,
 				                system: item.system,
 				                knowId: item.knowId
-				            }
+				            }		                
 		                }));
 		            },
 		            error: function(XMLHttpRequest, textStatus, errorThrown){
@@ -464,20 +476,20 @@ $(function() {
         		}); 
             },
 			focus: function(event, ui) {
-				 $("#judge").val(ui.item.value+"<span class='system'>["+ui.item.system+"]</span>");					
+				$("#judge").val("0");
 			},
-			change: function(event, ui) {
-				 $("#judge").val("");		
+			change:function(event, ui) {
+				 $("#judge").val("");
 			},
             select: function(event, ui){
             	var knowId = ui.item.knowId;
-            	var q=ui.item.value;           	
-            	$("#showbox").append("<div class='clearfix'><div class='person'><div class='icon2'></div>"+q+"</div></div");
+            	var q=ui.item.value;   
+            	$("#showbox").append("<div class='clearfix marginb'><div class='person'><div class='icon2'></div>"+q+"</div></div");
             	$.post("/robot/qa.action",{sessionId:sessionId,knowId:knowId},function(result){
 					if(result.flag=="true") {
 		    			var data = result.o;
 		    			//console.log(result);
-		    			var a="<div class='clearfix'><div class='robot'><div class='icon1'></div>";
+		    			var a="<div class='clearfix marginb'><div class='robot'><div class='icon1'></div>";
 		  				a+=data.result[0].summary;
 		  				a+="<div class='feedback clearfix'>";
   						a+="<span class='system_1' data-id='"+data.result[0].systemId+"'>["+data.result[0].system+"]</span>";
@@ -486,17 +498,17 @@ $(function() {
 						a+="<label><input type='radio' class='helpfulNo' value='0' name='discussStatus' data-id='"+data.result[0].knowId+"'/>否</label></span></span></div>";  						
 		    			a+="</div></div>";
 		    			$("#showbox").append(a);
-		    			var height = $("#showbox").prop('scrollHeight');//原来的高度	
-						$("#showbox").scrollTop(height);//滚动到原来的高度，正好从最新用户输入开始显示		
-						$("#judge").val("");
-						$("#inputbox").val("");							 
-					}
+					}	
+					var height = $("#showbox").prop('scrollHeight');//原来的高度	
+					$("#showbox").scrollTop(height);//滚动到原来的高度，正好从最新用户输入开始显示		
+					$("#judge").val("");
+					$("#inputbox").val("");
 				},"json"); 
-		        var pattern = "还可以输入<span class='red'>100</span>个字";
+				var pattern = "还可以输入<span class='red'>100</span>个字";
 	            $("#contentwordage").html(pattern);	 
 	            $("#judge").val("");
 	            $("#inputbox").val("");	
-				return false;				
+				return false;
            },
            position: { my : "left bottom", at: "left bottom",of: ".all_tips" } 
 		}).data("ui-autocomplete")._renderItem = function (ul, item) {   
