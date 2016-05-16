@@ -48,6 +48,7 @@ import="com.chsi.knowledge.pojo.KnowledgeData,com.chsi.knowledge.util.ManageCach
 #kn_lists .pagenation .kn-pagination_down:hover{text-decoration: none; opacity: 0.8; filter:alpha(opacity=80);}
 .main .right .advert{ height: 65px;  background: #f1f1f1; }
 .system {color: #999; margin-left: 10px;}
+.hide { display: none;}
 .marginb { margin-bottom: 25px;}
 .robot{ position:relative; float: left; max-width: 480px; margin-left: 75px; padding: 10px; border: 1px solid #d3d3d3; border-radius: 5px; background-color: #fff; word-break: break-all; word-wrap: break-word;}
 .robot .icon1 { position: absolute; left:-66px; top: -6px; width: 62px; height: 62px; background: url(../images/wap/help/icon_robot.png) no-repeat 0 5px;}
@@ -101,7 +102,7 @@ function input() {
 		if(result.flag=='true') {
 			var data = result.o;
 			//console.log(result);
-			var a="<div class='clearfix marginb'><div class='robot'><div class='icon1'></div>";
+			var a="<div class='clearfix marginb hide'><div class='robot'><div class='icon1'></div>";
 			if(data.AType=="INDEFINITE") {
 				a+="您的意思是?"
 				for(i in data.result) {
@@ -120,9 +121,12 @@ function input() {
 				a+="<label><input type='radio' class='helpfulNo' value='0' name='discussStatus' data-id='"+data.result[0].knowId+"' />否</label></span></span></div>";
 			}
 			a+="</div></div>";
-			$("#showbox").append(a);	
-			var height = $("#showbox").prop("scrollHeight");//原来的高度	
-			$("#showbox").scrollTop(height);//滚动到原来的高度，正好从最新用户输入开始显示										
+			$("#showbox").append(a);
+			setTimeout(function () {
+				$("#showbox .marginb:last").removeClass("hide");
+				var height = $("#showbox").prop('scrollHeight');//原来的高度	
+				$("#showbox").scrollTop(height);//滚动到原来的高度，正好从最新用户输入开始显示		
+			}, 500);									
 		}
 	},"json");
 	$("#inputbox").val("");	
@@ -162,7 +166,7 @@ $(function(){
 			if(result.flag=='true') {
     			var data = result.o;
     			//console.log(result);
-    			var a="<div class='clearfix marginb'><div class='robot'><div class='icon1'></div>";
+    			var a="<div class='clearfix marginb hide'><div class='robot'><div class='icon1'></div>";
   				a+=data.result[0].summary;
   				a+="<div class='feedback clearfix'>";
   				a+="<span class='system_1' data-id='"+data.result[0].systemId+"'>["+data.result[0].system+"]</span>";
@@ -171,8 +175,11 @@ $(function(){
 				a+="<label><input type='radio' class='helpfulNo' value='0' name='discussStatus' data-id='"+data.result[0].knowId+"' />否</label></span></span></div>";
     			a+="</div></div>";
     			$("#showbox").append(a);
-    			var height = $("#showbox").prop('scrollHeight');//原来的高度	
-				$("#showbox").scrollTop(height);//滚动到原来的高度，正好从最新用户输入开始显示					
+    			setTimeout(function () {
+    				$("#showbox .marginb:last").removeClass("hide");
+    				var height = $("#showbox").prop('scrollHeight');//原来的高度	
+					$("#showbox").scrollTop(height);//滚动到原来的高度，正好从最新用户输入开始显示		
+				}, 500);	
 			}
 		},'json');
 	});
@@ -377,7 +384,7 @@ function ajaxJSONP(data,callback){
 			if(result.flag=='true') {
     			var data = result.o;
     			//console.log(result);
-    			var a="<div class='clearfix marginb'><div class='robot'><div class='icon1'></div>";
+    			var a="<div class='clearfix marginb hide'><div class='robot'><div class='icon1'></div>";
   				a+=data.result[0].summary;
   				a+="<div class='feedback clearfix'>"
   				a+="<span class='system_1' data-id='"+data.result[0].systemId+"'>["+data.result[0].system+"]</span>";
@@ -385,9 +392,12 @@ function ajaxJSONP(data,callback){
 				a+="<span class='help_judge'><label><input type='radio'class='helpfulYes' value='1' name='discussStatus' data-id='"+data.result[0].knowId+"' />是</label>";
 				a+="<label><input type='radio' class='helpfulNo' value='0' name='discussStatus'  data-id='"+data.result[0].knowId+"' />否</label></span></span></div>";
     			a+="</div></div>";
-    			$("#showbox").append(a);
-    			var height = $("#showbox").prop("scrollHeight");//原来的高度	
-				$("#showbox").scrollTop(height);//滚动到原来的高度，正好从最新用户输入开始显示					
+    			$("#showbox").append(a);    			
+    			setTimeout(function () {
+    				$("#showbox .marginb:last").removeClass("hide");
+    				var height = $("#showbox").prop('scrollHeight');//原来的高度	
+					$("#showbox").scrollTop(height);//滚动到原来的高度，正好从最新用户输入开始显示		
+				}, 500);
 			}
 		},"json");
 	});      
@@ -489,7 +499,7 @@ $(function() {
 					if(result.flag=="true") {
 		    			var data = result.o;
 		    			//console.log(result);
-		    			var a="<div class='clearfix marginb'><div class='robot'><div class='icon1'></div>";
+		    			var a="<div class='clearfix marginb hide'><div class='robot'><div class='icon1'></div>";
 		  				a+=data.result[0].summary;
 		  				a+="<div class='feedback clearfix'>";
   						a+="<span class='system_1' data-id='"+data.result[0].systemId+"'>["+data.result[0].system+"]</span>";
@@ -499,8 +509,11 @@ $(function() {
 		    			a+="</div></div>";
 		    			$("#showbox").append(a);
 					}	
-					var height = $("#showbox").prop('scrollHeight');//原来的高度	
-					$("#showbox").scrollTop(height);//滚动到原来的高度，正好从最新用户输入开始显示		
+					setTimeout(function () {
+        				$("#showbox .marginb:last").removeClass("hide");
+        				var height = $("#showbox").prop('scrollHeight');//原来的高度	
+						$("#showbox").scrollTop(height);//滚动到原来的高度，正好从最新用户输入开始显示		
+    				}, 500);					
 					$("#judge").val("");
 					$("#inputbox").val("");
 				},"json"); 
