@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.chsi.knowledge.Constants;
 import com.chsi.knowledge.dic.KnowledgeStatus;
+import com.chsi.knowledge.dic.KnowledgeType;
 import com.chsi.knowledge.pojo.KnowTagRelationData;
 import com.chsi.knowledge.pojo.KnowledgeData;
 import com.chsi.knowledge.pojo.RobotASetData;
@@ -68,7 +69,7 @@ public class ManageCacheUtil {
         List<KnowTagRelationData> list = MemCachedUtil.get(key);
         if(list==null) {
             KnowledgeService knowledgeService = ServiceFactory.getKnowledgeService();
-            list = knowledgeService.getKnowTagDatas(tagId, KnowledgeStatus.YSH);
+            list = knowledgeService.getKnowTagDatas(tagId, KnowledgeStatus.YSH, KnowledgeType.PUBLIC);
             MemCachedUtil.set(key, list);
         }
         return list;

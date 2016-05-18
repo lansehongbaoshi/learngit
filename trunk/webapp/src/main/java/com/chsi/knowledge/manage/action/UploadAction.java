@@ -24,6 +24,7 @@ import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import com.chsi.framework.util.ValidatorUtil;
 import com.chsi.knowledge.action.base.AjaxAction;
 import com.chsi.knowledge.dic.KnowledgeStatus;
+import com.chsi.knowledge.dic.KnowledgeType;
 import com.chsi.knowledge.pojo.KnowTagRelationData;
 import com.chsi.knowledge.pojo.KnowledgeData;
 import com.chsi.knowledge.pojo.SystemData;
@@ -112,7 +113,7 @@ public class UploadAction extends AjaxAction {
             }
             knowledgeData = new KnowledgeData(null, result[i][1], null, 0, Integer.parseInt(result[i][4]), 
                                             KnowledgeStatus.YSH, getLoginedUserId(), Calendar.getInstance(),
-                                            null, null);
+                                            null, null, KnowledgeType.PUBLIC.toString());
             
             LoginUserVO loginUserVO = getLoginUserVO();
             //保存知识

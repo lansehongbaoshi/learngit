@@ -9,8 +9,10 @@ import com.chsi.knowledge.action.base.BasicAction;
 import com.chsi.knowledge.dic.KnowledgeStatus;
 import com.chsi.knowledge.index.service.KnowIndexService;
 import com.chsi.knowledge.pojo.KnowledgeData;
+import com.chsi.knowledge.pojo.SystemData;
 import com.chsi.knowledge.pojo.TagData;
 import com.chsi.knowledge.service.KnowledgeService;
+import com.chsi.knowledge.service.SystemService;
 import com.chsi.knowledge.service.TagService;
 import com.chsi.knowledge.util.ManageCacheUtil;
 import com.chsi.knowledge.vo.ViewKnowVO;
@@ -37,6 +39,7 @@ public class ManageAction extends BasicAction{
     private KnowledgeService knowledgeService;
     private KnowIndexService knowIndexService;
     private TagService tagService;
+    private SystemService systemService;
     
     public String getId() {
         return id;
@@ -127,6 +130,24 @@ public class ManageAction extends BasicAction{
                 }
                 log.info(systemId+"结束刷索引");
             }
+        } else {
+            List<SystemData> systems = systemService.getSystems();
+            for(SystemData system:systems) {
+                List<KnowledgeData> list = knowledgeService.get(system.getId(), KnowledgeStatus.YSH);
+                if (null != list) {
+                    log.info(systemId+"开始刷索引，共"+list.size());
+                    for (KnowledgeData temp : list) {
+                        try{
+                            knowIndexService.updateKnowIndex(temp.getId());
+                            log.info(String.format("{method:'refreshIndex',knowId:'%s',result:'success'}", temp.getId()));
+                        } catch(Exception ex) {
+                            ex.printStackTrace();
+                            log.error(String.format("{method:'refreshIndex',knowId:'%s',result:'fail'}", temp.getId()));
+                        }
+                    }
+                    log.info(systemId+"结束刷索引");
+                }
+            }
         }
         return INPUT;
     }
@@ -186,5 +207,13 @@ public class ManageAction extends BasicAction{
             cmsServiceClient.deleteArticle(k.getCmsId());
         }
         return INPUT;
+    }
+
+    public SystemService getSystemService() {
+        return systemService;
+    }
+
+    public void setSystemService(SystemService systemService) {
+        this.systemService = systemService;
     }
 }

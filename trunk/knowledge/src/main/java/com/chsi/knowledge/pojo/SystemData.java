@@ -1,6 +1,5 @@
 package com.chsi.knowledge.pojo;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -21,7 +20,7 @@ import com.chsi.framework.pojos.PersistentObject;
 @Entity
 @Table(name = "SYSTEM")
 @DynamicUpdate(value = true)
-public class SystemData extends PersistentObject {
+public class SystemData extends PersistentObject implements Comparable<SystemData>{
     private static final long serialVersionUID = -4617519619519431521L;
     private String id;
     private String name;
@@ -117,7 +116,7 @@ public class SystemData extends PersistentObject {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj!=null&&obj.getClass().equals(this.getClass())) {
+        if(obj!=null) {
             SystemData data = (SystemData)obj;
             return this.getId().equals(data.getId());
         }
@@ -127,5 +126,13 @@ public class SystemData extends PersistentObject {
     @Override
     public int hashCode() {
         return this.getId().hashCode();
+    }
+
+    @Override
+    public int compareTo(SystemData o) {
+        if(o!=null) {
+            return this.sort - o.getSort();
+        }
+        return 1;
     }
 }

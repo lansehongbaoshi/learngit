@@ -13,6 +13,7 @@ import com.chsi.knowledge.dao.KnowTagRelationDataDAO;
 import com.chsi.knowledge.dao.KnowledgeDataDAO;
 import com.chsi.knowledge.dao.TagDataDAO;
 import com.chsi.knowledge.dic.KnowledgeStatus;
+import com.chsi.knowledge.dic.KnowledgeType;
 import com.chsi.knowledge.pojo.KnowTagRelationData;
 import com.chsi.knowledge.pojo.KnowledgeData;
 import com.chsi.knowledge.pojo.SystemData;
@@ -120,8 +121,8 @@ public class KnowledgeServiceImpl extends BaseDbService implements KnowledgeServ
             Article article = cmsServiceClient.getArticle(knowledgeData.getCmsId());
             knowledgeData.setArticle(article);
             SystemService systemService = ServiceFactory.getSystemService();
-            SystemData systemData = systemService.getSystemDataByKnowledgeId(id);
-            knowledgeData.setSystemData(systemData);
+            List<SystemData> systemDatas = systemService.getSystemDataByKnowledgeId(id);
+            knowledgeData.setSystemDatas(systemDatas);
         }
         return knowledgeData;
     }
@@ -132,10 +133,10 @@ public class KnowledgeServiceImpl extends BaseDbService implements KnowledgeServ
         ViewKnowsVO viewKnowsVO = null;
         List<Navigation> navigation = null;
         TagService service = ServiceFactory.getTagService();
-        List<ViewTagVO> tagVOList = service.getTagVOsBySystemIdAndStatus(system.getId(), KnowledgeStatus.YSH);
+        List<ViewTagVO> tagVOList = service.getTagVOsBySystemIdAndStatus(system.getId(), KnowledgeStatus.YSH, KnowledgeType.PUBLIC);
         List<KnowTagRelationData> list = ManageCacheUtil.getKnowTag(tagId);
         if (null == list) {
-            count = knowledgeDataDAO.countKnowledges(tagId, KnowledgeStatus.YSH);
+            count = knowledgeDataDAO.countKnowledges(tagId, KnowledgeStatus.YSH, KnowledgeType.PUBLIC);
         } else {
             count = list.size();
         }
@@ -151,7 +152,7 @@ public class KnowledgeServiceImpl extends BaseDbService implements KnowledgeServ
 
         List<KnowledgeData> knowledgeDataList = new ArrayList<KnowledgeData>();
         if (null == list) {
-            list = knowTagRelationDAO.getKnowTagDatas(tagId, KnowledgeStatus.YSH);
+            list = knowTagRelationDAO.getKnowTagDatas(tagId, KnowledgeStatus.YSH, KnowledgeType.PUBLIC);
             ManageCacheUtil.addKnowTag(tagId, list);
         }
         int size = (pageSize + start) >= list.size() ? list.size() : (pageSize + start);
@@ -218,8 +219,8 @@ public class KnowledgeServiceImpl extends BaseDbService implements KnowledgeServ
     }
 
     @Override
-    public List<KnowTagRelationData> getKnowTagDatas(String tagId, KnowledgeStatus knowledgeStatus) {
-        return knowTagRelationDAO.getKnowTagDatas(tagId, knowledgeStatus);
+    public List<KnowTagRelationData> getKnowTagDatas(String tagId, KnowledgeStatus knowledgeStatus, KnowledgeType type) {
+        return knowTagRelationDAO.getKnowTagDatas(tagId, knowledgeStatus, type);
     }
 
     @Override

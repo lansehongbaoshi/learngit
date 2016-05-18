@@ -7,6 +7,7 @@ import org.hibernate.Query;
 import com.chsi.framework.hibernate.BaseHibernateDAO;
 import com.chsi.knowledge.dao.KnowTagRelationDataDAO;
 import com.chsi.knowledge.dic.KnowledgeStatus;
+import com.chsi.knowledge.dic.KnowledgeType;
 import com.chsi.knowledge.pojo.KnowTagRelationData;
 
 public class KnowTagRelationDataDAOImpl extends BaseHibernateDAO implements KnowTagRelationDataDAO{
@@ -17,6 +18,7 @@ public class KnowTagRelationDataDAOImpl extends BaseHibernateDAO implements Know
     private static final String KNOWLEDGE_ID = " p.knowledgeData.id=:id";
     private static final String TAG_ID = " p.tagData.id=:tagId";
     private static final String KNOWLEDGE_KNOWLEDGESTATUS = " p.knowledgeData.knowledgeStatus=:knowledgeStatus";
+    private static final String KNOWLEDGE_TYPE = " p.knowledgeData.type=:type";
     private static final String NOT_KNOWLEDGE_KNOWLEDGESTATUS = " p.knowledgeData.knowledgeStatus!=:knowledgeStatus";
     
     private static final String DEL_RELATION = "delete from KnowTagRelationData p ";
@@ -45,10 +47,17 @@ public class KnowTagRelationDataDAOImpl extends BaseHibernateDAO implements Know
     
     @SuppressWarnings("unchecked")
     @Override
-    public List<KnowTagRelationData> getKnowTagDatas(String tagId, KnowledgeStatus knowledgeStatus) {
-        String hql = SELECT_KNOWTAGRELATION + W + TAG_ID + A + KNOWLEDGE_KNOWLEDGESTATUS + ORDERBY_KNOWLEDGE_VISITCNT_SORT;
+    public List<KnowTagRelationData> getKnowTagDatas(String tagId, KnowledgeStatus knowledgeStatus, KnowledgeType type) {
+        String hql = SELECT_KNOWTAGRELATION + W + TAG_ID + A + KNOWLEDGE_KNOWLEDGESTATUS;
+        if(type!=null) {
+            hql += A + KNOWLEDGE_TYPE;
+        }
+        hql += ORDERBY_KNOWLEDGE_VISITCNT_SORT;
         Query query = hibernateUtil.getSession().createQuery(hql).setInteger("knowledgeStatus", knowledgeStatus.getOrdinal())
                       .setString("tagId", tagId);
+        if(type!=null) {
+            query.setString("type", type.toString());
+        }
         List<KnowTagRelationData> list = query.list();
         return list;
     }

@@ -24,7 +24,7 @@ import com.chsi.knowledge.vo.SearchVO;
 import com.chsi.search.client.vo.KnowledgeVO;
 
 /**
- * 搜索action
+ * 外部开放的搜索action
  * 
  * @author chenjian
  */
@@ -86,7 +86,7 @@ public class SearchAction extends AjaxAction {
             for(SystemOpenTimeData system:systems) {
                 String tagIds = system.getTagIds();
                 if(tagIds==null) {
-                    sb.append(String.format("query({!v='system_id:%s'}) ", system));
+                    sb.append(String.format("query({!v='system_ids:%s'}) ", system));
                 } else {
                     String[] strs = tagIds.split(",");
                     for(String str:strs) {
@@ -96,23 +96,8 @@ public class SearchAction extends AjaxAction {
             }
             queryParams.put("bf", sb.toString());
         }
+        queryParams.put("fq", "type:PUBLIC");
         KnowListVO<KnowledgeVO> listVO = knowIndexService.searchKnow(queryParams, (curPage - 1) * Constants.SEARCH_PAGE_SIZE, Constants.SEARCH_PAGE_SIZE);
-        List<SearchVO> list = SearchUtil.exchangeResultList(listVO, keywords, 14);
-//            saveSearchLog(list);
-        KnowListVO<SearchVO> result = new KnowListVO<SearchVO>(list, listVO.getPagination());
-        ajaxMessage.setO(result);
-        ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
-        writeCallbackJSON(callback);
-        return NONE;
-    }
-    
-    // 全系统搜索标题（自动完成处用,如机器人）
-    public String autoTitle() throws Exception {
-        keywords = SearchUtil.keywordsFilter(keywords);
-        Map<String, String> queryParams = new HashMap<String, String>();
-        queryParams.put("q", keywords);
-        queryParams.put("qf", "title");
-        KnowListVO<KnowledgeVO> listVO = knowIndexService.customSearch(queryParams, (curPage - 1) * Constants.SEARCH_PAGE_SIZE, Constants.SEARCH_PAGE_SIZE);
         List<SearchVO> list = SearchUtil.exchangeResultList(listVO, keywords, 14);
 //            saveSearchLog(list);
         KnowListVO<SearchVO> result = new KnowListVO<SearchVO>(list, listVO.getPagination());
@@ -134,7 +119,7 @@ public class SearchAction extends AjaxAction {
             for(SystemOpenTimeData system:systems) {
                 String tagIds = system.getTagIds();
                 if(tagIds==null) {
-                    sb.append(String.format("query({!v='system_id:%s'}) ", system));
+                    sb.append(String.format("query({!v='system_ids:%s'}) ", system));
                 } else {
                     String[] strs = tagIds.split(",");
                     for(String str:strs) {
@@ -144,6 +129,7 @@ public class SearchAction extends AjaxAction {
             }
             queryParams.put("bf", sb.toString());
         }
+        queryParams.put("fq", "type:PUBLIC");
         KnowListVO<KnowledgeVO> listVO = knowIndexService.searchKnow(queryParams, (curPage - 1) * Constants.PAGE_SIZE, Constants.PAGE_SIZE);
         List<SearchVO> list = SearchUtil.exchangeResultList(listVO, keywords, 40);
         if(!ValidatorUtil.isNull(keywords)) {
@@ -151,6 +137,23 @@ public class SearchAction extends AjaxAction {
         }
         KnowListVO<SearchVO> result = new KnowListVO<SearchVO>(list, listVO.getPagination());
         ajaxMessage.setO(result);
+        writeCallbackJSON(callback);
+        return NONE;
+    }
+    
+    // 全系统搜索标题（自动完成处用,如机器人）
+    public String autoTitle() throws Exception {
+        keywords = SearchUtil.keywordsFilter(keywords);
+        Map<String, String> queryParams = new HashMap<String, String>();
+        queryParams.put("q", keywords);
+        queryParams.put("qf", "title");
+        queryParams.put("fq", "type:PUBLIC");
+        KnowListVO<KnowledgeVO> listVO = knowIndexService.customSearch(queryParams, (curPage - 1) * Constants.SEARCH_PAGE_SIZE, Constants.SEARCH_PAGE_SIZE);
+        List<SearchVO> list = SearchUtil.exchangeResultList(listVO, keywords, 14);
+//            saveSearchLog(list);
+        KnowListVO<SearchVO> result = new KnowListVO<SearchVO>(list, listVO.getPagination());
+        ajaxMessage.setO(result);
+        ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
         writeCallbackJSON(callback);
         return NONE;
     }

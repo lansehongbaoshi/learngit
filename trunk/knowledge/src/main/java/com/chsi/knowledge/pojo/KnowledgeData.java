@@ -1,6 +1,7 @@
 package com.chsi.knowledge.pojo;
 
 import java.util.Calendar;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -32,6 +33,7 @@ public class KnowledgeData extends PersistentObject {
     private static final long serialVersionUID = -4645122472610059168L;
     private String id;
     private String keywords;
+    private String type;
     private String cmsId;
     private int visitCnt;
     private int sort;
@@ -41,7 +43,7 @@ public class KnowledgeData extends PersistentObject {
     private String updater;
     private Calendar updateTime;
     private Article article;//临时变量
-    private SystemData systemData;
+    private List<SystemData> systemDatas;
 
     public void setData(PersistentObject persistentObject) {
         KnowledgeData knowledgeData = (KnowledgeData) persistentObject;
@@ -55,6 +57,7 @@ public class KnowledgeData extends PersistentObject {
         this.createTime = knowledgeData.getCreateTime();
         this.updater = knowledgeData.getUpdater();
         this.updateTime = knowledgeData.getUpdateTime();
+        this.type = knowledgeData.getType();
     }
 
     public KnowledgeData(){
@@ -64,7 +67,7 @@ public class KnowledgeData extends PersistentObject {
     public KnowledgeData(String id, String keywords,
             String cmsId, int visitCnt, int sort,
             KnowledgeStatus knowledgeStatus, String creater,
-            Calendar createTime, String updater, Calendar updateTime) {
+            Calendar createTime, String updater, Calendar updateTime, String type) {
         super();
         this.id = id;
         this.keywords = keywords;
@@ -76,6 +79,7 @@ public class KnowledgeData extends PersistentObject {
         this.createTime = createTime;
         this.updater = updater;
         this.updateTime = updateTime;
+        this.type = type;
     }
 
     @Id
@@ -99,6 +103,15 @@ public class KnowledgeData extends PersistentObject {
 
     public void setKeywords(String keywords) {
         this.keywords = keywords;
+    }
+
+    @Column(name = "TYPE")
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     @Column(name = "CMS_ID")
@@ -207,14 +220,6 @@ public class KnowledgeData extends PersistentObject {
         }
     }
 
-    @Transient
-    public SystemData getSystemData() {
-        return systemData;
-    }
-
-    public void setSystemData(SystemData systemData) {
-        this.systemData = systemData;
-    }
     
     @Transient
     public String getLastOperTime(String format) {
@@ -228,5 +233,27 @@ public class KnowledgeData extends PersistentObject {
             return TimeUtil.getTime(lastTime, format);
         }
         return "";
+    }
+
+    @Transient
+    public List<SystemData> getSystemDatas() {
+        return systemDatas;
+    }
+
+    @Transient
+    public void setSystemDatas(List<SystemData> systemDatas) {
+        this.systemDatas = systemDatas;
+    }
+    
+    @Transient
+    public String getSystemName() {
+        String result = "";
+        if(systemDatas!=null&&systemDatas.size()>0) {
+            result = systemDatas.get(0).getName();
+            if(systemDatas.size()>1) {
+                result += "...";
+            }
+        }
+        return result;
     }
 }

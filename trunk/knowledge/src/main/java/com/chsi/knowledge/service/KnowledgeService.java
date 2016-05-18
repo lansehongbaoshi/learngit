@@ -3,6 +3,7 @@ package com.chsi.knowledge.service;
 import java.util.List;
 
 import com.chsi.knowledge.dic.KnowledgeStatus;
+import com.chsi.knowledge.dic.KnowledgeType;
 import com.chsi.knowledge.pojo.KnowTagRelationData;
 import com.chsi.knowledge.pojo.KnowledgeData;
 import com.chsi.knowledge.pojo.SystemData;
@@ -97,5 +98,5 @@ public interface KnowledgeService {
      * @param knowledgeStatus
      * @return
      */
-     List<KnowTagRelationData> getKnowTagDatas(String tagId, KnowledgeStatus knowledgeStatus);
+     List<KnowTagRelationData> getKnowTagDatas(String tagId, KnowledgeStatus knowledgeStatus, KnowledgeType type);
 }

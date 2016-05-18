@@ -86,7 +86,7 @@ public class ConvertUtil {
     public static List<SearchVO> know2SearchVO(List<KnowledgeData> list) {
         List<SearchVO> result = new ArrayList<SearchVO>();
         for(KnowledgeData data:list) {
-            result.add(new SearchVO(data.getSystemData().getId(), data.getSystemData().getName(), data.getId(), data.getArticle().getTitle(), ""));
+            result.add(new SearchVO(data.getSystemDatas(), data.getId(), data.getArticle().getTitle(), ""));
         }
         return result;
     }

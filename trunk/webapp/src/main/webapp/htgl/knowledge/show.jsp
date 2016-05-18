@@ -175,6 +175,8 @@ if("update".equals(from)) {
                                         <dd><s:property value=" knowledgeData.sort " /></dd>
                                         <dt>当前状态：</dt>
                                         <dd> <span class="label label-sm label-success">已发布</span> </dd>
+                                        <dt>知识类型：</dt>
+                                        <dd> <span class="label label-sm label-success"><s:property value='knowledgeData.type' /></span> </dd>
                                     </dl>
                                 </div>
                             </div>

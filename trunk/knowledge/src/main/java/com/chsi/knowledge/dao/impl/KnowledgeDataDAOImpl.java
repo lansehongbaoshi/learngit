@@ -5,8 +5,10 @@ import java.util.List;
 import org.hibernate.Query;
 
 import com.chsi.framework.hibernate.BaseHibernateDAO;
+import com.chsi.framework.util.ValidatorUtil;
 import com.chsi.knowledge.dao.KnowledgeDataDAO;
 import com.chsi.knowledge.dic.KnowledgeStatus;
+import com.chsi.knowledge.dic.KnowledgeType;
 import com.chsi.knowledge.pojo.KnowledgeData;
 
 public class KnowledgeDataDAOImpl extends BaseHibernateDAO implements KnowledgeDataDAO {
@@ -23,6 +25,7 @@ public class KnowledgeDataDAOImpl extends BaseHibernateDAO implements KnowledgeD
     private static final String ID = " p.id=:id";
     private static final String TAG_ID = " p.tagData.id=:tagId";
     private static final String KNOWLEDGE_KNOWLEDGESTATUS = " p.knowledgeData.knowledgeStatus=:knowledgeStatus";
+    private static final String KNOWLEDGE_TYPE = " p.knowledgeData.type=:type";
 
     @Override
     public void save(KnowledgeData knowledgeData) {
@@ -50,10 +53,16 @@ public class KnowledgeDataDAOImpl extends BaseHibernateDAO implements KnowledgeD
 
     @SuppressWarnings("unchecked")
     @Override
-    public int countKnowledges(String tagId, KnowledgeStatus knowledgeStatus) {
+    public int countKnowledges(String tagId, KnowledgeStatus knowledgeStatus, KnowledgeType type) {
         String hql = COUNT_KNOWTAGDATARELATION + W + TAG_ID + A + KNOWLEDGE_KNOWLEDGESTATUS;
+        if(type!=null) {
+            hql += A + KNOWLEDGE_TYPE;
+        }
         Query query = hibernateUtil.getSession().createQuery(hql).setInteger("knowledgeStatus", knowledgeStatus.getOrdinal())
                       .setString("tagId", tagId);
+        if(type!=null) {
+            query.setString("type", type.toString());
+        }
         List<Long> list = query.list();
         return list.size() == 0 ? 0 : new Long(list.get(0)).intValue();
     }

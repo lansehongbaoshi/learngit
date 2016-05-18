@@ -8,6 +8,7 @@ import com.chsi.knowledge.ServiceConstants;
 import com.chsi.knowledge.dao.KnowledgeDataDAO;
 import com.chsi.knowledge.dao.TagDataDAO;
 import com.chsi.knowledge.dic.KnowledgeStatus;
+import com.chsi.knowledge.dic.KnowledgeType;
 import com.chsi.knowledge.pojo.KnowTagRelationData;
 import com.chsi.knowledge.pojo.TagData;
 import com.chsi.knowledge.service.TagService;
@@ -31,7 +32,7 @@ public class TagServiceImpl extends BaseDbService implements TagService{
     }
 
     @Override
-    public List<ViewTagVO> getTagVOsBySystemIdAndStatus(String systemId, KnowledgeStatus knowledgeStatus) {
+    public List<ViewTagVO> getTagVOsBySystemIdAndStatus(String systemId, KnowledgeStatus knowledgeStatus, KnowledgeType type) {
         List<TagData> tagDataList = ManageCacheUtil.getTagList(systemId);
         if(null == tagDataList){
             tagDataList = tagDataDAO.getTagDataBySystemId(systemId);
@@ -48,7 +49,7 @@ public class TagServiceImpl extends BaseDbService implements TagService{
         for (TagData tagData : tagDataList) {
             list = ManageCacheUtil.getKnowTag(tagData.getId());
             if (null == list) {             
-                count = knowledgeDataDAO.countKnowledges(tagData.getId(), knowledgeStatus);
+                count = knowledgeDataDAO.countKnowledges(tagData.getId(), knowledgeStatus, type);
             }else{
                 count = list.size();
             }

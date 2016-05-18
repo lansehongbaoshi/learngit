@@ -16,7 +16,7 @@ import com.chsi.knowledge.vo.SearchVO;
 import com.chsi.search.client.vo.KnowledgeVO;
 
 /**
- * 搜索action
+ * 后台管理用的搜索action
  * 
  * @author chenjian
  */
@@ -42,7 +42,7 @@ public class SearchAction extends AjaxAction {
         }
         queryParams.put("q", keywords);
         if (!ValidatorUtil.isNull(systemId)){
-            queryParams.put("fq", "system_id:"+systemId);
+            queryParams.put("fq", "system_ids:"+systemId);
         }
         if(!ValidatorUtil.isNull(tag)) {
             queryParams.put("fq", "tag_ids:"+tag);

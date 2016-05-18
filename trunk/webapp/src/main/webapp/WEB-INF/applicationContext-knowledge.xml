@@ -54,6 +54,7 @@
         <property name="knowIndexService" ref="knowIndexService" />
         <property name="knowledgeService" ref="knowledgeService" />
         <property name="tagService" ref="tagService" />
+        <property name="systemService" ref="systemService" />
     </bean>
    
     <bean id="systemActionBean"  class="com.chsi.knowledge.htgl.action.SystemAction"  scope="request">

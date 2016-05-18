@@ -23,7 +23,7 @@ List<KnowledgeData> list = ManageCacheUtil.getIndexTopKnowl(5);
                       <%for(int i=0;i<list.size();i++) {
                           KnowledgeData one = list.get(i);%>
                           <li<%if(i==(list.size()-1)) out.print(" class=\"last\"");%>>
-	                          <a class='hl_a' href="/wap/help/ckjjfa.jsp?id=<%=one.getId()%>">[<%=one.getSystemData()==null?"":one.getSystemData().getName() %>]<%=one.getArticle().getTitle() %>
+	                          <a class='hl_a' href="/wap/help/ckjjfa.jsp?id=<%=one.getId()%>">[<%=one.getSystemName() %>]<%=one.getArticle().getTitle() %>
 		                        <img class='hl_next_img' src="http://t1.chei.com.cn/common/wap/help/images/more.png" />
 	                          </a>
                           </li>

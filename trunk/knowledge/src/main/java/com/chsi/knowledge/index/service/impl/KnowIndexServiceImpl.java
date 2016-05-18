@@ -1,6 +1,8 @@
 package com.chsi.knowledge.index.service.impl;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -23,6 +25,7 @@ import com.chsi.knowledge.dic.KnowledgeStatus;
 import com.chsi.knowledge.index.service.KnowIndexService;
 import com.chsi.knowledge.pojo.KnowTagRelationData;
 import com.chsi.knowledge.pojo.KnowledgeData;
+import com.chsi.knowledge.pojo.SystemData;
 import com.chsi.knowledge.util.Pagination;
 import com.chsi.knowledge.vo.KnowListVO;
 import com.chsi.news.vo.Article;
@@ -103,16 +106,29 @@ public class KnowIndexServiceImpl extends BaseDbService implements KnowIndexServ
         KnowledgeData know = relation.get(0).getKnowledgeData();
         List<String> tags=new LinkedList<String>();
         List<String> tagIds=new LinkedList<String>();
+        List<SystemData> systems = new ArrayList<SystemData>();
         for(KnowTagRelationData k : relation){
             tags.add(k.getTagData().getName());
             tagIds.add(k.getTagData().getId());
+            SystemData system = k.getTagData().getSystemData();
+            if(!systems.contains(system)) {
+                systems.add(system);
+            }
         }
         KnowIndexData index=new KnowIndexData();
         index.setId(know.getId());
         index.setKeywords(know.getKeywords());
         index.setTitle(article.getTitle());
         index.setContent(article.getContent());
-        index.setSystemId(relation.get(0).getTagData().getSystemData().getId());
+        
+        Collections.sort(systems);
+        List<String> list = new ArrayList<String>();
+        for(SystemData system:systems){
+            list.add(system.getId());
+        }
+        index.setSystemIds(list);
+        
+        index.setType(know.getType());
         index.setTagIds(tagIds);
         index.setTags(tags);
 //        double sort = know.getVisitCnt() == (double)0.0 ? 0:Math.log10(know.getVisitCnt());
@@ -129,7 +145,8 @@ public class KnowIndexServiceImpl extends BaseDbService implements KnowIndexServ
         }
         Map<String, String> queryParams = new HashMap<String, String>();
         queryParams.put("q", keywords);
-        queryParams.put("fq", String.format("system_id:%s", systemId));
+        queryParams.put("fq", String.format("system_ids:%s", systemId));
+        queryParams.put("fq", "type:PUBLIC");
         /*queryParams.put("qf", "title^25 content^10 key_words^6 tags^5");
         queryParams.put("defType", "edismax");
         queryParams.put("bf", "recip(rord(visit_cnt),1,1000,1000)^50 recip(rord(sort),1,100,100)^1");//bf计算出来的值位于0-1之间最合适

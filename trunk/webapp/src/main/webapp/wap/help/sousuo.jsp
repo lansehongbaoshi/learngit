@@ -121,7 +121,7 @@ template.helper('hightWord', function (k,o) {
         <ul class="hot_search_list" id='hot_lists'>
         <%if(knows!=null){ 
            for(KnowledgeVO vo:knows){%>
-           <li><a href="/wap/help/ckjjfa.jsp?id=<%=vo.getKnowledgeId() %>">[<%=ManageCacheUtil.getSystem(vo.getSystemId()).getName() %>]<%=vo.getTitle() %></a></li>
+           <li><a href="/wap/help/ckjjfa.jsp?id=<%=vo.getKnowledgeId() %>">[<% out.print(ManageCacheUtil.getSystem(vo.getSystemIds().get(0)).getName() + (vo.getSystemIds().size()>1?"...":""));%>]<%=vo.getTitle() %></a></li>
            <%} %>
         <%} %>
         </ul>

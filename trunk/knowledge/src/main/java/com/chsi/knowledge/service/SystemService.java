@@ -41,6 +41,6 @@ public interface SystemService {
      */
     List<SystemOpenTimeData> getOpenSystems();
     
-    SystemData getSystemDataByKnowledgeId(String knowledgeId);
+    List<SystemData> getSystemDataByKnowledgeId(String knowledgeId);
     
 }

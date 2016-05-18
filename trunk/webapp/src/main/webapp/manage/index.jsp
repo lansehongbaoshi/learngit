@@ -36,6 +36,9 @@ $.getJSON("/htgl/system/listSystem.action",
                 <input type="submit"  value="上传"  />
         </form>
 <form action="<%=ctxPath %>/manage/refreshIndex.action" method="post">
+<input type="submit" value="刷所有索引">
+</form>
+<form action="<%=ctxPath %>/manage/refreshIndex.action" method="post">
 SystemId：<select id="systemIds" class="systemIds form-control" name="systemId"></select>
 <input type="submit" value="刷索引">
 </form>

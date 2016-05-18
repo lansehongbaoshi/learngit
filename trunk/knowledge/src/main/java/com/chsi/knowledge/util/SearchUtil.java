@@ -96,10 +96,8 @@ public class SearchUtil {
             tempLength = vo.getContent().length() < length ? vo.getContent().length() : length;
             con = vo.getContent().substring(0, tempLength) + "...";
             KnowledgeData data = ManageCacheUtil.getKnowledgeDataById(vo.getKnowledgeId());
-            SystemData systemData = ManageCacheUtil.getSystem(vo.getSystemId());
-            String system = systemData==null?"":systemData.getName();
             if(data!=null) {
-                tempVO = new SearchVO(vo.getSystemId(), system, vo.getTags(), vo.getTitle(),  con, vo.getKnowledgeId(), vo.getTagIds(), searchWords, data.getVisitCnt(), data.getSort());
+                tempVO = new SearchVO(data.getSystemDatas(), vo.getTags(), vo.getTitle(),  con, vo.getKnowledgeId(), vo.getTagIds(), searchWords, data.getVisitCnt(), data.getSort());
                 searchList.add(tempVO);
             }
         }

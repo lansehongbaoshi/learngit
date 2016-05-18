@@ -22,6 +22,7 @@ import com.chsi.knowledge.pojo.QALogData;
 import com.chsi.knowledge.pojo.QASessionData;
 import com.chsi.knowledge.pojo.RobotASetData;
 import com.chsi.knowledge.pojo.RobotQSetData;
+import com.chsi.knowledge.pojo.SystemData;
 import com.chsi.knowledge.service.RobotService;
 import com.chsi.knowledge.service.ServiceFactory;
 import com.chsi.knowledge.util.ManageCacheUtil;
@@ -76,7 +77,7 @@ public class RobotServiceImpl extends BaseDbService implements RobotService {
             aLogData.setCmsId(knowledgeData.getCmsId());
             // aLogData.setCmsVersion(cmsVersion);后期要用到版本信息
             save(aLogData);
-            SearchVO searchVO = new SearchVO(knowledgeData.getSystemData().getId(), knowledgeData.getSystemData().getName(), knowId, knowledgeData.getArticle().getTitle(), knowledgeData.getArticle().getContent());
+            SearchVO searchVO = new SearchVO(knowledgeData.getSystemDatas(), knowId, knowledgeData.getArticle().getTitle(), knowledgeData.getArticle().getContent());
             answerVO = new AnswerVO<SearchVO>();
             answerVO.setAType(AType.DEFINITE);
             answerVO.setContent(knowledgeData.getArticle().getContent());
@@ -98,6 +99,7 @@ public class RobotServiceImpl extends BaseDbService implements RobotService {
                 Map<String, String> queryParams = new HashMap<String, String>();
                 queryParams.put("q", definiteKeyword);
                 queryParams.put("qf", "title");
+                queryParams.put("fq", "type:PUBLIC");
                 KnowIndexService knowIndexService = ServiceFactory.getKnowIndexService();
                 KnowListVO<KnowledgeVO> list = knowIndexService.customSearch(queryParams, 0, 5);//不分词，全匹配搜索
                 AType aType = null;
@@ -138,7 +140,7 @@ public class RobotServiceImpl extends BaseDbService implements RobotService {
                     // aLogData.setCmsVersion(cmsVersion);后期要用到版本信息
                     save(aLogData);
                     
-                    SearchVO searchVO = new SearchVO(knowledgeVO.getSystemId(), knowledgeData.getSystemData().getName(), knowledgeVO.getKnowledgeId(), knowledgeVO.getTitle(), "");
+                    SearchVO searchVO = new SearchVO(knowledgeData.getSystemDatas(), knowledgeVO.getKnowledgeId(), knowledgeVO.getTitle(), "");
                     list1.add(searchVO);
                 }
                 answerVO.setResult(list1);

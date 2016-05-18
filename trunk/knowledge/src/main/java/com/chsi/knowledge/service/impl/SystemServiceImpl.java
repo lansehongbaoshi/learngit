@@ -3,6 +3,7 @@ package com.chsi.knowledge.service.impl;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -132,12 +133,15 @@ public class SystemServiceImpl extends BaseDbService implements SystemService{
     }
 
     @Override
-    public SystemData getSystemDataByKnowledgeId(String knowledgeId) {
-        String systemId = systemDataDAO.getSystemIdByKnowledgeId(knowledgeId);
-        if(systemId!=null) {
-            return ManageCacheUtil.getSystem(systemId);
+    public List<SystemData> getSystemDataByKnowledgeId(String knowledgeId) {
+        List<String> systemIds = systemDataDAO.getSystemIdByKnowledgeId(knowledgeId);
+        List<SystemData> result = new ArrayList<SystemData>();
+        if(systemIds!=null && systemIds.size()>0) {
+            for(String systemId:systemIds) {
+                result.add(ManageCacheUtil.getSystem(systemId));
+            }
         }
-        return null;
+        return result;
     }
 
 }

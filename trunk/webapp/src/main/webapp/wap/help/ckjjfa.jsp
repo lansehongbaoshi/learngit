@@ -42,7 +42,7 @@ int otherNum = 5;
         <s:include value="searchbox.jsp"></s:include>
         <div class="findUser">
                   <h2><%=knowledgeData.getArticle().getTitle() %></h2>
-                  <div class='question_source'>问题来源：<a href='/wap/help/catalog.jsp?id=<%=knowledgeData.getSystemData().getId()%>'><%=knowledgeData.getSystemData().getName() %></a>&nbsp;&nbsp;&nbsp;更新于：<%=knowledgeData.getLastOperTime("yyyy.MM.dd") %></div>
+                  <div class='question_source'>问题来源：<%for(SystemData system:knowledgeData.getSystemDatas()){ %><a href='/wap/help/catalog.jsp?id=<%=system.getId()%>'><%=system.getName() %></a>&nbsp;<%} %>&nbsp;&nbsp;&nbsp;更新于：<%=knowledgeData.getLastOperTime("yyyy.MM.dd") %></div>
                     <div class="cont">
                       <div class="article">
                           <%=knowledgeData.getArticle().getContent() %>

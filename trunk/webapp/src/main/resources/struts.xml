@@ -96,9 +96,8 @@
             </global-exception-mappings> -->
     </package>
 
-    <include file="struts-knowledge.xml"></include>
+    <include file="struts-public.xml"></include>
     <include file="struts-manage.xml"></include>
-    <include file="struts-search.xml"></include>
     <include file="struts-htgl.xml"></include>
     <include file="struts-file.xml"></include>
     <include file="struts-robot.xml"></include>

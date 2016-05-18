@@ -3,6 +3,7 @@ package com.chsi.knowledge.dao;
 import java.util.List;
 
 import com.chsi.knowledge.dic.KnowledgeStatus;
+import com.chsi.knowledge.dic.KnowledgeType;
 import com.chsi.knowledge.pojo.KnowledgeData;
 /**
  * 知识表操作DAO层
@@ -39,7 +40,7 @@ public interface KnowledgeDataDAO {
      * @param tagName
      * @return
      */
-    int countKnowledges(String tagId, KnowledgeStatus knowledgeStatus);
+    int countKnowledges(String tagId, KnowledgeStatus knowledgeStatus, KnowledgeType type);
 
     /**
      * 根据ID 更新知识的访问次数加一

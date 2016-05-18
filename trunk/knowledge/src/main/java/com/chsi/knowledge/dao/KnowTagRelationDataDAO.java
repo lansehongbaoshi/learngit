@@ -3,6 +3,7 @@ package com.chsi.knowledge.dao;
 import java.util.List;
 
 import com.chsi.knowledge.dic.KnowledgeStatus;
+import com.chsi.knowledge.dic.KnowledgeType;
 import com.chsi.knowledge.pojo.KnowTagRelationData;
 
 public interface KnowTagRelationDataDAO {
@@ -30,7 +31,7 @@ public interface KnowTagRelationDataDAO {
      * @param size
      * @return
      */
-     List<KnowTagRelationData> getKnowTagDatas(String tagId, KnowledgeStatus knowledgeStatus);
+     List<KnowTagRelationData> getKnowTagDatas(String tagId, KnowledgeStatus knowledgeStatus, KnowledgeType type);
      
      /**
       * 非删除状态的知识
