@@ -23,6 +23,7 @@ if(key!=null && !"".equals(key)) {
 }
 String method = request.getParameter("method");
 StringBuffer sb = new StringBuffer();
+
 if(method!=null&& !"".equals(method)) {
     if(method.equals("clear all knowledge cache")) {
         KnowledgeService KnowledgeService = ServiceFactory.getKnowledgeService();
@@ -36,9 +37,16 @@ if(method!=null&& !"".equals(method)) {
                 sb.append(String.format("<br>清除知识缓存:id=%s", data2.getId()));
             }
         }
-        
         isResult = true;
-        
+    } else if(method.equals("clear index top")) {
+        key = "knowledge.com.chsi.knowledge.util.ManageCacheUtil.getTopKnowl";
+        MemCachedUtil.removeByKey(key);
+    } else if(method.equals("clear more top")) {
+        key = "knowledge.com.chsi.knowledge.util.ManageCacheUtil.getCatalogTopKnowl";
+        MemCachedUtil.removeByKey(key);
+    } else if(method.equals("clear top search")) {
+        key = "knowledge.com.chsi.knowledge.util.ManageCacheUtil.getTopSearchKnow";
+        MemCachedUtil.removeByKey(key);
     }
 }
 %>
@@ -61,13 +69,16 @@ function checkForm(abc){
 </head>
 <body>
 <br />
-<form action="<%=ctxPath%>/htgl/tool/clearcache.jsp" method="post" style="margin:0; display:block;" onsubmit="return checkForm(this)">
+<form action="<%=ctxPath%>/manage/tool/clearcache.jsp" method="post" style="margin:0; display:block;" onsubmit="return checkForm(this)">
 	  缓存key：<input type="text" style="width:640px;" title="全匹配" id="key" name="key" value="" /> <font color="blue">(全匹配)</font>
       <input type="submit" value="提交" class="xlbutton"/>
 </form>
 <hr>
-<form action="<%=ctxPath%>/htgl/tool/clearcache.jsp" method="post" style="margin:0;display:block;" onsubmit="">
+<form action="<%=ctxPath%>/manage/tool/clearcache.jsp" method="post" style="margin:0;display:block;" onsubmit="">
       <input type="submit" name="method" value="clear all knowledge cache" class="xlbutton"/>
+      <input type="submit" name="method" value="clear index top" class="xlbutton" title="首页热门问题列表"/>
+      <input type="submit" name="method" value="clear more top" class="xlbutton" title="查看更多热门问题列表"/>
+      <input type="submit" name="method" value="clear top search" class="xlbutton" title="搜索频率高的问题"/>
 </form>
 <%if(isResult) {%>
 <hr>

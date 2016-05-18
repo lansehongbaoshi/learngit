@@ -55,8 +55,7 @@ public class ManageCacheUtil {
     }
 
     // 标签与知识关联关系的增删查
-    public static boolean addKnowTag(String tagId,
-            List<KnowTagRelationData> list) {
+    public static boolean addKnowTag(String tagId, List<KnowTagRelationData> list) {
         String key = KNOWTAG_PREFIX + SEP + tagId;
         if (null != list) {
             return MemCachedUtil.set(key, list);
