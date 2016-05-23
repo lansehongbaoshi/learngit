@@ -4,7 +4,9 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.chsi.framework.pojos.PersistentObject;
 import com.chsi.framework.service.BaseDbService;
@@ -96,7 +98,7 @@ public class CommonServiceImpl extends BaseDbService implements CommonService {
         Calendar endTime = Calendar.getInstance();
         List<CntVO> listTemp = commonDAO.getTopVisitKnowl(systemOpenTimeData, startTime, endTime);
         Collections.sort(listTemp);
-        List<KnowledgeData> result = new ArrayList<KnowledgeData>();
+        Set<KnowledgeData> result = new LinkedHashSet<KnowledgeData>();
         int cnt = 0;
         for(int i=listTemp.size()-1;i>-1;i--) {
             if(cnt>=total) break;
@@ -107,7 +109,9 @@ public class CommonServiceImpl extends BaseDbService implements CommonService {
                 cnt++;
             }
         }
-        return result;
+        List<KnowledgeData> result2 = new ArrayList<KnowledgeData>();
+        result2.addAll(result);
+        return result2;
     }
     
     @Override

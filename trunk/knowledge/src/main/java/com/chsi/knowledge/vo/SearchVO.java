@@ -28,10 +28,12 @@ public class SearchVO {
     }
     
     public SearchVO(List<SystemData> systemDatas, String knowId, String title, String summary) {
-        this.systemId = systemDatas.get(0).getId();
-        this.system = systemDatas.get(0).getName();
-        if(systemDatas.size()>1) {
-            this.system+="...";
+        if(systemDatas!=null) {
+            this.systemId = systemDatas.get(0).getId();
+            this.system = systemDatas.get(0).getName();
+            if(systemDatas.size()>1) {
+                this.system+="...";
+            }
         }
         this.title = title;
         this.summary = summary;
@@ -39,10 +41,12 @@ public class SearchVO {
     }
     
     public SearchVO(List<SystemData> systemDatas, String tags, String title, String summary, String knowId, List<String> tagIds, String keywords, int visitCnt, int sort){
-        this.systemId = systemDatas.get(0).getId();
-        this.system = systemDatas.get(0).getName();
-        if(systemDatas.size()>1) {
-            this.system+="...";
+        if(systemDatas!=null) {
+            this.systemId = systemDatas.get(0).getId();
+            this.system = systemDatas.get(0).getName();
+            if(systemDatas.size()>1) {
+                this.system+="...";
+            }
         }
         this.tags = tags;
         this.title = title;

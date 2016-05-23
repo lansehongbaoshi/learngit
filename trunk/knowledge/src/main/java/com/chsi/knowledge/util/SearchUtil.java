@@ -7,7 +7,6 @@ import java.util.regex.Pattern;
 
 import com.chsi.framework.util.ValidatorUtil;
 import com.chsi.knowledge.pojo.KnowledgeData;
-import com.chsi.knowledge.pojo.SystemData;
 import com.chsi.knowledge.vo.KnowListVO;
 import com.chsi.knowledge.vo.SearchVO;
 import com.chsi.search.client.vo.KnowledgeVO;
@@ -25,17 +24,12 @@ public class SearchUtil {
      * @return
      */
     public static String keywordsFilter(String keywords) {
-        String filterWords = "[`~!@#$^()=|'+-:;,\\%.<>/?￥…&*（）—【】‘；：”“'。，、？]吗呢啊嘛呗喽呀哟啦";
-        StringBuffer result = new StringBuffer();
-        if (ValidatorUtil.isNull(keywords)) {
-            return "";
+        String regex = "^如何|怎样|怎么|什么|为什么|我|关于|吗|呢|啊|嘛|呗|喽|呀|哟|啦$|[`~!@#$^()=|'+-:;,\\%.<>/?￥…&*（）—【】‘；：”“'。，、？]";
+        String goodKeywords = "";
+        if(keywords!=null) {
+            goodKeywords = keywords.replaceAll(regex, "");
         }
-        for (int i = 0; i < keywords.length(); i++) {
-            if (filterWords.indexOf(keywords.charAt(i)) == -1) {
-                result.append(keywords.charAt(i));
-            }
-        }
-        return result.toString();
+        return goodKeywords;
     }
     
     /**
@@ -44,17 +38,20 @@ public class SearchUtil {
      * @return
      */
     public static String resultFilter(String content) {
-        String regxpForHtml = "<([^>]*)>";
-        Pattern pattern = Pattern.compile(regxpForHtml);
-        Matcher matcher = pattern.matcher(content); 
-        StringBuffer sb = new StringBuffer();
-        boolean result1 = matcher.find();
-        while (result1) {
-            matcher.appendReplacement(sb, "");
-            result1 = matcher.find();
+        if(content!=null) {
+            String regxpForHtml = "<([^>]*)>";
+            Pattern pattern = Pattern.compile(regxpForHtml);
+            Matcher matcher = pattern.matcher(content); 
+            StringBuffer sb = new StringBuffer();
+            boolean result1 = matcher.find();
+            while (result1) {
+                matcher.appendReplacement(sb, "");
+                result1 = matcher.find();
+            }
+            matcher.appendTail(sb);
+            return sb.toString();
         }
-        matcher.appendTail(sb);
-        return sb.toString();
+        return "";
     }
     
     /**
@@ -63,7 +60,7 @@ public class SearchUtil {
      * @return
      */
     public static boolean isGoodKeyword(String keyword) {
-        String regex = "^[A-Za-z0-9]+|如何|为什么|我|关于$";
+        String regex = "^[A-Za-z0-9]+|如何|怎样|什么|为什么|我|关于$";
         if(keyword!=null) {
             String result = keyword.replaceAll(regex, "");
             if(ValidatorUtil.isNull(result)) {

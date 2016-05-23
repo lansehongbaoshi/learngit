@@ -166,6 +166,11 @@
             <version>${chsi-cms-client-version}</version>
             <scope>provided</scope>
         </dependency>
-
+        <dependency>
+            <groupId>oro</groupId>
+            <artifactId>oro</artifactId>
+            <version>${oro.version}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 </project>

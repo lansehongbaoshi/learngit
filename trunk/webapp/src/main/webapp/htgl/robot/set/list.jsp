@@ -94,7 +94,7 @@
             </tr>
         </table>
       </div>
-      <h3 class="row header smaller lighter blue"> <span class="col-xs-7">自定义对话配置</span> <span class="col-xs-5"> <a href="/htgl/robot/set/addIndex.action" target="_self" class="btn-new-mail pull-right"> <span class="btn btn-primary btn-xs no-border"> <i class="ace-icon fa glyphicon-plus bigger-130"></i> <span class="bigger-110">新增</span></span> </a> </span> </h3>
+      <h3 class="row header smaller lighter blue"> <span class="col-xs-7">常用语对话配置</span> <span class="col-xs-5"> <a href="/htgl/robot/set/addIndex.action" target="_self" class="btn-new-mail pull-right"> <span class="btn btn-primary btn-xs no-border"> <i class="ace-icon fa glyphicon-plus bigger-130"></i> <span class="bigger-110">新增</span></span> </a> </span> </h3>
       <div id="dynamic-table_wrapper" class="dataTables_wrapper form-inline no-footer">
         <table id="dynamic-table" class="table table-striped table-bordered table-hover dataTable no-footer DTTT_selectable" role="grid" aria-describedby="dynamic-table_info">
           <thead>

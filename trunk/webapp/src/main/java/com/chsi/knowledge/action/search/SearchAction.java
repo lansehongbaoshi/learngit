@@ -97,6 +97,7 @@ public class SearchAction extends AjaxAction {
             queryParams.put("bf", sb.toString());
         }
         queryParams.put("fq", "type:PUBLIC");
+        queryParams.put("fl", "title,id");
         KnowListVO<KnowledgeVO> listVO = knowIndexService.searchKnow(queryParams, (curPage - 1) * Constants.SEARCH_PAGE_SIZE, Constants.SEARCH_PAGE_SIZE);
         List<SearchVO> list = SearchUtil.exchangeResultList(listVO, keywords, 14);
 //            saveSearchLog(list);
@@ -148,6 +149,7 @@ public class SearchAction extends AjaxAction {
         queryParams.put("q", keywords);
         queryParams.put("qf", "title");
         queryParams.put("fq", "type:PUBLIC");
+        queryParams.put("fl", "title,id");
         KnowListVO<KnowledgeVO> listVO = knowIndexService.customSearch(queryParams, (curPage - 1) * Constants.SEARCH_PAGE_SIZE, Constants.SEARCH_PAGE_SIZE);
         List<SearchVO> list = SearchUtil.exchangeResultList(listVO, keywords, 14);
 //            saveSearchLog(list);
