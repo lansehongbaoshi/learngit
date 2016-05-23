@@ -11,7 +11,7 @@ import="com.chsi.knowledge.pojo.KnowledgeData,com.chsi.knowledge.util.ManageCach
 <style>
 .content { padding: 25px 0 30px 0; background: #ccc;}
 .logo { position: relative; width:1000px; height: 70px; margin:0 auto;  background-color: #28bca4; color: #fff; }
-.logo .logo_img { position: absolute; left: 0px; top: -25px; width: 78px; height: 93px; background: url(../images/wap/help/logo.png) no-repeat;}	
+.logo .logo_img { position: absolute; left: 0px; top: -25px; width: 78px; height: 93px; background: url(../images/wap/help/logo.png) no-repeat 2px 0;}	
 .logo .logo_title { padding: 10px 0 0 85px; font-size: 22px;}
 .logo .logo_sub { padding: 0px 0 0 85px; font-size: 16px; opacity: 0.5; filter:alpha(opacity=50);}
 .logo .switch { position: absolute; right: 15px; top: 20px; width: 30px; height: 30px; background: url(../images/wap/help/close.png) no-repeat; cursor: pointer;}	
