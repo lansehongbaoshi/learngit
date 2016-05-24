@@ -94,7 +94,7 @@ public class SearchUtil {
             con = vo.getContent().substring(0, tempLength) + "...";
             KnowledgeData data = ManageCacheUtil.getKnowledgeDataById(vo.getKnowledgeId());
             if(data!=null) {
-                tempVO = new SearchVO(data.getSystemDatas(), vo.getTags(), vo.getTitle(),  con, vo.getKnowledgeId(), vo.getTagIds(), searchWords, data.getVisitCnt(), data.getSort());
+                tempVO = new SearchVO(data.getSystemDatas(), vo.getTags(), vo.getTitle(),  con, vo.getKnowledgeId(), vo.getTagIds(), searchWords, data.getVisitCnt(), data.getSort(), data.getType());
                 searchList.add(tempVO);
             }
         }

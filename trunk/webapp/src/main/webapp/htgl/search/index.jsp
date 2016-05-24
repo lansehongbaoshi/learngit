@@ -33,7 +33,14 @@ String ctxPath = request.getContextPath();
         </div>
 
        <div class="rows">
-       <div class="col-xs-12 col-md-3">
+       <div class="col-xs-12 col-md-2">
+        <select id="type" class="form-control" name="type">
+        <option value="">请选择类型...</option>
+        <option value="PRIVATE">内部</option>
+        <option value="PUBLIC">公开</option>
+        </select>
+        </div>
+       <div class="col-xs-12 col-md-2">
         <select id="systemIds" class="form-control" name="systemId">
         </select>
         </div>
@@ -118,6 +125,7 @@ String ctxPath = request.getContextPath();
                     systemId: systemId,
                     keywords: keywords,
                     tag:$("#tags").val(),
+                    type:$("#type").val(),
                     curPage: curPage,
                     t: new Date().getTime()
                 },
@@ -138,7 +146,7 @@ String ctxPath = request.getContextPath();
                         for (var i = 0; i < knows.length; i++) {
                             var k = knows[i];
                             var odd_even = (i%2==0)?"even":"odd";
-                            var str = " <tr role=\"row\" data-id="+k.knowId+" class=\""+odd_even+"\"><td class=\"hidden-80\">" + k.system + "</td><td class=\"hidden-80\">" + k.tags + "</td><td class=\"hidden-160\">" + k.title + "</td><td class=\"hidden-260\"><a target='_blank' href='/htgl/view/viewKnowledge.action?id=" + k.knowId + "'>" + k.summary + "</a></td><td class=\"hidden-80\">"+k.sort+"</td><td class=\"hidden-80\">"+k.visitCnt+"</td><td class=\hidden-80\><span class=\"label label-sm label-success\">已发布</span></td></tr>";
+                            var str = " <tr role=\"row\" data-id="+k.knowId+" class=\""+odd_even+"\"><td class=\"hidden-80\">" + k.system + "</td><td class=\"hidden-80\">" + k.tags + "</td><td class=\"hidden-160\">" + k.title + "</td><td class=\"hidden-260\"><a target='_blank' href='/htgl/view/viewKnowledge.action?id=" + k.knowId + "'>" + k.summary + "</a></td><td class=\"hidden-80\">"+k.sort+"</td><td class=\"hidden-80\">"+k.visitCnt+"</td><td class=\hidden-80\><span class=\"label label-sm label-success\">已发布</span><span class=\"label label-sm label-success\">"+k.type+"</span></td></tr>";
                             $("#search_result").append(str);
                         }
                         $("#search_table_header").html("搜索 \“"+knows[0].keywords +"\” 的结果").show();

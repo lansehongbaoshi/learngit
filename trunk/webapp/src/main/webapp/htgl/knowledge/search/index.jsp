@@ -33,7 +33,14 @@ String ctxPath = request.getContextPath();
         </div>
 
        <div class="rows">
-       <div class="col-xs-12 col-md-3">
+       <div class="col-xs-12 col-md-2">
+        <select id="type" class="form-control" name="type">
+        <option value="">请选择类型...</option>
+        <option value="PRIVATE">内部</option>
+        <option value="PUBLIC">公开</option>
+        </select>
+        </div>
+       <div class="col-xs-12 col-md-2">
         <select id="systemIds" class="form-control" name="systemId">
         </select>
         </div>
@@ -127,6 +134,7 @@ String ctxPath = request.getContextPath();
                     systemId: systemId,
                     keywords: keywords,
                     tag:$("#tags").val(),
+                    type:$("#type").val(),
                     curPage: curPage,
                     t: new Date().getTime()
                 },
@@ -147,7 +155,7 @@ String ctxPath = request.getContextPath();
                         for (var i = 0; i < knows.length; i++) {
                             var k = knows[i];
                             var odd_even = (i%2==0)?"even":"odd";
-                            var str = " <tr role=\"row\" data-id="+k.knowId+" class=\""+odd_even+"\"><td class=\"hidden-80\">" + k.system + "</td><td class=\"hidden-80\">" + k.tags + "</td><td class=\"hidden-160\">" + k.title + "</td><td class=\"hidden-260\">" + k.summary + "</td><td class=\"hidden-80\">"+k.sort+"</td><td class=\"hidden-80\">"+k.visitCnt+"</td><td class=\hidden-80\><span class=\"label label-sm label-success\">已发布</span></td><td><div class=\"hidden-sm hidden-xs action-buttons\"><a class=\"blue\" target='_blank' title=\"查看\" href=\"/htgl/knowledge/showKnowledge.action?id=" + k.knowId +"\"> <i class=\"ace-icon fa fa-search-plus bigger-130\"></i> </a> <a class=\"green\" title=\"修改\" target='_blank' href='/htgl/knowledge/modifyindex.action?id=" + k.knowId +"&systemId=" + k.systemId + "'><i class=\"ace-icon fa fa-pencil bigger-130\"></i> </a> <a title=\"删除\" class=\"red delBtn\" href=\"#\"> <i class=\"ace-icon fa fa-trash-o bigger-130\"></i> </a></div>" + "</td></tr>";
+                            var str = " <tr role=\"row\" data-id="+k.knowId+" class=\""+odd_even+"\"><td class=\"hidden-80\">" + k.system + "</td><td class=\"hidden-80\">" + k.tags + "</td><td class=\"hidden-160\">" + k.title + "</td><td class=\"hidden-260\">" + k.summary + "</td><td class=\"hidden-80\">"+k.sort+"</td><td class=\"hidden-80\">"+k.visitCnt+"</td><td class=\hidden-80\><span class=\"label label-sm label-success\">已发布</span><span class=\"label label-sm label-success\">"+k.type+"</span></td><td><div class=\"hidden-sm hidden-xs action-buttons\"><a class=\"blue\" target='_blank' title=\"查看\" href=\"/htgl/knowledge/showKnowledge.action?id=" + k.knowId +"\"> <i class=\"ace-icon fa fa-search-plus bigger-130\"></i> </a> <a class=\"green\" title=\"修改\" target='_blank' href='/htgl/knowledge/modifyindex.action?id=" + k.knowId +"&systemId=" + k.systemId + "'><i class=\"ace-icon fa fa-pencil bigger-130\"></i> </a> <a title=\"删除\" class=\"red delBtn\" href=\"#\"> <i class=\"ace-icon fa fa-trash-o bigger-130\"></i> </a></div>" + "</td></tr>";
                             $("#search_result").append(str);
                         }
                         $("#search_table_header").html("搜索 \“"+knows[0].keywords +"\” 的结果").show();

@@ -1,5 +1,6 @@
 package com.chsi.knowledge.htgl.action;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,6 +32,7 @@ public class SearchAction extends AjaxAction {
     private String tag;
     private int curPage;
     private String callback;
+    private String type;
 //    private QueueService queueService = ServiceFactory.getQueueService();
 
     // 指定系统内搜索,不过滤关键字（如：*:*）
@@ -41,11 +43,19 @@ public class SearchAction extends AjaxAction {
             keywords = "*:*";
         }
         queryParams.put("q", keywords);
+        List<String> fqs = new ArrayList<String>();
         if (!ValidatorUtil.isNull(systemId)){
-            queryParams.put("fq", "system_ids:"+systemId);
+            fqs.add("system_ids:"+systemId);
         }
         if(!ValidatorUtil.isNull(tag)) {
-            queryParams.put("fq", "tag_ids:"+tag);
+            fqs.add("tag_ids:"+tag);
+        }
+        if(!ValidatorUtil.isNull(type)) {
+            fqs.add(String.format("type:%s", type));
+        }
+        if(fqs.size()>0) {
+            String fq = org.apache.commons.lang3.StringUtils.join(fqs, " AND ");
+            queryParams.put("fq", fq);
         }
         /*if("*:*".equals(keywords)) {
             queryParams.put("sort", "visit_cnt desc");
@@ -120,6 +130,14 @@ public class SearchAction extends AjaxAction {
 
     public void setCallback(String callback) {
         this.callback = callback;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     /*private void saveSearchLog(List<SearchVO> list) {

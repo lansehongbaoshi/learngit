@@ -68,6 +68,7 @@ List<SystemData> systems = systemService.getSystems();
           </select>
           </div>
         </div>
+        <input id="content" type="hidden" name="content">
       </form>
       <div class="form-horizontal">
         <div class="form-group">
@@ -149,36 +150,6 @@ UE.Editor.prototype.getActionUrl = function(action) {
 </script>
 <script>
                 $(function () {
-                    $("#systemIds").change(function () {
-                        $.getJSON("/htgl/tag/list.action?systemId=" + $(this).val(),
-                            function showTags(json) {
-                                if (json.flag == "true") {
-                                    var options = "";
-                                    var tags = json.o;
-                                    for (var i = 0; i < tags.length; i++) {
-                                        var option = tags[i];
-                                        options += "<input type='checkbox' name='tagIds' id='tag_"+ i +"' value='" + option.id + "'><label for='tag_"+ i +"'>" + option.name + "</label>&nbsp;&nbsp;";
-                                    }
-                                    $("#tag").html(options);
-                                }
-                            }
-                        );
-                    });
-                    $.getJSON("/htgl/listSystem.action",
-                        function showSystems(json) {
-                            if (json.flag == "true") {
-                                var options = "<option value=''>请选择...</option>";
-                                for (var i = 0; i < json.o.length; i++) {
-                                    var option = json.o[i];
-                                    var selected = '';
-                                    options += "<option value='" + option.id + "'" + selected + ">" + option.name + "</option>";
-                                }
-                                $("#systemIds").html(options);
-                            }
-                            $("#systemIds").trigger('change');
-                        }
-                    );
-
                     $("#modifyBtn").click(function () {
                         var html = editor.getContent();
                         $("#content").val(html);

@@ -19,6 +19,7 @@ public class SearchVO {
     private String summary;
     private String knowId;
     private String keywords;
+    private String type;
     private List<String> tagIds;
     private int visitCnt;
     private int sort;
@@ -40,7 +41,8 @@ public class SearchVO {
         this.knowId = knowId;
     }
     
-    public SearchVO(List<SystemData> systemDatas, String tags, String title, String summary, String knowId, List<String> tagIds, String keywords, int visitCnt, int sort){
+    public SearchVO(List<SystemData> systemDatas, String tags, String title, String summary, String knowId,
+            List<String> tagIds, String keywords, int visitCnt, int sort, String type){
         if(systemDatas!=null) {
             this.systemId = systemDatas.get(0).getId();
             this.system = systemDatas.get(0).getName();
@@ -56,6 +58,7 @@ public class SearchVO {
         this.keywords = keywords;
         this.visitCnt = visitCnt;
         this.sort = sort;
+        this.type = type;
     }
 
     public String getSystemId() {
@@ -136,6 +139,14 @@ public class SearchVO {
 
     public void setSort(int sort) {
         this.sort = sort;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     
