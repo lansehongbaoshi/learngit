@@ -111,7 +111,7 @@ margin-top: 10px;
             <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
             </div>
             <p class="margin-top-10" style="text-align:right;"><button id="knowl_btn2">统计</button></p>
-            <p class="margin-top-10"><b>说明：</b><br>机器人回答情况统计，点击“无答案”可查看详情</p>
+            <p class="margin-top-10"><b>说明：</b><br>点击统计图中的“无答案”，可查看详情。</p>
             </div>
             <div id="main" style="width: 900px;height:500px;float:left;"></div>
           </div>
