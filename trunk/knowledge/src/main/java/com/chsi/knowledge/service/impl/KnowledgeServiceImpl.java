@@ -227,9 +227,12 @@ public class KnowledgeServiceImpl extends BaseDbService implements KnowledgeServ
     public List<KnowledgeData> get(String systemId, KnowledgeStatus knowledgeStatus) {
         List<KnowledgeData> list = knowledgeDataDAO.get(systemId, knowledgeStatus);
         CmsServiceClient cmsServiceClient = CmsServiceClientFactory.getCmsServiceClient();
+        SystemService systemService = ServiceFactory.getSystemService();
         for(KnowledgeData knowledgeData:list) {
             Article article = cmsServiceClient.getArticle(knowledgeData.getCmsId());
             knowledgeData.setArticle(article);
+            List<SystemData> systemDatas = systemService.getSystemDataByKnowledgeId(knowledgeData.getId());
+            knowledgeData.setSystemDatas(systemDatas);
         }
         return list;
     }
