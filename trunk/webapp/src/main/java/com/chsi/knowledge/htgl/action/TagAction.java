@@ -172,8 +172,10 @@ public class TagAction extends AjaxAction{
                     ajaxMessage.addMessage("删除标签前必须先清空使用该标签的知识！");
                     ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
                 } else {
+                    String systemId = tagData.getSystemData().getId();
                     tagService.delete(tagData);
                     ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
+                    ManageCacheUtil.removeTagList(systemId);
                 }
             } else {
                 ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);

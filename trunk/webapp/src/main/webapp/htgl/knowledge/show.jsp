@@ -193,8 +193,7 @@ if("update".equals(from)) {
                                     <dl class="dl-horizontal  bigger-120 blue">
                                         <s:iterator value="knowTagRelationList" id="knowTagRelation">
                                             <dt><span class="glyphicon glyphicon-tag " aria-hidden="true"></span></dt>
-                                            <dd> <s:property value="tagData.name" /></dd>
-                                           
+                                            <dd><s:property value="tagData.systemData.name" />&gt;<s:property value="tagData.name" /></dd>
                                         </s:iterator>
                                     </dl>
                                 </div>

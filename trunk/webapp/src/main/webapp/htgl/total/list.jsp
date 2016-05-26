@@ -182,6 +182,10 @@ function getNames(values){
 			data.topCnt=$("#topCnt").val();
 			data.startTime=$("#startDate").val();
 			data.endTime=$("#endDate").val();
+			if(data.startTime>data.endTime) {
+                alert("开始日期不能晚于截止日期！");
+                return;
+            }
     		$.post("/htgl/total/option.jsp",data,function(result){
         		var option = eval(result);
         		var myChart = echarts.init(document.getElementById('main'));
@@ -193,6 +197,10 @@ function getNames(values){
     		data.type = 'session';
 			data.startTime=$("#startDate1").val();
 			data.endTime=$("#endDate1").val();
+			if(data.startTime>data.endTime) {
+				alert("开始日期不能晚于截止日期！");
+				return;
+			}
     		$.post("/htgl/total/option.jsp",data,function(result){
         		var option = eval(result);
         		var myChart = echarts.init(document.getElementById('main'));
@@ -204,6 +212,10 @@ function getNames(values){
     		data.type = 'q';
 			data.startTime=$("#startDate2").val();
 			data.endTime=$("#endDate2").val();
+			if(data.startTime>data.endTime) {
+                alert("开始日期不能晚于截止日期！");
+                return;
+            }
     		$.post("/htgl/total/option.jsp",data,function(result){
         		var option = eval(result);
         		var myChart = echarts.init(document.getElementById('main'));

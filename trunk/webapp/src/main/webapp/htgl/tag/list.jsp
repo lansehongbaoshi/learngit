@@ -143,7 +143,7 @@
                 showTags(systemId);
             });
             function showTags(systemId) {
-            	$.getJSON("/htgl/tag/list.action", {systemId: systemId},
+            	$.getJSON("/htgl/tag/list.action", {systemId: systemId,t:new Date().getTime()},
                   function showSystems(json) {
                       if (json.flag == "true") {
                           var options = "";
