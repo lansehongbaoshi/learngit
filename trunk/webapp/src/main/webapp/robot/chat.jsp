@@ -457,93 +457,94 @@ function ajaxJSONP(data,callback){
 //}   
 //自动完成
 $(function() {
-		$("#inputbox").autocomplete({
-			minLength: 0,
-            max: 0,
-            delay: 200,
-            source: function (request, response) {
-                var term = request.term;
-                var postdata = {"keywords":request.term};
-                var _url = "http://kl.chsi.com.cn/search/autoTitle.action";
-	            $.ajax({ 
-		            type: "get",
-		            cache: false,
-		            async: true,
-		            crossDomain:true,
-		            url: _url,  
-		            data:postdata, 
-		            dataType: "jsonp",
-		            jsonp: "callback", //回调函数的参数  
-		            success: function(data) {
-		                response($.map(data["o"].knows, function(item){
-		                    return {
-				                value: item.title,
-				                keywords: item.keywords,
-				                label: item.title,
-				                desc: item.summary,
-				                system: item.system,
-				                knowId: item.knowId
-				            }		                
-		                }));
-		            },
-		            error: function(XMLHttpRequest, textStatus, errorThrown){
-		                alert(textStatus+'请求时发生了错误，请稍后再试');  
-		            }  
-        		}); 
-            },
-			focus: function(event, ui) {
-				$("#judge").val("0");
-			},
-			change:function(event, ui) {
-				 $("#judge").val("");
-			},
-            select: function(event, ui){
-            	var knowId = ui.item.knowId;
-            	var q=htmlspecialchars(ui.item.value);   
-            	$("#showbox").append("<div class='clearfix marginb'><div class='person'><div class='icon2'></div>"+q+"</div></div");
-            	$.post("/robot/qa.action",{sessionId:sessionId,knowId:knowId},function(result){
-					if(result.flag=="true") {
-		    			var data = result.o;
-		    			//console.log(result);
-		    			var a="<div class='clearfix marginb hide'><div class='robot'><div class='icon1'></div>";
-		  				a+=data.result[0].summary;
-		  				a+="<div class='feedback clearfix'>";
-  						a+="<span class='system_1' data-id='"+data.result[0].systemId+"'>["+data.result[0].system+"]</span>";
-						a+="<span class='title'>这个回答是否有用？";
-						a+="<span class='help_judge'><label><input type='radio' class='helpfulYes' value='1' name='discussStatus'  data-id='"+data.result[0].knowId+"' />是</label>";
-						a+="<label><input type='radio' class='helpfulNo' value='0' name='discussStatus' data-id='"+data.result[0].knowId+"'/>否</label></span></span></div>";  						
-		    			a+="</div></div>";
-		    			$("#showbox").append(a);
-					}	
-					setTimeout(function () {
-        				$("#showbox .marginb:last").removeClass("hide");
-        				var height = $("#showbox").prop('scrollHeight');//原来的高度	
-						$("#showbox").scrollTop(height);//滚动到原来的高度，正好从最新用户输入开始显示		
-    				}, 500);					
-					$("#judge").val("");
-					$("#inputbox").val("");
-				},"json"); 
-				var pattern = "还可以输入<span class='red'>100</span>个字";
-	            $("#contentwordage").html(pattern);	 
-	            $("#judge").val("");
-	            $("#inputbox").val("");	
-				return false;
-           },
-           position: { my : "left bottom", at: "left bottom",of: ".all_tips" } 
-		}).data("ui-autocomplete")._renderItem = function (ul, item) {   
-        	var reg = new RegExp("("+item.keywords+")","g");
-        	item.desc =  item.desc.replace(reg, "<strong style='color:#c30'>$1</strong>");
-        	item.label =  item.label.replace(reg, "<strong style='color:#c30'>$1</strong>");          
-            return $("<li>").append("<a>"+item.label+"<span class='system'>["+item.system+"]</span></a>").appendTo(ul);
-		};
-		$(window).on("beforeunload",function() {
-		  $.post("/robot/close.action?sessionId="+sessionId);
-		});
-		//关闭页面
-		$(".switch").click(function(e) {			
+	$("#inputbox").autocomplete({
+		minLength: 0,
+        max: 5,
+        delay: 200,
+        source: function (request, response) {
+            var term = request.term;
+            var postdata = {"keywords":request.term};
+            var _url = "http://kl.chsi.com.cn/search/autoTitle.action";
+            $.ajax({ 
+	            type: "get",
+	            cache: false,
+	            async: true,
+	            crossDomain:true,
+	            url: _url,  
+	            data:postdata, 
+	            dataType: "jsonp",
+	            jsonp: "callback", //回调函数的参数  
+	            jsonpCallback: "parseAutoSearch", //回调函数的名称  
+	            success: function(data) {
+	                response($.map(data["o"].knows, function(item){
+	                    return {
+			                value: item.title,
+			                keywords: item.keywords,
+			                label: item.title,
+			                desc: item.summary,
+			                system: item.system,
+			                knowId: item.knowId
+			            }		                
+	                }));
+	            },
+	            error: function(XMLHttpRequest, textStatus, errorThrown){
+	                alert(textStatus+'请求时发生了错误，请稍后再试');  
+	            }  
+    		}); 
+        },
+		focus: function(event, ui) {
+			$("#judge").val("0");
+		},
+		change:function(event, ui) {
+			 $("#judge").val("");
+		},
+        select: function(event, ui){
+        	var knowId = ui.item.knowId;
+        	var q=htmlspecialchars(ui.item.value);   
+        	$("#showbox").append("<div class='clearfix marginb'><div class='person'><div class='icon2'></div>"+q+"</div></div");
+        	$.post("/robot/qa.action",{sessionId:sessionId,knowId:knowId},function(result){
+				if(result.flag=="true") {
+	    			var data = result.o;
+	    			//console.log(result);
+	    			var a="<div class='clearfix marginb hide'><div class='robot'><div class='icon1'></div>";
+	  				a+=data.result[0].summary;
+	  				a+="<div class='feedback clearfix'>";
+					a+="<span class='system_1' data-id='"+data.result[0].systemId+"'>["+data.result[0].system+"]</span>";
+					a+="<span class='title'>这个回答是否有用？";
+					a+="<span class='help_judge'><label><input type='radio' class='helpfulYes' value='1' name='discussStatus'  data-id='"+data.result[0].knowId+"' />是</label>";
+					a+="<label><input type='radio' class='helpfulNo' value='0' name='discussStatus' data-id='"+data.result[0].knowId+"'/>否</label></span></span></div>";  						
+	    			a+="</div></div>";
+	    			$("#showbox").append(a);
+				}	
+				setTimeout(function () {
+    				$("#showbox .marginb:last").removeClass("hide");
+    				var height = $("#showbox").prop('scrollHeight');//原来的高度	
+					$("#showbox").scrollTop(height);//滚动到原来的高度，正好从最新用户输入开始显示		
+				}, 500);					
+				$("#judge").val("");
+				$("#inputbox").val("");
+			},"json"); 
+			var pattern = "还可以输入<span class='red'>100</span>个字";
+            $("#contentwordage").html(pattern);	 
+            $("#judge").val("");
+            $("#inputbox").val("");	
+			return false;
+       },
+       position: { my : "left bottom", at: "left bottom",of: ".all_tips" } 
+	}).data("ui-autocomplete")._renderItem = function (ul, item) {   
+    	var reg = new RegExp("("+item.keywords+")","g");
+    	item.desc =  item.desc.replace(reg, "<strong style='color:#c30'>$1</strong>");
+    	item.label =  item.label.replace(reg, "<strong style='color:#c30'>$1</strong>");          
+        return $("<li>").append("<a>"+item.label+"<span class='system'>["+item.system+"]</span></a>").appendTo(ul);
+	};
+	$(window).on("beforeunload",function() {
+	  $.post("/robot/close.action?sessionId="+sessionId);
+	});
+	//关闭页面
+	$(".switch").click(function(e) {			
 //			CloseWebPage();
-			window.location.href = "about:blank";
-		});
+		window.location.href = "about:blank";
+	});
 //		function CloseWebPage() {
 //		    if (navigator.userAgent.indexOf("MSIE") > 0) {
 //		        if (navigator.userAgent.indexOf("MSIE 6.0") > 0) {
