@@ -141,7 +141,7 @@ function htmlspecialchars(str){
     str = str.replace(/'/g, '&#039;');  
     return str;  
 }
-function ajaxJSONPt(data,callback){
+function ajaxJSONP_s(data,callback){
     $.ajax({ 
             global:true, 
             type: "post",
