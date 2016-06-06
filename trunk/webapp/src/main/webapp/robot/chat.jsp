@@ -141,7 +141,7 @@ function htmlspecialchars(str){
     str = str.replace(/'/g, '&#039;');  
     return str;  
 }
-function ajaxJSONP1(data,callback){
+function ajaxJSONPt(data,callback){
     $.ajax({ 
             global:true, 
             type: "post",
@@ -315,7 +315,7 @@ $(function(){
 	$("#showbox").on("click",".helpfulYes",function(){
 		var v=$(this).val();
 		var _d ={"knowledgeId":$(this).data("id"),"discussStatus":v};
-		ajaxJSONP1(_d,"feedback");
+		ajaxJSONP_s(_d,"feedback");
 		$(this).parents(".title").html("已收到您的建议。谢谢！");
 	});	
 	$("#showbox").on("click",".helpfulNo",function(){
@@ -323,7 +323,6 @@ $(function(){
 		var id=$(this).data("id");
 		var t=$(this).parents(".title");
 		var k=$(this);
-		console.log(t);
 		dialog({
             	title:"您的建议（200个字符以内，选填）：",
                 content: "<div><textarea maxlength='200' tabindex='1' rows='5' cols='80' id='kn_feedback' name='feedback'></textarea></div>",
@@ -337,7 +336,7 @@ $(function(){
                 	    return false;
                 	}else{	                    	
                     	var _c={"knowledgeId":id,"discussStatus":"0","content":$.trim(content)};
-                    	ajaxJSONP1(_c,"feedback");
+                    	ajaxJSONP_s(_c,"feedback");
                 		t.html("已收到您的建议。谢谢！");
             		}
                 },
