@@ -67,9 +67,80 @@ import="com.chsi.knowledge.pojo.KnowledgeData,com.chsi.knowledge.util.ManageCach
 .person .icon2 { position: absolute; right: -66px; top: -6px; width: 62px; height: 62px; background: url(../images/wap/help/icon_user.png) no-repeat 0 5px;}
 .ui-dialog-content img {max-width: 1200px;}
 </style>
+<div class="logo">
+	<div class="logo_img"></div>
+	<div class="logo_title">学信网机器人 | chsi.com.cn</div>
+	<div class="logo_sub">24小时竭诚为您服务</div>
+	<div class="switch"></div>
+	<div class="weixin">
+		扫码关注
+		<span class="triangle-up"></span>
+        <span class="weixin_l"></span> 
+    </div>
+</div>
+<div class="main clearfix">
+	<div class="left">
+		<div class="tp">对话已建立，学信网机器人正在为您服务 ......</div>
+		<div id="showbox"></div>
+		<div id="sendbox">
+			<div class="send_top">
+				<textarea id="inputbox" maxlength="100" autocomplete="off" placeholder="请用一句话简要描述您的问题，比如：如何找回用户名和密码"></textarea>
+				<input id="judge" type="hidden" value="" />
+			</div>
+			<div class="send_bottom">
+				<input id="sendBtn" type="button" value="发送"/>
+				<span id="contentwordage"></span>
+			</div>
+		</div>
+		<div class="all_tips"></div>
+	</div>
+	<div class="right">
+		<div class="normal-question">
+			<div id="kn_labels" >
+				<ul class="clearfix">
+					<li class="selected cn" onclick="ajaxJSONP('systemId=account','knList')" >学信网账号</li>
+					<li class="cn" onclick="ajaxJSONP('systemId=my','knList')">学信档案</li>
+					<li class="cn" style="margin-right: 0; border-right: none;" onclick="ajaxJSONP('systemId=yz_wb','knList')" >研招统考</li>
+					<li class="cn" onclick="ajaxJSONP('systemId=yz_tm','knList')">研招推免</li>
+                    <li class="cn" onclick="ajaxJSONP('systemId=zb','knList')">应征报名</li>
+                    <li style="border-right: none;"></li>
+				</ul>
+			</div>
+			<div id="kn_lists">
+				<div class="top_title">热门问题</div>
+				<div id="kn_list"></div>
+				<!--<ul>
+					<li>1、如何判断网报是否成功？</li>
+					<li>2、如何进行网上报名？</li>					
+					<li>3、学历（学籍）信息校验是怎么回事？</li>				
+					<li>4、网上报名的有效期限？</li>					
+					<li>5、报考硕士研究生是否必须网上报名？</li>					
+				</ul>			-->
+				<!--<div class="pagenation" id="pagenation_list">-->
+				</div>
+			</div>			
+			<script id="snippet_list" type="text/html">
+				<ul>
+				 {{each o as value i}}  
+				       <li title="{{value.title}}"><span> {{i+1}}. <a  href="javascript:;" data-id="{{value.knowId}}">{{value.title}}</a></span></li>
+				 {{/each}}	
+				</ul>
+			</script>				
+		</div>
+		<!--<div class="advert"></div>-->
+	</div>
+</div>
 <script>
 var sessionId = "<s:property value='sessionId'/>";
 //评论
+function htmlspecialchars(str){    
+    str = str.replace(/&/g, '&amp;');  
+    str = str.replace(/</g, '&lt;');  
+    str = str.replace(/>/g, '&gt;');  
+    str = str.replace(/"/g, '&quot;');  
+    str = str.replace(/'/g, '&#039;');  
+    return str;  
+}
 function ajaxJSONP1(data,callback){
     $.ajax({ 
             global:true, 
@@ -93,7 +164,7 @@ function feedback(json){
 }	
 //文本框输入调用
 function input() {
-	var q = $("#inputbox").val();
+	var q =htmlspecialchars($("#inputbox").val());
 	if($.trim(q)=="") return;	
 	$("#showbox").append("<div class='clearfix marginb'><div class='person'><div class='icon2'></div>"+q+"</div></div>");
 	var height = $("#showbox").prop("scrollHeight");//原来的高度	
@@ -277,72 +348,7 @@ $(function(){
                 cancelValue: "取消"	                    
         }).showModal();	
 	});	
-})
-</script>
-<div class="logo">
-	<div class="logo_img"></div>
-	<div class="logo_title">学信网机器人 | chsi.com.cn</div>
-	<div class="logo_sub">24小时竭诚为您服务</div>
-	<div class="switch"></div>
-	<div class="weixin">
-		扫码关注
-		<span class="triangle-up"></span>
-        <span class="weixin_l"></span> 
-    </div>
-</div>
-<div class="main clearfix">
-	<div class="left">
-		<div class="tp">对话已建立，学信网机器人正在为您服务 ......</div>
-		<div id="showbox"></div>
-		<div id="sendbox">
-			<div class="send_top">
-				<textarea id="inputbox" maxlength="100" autocomplete="off" placeholder="请用一句话简要描述您的问题，比如：如何找回用户名和密码"></textarea>
-				<input id="judge" type="hidden" value="" />
-			</div>
-			<div class="send_bottom">
-				<input id="sendBtn" type="button" value="发送"/>
-				<span id="contentwordage"></span>
-			</div>
-		</div>
-		<div class="all_tips"></div>
-	</div>
-	<div class="right">
-		<div class="normal-question">
-			<div id="kn_labels" >
-				<ul class="clearfix">
-					<li class="selected cn" onclick="ajaxJSONP('systemId=account','knList')" >学信网账号</li>
-					<li class="cn" onclick="ajaxJSONP('systemId=my','knList')">学信档案</li>
-					<li class="cn" style="margin-right: 0; border-right: none;" onclick="ajaxJSONP('systemId=yz_wb','knList')" >研招统考</li>
-					<li class="cn" onclick="ajaxJSONP('systemId=yz_tm','knList')">研招推免</li>
-                    <li class="cn" onclick="ajaxJSONP('systemId=zb','knList')">应征报名</li>
-                    <li style="border-right: none;"></li>
-				</ul>
-			</div>
-			<div id="kn_lists">
-				<div class="top_title">热门问题</div>
-				<div id="kn_list"></div>
-				<!--<ul>
-					<li>1、如何判断网报是否成功？</li>
-					<li>2、如何进行网上报名？</li>					
-					<li>3、学历（学籍）信息校验是怎么回事？</li>				
-					<li>4、网上报名的有效期限？</li>					
-					<li>5、报考硕士研究生是否必须网上报名？</li>					
-				</ul>			-->
-				<!--<div class="pagenation" id="pagenation_list">-->
-				</div>
-			</div>			
-			<script id="snippet_list" type="text/html">
-				<ul>
-				 {{each o as value i}}  
-				       <li title="{{value.title}}"><span> {{i+1}}. <a  href="javascript:;" data-id="{{value.knowId}}">{{value.title}}</a></span></li>
-				 {{/each}}	
-				</ul>
-			</script>				
-		</div>
-		<!--<div class="advert"></div>-->
-	</div>
-</div>
-<script type="text/javascript">
+});
 
 //artTemplate辅助方法
 template.helper("paramStr", function (o) {
@@ -375,7 +381,7 @@ function ajaxJSONP(data,callback){
     $("#kn_list").html(template("snippet_list",json)); //直接使用json数据
 //  drawPage("#pagenation_list",json["o"]);
 	$("#kn_list a").on("click",function(){
-		var q=$(this).text();
+		var q=htmlspecialchars($(this).text());
 		$("#showbox").append("<div class='clearfix marginb'><div class='person'><div class='icon2'></div>"+q+"</div></div");
 		var height = $("#showbox").prop("scrollHeight");//原来的高度	
 		$("#showbox").scrollTop(height);//滚动到原来的高度，正好从最新用户输入开始显示								
@@ -493,7 +499,7 @@ $(function() {
 			},
             select: function(event, ui){
             	var knowId = ui.item.knowId;
-            	var q=ui.item.value;   
+            	var q=htmlspecialchars(ui.item.value);   
             	$("#showbox").append("<div class='clearfix marginb'><div class='person'><div class='icon2'></div>"+q+"</div></div");
             	$.post("/robot/qa.action",{sessionId:sessionId,knowId:knowId},function(result){
 					if(result.flag=="true") {
