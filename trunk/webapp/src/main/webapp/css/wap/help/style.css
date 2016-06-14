@@ -39,7 +39,7 @@
 .clearr{position:absolute;right:63px;right:4.5rem;display:block;width:16px;height:16px;width:1.14rem;height:1.14rem;background:#999;color:#fff;font-size:1.15rem;top:9px;top:.64rem;border-radius:100%;text-align:center;line-height:15px;line-height:1.09rem;cursor:pointer}
 .hot_search_list{width:100%}
 .hot_search_list li{border-bottom:1px solid #ccc;line-height:47px;line-height:3.917rem;padding-left:14px;padding-left:1rem}
-.hot_search_list li span{font-size:14px;font-size:1.167rem;float:left;cursor:pointer;color:#238cff}
+.hot_search_list li span{font-size:14px;font-size:1.167rem;cursor:pointer;}
 .hot_search_list li a{font-size:14px;font-size:1.167rem;color:#333;display:block;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;padding-right:14px;padding-right:1rem}
 .ask_answer{width:100%}
 .ask_answer li{border-bottom:1px solid #ccc;padding:12px;padding:1rem}
