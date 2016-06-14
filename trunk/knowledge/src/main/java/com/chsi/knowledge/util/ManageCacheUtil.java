@@ -21,7 +21,6 @@ import com.chsi.knowledge.service.ServiceFactory;
 import com.chsi.knowledge.service.SystemService;
 import com.chsi.knowledge.service.TagService;
 import com.chsi.knowledge.vo.ViewKnowsVO;
-import com.chsi.search.client.vo.KnowledgeVO;
 
 /**
  * 缓存管理工具
@@ -140,9 +139,9 @@ public class ManageCacheUtil {
         MemCachedUtil.removeByKey(key);
     }
 
-    public static List<KnowledgeVO> getTopSearchKnow() {
+    public static List<KnowledgeData> getTopSearchKnow() {
         String key = CACHE_KEY_ + SEP + "getTopSearchKnow";
-        List<KnowledgeVO> result = MemCachedUtil.get(key);
+        List<KnowledgeData> result = MemCachedUtil.get(key);
         if(result == null) {
             CommonService commonService = ServiceFactory.getCommonService();
             result = commonService.getTopSearchKnow(5);

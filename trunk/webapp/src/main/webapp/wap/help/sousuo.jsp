@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" 
 import="com.chsi.knowledge.pojo.KnowledgeData,com.chsi.knowledge.util.ManageCacheUtil,java.util.List,com.chsi.search.client.vo.KnowledgeVO"%>
-<%List<KnowledgeVO> knows = ManageCacheUtil.getTopSearchKnow(); %>
+<%List<KnowledgeData> knows = ManageCacheUtil.getTopSearchKnow(); %>
 <!DOCTYPE html>
 <html>
   <head>
@@ -120,8 +120,8 @@ template.helper('hightWord', function (k,o) {
         <div class='keyupTest'></div>
         <ul class="hot_search_list" id='hot_lists'>
         <%if(knows!=null){ 
-           for(KnowledgeVO vo:knows){%>
-           <li><a href="/wap/help/ckjjfa.jsp?id=<%=vo.getKnowledgeId() %>">[<% out.print(ManageCacheUtil.getSystem(vo.getSystemIds().get(0)).getName() + (vo.getSystemIds().size()>1?"...":""));%>]<%=vo.getTitle() %></a></li>
+           for(KnowledgeData vo:knows){%>
+           <li><a href="/wap/help/ckjjfa.jsp?id=<%=vo.getId() %>">[<span title="<%out.print(vo.getSystemNames());%>"><% out.print(vo.getSystemName());%></span>]<%=vo.getArticle().getTitle() %></a></li>
            <%} %>
         <%} %>
         </ul>
@@ -132,7 +132,7 @@ template.helper('hightWord', function (k,o) {
 {{if o.knows.length>0 }}
  {{each o.knows as value i}} 
  <li>
- 	<a class="ui-corner-all"  href="/wap/help/ckjjfa.jsp?id={{value.knowId}}&keywords={{value.keywords}}">[{{value.system}}]{{#hightWord(value.keywords,value.title)}}
+ 	<a class="ui-corner-all"  href="/wap/help/ckjjfa.jsp?id={{value.knowId}}&keywords={{value.keywords}}">[<span title="{{value.systems}}">{{value.system}}</span>]{{#hightWord(value.keywords,value.title)}}
 	</a>
  </li> 
  {{/each}}	
@@ -146,7 +146,7 @@ template.helper('hightWord', function (k,o) {
 {{if o.knows.length>0 }}
  {{each o.knows as value i}} 
  <li>
-    <h1><span><img src="http://t2.chei.com.cn/common/wap/help/images/ask.png"/></span><a  href="/wap/help/ckjjfa.jsp?id={{value.knowId}}">[{{value.system}}]{{#hightWord(value.keywords,value.title)}}</a></h1>	
+    <h1><span><img src="http://t2.chei.com.cn/common/wap/help/images/ask.png"/></span><a  href="/wap/help/ckjjfa.jsp?id={{value.knowId}}">[<span title="{{value.systems}}">{{value.system}}</span>]{{#hightWord(value.keywords,value.title)}}</a></h1>	
  	<p onClick="window.location.href='/wap/help/ckjjfa.jsp?id={{value.knowId}}'"><span><img src="http://t3.chei.com.cn/common/wap/help/images/answer.png"/></span>{{#hightWord(value.keywords,value.summary)}}</p>
  </li> 
   {{/each}}	

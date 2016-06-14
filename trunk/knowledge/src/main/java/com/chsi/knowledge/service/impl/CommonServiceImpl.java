@@ -46,11 +46,11 @@ public class CommonServiceImpl extends BaseDbService implements CommonService {
         commonDAO.save(po);
     }
 
-    public List<KnowledgeVO> getTopSearchKnow(int n) {
+    public List<KnowledgeData> getTopSearchKnow(int n) {
         Calendar startTime = Calendar.getInstance();
         startTime.add(Calendar.DAY_OF_MONTH, -10);
         List<Object[]> systemAndKeywords = commonDAO.getTopKeyword(n*4, startTime, Calendar.getInstance());//防止出现无效的关键词（即：没有搜索结果的关键词）所以多搜点
-        List<KnowledgeVO> result = new ArrayList<KnowledgeVO>();
+        List<KnowledgeData> result = new ArrayList<KnowledgeData>();
         KnowIndexService knowIndexService = ServiceFactory.getKnowIndexService();
         for(Object[] objs:systemAndKeywords) {
             String systemId = (String)objs[0];
@@ -64,8 +64,11 @@ public class CommonServiceImpl extends BaseDbService implements CommonService {
                 list = knowIndexService.searchKnow(keyword, systemId, 0, 2).getKnows();
             }
             KnowledgeVO knowledgeVO = list!=null&&list.size()>0 ? list.get(0):null;
-            if(knowledgeVO!=null&&!result.contains(knowledgeVO)) {
-                result.add(knowledgeVO);
+            if(knowledgeVO!=null) {
+                KnowledgeData KnowledgeData = ManageCacheUtil.getKnowledgeDataById(knowledgeVO.getKnowledgeId());
+                if(!result.contains(KnowledgeData)) {
+                    result.add(KnowledgeData);
+                }
             }
         }
         return result;

@@ -14,6 +14,7 @@ public class SearchVO {
 
     private String systemId;
     private String system;
+    private String systems;
     private String tags;
     private String title;
     private String summary;
@@ -35,7 +36,12 @@ public class SearchVO {
             if(systemDatas.size()>1) {
                 this.system+="...";
             }
+            this.systems = "";
+            for(SystemData systemData:systemDatas) {
+                systems+=systemData.getName()+"&nbsp;";
+            }
         }
+        
         this.title = title;
         this.summary = summary;
         this.knowId = knowId;
@@ -48,6 +54,10 @@ public class SearchVO {
             this.system = systemDatas.get(0).getName();
             if(systemDatas.size()>1) {
                 this.system+="...";
+            }
+            this.systems = "";
+            for(SystemData systemData:systemDatas) {
+                systems+=systemData.getName()+"&nbsp;";
             }
         }
         this.tags = tags;
@@ -147,6 +157,14 @@ public class SearchVO {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getSystems() {
+        return systems;
+    }
+
+    public void setSystems(String systems) {
+        this.systems = systems;
     }
 
     

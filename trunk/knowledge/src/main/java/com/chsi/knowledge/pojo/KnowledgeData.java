@@ -256,4 +256,24 @@ public class KnowledgeData extends PersistentObject {
         }
         return result;
     }
+    
+    @Transient
+    public String getSystemNames() {
+        String result = "";
+        if(systemDatas!=null&&systemDatas.size()>0) {
+            for(SystemData systemData:systemDatas) {
+                result += systemData.getName() + "&nbsp;";
+            }
+        }
+        return result;
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if(obj!=null) {
+            KnowledgeData vo = (KnowledgeData)obj;
+            return this.getId().equals(vo.getId());
+        }
+        return false;
+    }
 }

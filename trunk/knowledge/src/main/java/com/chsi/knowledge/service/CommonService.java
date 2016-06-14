@@ -6,7 +6,6 @@ import com.chsi.framework.pojos.PersistentObject;
 import com.chsi.knowledge.pojo.KnowledgeData;
 import com.chsi.knowledge.pojo.SystemOpenTimeData;
 import com.chsi.knowledge.vo.LineChartVO;
-import com.chsi.search.client.vo.KnowledgeVO;
 
 public interface CommonService {
     void save(PersistentObject po);
@@ -16,7 +15,7 @@ public interface CommonService {
      * @param n
      * @return
      */
-    List<KnowledgeVO> getTopSearchKnow(int n);
+    List<KnowledgeData> getTopSearchKnow(int n);
     
     /**
      * 访问最多的前n个知识
