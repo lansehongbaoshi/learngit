@@ -48,6 +48,13 @@ if("update".equals(from)) {
             	            	)
                         	}
                         });
+                    	$(document).on("click",".fa-pencil",function() {
+                            var id = $(this).closest("div").data("id");
+                            if(id!=''){
+                            $("#theId").val(id);
+                            $("#modifyForm").submit();
+                            }
+                        });
                 	}); 
                 
                     try {
@@ -121,12 +128,12 @@ if("update".equals(from)) {
                                             <div class="widget-header">
                                                 <h2 class="widget-title"><s:property value=" knowledgeData.article.title " /></h2>
 
-                                                <div class="widget-toolbar no-border">
+                                                <div class="widget-toolbar no-border" data-id="<s:property value=" knowledgeData.id " />">
                                                     <a href="#" data-action="update-time">
                                                         <i class="ace-icon fa fa-clock-o"></i>
                                                     </a>
 
-                                                    <a href="/htgl/knowledge/modifyindex.action?id=<s:property value=" knowledgeData.id " />&systemId=<s:property value=" knowledgeData.systemData.id " />" >
+                                                    <a href="javascript:void(0)" >
                                                         <i class="ace-icon fa fa-pencil"></i>
                                                     </a>
                                                     
@@ -277,6 +284,8 @@ if("update".equals(from)) {
                         <div class="clear"></div>
                     </div>
                 </div>
-
+<form id="modifyForm" action="/htgl/knowledge/modifyindex.action" method="post" target="">
+    <input type="hidden" id="theId" name="id">
+    </form>
 
             </div>
