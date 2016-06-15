@@ -45,7 +45,7 @@ List<KnowledgeData> list = ManageCacheUtil.getIndexTopKnowl(5);
                        </dl>
                         <dl class="none"><%systemData = ManageCacheUtil.getSystem("cet"); %>
                             <a href="/wap/help/catalog.jsp?id=cet">
-                                <dt><img src="http://t3.chei.com.cn/common/wap/help/images/icon_zh.png" title="<%=systemData.getName() %>" alt="<%=systemData.getName() %>"/></dt>
+                                <dt><img src="http://t3.chei.com.cn/common/wap/help/images/icon_cet.png" title="<%=systemData.getName() %>" alt="<%=systemData.getName() %>"/></dt>
                                 <dd>
                                     <h3><%=systemData.getName() %></h3>
                                     <p><%=systemData.getDescription() %></p>
@@ -63,7 +63,18 @@ List<KnowledgeData> list = ManageCacheUtil.getIndexTopKnowl(5);
                                 </dd>
                             </a>
                         </dl> 
-                        <dl class="none"><%systemData = ManageCacheUtil.getSystem("yz_wb"); %>
+                        <dl class="none"><%systemData = ManageCacheUtil.getSystem("zb"); %>
+                            <a href="/wap/help/catalog.jsp?id=zb">
+                                <dt><img src="http://t1.chei.com.cn/common/wap/help/images/icon_zb.png" title="<%=systemData.getName() %>" alt="<%=systemData.getName() %>"/></dt>
+                                <dd>
+                                    <h3><%=systemData.getName() %></h3>
+                                    <p><%=systemData.getDescription() %></p>
+                                </dd>
+                            </a>
+                        </dl>             
+                    </div>                      
+                    <div>
+						<dl><%systemData = ManageCacheUtil.getSystem("yz_wb"); %>
                             <a href="/wap/help/catalog.jsp?id=yz_wb">
                                 <dt><img src="http://t4.chei.com.cn/common/wap/help/images/icon_yz.png" title="<%=systemData.getName() %>" alt="<%=systemData.getName() %>"/></dt>
                                 <dd>
@@ -71,10 +82,8 @@ List<KnowledgeData> list = ManageCacheUtil.getIndexTopKnowl(5);
                                     <p><%=systemData.getDescription() %></p>
                                 </dd>
                             </a>
-                        </dl>                   
-                    </div>                      
-                    <div>
-                        <dl><%systemData = ManageCacheUtil.getSystem("yz_tm"); %>
+                        </dl>       
+                        <dl class="none"><%systemData = ManageCacheUtil.getSystem("yz_tm"); %>
                             <a href="/wap/help/catalog.jsp?id=yz_tm">
                                 <dt><img src="http://t4.chei.com.cn/common/wap/help/images/icon_yz.png" title="<%=systemData.getName() %>" alt="<%=systemData.getName() %>"/></dt>
                                 <dd>
@@ -83,29 +92,21 @@ List<KnowledgeData> list = ManageCacheUtil.getIndexTopKnowl(5);
                                 </dd>
                             </a>
                         </dl>  
-                        <dl class="none"><%systemData = ManageCacheUtil.getSystem("yz_gat"); %>
-                            <a href="/wap/help/catalog.jsp?id=yz_gat">
-                                <dt><img src="http://t4.chei.com.cn/common/wap/help/images/icon_yz.png" title="<%=systemData.getName() %>" alt="<%=systemData.getName() %>"/></dt>
-                                <dd>
-                                    <h3><%=systemData.getName() %></h3>
-                                    <p><%=systemData.getDescription() %></p>
-                                </dd>
-                            </a>
-                        </dl>                       
+                                              
                     </div> 
                     <div>
-                        <dl><%systemData = ManageCacheUtil.getSystem("zb"); %>
-                            <a href="/wap/help/catalog.jsp?id=zb">
-                                <dt><img src="http://t1.chei.com.cn/common/wap/help/images/icon_zb.png" title="<%=systemData.getName() %>" alt="<%=systemData.getName() %>"/></dt>
+                        <dl><%systemData = ManageCacheUtil.getSystem("yz_gat"); %>
+                            <a href="/wap/help/catalog.jsp?id=yz_gat">
+                                <dt><img src="http://t4.chei.com.cn/common/wap/help/images/icon_gat.png" title="<%=systemData.getName() %>" alt="<%=systemData.getName() %>"/></dt>
                                 <dd>
                                     <h3><%=systemData.getName() %></h3>
                                     <p><%=systemData.getDescription() %></p>
                                 </dd>
                             </a>
-                        </dl>  
+                        </dl> 
                         <dl class="none"><%systemData = ManageCacheUtil.getSystem("gk_tk"); %>
                             <a href="/wap/help/catalog.jsp?id=gk_tk">
-                                <dt><img src="http://t4.chei.com.cn/common/wap/help/images/icon_yz.png" title="<%=systemData.getName() %>" alt="<%=systemData.getName() %>"/></dt>
+                                <dt><img src="http://t1.chei.com.cn/common/wap/help/images/icon_gk.png" title="<%=systemData.getName() %>" alt="<%=systemData.getName() %>"/></dt>
                                 <dd>
                                     <h3><%=systemData.getName() %></h3>
                                     <p><%=systemData.getDescription() %></p>
@@ -116,7 +117,7 @@ List<KnowledgeData> list = ManageCacheUtil.getIndexTopKnowl(5);
                     <div class="last">
                         <dl><%systemData = ManageCacheUtil.getSystem("gk_ts"); %>
                             <a href="/wap/help/catalog.jsp?id=gk_ts">
-                                <dt><img src="http://t4.chei.com.cn/common/wap/help/images/icon_yz.png" title="<%=systemData.getName() %>" alt="<%=systemData.getName() %>"/></dt>
+                                <dt><img src="http://t1.chei.com.cn/common/wap/help/images/icon_gk.png" title="<%=systemData.getName() %>" alt="<%=systemData.getName() %>"/></dt>
                                 <dd>
                                     <h3><%=systemData.getName() %></h3>
                                     <p><%=systemData.getDescription() %></p>
@@ -125,7 +126,7 @@ List<KnowledgeData> list = ManageCacheUtil.getIndexTopKnowl(5);
                         </dl>  
                         <dl class="none"><%systemData = ManageCacheUtil.getSystem("gk_wb"); %>
                             <a href="/wap/help/catalog.jsp?id=gk_wb">
-                                <dt><img src="http://t4.chei.com.cn/common/wap/help/images/icon_yz.png" title="<%=systemData.getName() %>" alt="<%=systemData.getName() %>"/></dt>
+                                <dt><img src="http://t1.chei.com.cn/common/wap/help/images/icon_gk.png" title="<%=systemData.getName() %>" alt="<%=systemData.getName() %>"/></dt>
                                 <dd>
                                     <h3><%=systemData.getName() %></h3>
                                     <p><%=systemData.getDescription() %></p>
