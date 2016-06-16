@@ -1,5 +1,6 @@
 package com.chsi.knowledge.vo;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 /**
@@ -7,8 +8,12 @@ import java.util.Map;
  * @author chsi-pc
  *
  */
-public class ViewTagVO {
+public class ViewTagVO implements Serializable{
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -7169012927977286197L;
     private String name;
     private String description;
     private int count;

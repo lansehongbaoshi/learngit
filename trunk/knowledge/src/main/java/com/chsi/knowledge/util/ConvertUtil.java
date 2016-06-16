@@ -13,6 +13,7 @@ import java.util.List;
 
 import com.chsi.framework.util.FileUtil;
 import com.chsi.knowledge.pojo.KnowledgeData;
+import com.chsi.knowledge.vo.KnowledgeVO;
 import com.chsi.knowledge.vo.SearchVO;
 
 /**
@@ -87,6 +88,14 @@ public class ConvertUtil {
         List<SearchVO> result = new ArrayList<SearchVO>();
         for(KnowledgeData data:list) {
             result.add(new SearchVO(data.getSystemDatas(), data.getId(), data.getArticle().getTitle(), ""));
+        }
+        return result;
+    }
+    
+    public static List<KnowledgeVO> know2KnowledgeVO(List<KnowledgeData> list) {
+        List<KnowledgeVO> result = new ArrayList<KnowledgeVO>();
+        for(KnowledgeData data:list) {
+            result.add(new KnowledgeVO(data.getSystemDatas(), data.getId(), data.getArticle().getTitle(), data.getArticle().getContent()));
         }
         return result;
     }

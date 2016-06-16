@@ -16,6 +16,7 @@ import com.chsi.knowledge.service.SystemService;
 import com.chsi.knowledge.service.TagService;
 import com.chsi.knowledge.util.ConvertUtil;
 import com.chsi.knowledge.util.ManageCacheUtil;
+import com.chsi.knowledge.vo.KnowledgeVO;
 import com.chsi.knowledge.vo.ViewKnowVO;
 import com.chsi.knowledge.vo.ViewKnowsVO;
 import com.opensymphony.xwork2.ActionContext;
@@ -129,6 +130,19 @@ public class KnowledgeAction extends AjaxAction{
             } else {
                 ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
             }
+        }
+        writeCallbackJSON(callback);
+    }
+    
+    //返回某个系统下的所有知识
+    public void listKnowledgeOfSystem() throws Exception{
+        SystemData systemData = ManageCacheUtil.getSystem(systemId);
+        if (null == systemData) {
+            ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
+        } else {
+            List<KnowledgeVO> knows = ManageCacheUtil.getKnowsBySystem(systemId);
+            ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
+            ajaxMessage.setO(knows);
         }
         writeCallbackJSON(callback);
     }

@@ -1,9 +1,16 @@
 package com.chsi.knowledge.util;
+
+import java.io.Serializable;
+
 /**
  * 分页信息
  * @author chenjian
  */
-public class Pagination {
+public class Pagination implements Serializable {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 9039433019859936799L;
     private int totalCount; // 总数
     private int pageCount;// 每页数量
     private int curPage;// 当前页

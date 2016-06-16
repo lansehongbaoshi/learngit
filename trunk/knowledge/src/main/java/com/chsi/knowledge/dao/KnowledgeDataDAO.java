@@ -26,6 +26,15 @@ public interface KnowledgeDataDAO {
      * @return
      */
     List<KnowledgeData> get(String systemId, KnowledgeStatus knowledgeStatus);
+    
+    /**
+     * 某个系统下某状态某类型的所有知识点
+     * @param systemId
+     * @param knowledgeStatus
+     * @param type
+     * @return
+     */
+    List<KnowledgeData> get(String systemId, KnowledgeStatus knowledgeStatus, String type);
 
     void save(KnowledgeData knowledgeData);
     

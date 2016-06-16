@@ -1,5 +1,6 @@
 package com.chsi.knowledge.vo;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,8 +12,12 @@ import com.chsi.knowledge.util.Pagination;
  * 知识列表与标签列表VO
  * @author chenjian
  */
-public class ViewKnowsVO{
+public class ViewKnowsVO implements Serializable{
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -7144610362564823259L;
     private List<Navigation> navigations; // 导航
     private List<ViewTagVO> viewTagVOs; // 标签列表
     private KnowListVO<ViewKnowsVO.Know> knowListVO; // 知识VO
@@ -47,7 +52,11 @@ public class ViewKnowsVO{
         this.viewTagVOs = viewTagVOs;
     }
 
-    public static class Know {
+    public static class Know implements Serializable{
+        /**
+         * 
+         */
+        private static final long serialVersionUID = 3142191744042092082L;
         private String title;
         private Map<String, String> param;
 

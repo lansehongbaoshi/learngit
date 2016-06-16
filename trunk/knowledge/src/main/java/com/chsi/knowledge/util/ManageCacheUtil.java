@@ -20,6 +20,7 @@ import com.chsi.knowledge.service.RobotService;
 import com.chsi.knowledge.service.ServiceFactory;
 import com.chsi.knowledge.service.SystemService;
 import com.chsi.knowledge.service.TagService;
+import com.chsi.knowledge.vo.KnowledgeVO;
 import com.chsi.knowledge.vo.ViewKnowsVO;
 
 /**
@@ -234,6 +235,19 @@ public class ManageCacheUtil {
             KnowledgeService knowledgeService = ServiceFactory.getKnowledgeService();
             SystemData system = getSystem(systemId);
             result = knowledgeService.getViewKnowsVO(system, tagId, (curPage - 1) * Constants.PAGE_SIZE, Constants.PAGE_SIZE);
+            MemCachedUtil.set(key, result);
+        }
+        return result;
+    }
+    
+    //查询某系统下的所有开放知识
+    public static List<KnowledgeVO> getKnowsBySystem(String systemId) {
+        String key = CACHE_KEY_ + SEP + "getKnowsBySystem" + systemId;
+        List<KnowledgeVO> result = MemCachedUtil.get(key);
+        if(result==null) {
+            KnowledgeService knowledgeService = ServiceFactory.getKnowledgeService();
+            result = ConvertUtil.know2KnowledgeVO(knowledgeService.get(systemId, KnowledgeStatus.YSH, KnowledgeType.PUBLIC));
+            MemCachedUtil.set(key, result);
         }
         return result;
     }

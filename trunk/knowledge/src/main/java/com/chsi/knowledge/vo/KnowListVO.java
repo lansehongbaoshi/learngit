@@ -1,5 +1,6 @@
 package com.chsi.knowledge.vo;
 
+import java.io.Serializable;
 import java.util.List;
 
 import com.chsi.knowledge.util.Pagination;
@@ -8,8 +9,13 @@ import com.chsi.knowledge.util.Pagination;
  * 问题列表
  * @author chenjian
  */
-public class KnowListVO<T> {
+public class KnowListVO<T> implements Serializable {
+    
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 7487367204546209941L;
     private List<T> knows; // 知识列表
     private Pagination pagination; // 分页数据
 

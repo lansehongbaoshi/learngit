@@ -27,6 +27,8 @@ public class KnowledgeDataDAOImpl extends BaseHibernateDAO implements KnowledgeD
     private static final String KNOWLEDGE_KNOWLEDGESTATUS = " p.knowledgeData.knowledgeStatus=:knowledgeStatus";
     private static final String KNOWLEDGE_TYPE = " p.knowledgeData.type=:type";
     private static final String TAG_SYSTEM_ID = " p.tagData.systemData.id=:systemId ";
+    
+    private static final String ORDER_TAG_SORT = " order by p.tagData.sort";
 
     @Override
     public void save(KnowledgeData knowledgeData) {
@@ -94,6 +96,28 @@ public class KnowledgeDataDAOImpl extends BaseHibernateDAO implements KnowledgeD
         Query query = hibernateUtil.getSession().createQuery(hql);
         if(!ValidatorUtil.isNull(systemId)) {
             query.setString("systemId", systemId);
+        }
+        query.setInteger("status", knowledgeStatus.getOrdinal());
+        List<KnowledgeData> list = query.list();
+        return list;
+    }
+
+    @Override
+    public List<KnowledgeData> get(String systemId, KnowledgeStatus knowledgeStatus, String type) {
+        String hql = SELECT_KNOWLEDGE_BY_SYSTEM_STATUS;
+        if(!ValidatorUtil.isNull(systemId)) {
+            hql += A + TAG_SYSTEM_ID;
+        }
+        if(!ValidatorUtil.isNull(type)) {
+            hql += A + KNOWLEDGE_TYPE;
+        }
+//        hql += ORDER_TAG_SORT;
+        Query query = hibernateUtil.getSession().createQuery(hql);
+        if(!ValidatorUtil.isNull(systemId)) {
+            query.setString("systemId", systemId);
+        }
+        if(!ValidatorUtil.isNull(type)) {
+            query.setString("type", type);
         }
         query.setInteger("status", knowledgeStatus.getOrdinal());
         List<KnowledgeData> list = query.list();

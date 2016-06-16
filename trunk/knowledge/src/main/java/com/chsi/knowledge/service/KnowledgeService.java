@@ -99,4 +99,13 @@ public interface KnowledgeService {
      * @return
      */
      List<KnowTagRelationData> getKnowTagDatas(String tagId, KnowledgeStatus knowledgeStatus, KnowledgeType type);
+     
+     /**
+      * 
+      * @param systemId
+      * @param knowledgeStatus
+      * @param type
+      * @return
+      */
+     List<KnowledgeData> get(String systemId, KnowledgeStatus knowledgeStatus, KnowledgeType type);
 }

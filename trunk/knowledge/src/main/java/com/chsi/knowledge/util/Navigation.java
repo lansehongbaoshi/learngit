@@ -1,12 +1,17 @@
 package com.chsi.knowledge.util;
 
+import java.io.Serializable;
 import java.util.Map;
 /**
  * 导航数据
  * @author chenjian
  */
-public class Navigation {
+public class Navigation implements Serializable {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 8567181775587894713L;
     private int level;
     private String name;
     private String description;
