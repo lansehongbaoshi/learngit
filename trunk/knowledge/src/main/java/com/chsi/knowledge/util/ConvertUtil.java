@@ -8,7 +8,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import com.chsi.framework.util.FileUtil;
@@ -94,8 +96,13 @@ public class ConvertUtil {
     
     public static List<KnowledgeVO> know2KnowledgeVO(List<KnowledgeData> list) {
         List<KnowledgeVO> result = new ArrayList<KnowledgeVO>();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         for(KnowledgeData data:list) {
-            result.add(new KnowledgeVO(data.getSystemDatas(), data.getId(), data.getArticle().getTitle(), data.getArticle().getContent()));
+            Calendar cal = data.getUpdateTime();
+            if(cal==null){
+                cal = data.getCreateTime();
+            }
+            result.add(new KnowledgeVO(data.getSystemDatas(), data.getId(), data.getArticle().getTitle(), data.getArticle().getContent(), sdf.format(cal.getTime())));
         }
         return result;
     }

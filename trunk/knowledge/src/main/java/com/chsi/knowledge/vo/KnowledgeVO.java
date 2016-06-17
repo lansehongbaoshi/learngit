@@ -35,7 +35,7 @@ public class KnowledgeVO implements Serializable{
         
     }
     
-    public KnowledgeVO(List<SystemData> systemDatas, String knowId, String title, String content) {
+    public KnowledgeVO(List<SystemData> systemDatas, String knowId, String title, String content, String updateTime) {
         if(systemDatas!=null) {
             this.systemId = systemDatas.get(0).getId();
             this.system = systemDatas.get(0).getName();
@@ -51,6 +51,7 @@ public class KnowledgeVO implements Serializable{
         this.title = title;
         this.setContent(content);
         this.knowId = knowId;
+        this.updateTime = updateTime;
     }
     
     public KnowledgeVO(List<SystemData> systemDatas, String tags, String title, String content, String knowId,
