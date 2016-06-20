@@ -97,7 +97,7 @@ List<KnowledgeData> list = ManageCacheUtil.getIndexTopKnowl(5);
                     <div>
                         <dl><%systemData = ManageCacheUtil.getSystem("yz_gat"); %>
                             <a href="/wap/help/catalog.jsp?id=yz_gat">
-                                <dt><img src="http://t4.chei.com.cn/common/wap/help/images/icon_gat.png" title="<%=systemData.getName() %>" alt="<%=systemData.getName() %>"/></dt>
+                                <dt><img src="http://t4.chei.com.cn/common/wap/help/images/icon_gatzs.png" title="<%=systemData.getName() %>" alt="<%=systemData.getName() %>"/></dt>
                                 <dd>
                                     <h3><%=systemData.getName() %></h3>
                                     <p><%=systemData.getDescription() %></p>
