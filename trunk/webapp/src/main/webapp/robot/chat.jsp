@@ -542,7 +542,9 @@ $(function() {
 	//关闭页面
 	$(".switch").click(function(e) {			
 //			CloseWebPage();
-		window.location.href = "about:blank";
+		if(confirm("确定要离开此页吗？")){
+			window.open("about:blank","_self").close();
+		}				
 	});
 //		function CloseWebPage() {
 //		    if (navigator.userAgent.indexOf("MSIE") > 0) {
