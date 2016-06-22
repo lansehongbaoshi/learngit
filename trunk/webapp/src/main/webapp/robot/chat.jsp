@@ -175,11 +175,12 @@ function input() {
 			//console.log(result);
 			var a="<div class='clearfix marginb hide'><div class='robot'><div class='icon1'></div>";
 			if(data.AType=="INDEFINITE") {
-				a+="您的意思是?"
+				a+="您的意思是?";
 				for(i in data.result) {
 					var knowl = data.result[i];
 					a+="<br /><a class='indefinite' data-id='"+knowl.knowId+"' href='javascript:void(0)'>"+"["+knowl.system+"]  <span>"+knowl.title+"</span></a>";
 				}
+				a+="<br />以上问题中没有我的答案？请联系客服MM！<br />客服热线：010-82199588 <br />客服传真：010-80115555转475249 或 010-62160938 <br />客服邮箱：kefu@chsi.com.cn";
 			}else if(data.AType=="NONE"||data.AType=="ROBOT"){
 				a+=data.content;
 				//a+="<span class='system_1' data-id='"+data.result[0].systemId+"'>["+data.result[0].system+"]</span>";
