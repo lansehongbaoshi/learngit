@@ -129,19 +129,19 @@ if("update".equals(from)) {
                                                 <h2 class="widget-title"><s:property value=" knowledgeData.article.title " /></h2>
 
                                                 <div class="widget-toolbar no-border" data-id="<s:property value=" knowledgeData.id " />">
-                                                    <a href="#" data-action="update-time">
+                                                    <a href="#" data-action="update-time" title="将当前时间设置为更新时间">
                                                         <i class="ace-icon fa fa-clock-o"></i>
                                                     </a>
 
-                                                    <a href="javascript:void(0)" >
+                                                    <a href="javascript:void(0)" title="编辑该知识" >
                                                         <i class="ace-icon fa fa-pencil"></i>
                                                     </a>
                                                     
-                                                    <a href="#" data-action="delete">
+                                                    <a href="#" title="删除该知识" data-action="delete">
                                                         <i class="ace-icon fa fa-trash"></i>
                                                     </a>
 
-                                                    <a href="#" data-action="collapse">
+                                                    <a href="#" title="收起/展示" data-action="collapse">
                                                         <i class="ace-icon fa fa-chevron-up"></i>
                                                     </a>
 
