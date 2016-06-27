@@ -14,6 +14,7 @@ import com.chsi.framework.util.TimeUtil;
 import com.chsi.knowledge.ServiceConstants;
 import com.chsi.knowledge.dao.CommonDAO;
 import com.chsi.knowledge.dic.KnowledgeStatus;
+import com.chsi.knowledge.dic.KnowledgeType;
 import com.chsi.knowledge.index.service.KnowIndexService;
 import com.chsi.knowledge.pojo.KnowledgeData;
 import com.chsi.knowledge.pojo.KnowledgeVisitLogData;
@@ -107,14 +108,14 @@ public class CommonServiceImpl extends BaseDbService implements CommonService {
             if(cnt>=total) break;
             CntVO vo = listTemp.get(i);
             KnowledgeData data = ManageCacheUtil.getKnowledgeDataById(vo.getId());
-            if(data!=null) {
+            if(data!=null && data.getTopTime()==null && KnowledgeType.PUBLIC.toString().equals(data.getType())) {//公开的、非置顶的
                 result.add(data);
                 cnt++;
             }
         }
         List<KnowledgeData> result2 = new ArrayList<KnowledgeData>();
         result2.addAll(result);
-        return result2;
+        return this.addTopKnowledge(result2, systemOpenTimeData.getSystemId(), total);
     }
     
     @Override
@@ -242,6 +243,17 @@ public class CommonServiceImpl extends BaseDbService implements CommonService {
         for(int i=1;i<list.size();i++) {
             result.add(list.get(i).longValue()-list.get(i-1).longValue());
         }
+        return result;
+    }
+    
+    //增加置顶知识
+    private List<KnowledgeData> addTopKnowledge(List<KnowledgeData> list, String systemId, int total) {
+        KnowledgeService knowledgeService = ServiceFactory.getKnowledgeService();
+        Set<KnowledgeData> tops = knowledgeService.getTop(systemId);
+        list.addAll(0, tops);
+        int toIndex = list.size()<total?list.size():total;
+        List<KnowledgeData> result = new ArrayList<KnowledgeData>();
+        result.addAll(list.subList(0, toIndex));
         return result;
     }
 }

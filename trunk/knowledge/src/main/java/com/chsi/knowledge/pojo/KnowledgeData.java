@@ -42,6 +42,7 @@ public class KnowledgeData extends PersistentObject {
     private Calendar createTime;
     private String updater;
     private Calendar updateTime;
+    private Calendar topTime;
     private Article article;//临时变量
     private List<SystemData> systemDatas;
 
@@ -186,6 +187,15 @@ public class KnowledgeData extends PersistentObject {
         this.updateTime = updateTime;
     }
 
+    @Column(name = "TOP_TIME")
+    public Calendar getTopTime() {
+        return topTime;
+    }
+
+    public void setTopTime(Calendar topTime) {
+        this.topTime = topTime;
+    }
+
     @Transient
     public Article getArticle() {
         return article;
@@ -275,5 +285,10 @@ public class KnowledgeData extends PersistentObject {
             return this.getId().equals(vo.getId());
         }
         return false;
+    }
+    
+    @Override
+    public int hashCode() {
+        return id.hashCode();
     }
 }

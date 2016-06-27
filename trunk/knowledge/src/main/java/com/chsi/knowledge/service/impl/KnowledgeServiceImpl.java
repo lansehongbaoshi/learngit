@@ -3,7 +3,9 @@ package com.chsi.knowledge.service.impl;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.chsi.cms.client.CmsServiceClient;
 import com.chsi.cms.client.CmsServiceClientFactory;
@@ -249,6 +251,17 @@ public class KnowledgeServiceImpl extends BaseDbService implements KnowledgeServ
             knowledgeData.setSystemDatas(systemDatas);
         }
         return list;
+    }
+
+    @Override
+    public Set<KnowledgeData> getTop(String systemId) {
+        Set<KnowledgeData> set = new LinkedHashSet<KnowledgeData>();
+        List<KnowledgeData> list = knowledgeDataDAO.getTop(systemId);
+        for(KnowledgeData data:list) {
+            KnowledgeData newData = ManageCacheUtil.getKnowledgeDataById(data.getId());
+            set.add(newData);
+        }
+        return set;
     }
 
 }

@@ -35,6 +35,13 @@ public interface KnowledgeDataDAO {
      * @return
      */
     List<KnowledgeData> get(String systemId, KnowledgeStatus knowledgeStatus, String type);
+    
+    /**
+     * 获取置顶知识（状态为已审核，类型为公开的）
+     * @param systemId
+     * @return 按时间降序排,可能有重复的
+     */
+    List<KnowledgeData> getTop(String systemId);
 
     void save(KnowledgeData knowledgeData);
     

@@ -99,8 +99,8 @@
         <table id="dynamic-table" class="table table-striped table-bordered table-hover dataTable no-footer DTTT_selectable" role="grid" aria-describedby="dynamic-table_info">
           <thead>
             <tr role="row">
-              <th width="340" class="hidden-200" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1">用户</th>
-              <th width="340" class="hidden-200" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1">机器人</th>
+              <th width="340" class="hidden-200" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1">用户提问</th>
+              <th width="340" class="hidden-200" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1">机器人回答</th>
               <th class="sorting_disabled" rowspan="1" colspan="1" aria-label=""></th>
             </tr>
           </thead>

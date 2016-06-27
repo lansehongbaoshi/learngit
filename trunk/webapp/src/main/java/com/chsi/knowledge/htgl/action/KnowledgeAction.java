@@ -296,6 +296,32 @@ public class KnowledgeAction extends AjaxAction {
         }
         return SUCCESS;
     }
+    
+    //置顶知识
+    public String topKnowledge() throws Exception {
+        if(!ValidatorUtil.isNull(id)) {
+            KnowledgeData data = knowledgeService.getKnowledgeById(id);
+            if(data!=null) {
+                data.setTopTime(Calendar.getInstance());
+                data.setUpdater(getLoginedUserId());
+                knowledgeService.update(data);
+            }
+        }
+        return NONE;
+    }
+    
+    //取消置顶知识
+    public String untopKnowledge() throws Exception {
+        if(!ValidatorUtil.isNull(id)) {
+            KnowledgeData data = knowledgeService.getKnowledgeById(id);
+            if(data!=null) {
+                data.setTopTime(null);
+                data.setUpdater(getLoginedUserId());
+                knowledgeService.update(data);
+            }
+        }
+        return NONE;
+    }
 
     public String addKnowledge() throws Exception {
         String error = "";

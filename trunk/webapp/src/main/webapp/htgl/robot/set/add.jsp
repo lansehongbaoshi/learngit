@@ -29,17 +29,17 @@
             <h1> 添加新对话 </h1>
         </div>
         <div class="row">
-          <form name="" action="/htgl/robot/set/add.action" method="get">
+          <form name="" action="/htgl/robot/set/add.action" method="get" onsubmit="return checkForm(this)">
             
                 <div class="col-xs-12">
                     <p>
-                        用户：<input type="text" name="q" value="" style="width: 600px;" maxlength="50"><span>（说明：多种相似的词汇或句子用","隔开，如：“姓名,名字”）</span>
+                        用户提问：<input type="text" name="q" value="" style="width: 600px;" maxlength="50" check="^[\S|\s]{1,}$" warn="用户提问不能为空"><span>（说明：多种相似的词汇或句子用","隔开，如：“姓名,名字”）</span>
                     </p>
                     <p>
-                    机器人：<input type="button" value="+" onclick="addLi()"></p>
+                    机器人回答：<input type="button" value="+" onclick="addLi()"></p>
                     <ol>
                         <li>
-							<input type="text" name="a"  style="width: 600px;" maxlength="500">&nbsp;&nbsp;<input type="button" value="x" onclick="removeLi(this)">
+							<input type="text" name="a"  style="width: 600px;" maxlength="500" check="^[\S|\s]{1,}$" warn="请补充完整机器人回答">&nbsp;&nbsp;<input type="button" value="x" onclick="removeLi(this)">
                         </li>
                     </ol>
                     
@@ -64,10 +64,14 @@
               
 <script type="text/javascript">
 function addLi(){
-	$("ol").append("<li><input type='text' name='a' style='width: 600px;' maxlength='500'>&nbsp;&nbsp;<input type='button' value='x' onclick='removeLi(this)'></li>");
+	$("ol").append("<li><input type='text' name='a' style='width: 600px;' maxlength='500' value='' check='^[\\S|\\s]{1,}$' warn='请补充完整机器人回答'>&nbsp;&nbsp;<input type='button' value='x' onclick='removeLi(this)'></li>");
 }
 
 function removeLi(obj){
+	if($("ol li").size()<=1) {
+		alert("机器人回答请至少保留一个！");
+		return;
+	}
 	$(obj).parent().remove();
 }
 

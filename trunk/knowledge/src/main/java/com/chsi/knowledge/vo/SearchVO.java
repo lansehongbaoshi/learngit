@@ -24,6 +24,7 @@ public class SearchVO {
     private List<String> tagIds;
     private int visitCnt;
     private int sort;
+    private long topTime;
     
     public SearchVO(KnowledgeData knowl) {
         
@@ -48,7 +49,7 @@ public class SearchVO {
     }
     
     public SearchVO(List<SystemData> systemDatas, String tags, String title, String summary, String knowId,
-            List<String> tagIds, String keywords, int visitCnt, int sort, String type){
+            List<String> tagIds, String keywords, int visitCnt, int sort, String type, long topTime){
         if(systemDatas!=null) {
             this.systemId = systemDatas.get(0).getId();
             this.system = systemDatas.get(0).getName();
@@ -69,6 +70,7 @@ public class SearchVO {
         this.visitCnt = visitCnt;
         this.sort = sort;
         this.type = type;
+        this.topTime = topTime;
     }
 
     public String getSystemId() {
@@ -165,6 +167,14 @@ public class SearchVO {
 
     public void setSystems(String systems) {
         this.systems = systems;
+    }
+
+    public long getTopTime() {
+        return topTime;
+    }
+
+    public void setTopTime(long topTime) {
+        this.topTime = topTime;
     }
 
     

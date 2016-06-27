@@ -174,8 +174,10 @@ public class ManageCacheUtil {
             List<SystemOpenTimeData> openSystems = systemService.getOpenSystems();
             for(SystemOpenTimeData data:openSystems) {
                 List<KnowledgeData> list = commonService.getTopKnowlBySystem(data, cnt);
-                SystemData systemData = getSystem(data.getSystemId());
-                result.put(systemData, list);
+                if(list!=null && list.size()>0) {
+                    SystemData systemData = getSystem(data.getSystemId());
+                    result.put(systemData, list);
+                }
             }
             
             List<SystemData> systems = systemService.getSystems();
@@ -184,7 +186,9 @@ public class ManageCacheUtil {
             for(SystemData data:systems) {
                 openData.setSystemId(data.getId());//模拟SystemOpenTimeData
                 List<KnowledgeData> list = commonService.getTopKnowlBySystem(openData, cnt);
-                result.put(data, list);
+                if(list!=null && list.size()>0) {
+                    result.put(data, list);
+                }
             }
             MemCachedUtil.set(key, result);
         }

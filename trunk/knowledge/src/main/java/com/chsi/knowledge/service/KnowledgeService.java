@@ -1,6 +1,7 @@
 package com.chsi.knowledge.service;
 
 import java.util.List;
+import java.util.Set;
 
 import com.chsi.knowledge.dic.KnowledgeStatus;
 import com.chsi.knowledge.dic.KnowledgeType;
@@ -28,6 +29,13 @@ public interface KnowledgeService {
      * @return
      */
     List<KnowledgeData> get(String systemId, KnowledgeStatus knowledgeStatus);
+    
+    /**
+     * 某个系统置顶的知识
+     * @param systemId
+     * @return
+     */
+    Set<KnowledgeData> getTop(String systemId);
     
     /**
      * 保存知识并向CMS 中保存相关数据

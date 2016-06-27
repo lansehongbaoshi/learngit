@@ -25,19 +25,19 @@
     <h1>修改对话</h1>
   </div>
   <div class="row">
-    <form name="" action="/htgl/robot/set/update.action" method="get">
+    <form name="" action="/htgl/robot/set/update.action" method="get" onsubmit="return checkForm(this)">
       <div class="col-xs-12">
       <s:iterator value="qaSet" id="entry">
       <input type="hidden" name="id" value="<s:property value='key.id'/>">
         <p>
-          用户：<input type="text" name="q" value="<s:property value="key.q"/>" style="width: 600px;"  maxlength="50" <s:if test="key.systemDefined">readonly="true"</s:if>><span>（说明：多种相似的词汇或句子用","隔开，如：“姓名,名字”）</span>
+          用户提问：<input type="text" name="q" value="<s:property value="key.q"/>" check="^[\S|\s]{1,}$" warn="用户提问不能为空" style="width: 600px;"  maxlength="50" <s:if test="key.systemDefined">readonly="true"</s:if>><span>（说明：多种相似的词汇或句子用","隔开，如：“姓名,名字”）</span>
         </p>
         <p>
-          机器人：<input type="button" value="+" onclick="addLi()"></p>
+          机器人回答：<input type="button" value="+" onclick="addLi()"></p>
         <ol>
           <s:iterator value="value" var="a" status="index">
             <li>
-							<input type="text" name="a" value="<s:property value="#a.a"/>" style="width: 600px;" maxlength="500">&nbsp;&nbsp;<input type="button" value="x" onclick="removeLi(this)">
+							<input type="text" name="a" value="<s:property value="#a.a"/>" style="width: 600px;" maxlength="500" check="^[\S|\s]{1,}$" warn="请补充完整机器人回答" >&nbsp;&nbsp;<input type="button" value="x" onclick="removeLi(this)">
                         </li>
           </s:iterator>
         </ol>
@@ -61,10 +61,14 @@
 </div>
 <script type="text/javascript">
 function addLi(){
-    $("ol").append("<li><input type=\"text\" name=\"a\" value=\"\" style=\"width: 600px;\" maxlength=\"500\">&nbsp;&nbsp;<input type='button' value='x' onclick='removeLi(this)'></li>");
+    $("ol").append("<li><input type=\"text\" name=\"a\" value=\"\" style=\"width: 600px;\" maxlength=\"500\" check='^[\\S|\\s]{1,}$' warn='请补充完整机器人回答'>&nbsp;&nbsp;<input type='button' value='x' onclick='removeLi(this)'></li>");
 }
 
 function removeLi(obj){
+	if($("ol li").size()<=1) {
+        alert("机器人回答请至少保留一个！");
+        return;
+    }
     $(obj).parent().remove();
 }
 

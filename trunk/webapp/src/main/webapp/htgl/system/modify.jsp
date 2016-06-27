@@ -72,7 +72,7 @@
 </div>
 <script type="text/javascript">
 function addLi(){
-    $("ol").append("<li><input type='text' name='startTime' style='width: 400px;'>—<input type='text' name='endTime' style='width: 400px;'>&nbsp;&nbsp;<input type='button' value='x' onclick='removeLi(this)'></li>");
+    $("ol").append("<li><input type='text' name='startTime' style='width: 400px;' value='2016-03-01 08:00:00'>—<input type='text' name='endTime' style='width: 400px;' value='2016-07-01 08:00:00'>&nbsp;&nbsp;<input type='button' value='x' onclick='removeLi(this)'></li>");
 }
 
 function removeLi(obj){

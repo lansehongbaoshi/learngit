@@ -67,6 +67,10 @@
         <action name="updateKnowledgeTime" class="knowledgeActionBean" method="updateKnowledgeTime">
             <result name="success" type="redirect">/htgl/knowledge/showKnowledge.action?id=${id}&amp;from=update</result>
         </action>
+        <action name="topKnowledge" class="knowledgeActionBean" method="topKnowledge">
+        </action>
+        <action name="untopKnowledge" class="knowledgeActionBean" method="untopKnowledge">
+        </action>
         <action name="delKnowledge" class="knowledgeActionBean" method="delKnowledge">
         </action>
         <action name="showKnowledge" class="knowledgeActionBean" method="getKnow">

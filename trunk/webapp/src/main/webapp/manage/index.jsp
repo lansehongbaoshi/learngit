@@ -8,7 +8,7 @@ String ctxPath = request.getContextPath();
 <html lang="zh">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>管理知识库</title>
+<title>控制台</title>
 <script src="/assets/js/jquery.2.1.1.min.js"></script>
 <script type="text/javascript">
 $(function () {
@@ -54,6 +54,9 @@ SystemId：<select id="systemIds" class="systemIds form-control" name="systemId"
 SystemId：<select id="systemIds" class="systemIds form-control" name="systemId"></select>
 <input type="submit" value="更新审核状态（包括本系统和新闻系统）">
 </form>
-
+<hr>
+<a href="<%=ctxPath %>/manage/tool/manageRole.jsp">管理知识库权限</a>
+<hr>
+<a href="<%=ctxPath %>/manage/tool/clearcache.jsp">缓存清理</a>
 </body>
 </html>

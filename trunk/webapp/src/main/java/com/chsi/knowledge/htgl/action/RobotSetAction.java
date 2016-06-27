@@ -70,10 +70,12 @@ public class RobotSetAction extends AjaxAction{
             robotQSetData.setQ(q);
             robotService.save(robotQSetData);
             for(String str:a) {
-                RobotASetData robotASetData = new RobotASetData();
-                robotASetData.setqId(robotQSetData.getId());
-                robotASetData.setA(str);
-                robotService.save(robotASetData);
+                if(!ValidatorUtil.isNull(str)) {
+                    RobotASetData robotASetData = new RobotASetData();
+                    robotASetData.setqId(robotQSetData.getId());
+                    robotASetData.setA(str);
+                    robotService.save(robotASetData);
+                }
             }
             robotService.deleteRobotQASet(id);
             ManageCacheUtil.removeRobotABySpecialQ(q);

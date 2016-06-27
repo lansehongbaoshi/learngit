@@ -145,8 +145,7 @@ public class KnowIndexServiceImpl extends BaseDbService implements KnowIndexServ
         }
         Map<String, String> queryParams = new HashMap<String, String>();
         queryParams.put("q", keywords);
-        queryParams.put("fq", String.format("system_ids:%s", systemId));
-        queryParams.put("fq", "type:PUBLIC");
+        queryParams.put("fq", String.format("system_ids:%s AND type:PUBLIC", systemId));
         /*queryParams.put("qf", "title^25 content^10 key_words^6 tags^5");
         queryParams.put("defType", "edismax");
         queryParams.put("bf", "recip(rord(visit_cnt),1,1000,1000)^50 recip(rord(sort),1,100,100)^1");//bf计算出来的值位于0-1之间最合适
