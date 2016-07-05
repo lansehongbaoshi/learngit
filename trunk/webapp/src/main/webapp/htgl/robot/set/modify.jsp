@@ -25,7 +25,7 @@
     <h1>修改对话</h1>
   </div>
   <div class="row">
-    <form name="" action="/htgl/robot/set/update.action" method="get" onsubmit="return checkForm(this)">
+    <form name="" action="/htgl/robot/set/update.action" method="post" onsubmit="return checkForm(this)" enctype="multipart/form-data">
       <div class="col-xs-12">
       <s:iterator value="qaSet" id="entry">
       <input type="hidden" name="id" value="<s:property value='key.id'/>">
@@ -37,7 +37,7 @@
         <ol>
           <s:iterator value="value" var="a" status="index">
             <li>
-							<input type="text" name="a" value="<s:property value="#a.a"/>" style="width: 600px;" maxlength="500" check="^[\S|\s]{1,}$" warn="请补充完整机器人回答" >&nbsp;&nbsp;<input type="button" value="x" onclick="removeLi(this)">
+							<input type="text" name="a" value="<s:property value="#a.a"/>" style="width: 600px;" maxlength="1000" check="^[\S|\s]{1,}$" warn="请补充完整机器人回答" >&nbsp;&nbsp;<input type="button" value="x" onclick="removeLi(this)">
                         </li>
           </s:iterator>
         </ol>
@@ -61,7 +61,7 @@
 </div>
 <script type="text/javascript">
 function addLi(){
-    $("ol").append("<li><input type=\"text\" name=\"a\" value=\"\" style=\"width: 600px;\" maxlength=\"500\" check='^[\\S|\\s]{1,}$' warn='请补充完整机器人回答'>&nbsp;&nbsp;<input type='button' value='x' onclick='removeLi(this)'></li>");
+    $("ol").append("<li><input type=\"text\" name=\"a\" value=\"\" style=\"width: 600px;\" maxlength=\"1000\" check='^[\\S|\\s]{1,}$' warn='请补充完整机器人回答'>&nbsp;&nbsp;<input type='button' value='x' onclick='removeLi(this)'></li>");
 }
 
 function removeLi(obj){

@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="/struts-tags" prefix="s"%>
-
+<style>
+.zxx_text_overflow_1{width:27em; white-space:nowrap; text-overflow:ellipsis; -o-text-overflow:ellipsis; overflow:hidden;}
+</style>
 <div class="breadcrumbs" id="breadcrumbs"> 
   <script type="text/javascript">
                 try {
@@ -51,8 +53,7 @@
               </s:if>
               </s:iterator>
               </td>
-              <td class="hidden-260"><div data-id="q95cfjzkvuzhuuw6
-                    " class="hidden-sm hidden-xs action-buttons"> <a href="/htgl/robot/set/updateIndex.action?id=<s:property value="#id1"/>" target="_self" title="修改" class="green"><i class="ace-icon fa fa-pencil bigger-130"></i> </a> <a href="javascript:void(0)" class="red delBtn" title="删除"> <i class="ace-icon fa fa-trash-o bigger-130"></i> </a> </div></td>
+              <td class="hidden-260"><div data-id="q95cfjzkvuzhuuw6" class="hidden-sm hidden-xs action-buttons"> <a href="/htgl/robot/set/updateIndex.action?id=<s:property value="#id1"/>" target="_self" title="修改" class="green"><i class="ace-icon fa fa-pencil bigger-130"></i> </a> <a href="javascript:void(0)" class="red delBtn" title="删除"> <i class="ace-icon fa fa-trash-o bigger-130"></i> </a> </div></td>
             </tr>
             <tr class="odd" role="row">
               <td class="hidden-200"><strong>机器人应急回答</strong>（#noanswer）<br>
@@ -70,8 +71,7 @@
               </s:if>
               </s:iterator>
               </td>
-              <td class="hidden-260"><div data-id="65rsrxlmzka9izh8
-                    " class="hidden-sm hidden-xs action-buttons"> <a href="/htgl/robot/set/updateIndex.action?id=<s:property value="#id2"/>" target="_self" title="修改" class="green"><i class="ace-icon fa fa-pencil bigger-130"></i> </a> <a href="javascript:void(0)" class="red delBtn" title="删除"> <i class="ace-icon fa fa-trash-o bigger-130"></i> </a> </div></td>
+              <td class="hidden-260"><div data-id="65rsrxlmzka9izh8" class="hidden-sm hidden-xs action-buttons"> <a href="/htgl/robot/set/updateIndex.action?id=<s:property value="#id2"/>" target="_self" title="修改" class="green"><i class="ace-icon fa fa-pencil bigger-130"></i> </a> <a href="javascript:void(0)" class="red delBtn" title="删除"> <i class="ace-icon fa fa-trash-o bigger-130"></i> </a> </div></td>
             </tr>
             <tr class="odd" role="row">
               <td class="hidden-200"><strong>用户输入无有效文字时机器人回答</strong>（#blank）<br>
@@ -89,8 +89,7 @@
               </s:if>
               </s:iterator>
               </td>
-              <td class="hidden-260"><div data-id="65rsrxlmzka9izh8
-                    " class="hidden-sm hidden-xs action-buttons"> <a href="/htgl/robot/set/updateIndex.action?id=<s:property value="#id2"/>" target="_self" title="修改" class="green"><i class="ace-icon fa fa-pencil bigger-130"></i> </a> <a href="javascript:void(0)" class="red delBtn" title="删除"> <i class="ace-icon fa fa-trash-o bigger-130"></i> </a> </div></td>
+              <td class="hidden-260"><div data-id="65rsrxlmzka9izh8" class="hidden-sm hidden-xs action-buttons"> <a href="/htgl/robot/set/updateIndex.action?id=<s:property value="#id2"/>" target="_self" title="修改" class="green"><i class="ace-icon fa fa-pencil bigger-130"></i> </a> <a href="javascript:void(0)" class="red delBtn" title="删除"> <i class="ace-icon fa fa-trash-o bigger-130"></i> </a> </div></td>
             </tr>
         </table>
       </div>
@@ -110,10 +109,7 @@
               <s:if test="not key.systemDefined">
                 <td class="hidden-200"><s:property value="key.q"/></td>
                 <td class="hidden-200"><s:iterator value="value" var="a" status="index">
-                    <s:property value="#index.index+1"/>
-                    .
-                    <s:property value="#a.a"/>
-                    <br>
+                    <div class="zxx_text_overflow_1" title="<s:property value="#a.a"/>"><s:property value="#index.index+1"/>.<s:property value="#a.a"/></div><br>
                   </s:iterator></td>
                 <td class="hidden-260"><div class="hidden-sm hidden-xs action-buttons" data-id="<s:property value='key.id'/>"> <a class="green" title="修改" target='_self' href="/htgl/robot/set/updateIndex.action?id=<s:property value='key.id'/>"><i class="ace-icon fa fa-pencil bigger-130"></i> </a> <a title="删除" class="red delBtn" href="javascript:void(0)"> <i class="ace-icon fa fa-trash-o bigger-130"></i> </a> </div></td>
               </s:if>
