@@ -131,6 +131,13 @@ $(function(){
 	$('.huifu_end').delegate('.huifu_ccpj','click',function(e){
 		$('.dialog').show();			
 	});
+  $('.title').delegate('.submit','click',function(){
+    var textarea = $('input[name="sel"]:checked').val()||'';
+    var val = $('.dialog').find('textarea').val()||'';
+    if(val!='' && textarea=='其他'){
+      submitFn(val,textarea);
+    }
+  });
 	$('.dialog').delegate('.cancel','click',function(e){
 		$(this).parents('.dialog').hide();
 		$('.huifu_ccpj').show();
@@ -139,21 +146,21 @@ $(function(){
 		var value = $('input[name="sel"]:checked').val()||'';
 		if(value!=''){			
 			var $dialog = $this.parents(".dialog");
-			$dialog.find('.submit').addClass('available')
-				   .click(function(){submitFn(value,$('.text_area').val());			
-			});			
+			$dialog.find('.submit').addClass('available');
+				   //.click(function(){submitFn(value,$('.text_area').val());			
+			//});			
 		}
-    }).end().find('textarea').keyup(function(){
+  }).end().find('textarea').keyup(function(){
 		$this = $(this);
 		var val = $this.val()||'';
 		if(val!=''){
 			var $dialog = $this.css('color','#333').parents(".dialog");
 			var $textArea = $dialog.find('input[name="sel"]').eq(2).prop('checked',true);
 			var textarea = $('input[name="sel"]:checked').val()||'';
-			$dialog.find('.submit').addClass('available')
-				.click(function(){submitFn(val,textarea)});			
+			$dialog.find('.submit').addClass('available');
+				//.click(function(){submitFn(val,textarea)});			
 		}	
-	});
+	})
 	<%if(keywords!=null){%>
 	$.post("/search/allSearch.action", {keywords:'<%=keywords %>'});
 	<%}%>
@@ -225,5 +232,6 @@ $(document).on('click', '.article img',function(event) {
         });
     }
 });
+
 </script>  
 </html>
