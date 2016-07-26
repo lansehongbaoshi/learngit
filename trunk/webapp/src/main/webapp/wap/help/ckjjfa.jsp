@@ -134,9 +134,7 @@ $(function(){
   $('.title').delegate('.submit','click',function(){
     var textarea = $('input[name="sel"]:checked').val()||'';
     var val = $('.dialog').find('textarea').val()||'';
-    if(val!='' && textarea=='其他'){
-      submitFn(val,textarea);
-    }
+    submitFn(val,textarea);
   });
 	$('.dialog').delegate('.cancel','click',function(e){
 		$(this).parents('.dialog').hide();
