@@ -18,6 +18,7 @@ public class SearchVO {
     private String tags;
     private String title;
     private String summary;
+    private String contentTxt;//纯文本的内容，不带html标记的
     private String knowId;
     private String keywords;
     private String type;
@@ -48,7 +49,7 @@ public class SearchVO {
         this.knowId = knowId;
     }
     
-    public SearchVO(List<SystemData> systemDatas, String tags, String title, String summary, String knowId,
+    public SearchVO(List<SystemData> systemDatas, String tags, String title, String summary, String contentTxt, String knowId,
             List<String> tagIds, String keywords, int visitCnt, int sort, String type, long topTime){
         if(systemDatas!=null) {
             this.systemId = systemDatas.get(0).getId();
@@ -64,6 +65,7 @@ public class SearchVO {
         this.tags = tags;
         this.title = title;
         this.summary = summary;
+        this.setContentTxt(contentTxt);
         this.knowId = knowId;
         this.tagIds = tagIds;
         this.keywords = keywords;
@@ -175,6 +177,14 @@ public class SearchVO {
 
     public void setTopTime(long topTime) {
         this.topTime = topTime;
+    }
+
+    public String getContentTxt() {
+        return contentTxt;
+    }
+
+    public void setContentTxt(String contentTxt) {
+        this.contentTxt = contentTxt;
     }
 
     

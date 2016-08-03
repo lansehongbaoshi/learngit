@@ -222,8 +222,9 @@ public class KnowledgeData extends PersistentObject {
         if(this.article!=null) {
             String content = this.article.getContent();
             content = SearchUtil.resultFilter(content);
-            int tempLength = content.length() < 40 ? content.length() : 40;
-            content = content.substring(0, tempLength) + "...";
+            if(content.length() > 40) {
+                content = content.substring(0, 40) + "...";
+            }
             return content;
         } else {
             return "";

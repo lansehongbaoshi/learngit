@@ -95,7 +95,7 @@ public class RobotServiceImpl extends BaseDbService implements RobotService {
                 answerVO.setAType(AType.ROBOT);
                 answerVO.setContent(content);
             } else {
-                String definiteKeyword = SearchUtil.formatFullMatchKeyword(keywords);
+                String definiteKeyword = SearchUtil.formatFullMatchKeyword(q);
                 Map<String, String> queryParams = new HashMap<String, String>();
                 queryParams.put("q", definiteKeyword);
                 queryParams.put("qf", "title");

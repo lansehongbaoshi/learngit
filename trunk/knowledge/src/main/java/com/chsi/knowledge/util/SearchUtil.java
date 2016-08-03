@@ -86,15 +86,18 @@ public class SearchUtil {
         
         List<SearchVO> searchList= new ArrayList<SearchVO>();
         SearchVO tempVO = null;
-        String con = null;
+        String summary = null;
         int tempLength = 0 ;
         for(KnowledgeVO vo : listVO.getKnows()){
             vo.setContent(resultFilter(vo.getContent()));
-            tempLength = vo.getContent().length() < length ? vo.getContent().length() : length;
-            con = vo.getContent().substring(0, tempLength) + "...";
+            if(vo.getContent().length() > length) {
+                summary = vo.getContent().substring(0, length) + "...";
+            } else {
+                summary = vo.getContent();
+            }
             KnowledgeData data = ManageCacheUtil.getKnowledgeDataById(vo.getKnowledgeId());
             if(data!=null) {
-                tempVO = new SearchVO(data.getSystemDatas(), vo.getTags(), vo.getTitle(),  con, vo.getKnowledgeId(), vo.getTagIds(), searchWords, data.getVisitCnt(), data.getSort(), data.getType(), data.getTopTime()==null?-1:data.getTopTime().getTimeInMillis());
+                tempVO = new SearchVO(data.getSystemDatas(), vo.getTags(), vo.getTitle(), summary, vo.getContent(), vo.getKnowledgeId(), vo.getTagIds(), searchWords, data.getVisitCnt(), data.getSort(), data.getType(), data.getTopTime()==null?-1:data.getTopTime().getTimeInMillis());
                 searchList.add(tempVO);
             }
         }

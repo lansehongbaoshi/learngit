@@ -3,7 +3,9 @@
 String ctxPath = request.getContextPath();
 %>
     <!--breadcrumbs-->
-
+<style>
+.zxx_text_overflow_1{width:27em; white-space:nowrap; text-overflow:ellipsis; -o-text-overflow:ellipsis; overflow:hidden;}
+</style>
     <div class="breadcrumbs" id="breadcrumbs">
         <script type="text/javascript">
             try {
@@ -87,7 +89,7 @@ String ctxPath = request.getContextPath();
                                             <th width="100" class="hidden-80" tabindex="0"  aria-controls="dynamic-table" rowspan="1" colspan="1" aria-label="Domain: activate to sort column ascending">系统</th>
                                             <th width="100" class="hidden-80" tabindex="1"  aria-controls="dynamic-table" rowspan="1" colspan="1" aria-label="Domain: activate to sort column ascending">标签</th>
                                             <th width="200" class="hidden-180" tabindex="1"  aria-controls="dynamic-table" rowspan="2" colspan="1" aria-label="Domain: activate to sort column ascending">标题</th>
-                                             <th width=""  class="hidden-200" tabindex="3"  aria-controls="dynamic-table" rowspan="1" colspan="1">回答摘要</th> 
+                                             <th width="340"  class="hidden-200" tabindex="3"  aria-controls="dynamic-table" rowspan="1" colspan="1">回答摘要</th> 
                                             <th width="70" class="hidden-480" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1" aria-label="Clicks: activate to sort column ascending">热点度</th>
                                             <th width="80" class="hidden-480" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1" aria-label="Clicks: activate to sort column ascending">点击次数</th>
                                             <th width="80" class="hidden-480" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1" aria-label="Status: activate to sort column ascending">状态</th>
@@ -146,7 +148,7 @@ String ctxPath = request.getContextPath();
                         for (var i = 0; i < knows.length; i++) {
                             var k = knows[i];
                             var odd_even = (i%2==0)?"even":"odd";
-                            var str = " <tr role=\"row\" data-id="+k.knowId+" class=\""+odd_even+"\"><td class=\"hidden-80\">" + k.system + "</td><td class=\"hidden-80\">" + k.tags + "</td><td class=\"hidden-160\">" + k.title + "</td><td class=\"hidden-260\"><a target='_blank' href='/htgl/view/viewKnowledge.action?id=" + k.knowId + "'>" + k.summary + "</a></td><td class=\"hidden-80\">"+k.sort+"</td><td class=\"hidden-80\">"+k.visitCnt+"</td><td class=\hidden-80\><span class=\"label label-sm label-success\">已发布</span><span class=\"label label-sm label-success\">"+k.type+"</span></td></tr>";
+                            var str = " <tr role=\"row\" data-id="+k.knowId+" class=\""+odd_even+"\"><td class=\"hidden-80\">" + k.system + "</td><td class=\"hidden-80\">" + k.tags + "</td><td class=\"hidden-160\">" + k.title + "</td><td class=\"hidden-260\"><a target='_blank' href='/htgl/view/viewKnowledge.action?id=" + k.knowId + "'><div class='zxx_text_overflow_1' title='"+ k.contentTxt +"'>"  + k.contentTxt + "</div></a></td><td class=\"hidden-80\">"+k.sort+"</td><td class=\"hidden-80\">"+k.visitCnt+"</td><td class=\hidden-80\><span class=\"label label-sm label-success\">已发布</span><span class=\"label label-sm label-success\">"+k.type+"</span></td></tr>";
                             $("#search_result").append(str);
                         }
                         $("#search_table_header").html("搜索 \“"+knows[0].keywords +"\” 的结果").show();

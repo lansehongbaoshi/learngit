@@ -103,6 +103,7 @@
             </button>
          </div>
       </div><!-- /.modal-content -->
+</div>
 </div><!-- /.modal -->
 
 <script type="text/javascript">
@@ -129,26 +130,25 @@ $(".save").click(function(){
 })
 </script>
 <script>
-
-            $(function () {
-            	$(document).on("click",".delBtn",function() {
-                	if(confirm("删除后将不可恢复，确定删除该系统？")) {
-                		var $div = $(this).closest("div");
-    	            	var id = $div.data("id");
-    	            	$.getJSON(
-                			"/htgl/system/delSystem.action",
-                			{id:id},
-                			function(data){
-                				if(data.flag=='true') {
-                					alert("删除成功");
-                					$div.closest("tr").remove();
-                				} else {
-                					var errMsg = data.errorMessages.pop();
-                					alert(errMsg);
-                				}
-                			}
-    	            	)
-                	}
-                });
-            })
-        </script>
+    $(function () {
+    	$(document).on("click",".delBtn",function() {
+        	if(confirm("删除后将不可恢复，确定删除该系统？")) {
+        		var $div = $(this).closest("div");
+          	var id = $div.data("id");
+          	$.getJSON(
+        			"/htgl/system/delSystem.action",
+        			{id:id},
+        			function(data){
+        				if(data.flag=='true') {
+        					alert("删除成功");
+        					$div.closest("tr").remove();
+        				} else {
+        					var errMsg = data.errorMessages.pop();
+        					alert(errMsg);
+        				}
+        			}
+          	)
+        	}
+        });
+    })
+</script>
