@@ -169,16 +169,11 @@ public class CommonServiceImpl extends BaseDbService implements CommonService {
 
     @Override
     public void recordVisitLog() {
-        SystemService systemService = ServiceFactory.getSystemService();
         KnowledgeService knowledgeService = ServiceFactory.getKnowledgeService();
-        List<SystemData> list = systemService.getSystems();
-        for(SystemData data:list) {
-            String systemId = data.getId();
-            List<KnowledgeData> list2 = knowledgeService.get(systemId, KnowledgeStatus.YSH);
-            for(KnowledgeData knowlData:list2) {
-                KnowledgeVisitLogData pojo = new KnowledgeVisitLogData(knowlData);
-                commonDAO.save(pojo);
-            }
+        List<KnowledgeData> list2 = knowledgeService.get("", KnowledgeStatus.YSH);
+        for(KnowledgeData knowlData:list2) {
+            KnowledgeVisitLogData pojo = new KnowledgeVisitLogData(knowlData);
+            commonDAO.save(pojo);
         }
     }
     
