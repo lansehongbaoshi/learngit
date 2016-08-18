@@ -85,6 +85,9 @@
     </definition>
     
     <!-- 机器人配置 -->
+    <definition name="htgl.robot.set.uploaddic" extends="htgl.admin.main" >
+        <put-attribute name="body" value="/htgl/robot/set/uploaddic.jsp"/>
+    </definition>
     <definition name="htgl.robot.set.list" extends="htgl.admin.main" >
         <put-attribute name="body" value="/htgl/robot/set/list.jsp"/>
     </definition>

@@ -40,60 +40,99 @@
             <tr class="odd" role="row">
               <td class="hidden-200"><strong>开场白</strong> (#hello) <br>
                 <small>说明：使用机器人的用户首先会立即随机收到此条开场白内容</small></td>
-              <td class="hidden-200"> 
-              <s:iterator value="qaSet" id="entry">
-              <s:if test="key.q=='#hello'">
-              <s:set var="id1" value="key.id"/>
-              <s:iterator value="value" var="a" status="index">
-                    <s:property value="#index.index+1"/>
-                    .
-                    <s:property value="#a.a"/>
-                    <br>
-                  </s:iterator>
-              </s:if>
-              </s:iterator>
+              <td class="hidden-200" id="hello"> 
+<%--               <s:iterator value="qaSet" id="entry"> --%>
+<%--               <s:if test="key.q=='#hello'"> --%>
+<%--               <s:set var="id1" value="key.id"/> --%>
+<%--               <s:iterator value="value" var="a" status="index"> --%>
+<%--                     <s:property value="#index.index+1"/> --%>
+<!--                     . -->
+<%--                     <s:property value="#a.a"/> --%>
+<!--                     <br> -->
+<%--                   </s:iterator> --%>
+<%--               </s:if> --%>
+<%--               </s:iterator> --%>
               </td>
-              <td class="hidden-260"><div data-id="q95cfjzkvuzhuuw6" class="hidden-sm hidden-xs action-buttons"> <a href="/htgl/robot/set/updateIndex.action?id=<s:property value="#id1"/>" target="_self" title="修改" class="green"><i class="ace-icon fa fa-pencil bigger-130"></i> </a> <a href="javascript:void(0)" class="red delBtn" title="删除"> <i class="ace-icon fa fa-trash-o bigger-130"></i> </a> </div></td>
+<%--               <td class="hidden-260"><div data-id="q95cfjzkvuzhuuw6" class="hidden-sm hidden-xs action-buttons"> <a href="/htgl/robot/set/updateIndex.action?id=<s:property value="#id1"/>" target="_self" title="修改" class="green"><i class="ace-icon fa fa-pencil bigger-130"></i> </a> <a href="javascript:void(0)" class="red delBtn" title="删除"> <i class="ace-icon fa fa-trash-o bigger-130"></i> </a> </div></td> --%>
             </tr>
             <tr class="odd" role="row">
               <td class="hidden-200"><strong>机器人应急回答</strong>（#noanswer）<br>
                 <small>说明：当机器人回答不上时将按此内容回复。</small></td>
-              <td class="hidden-200">
-              <s:iterator value="qaSet" id="entry">
-              <s:if test="key.q=='#noanswer'">
-              <s:set var="id2" value="key.id"/>
-              <s:iterator value="value" var="a" status="index">
-                    <s:property value="#index.index+1"/>
-                    .
-                    <s:property value="#a.a"/>
-                    <br>
-                  </s:iterator>
-              </s:if>
-              </s:iterator>
+              <td class="hidden-200" id="noanswer">
+<%--               <s:iterator value="qaSet" id="entry"> --%>
+<%--               <s:if test="key.q=='#noanswer'"> --%>
+<%--               <s:set var="id2" value="key.id"/> --%>
+<%--               <s:iterator value="value" var="a" status="index"> --%>
+<%--                     <s:property value="#index.index+1"/> --%>
+<!--                     . -->
+<%--                     <s:property value="#a.a"/> --%>
+<!--                     <br> -->
+<%--                   </s:iterator> --%>
+<%--               </s:if> --%>
+<%--               </s:iterator> --%>
               </td>
-              <td class="hidden-260"><div data-id="65rsrxlmzka9izh8" class="hidden-sm hidden-xs action-buttons"> <a href="/htgl/robot/set/updateIndex.action?id=<s:property value="#id2"/>" target="_self" title="修改" class="green"><i class="ace-icon fa fa-pencil bigger-130"></i> </a> <a href="javascript:void(0)" class="red delBtn" title="删除"> <i class="ace-icon fa fa-trash-o bigger-130"></i> </a> </div></td>
+<%--               <td class="hidden-260"><div data-id="65rsrxlmzka9izh8" class="hidden-sm hidden-xs action-buttons"> <a href="/htgl/robot/set/updateIndex.action?id=<s:property value="#id2"/>" target="_self" title="修改" class="green"><i class="ace-icon fa fa-pencil bigger-130"></i> </a> <a href="javascript:void(0)" class="red delBtn" title="删除"> <i class="ace-icon fa fa-trash-o bigger-130"></i> </a> </div></td> --%>
             </tr>
             <tr class="odd" role="row">
               <td class="hidden-200"><strong>用户输入无有效文字时机器人回答</strong>（#blank）<br>
                 <small>说明：当用户输入的文字被过滤后是空白时机器人的答复。</small></td>
-              <td class="hidden-200">
-              <s:iterator value="qaSet" id="entry">
-              <s:if test="key.q=='#blank'">
-              <s:set var="id2" value="key.id"/>
-              <s:iterator value="value" var="a" status="index">
-                    <s:property value="#index.index+1"/>
-                    .
-                    <s:property value="#a.a"/>
-                    <br>
-                  </s:iterator>
-              </s:if>
-              </s:iterator>
+              <td class="hidden-200" id="blank">
+<%--               <s:iterator value="qaSet" id="entry"> --%>
+<%--               <s:if test="key.q=='#blank'"> --%>
+<%--               <s:set var="id2" value="key.id"/> --%>
+<%--               <s:iterator value="value" var="a" status="index"> --%>
+<%--                     <s:property value="#index.index+1"/> --%>
+<!--                     . -->
+<%--                     <s:property value="#a.a"/> --%>
+<!--                     <br> -->
+<%--                   </s:iterator> --%>
+<%--               </s:if> --%>
+<%--               </s:iterator> --%>
               </td>
-              <td class="hidden-260"><div data-id="65rsrxlmzka9izh8" class="hidden-sm hidden-xs action-buttons"> <a href="/htgl/robot/set/updateIndex.action?id=<s:property value="#id2"/>" target="_self" title="修改" class="green"><i class="ace-icon fa fa-pencil bigger-130"></i> </a> <a href="javascript:void(0)" class="red delBtn" title="删除"> <i class="ace-icon fa fa-trash-o bigger-130"></i> </a> </div></td>
+<%--               <td class="hidden-260"><div data-id="65rsrxlmzka9izh8" class="hidden-sm hidden-xs action-buttons"> <a href="/htgl/robot/set/updateIndex.action?id=<s:property value="#id2"/>" target="_self" title="修改" class="green"><i class="ace-icon fa fa-pencil bigger-130"></i> </a> <a href="javascript:void(0)" class="red delBtn" title="删除"> <i class="ace-icon fa fa-trash-o bigger-130"></i> </a> </div></td> --%>
             </tr>
         </table>
       </div>
-      <h3 class="row header smaller lighter blue"> <span class="col-xs-7">常用语对话配置</span> <span class="col-xs-5"> <a href="/htgl/robot/set/addIndex.action" target="_self" class="btn-new-mail pull-right"> <span class="btn btn-primary btn-xs no-border"> <i class="ace-icon fa glyphicon-plus bigger-130"></i> <span class="bigger-110">新增</span></span> </a> </span> </h3>
+ 
+	<div class="page-header">
+		<h1>
+			查询 <small> <i class="ace-icon fa fa-angle-double-right"></i>
+				根据条件查询
+			</small>
+		</h1>
+	</div>
+
+	<div class="rows">
+		<div class="col-xs-12 col-md-2">
+			<select id="type" class="form-control" name="type">
+				<option value="">请选择类型...</option>
+				<option value="question">问题</option>
+				<option value="anser">回答</option>
+			</select>
+		</div>
+		<div class="col-xs-12 col-md-2">
+
+		</div>
+		<div class="col-xs-12 col-md-2">
+
+		</div>
+		<div class="col-xs-12 col-md-6">
+			<div class="input-group">
+				<input id="keywords" type="text" class="form-control search-query"
+					placeholder="机器人对话问题、回答、关键字..." name="keywords" /> <span
+					class="input-group-btn">
+					<button type="button" id="searchBtn"
+						class="btn btn-purple btn-sm">
+						<span class="ace-icon fa fa-search icon-on-right bigger-110"></span>
+						搜索
+					</button>
+				</span>
+			</div>
+		</div>
+	</div>
+	<div class="rows"/>
+	<h3 class="row header smaller lighter blue"> <span class="col-xs-7">常用语对话配置</span> <span class="col-xs-5"><span class="col-xs-8"><a href="javascript:void(0)" onclick="synchronizationIndex();" target="_self" class="btn-new-mail pull-right"> <span class="btn btn-primary btn-xs no-border"><span class="bigger-110">同步数据库和索引</span></span> </a> </span><span class="col-xs-2"><a href="/htgl/robot/set/uploadDic.action" target="_self" class="btn-new-mail pull-right"> <span class="btn btn-primary btn-xs no-border"><span class="bigger-110">上传字典</span></span> </a> </span><span class="col-xs-2"><a href="/htgl/robot/set/addIndex.action" target="_self" class="btn-new-mail pull-right"> <span class="btn btn-primary btn-xs no-border"> <i class="ace-icon fa glyphicon-plus bigger-130"></i> <span class="bigger-110">新增</span></span> </a> </span></span> </h3>
+      <div class="table-header" id="search_table_header" style="display:"> 搜索 "*:*" 的结果</div>
       <div id="dynamic-table_wrapper" class="dataTables_wrapper form-inline no-footer">
         <table id="dynamic-table" class="table table-striped table-bordered table-hover dataTable no-footer DTTT_selectable" role="grid" aria-describedby="dynamic-table_info">
           <thead>
@@ -103,20 +142,28 @@
               <th class="sorting_disabled" rowspan="1" colspan="1" aria-label=""></th>
             </tr>
           </thead>
-          <tbody id="systemIds">
-            <s:iterator value="qaSet" id="entry">
+          <tbody id="search_result">
               <tr role="row" class="odd">
-              <s:if test="not key.systemDefined">
-                <td class="hidden-200"><s:property value="key.q"/></td>
-                <td class="hidden-200"><s:iterator value="value" var="a" status="index">
-                    <div class="zxx_text_overflow_1" title="<s:property value="#a.a"/>"><s:property value="#index.index+1"/>.<s:property value="#a.a"/></div><br>
-                  </s:iterator></td>
-                <td class="hidden-260"><div class="hidden-sm hidden-xs action-buttons" data-id="<s:property value='key.id'/>"> <a class="green" title="修改" target='_self' href="/htgl/robot/set/updateIndex.action?id=<s:property value='key.id'/>"><i class="ace-icon fa fa-pencil bigger-130"></i> </a> <a title="删除" class="red delBtn" href="javascript:void(0)"> <i class="ace-icon fa fa-trash-o bigger-130"></i> </a> </div></td>
-              </s:if>
+          
+                  <td  colspan="5"> 无数据 </td>
+      
               </tr>
-            </s:iterator>
+ 
           </tbody>
         </table>
+        <div class="row" id="table_footer_info" style="display:">
+            <div class="col-xs-6">
+                <div class="dataTables_info" id="dynamic-table_info" role="status" aria-live="polite">
+                	
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <div class="dataTables_paginate paging_simple_numbers" id="dynamic-table_paginate">
+                   
+                </div>
+            </div>
+        </div>
+        <div class="row"><BR><BR></div>
       </div>
       <%--col-xs-12--%>
     </div>
@@ -144,49 +191,165 @@
 <!-- /.modal --> 
 
 <script type="text/javascript">
-function openWindow(obj){
-	$(".modal-body").load("/htgl/system/list.action",{id:obj});
+function synchronizationIndex(){
+	$.getJSON("/htgl/robot/set/synchronizationIndex.action");
 }
-$(".save").click(function(){
-   var str ="";
-   var saveId = $(".saveId").val();
-    $("input:checked").each(function(){
-        str += $(this).val() + ",";
-    });
-    str = str.substring(0,str.length-1)
-     $.getJSON(
-     "/htgl/system/updateTag.action",
-     {id:saveId,name:str},
-     function(data){
-         if(data.flag=='true') {
-             alert("保存成功");
-             $(".btn-default").trigger("click");
-         } 
-     }
-     )
-})
-</script> 
-<script>
 
-            $(function () {
-            	$(document).on("click",".delBtn",function() {
-                	if(confirm("删除后将不可恢复，确定删除该对话？")) {
-                		var $div = $(this).closest("div");
-    	            	var id = $div.data("id");
-    	            	$.getJSON(
-                			"/htgl/robot/set/delete.action",
-                			{id:id},
-                			function(data){
-                				if(data.flag=='true') {
-                					alert("删除成功");
-                					$div.closest("tr").remove();
-                				} else {
-                					var errMsg = data.errorMessages.pop();
-                					alert(errMsg);
-                				}
-                			}
-    	            	)
-                	}
-                });
-            })
-        </script>
+function showSearchResult(text,type,curPage){
+	$.getJSON("/htgl/robot/set/listDate.action", {
+		text: text,
+		type: "question",
+        curPage: curPage,
+        callback:"",
+        t: new Date().getTime()
+    },function showSearchResult(json) {
+    	if (json.flag == 'true') {
+            $("#search_result").html("");
+            $("#search_table_header").html("");
+            $("#dynamic-table_paginate").html("");
+            $("#table_footer_info").hide();
+            var robotBeans = json.o.robotBean;
+            if(robotBeans.length<1){
+               $("#search_result").html(" <tr role=\"row\" class=\"odd\"\><td  colspan=\"5\"> 无数据 </td><\/tr>");
+                return;
+            }
+            var pagination = json.o.pagination;
+            for (var i = 0; i < robotBeans.length; i++) {
+                var k = robotBeans[i];
+                var odd_even = (i%2==0)?"even":"odd";
+                var str = "";
+                str += "<tr role='row' class='"+odd_even+"'>";
+                str += "<td class='hidden-200'>"+k.q+"</td>";
+                str += "<td class='hidden-200'>";
+               	for(var j = 0;j<k.a.length;j++){
+               		str += "<div class='zxx_text_overflow_1' title='"+k.a[j]+"'>"+(j+1)+"."+k.a[j]+"</div><br>";
+               	}
+               	str += "</td>";
+               	str += "<td class='hidden-260'><div class='hidden-sm hidden-xs action-buttons' data-id="+k.q+"> <a class='green' title='修改' target='_self' href='/htgl/robot/set/updateIndex.action?id="+k.id+"'><i class='ace-icon fa fa-pencil bigger-130'></i> </a> <a title='删除' class='red delBtn' href='javascript:void(0)'> <i class='ace-icon fa fa-trash-o bigger-130'></i> </a> </div></td>";
+                str += "</tr>";
+               	$("#search_result").append(str);
+            }
+            $("#dynamic-table_paginate").html(formatP(pagination, text, "question", curPage));
+            var query = $.trim(text);
+            if(query==""||query=="null"||query==null){
+            	query = "*:*";
+            }
+            $("#search_table_header").html("搜索 \“"+ query +"\” 的结果").show();
+            $("#dynamic-table_info").html("第"+curPage+"页，总计：共 "+ pagination.totalCount +" 条。");
+            $("#table_footer_info").show();
+            //$("#rows_content").show();
+        }
+    })
+}
+
+function formatP(pagination, text, type, curPage) {
+    var curPage = pagination.curPage;
+    var totalCount = pagination.totalCount;
+    var pageCount = Math.ceil(totalCount / pagination.pageCount);
+    var prePage = "";
+    var nextPage = "";
+    if (curPage - 1 > 0) {
+        prePage = " <li class=\"paginate_button previous\" aria-controls=\"dynamic-table\" tabindex=\"0\" id=\"dynamic-table_previous\"><a href=\"javascript:void(0)\" onclick=\"showSearchResult('" + text + "','" + type + "'," + (curPage - 1) + ")\">上一页</a>";
+    }
+
+    if (curPage + 1 <= pageCount) {
+        nextPage = " <li class=\"paginate_button next\" aria-controls=\"dynamic-table\" tabindex=\"0\" id=\"dynamic-table_next\"><a href=\"javascript:void(0)\" onclick=\"showSearchResult('" + text + "','" + type + "'," + (curPage + 1) + ")\">下一页</a></li>";
+    }
+    var htmlStr = "<ul class=\"pagination\">" + prePage + nextPage + "</ul>";
+    return htmlStr;
+}
+
+function showBasicConf(){
+
+	$.getJSON("/htgl/robot/set/basicDate.action", {
+		qs1:"#hello", 
+		qs2:"#noanswer",
+		qs3:"#blank",
+        callback:"",
+        t: new Date().getTime()
+    },function showbasicResult(date) {
+    	var listBean = date.o;
+    	var helloBean = listBean[0];
+    	var helloA ="";
+    	for(var i=0;i<helloBean.a.length;i++){
+    		helloA += helloBean.a[i];
+    	}
+    	$("#hello").html(helloA);
+    	$("#hello").after("<td class='hidden-260'><div data-id='q95cfjzkvuzhuuw6' class='hidden-sm hidden-xs action-buttons'> <a href='/htgl/robot/set/updateIndex.action?id="+helloBean.id+"' target='_self' title='修改' class='green'><i class='ace-icon fa fa-pencil bigger-130'></i> </a> <a href='javascript:void(0)' class='red delBtn' title='删除'> <i class='ace-icon fa fa-trash-o bigger-130'></i> </a> </div></td>");
+
+    	var noanswerBean = listBean[1];
+    	var noanswerA ="";
+    	for(var i=0;i<noanswerBean.a.length;i++){
+    		noanswerA += noanswerBean.a[i];
+    	}
+    	$("#noanswer").html(noanswerA);
+    	$("#noanswer").after("<td class='hidden-260'><div data-id='65rsrxlmzka9izh8' class='hidden-sm hidden-xs action-buttons'> <a href='/htgl/robot/set/updateIndex.action?id="+noanswerBean.id+"' target='_self' title='修改' class='green'><i class='ace-icon fa fa-pencil bigger-130'></i> </a> <a href='javascript:void(0)' class='red delBtn' title='删除'> <i class='ace-icon fa fa-trash-o bigger-130'></i> </a> </div></td>");
+
+    	var blankBean = listBean[2];
+    	var blankA ="";
+    	for(var i=0;i<blankBean.a.length;i++){
+    		blankA += blankBean.a[i];
+    	}
+    	$("#blank").html(blankA);
+    	$("#blank").after("<td class='hidden-260'><div data-id='65rsrxlmzka9izh8' class='hidden-sm hidden-xs action-buttons'> <a href='/htgl/robot/set/updateIndex.action?id="+blankBean.id+"' target='_self' title='修改' class='green'><i class='ace-icon fa fa-pencil bigger-130'></i> </a> <a href='javascript:void(0)' class='red delBtn' title='删除'> <i class='ace-icon fa fa-trash-o bigger-130'></i> </a> </div></td>");
+
+    	
+    });
+	
+}
+$(function () {
+	showBasicConf();
+	showSearchResult("","question",1);
+	$("#searchBtn").click(function(){
+		var condition = $("#keywords").val();
+		showSearchResult(condition,"question",1);
+	
+	});
+});
+
+
+// function openWindow(obj){
+// 	$(".modal-body").load("/htgl/system/list.action",{id:obj});
+// }
+
+// $(".save").click(function(){
+//    var str ="";
+//    var saveId = $(".saveId").val();
+//     $("input:checked").each(function(){
+//         str += $(this).val() + ",";
+//     });
+//     str = str.substring(0,str.length-1)
+//      $.getJSON(
+//      "/htgl/system/updateTag.action",
+//      {id:saveId,name:str},
+//      function(data){
+//          if(data.flag=='true') {
+//              alert("保存成功");
+//              $(".btn-default").trigger("click");
+//          } 
+//      }
+//      )
+// })
+
+$(function () {
+	$(document).on("click",".delBtn",function() {
+    	if(confirm("删除后将不可恢复，确定删除该对话？")) {
+    		var $div = $(this).closest("div");
+     	var id = $div.data("id");
+     	$.getJSON(
+    			"/htgl/robot/set/delete.action",
+    			{id:id},
+    			function(data){
+    				if(data.flag=='true') {
+    					alert("删除成功");
+    					$div.closest("tr").remove();
+    				} else {
+    					var errMsg = data.errorMessages.pop();
+    					alert(errMsg);
+    				}
+    			}
+     	)
+    	}
+    });
+})
+</script>

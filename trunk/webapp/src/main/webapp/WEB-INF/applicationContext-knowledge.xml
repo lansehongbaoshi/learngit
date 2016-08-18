@@ -90,6 +90,7 @@
     
     <bean id="robotSetActionBean"  class="com.chsi.knowledge.htgl.action.RobotSetAction"  scope="request">
         <property name="robotService" ref="robotService" />
+        <property name="robotSolrIndexService" ref="robotSolrIndexService" />
     </bean>
     
     <bean id="totalActionBean"  class="com.chsi.knowledge.htgl.action.TotalAction"  scope="request">

@@ -26,12 +26,17 @@ import com.chsi.knowledge.pojo.SystemData;
 import com.chsi.knowledge.service.RobotService;
 import com.chsi.knowledge.service.ServiceFactory;
 import com.chsi.knowledge.util.ManageCacheUtil;
+import com.chsi.knowledge.util.Pagination;
 import com.chsi.knowledge.util.SearchUtil;
 import com.chsi.knowledge.vo.AnswerVO;
 import com.chsi.knowledge.vo.KnowListVO;
+import com.chsi.knowledge.vo.RobotQAListVO;
 import com.chsi.knowledge.vo.SearchVO;
 import com.chsi.knowledge.vo.PieVO;
+import com.chsi.search.client.SearchServiceClient;
+import com.chsi.search.client.SearchServiceClientFactory;
 import com.chsi.search.client.vo.KnowledgeVO;
+import com.chsi.search.client.vo.RobotQABean;
 
 public class RobotServiceImpl extends BaseDbService implements RobotService {
     RobotDAO robotDAO;
@@ -61,6 +66,23 @@ public class RobotServiceImpl extends BaseDbService implements RobotService {
         return robotDAO.getQASessionDataById(id);
     }
     
+    public RobotQAListVO<RobotQABean> searchRobotConf(String text,int start,int max){
+        SearchServiceClient searchClient = SearchServiceClientFactory
+                .getSearchServiceClient();
+        Map<String, String> map = new HashMap<String, String>();
+        String keywords = SearchUtil.keywordsFilter(text);
+        if("".equals(keywords)){
+            keywords = "*:*";
+        }
+        map.put("q", keywords);
+        map.put("qf", "q");
+        Page<RobotQABean> page = searchClient.searchRobotConf(map, start, max);
+        Pagination pagination = new Pagination(page.getTotalCount(), page.getPageCount(), page.getCurPage());
+        RobotQAListVO<RobotQABean> robotQAListVO = new RobotQAListVO<RobotQABean>(page.getList(), pagination);
+        return robotQAListVO;
+        
+    }
+    
     public AnswerVO answer(String sessionId, String knowId, String q) {
         AnswerVO answerVO = null;
         if (!ValidatorUtil.isNull(knowId)) {// 确定知识时传递knowId、q
@@ -88,10 +110,21 @@ public class RobotServiceImpl extends BaseDbService implements RobotService {
             answerVO = new AnswerVO<SearchVO>();
             q = q==null?"":q.trim();
             String keywords = SearchUtil.keywordsFilter(q);
-            List<RobotASetData> robotAList = robotDAO.getAByQ(keywords);//先查是否是打招呼
+//            List<RobotASetData> robotAList = robotDAO.getAByQ(keywords);//先查是否是打招呼
+            SearchServiceClient searchClient = SearchServiceClientFactory
+                    .getSearchServiceClient();
+            Map<String, String> map = new HashMap<String, String>();
+            map.put("q", "text:"+keywords);
+            map.put("qf", "q");
+            map.put("hl", "true");
+            map.put("hl.fl", "q");
+            map.put("hl.simple.pre", "<strong style='color:#c30'>");
+            map.put("hl.simple.post", "</strong>");
+            List<RobotQABean> robotAList = searchClient.searchRobotQA(map, 0, 100);
             if(robotAList.size()>0) {//机器人常用语回答不记录后台日志
                 int randomIndex = (int)(Math.random()*robotAList.size());
-                String content = robotAList.get(randomIndex).getA();
+                String[] anser = robotAList.get(0).getA();
+                String content = anser[(int)(Math.random()*anser.length)];
                 answerVO.setAType(AType.ROBOT);
                 answerVO.setContent(content);
             } else {
@@ -152,13 +185,35 @@ public class RobotServiceImpl extends BaseDbService implements RobotService {
     @Override
     public Map<RobotQSetData, List<RobotASetData>> getRobotQASet(String qID) {
         Map<RobotQSetData, List<RobotASetData>> result = new LinkedHashMap<RobotQSetData, List<RobotASetData>>();
-        List<RobotQSetData> qs = robotDAO.allQ();
-        for(RobotQSetData key:qs) {
-            if(!ValidatorUtil.isNull(qID) && !qID.equals(key.getId())) continue;
-            List<RobotASetData> value = robotDAO.getAByQSet(key);
-            result.put(key, value);
-        }
+        RobotQSetData rqsd = robotDAO.getRobotQSetData(qID);
+        List<RobotASetData> value = robotDAO.getAByQSet(rqsd);
+        result.put(rqsd, value);
+//        List<RobotQSetData> qs = robotDAO.pageQ(0, 10);
+//        for(RobotQSetData key:qs) {
+//            if(!ValidatorUtil.isNull(qID) && !qID.equals(key.getId())) continue;
+//            List<RobotASetData> value = robotDAO.getAByQSet(key);
+//            result.put(key, value);
+//        }
         return result;
+    }
+    
+    public List<RobotQABean> getRobotBasicConf(String[] qs){
+        List<RobotQABean> list = new ArrayList<RobotQABean>();
+        for(String question :qs){
+            RobotQABean rqab = new RobotQABean();
+            RobotQSetData rqs = robotDAO.getRobotQSetByQ(question);
+            List<RobotASetData> listRAS = robotDAO.getAByQSet(rqs);
+            rqab.setId(rqs.getId());
+            rqab.setQ(rqs.getQ());
+            rqab.setNum(rqs.getNum());
+            String[] ans = new String[listRAS.size()];
+            for(int i=0;i<listRAS.size();i++){
+                ans[i]=listRAS.get(i).getA();
+            }
+            rqab.setA(ans);
+            list.add(rqab);
+        }
+        return list;
     }
 
     @Override

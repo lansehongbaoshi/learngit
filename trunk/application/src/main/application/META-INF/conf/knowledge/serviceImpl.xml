@@ -59,5 +59,11 @@
     <bean id="knowIndexService" class="com.chsi.knowledge.index.service.impl.KnowIndexServiceImpl" parent="baseDbService">
         <property name="solrService" ref="solrServerKnow" />
     </bean>
+    <bean id="solrServerRobot" class="org.apache.solr.client.solrj.impl.HttpSolrServer" parent="baseSolrServer">
+        <constructor-arg index="0"><value>http://solr.chsi.com.cn:8983/solr/robotqa/</value></constructor-arg>    
+    </bean>
+    <bean id="robotSolrIndexService" class="com.chsi.knowledge.service.impl.RobotSolrIndexServiceImpl" parent="baseDbService">
+        <property name="solrService" ref="solrServerRobot"></property>
+    </bean>
     
 </beans>

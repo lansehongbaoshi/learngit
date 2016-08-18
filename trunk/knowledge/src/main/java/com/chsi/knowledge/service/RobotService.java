@@ -12,6 +12,8 @@ import com.chsi.knowledge.pojo.RobotASetData;
 import com.chsi.knowledge.pojo.RobotQSetData;
 import com.chsi.knowledge.vo.AnswerVO;
 import com.chsi.knowledge.vo.PieVO;
+import com.chsi.knowledge.vo.RobotQAListVO;
+import com.chsi.search.client.vo.RobotQABean;
 
 public interface RobotService {
     void save(PersistentObject pojo);
@@ -28,6 +30,16 @@ public interface RobotService {
      * @return
      */
     AnswerVO answer(String sessionId, String knowId, String q);
+    /**
+     * 机器人配置查询
+     * @param queryParams
+     * @param start
+     * @param max
+     * @return
+     */
+    public RobotQAListVO<RobotQABean> searchRobotConf(String text,int start,int max);
+    
+    public List<RobotQABean> getRobotBasicConf(String[] qs);
     
     /**
      * 查询问答map

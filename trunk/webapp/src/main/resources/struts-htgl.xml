@@ -217,7 +217,21 @@
               </interceptor-ref>
           </interceptor-stack>
         </interceptors>
-        <action name="list" class="robotSetActionBean" method="list">
+        <action name="uploadDic" class="robotSetActionBean" method="upload">
+            <result name="success" type="tiles">htgl.robot.set.uploaddic</result>
+        </action>
+        <action name="updateCommit" class="robotSetActionBean" method="updateCommit">
+            <result name="success" type="tiles">htgl.robot.set.list</result>
+        </action>
+        <action name="synchronizationIndex" class="robotSetActionBean" method="synchronizationIndex">
+            <result name="success" type="tiles">htgl.robot.set.list</result>
+        </action>
+        <action name="listDate" class="robotSetActionBean" method="list">
+        </action>
+        <action name="basicDate" class="robotSetActionBean" method="listBasic">
+        </action>
+        <action name="list" class="robotSetActionBean" method="listIndex">
+            <!-- -->
             <result name="success" type="tiles">htgl.robot.set.list</result>
         </action>
         <action name="addIndex">

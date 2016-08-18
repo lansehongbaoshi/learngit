@@ -1,6 +1,7 @@
 package com.chsi.knowledge.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.chsi.framework.page.Page;
 import com.chsi.framework.pojos.PersistentObject;
@@ -39,6 +40,7 @@ public interface RobotDAO {
     List<RobotASetData> getAByExplicitQ(String q);
     
     List<RobotQSetData> allQ();
+    List<RobotQSetData> pageQ(int start,int max);
     
     List<RobotASetData> getAByQSet(RobotQSetData robotQSetData);
     
@@ -69,4 +71,12 @@ public interface RobotDAO {
      * @return
      */
     Page<QALogData> pageQALogDataByAType(AType aType, int currentPage, int pageSize, String startTime, String endTime);
+    /**
+     * 根据问题查找RobotQSetDate
+     * @param ques
+     * @return
+     */
+    public RobotQSetData getRobotQSetByQ(String ques);
+    
+    public Map<RobotQSetData, List<RobotASetData>> getSolrByRQ(RobotQSetData robotQSetData);
 }

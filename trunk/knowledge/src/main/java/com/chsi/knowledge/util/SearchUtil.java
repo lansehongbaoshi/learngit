@@ -24,7 +24,7 @@ public class SearchUtil {
      * @return
      */
     public static String keywordsFilter(String keywords) {
-        String regex = "^如何|怎样|怎么|什么|为什么|我|关于|吗|呢|啊|嘛|呗|喽|呀|哟|啦$|[`~!@#$^()=|'+-:;,\\%.<>/?￥…&*（）—【】‘；：”“'。，、？]";
+        String regex = "^如何|怎样|怎么|什么|为什么|我|关于|吗|呢|啊|嘛|呗|喽|呀|哟|啦$|[ `~!@#$^()=|'+-:;,\\%.<>/?￥…&*（）—【】‘；：”“'。，、\t？]";
         String goodKeywords = "";
         if(keywords!=null) {
             goodKeywords = keywords.replaceAll(regex, "");

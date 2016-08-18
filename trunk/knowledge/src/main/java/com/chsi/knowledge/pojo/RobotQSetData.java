@@ -24,6 +24,7 @@ public class RobotQSetData extends PersistentObject {
     
     private String id;
     private String q;
+    private int num;
 
 
     @Id
@@ -47,6 +48,14 @@ public class RobotQSetData extends PersistentObject {
 
     public void setQ(String q) {
         this.q = q;
+    }
+    @Column(name = "NUM")
+    public int getNum() {
+        return num;
+    }
+
+    public void setNum(int num) {
+        this.num = num;
     }
 
     @Transient

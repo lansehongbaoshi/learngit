@@ -31,6 +31,9 @@
           用户提问：<input type="text" name="q" value="" style="width: 600px;" maxlength="50" check="^[\S|\s]{1,}$" warn="用户提问不能为空"><span>（说明：多种相似的词汇或句子用","隔开，如：“姓名,名字”）</span>
         </p>
         <p>
+          提问关键词数目：<input type="text" name="num" value="" check="^[1-9]\d*$" warn="关键词个数为正整数" style="width: 400px;"  maxlength="50" <s:if test="key.systemDefined">readonly="true"</s:if>>
+        </p>
+        <p>
           机器人回答：<input type="button" value="+" onclick="addLi()">
         </p>
         <ol>

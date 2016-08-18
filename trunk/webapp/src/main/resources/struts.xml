@@ -25,8 +25,8 @@
                 <interceptor-ref name="scopedModelDriven" />
                 <interceptor-ref name="modelDriven" />
                 <interceptor-ref name="fileUpload">
-                    <param name="allowedTypes">image/jpeg,image/pjpeg,image/png,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document</param>
-                    <param name="allowedExtensions">jpg,jpeg,jpe,jfif,png,xls,xlsx,doc,docx</param>
+                    <param name="allowedTypes">text/plain,image/jpeg,image/pjpeg,image/png,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document</param>
+                    <param name="allowedExtensions">txt,jpg,jpeg,jpe,jfif,png,xls,xlsx,doc,docx</param>
                     <param name="maximumSize">5242880</param> <!--5M -->
                 </interceptor-ref>
                 <interceptor-ref name="checkbox" />

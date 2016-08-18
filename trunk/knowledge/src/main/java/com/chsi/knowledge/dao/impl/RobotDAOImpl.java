@@ -2,7 +2,9 @@ package com.chsi.knowledge.dao.impl;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.hibernate.Query;
 
@@ -18,6 +20,7 @@ import com.chsi.knowledge.pojo.RobotASetData;
 import com.chsi.knowledge.pojo.RobotQSetData;
 import com.chsi.knowledge.util.PageUtil;
 import com.chsi.knowledge.vo.PieVO;
+import com.chsi.search.client.vo.RobotQABean;
 
 public class RobotDAOImpl extends BaseHibernateDAO implements RobotDAO{
     private static String query_robot_a_by_like_q = "select aa from RobotQSetData qq,RobotASetData aa where aa.qId=qq.id and qq.q like (:q)";
@@ -28,10 +31,12 @@ public class RobotDAOImpl extends BaseHibernateDAO implements RobotDAO{
     private static String query_qa_session_by_id = "from QASessionData where id=:id";
     private static String from_a = "from RobotQSetData";
     private static String query_a_by_q = "select p from RobotASetData p where p.qId=:qId";
+    private static String query_q_by_q = "select q from RobotASetData q where q.q=:q";
     
     private static String count = "select count(*) ";
     
     private static String w_id = " where id=:id";
+    private static String w_q = " where q=:q";
     private static String a_createTime = " and to_char(createTime,'yyyy-mm-dd') between ? and ?";
     
     private static String order_by_create_time_desc = " order by createTime desc";
@@ -65,6 +70,13 @@ public class RobotDAOImpl extends BaseHibernateDAO implements RobotDAO{
         }
         return query.list();
     }
+    
+    public RobotQSetData getRobotQSetByQ(String ques){
+        String hql = query_all_q + w_q;
+        Query query = hibernateUtil.getSession().createQuery(hql);
+        query.setString("q", ques);
+        return (RobotQSetData)query.uniqueResult();
+    }
 
     @Override
     public List<RobotQSetData> allQ() {
@@ -72,6 +84,16 @@ public class RobotDAOImpl extends BaseHibernateDAO implements RobotDAO{
         Query query = hibernateUtil.getSession().createQuery(hql);
         return query.list();
     }
+    
+    public List<RobotQSetData> pageQ(int start,int max){
+        String hql = query_all_q;
+        Query query = hibernateUtil.getSession().createQuery(hql);
+        query.setFirstResult(0);
+        query.setMaxResults(10);
+        return query.list();
+    }
+    
+    
 
     @Override
     public List<RobotASetData> getAByQSet(RobotQSetData robotQSetData) {
@@ -192,6 +214,14 @@ public class RobotDAOImpl extends BaseHibernateDAO implements RobotDAO{
         String queryHql = query_qa_log_by_a_type_page + a_createTime + order_by_create_time_desc;
         Page page = PageUtil.getPage(hibernateUtil.getSession(), currentPage, pageSize, countyHql, queryHql, aType, startTime, endTime);
         return page;
+    }
+    
+    public Map<RobotQSetData, List<RobotASetData>> getSolrByRQ(RobotQSetData robotQSetData){
+        Map<RobotQSetData, List<RobotASetData>> map = new HashMap<RobotQSetData, List<RobotASetData>>();
+        List<RobotASetData> list = new ArrayList<RobotASetData>();
+        list = getAByQSet(robotQSetData);
+        map.put(robotQSetData, list);
+        return map;
     }
 
 }
