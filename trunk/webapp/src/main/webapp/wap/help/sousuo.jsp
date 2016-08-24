@@ -7,6 +7,8 @@ import="com.chsi.knowledge.pojo.KnowledgeData,com.chsi.knowledge.util.ManageCach
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta charset="utf-8">
     <title>搜索_学信网帮助中心</title>
+    <meta name="Keywords" content="学信网帮助中心，学信网常见问题">
+    <meta name="Description" content="学信网帮助中心，学信网账号、学信档案、应征报名、四六级查分、研招统考、研招推免、学历与成绩认证、面向港澳台招生、高考统考招生、高考特殊类型招生、高考特殊类型报名">
     <link href="http://t1.chei.com.cn/common/wap/help/css/reset.css" rel="stylesheet"/>
     <link href="http://t2.chei.com.cn/common/wap/help/css/style.css?20160615" rel="stylesheet"/>
     <!--[if lt IE 9]><script src="'http://t3.chei.com.cn/common/wap/help/js/respond.js"></script><![endif]-->
@@ -102,11 +104,11 @@ template.helper('hightWord', function (k,o) {
     return  o.replace(reg, "<strong style='color:#c30'>$1</strong>");
 });
 /********  搜索  end *******/
-
 </script>
 
   </head>
   <body>
+    <img src='http://kl.chsi.com.cn/images/wap/wx_share.jpg' width='0' height='0' />
     <div id="wrap">
       <div class="section section_search">
         <div class="search_text">
