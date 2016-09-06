@@ -20,7 +20,7 @@ List<KnowledgeData> list = ManageCacheUtil.getIndexTopKnowl(5);
                 <div class="question">
                     <s:include value="searchbox.jsp"></s:include>
                     <div class="hot">
-                        <h2 class='hot_title'>热门问题3</h2>
+                        <h2 class='hot_title'>热门问题</h2>
                         <div class='hot_more' onClick="window.location.href='/wap/help/hotmore.jsp'">更多>></div>
                         <ul class="hot_list"> 
                         <%for(int i=0;i<list.size();i++) {
