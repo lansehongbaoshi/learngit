@@ -38,7 +38,7 @@ int otherNum = 5;
     <!--[if lt IE 9]><script src="'http://t3.chei.com.cn/common/wap/help/js/respond.js"></script><![endif]-->
   </head>
   <body>
-    <img src='http://kl.chsi.com.cn/images/wap/wx_share.jpg' width='0' height='0' />
+    <img src='http://t1.chei.com.cn/common/wap/images/share_help.jpg' width='0' height='0' style='position: absolute;top:-100px;left: 0' />
     <div id="wrap">
       <div class="section">
         <s:include value="searchbox.jsp"></s:include>

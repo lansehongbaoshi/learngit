@@ -22,7 +22,7 @@ if(id!=null) {
     <meta name="Description" content="学信网帮助中心，学信网账号、学信档案、应征报名、四六级查分、研招统考、研招推免、学历与成绩认证、面向港澳台招生、高考统考招生、高考特殊类型招生、高考特殊类型报名">
   </head>
   <body>
-    <img src='http://kl.chsi.com.cn/images/wap/wx_share.jpg' width='0' height='0' />
+    <img src='http://t1.chei.com.cn/common/wap/images/share_help.jpg' width='0' height='0' style='position: absolute;top:-100px;left: 0' />
     <div id="wrap">
       <div class="section">
         <s:include value="searchbox.jsp"></s:include>
