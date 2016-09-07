@@ -126,7 +126,7 @@ if("update".equals(from)) {
                    <div class="col-sm-12 widget-container-col ui-sortable">
                                         <div class="widget-box transparent ui-sortable-handle">
                                             <div class="widget-header">
-                                                <h2 class="widget-title"><s:property value=" knowledgeData.article.title " /></h2>
+                                                <h2 class="widget-title"><s:property value="knowledgeData.article.title" escape="false" /></h2>
 
                                                 <div class="widget-toolbar no-border" data-id="<s:property value=" knowledgeData.id " />">
                                                     <a href="#" data-action="update-time" title="将当前时间设置为更新时间">
