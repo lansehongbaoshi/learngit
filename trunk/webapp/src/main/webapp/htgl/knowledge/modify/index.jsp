@@ -41,7 +41,7 @@ List<SystemData> systems = systemService.getSystems();
         <div class="form-group">
           <label for="" class="col-sm-1 control-label no-padding-top">标题：</label>
           <div class="col-sm-9">
-            <input id="title" type="text" name="title" style="width: 400px;" value="<s:property value=" knowledgeData.article.title " />">
+            <input id="title" type="text" name="title" style="width: 400px;" value="<s:property value="knowledgeData.article.title" escape="false" />">
           </div>
         </div>
         <div class="form-group">
