@@ -164,7 +164,6 @@ public class SystemAction extends AjaxAction{
         String[] startTime = getParameters().get("startTime");
         String[] endTime = getParameters().get("endTime");
         systemService.save(data, startTime, endTime);
-        ManageCacheUtil.addSystem(id, data);
         ManageCacheUtil.removeUnderwaySystem();
         return SUCCESS;
     }

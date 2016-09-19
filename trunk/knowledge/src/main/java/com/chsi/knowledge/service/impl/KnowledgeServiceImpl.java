@@ -153,10 +153,6 @@ public class KnowledgeServiceImpl extends BaseDbService implements KnowledgeServ
         CmsServiceClient cmsServiceClient = CmsServiceClientFactory.getCmsServiceClient();
 
         List<KnowledgeData> knowledgeDataList = new ArrayList<KnowledgeData>();
-        if (null == list) {
-            list = knowTagRelationDAO.getKnowTagDatas(tagId, KnowledgeStatus.YSH, KnowledgeType.PUBLIC);
-            ManageCacheUtil.addKnowTag(tagId, list);
-        }
         int size = (pageSize + start) >= list.size() ? list.size() : (pageSize + start);
         for (int i = start; i < size; i++) {
             knowledgeDataList.add(list.get(i).getKnowledgeData());

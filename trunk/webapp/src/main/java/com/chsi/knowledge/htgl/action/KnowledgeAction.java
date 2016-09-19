@@ -353,6 +353,7 @@ public class KnowledgeAction extends AjaxAction {
                 KnowTagRelationData knowTagRelationData = new KnowTagRelationData(null, knowledgeData, tagData);
                 knowTagRelationService.save(knowTagRelationData);
                 ManageCacheUtil.removeKnowTag(tagData.getId());
+                ManageCacheUtil.removeViewKnowsVO(tagData.getSystemData().getId(), tagData.getId());
             }
         }
         knowIndexService.updateKnowIndex(knowledgeData.getId());

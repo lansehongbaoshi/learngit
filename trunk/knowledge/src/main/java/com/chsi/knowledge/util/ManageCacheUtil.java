@@ -29,17 +29,12 @@ import com.chsi.knowledge.vo.ViewKnowsVO;
  * @author chenjian
  */
 public class ManageCacheUtil {
-
-    private static final String CACHE_KEY_ = "knowledge." + ManageCacheUtil.class.getName();
     private static final String SEP = ".";
-    // 具体每个缓存项目的名称
-    private static final String SYSTEM_PREFIX = CACHE_KEY_ + SEP + "system";
-    private static final String TAG_PREFIX = CACHE_KEY_ + SEP + "tag";
-    private static final String KNOWTAG_PREFIX = CACHE_KEY_ + SEP + "knowtag";
-    private static final String KNOW_PREFIX = CACHE_KEY_ + SEP + "know";
+    private static final String CACHE_KEY_ = ManageCacheUtil.class.getName() + SEP;
+    
     
     public static KnowledgeData getKnowledgeDataById(String id) {
-        String key = KNOW_PREFIX + SEP + id;
+        String key = CACHE_KEY_ + "getKnowledgeDataById" + id;
         KnowledgeData data = MemCachedUtil.get(key);
         if(data==null) {
             KnowledgeService knowledgeService = ServiceFactory.getKnowledgeService();
@@ -50,21 +45,12 @@ public class ManageCacheUtil {
     }
     
     public static void removeKnowledgeDataById(String id) {
-        String key = KNOW_PREFIX + SEP + id;
+        String key = CACHE_KEY_ + "getKnowledgeDataById" + id;
         MemCachedUtil.removeByKey(key);
     }
 
-    // 标签与知识关联关系的增删查
-    public static boolean addKnowTag(String tagId, List<KnowTagRelationData> list) {
-        String key = KNOWTAG_PREFIX + SEP + tagId;
-        if (null != list) {
-            return MemCachedUtil.set(key, list);
-        }
-        return false;
-    }
-
     public static List<KnowTagRelationData> getKnowTag(String tagId) {
-        String key = KNOWTAG_PREFIX + SEP + tagId;
+        String key = CACHE_KEY_ + "getKnowTag"+tagId;
         List<KnowTagRelationData> list = MemCachedUtil.get(key);
         if(list==null) {
             KnowledgeService knowledgeService = ServiceFactory.getKnowledgeService();
@@ -74,8 +60,13 @@ public class ManageCacheUtil {
         return list;
     }
     
+    public static void removeKnowTag(String tagId) {
+        String key = CACHE_KEY_ + "getKnowTag"+tagId;
+        MemCachedUtil.removeByKey(key);
+    }
+    
     public static List<KnowTagRelationData> getKnowTagRelationByKnowId(String knowId) {
-        String key = KNOWTAG_PREFIX + SEP + knowId;
+        String key = CACHE_KEY_ + "getKnowTagRelationByKnowId"+knowId;
         List<KnowTagRelationData> list = MemCachedUtil.get(key);
         if(list==null) {
             KnowTagRelationService knowTagRelationService = ServiceFactory.getKnowTagRelationService();
@@ -85,22 +76,8 @@ public class ManageCacheUtil {
         return list;
     }
 
-    public static void removeKnowTag(String tagId) {
-        String key = KNOWTAG_PREFIX + SEP + tagId;
-        MemCachedUtil.removeByKey(key);
-    }
-
-    // 标签的增删查
-    public static boolean addTagList(String systemId, List<TagData> list) {
-        String key = TAG_PREFIX + SEP + systemId;
-        if (null != list) {
-            return MemCachedUtil.set(key, list);
-        }
-        return false;
-    }
-
     public static List<TagData> getTagList(String systemId) {
-        String key = TAG_PREFIX + SEP + systemId;
+        String key = CACHE_KEY_ + "getTagList" + systemId;
         List<TagData> list = MemCachedUtil.get(key);
         if(list==null) {
             TagService tagService = ServiceFactory.getTagService();
@@ -111,21 +88,12 @@ public class ManageCacheUtil {
     }
 
     public static void removeTagList(String systemId) {
-        String key = TAG_PREFIX + SEP + systemId;
+        String key = CACHE_KEY_ + "getTagList" + systemId;
         MemCachedUtil.removeByKey(key);
     }
 
-    // 系统的增删查
-    public static boolean addSystem(String systemId, SystemData systemData) {
-        String key = SYSTEM_PREFIX + SEP + systemId;
-        if (null != systemData) {
-            return MemCachedUtil.set(key, systemData);
-        }
-        return false;
-    }
-
     public static SystemData getSystem(String systemId) {
-        String key = SYSTEM_PREFIX + SEP + systemId;
+        String key = CACHE_KEY_ + "getSystem" + systemId;
         SystemData data = MemCachedUtil.get(key);
         if(data==null) {
             SystemService systemService = ServiceFactory.getSystemService();
@@ -136,12 +104,12 @@ public class ManageCacheUtil {
     }
 
     public static void removeSystem(String systemId) {
-        String key = SYSTEM_PREFIX + SEP + systemId;
+        String key = CACHE_KEY_ + "getSystem" + systemId;
         MemCachedUtil.removeByKey(key);
     }
 
     public static List<KnowledgeData> getTopSearchKnow() {
-        String key = CACHE_KEY_ + SEP + "getTopSearchKnow";
+        String key = CACHE_KEY_ + "getTopSearchKnow";
         List<KnowledgeData> result = MemCachedUtil.get(key);
         if(result == null) {
             CommonService commonService = ServiceFactory.getCommonService();
@@ -153,7 +121,7 @@ public class ManageCacheUtil {
     
     //首页的热点问题
     public static List<KnowledgeData> getIndexTopKnowl(int cnt) {
-        String key = CACHE_KEY_ + SEP + "getTopKnowl";
+        String key = CACHE_KEY_ + "getIndexTopKnowl";
         List<KnowledgeData> result = MemCachedUtil.get(key);
         if(result == null) {
             CommonService commonService = ServiceFactory.getCommonService();
@@ -165,7 +133,7 @@ public class ManageCacheUtil {
     
     //首页点击查看更多显示各个系统的热点问题
     public static Map<SystemData, List<KnowledgeData>> getCatalogTopKnowl(int cnt) {
-        String key = CACHE_KEY_ + SEP + "getCatalogTopKnowl";
+        String key = CACHE_KEY_ + "getCatalogTopKnowl";
         Map<SystemData, List<KnowledgeData>> result = MemCachedUtil.get(key);
         if(result == null) {
             result = new LinkedHashMap<SystemData, List<KnowledgeData>>();
@@ -197,7 +165,7 @@ public class ManageCacheUtil {
     
     //当前时间处于开放时期的系统
     public static List<SystemOpenTimeData> getUnderwaySystem() {
-        String key = CACHE_KEY_ + SEP + "getUnderwaySystem";
+        String key = CACHE_KEY_ + "getUnderwaySystem";
         List<SystemOpenTimeData> underwaySystems = MemCachedUtil.get(key);
         if(underwaySystems==null) {
             SystemService systemService = ServiceFactory.getSystemService();
@@ -208,13 +176,13 @@ public class ManageCacheUtil {
     }
     
     public static void removeUnderwaySystem() {
-        String key = CACHE_KEY_ + SEP + "getUnderwaySystem";
+        String key = CACHE_KEY_ + "getUnderwaySystem";
         MemCachedUtil.removeByKey(key);
     }
     
     //特殊回答配置，如：见面招呼语“#noanswer”、未找到答案时的回答“#hello”
     public static String getRobotABySpecialQ(String q) {
-        String key = CACHE_KEY_ + SEP + "getRobotASetByQ" + q;
+        String key = CACHE_KEY_ + "getRobotASetByQ" + q;
         List<RobotASetData> result = MemCachedUtil.get(key);
         if(result==null) {
             RobotService robotService = ServiceFactory.getRobotService();
@@ -227,13 +195,13 @@ public class ManageCacheUtil {
     }
     
     public static void removeRobotABySpecialQ(String q) {
-        String key = CACHE_KEY_ + SEP + "getRobotASetByQ" + q;
+        String key = CACHE_KEY_ + "getRobotASetByQ" + q;
         MemCachedUtil.removeByKey(key);
     }
     
     //查询某标签下的所有知识标题接口及系统下所有标签等
     public static ViewKnowsVO getViewKnowsVO(String systemId, String tagId, int curPage) {
-        String key = CACHE_KEY_ + SEP + "getViewKnowsVO" + systemId + tagId + curPage;
+        String key = CACHE_KEY_ + "getViewKnowsVO" + systemId + tagId + curPage;
         ViewKnowsVO result = MemCachedUtil.get(key);
         if(result==null) {
             KnowledgeService knowledgeService = ServiceFactory.getKnowledgeService();
@@ -244,9 +212,17 @@ public class ManageCacheUtil {
         return result;
     }
     
+    public static void removeViewKnowsVO(String systemId, String tagId) {
+        int num = 10;
+        String key = CACHE_KEY_ + "getViewKnowsVO" + systemId + tagId;
+        for(int i=0;i<num;i++) {
+            MemCachedUtil.removeByKey(key+i);
+        }
+    }
+    
     //查询某系统下的所有开放知识
     public static List<KnowledgeVO> getKnowsBySystem(String systemId) {
-        String key = CACHE_KEY_ + SEP + "getKnowsBySystem" + systemId;
+        String key = CACHE_KEY_ + "getKnowsBySystem" + systemId;
         List<KnowledgeVO> result = MemCachedUtil.get(key);
         if(result==null) {
             KnowledgeService knowledgeService = ServiceFactory.getKnowledgeService();

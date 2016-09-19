@@ -70,7 +70,7 @@ function checkForm(abc){
 <body>
 <br />
 <form action="<%=ctxPath%>/manage/tool/clearcache.jsp" method="post" style="margin:0; display:block;" onsubmit="return checkForm(this)">
-	  缓存key：<input type="text" style="width:640px;" title="全匹配" id="key" name="key" value="" /> <font color="blue">(全匹配)</font>
+	  缓存key：<input type="text" style="width:640px;" title="全匹配" id="key" name="key" value="com.chsi.knowledge.util.ManageCacheUtil." /> <font color="blue">(全匹配)</font>
       <input type="submit" value="提交" class="xlbutton"/>
 </form>
 <hr>

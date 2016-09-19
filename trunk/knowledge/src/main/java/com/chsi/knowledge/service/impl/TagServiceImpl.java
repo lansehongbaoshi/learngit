@@ -34,10 +34,6 @@ public class TagServiceImpl extends BaseDbService implements TagService{
     @Override
     public List<ViewTagVO> getTagVOsBySystemIdAndStatus(String systemId, KnowledgeStatus knowledgeStatus, KnowledgeType type) {
         List<TagData> tagDataList = ManageCacheUtil.getTagList(systemId);
-        if(null == tagDataList){
-            tagDataList = tagDataDAO.getTagDataBySystemId(systemId);
-            ManageCacheUtil.addTagList(systemId, tagDataList);
-        }
         if (null == tagDataList || tagDataList.size() == 0){
             return null;
         }

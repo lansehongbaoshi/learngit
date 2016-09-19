@@ -33,7 +33,7 @@
           用户提问：<input type="text" name="q" value="<s:property value="key.q"/>" check="^[\S|\s]{1,}$" warn="用户提问不能为空" style="width: 600px;"  maxlength="50" <s:if test="key.systemDefined">readonly="true"</s:if>><span>（说明：多种相似的词汇或句子用","隔开，如：“姓名,名字”）</span>
         </p>
         <p>
-          提问关键词数目：<input type="text" name="num" value="<s:property value="key.num"/>" check="^[1-9]\d*$" warn="关键词个数为正整数" style="width: 400px;"  maxlength="50" <s:if test="key.systemDefined">readonly="true"</s:if>>
+          匹配分词阀值：<input type="text" name="num" value="<s:property value="key.num"/>" check="^[1-9]\d*$" warn="关键词个数为正整数" style="width: 400px;"  maxlength="50" <s:if test="key.systemDefined">readonly="true"</s:if>><span>（说明：用户输入与系统配置提问匹配到的分词数目大于等于此值时才认为回答合理）</span>
         </p>
         <p>
           机器人回答：<input type="button" value="+" onclick="addLi()"></p>
