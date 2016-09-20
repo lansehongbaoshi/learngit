@@ -115,7 +115,7 @@ public class CommonServiceImpl extends BaseDbService implements CommonService {
         }
         List<KnowledgeData> result2 = new ArrayList<KnowledgeData>();
         result2.addAll(result);
-        return this.addTopKnowledge(result2, systemOpenTimeData.getSystemId(), total);
+        return this.addTopKnowledge(result2, systemOpenTimeData.getSystemId(), total);//增加置顶知识
     }
     
     @Override
@@ -241,7 +241,13 @@ public class CommonServiceImpl extends BaseDbService implements CommonService {
         return result;
     }
     
-    //增加置顶知识
+    /**
+     * 增加置顶知识
+     * @param list
+     * @param systemId
+     * @param total
+     * @return
+     */
     private List<KnowledgeData> addTopKnowledge(List<KnowledgeData> list, String systemId, int total) {
         KnowledgeService knowledgeService = ServiceFactory.getKnowledgeService();
         Set<KnowledgeData> tops = knowledgeService.getTop(systemId);

@@ -201,6 +201,7 @@ public class RobotServiceImpl extends BaseDbService implements RobotService {
         for(String question :qs){
             RobotQABean rqab = new RobotQABean();
             RobotQSetData rqs = robotDAO.getRobotQSetByQ(question);
+            if(rqs!=null) {
             List<RobotASetData> listRAS = robotDAO.getAByQSet(rqs);
             rqab.setId(rqs.getId());
             rqab.setQ(rqs.getQ());
@@ -211,6 +212,7 @@ public class RobotServiceImpl extends BaseDbService implements RobotService {
             }
             rqab.setA(ans);
             list.add(rqab);
+            }
         }
         return list;
     }

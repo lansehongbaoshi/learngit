@@ -26,6 +26,7 @@ public class SearchVO {
     private int visitCnt;
     private int sort;
     private long topTime;
+    private boolean hasImage;
     
     public SearchVO(KnowledgeData knowl) {
         
@@ -50,7 +51,7 @@ public class SearchVO {
     }
     
     public SearchVO(List<SystemData> systemDatas, String tags, String title, String summary, String contentTxt, String knowId,
-            List<String> tagIds, String keywords, int visitCnt, int sort, String type, long topTime){
+            List<String> tagIds, String keywords, int visitCnt, int sort, String type, long topTime, boolean hasImage){
         if(systemDatas!=null) {
             this.systemId = systemDatas.get(0).getId();
             this.system = systemDatas.get(0).getName();
@@ -73,6 +74,7 @@ public class SearchVO {
         this.sort = sort;
         this.type = type;
         this.topTime = topTime;
+        this.hasImage = hasImage;
     }
 
     public String getSystemId() {
@@ -185,6 +187,14 @@ public class SearchVO {
 
     public void setContentTxt(String contentTxt) {
         this.contentTxt = contentTxt;
+    }
+
+    public boolean isHasImage() {
+        return hasImage;
+    }
+
+    public void setHasImage(boolean hasImage) {
+        this.hasImage = hasImage;
     }
 
     

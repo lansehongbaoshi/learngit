@@ -87,17 +87,20 @@ public class SearchUtil {
         List<SearchVO> searchList= new ArrayList<SearchVO>();
         SearchVO tempVO = null;
         String summary = null;
-        int tempLength = 0 ;
         for(KnowledgeVO vo : listVO.getKnows()){
-            vo.setContent(resultFilter(vo.getContent()));
-            if(vo.getContent().length() > length) {
-                summary = vo.getContent().substring(0, length) + "...";
+            String htmlContent = vo.getContent();
+            
+            String txtContent = resultFilter(htmlContent);
+            if(txtContent.length() > length) {
+                summary = txtContent.substring(0, length) + "...";
             } else {
-                summary = vo.getContent();
+                summary = txtContent;
             }
+            
+            boolean hasImage = hasImgTag(htmlContent);
             KnowledgeData data = ManageCacheUtil.getKnowledgeDataById(vo.getKnowledgeId());
             if(data!=null) {
-                tempVO = new SearchVO(data.getSystemDatas(), vo.getTags(), vo.getTitle(), summary, vo.getContent(), vo.getKnowledgeId(), vo.getTagIds(), searchWords, data.getVisitCnt(), data.getSort(), data.getType(), data.getTopTime()==null?-1:data.getTopTime().getTimeInMillis());
+                tempVO = new SearchVO(data.getSystemDatas(), vo.getTags(), vo.getTitle(), summary, txtContent, vo.getKnowledgeId(), vo.getTagIds(), searchWords, data.getVisitCnt(), data.getSort(), data.getType(), data.getTopTime()==null?-1:data.getTopTime().getTimeInMillis(), hasImage);
                 searchList.add(tempVO);
             }
         }
@@ -111,6 +114,13 @@ public class SearchUtil {
             result = String.format("\"%s\"", formatKeyword);
         }
         return result;
+    }
+    
+    private static boolean hasImgTag(String html) {
+        Pattern p = Pattern.compile("<\\s*img\\s+([^>]*)\\s*>");
+        Matcher m = p.matcher(html);
+        boolean rs = m.find();
+        return rs;
     }
     
 }

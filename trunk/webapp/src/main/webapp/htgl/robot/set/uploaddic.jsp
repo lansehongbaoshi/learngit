@@ -24,6 +24,7 @@
     <h1>上传字典</h1>
   </div>
   <div class="row">
+  <p style="font-weight:bold;">说明：支持txt格式上传，txt里问答各占一行，问答之间隔一空白行。一个提问多种回答的，可以按相同的提问不同的回答写多个。</p>
     <form name="" action="/htgl/robot/set/updateCommit.action" method="post" onsubmit="" enctype="multipart/form-data">
       <div class="col-xs-12">
       	<input type="file" name="file">

@@ -17,7 +17,7 @@ import com.chsi.knowledge.vo.SearchVO;
 import com.chsi.search.client.vo.KnowledgeVO;
 
 /**
- * 后台管理用的搜索action
+ * 后台知识管理和查询用的搜索action
  * 
  * @author chenjian
  */
