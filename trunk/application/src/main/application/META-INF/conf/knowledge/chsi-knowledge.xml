@@ -142,5 +142,10 @@
             <ref local="sessionFactory" />
         </property>
     </bean>
+    <bean id="weatherCodeDataDAO" class="com.chsi.knowledge.dao.impl.WeatherCodeDataDAOImpl">
+        <property name="sessionFactory">
+            <ref local="sessionFactory" />
+        </property>
+    </bean>
 
 </beans>

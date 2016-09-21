@@ -18,5 +18,6 @@
         <mapping class="com.chsi.knowledge.pojo.RobotQSetData" /> 
         <mapping class="com.chsi.knowledge.pojo.RobotASetData" /> 
         <mapping class="com.chsi.knowledge.pojo.ALogData" /> 
+        <mapping class="com.chsi.knowledge.pojo.WeatherCodeData"/>
      </session-factory>
 </hibernate-configuration>

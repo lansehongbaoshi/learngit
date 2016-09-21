@@ -13,6 +13,7 @@ public class ServiceConstants {
     public static final String KNOWTAGRELATIONDATA_DAO  = "knowTagRelationDataDAO";
     public static final String COMMON_DAO  = "commonDAO";
     public static final String ROBOT_DAO  = "robotDAO";
+    public static final String WeatherCodeData_DAO  = "weatherCodeDataDAO";
     
     
     //SERVICE层

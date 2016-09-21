@@ -10,6 +10,7 @@ import com.chsi.knowledge.pojo.QALogData;
 import com.chsi.knowledge.pojo.QASessionData;
 import com.chsi.knowledge.pojo.RobotASetData;
 import com.chsi.knowledge.pojo.RobotQSetData;
+import com.chsi.knowledge.pojo.WeatherCodeData;
 import com.chsi.knowledge.vo.AnswerVO;
 import com.chsi.knowledge.vo.PieVO;
 import com.chsi.knowledge.vo.RobotQAListVO;
@@ -70,4 +71,10 @@ public interface RobotService {
     List<QALogData> listQALogDataByAType(AType aType);
     
     Page<QALogData> pageQALogDataByAType(AType aType, int currentPage, int pageSize, String startTime, String endTime);
+
+    boolean addWeatherAddr(String string);
+
+    WeatherCodeData getWeatherCode(String string);
+
+    WeatherCodeData getWeatherCode(List<String> addrs);
 }
