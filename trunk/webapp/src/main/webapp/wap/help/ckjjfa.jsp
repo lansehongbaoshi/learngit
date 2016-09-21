@@ -109,11 +109,49 @@ int otherNum = 5;
                   </ul>
                   <textarea class='text_area' placeholder=""></textarea>
                 </div>
+        </div>
+    <!-- 图片查看器 -->
+    <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="pswp__bg"></div>
+        <div class="pswp__scroll-wrap">
+            <div class="pswp__container">
+                <div class="pswp__item"></div>
             </div>
+            <div class="pswp__ui pswp__ui--hidden">
+                <div class="pswp__top-bar">
+                    <div class="pswp__counter"></div>
+                    <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                   <!--  <button class="pswp__button pswp__button--share" title="Share"></button> -->
+                    <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                    <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                    <div class="pswp__preloader">
+                        <div class="pswp__preloader__icn">
+                            <div class="pswp__preloader__cut">
+                                <div class="pswp__preloader__donut"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                    <div class="pswp__share-tooltip"></div>
+                </div>
+                <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+                </button>
+                <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+                </button>
+                <div class="pswp__caption">
+                    <div class="pswp__caption__center"></div>
+                </div>
+            </div>
+        </div>
+    </div>
     </div>
   </body>
-<script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
-<script type="text/javascript">
+<link rel="stylesheet" href="http://t1.chei.com.cn/common/wap/photoswipe/css/photoswipe.css"> 
+<link rel="stylesheet" href="http://t1.chei.com.cn/common/wap/photoswipe/css/default-skin/default-skin.css"> 
+<script src="http://t1.chei.com.cn/common/wap/photoswipe/js/photoswipe.min.js"></script> 
+<script src="http://t1.chei.com.cn/common/wap/photoswipe/js/photoswipe-ui-default.min.js"></script>  
+<script>
 $(function(){
 	$('.huifu').delegate('li','click',function(e){
 		var $this = $(this),$huifuEnd=$('.huifu_end');
@@ -214,21 +252,45 @@ function submitFn(selectTxt,textarea){
 };
 
 //微信中图片可预览效果的实现。
-$(document).on('click', '.article img',function(event) {
-    var imgArray = [];
+$('.article ').on('click', 'img',function(event) {
+    var imgArray = [],imgIndex=0;
     var curImageSrc = $(this).attr('src');
     var oParent = $(this).parent();
     if (curImageSrc && !oParent.attr('href')) {
         $('.article img').each(function(index, el) {
             var itemSrc = $(this).attr('src');
-            imgArray.push(itemSrc);
+            imgArray.push({src:itemSrc,w:2*this.width,h:2*this.height});
+            if(itemSrc == curImageSrc){
+                imgIndex = index;
+            }
         });
-        wx.previewImage({
-            current: curImageSrc,
-            urls: imgArray
-        });
+        openPhotoSwipe(imgIndex,imgArray);
     }
 });
+//调用PhotoSwiper方法，图片放大效果
+function openPhotoSwipe(index,imgArr){
+    var pswpElement = document.querySelectorAll('.pswp')[0];
+    var $content = $(pswpElement).find('.pswp__container');
+    var items =  $content.find('.pswp__item').length;
+    var imgItems = imgArr.length;
+    var n = imgItems - items;
+    if(n >0){
+        //动态设置item，否则报错，item和图片个数相同
+        for(var i =0 ;i<n ;i++){
+            $('<div class="pswp__item"></div>').appendTo($content);
+        }
+    }
+    var options = {
+        history: false,
+        focus: false,
+        showAnimationDuration: 0,
+        hideAnimationDuration: 0,
+        index:index
+    };
+    var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, imgArr, options);
+    gallery.init();
+}
 
-</script>  
+</script> 
+
 </html>
