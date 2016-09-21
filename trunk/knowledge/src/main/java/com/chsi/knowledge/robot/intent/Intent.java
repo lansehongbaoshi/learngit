@@ -95,7 +95,14 @@ public class Intent {
                         //获取日期类型
                         time.dateType = time.dateTypes.get(prop);
                         start = result.indexOf(prop);
+                        
                     }
+                }
+                
+                if(start==0){
+                    //默认时间为今天
+                    time.dateType = 0;
+                    start=-1;
                 }
                 if(start+1==end){
                     for(int i=0;i<start;i++){
@@ -106,6 +113,7 @@ public class Intent {
                         addrs.add(result.get(i));
                     }
                 }
+                
             }
             
             if(addrs.size()==0){

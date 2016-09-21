@@ -312,8 +312,17 @@ public class RobotServiceImpl extends BaseDbService implements RobotService {
     @Override
     public WeatherCodeData getWeatherCode(String string) {
         // TODO Auto-generated method stub
-        WeatherCodeData weatherCodeData = weatherCodeDataDAO.getWeatherCodeByName(string);
-        return weatherCodeData;
+        
+        for(int i=string.length();i>0;i--){
+            for(int index=0;index<=string.length()-i;index++){
+                String add = string.substring(index,index+i);
+                WeatherCodeData weatherCodeData = weatherCodeDataDAO.getWeatherCodeByName(add);
+                if(weatherCodeData!=null){
+                    return weatherCodeData;
+                }
+            }
+        }
+        return null;
     }
 
     @Override
