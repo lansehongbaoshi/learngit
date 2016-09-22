@@ -39,7 +39,9 @@ public class ManageCacheUtil {
         if(data==null) {
             KnowledgeService knowledgeService = ServiceFactory.getKnowledgeService();
             data = knowledgeService.getKnowledgeWithArticleById(id);
-            MemCachedUtil.set(key, data);
+            if(data!=null) {
+                MemCachedUtil.set(key, data);
+            }
         }
         return data;
     }

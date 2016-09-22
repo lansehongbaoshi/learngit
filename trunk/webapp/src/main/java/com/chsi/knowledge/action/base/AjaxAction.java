@@ -38,6 +38,25 @@ public class AjaxAction extends BasicAction{
     
     protected void writeCallbackJSON(String callback) throws IOException{
         config.setJsonPropertyFilter(new MyPropertyFilter());
+        response.setHeader("Access-Control-Allow-Origin", "http://cti.chsi.com.cn");
+        response.setHeader("P3P","CP='IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND CNT'");
+        response.setContentType("application/json;charset=UTF-8");
+        String json = null;
+        if(ValidatorUtil.isNull(callback)){
+            json = JSONObject.fromObject(ajaxMessage).toString();
+        }else{
+            json = callback+"("+JSONObject.fromObject(ajaxMessage, config).toString()+");";
+        }
+        response.getWriter().print(json);
+        response.getWriter().flush();
+    }
+    
+    protected void writeCallbackJSON(String callback, MyPropertyFilter propertyFilter) throws IOException{
+        if(propertyFilter!=null) {
+            config.setJsonPropertyFilter(propertyFilter);
+        } else {
+            config.setJsonPropertyFilter(new MyPropertyFilter());
+        }
         response.setHeader("P3P","CP='IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND CNT'");
         response.setContentType("application/json;charset=UTF-8");
         String json = null;

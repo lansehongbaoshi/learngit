@@ -76,6 +76,7 @@ public class SearchUtil {
      * 数据格式转换,截断知识保证不超过一定字符数
      * @param listVO
      * @param searchWords
+     * @param length 截断长度
      * @return
      */
     public static List<SearchVO> exchangeResultList(KnowListVO<KnowledgeVO> listVO, String searchWords, int length)
@@ -117,6 +118,7 @@ public class SearchUtil {
     }
     
     private static boolean hasImgTag(String html) {
+        if(ValidatorUtil.isNull(html)) return false;
         Pattern p = Pattern.compile("<\\s*img\\s+([^>]*)\\s*>");
         Matcher m = p.matcher(html);
         boolean rs = m.find();

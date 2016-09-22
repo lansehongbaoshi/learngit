@@ -96,5 +96,11 @@
     <bean id="totalActionBean"  class="com.chsi.knowledge.htgl.action.TotalAction"  scope="request">
         <property name="robotService" ref="robotService" />
     </bean>
+    
+    <bean id="ctiSearchActionBean"  class="com.chsi.knowledge.cti.action.SearchAction"  scope="request">
+        <property name="knowIndexService" ref="knowIndexService" />
+        <property name="systemService" ref="systemService" />
+        <property name="knowledgeService" ref="knowledgeService" />
+    </bean>
    
 </beans>

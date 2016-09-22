@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+
+    <package name="cti" extends="knowledge-default" namespace="/cti">
+        <interceptors>
+          <interceptor-stack name="knowledgeStack">
+              <interceptor-ref name="chsiDefaultStack"></interceptor-ref>
+              <interceptor-ref name="store">
+                  <param name="operationMode">AUTOMATIC</param>
+              </interceptor-ref>
+          </interceptor-stack>
+        </interceptors>
+        <action name="listSystem" class="systemActionBean" method="getSystems"></action>
+        <action name="searchKnow" class="ctiSearchActionBean" method="searchKnow"></action>
+        <action name="getKnow" class="ctiSearchActionBean" method="detailKnow"></action>
+    </package>
+    
+    <!-- 客服普通用户后台管理功能，包括新增内部知识等 -->
+    <package name="cti.htgl" extends="knowledge-default" namespace="/cti/htgl">
+        <interceptors>
+          <interceptor-stack name="knowledgeStack">
+              <interceptor-ref name="chsiDefaultStack"></interceptor-ref>
+              <interceptor-ref name="store">
+                  <param name="operationMode">AUTOMATIC</param>
+              </interceptor-ref>
+          </interceptor-stack>
+        </interceptors>
+    </package>
+    
+</struts>
