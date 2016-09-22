@@ -12,7 +12,12 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import com.chsi.framework.remote.RemoteCallRs;
+import com.chsi.ipsrv.client.IpServiceClient;
+import com.chsi.ipsrv.client.IpServiceClientFactory;
+import com.chsi.ipsrv.client.vo.IpVo;
 import com.chsi.knowledge.dic.IntentType;
+import com.chsi.knowledge.pojo.QASessionData;
 import com.chsi.knowledge.pojo.WeatherCodeData;
 import com.chsi.knowledge.robot.question.vo.Time;
 import com.chsi.knowledge.service.RobotService;
@@ -25,6 +30,7 @@ public class Intent {
     
     public IntentType intentType;
     private String question;
+    private String sessionId;
     /*分析后的结果*/
     List<String> result;
     
@@ -33,6 +39,10 @@ public class Intent {
     }
     public Intent(String question){
         this.question = question;
+    }
+    public Intent(String question,String sessionId){
+        this.question = question;
+        this.sessionId = sessionId;
     }
     
     public boolean isExist(){
@@ -117,7 +127,24 @@ public class Intent {
             }
             
             if(addrs.size()==0){
-                content = "缺少输入的地址或者您输入的语句不通顺。";
+                RobotService robotService = ServiceFactory.getRobotService();
+                QASessionData qaSession = robotService.getQASessionDataById(sessionId);
+                IpServiceClient ipServiceClient = IpServiceClientFactory.getIpServiceClient();
+                RemoteCallRs<IpVo> remoteCallRs = ipServiceClient.getIp(qaSession.getQUserIp());
+                if(null!=remoteCallRs.getValue() && (!"".equals(remoteCallRs.getValue().getArea()) && null!=remoteCallRs.getValue().getArea())){
+                    
+                    WeatherCodeData weatherCode = robotService.getWeatherCode(remoteCallRs.getValue().getArea());
+                    if(weatherCode == null){
+                        content = "缺少输入的地址或者您输入的语句不通顺。";
+                    }else{
+                        JSONObject weather = getWeather(weatherCode);
+                        content = DateUtil.getDateWeek(time.dateType)+" "+weather.getString("temp"+(time.dateType+1))+" "+weather.getString("weather"+(time.dateType+1));
+                    }
+                    
+                }else{
+                    content = "缺少输入的地址或者您输入的语句不通顺。";
+                }
+                
             }else if(addrs.size()==1){
                 RobotService robotService = ServiceFactory.getRobotService();
                 WeatherCodeData weatherCode = robotService.getWeatherCode(addrs.get(0));
@@ -178,6 +205,12 @@ public class Intent {
     }
     public void setQuestion(String question) {
         this.question = question;
+    }
+    public String getSessionId() {
+        return sessionId;
+    }
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
     }
 
 }

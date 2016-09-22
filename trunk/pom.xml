@@ -230,5 +230,6 @@
         <nekohtml.version>1.9.16</nekohtml.version>
         <slf4j-api.version>1.5.10</slf4j-api.version>
         <slf4j-log4j12.version>1.5.6</slf4j-log4j12.version>
+        <chsi-ipsrv-client.version>1.0.0-SNAPSHOT</chsi-ipsrv-client.version>
     </properties>
 </project>

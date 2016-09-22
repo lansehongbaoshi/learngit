@@ -122,7 +122,7 @@ public class RobotServiceImpl extends BaseDbService implements RobotService {
             String keywords = SearchUtil.keywordsFilter(q);
 //            List<RobotASetData> robotAList = robotDAO.getAByQ(keywords);//先查是否是打招呼
             /*判断用户的某种意图             */
-            Intent intent = new Intent(keywords);
+            Intent intent = new Intent(keywords,sessionId);
             if(intent.isExist()){//如果有用户的某种意图
                 answerVO.setAType(AType.ROBOT);
                 answerVO.setContent(intent.getContent());
