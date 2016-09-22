@@ -221,10 +221,12 @@
             <result name="success" type="tiles">htgl.robot.set.uploaddic</result>
         </action>
         <action name="updateCommit" class="robotSetActionBean" method="updateCommit">
-            <result name="success" type="tiles">htgl.robot.set.list</result>
+            <result name="success" >/manage/index.jsp</result>
+            <result name="error" >/manage/index.jsp</result>
         </action>
         <action name="synchronizationIndex" class="robotSetActionBean" method="synchronizationIndex">
-            <result name="success" type="tiles">htgl.robot.set.list</result>
+        </action>
+        <action name="delRobotIndex" class="robotSetActionBean" method="delRobotIndex">
         </action>
         <action name="listDate" class="robotSetActionBean" method="list">
         </action>

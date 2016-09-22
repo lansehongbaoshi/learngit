@@ -25,6 +25,23 @@ $.getJSON("/htgl/system/listSystem.action",
         }
     );
 })
+function synchronizationIndex(){
+    $.getJSON("<%=ctxPath %>/htgl/robot/set/synchronizationIndex.action",function(date){
+    	if(date.flag=="true"){
+    		alert("数据同步成功！");
+    	}
+    });
+}
+
+function delRobotIndex(){
+    $.getJSON("<%=ctxPath %>/htgl/robot/set/delRobotIndex.action",function(date){
+        if(date.flag=="true"){
+            alert("索引删除成功！");
+        }
+    });
+}
+
+
 </script>
 </head>
 <body>
@@ -54,6 +71,27 @@ SystemId：<select id="systemIds" class="systemIds form-control" name="systemId"
 SystemId：<select id="systemIds" class="systemIds form-control" name="systemId"></select>
 <input type="submit" value="更新审核状态（包括本系统和新闻系统）">
 </form>
+<hr>
+<h2>机器人配置</h2>
+<div class="row">
+  <p style="font-weight:bold;">说明：支持txt格式上传，txt里问答各占一行，问答之间隔一空白行。一个提问多种回答的，可以按相同的提问不同的回答写多个。上传完毕后会自动建立上传对话的索引。</p>
+    <form name="" action="<%=ctxPath %>/htgl/robot/set/updateCommit.action" method="post" onsubmit="" enctype="multipart/form-data">
+      <div class="col-xs-12">
+        文件：<input type="file" name="file">
+        <input type="submit" value="提交">
+      </div>
+    </form>
+    <br>
+    <div >
+        <a href="javascript:void(0)" onclick="synchronizationIndex();" target="_self" > 
+            <span >同步数据库和索引</span>
+        </a>
+        &nbsp;&nbsp;
+        <a href="javascript:void(0)" onclick="delRobotIndex();" target="_self" > 
+            <span >刪除索引索引</span>
+        </a> 
+     </div>
+  </div>
 <hr>
 <a href="<%=ctxPath %>/manage/tool/manageRole.jsp">管理知识库权限</a>
 <hr>

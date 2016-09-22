@@ -109,7 +109,7 @@
 			<div class="rows" />
 			<h3 class="row header smaller lighter blue">
 				<div class="col-xs-3">常用语对话配置</div> <div class="col-xs-9">
-				<div class="col-xs-8">
+				<div class="col-xs-11">
 					<div class="input-group">
 						<input id="keywords" type="text" class="form-control search-query"
 							placeholder="机器人对话问题、回答、关键字..." name="keywords" /> <span
@@ -122,18 +122,7 @@
 						</span>
 					</div>
 				</div>
-				<div
-					class="col-xs-2"><a href="javascript:void(0)"
-						onclick="synchronizationIndex();" target="_self"
-						class="btn-new-mail pull-right"> <span
-							class="btn btn-primary btn-xs no-border"><span
-								class="bigger-110">同步数据库和索引</span></span>
-					</a> </div><div class="col-xs-1"><a
-						href="/htgl/robot/set/uploadDic.action" target="_self"
-						class="btn-new-mail pull-right"> <span
-							class="btn btn-primary btn-xs no-border"><span
-								class="bigger-110">上传字典</span></span>
-					</a> </div><div class="col-xs-1"><a
+				<div class="col-xs-1"><a
 						href="/htgl/robot/set/addIndex.action" target="_self"
 						class="btn-new-mail pull-right"> <span
 							class="btn btn-primary btn-xs no-border"> <i

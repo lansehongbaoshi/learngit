@@ -74,11 +74,19 @@ public class RobotSetAction extends AjaxAction{
         }
         
     }
-    public String synchronizationIndex() throws Exception{
+    public void delRobotIndex() throws Exception{
+        robotSolrIndexService.deleteKnowIndexBySolr();
+        System.out.println("删除索引成功！");
+        ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
+        writeCallbackJSON(callback);
+    }
+    
+    public void synchronizationIndex() throws Exception{
         robotSolrIndexService.deleteKnowIndexBySolr();
         robotSolrIndexService.updateAllRobotIndex();
         System.out.println("更新索引成功！");
-        return SUCCESS;
+        ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
+        writeCallbackJSON(callback);
     }
     
     public String listIndex() throws Exception {
