@@ -99,7 +99,7 @@ public class Intent {
                 
             }else if(result.indexOf("天气")!=-1){
                 int end = result.indexOf("天气");
-                int start = 0;
+                int start = -1;
                 for(String prop : result){
                     if(time.dateTypes.containsKey(prop)){
                         //获取日期类型
@@ -109,7 +109,7 @@ public class Intent {
                     }
                 }
                 
-                if(start==0){
+                if(start<0){
                     //默认时间为今天
                     time.dateType = 0;
                     start=-1;
