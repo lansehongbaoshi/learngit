@@ -238,6 +238,9 @@ public class RobotServiceImpl extends BaseDbService implements RobotService {
     @Override
     public void deleteRobotQASet(String id) {
         RobotQSetData robotQSetData = robotDAO.getRobotQSetData(id);
+        if(null==robotQSetData){
+            return;
+        }
         List<RobotASetData> list = robotDAO.getAByQSet(robotQSetData);
         for(RobotASetData data:list) {
             robotDAO.del(data);

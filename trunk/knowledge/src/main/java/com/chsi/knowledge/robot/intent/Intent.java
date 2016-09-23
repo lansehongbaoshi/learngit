@@ -66,7 +66,7 @@ public class Intent {
         //询问天气的意图
         if(result.contains("天气") || result.contains("今天天气")){
             intentType = IntentType.weather;
-            return true;
+            return false;
         }
         
         System.out.println(result);

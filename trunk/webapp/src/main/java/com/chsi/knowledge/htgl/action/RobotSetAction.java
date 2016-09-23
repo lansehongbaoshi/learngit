@@ -206,6 +206,8 @@ public class RobotSetAction extends AjaxAction{
     public String delete() throws Exception {
         if(!ValidatorUtil.isNull(id)) {
             robotService.deleteRobotQASet(id);
+            SearchServiceClient searchClient = SearchServiceClientFactory.getSearchServiceClient();
+            searchClient.deleteRobotQA(id);
             ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
         } else {
             ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
