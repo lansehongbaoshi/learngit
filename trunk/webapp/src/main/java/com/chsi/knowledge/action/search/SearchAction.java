@@ -144,11 +144,16 @@ public class SearchAction extends AjaxAction {
     
     // 全系统搜索标题（自动完成处用,如机器人）
     public String autoTitle() throws Exception {
-        keywords = SearchUtil.keywordsFilter(keywords);
+        keywords = SearchUtil.keywordsFilter2(keywords);
         Map<String, String> queryParams = new HashMap<String, String>();
         queryParams.put("q", keywords);
         queryParams.put("qf", "title");
         queryParams.put("fq", "type:PUBLIC");
+        queryParams.put("fl", "id,title");
+        queryParams.put("hl", "true");
+        queryParams.put("hl.fl", "title");
+        queryParams.put("hl.simple.pre", "<strong style='color:#c30'>");
+        queryParams.put("hl.simple.post", "</strong>");
 //        queryParams.put("fl", "title,id");
         KnowListVO<KnowledgeVO> listVO = knowIndexService.customSearch(queryParams, (curPage - 1) * Constants.SEARCH_PAGE_SIZE, Constants.SEARCH_PAGE_SIZE);
         List<SearchVO> list = SearchUtil.exchangeResultList(listVO, keywords, 14);
