@@ -136,6 +136,11 @@
         <filter-name>LoginFilter</filter-name>
         <url-pattern>/manage/*</url-pattern>
     </filter-mapping>
+    
+    <filter-mapping>
+        <filter-name>LoginFilter</filter-name>
+        <url-pattern>/cti/*</url-pattern>
+    </filter-mapping>
 
     <filter-mapping>
         <filter-name>StrutsPrepareFilter</filter-name>
