@@ -6,14 +6,14 @@ package com.chsi.knowledge.dic;
  */
 public enum KnowledgeStatus {
 
-    YSH, WSH, YSC, CDSC; //已审核、未审核、已删除、彻底删除
+    YSH, DSH, YSC, CDSC; //已审核、待审核、已删除、彻底删除
 
     public String toString() {
         switch (this) {
         case YSH:
             return "已审核"; // 0
-        case WSH:
-            return "未审核"; // 1
+        case DSH:
+            return "待审核"; // 1
         case YSC:
             return "已删除"; // 2
         case CDSC:
@@ -31,7 +31,7 @@ public enum KnowledgeStatus {
         case 0:
             return KnowledgeStatus.YSH;
         case 1:
-            return KnowledgeStatus.WSH;
+            return KnowledgeStatus.DSH;
         case 2:
             return KnowledgeStatus.YSC;
         case 3:
