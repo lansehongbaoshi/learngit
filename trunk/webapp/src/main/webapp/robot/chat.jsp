@@ -532,9 +532,9 @@ $(function() {
        },
        position: { my : "left bottom", at: "left bottom",of: ".all_tips" } 
 	}).data("ui-autocomplete")._renderItem = function (ul, item) {   
-    	var reg = new RegExp("("+item.keywords+")","g");
-    	item.desc =  item.desc.replace(reg, "<strong style='color:#c30'>$1</strong>");
-    	item.label =  item.label.replace(reg, "<strong style='color:#c30'>$1</strong>");          
+//  	var reg = new RegExp("("+item.keywords+")","g");
+//  	item.desc =  item.desc.replace(reg, "<strong style='color:#c30'>$1</strong>");
+//  	item.label =  item.label.replace(reg, "<strong style='color:#c30'>$1</strong>");
         return $("<li>").append("<a>"+item.label+"<span class='system'>["+item.system+"]</span></a>").appendTo(ul);
 	};
 	$(window).on("beforeunload",function() {
