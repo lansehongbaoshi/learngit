@@ -98,11 +98,11 @@ import="com.chsi.knowledge.pojo.KnowledgeData,com.chsi.knowledge.util.ManageCach
 		<div class="normal-question">
 			<div id="kn_labels" >
 				<ul class="clearfix">
-					<li class="selected cn" onclick="ajaxJSONP('systemId=account','knList')" >学信网账号</li>
-					<li class="cn" onclick="ajaxJSONP('systemId=my','knList')">学信档案</li>
-					<li class="cn" style="margin-right: 0; border-right: none;" onclick="ajaxJSONP('systemId=yz_wb','knList')" >研招统考</li>
-					<li class="cn" onclick="ajaxJSONP('systemId=yz_tm','knList')">研招推免</li>
-                    <li class="cn" onclick="ajaxJSONP('systemId=zb','knList')">应征报名</li>
+					<li class="cn" onclick="ajaxJSONP('systemId=account','knList')" data-id="account" >学信网账号</li>
+					<li class="cn" onclick="ajaxJSONP('systemId=my','knList')" data-id="my">学信档案</li>
+					<li class="cn" style="margin-right: 0; border-right: none;" onclick="ajaxJSONP('systemId=yz_wb','knList')" data-id="yz_wb" >研招统考</li>
+					<li class="cn" onclick="ajaxJSONP('systemId=yz_tm','knList')" data-id="yz_tm">研招推免</li>
+                    <li class="cn" onclick="ajaxJSONP('systemId=zb','knList')" data-id="zb">应征报名</li>
                     <li style="border-right: none;"></li>
 				</ul>
 			</div>
@@ -567,6 +567,13 @@ $(function() {
 });
 //初始化
 $(function(){ 
-   ajaxJSONP("systemId=account","knList");   
+    var systemId = "account"
+    $("#kn_labels ul li").each(function(){
+        var thisID = $(this).attr("data-id");
+        if(thisID==systemId){
+            $(this).addClass("selected");
+        }
+    });
+    ajaxJSONP("systemId="+systemId,"knList");   
 });
 </script>
