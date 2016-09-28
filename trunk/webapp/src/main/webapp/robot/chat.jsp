@@ -22,23 +22,25 @@ import="com.chsi.knowledge.pojo.KnowledgeData,com.chsi.knowledge.util.ManageCach
 .logo .weixin:hover .weixin_l { display: block;}
 .logo .weixin:hover .triangle-up { display: block;}
 .main { width:1000px; margin:0 auto; background: #f1f1f1; }
-.main .left { float: left; width: 670px; position: relative; padding-top: 12px; }
-.main .left .tp { width: 615px; margin: 0 auto; padding-left: 35px; border-radius: 5px; line-height: 35px; color: #666; background: url(../images/wap/help/tp.png) no-repeat 5px 8px;  background-color: #dffef9; }
-.main .left #showbox { position: relative; height: 335px; padding-top: 30px; border-bottom: 1px solid #d3d3d3; overflow-y: scroll;overflow-x: hidden; }
+.main .left { float: left; width: 645px; position: relative; padding-top: 12px; }
+.main .left .tp { width: 590px; margin: 0 auto; padding-left: 35px; border-radius: 5px; line-height: 35px; color: #666; background: url(../images/wap/help/tp.png) no-repeat 5px 8px;  background-color: #dffef9; }
+.main .left #showbox { position: relative; height: 478px; padding-top: 30px; border-bottom: 1px solid #d3d3d3; overflow-y: scroll;overflow-x: hidden; }
 .main .left #sendbox { position: relative; height: 165px;   background: #fff; }
 .main .left #sendbox .send_top { height: 100px;}
 .main .left #sendbox .send_bottom { height: 65px;  background: #f1f1f1; } 
-.main .left #sendbox #inputbox { width: 650px; height: 80px; padding: 10px; line-height: 25px; border: none;  }
+.main .left #sendbox #inputbox { width: 625px; height: 80px; padding: 10px; line-height: 25px; border: none;  }
 .main .left #sendbox #sendBtn { position: absolute; right: 10px; bottom: 12px; display: inline-block; width: 90px; padding: 6px 12px;  border: 1px solid transparent; border-radius: 5px; line-height: 1.42857;	box-shadow: 0 0 0 #209683  inset, 0 3px 0 0 #209683; background-color: #28bca4; border-color: #28bca4; color: #fff; font-size: 16px; text-align: center; cursor: pointer; }
 .main .left #sendbox #contentwordage { position: absolute; left: 10px; bottom: 20px;  color: #999;}
 .main .left #sendbox #contentwordage .red { color: #f30;}
 .main .left .all_tips { position: absolute; bottom: 165px; left: 0; }
-.main .right{ float: right; width: 329px; height: 578px;  border-left: 1px solid #d3d3d3; background: #fff;}
+.main .right{ float: right; width: 354px; height: 721px;  border-left: 1px solid #d3d3d3; background: #fff;}
 #ui-id-1 {max-width: 665px;}
-#kn_labels {  background: #f1f1f1; }
-#kn_labels ul li { float: left;  width: 109px; height: 50px; line-height: 50px; border-right: 1px solid #d3d3d3; border-bottom: 1px solid #d3d3d3; text-align: center; color: #666;  background: #f1f1f1;}
+#kn_labels {  background: #f1f1f1; overflow: hidden;}
+#kn_labels ul { width: 120%;}
+#kn_labels ul li { float: left;  width: 117px; height: 50px; line-height: 50px; border-right: 1px solid #d3d3d3; border-bottom: 1px solid #d3d3d3; text-align: center; color: #666;  background: #f1f1f1;}
 #kn_labels ul li.cn {cursor: pointer;}
 #kn_labels ul li.selected { background: #fff; color: #333;}
+#kn_labels ul li.no-border-right { border-right: none;}
 #kn_lists .top_title { padding: 12px; border-bottom: 1px solid #d3d3d3; }
 #kn_lists ul li { padding:2px 12px; height: 35px; line-height: 35px; border-bottom: 1px solid #d3d3d3; color: #666; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
 #kn_lists ul li a { color: #666; }
@@ -50,7 +52,7 @@ import="com.chsi.knowledge.pojo.KnowledgeData,com.chsi.knowledge.util.ManageCach
 .system {color: #999; margin-left: 10px;}
 .hide { display: none;}
 .marginb { margin-bottom: 25px;}
-.robot{ position:relative; float: left; max-width: 480px; margin-left: 75px; padding: 10px; border: 1px solid #d3d3d3; border-radius: 5px; background-color: #fff; word-break: break-all; word-wrap: break-word;}
+.robot{ position:relative; float: left; max-width: 466px; margin-left: 75px; padding: 10px; border: 1px solid #d3d3d3; border-radius: 5px; background-color: #fff; word-break: break-all; word-wrap: break-word;}
 .robot .icon1 { position: absolute; left:-66px; top: -6px; width: 62px; height: 62px; background: url(../images/wap/help/icon_robot.png) no-repeat 0 5px;}
 .robot a { color:#0e6c9c;}
 .robot .feedback{ min-width: 320px; color: #999; }
@@ -59,12 +61,12 @@ import="com.chsi.knowledge.pojo.KnowledgeData,com.chsi.knowledge.util.ManageCach
 .robot label, .robot  input { cursor: pointer;}
 .robot label { margin-left: 5px; }
 .robot input  { margin-right: 2px; vertical-align: -1px;}
-.robot img {max-width: 480px; cursor: pointer;}
+.robot img {max-width: 466px; cursor: pointer;}
 .ui-dialog-footer button.ui-dialog-autofocus { background-color: #28bca4; }
 .ui-dialog-footer button.ui-dialog-autofocus:hover, .ui-dialog-footer button.ui-dialog-autofocus:focus, .ui-dialog-footer button.ui-dialog-autofocus:active { background-color: #28bca4; }
 #kn_feedback { width: 450px; padding: 6px; border: 1px solid #9c9b9a; border-radius: 5px; box-shadow: 0 0 5px #b2b2b2; color: #292929;  }
-.person{position:relative; float: right; max-width: 480px;  margin-right: 75px; padding: 10px; border: 1px solid #28bca4; border-radius: 5px; background-color: #28bca4; color: #fff; word-break: break-all; word-wrap: break-word;}
-.person .icon2 { position: absolute; right: -66px; top: -6px; width: 62px; height: 62px; background: url(../images/wap/help/icon_user.png) no-repeat 0 5px;}
+.person{position:relative; float: right; max-width: 466px;  margin-right: 65px; padding: 10px; border: 1px solid #28bca4; border-radius: 5px; background-color: #28bca4; color: #fff; word-break: break-all; word-wrap: break-word;}
+.person .icon2 { position: absolute; right: -75px; top: -6px; width: 62px; height: 62px; background: url(../images/wap/help/icon_user.png) no-repeat 0 5px;}
 .ui-dialog-content img {max-width: 1200px;}
 </style>
 <div class="logo">
@@ -100,10 +102,16 @@ import="com.chsi.knowledge.pojo.KnowledgeData,com.chsi.knowledge.util.ManageCach
 				<ul class="clearfix">
 					<li class="cn" onclick="ajaxJSONP('systemId=account','knList')" data-id="account" >学信网账号</li>
 					<li class="cn" onclick="ajaxJSONP('systemId=my','knList')" data-id="my">学信档案</li>
-					<li class="cn" style="margin-right: 0; border-right: none;" onclick="ajaxJSONP('systemId=yz_wb','knList')" data-id="yz_wb" >研招统考</li>
+					<li class="cn no-border-right" onclick="ajaxJSONP('systemId=yz_wb','knList')" data-id="yz_wb" >研招统考</li>
 					<li class="cn" onclick="ajaxJSONP('systemId=yz_tm','knList')" data-id="yz_tm">研招推免</li>
                     <li class="cn" onclick="ajaxJSONP('systemId=zb','knList')" data-id="zb">应征报名</li>
-                    <li style="border-right: none;"></li>
+                    <li class="cn no-border-right" onclick="ajaxJSONP('systemId=cet','knList')" data-id="cet">四六级查分</li>
+                    <li class="cn" onclick="ajaxJSONP('systemId=yz_gat','knList')" data-id="yz_gat">面向港澳台招生</li>
+                    <li class="cn" onclick="ajaxJSONP('systemId=gk_tk','knList')" data-id="gk_tk">高考统考招生</li>
+                    <li class="cn no-border-right" onclick="ajaxJSONP('systemId=gk_ts','knList')" data-id="gk_ts">高考特殊类型招生</li>
+                    <li class="cn" onclick="ajaxJSONP('systemId=gk_wb','knList')" data-id="gk_wb">高考特殊类型报名</li>
+                    <li class="cn" onclick="ajaxJSONP('systemId=xlrz','knList')" data-id="xlrz">学历与成绩认证</li>
+                    <li class="no-border-right"></li>
 				</ul>
 			</div>
 			<div id="kn_lists">
