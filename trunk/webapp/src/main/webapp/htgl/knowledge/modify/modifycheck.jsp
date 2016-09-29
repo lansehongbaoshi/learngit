@@ -71,8 +71,14 @@ List<SystemData> systems = systemService.getSystems();
           <label for="" class="col-sm-1 control-label no-padding-top"> 类型： </label>
           <div class="col-sm-9" id="">
           <select name="type">
-          <option value="<%=KnowledgeType.PUBLIC.toString()%>">公开</option>
-          <option value="<%=KnowledgeType.PRIVATE.toString()%>">内部</option>
+          <s:if test="knowledgeData.keywords==PUBLIC">
+            <option value="<%=KnowledgeType.PUBLIC.toString()%>">公开</option>
+            <option value="<%=KnowledgeType.PRIVATE.toString()%>">内部</option>
+          </s:if>
+          <s:else>
+            <option value="<%=KnowledgeType.PRIVATE.toString()%>">内部</option>
+            <option value="<%=KnowledgeType.PUBLIC.toString()%>">公开</option>
+          </s:else>
           </select>
           </div>
         </div>

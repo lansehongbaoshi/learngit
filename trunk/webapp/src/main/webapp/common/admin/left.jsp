@@ -11,7 +11,7 @@ try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
         <li id="homepage_menu" class=""><a href="/cti/index.action"> <i class="menu-icon fa fa-tachometer"></i> <span class="menu-text"> 首页 </span>
         </a> <b class="arrow"></b></li>
     <%} else{ %>
-     <li id="homepage_menu" class=""><a href="/htgl/index.jsp"> <i class="menu-icon fa fa-tachometer"></i> <span class="menu-text"> 首页 </span>
+     <li id="homepage_menu" class=""><a href="/htgl/index.action"> <i class="menu-icon fa fa-tachometer"></i> <span class="menu-text"> 首页 </span>
         </a> <b class="arrow"></b></li>
     <%} %>
     
@@ -65,12 +65,30 @@ try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
 // 	else if(url.indexOf("/htgl/index")>-1) $("#homepage_menu").addClass("active");
 	
 	$(function () {
+		var flag = false;
 		$("#menu li").children("a").each(function (index, domEle) {
 //			console.log(this.href);
 			if(this.href == url){
+				flag = true;
 				$(this).parent().addClass("active");
 			}
 		});
+		if(!flag){
+			$("#menu li").children("a").each(function (index, domEle) {
+//	          console.log(this.href);
+                var nemuUrl = this.href;
+                var end = nemuUrl.lastIndexOf("/");
+                if(end>-1){
+                	nemuUrl = nemuUrl.substring(0,end);
+                }
+	            if(url.indexOf(nemuUrl)>-1){
+	                flag = true;
+	                $(this).parent().addClass("active");
+	            }
+	        });
+		}
+		
+		
 	})
 					
 					
