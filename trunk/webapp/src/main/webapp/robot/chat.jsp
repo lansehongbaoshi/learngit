@@ -8,6 +8,8 @@ import="com.chsi.knowledge.pojo.KnowledgeData,com.chsi.knowledge.util.ManageCach
 <script src="http://t1.chei.com.cn/common/kn/js/kn_page.js"></script>
 <script src='http://t1.chsi.com.cn/common/plugins/dialog/6.0.5/dialog-min.js'></script>
 <script src='http://t1.chsi.com.cn/common/plugins/dialog/6.0.5/dialog-plus-min.js'></script>
+<%String systemId = request.getParameter("system"); 
+systemId = systemId==null?"account":systemId;%>
 <style>
 .content { padding: 25px 0 30px 0; background: #ccc;}
 .logo { position: relative; width:1000px; height: 70px; margin:0 auto;  background-color: #28bca4; color: #fff; }
@@ -575,7 +577,7 @@ $(function() {
 });
 //初始化
 $(function(){ 
-    var systemId = "account"
+    var systemId = "<%=systemId%>";
     $("#kn_labels ul li").each(function(){
         var thisID = $(this).attr("data-id");
         if(thisID==systemId){

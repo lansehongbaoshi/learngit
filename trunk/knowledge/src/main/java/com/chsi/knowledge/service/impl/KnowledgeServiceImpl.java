@@ -151,7 +151,6 @@ public class KnowledgeServiceImpl extends BaseDbService implements KnowledgeServ
         if (start >= count || start < 0) {
             start = 0;
         }
-        CmsServiceClient cmsServiceClient = CmsServiceClientFactory.getCmsServiceClient();
 
         List<KnowledgeData> knowledgeDataList = new ArrayList<KnowledgeData>();
         int size = (pageSize + start) >= list.size() ? list.size() : (pageSize + start);
@@ -164,10 +163,9 @@ public class KnowledgeServiceImpl extends BaseDbService implements KnowledgeServ
         // 数据列表
         List<Know> knows = new ArrayList<Know>();
         Know know = null;
-        Article article = null;
         for (KnowledgeData knowledgeData : knowledgeDataList) {
-            article = cmsServiceClient.getArticle(knowledgeData.getCmsId());
-            know = new Know(article.getTitle());
+            KnowledgeData KnowledgeData = ManageCacheUtil.getKnowledgeDataById(knowledgeData.getId());
+            know = new Know(KnowledgeData.getArticle().getTitle());
             know.addParam("tagId", tagId);
             know.addParam("id", knowledgeData.getId());
             knows.add(know);

@@ -8,6 +8,8 @@ if(null==user || null==user.getAuths()){
 }else{
     if(user.getAuths().contains(com.chsi.knowledge.Constants.ROLE_CTI_USER)) {
         response.sendRedirect(ctxPath + "/cti/index.action");
+    }else if(user.getAuths().contains(com.chsi.knowledge.Constants.ROLE_KNOWLEDGE_READONLY)) {
+        response.sendRedirect(ctxPath + "/query/searchindex.action");
     }else{
         response.sendRedirect(ctxPath + "/htgl/index.action");
     }

@@ -64,7 +64,7 @@
     log.info("====================================================开始====================================================");
     String aLoginName = request.getParameter("loginName");
     String type = request.getParameter("type");
-    String role = "ROLE_KNOWLEDGE";
+    String role = request.getParameter("role");
     log.info(String.format("===================开始accountLoginName:%s,type:%s", aLoginName,type));
     try {
         String userId = accountServiceClient.getAccountByLoginname(aLoginName.trim()).getValue().getId();

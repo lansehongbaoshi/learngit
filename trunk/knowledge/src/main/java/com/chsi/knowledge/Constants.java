@@ -50,6 +50,7 @@ public class Constants {
     public static final String ROLE_KNOWLEDGE = "ROLE_KNOWLEDGE";//知识库后台权限
     public static final String ROLE_KNOWLEDGE_ADMIN = "ROLE_KNOWLEDGE_ADMIN";//知识库管理员权限
     public static final String ROLE_CTI_USER = "ROLE_CTI_USER";//普通客服权限
+    public static final String ROLE_KNOWLEDGE_READONLY = "ROLE_KNOWLEDGE_READONLY";//只读权限
     
 //    public static final String LOB_TYPE = "/kl/attachment";// 小文件系统里指定的type
 }

@@ -142,4 +142,12 @@
         <put-attribute name="body" value="/htgl/total/listQ.jsp"/>
     </definition>
     
+    <!-- 对外查询 -->
+    <definition name="query.index" extends="htgl.admin.main" >
+        <put-attribute name="body" value="/query/index.jsp"/>
+    </definition>
+    <definition name="query.detail" extends="htgl.admin.main" >
+        <put-attribute name="body" value="/query/detail.jsp"/>
+    </definition>
+    
 </tiles-definitions> 

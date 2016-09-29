@@ -39,13 +39,13 @@ if(method!=null&& !"".equals(method)) {
         }
         isResult = true;
     } else if(method.equals("clear index top")) {
-        key = "knowledge.com.chsi.knowledge.util.ManageCacheUtil.getTopKnowl";
+        key = "com.chsi.knowledge.util.ManageCacheUtil.getIndexTopKnowl";
         MemCachedUtil.removeByKey(key);
     } else if(method.equals("clear more top")) {
-        key = "knowledge.com.chsi.knowledge.util.ManageCacheUtil.getCatalogTopKnowl";
+        key = "com.chsi.knowledge.util.ManageCacheUtil.getCatalogTopKnowl";
         MemCachedUtil.removeByKey(key);
     } else if(method.equals("clear top search")) {
-        key = "knowledge.com.chsi.knowledge.util.ManageCacheUtil.getTopSearchKnow";
+        key = "com.chsi.knowledge.util.ManageCacheUtil.getTopSearchKnow";
         MemCachedUtil.removeByKey(key);
     }
 }

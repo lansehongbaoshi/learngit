@@ -1,5 +1,7 @@
 package com.chsi.knowledge.vo;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 import com.chsi.knowledge.pojo.KnowledgeData;
@@ -27,6 +29,9 @@ public class SearchVO {
     private int sort;
     private long topTime;
     private boolean hasImage;
+    private String lastUpdateTime;
+    
+    private static SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     
     public SearchVO(KnowledgeData knowl) {
         
@@ -51,7 +56,7 @@ public class SearchVO {
     }
     
     public SearchVO(List<SystemData> systemDatas, String tags, String title, String summary, String contentTxt, String knowId,
-            List<String> tagIds, String keywords, int visitCnt, int sort, String type, long topTime, boolean hasImage){
+            List<String> tagIds, String keywords, int visitCnt, int sort, String type, long topTime, boolean hasImage, Calendar lastUpdateTime){
         if(systemDatas!=null) {
             this.systemId = systemDatas.get(0).getId();
             this.system = systemDatas.get(0).getName();
@@ -75,6 +80,7 @@ public class SearchVO {
         this.type = type;
         this.topTime = topTime;
         this.hasImage = hasImage;
+        this.lastUpdateTime = format.format(lastUpdateTime.getTime());;
     }
 
     public String getSystemId() {
@@ -195,6 +201,14 @@ public class SearchVO {
 
     public void setHasImage(boolean hasImage) {
         this.hasImage = hasImage;
+    }
+
+    public String getLastUpdateTime() {
+        return lastUpdateTime;
+    }
+
+    public void setLastUpdateTime(String lastUpdateTime) {
+        this.lastUpdateTime = lastUpdateTime;
     }
 
     

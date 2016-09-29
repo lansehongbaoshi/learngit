@@ -38,7 +38,7 @@ public class SearchUtil {
      * @return
      */
     public static String keywordsFilter2(String keywords) {
-        String regex = "^了|吗|呢|啊|嘛|呗|喽|呀|哟|啦$|[ `~!@#$^()=|'+-:;,\\%.<>/?￥…&*（）—【】‘；：”“'。，、\t？]";
+        String regex = "[了|吗|呢|啊|嘛|呗|喽|呀|哟|啦]|[ `~!@#$^()=|'+-:;,\\%.<>/?￥…&*（）—【】‘；：”“'。，、\t？]";
         String goodKeywords = "";
         if(keywords!=null) {
             goodKeywords = keywords.replaceAll(regex, "");
@@ -115,7 +115,7 @@ public class SearchUtil {
             boolean hasImage = hasImgTag(htmlContent);
             KnowledgeData data = ManageCacheUtil.getKnowledgeDataById(vo.getKnowledgeId());
             if(data!=null) {
-                tempVO = new SearchVO(data.getSystemDatas(), vo.getTags(), vo.getTitle(), summary, txtContent, vo.getKnowledgeId(), vo.getTagIds(), searchWords, data.getVisitCnt(), data.getSort(), data.getType(), data.getTopTime()==null?-1:data.getTopTime().getTimeInMillis(), hasImage);
+                tempVO = new SearchVO(data.getSystemDatas(), vo.getTags(), vo.getTitle(), summary, txtContent, vo.getKnowledgeId(), vo.getTagIds(), searchWords, data.getVisitCnt(), data.getSort(), data.getType(), data.getTopTime()==null?-1:data.getTopTime().getTimeInMillis(), hasImage, (data.getUpdateTime()==null ? data.getCreateTime():data.getUpdateTime()));
                 searchList.add(tempVO);
             }
         }

@@ -60,6 +60,8 @@
         <intercept-url pattern="/manage/**" access="ROLE_KNOWLEDGE_ADMIN" />
         
         <intercept-url pattern="/cti/**" access="ROLE_CTI_USER" />
+        
+        <intercept-url pattern="/query/**" access="ROLE_KNOWLEDGE_READONLY" />
 
         <!-- 公共资源-->
         <!-- <intercept-url pattern="/**" access="IS_AUTHENTICATED_ANONYMOUSLY" /> -->

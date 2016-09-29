@@ -59,7 +59,7 @@ public class KnowledgeAction extends AjaxAction{
                     tagId = tagService.getTagData(systemId, "学籍查询").getId();
                 }
             }
-            ViewKnowsVO viewKnowsVO = ManageCacheUtil.getViewKnowsVO(systemId, tagId, curPage);
+            ViewKnowsVO viewKnowsVO = knowledgeService.getViewKnowsVO(systemData, tagId, (curPage - 1) * Constants.PAGE_SIZE, Constants.PAGE_SIZE);
             ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
             ajaxMessage.setO(viewKnowsVO);
         }

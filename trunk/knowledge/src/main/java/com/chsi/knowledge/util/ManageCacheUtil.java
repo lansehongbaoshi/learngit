@@ -100,7 +100,9 @@ public class ManageCacheUtil {
         if(data==null) {
             SystemService systemService = ServiceFactory.getSystemService();
             data = systemService.getSystemById(systemId);
-            MemCachedUtil.set(key, data);
+            if(data!=null) {
+                MemCachedUtil.set(key, data);
+            }
         }
         return data;
     }
@@ -199,27 +201,6 @@ public class ManageCacheUtil {
     public static void removeRobotABySpecialQ(String q) {
         String key = CACHE_KEY_ + "getRobotASetByQ" + q;
         MemCachedUtil.removeByKey(key);
-    }
-    
-    //查询某标签下的所有知识标题接口及系统下所有标签等
-    public static ViewKnowsVO getViewKnowsVO(String systemId, String tagId, int curPage) {
-        String key = CACHE_KEY_ + "getViewKnowsVO" + systemId + tagId + curPage;
-        ViewKnowsVO result = MemCachedUtil.get(key);
-        if(result==null) {
-            KnowledgeService knowledgeService = ServiceFactory.getKnowledgeService();
-            SystemData system = getSystem(systemId);
-            result = knowledgeService.getViewKnowsVO(system, tagId, (curPage - 1) * Constants.PAGE_SIZE, Constants.PAGE_SIZE);
-            MemCachedUtil.set(key, result);
-        }
-        return result;
-    }
-    
-    public static void removeViewKnowsVO(String systemId, String tagId) {
-        int num = 10;
-        String key = CACHE_KEY_ + "getViewKnowsVO" + systemId + tagId;
-        for(int i=0;i<num;i++) {
-            MemCachedUtil.removeByKey(key+i);
-        }
     }
     
     //查询某系统下的所有开放知识

@@ -12,6 +12,11 @@
 </head>
 <body>
     <form action="initRole.jsp" method="post">
+    <select name="role">
+    <option value="ROLE_KNOWLEDGE">管理权限</option>
+    <option value="ROLE_KNOWLEDGE_READONLY">只读权限</option>
+    <option value="ROLE_KNOWLEDGE_ADMIN">系统权限</option>
+    </select>
         单点登录账号:<input type="text" name="loginName"/>
         <input type="radio" name="type" value="yes" checked>授权&nbsp;&nbsp;
         <input type="radio" name="type" value="no">取消授权&nbsp;&nbsp;
