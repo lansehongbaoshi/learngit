@@ -39,6 +39,7 @@
         <action name="searchDSHKnow" class="htglSearchActionBean" method="searchDSHKnow"></action>
     </package>
     
+    
     <package name="htgl.knowledge" extends="knowledge-default" namespace="/htgl/knowledge">
         <interceptors>
           <interceptor-stack name="knowledgeStack">
@@ -56,19 +57,11 @@
             <result name="success" type="tiles">htgl.knowledge.search.checkindex</result>
             <allowed-methods></allowed-methods>
         </action>
-        <action name="addindex">
-            <result name="success" type="tiles">htgl.knowledge.add.index</result>
-        </action>
+        
         <action name="addKnowledge" class="knowledgeActionBean" method="addKnowledge">
             <result name="success" type="redirect">/htgl/knowledge/showKnowledge.action?id=${id}&amp;from=add</result>
         </action>
-        <action name="modifyindex" class="knowledgeActionBean" method="modifyindex">
-            <result name="success" type="tiles">htgl.knowledge.modify.index</result>
-            <allowed-methods>modifyindex</allowed-methods>
-        </action>
-        <action name="modifycheck" class="knowledgeActionBean" method="modifycheck">
-            <result name="success" type="tiles">htgl.knowledge.modify.check</result>
-        </action>
+        
         <action name="updateKnowledge" class="knowledgeActionBean" method="updateKnowledge">
             <result name="success" type="redirect">/htgl/knowledge/showKnowledge.action?id=${id}&amp;from=update</result>
         </action>
@@ -90,7 +83,46 @@
         <action name="showDiscussContent" class="knowledgeActionBean" method="showDiscussContent">
         </action>
     </package>
-    
+    <package name="htgl.knowledge.searchindex" extends="knowledge-default" namespace="/htgl/knowledge/searchindex">
+        <interceptors>
+          <interceptor-stack name="knowledgeStack">
+              <interceptor-ref name="chsiDefaultStack"></interceptor-ref>
+              <interceptor-ref name="store">
+                  <param name="operationMode">AUTOMATIC</param>
+              </interceptor-ref>
+          </interceptor-stack>
+        </interceptors>
+        <action name="showKnowledge" class="knowledgeActionBean" method="getKnow">
+            <result name="success" type="tiles">htgl.knowledge.show</result>
+        </action>
+        <action name="addindex">
+            <result name="success" type="tiles">htgl.knowledge.add.index</result>
+        </action>
+        <action name="modifyindex" class="knowledgeActionBean" method="modifyindex">
+            <result name="success" type="tiles">htgl.knowledge.modify.index</result>
+            <allowed-methods>modifyindex</allowed-methods>
+        </action>
+    </package>
+    <package name="htgl.knowledge.checkindex" extends="knowledge-default" namespace="/htgl/knowledge/checkindex">
+        <interceptors>
+          <interceptor-stack name="knowledgeStack">
+              <interceptor-ref name="chsiDefaultStack"></interceptor-ref>
+              <interceptor-ref name="store">
+                  <param name="operationMode">AUTOMATIC</param>
+              </interceptor-ref>
+          </interceptor-stack>
+        </interceptors>
+        <action name="showKnowledge" class="knowledgeActionBean" method="getKnow">
+            <result name="success" type="tiles">htgl.knowledge.show</result>
+        </action>
+        <action name="addindex">
+            <result name="success" type="tiles">htgl.knowledge.add.index</result>
+        </action>
+        <action name="modifycheck" class="knowledgeActionBean" method="modifycheck">
+            <result name="success" type="tiles">htgl.knowledge.modify.check</result>
+        </action>
+        
+    </package>
     <package name="htgl.system" extends="knowledge-default" namespace="/htgl/system">
         <interceptors>
           <interceptor-stack name="knowledgeStack">
