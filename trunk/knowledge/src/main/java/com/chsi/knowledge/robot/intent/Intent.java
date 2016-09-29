@@ -59,14 +59,14 @@ public class Intent {
             return true;
         }
         //询问时间
-        if(result.contains("几点") || result.contains("时间")){
+        if(result.contains("几点") || (result.contains("时间")) && result.contains("现在")){
             intentType = IntentType.time;
             return true;
         }
         //询问天气的意图
         if(result.contains("天气") || result.contains("今天天气")){
             intentType = IntentType.weather;
-            return false;
+            return true;
         }
         
         System.out.println(result);

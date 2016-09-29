@@ -3,6 +3,7 @@ package com.chsi.knowledge.dao.impl;
 import java.util.List;
 
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 
 import com.chsi.framework.hibernate.BaseHibernateDAO;
 import com.chsi.framework.util.ValidatorUtil;
@@ -10,6 +11,7 @@ import com.chsi.knowledge.dao.KnowledgeDataDAO;
 import com.chsi.knowledge.dic.KnowledgeStatus;
 import com.chsi.knowledge.dic.KnowledgeType;
 import com.chsi.knowledge.pojo.KnowledgeData;
+import com.chsi.knowledge.pojo.TagData;
 
 public class KnowledgeDataDAOImpl extends BaseHibernateDAO implements KnowledgeDataDAO {
 
@@ -133,5 +135,48 @@ public class KnowledgeDataDAOImpl extends BaseHibernateDAO implements KnowledgeD
         List<KnowledgeData> list = query.list();
         return list;
     }
+
+    @Override
+    public List<KnowledgeData> get(String systemId, String tag,
+            KnowledgeStatus dsh, String type,int start,int size) {
+        // TODO Auto-generated method stub
+        String hql = "select A from KnowledgeData A where 1=1 ";
+        if(dsh != null ){
+            hql += " and A.knowledgeStatus = "+dsh.getNum()+" ";
+        }
+        
+        if(!ValidatorUtil.isNull(type) ){
+            hql += " and A.type = '"+type+"' ";
+        }
+        
+        if(!ValidatorUtil.isNull(systemId) &&  ValidatorUtil.isNull(tag)){
+            hql += " and A.id in ( select distinct B.knowledgeData.id from KnowTagRelationData B where B.tagData.id in (select C.id from TagData C where C.systemData.id = '"+systemId+"'))";
+            
+        }
+        if(!ValidatorUtil.isNull(tag)){
+            hql += " and A.id in ( select distinct B.knowledgeData.id from KnowTagRelationData B where B.tagData.id in ('"+tag+"'))";
+        }
+        
+
+        System.out.println(hql);
+        Query query = hibernateUtil.getSession().createQuery(hql);
+        query.setFirstResult(start);
+        query.setMaxResults(size);
+        
+        List<KnowledgeData> list = query.list();
+        return list;
+    }
+
+    @Override
+    public List<TagData> getTagDatasByKnowId(String id) {
+        // TODO Auto-generated method stub
+        String hql = "select a from TagData a where a.id in (select b.tagData.id from KnowTagRelationData b where b.knowledgeData.id=:id )";
+        Query query = hibernateUtil.getSession().createQuery(hql);
+        query.setString("id", id);
+        List<TagData> list = query.list();
+        return list;
+    }
+    
+    
 
 }

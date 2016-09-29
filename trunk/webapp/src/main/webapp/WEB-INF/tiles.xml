@@ -34,23 +34,56 @@
     <definition name="htgl.index" extends="htgl.admin.main" >
         <put-attribute name="body" value="/htgl/index.jsp"/>
     </definition>
+    <definition name="cti.index" extends="htgl.admin.main" >
+        <put-attribute name="body" value="/cti/index.jsp"/>
+    </definition>
     
     <!-- search部分 -->
     <definition name="htgl.search.index" extends="htgl.admin.main" >
         <put-attribute name="body" value="/htgl/search/index.jsp"/>
     </definition>
+    <definition name="cti.search.index" extends="htgl.admin.main" >
+        <put-attribute name="body" value="/cti/search/index.jsp"/>
+    </definition>
+    
+    
     <!--知识点相关  -->
     <definition name="htgl.knowledge.search.index" extends="htgl.admin.main" >
         <put-attribute name="body" value="/htgl/knowledge/search/index.jsp"/>
     </definition>
+    <definition name="htgl.knowledge.search.checkindex" extends="htgl.admin.main" >
+        <put-attribute name="body" value="/htgl/knowledge/search/checkindex.jsp"/>
+    </definition>
+    <definition name="cti.knowledge.search.index" extends="htgl.admin.main" >
+        <put-attribute name="body" value="/cti/knowledge/search/index.jsp"/>
+    </definition>
+    <definition name="cti.knowledge.search.addindex" extends="htgl.admin.main" >
+        <put-attribute name="body" value="/cti/knowledge/search/addindex.jsp"/>
+    </definition>
+    
     <definition name="htgl.knowledge.modify.index" extends="htgl.admin.main" >
         <put-attribute name="body" value="/htgl/knowledge/modify/index.jsp"/>
+    </definition>
+    <definition name="htgl.knowledge.modify.check" extends="htgl.admin.main" >
+        <put-attribute name="body" value="/htgl/knowledge/modify/modifycheck.jsp"/>
+    </definition>
+    <definition name="cti.knowledge.modify.index" extends="htgl.admin.main" >
+        <put-attribute name="body" value="/cti/knowledge/modify/index.jsp"/>
+    </definition>
+    <definition name="cti.knowledge.modify.add" extends="htgl.admin.main" >
+        <put-attribute name="body" value="/cti/knowledge/modify/dshindex.jsp"/>
     </definition>
     <definition name="htgl.knowledge.add.index" extends="htgl.admin.main" >
         <put-attribute name="body" value="/htgl/knowledge/add/index.jsp"/>
     </definition>
+    <definition name="cti.knowledge.add.index" extends="htgl.admin.main" >
+        <put-attribute name="body" value="/cti/knowledge/add/index.jsp"/>
+    </definition>
     <definition name="htgl.knowledge.show" extends="htgl.admin.main" >
         <put-attribute name="body" value="/htgl/knowledge/show.jsp"/>
+    </definition>
+    <definition name="cti.knowledge.show" extends="htgl.admin.main" >
+        <put-attribute name="body" value="/cti/knowledge/show.jsp"/>
     </definition>
     
     <!--系统相关  -->

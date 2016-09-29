@@ -8,8 +8,10 @@ import com.chsi.knowledge.Constants;
 import com.chsi.knowledge.action.base.AjaxAction;
 import com.chsi.knowledge.dic.KnowledgeStatus;
 import com.chsi.knowledge.index.service.KnowIndexService;
+import com.chsi.knowledge.index.service.LogOperService;
 import com.chsi.knowledge.pojo.KnowTagRelationData;
 import com.chsi.knowledge.pojo.KnowledgeData;
+import com.chsi.knowledge.pojo.LogOperData;
 import com.chsi.knowledge.pojo.TagData;
 import com.chsi.knowledge.service.DiscussService;
 import com.chsi.knowledge.service.KnowTagRelationService;
@@ -52,6 +54,8 @@ public class KnowledgeAction extends AjaxAction {
     private DiscussService discussService;
     private DiscussCountVO discussCountVO;
     private KnowListVO<DiscussInfoVO> contentList;
+    private LogOperService logOperService;
+    
     private int curPage;
     
     protected AjaxMessage ajaxMessage = new AjaxMessage();
@@ -222,6 +226,36 @@ public class KnowledgeAction extends AjaxAction {
         request.put(Constants.REQUEST_ERROR, "参数不能为空");
         return ERROR;
     }
+    public String modifycheck() throws Exception {
+        if (!ValidatorUtil.isNull(id)) {
+            knowledgeData = knowledgeService.getKnowledgeWithArticleById(id);
+            if (null != knowledgeData) {
+                knowTagRelationList = knowTagRelationService.getKnowTagDatas(KnowledgeStatus.DSH, id);
+                if (knowTagRelationList != null && knowTagRelationList.size() > 0) {
+                    return SUCCESS;
+                }
+            }
+
+        }
+        request.put(Constants.REQUEST_ERROR, "参数不能为空");
+        return ERROR;
+    }
+    
+    
+    public String modifyadd() throws Exception {
+        if (!ValidatorUtil.isNull(id)) {
+            knowledgeData = knowledgeService.getKnowledgeWithArticleById(id);
+            if (null != knowledgeData) {
+                knowTagRelationList = knowTagRelationService.getKnowTagDatas(KnowledgeStatus.DSH, id);
+                if (knowTagRelationList != null && knowTagRelationList.size() > 0) {
+                    return SUCCESS;
+                }
+            }
+
+        }
+        request.put(Constants.REQUEST_ERROR, "参数不能为空");
+        return ERROR;
+    }
 
     public String getKnow() throws Exception {
         knowTagRelationList = knowTagRelationService.getKnowTagRelationByKnowId(id);
@@ -234,7 +268,7 @@ public class KnowledgeAction extends AjaxAction {
         return SUCCESS;
     }
 
-    // 更新某个知识点，包括更新系统内的knowledge表、新闻系统里的知识点以及搜索引擎的索引
+    // 更新某个知识点，包括更新系统内的knowledge表、新闻系统里的知识点
     public String updateKnowledge() throws Exception {
         String error = "";
         if(ValidatorUtil.isNull(keywords)) {
@@ -262,6 +296,7 @@ public class KnowledgeAction extends AjaxAction {
             data.setUpdateTime(Calendar.getInstance());
             data.setUpdater(getLoginedUserId());
             data.setType(type);
+            data.setKnowledgeStatus(KnowledgeStatus.DSH);
             knowledgeService.update(data, title, content, loginUserVO.getAcc().getId());
             
             knowTagRelationService.del(id);
@@ -276,14 +311,96 @@ public class KnowledgeAction extends AjaxAction {
                     ManageCacheUtil.removeViewKnowsVO(tagData.getSystemData().getId(), tagData.getId());
                 }
             }
-            
-            knowIndexService.updateKnowIndex(data.getId());
+            knowIndexService.deleteKnowIndexBySolr(data.getId());
+//            knowIndexService.updateKnowIndex(data.getId());
             ManageCacheUtil.removeKnowledgeDataById(data.getId());
+            LogOperData logOper = new LogOperData();
+            logOper.setCreateTime(Calendar.getInstance());
+            com.chsi.knowledge.vo.LoginUserVO user = com.chsi.knowledge.web.util.WebAppUtil.getLoginUserVO(httpRequest);
+            logOper.setUserId(user.getAcc().getId());
+            if(user.getAuths().contains(com.chsi.knowledge.Constants.ROLE_CTI_USER)) {
+                logOper.setM1("知识新增");
+            }
+            if(user.getAuths().contains(com.chsi.knowledge.Constants.ROLE_KNOWLEDGE)) {
+                logOper.setM1("知识管理");
+            }
+            
+            logOper.setM2("");
+            logOper.setOper("修改");
+            logOper.setMessage("知识+"+id);
+            logOperService.save(logOper);
+            
             return SUCCESS;
         }
         request.put(Constants.REQUEST_ERROR, "参数不能为空");
         return ERROR;
     }
+    
+ // 更新某个知识点，包括更新系统内的knowledge表、新闻系统里的知识点以及搜索引擎的索引
+    public String checkUpdate() throws Exception {
+        String error = "";
+        if(ValidatorUtil.isNull(keywords)) {
+            error = "请输入关键字";
+        } else if(ValidatorUtil.isNull(title)) {
+            error = "请输入标题";
+        } else if(ValidatorUtil.isNull(content)) {
+            error = "请输入回答";
+        } else if(tagIds == null || tagIds.length == 0) {
+            error = "请先到\"<a href='/htgl/tag/index.action'>便签管理</a>\"中增加标签";
+        } else if(ValidatorUtil.isNull(sort)) {
+            error = "请输入热点度";
+        } else if(ValidatorUtil.isNull(type)) {
+            error = "请设定知识类型";
+        }
+        if(!"".equals(error)) {
+            request.put(Constants.REQUEST_ERROR, error);
+            return ERROR;
+        }
+        LoginUserVO loginUserVO = getLoginUserVO();
+        if (!ValidatorUtil.isNull(id) && !ValidatorUtil.isNull(title) && !ValidatorUtil.isNull(content) && !ValidatorUtil.isNull(sort) && tagIds != null && tagIds.length > 0 && !ValidatorUtil.isNull(keywords)&& !ValidatorUtil.isNull(type)) {
+            KnowledgeData data = knowledgeService.getKnowledgeById(id);
+            data.setKeywords(keywords);
+            data.setSort(Integer.parseInt(sort));
+            data.setUpdateTime(Calendar.getInstance());
+            data.setUpdater(getLoginedUserId());
+            data.setType(type);
+            data.setKnowledgeStatus(KnowledgeStatus.YSH);
+            knowledgeService.update(data, title, content, loginUserVO.getAcc().getId());
+            
+            knowTagRelationService.del(id);
+            for (String one : tagIds) {
+                TagData tagData = tagService.getTagData(one);
+                if (tagData != null) {
+                    KnowTagRelationData newKnowTagRelationData = new KnowTagRelationData();
+                    newKnowTagRelationData.setKnowledgeData(data);
+                    newKnowTagRelationData.setTagData(tagData);
+                    knowTagRelationService.save(newKnowTagRelationData);
+                    ManageCacheUtil.removeKnowTag(tagData.getId());
+                    ManageCacheUtil.removeViewKnowsVO(tagData.getSystemData().getId(), tagData.getId());
+                }
+            }
+            knowIndexService.deleteKnowIndexBySolr(data.getId());
+            knowIndexService.updateKnowIndex(data.getId());
+            ManageCacheUtil.removeKnowledgeDataById(data.getId());
+            LogOperData logOper = new LogOperData();
+            logOper.setCreateTime(Calendar.getInstance());
+            com.chsi.knowledge.vo.LoginUserVO user = com.chsi.knowledge.web.util.WebAppUtil.getLoginUserVO(httpRequest);
+            logOper.setUserId(user.getAcc().getId());
+            logOper.setM1("知识审核");
+            logOper.setM2("");
+            logOper.setOper("审核");
+            logOper.setMessage("知识+"+id);
+            logOperService.save(logOper);
+            
+            return SUCCESS;
+        }
+        request.put(Constants.REQUEST_ERROR, "参数不能为空");
+        return ERROR;
+    }
+    
+    
+    
+    
     
     //更新知识最后更新时间
     public String updateKnowledgeTime() throws Exception {
@@ -326,6 +443,7 @@ public class KnowledgeAction extends AjaxAction {
 
     public String addKnowledge() throws Exception {
         String error = "";
+        LogOperData logOper = new LogOperData();
         if(ValidatorUtil.isNull(keywords)) {
             error = "请输入关键字";
         } else if(ValidatorUtil.isNull(title)) {
@@ -345,7 +463,7 @@ public class KnowledgeAction extends AjaxAction {
         }
         LoginUserVO loginUserVO = getLoginUserVO();
         // 保存知识
-        knowledgeData = new KnowledgeData(null, keywords, null, 0, Integer.parseInt(sort), KnowledgeStatus.YSH, getLoginedUserId(), Calendar.getInstance(), null, null, type);
+        knowledgeData = new KnowledgeData(null, keywords, null, 0, Integer.parseInt(sort), KnowledgeStatus.DSH, getLoginedUserId(), Calendar.getInstance(), null, null, type);
         knowledgeService.save(knowledgeData, title, content, loginUserVO.getOrg().getCode(), getLoginedUserId());
         for (String one : tagIds) {
             TagData tagData = tagService.getTagData(one);
@@ -357,8 +475,22 @@ public class KnowledgeAction extends AjaxAction {
                 ManageCacheUtil.removeViewKnowsVO(tagData.getSystemData().getId(), tagData.getId());
             }
         }
-        knowIndexService.updateKnowIndex(knowledgeData.getId());
+//        knowIndexService.updateKnowIndex(knowledgeData.getId());
         id = knowledgeData.getId();
+        logOper.setCreateTime(Calendar.getInstance());
+        com.chsi.knowledge.vo.LoginUserVO user = com.chsi.knowledge.web.util.WebAppUtil.getLoginUserVO(httpRequest);
+        logOper.setUserId(user.getAcc().getId());
+        if(user.getAuths().contains(com.chsi.knowledge.Constants.ROLE_CTI_USER)) {
+            logOper.setM1("知识新增");
+        }
+        if(user.getAuths().contains(com.chsi.knowledge.Constants.ROLE_KNOWLEDGE)) {
+            logOper.setM1("知识管理或者知识审核");
+        }
+        
+        logOper.setM2("");
+        logOper.setOper("新增");
+        logOper.setMessage("知识+"+id);
+        logOperService.save(logOper);
         return SUCCESS;
         
     }
@@ -377,6 +509,17 @@ public class KnowledgeAction extends AjaxAction {
                 for(KnowTagRelationData one:ktrList) {
                     ManageCacheUtil.removeKnowTag(one.getTagData().getId());
                 }
+                
+                LogOperData logOper = new LogOperData();
+                logOper.setCreateTime(Calendar.getInstance());
+                com.chsi.knowledge.vo.LoginUserVO user = com.chsi.knowledge.web.util.WebAppUtil.getLoginUserVO(httpRequest);
+                logOper.setUserId(user.getAcc().getId());
+                logOper.setM1("知识管理");
+                logOper.setM2("");
+                logOper.setOper("删除");
+                logOper.setMessage("知识+"+id);
+                logOperService.save(logOper);
+                
             }
             ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
         } else {
@@ -417,4 +560,13 @@ public class KnowledgeAction extends AjaxAction {
     public void setSystemId(String systemId) {
         this.systemId = systemId;
     }
+
+    public LogOperService getLogOperService() {
+        return logOperService;
+    }
+
+    public void setLogOperService(LogOperService logOperService) {
+        this.logOperService = logOperService;
+    }
+    
 }

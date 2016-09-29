@@ -44,7 +44,7 @@
         <protect-pointcut expression="execution(* bigbank.*Service.post*(..))" access="ROLE_TELLER"/>
         -->
     </global-method-security>
-
+    
     <http entry-point-ref="casProcessingFilterEntryPoint">
         <form-login />
         <http-basic />
@@ -52,7 +52,7 @@
         <remember-me />
         <!--登录监测页面-->
         <intercept-url pattern="/j_spring_cas_security_check" access="IS_AUTHENTICATED_ANONYMOUSLY" />
-        
+
         <intercept-url pattern="/htgl/admin/druid/**" access="ROLE_XLRZ_MODULE_ADMIN_MODIFY" />
 
         <intercept-url pattern="/htgl/system/**" access="ROLE_KNOWLEDGE_ADMIN" /> 

@@ -13,13 +13,16 @@
               </interceptor-ref>
           </interceptor-stack>
         </interceptors>
-        <action name="listSystem" class="systemActionBean" method="getSystems"></action>
+        <action name="index">
+            <result name="success" type="tiles">cti.index</result>
+        </action>
         <action name="searchKnow" class="ctiSearchActionBean" method="searchKnow"></action>
         <action name="getKnow" class="ctiSearchActionBean" method="detailKnow"></action>
+        
+        <action name="listSystem" class="systemActionBean" method="getSystems"></action>
+        <action name="listTag" class="tagActionBean" method="list"></action>
     </package>
-    
-    <!-- 客服普通用户后台管理功能，包括新增内部知识等 -->
-    <package name="cti.htgl" extends="knowledge-default" namespace="/cti/htgl">
+    <package name="cti.file" extends="knowledge-default" namespace="/cti/file">
         <interceptors>
           <interceptor-stack name="knowledgeStack">
               <interceptor-ref name="chsiDefaultStack"></interceptor-ref>
@@ -28,6 +31,85 @@
               </interceptor-ref>
           </interceptor-stack>
         </interceptors>
+        <action name="up" class="fileActionBean" method="upfile"></action>
+    </package>
+    
+    <package name="cti.search" extends="knowledge-default" namespace="/cti/search">
+        <interceptors>
+          <interceptor-stack name="knowledgeStack">
+              <interceptor-ref name="chsiDefaultStack"></interceptor-ref>
+              <interceptor-ref name="store">
+                  <param name="operationMode">AUTOMATIC</param>
+              </interceptor-ref>
+          </interceptor-stack>
+        </interceptors>
+        <action name="searchindex" class="knowledgeActionBean" method="searchindex">
+            <result name="success" type="tiles">cti.search.index</result>
+        </action>
+        
+        <action name="showKnowledge" class="knowledgeActionBean" method="getKnow">
+            <result name="success" type="tiles">cti.knowledge.show</result>
+        </action>
+        <action name="searchAllKnow" class="htglSearchActionBean" method="searchAllKnow"></action>
+        <action name="searchDSHKnow" class="htglSearchActionBean" method="searchDSHKnow"></action>
+    </package>
+    <package name="cti.view" extends="knowledge-default" namespace="/cti/view">
+        <interceptors>
+          <interceptor-stack name="knowledgeStack">
+              <interceptor-ref name="chsiDefaultStack"></interceptor-ref>
+              <interceptor-ref name="store">
+                  <param name="operationMode">AUTOMATIC</param>
+              </interceptor-ref>
+          </interceptor-stack>
+        </interceptors>
+        <action name="viewKnowledge" class="knowledgeViewActionBean" method="viewKnowledge">
+            <result name="success">/cti/view/viewknowledge.jsp</result>
+        </action>
+    </package>
+    
+    <package name="cti.knowledge" extends="knowledge-default" namespace="/cti/knowledge">
+        <interceptors>
+          <interceptor-stack name="knowledgeStack">
+              <interceptor-ref name="chsiDefaultStack"></interceptor-ref>
+              <interceptor-ref name="store">
+                  <param name="operationMode">AUTOMATIC</param>
+              </interceptor-ref>
+          </interceptor-stack>
+        </interceptors>
+        <action name="delKnowledge" class="knowledgeActionBean" method="delKnowledge">
+        </action>
+        <action name="showKnowledge" class="knowledgeActionBean" method="getKnow">
+            <result name="success" type="tiles">cti.knowledge.show</result>
+        </action>
+        <action name="searchindex" class="knowledgeActionBean" method="searchindex">
+            <result name="success" type="tiles">cti.knowledge.search.index</result>
+            <allowed-methods></allowed-methods>
+        </action>
+        <action name="searchadd" class="knowledgeActionBean" method="searchindex">
+            <result name="success" type="tiles">cti.knowledge.search.addindex</result>
+            <allowed-methods></allowed-methods>
+        </action>
+        <action name="addindex">
+            <result name="success" type="tiles">cti.knowledge.add.index</result>
+        </action>
+        <action name="modifyindex" class="knowledgeActionBean" method="modifyindex">
+            <result name="success" type="tiles">cti.knowledge.modify.index</result>
+            <allowed-methods>modifyindex</allowed-methods>
+        </action>
+        <action name="modifyadd" class="knowledgeActionBean" method="modifyadd">
+            <result name="success" type="tiles">cti.knowledge.modify.add</result>
+        </action>
+        
+        <action name="topKnowledge" class="knowledgeActionBean" method="topKnowledge">
+        </action>
+        <action name="untopKnowledge" class="knowledgeActionBean" method="untopKnowledge">
+        </action>
+        <action name="addKnowledge" class="knowledgeActionBean" method="addKnowledge">
+            <result name="success" type="redirect">/cti/knowledge/showKnowledge.action?id=${id}&amp;from=add</result>
+        </action>
+        <action name="updateKnowledge" class="knowledgeActionBean" method="updateKnowledge">
+            <result name="success" type="redirect">/cti/knowledge/searchindex.action</result>
+        </action>
     </package>
     
 </struts>

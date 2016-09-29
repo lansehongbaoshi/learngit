@@ -44,6 +44,7 @@
     <bean id="knowledgeActionBean"  class="com.chsi.knowledge.htgl.action.KnowledgeAction"  scope="request">
         <property name="knowIndexService" ref="knowIndexService" />
         <property name="knowledgeService" ref="knowledgeService" />
+        <property name="logOperService" ref="logOperService" />
         <property name="tagService" ref="tagService" />
         <property name="systemService" ref="systemService" />
         <property name="knowTagRelationService" ref="knowTagRelationService" />

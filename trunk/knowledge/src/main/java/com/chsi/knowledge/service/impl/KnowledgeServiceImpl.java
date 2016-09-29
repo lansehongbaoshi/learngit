@@ -27,6 +27,7 @@ import com.chsi.knowledge.service.TagService;
 import com.chsi.knowledge.util.ManageCacheUtil;
 import com.chsi.knowledge.util.Navigation;
 import com.chsi.knowledge.util.NavigationUtil;
+import com.chsi.knowledge.util.PageUtil;
 import com.chsi.knowledge.util.Pagination;
 import com.chsi.knowledge.vo.ViewKnowVO;
 import com.chsi.knowledge.vo.ViewKnowVO.ConKnow;
@@ -72,7 +73,7 @@ public class KnowledgeServiceImpl extends BaseDbService implements KnowledgeServ
     }
 
     private ArticleStatusType getStatus(KnowledgeStatus knowledgeStatus) {
-        if (knowledgeStatus == KnowledgeStatus.WSH) {
+        if (knowledgeStatus == KnowledgeStatus.DSH) {
             return ArticleStatusType.WAITTING;
         } else if (knowledgeStatus == KnowledgeStatus.YSH) {
             return ArticleStatusType.PUBLISHED;
@@ -258,6 +259,21 @@ public class KnowledgeServiceImpl extends BaseDbService implements KnowledgeServ
             set.add(newData);
         }
         return set;
+    }
+
+    @Override
+    public List<KnowledgeData> getKnowledgeByStatus(String systemId,
+            String tag, KnowledgeStatus dsh, String type, int start, int size) {
+        // TODO Auto-generated method stub
+        List<KnowledgeData> list = knowledgeDataDAO.get(systemId,tag,dsh,type,start,size);
+        return list;
+    }
+
+    @Override
+    public List<TagData> getTagDatasByKnowId(KnowledgeData know) {
+        // TODO Auto-generated method stub
+        List<TagData> list = knowledgeDataDAO.getTagDatasByKnowId(know.getId());
+        return list;
     }
 
 }

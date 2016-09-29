@@ -8,6 +8,7 @@ import com.chsi.knowledge.dic.KnowledgeType;
 import com.chsi.knowledge.pojo.KnowTagRelationData;
 import com.chsi.knowledge.pojo.KnowledgeData;
 import com.chsi.knowledge.pojo.SystemData;
+import com.chsi.knowledge.pojo.TagData;
 import com.chsi.knowledge.vo.ViewKnowVO;
 import com.chsi.knowledge.vo.ViewKnowsVO;
 /**
@@ -116,4 +117,9 @@ public interface KnowledgeService {
       * @return
       */
      List<KnowledgeData> get(String systemId, KnowledgeStatus knowledgeStatus, KnowledgeType type);
+
+     List<KnowledgeData> getKnowledgeByStatus(String systemId, String tag,
+            KnowledgeStatus dsh, String type, int start, int size);
+
+    List<TagData> getTagDatasByKnowId(KnowledgeData know);
 }

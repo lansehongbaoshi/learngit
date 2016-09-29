@@ -5,6 +5,7 @@ import java.util.List;
 import com.chsi.knowledge.dic.KnowledgeStatus;
 import com.chsi.knowledge.dic.KnowledgeType;
 import com.chsi.knowledge.pojo.KnowledgeData;
+import com.chsi.knowledge.pojo.TagData;
 /**
  * 知识表操作DAO层
  * @author chenjian
@@ -63,5 +64,10 @@ public interface KnowledgeDataDAO {
      * @param id
      */
     void updateVisitCntPlusOne(String id);
+
+    List<KnowledgeData> get(String systemId, String tag, KnowledgeStatus dsh,
+            String type, int start, int size);
+
+    List<TagData> getTagDatasByKnowId(String id);
 
 }

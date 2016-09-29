@@ -147,5 +147,10 @@
             <ref local="sessionFactory" />
         </property>
     </bean>
+    <bean id="logOperDataDAO" class="com.chsi.knowledge.dao.impl.LogOperDataDAOImpl">
+        <property name="sessionFactory">
+            <ref local="sessionFactory" />
+        </property>
+    </bean>
 
 </beans>

@@ -21,6 +21,20 @@ public enum KnowledgeStatus {
         }
         return super.toString();
     }
+    
+    public int getNum(){
+        switch (this) {
+        case YSH:
+            return 0; // 0
+        case DSH:
+            return 1; // 1
+        case YSC:
+            return 2; // 2
+        case CDSC:
+            return 3; // 3
+        }
+        return -1;
+    }
 
     public int getOrdinal() {
         return this.ordinal();

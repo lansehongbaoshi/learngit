@@ -5,15 +5,24 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.chsi.cms.client.CmsServiceClient;
+import com.chsi.cms.client.CmsServiceClientFactory;
+import com.chsi.framework.page.Page;
+import com.chsi.framework.page.PageUtil;
 import com.chsi.framework.util.ValidatorUtil;
 import com.chsi.knowledge.Constants;
 import com.chsi.knowledge.action.base.AjaxAction;
+import com.chsi.knowledge.dic.KnowledgeStatus;
 import com.chsi.knowledge.index.service.KnowIndexService;
+import com.chsi.knowledge.pojo.KnowledgeData;
+import com.chsi.knowledge.pojo.TagData;
 import com.chsi.knowledge.service.KnowledgeService;
 import com.chsi.knowledge.service.SystemService;
+import com.chsi.knowledge.util.Pagination;
 import com.chsi.knowledge.util.SearchUtil;
 import com.chsi.knowledge.vo.KnowListVO;
 import com.chsi.knowledge.vo.SearchVO;
+import com.chsi.news.vo.Article;
 import com.chsi.search.client.vo.KnowledgeVO;
 
 /**
@@ -60,6 +69,7 @@ public class SearchAction extends AjaxAction {
         /*if("*:*".equals(keywords)) {
             queryParams.put("sort", "visit_cnt desc");
         }*/
+        
         KnowListVO<KnowledgeVO> listVO = knowIndexService.searchKnow(queryParams, (curPage - 1) * Constants.PAGE_SIZE, Constants.PAGE_SIZE);
         List<SearchVO> list = SearchUtil.exchangeResultList(listVO, keywords, 40);
         //saveSearchLog(list);
@@ -67,6 +77,53 @@ public class SearchAction extends AjaxAction {
         ajaxMessage.setO(result);
         writeCallbackJSON(callback);
     }
+    
+    public void searchDSHKnow() throws Exception {
+        int start = curPage * Constants.PAGE_SIZE;
+        int size = Constants.PAGE_SIZE;
+        ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
+        List<KnowledgeData> listKnows = knowledgeService.getKnowledgeByStatus(systemId,tag,KnowledgeStatus.DSH,type,start,size);
+        CmsServiceClient cmsServiceClient = CmsServiceClientFactory.getCmsServiceClient();
+        List<KnowledgeVO> knowList = new ArrayList<KnowledgeVO>();
+        for(KnowledgeData know : listKnows){
+            Article article = cmsServiceClient.getArticle(know.getCmsId());
+            List<TagData> tags = knowledgeService.getTagDatasByKnowId(know);
+            KnowledgeVO vo = new KnowledgeVO();
+
+            StringBuffer str = new StringBuffer();
+            List<String> tagIds = new ArrayList<String>();
+            List<String> systemIds = new ArrayList<String>();
+            for (TagData tag : tags) {
+                str.append(tag.getName() + " ");
+                tagIds.add(tag.getId());
+                if(!systemIds.contains(tag.getSystemData().getId())) systemIds.add(tag.getSystemData().getId());
+            }
+
+            vo.setSystemIds(systemIds);
+            vo.setKnowledgeId(know.getId());
+            vo.setTitle(article.getTitle());
+            vo.setContent(article.getContent());
+            vo.setKeywords(know.getKeywords());
+            vo.setTagIds(tagIds);
+            vo.setSort(know.getSort());
+            vo.setType(know.getType());
+            vo.setTags(str.toString());
+            knowList.add(vo);
+        }
+        
+        Page<KnowledgeVO> page = PageUtil.getPage(knowList.iterator(), start, size, Long.parseLong(listKnows.size()+""));
+        Pagination pagination = new Pagination(page.getTotalCount(), page.getPageCount(), page.getCurPage());
+        KnowListVO<KnowledgeVO> listVO = new KnowListVO<KnowledgeVO>(page.getList(), pagination);
+        
+        List<SearchVO> list = SearchUtil.exchangeResultList(listVO, keywords, 40);
+        //saveSearchLog(list);
+        KnowListVO<SearchVO> result = new KnowListVO<SearchVO>(list, listVO.getPagination());
+        ajaxMessage.setO(result);
+        writeCallbackJSON(callback);
+    }
+    
+    
+    
 
     public KnowIndexService getKnowIndexService() {
         return knowIndexService;

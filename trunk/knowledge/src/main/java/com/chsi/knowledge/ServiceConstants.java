@@ -14,6 +14,7 @@ public class ServiceConstants {
     public static final String COMMON_DAO  = "commonDAO";
     public static final String ROBOT_DAO  = "robotDAO";
     public static final String WeatherCodeData_DAO  = "weatherCodeDataDAO";
+    public static final String LogOperData_DAO = "logOperDataDAO";
     
     
     //SERVICE层
@@ -25,6 +26,7 @@ public class ServiceConstants {
     public static final String COMMON_SERVICE  = "commonServiceImpl";
     public static final String KNOWLEDGE_INDEX_SERVICE  = "knowIndexService";
     public static final String ROBOT_SERVICE  = "robotService";
+    public static final String LogOper_Service  = "logOperService";
     
     public static final String SERVICE_IMPL_CONF = "META-INF/conf/knowledge/serviceImpl.xml";
     

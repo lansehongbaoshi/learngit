@@ -65,5 +65,7 @@
     <bean id="robotSolrIndexService" class="com.chsi.knowledge.service.impl.RobotSolrIndexServiceImpl" parent="baseDbService">
         <property name="solrService" ref="solrServerRobot"></property>
     </bean>
+    <bean id="logOperService" class="com.chsi.knowledge.index.service.impl.LogOperServiceImpl" parent="baseDbService">
+    </bean>
     
 </beans>
