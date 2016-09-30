@@ -10,7 +10,7 @@ try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
     <%if(user.getAuths().contains(com.chsi.knowledge.Constants.ROLE_CTI_USER)) {%>
         <li id="homepage_menu" class=""><a href="/cti/index.action"> <i class="menu-icon fa fa-tachometer"></i> <span class="menu-text"> 首页 </span>
         </a> <b class="arrow"></b></li>
-    <%} else{ %>
+    <%} else if(user.getAuths().contains(com.chsi.knowledge.Constants.ROLE_KNOWLEDGE)){ %>
      <li id="homepage_menu" class=""><a href="/htgl/index.action"> <i class="menu-icon fa fa-tachometer"></i> <span class="menu-text"> 首页 </span>
         </a> <b class="arrow"></b></li>
     <%} %>

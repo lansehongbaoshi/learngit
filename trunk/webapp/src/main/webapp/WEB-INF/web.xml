@@ -146,6 +146,11 @@
         <filter-name>LoginFilter</filter-name>
         <url-pattern>/query/*</url-pattern>
     </filter-mapping>
+    
+    <filter-mapping>
+        <filter-name>LoginFilter</filter-name>
+        <url-pattern>/index.jsp</url-pattern>
+    </filter-mapping>
 
     <filter-mapping>
         <filter-name>StrutsPrepareFilter</filter-name>
@@ -188,5 +193,8 @@
         <taglib-uri>/WEB-INF/chsicommon-tags.tld</taglib-uri>
         <taglib-location>/WEB-INF/tld/chsicommon-tags.tld</taglib-location>
     </taglib>
-   
+   <welcome-file-list>  
+        <welcome-file>index.action</welcome-file>  
+        <welcome-file>index.jsp</welcome-file>  
+    </welcome-file-list>
 </web-app>
