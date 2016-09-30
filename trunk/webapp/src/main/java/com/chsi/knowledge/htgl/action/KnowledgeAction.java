@@ -245,6 +245,9 @@ public class KnowledgeAction extends AjaxAction {
                 if (knowTagRelationList != null && knowTagRelationList.size() > 0) {
                     return SUCCESS;
                 }
+            }else {
+                request.put(Constants.REQUEST_ERROR, "该知识点已审核通过，或者该知识点为在待审核状态！");
+                return ERROR;
             }
 
         }

@@ -73,7 +73,7 @@ String ctxPath = request.getContextPath();
                         <h3 class="row header smaller lighter blue">
                         <span class="col-xs-7">知识点列表</span>
                         <span class="col-xs-5" style="display: none">
-                            <a  href="/cti/knowledge/addindex.action" target="_blank"  class="btn-new-mail pull-right">
+                            <a  href="/cti/knowledge/addindex.action" target="_self"  class="btn-new-mail pull-right">
 														<span class="btn btn-primary no-border">
 															<i class="ace-icon fa glyphicon-plus bigger-130"></i>
 															<span class="bigger-110">新增</span>
@@ -131,7 +131,7 @@ String ctxPath = request.getContextPath();
             </div>
         </div>
     </div>
-    <form id="modifyForm" action="/cti/knowledge/searchindex/modifyindex.action" method="post" target="_blank">
+    <form id="modifyForm" action="/cti/knowledge/searchindex/modifyindex.action" method="post" target="_self">
     <input type="hidden" id="theId" name="id">
     </form>
     <script type="text/javascript">
