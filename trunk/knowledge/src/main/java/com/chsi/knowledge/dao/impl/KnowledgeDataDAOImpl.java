@@ -156,7 +156,7 @@ public class KnowledgeDataDAOImpl extends BaseHibernateDAO implements KnowledgeD
         if(!ValidatorUtil.isNull(tag)){
             hql += " and A.id in ( select distinct B.knowledgeData.id from KnowTagRelationData B where B.tagData.id in ('"+tag+"'))";
         }
-        
+        hql += " order by A.createTime ";
 
         System.out.println(hql);
         Query query = hibernateUtil.getSession().createQuery(hql);

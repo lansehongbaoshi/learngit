@@ -337,7 +337,7 @@ public class KnowledgeAction extends AjaxAction {
             
             logOper.setM2("");
             logOper.setOper("修改");
-            logOper.setMessage("知识+"+id);
+            logOper.setMessage("知识");
             logOper.setKeyId(id);
             logOperService.save(logOper);
             
@@ -399,7 +399,7 @@ public class KnowledgeAction extends AjaxAction {
             logOper.setM1("知识审核");
             logOper.setM2("");
             logOper.setOper("审核");
-            logOper.setMessage("知识+"+id);
+            logOper.setMessage("知识");
             logOper.setKeyId(id);
             logOperService.save(logOper);
             
@@ -499,7 +499,7 @@ public class KnowledgeAction extends AjaxAction {
         
         logOper.setM2("");
         logOper.setOper("新增");
-        logOper.setMessage("知识+"+id);
+        logOper.setMessage("知识");
         logOper.setKeyId(id);
         logOperService.save(logOper);
         return SUCCESS;
@@ -528,7 +528,7 @@ public class KnowledgeAction extends AjaxAction {
                 logOper.setM1("知识管理");
                 logOper.setM2("");
                 logOper.setOper("删除");
-                logOper.setMessage("知识+"+id);
+                logOper.setMessage("知识");
                 logOper.setKeyId(id);
                 logOperService.save(logOper);
                 
