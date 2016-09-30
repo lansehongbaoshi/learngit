@@ -391,7 +391,7 @@ function ajaxJSONP(data,callback){
     $("#kn_list").html(template("snippet_list",json)); //直接使用json数据
 //  drawPage("#pagenation_list",json["o"]);
 	$("#kn_list a").on("click",function(){
-		var q=htmlspecialchars($(this).text());
+		var q=$(this).text();
 		$("#showbox").append("<div class='clearfix marginb'><div class='person'><div class='icon2'></div>"+q+"</div></div");
 		var height = $("#showbox").prop("scrollHeight");//原来的高度	
 		$("#showbox").scrollTop(height);//滚动到原来的高度，正好从最新用户输入开始显示								
@@ -510,8 +510,9 @@ $(function() {
 		},
         select: function(event, ui){
         	var knowId = ui.item.knowId;
-        	var q=htmlspecialchars(ui.item.value);   
-        	$("#showbox").append("<div class='clearfix marginb'><div class='person'><div class='icon2'></div>"+q+"</div></div");
+        	var q=ui.item.value;
+        	var appendValue=q.replace(/<strong style='color:#c30'>/g,"").replace(/<\/strong>/g,"")
+        	$("#showbox").append("<div class='clearfix marginb'><div class='person'><div class='icon2'></div>"+appendValue+"</div></div");
         	$.post("/robot/qa.action",{sessionId:sessionId,knowId:knowId},function(result){
 				if(result.flag=="true") {
 	    			var data = result.o;
