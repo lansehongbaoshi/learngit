@@ -1,5 +1,6 @@
 package com.chsi.knowledge.htgl.action;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -22,6 +23,7 @@ import com.chsi.knowledge.util.ManageCacheUtil;
 import com.chsi.knowledge.vo.DiscussCountVO;
 import com.chsi.knowledge.vo.DiscussInfoVO;
 import com.chsi.knowledge.vo.KnowListVO;
+import com.chsi.knowledge.vo.LogOperVO;
 import com.chsi.knowledge.vo.LoginUserVO;
 import com.chsi.knowledge.vo.ViewKnowVO;
 import com.chsi.knowledge.web.util.AjaxMessage;
@@ -41,6 +43,7 @@ public class KnowledgeAction extends AjaxAction {
     private String sort;
     private String type;
     private String systemId;
+    private String keyId;
 
     private ViewKnowVO viewKnowVO;
     private KnowledgeData knowledgeData;
@@ -204,6 +207,14 @@ public class KnowledgeAction extends AjaxAction {
         this.curPage = curPage;
     }
 
+    public String getKeyId() {
+        return keyId;
+    }
+
+    public void setKeyId(String keyId) {
+        this.keyId = keyId;
+    }
+
 
 
     private static final long serialVersionUID = 464316546L;
@@ -327,6 +338,7 @@ public class KnowledgeAction extends AjaxAction {
             logOper.setM2("");
             logOper.setOper("修改");
             logOper.setMessage("知识+"+id);
+            logOper.setKeyId(id);
             logOperService.save(logOper);
             
             return SUCCESS;
@@ -388,6 +400,7 @@ public class KnowledgeAction extends AjaxAction {
             logOper.setM2("");
             logOper.setOper("审核");
             logOper.setMessage("知识+"+id);
+            logOper.setKeyId(id);
             logOperService.save(logOper);
             
             return SUCCESS;
@@ -487,6 +500,7 @@ public class KnowledgeAction extends AjaxAction {
         logOper.setM2("");
         logOper.setOper("新增");
         logOper.setMessage("知识+"+id);
+        logOper.setKeyId(id);
         logOperService.save(logOper);
         return SUCCESS;
         
@@ -515,6 +529,7 @@ public class KnowledgeAction extends AjaxAction {
                 logOper.setM2("");
                 logOper.setOper("删除");
                 logOper.setMessage("知识+"+id);
+                logOper.setKeyId(id);
                 logOperService.save(logOper);
                 
             }
@@ -524,6 +539,24 @@ public class KnowledgeAction extends AjaxAction {
             ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
         }
         writeJSON(ajaxMessage);
+    }
+    
+    public void getLogOper() throws Exception{
+        if (!ValidatorUtil.isNull(keyId)) {
+            List<LogOperData> listData = logOperService.getLogOperByKeyId(keyId);
+            List<LogOperVO> listVO = new ArrayList<LogOperVO>();
+            for(LogOperData logOper : listData){
+                LogOperVO logOperVO = new LogOperVO(logOper);
+                listVO.add(logOperVO);
+            }
+            ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
+            ajaxMessage.setO(listVO);
+        }else {
+            ajaxMessage.addMessage("keyId不能为空！");
+            ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
+        }
+        writeJSON(ajaxMessage);
+        
     }
     
     public void showDiscussContent() throws Exception{

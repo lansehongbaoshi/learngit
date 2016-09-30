@@ -121,6 +121,8 @@
         <action name="modifycheck" class="knowledgeActionBean" method="modifycheck">
             <result name="success" type="tiles">htgl.knowledge.modify.check</result>
         </action>
+        <action name="getLogOper" class="knowledgeActionBean" method="getLogOper">
+        </action>
         
     </package>
     <package name="htgl.system" extends="knowledge-default" namespace="/htgl/system">

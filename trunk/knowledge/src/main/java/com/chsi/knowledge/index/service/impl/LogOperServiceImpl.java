@@ -1,5 +1,7 @@
 package com.chsi.knowledge.index.service.impl;
 
+import java.util.List;
+
 import com.chsi.framework.service.BaseDbService;
 import com.chsi.knowledge.ServiceConstants;
 import com.chsi.knowledge.dao.KnowTagRelationDataDAO;
@@ -31,6 +33,12 @@ public class LogOperServiceImpl extends BaseDbService implements LogOperService 
     public void save(LogOperData logOper) {
         // TODO Auto-generated method stub
         logOperDAO.save(logOper);
+    }
+
+    @Override
+    public List<LogOperData> getLogOperByKeyId(String keyId) {
+        // TODO Auto-generated method stub
+        return logOperDAO.getLogOperByKeyId(keyId);
     }
 
     

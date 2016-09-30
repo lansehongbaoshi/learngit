@@ -36,7 +36,7 @@ List<SystemData> systems = systemService.getSystems();
   </div>
   <div class="row">
     <div class="col-xs-12">
-      <form id="myform" action="<%=ctxPath%>/cti/knowledge/updateKnowledge.action" method="post" enctype="multipart/form-data" class="form-horizontal">
+      <form id="myform" action="<%=ctxPath%>/cti/knowledge/searchadd/updateKnowledge.action" method="post" enctype="multipart/form-data" class="form-horizontal">
         <input type="hidden" name="id" value="<s:property value=" id " />"> <input type="hidden" id="content" name="content" value="">
         <div class="form-group">
           <label for="" class="col-sm-1 control-label no-padding-top">标题：</label>

@@ -93,7 +93,7 @@
         <action name="untopKnowledge" class="knowledgeActionBean" method="untopKnowledge">
         </action>
         <action name="addKnowledge" class="knowledgeActionBean" method="addKnowledge">
-            <result name="success" type="redirect">/cti/knowledge/showKnowledge.action?id=${id}&amp;from=add</result>
+            <result name="success" type="redirect">/cti/knowledge/searchadd/showKnowledge.action?id=${id}&amp;from=add</result>
         </action>
         <action name="updateKnowledge" class="knowledgeActionBean" method="updateKnowledge">
             <result name="success" type="redirect">/cti/knowledge/searchindex.action</result>
@@ -137,5 +137,9 @@
         <action name="modifyadd" class="knowledgeActionBean" method="modifyadd">
             <result name="success" type="tiles">cti.knowledge.modify.add</result>
         </action>
+        <action name="updateKnowledge" class="knowledgeActionBean" method="updateKnowledge">
+            <result name="success" type="redirect">/cti/knowledge/searchadd.action</result>
+        </action>
+        
     </package>
 </struts>

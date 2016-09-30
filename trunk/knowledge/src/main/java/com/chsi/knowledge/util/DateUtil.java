@@ -35,4 +35,8 @@ public class DateUtil {
         return time;
     }
     
+    public static String calendarToString(Calendar   cal){
+        String date = new SimpleDateFormat( "yyyy年MM月dd日 a HH:mm:ss ").format(cal.getTime());
+        return date;
+    }
 }

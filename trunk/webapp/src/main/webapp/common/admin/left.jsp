@@ -79,10 +79,8 @@ try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
             if(end>-1){
                 nemuUrl = nemuUrl.substring(0,end);
             }
-            console.log(nemuUrl);
+
 			$("#menu li").children("a").each(function (index, domEle) {
-//	          console.log(this.href);
-                console.log(this.href);
 	            if(this.href.indexOf(nemuUrl)>-1){
 	                flag = true;
 	                $(this).parent().addClass("active");

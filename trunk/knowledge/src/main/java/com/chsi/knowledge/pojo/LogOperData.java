@@ -28,6 +28,7 @@ public class LogOperData extends PersistentObject {
     private String m2;
     private String oper;
     private String message;
+    private String keyId;
     
     
     
@@ -128,7 +129,14 @@ public class LogOperData extends PersistentObject {
     public void setMessage(String message) {
         this.message = message;
     }
-
     
+    @Column(name = "KEY_ID")
+    public String getKeyId() {
+        return keyId;
+    }
+
+    public void setKeyId(String keyId) {
+        this.keyId = keyId;
+    }
 
 }
