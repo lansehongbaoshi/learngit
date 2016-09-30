@@ -66,7 +66,7 @@
             <result name="success" type="redirect">/htgl/knowledge/showKnowledge.action?id=${id}&amp;from=update</result>
         </action>
         <action name="checkUpdate" class="knowledgeActionBean" method="checkUpdate">
-            <result name="success" type="redirect">/htgl/knowledge/showKnowledge.action?id=${id}&amp;from=update</result>
+            <result name="success" type="redirect">/htgl/knowledge/checkindex/showKnowledge.action?id=${id}&amp;from=update</result>
         </action>
         <action name="updateKnowledgeTime" class="knowledgeActionBean" method="updateKnowledgeTime">
             <result name="success" type="redirect">/htgl/knowledge/showKnowledge.action?id=${id}&amp;from=update</result>
