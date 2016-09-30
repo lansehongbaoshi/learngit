@@ -274,4 +274,12 @@ public class KnowledgeServiceImpl extends BaseDbService implements KnowledgeServ
         return list;
     }
 
+    @Override
+    public long getKnowledgeCount(String systemId, String tag,
+            KnowledgeStatus dsh, String type) {
+        // TODO Auto-generated method stub
+        long count = knowledgeDataDAO.getKnowledgeCount(systemId,tag,dsh,type);
+        return count;
+    }
+
 }

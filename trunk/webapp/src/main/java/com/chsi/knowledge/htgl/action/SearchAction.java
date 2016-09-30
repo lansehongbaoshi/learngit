@@ -79,10 +79,11 @@ public class SearchAction extends AjaxAction {
     }
     
     public void searchDSHKnow() throws Exception {
-        int start = curPage * Constants.PAGE_SIZE;
+        int start = (curPage-1) * Constants.PAGE_SIZE<0?0:(curPage-1) * Constants.PAGE_SIZE;
         int size = Constants.PAGE_SIZE;
         ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
         List<KnowledgeData> listKnows = knowledgeService.getKnowledgeByStatus(systemId,tag,KnowledgeStatus.DSH,type,start,size);
+        long count = knowledgeService.getKnowledgeCount(systemId,tag,KnowledgeStatus.DSH,type);
         CmsServiceClient cmsServiceClient = CmsServiceClientFactory.getCmsServiceClient();
         List<KnowledgeVO> knowList = new ArrayList<KnowledgeVO>();
         for(KnowledgeData know : listKnows){
@@ -111,7 +112,7 @@ public class SearchAction extends AjaxAction {
             knowList.add(vo);
         }
         
-        Page<KnowledgeVO> page = PageUtil.getPage(knowList.iterator(), start, size, Long.parseLong(listKnows.size()+""));
+        Page<KnowledgeVO> page = PageUtil.getPage(knowList.iterator(), start, size, count);
         Pagination pagination = new Pagination(page.getTotalCount(), page.getPageCount(), page.getCurPage());
         KnowListVO<KnowledgeVO> listVO = new KnowListVO<KnowledgeVO>(page.getList(), pagination);
         

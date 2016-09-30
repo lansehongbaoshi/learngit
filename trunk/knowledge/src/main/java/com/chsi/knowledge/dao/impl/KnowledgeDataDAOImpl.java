@@ -176,6 +176,34 @@ public class KnowledgeDataDAOImpl extends BaseHibernateDAO implements KnowledgeD
         List<TagData> list = query.list();
         return list;
     }
+
+    @Override
+    public long getKnowledgeCount(String systemId, String tag,
+            KnowledgeStatus dsh, String type) {
+        // TODO Auto-generated method stub
+        String hql = "select COUNT(*) from KnowledgeData A where 1=1 ";
+        if(dsh != null ){
+            hql += " and A.knowledgeStatus = "+dsh.getNum()+" ";
+        }
+        
+        if(!ValidatorUtil.isNull(type) ){
+            hql += " and A.type = '"+type+"' ";
+        }
+        
+        if(!ValidatorUtil.isNull(systemId) &&  ValidatorUtil.isNull(tag)){
+            hql += " and A.id in ( select distinct B.knowledgeData.id from KnowTagRelationData B where B.tagData.id in (select C.id from TagData C where C.systemData.id = '"+systemId+"'))";
+            
+        }
+        if(!ValidatorUtil.isNull(tag)){
+            hql += " and A.id in ( select distinct B.knowledgeData.id from KnowTagRelationData B where B.tagData.id in ('"+tag+"'))";
+        }
+        hql += " order by A.createTime ";
+
+        System.out.println(hql);
+        Query query = hibernateUtil.getSession().createQuery(hql);
+        return (Long) query.uniqueResult();
+
+    }
     
     
 

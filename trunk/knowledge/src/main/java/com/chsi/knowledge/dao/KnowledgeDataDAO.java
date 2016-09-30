@@ -70,4 +70,7 @@ public interface KnowledgeDataDAO {
 
     List<TagData> getTagDatasByKnowId(String id);
 
+    long getKnowledgeCount(String systemId, String tag, KnowledgeStatus dsh,
+            String type);
+
 }

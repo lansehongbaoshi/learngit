@@ -56,7 +56,7 @@ public class Intent {
         //询问日期的意图
         if(((result.contains("星期") || result.contains("周")) && result.contains("几")) ||  result.contains("几号")){
             intentType = IntentType.date;
-            return true;
+//            return true;
         }
         //询问时间
         if(result.contains("几点") || (result.contains("时间")) && result.contains("现在")){
