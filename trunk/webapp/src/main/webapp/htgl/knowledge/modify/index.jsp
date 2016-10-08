@@ -187,4 +187,24 @@ UE.Editor.prototype.getActionUrl = function(action) {
     }
 }
     var editor = UE.getEditor('container');
+    var isChanged = false;//
+    var firstTime = true;//解决初始化时ueditor会触发contentChange事件问题
+    editor.addListener("contentChange",function(){
+        if(!firstTime) {
+            isChanged = true;
+        }else{
+            firstTime=false;
+        }
+    });
+    window.onbeforeunload = function (e) {
+        if(isChanged) {
+            e = e || window.event;
+            // For IE and Firefox prior to version 4
+            if (e) {
+                e.returnValue = '信息正在编辑，确定离开该页面？';
+            }
+        // For Safari
+            return '信息正在编辑，确定离开该页面？';
+        }
+    };
 </script>

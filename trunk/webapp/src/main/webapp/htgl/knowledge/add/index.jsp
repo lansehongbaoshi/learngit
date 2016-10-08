@@ -6,17 +6,18 @@
 <%@ page import="java.util.*"%>
 <%@ taglib uri="/struts-tags" prefix="s"%>
 <%
-String ctxPath = request.getContextPath();
+    String ctxPath = request.getContextPath();
 SystemService systemService = ServiceFactory.getSystemService();
 List<SystemData> systems = systemService.getSystems();
 %>
 <!--breadcrumbs-->
 <div class="breadcrumbs" id="breadcrumbs">
   <script type="text/javascript">
-                    try {
-                        ace.settings.check('breadcrumbs', 'fixed')
-                    } catch (e) {}
-                </script>
+			try {
+				ace.settings.check('breadcrumbs', 'fixed')
+			} catch (e) {
+			}
+		</script>
   <ul class="breadcrumb">
     <li><i class="ace-icon fa fa-home home-icon"></i> <a href="/htgl/index.action">首页</a></li>
     <li class="active">添加新知识</li>
@@ -57,15 +58,17 @@ List<SystemData> systems = systemService.getSystems();
         </div>
         <div class="form-group">
           <label for="" class="col-sm-1 control-label no-padding-top"> 标签： </label>
-          <div class="col-sm-9" id="tag"><span id="selectedtag" style="margin:0 2px;"></span><a href="javascript:void(0)" data-toggle="modal" data-target="#myModal">添加标签</a></div>
+          <div class="col-sm-9" id="tag">
+            <span id="selectedtag" style="margin: 0 2px;"></span><a href="javascript:void(0)" data-toggle="modal" data-target="#myModal">添加标签</a>
+          </div>
         </div>
         <div class="form-group">
           <label for="" class="col-sm-1 control-label no-padding-top"> 类型： </label>
           <div class="col-sm-9" id="">
-          <select name="type">
-          <option value="<%=KnowledgeType.PUBLIC.toString()%>">公开</option>
-          <option value="<%=KnowledgeType.PRIVATE.toString()%>">内部</option>
-          </select>
+            <select name="type">
+              <option value="<%=KnowledgeType.PUBLIC.toString()%>">公开</option>
+              <option value="<%=KnowledgeType.PRIVATE.toString()%>">内部</option>
+            </select>
           </div>
         </div>
         <input id="content" type="hidden" name="content">
@@ -94,41 +97,40 @@ List<SystemData> systems = systemService.getSystems();
     </div>
   </div>
 </div>
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog"  aria-labelledby="myModalLabel" aria-hidden="true">
-   <div class="modal-dialog">
-      <div class="modal-content">
-         <div class="modal-header">
-            <button type="button" class="close" 
-               data-dismiss="modal" aria-hidden="true">
-                  &times;
-            </button>
-            <h4 class="modal-title" id="myModalLabel">
-               添加标签
-            </h4>
-         </div>
-         <div class="modal-body">
-         <%for(SystemData system:systems){ %>
-         <p><%=system.getName() %>：</p>
-            <p>
-            <%List<TagData> tags = ManageCacheUtil.getTagList(system.getId());
-            for(TagData tag:tags){
-            %>
-            <span style="margin:0 2px;"><input type="checkbox" name="tagIds" value="<%=tag.getId()%>" title="<%=tag.getName()%>"><%=tag.getName()%></span>
-            <%} %>
-            </p>
-            <%} %>
-         </div>
-         <div class="modal-footer">
-
-            <button id="savetag" type="button" class="btn btn-primary save" data-dismiss="modal">
-               确定
-            </button>
-                        <button type="button" class="btn btn-default" 
-               data-dismiss="modal">取消
-            </button>
-         </div>
-      </div><!-- /.modal-content -->
-</div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">添加标签</h4>
+      </div>
+      <div class="modal-body">
+        <%
+            for(SystemData system:systems){
+        %>
+        <p><%=system.getName()%>：
+        </p>
+        <p>
+          <%
+              List<TagData> tags = ManageCacheUtil.getTagList(system.getId());
+              for(TagData tag:tags){
+          %>
+          <span style="margin: 0 2px;"><input type="checkbox" name="tagIds" value="<%=tag.getId()%>" title="<%=tag.getName()%>"><%=tag.getName()%></span>
+          <%
+              }
+          %>
+        </p>
+        <%
+            }
+        %>
+      </div>
+      <div class="modal-footer">
+        <button id="savetag" type="button" class="btn btn-primary save" data-dismiss="modal">确定</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
 </div>
 <!-- 配置文件 -->
 <script type="text/javascript" src="/ueditor/ueditor.config.js"></script>
@@ -136,33 +138,49 @@ List<SystemData> systems = systemService.getSystems();
 <script type="text/javascript" src="/ueditor/ueditor.all.min.js"></script>
 <!-- 实例化编辑器 -->
 <script type="text/javascript">
-UE.Editor.prototype._bkGetActionUrl = UE.Editor.prototype.getActionUrl;
-UE.Editor.prototype.getActionUrl = function(action) {
-    if (action == 'uploadimage' || action == 'uploadfile') {
-        return 'http://kl.chsi.com.cn/htgl/file/up.action';
-    } else if (action == 'uploadvideo') {
-        return 'http://a.b.com/video.php';
-    } else {
-        return this._bkGetActionUrl.call(this, action);
-    }
-}
-    var editor = UE.getEditor('container');
+	UE.Editor.prototype._bkGetActionUrl = UE.Editor.prototype.getActionUrl;
+	UE.Editor.prototype.getActionUrl = function(action) {
+		if (action == 'uploadimage' || action == 'uploadfile') {
+			return 'http://kl.chsi.com.cn/htgl/file/up.action';
+		} else if (action == 'uploadvideo') {
+			return 'http://a.b.com/video.php';
+		} else {
+			return this._bkGetActionUrl.call(this, action);
+		}
+	}
+	var editor = UE.getEditor('container');
+	var isChanged = false;//
+	editor.addListener("contentChange", function() {
+		isChanged = true;
+	});
 </script>
 <script>
-                $(function () {
-                    $("#modifyBtn").click(function () {
-                        var html = editor.getContent();
-                        $("#content").val(html);
-                        $("#myform").submit();
-                    });
-$("#savetag").click(function () {
-	var checked = $("#myModal .modal-body input:checked");
-	var selectedtagSpan = $("#selectedtag");
-	selectedtagSpan.html("");
-    checked.each(function(){
-    	selectedtagSpan.append($(this).clone());
-    	selectedtagSpan.append($(this).attr("title"));
-    });
-});
-                })
-            </script>
+	$(function() {
+		$("#modifyBtn").click(function() {
+			var html = editor.getContent();
+			$("#content").val(html);
+			$("#myform").submit();
+		});
+		$("#savetag").click(function() {
+			var checked = $("#myModal .modal-body input:checked");
+			var selectedtagSpan = $("#selectedtag");
+			selectedtagSpan.html("");
+			checked.each(function() {
+				selectedtagSpan.append($(this).clone());
+				selectedtagSpan.append($(this).attr("title"));
+			});
+		});
+	})
+window.onbeforeunload = function (e) {
+    if(isChanged) {
+        e = e || window.event;
+        // For IE and Firefox prior to version 4
+        if (e) {
+            e.returnValue = '信息正在编辑，确定离开该页面？';
+        }
+    // For Safari
+        return '信息正在编辑，确定离开该页面？';
+    }
+};
+	
+</script>
