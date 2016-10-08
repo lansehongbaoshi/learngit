@@ -52,7 +52,7 @@ List<SystemData> systems = systemService.getSystems();
         <div class="form-group">
           <label for="" class="col-sm-1 control-label no-padding-top">热点度：</label>
           <div class="col-sm-9">
-            <input id="sort" type="text" name="sort" style="width: 100px;" value=""> <span>（说明：1~99之间的数字,数值越大,排序越靠前）</span>
+            <input id="sort" type="text" name="sort" style="width: 100px;" value="20" readonly="readonly"> <span>（说明：1~99之间的数字,数值越大,排序越靠前）</span>
           </div>
         </div>
         <div class="form-group">

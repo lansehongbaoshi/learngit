@@ -80,7 +80,7 @@ if("update".equals(from)) {
                         var str = " <tr><td>"+k.userName+"</td><td>"+k.content+"</td><td>"+k.time+"</td></tr>";
                         $("#search_result").append(str);
                     }
-                    $("#dynamic-table_info").html("总计：共 "+ pagination.totalCount +" 条。");
+                    $("#dynamic-table_info").html("第"+pagination.curPage+"页，共"+ pagination.totalCount +" 条。");
                     $("#dynamic-table_paginate").html(formatP(KId, pagination, curPage));
                     $("#table_footer_info").show();
                 }

@@ -72,7 +72,7 @@ String ctxPath = request.getContextPath();
                     <div class="col-xs-12">
                        
                         <h3 class="row header smaller lighter blue">
-                        <span class="col-xs-7">知识点列表</span>
+                        <span class="col-xs-7">待审核知识点列表</span>
                         <span class="col-xs-5">
                             <a  href="/cti/knowledge/searchadd/addindex.action" target="_self"  class="btn-new-mail pull-right">
 														<span class="btn btn-primary no-border">
@@ -170,7 +170,7 @@ String ctxPath = request.getContextPath();
                             $("#search_result").append(str);
                         }
                         $("#search_table_header").html("搜索 \“"+knows[0].keywords +"\” 的结果").show();
-                        $("#dynamic-table_info").html("总计：共 "+ pagination.totalCount +" 条。");
+                        $("#dynamic-table_info").html("第"+(pagination.curPage)+"页，共"+ pagination.totalCount +" 条。");
                         $("#dynamic-table_paginate").html(formatP(pagination, systemId, keywords, curPage));
                         $("#table_footer_info").show();
                         //$("#rows_content").show();

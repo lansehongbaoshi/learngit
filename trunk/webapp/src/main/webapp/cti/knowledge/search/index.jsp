@@ -169,7 +169,7 @@ String ctxPath = request.getContextPath();
                             $("#search_result").append(str);
                         }
                         $("#search_table_header").html("搜索 \“"+knows[0].keywords +"\” 的结果").show();
-                        $("#dynamic-table_info").html("总计：共 "+ pagination.totalCount +" 条。");
+                        $("#dynamic-table_info").html("第"+(pagination.curPage)+"页，共"+ pagination.totalCount +" 条。");
                         $("#dynamic-table_paginate").html(formatP(pagination, systemId, keywords, curPage));
                         $("#table_footer_info").show();
                         //$("#rows_content").show();
