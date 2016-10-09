@@ -184,9 +184,9 @@ public class KnowIndexServiceImpl extends BaseDbService implements KnowIndexServ
         queryParams.put("defType", "edismax");
         String BF = queryParams.get("bf");
         if(BF!=null) {
-            BF += "ord(visit_cnt)^1 div(sort,1000)^1";
+            BF += "ord(visit_cnt)^0.1";
         } else {
-            BF = "ord(visit_cnt)^1 div(sort,1000)^1";
+            BF = "ord(visit_cnt)^0.1";
         }
         queryParams.put("bf", BF);
         Page<KnowledgeVO> page = searchClient.searchKnow(queryParams, start, pageSize);
@@ -202,7 +202,7 @@ public class KnowIndexServiceImpl extends BaseDbService implements KnowIndexServ
             start = 0;
         }
         queryParams.put("defType", "edismax");
-        String BF = "ord(visit_cnt)^1 div(sort,1000)^1";
+        String BF = "ord(visit_cnt)^0.1";
         queryParams.put("bf", BF);
         Page<KnowledgeVO> page = searchClient.searchKnow(queryParams, start, pageSize);
         Pagination pagination = new Pagination(page.getTotalCount(), page.getPageCount(), page.getCurPage());
