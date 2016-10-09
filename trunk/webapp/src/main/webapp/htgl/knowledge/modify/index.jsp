@@ -145,14 +145,10 @@ $(function(){
 	tagIds+='<s:property value="tagData.id"/>';
 	</s:iterator>
     $("#modifyBtn").click(function(){
+    	isChanged = false;
     	var html = editor.getContent();
 	    $("#content").val(html);
 	    $("#myform").submit();
-    });
-    $("#delBtn").click(function(){
-	   if(confirm("确定删除该知识点？")) {
-	       $("#mydelform").submit();
-	   }
     });
     $("#savetag").click(function () {
         var checked = $("#myModal .modal-body input:checked");

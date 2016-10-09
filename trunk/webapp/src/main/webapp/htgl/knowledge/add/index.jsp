@@ -157,6 +157,7 @@ List<SystemData> systems = systemService.getSystems();
 <script>
 	$(function() {
 		$("#modifyBtn").click(function() {
+			isChanged = false;
 			var html = editor.getContent();
 			$("#content").val(html);
 			$("#myform").submit();
