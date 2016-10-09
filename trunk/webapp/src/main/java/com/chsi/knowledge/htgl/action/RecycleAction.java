@@ -1,5 +1,6 @@
 package com.chsi.knowledge.htgl.action;
 
+import java.util.Calendar;
 import java.util.List;
 
 import com.chsi.cms.client.CmsServiceClient;
@@ -9,8 +10,10 @@ import com.chsi.knowledge.Constants;
 import com.chsi.knowledge.action.base.AjaxAction;
 import com.chsi.knowledge.dic.KnowledgeStatus;
 import com.chsi.knowledge.index.service.KnowIndexService;
+import com.chsi.knowledge.index.service.LogOperService;
 import com.chsi.knowledge.pojo.KnowTagRelationData;
 import com.chsi.knowledge.pojo.KnowledgeData;
+import com.chsi.knowledge.pojo.LogOperData;
 import com.chsi.knowledge.service.KnowTagRelationService;
 import com.chsi.knowledge.service.KnowledgeService;
 import com.chsi.knowledge.util.ManageCacheUtil;
@@ -25,6 +28,7 @@ public class RecycleAction extends AjaxAction {
     private KnowledgeService knowledgeService;
     private KnowIndexService knowIndexService;
     private KnowTagRelationService knowTagRelationService;
+    private LogOperService logOperService;
     
     private String systemId;
     private String klId;
@@ -47,6 +51,7 @@ public class RecycleAction extends AjaxAction {
             knowledgeService.update(knowledgeData);
             knowIndexService.updateKnowIndex(klId);
             ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
+            saveLogOper("回收站", "", "恢复", "知识", klId);
         }
         writeJSON(ajaxMessage);
     }
@@ -65,6 +70,8 @@ public class RecycleAction extends AjaxAction {
                 knowledgeService.delete(data);
                 CmsServiceClient cmsServiceClient = CmsServiceClientFactory.getCmsServiceClient();
                 cmsServiceClient.deleteArticle(data.getCmsId());// 从新闻系统删除
+                
+                saveLogOper("回收站", "", "彻底删除", "知识", klId);
             }
             ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
         } else {
@@ -72,6 +79,19 @@ public class RecycleAction extends AjaxAction {
             ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
         }
         writeJSON(ajaxMessage);
+    }
+    
+    public void saveLogOper(String m1,String m2,String oper,String message,String key){
+        LogOperData logOper = new LogOperData();
+        logOper.setCreateTime(Calendar.getInstance());
+        com.chsi.knowledge.vo.LoginUserVO user = com.chsi.knowledge.web.util.WebAppUtil.getLoginUserVO(httpRequest);
+        logOper.setUserId(user.getAcc().getId());
+        logOper.setM1(m1);
+        logOper.setM2(m2);
+        logOper.setOper(oper);
+        logOper.setMessage(message);
+        logOper.setKeyId(key);
+        logOperService.save(logOper);
     }
     
     public String getSystemId() {
@@ -121,4 +141,13 @@ public class RecycleAction extends AjaxAction {
     public void setKnowTagRelationService(KnowTagRelationService knowTagRelationService) {
         this.knowTagRelationService = knowTagRelationService;
     }
+
+    public LogOperService getLogOperService() {
+        return logOperService;
+    }
+
+    public void setLogOperService(LogOperService logOperService) {
+        this.logOperService = logOperService;
+    }
+    
 }

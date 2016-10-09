@@ -1,11 +1,14 @@
 package com.chsi.knowledge.htgl.action;
 
+import java.util.Calendar;
 import java.util.List;
 
 import com.chsi.framework.util.ValidatorUtil;
 import com.chsi.knowledge.Constants;
 import com.chsi.knowledge.action.base.AjaxAction;
+import com.chsi.knowledge.index.service.LogOperService;
 import com.chsi.knowledge.pojo.KnowTagRelationData;
+import com.chsi.knowledge.pojo.LogOperData;
 import com.chsi.knowledge.pojo.SystemData;
 import com.chsi.knowledge.pojo.TagData;
 import com.chsi.knowledge.service.KnowTagRelationService;
@@ -23,6 +26,7 @@ public class TagAction extends AjaxAction{
     private TagService tagService;
     private SystemService systemService;
     private KnowTagRelationService knowTagRelationService;
+    private LogOperService logOperService;
     private String systemId;
     private String id;
     private String name;
@@ -114,6 +118,14 @@ public class TagAction extends AjaxAction{
         this.tags = tags;
     }
 
+    public LogOperService getLogOperService() {
+        return logOperService;
+    }
+
+    public void setLogOperService(LogOperService logOperService) {
+        this.logOperService = logOperService;
+    }
+
     public void list() throws Exception {
         tags = tagService.get(systemId);
         for(TagData tag:tags) {
@@ -135,6 +147,9 @@ public class TagAction extends AjaxAction{
         tagService.saveOrUpdate(tagData);
         id = tagData.getId();
         ManageCacheUtil.removeTagList(systemId);
+        /*记录新增标签日志*/
+        saveLogOper("标签管理","","新增","标签",id);
+        
         return SUCCESS;
     }
     
@@ -160,6 +175,9 @@ public class TagAction extends AjaxAction{
         tagService.saveOrUpdate(tagData);
         setSystemId(tagData.getSystemData().getId());
         ManageCacheUtil.removeTagList(getSystemId());
+        
+        saveLogOper("标签管理","","修改","标签",id);
+        
         return SUCCESS;
     }
     
@@ -176,16 +194,32 @@ public class TagAction extends AjaxAction{
                     tagService.delete(tagData);
                     ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
                     ManageCacheUtil.removeTagList(systemId);
+                    saveLogOper("标签管理","","删除","标签",id);
                 }
             } else {
                 ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
+                saveLogOper("标签管理","","删除","标签",id);
             }
+            
         } else {
             ajaxMessage.addMessage("id不能为空！");
             ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
         }
         writeJSON(ajaxMessage);
         return NONE;
+    }
+    
+    public void saveLogOper(String m1,String m2,String oper,String message,String key){
+        LogOperData logOper = new LogOperData();
+        logOper.setCreateTime(Calendar.getInstance());
+        com.chsi.knowledge.vo.LoginUserVO user = com.chsi.knowledge.web.util.WebAppUtil.getLoginUserVO(httpRequest);
+        logOper.setUserId(user.getAcc().getId());
+        logOper.setM1(m1);
+        logOper.setM2(m2);
+        logOper.setOper(oper);
+        logOper.setMessage(message);
+        logOper.setKeyId(key);
+        logOperService.save(logOper);
     }
 
 }

@@ -20,6 +20,21 @@
         <action name="listTag" class="tagActionBean" method="list"></action>
     </package>
     
+    <package name="htgl.log" extends="knowledge-default" namespace="/htgl/log">
+        <interceptors>
+          <interceptor-stack name="knowledgeStack">
+              <interceptor-ref name="chsiDefaultStack"></interceptor-ref>
+              <interceptor-ref name="store">
+                  <param name="operationMode">AUTOMATIC</param>
+              </interceptor-ref>
+          </interceptor-stack>
+        </interceptors>
+        <action name="index">
+            <result name="success" type="tiles">htgl.log.index</result>
+        </action>
+        
+    </package>
+    
     <package name="htgl.search" extends="knowledge-default" namespace="/htgl/search">
         <interceptors>
           <interceptor-stack name="knowledgeStack">
@@ -63,7 +78,7 @@
         </action>
         
         <action name="updateKnowledge" class="knowledgeActionBean" method="updateKnowledge">
-            <result name="success" type="redirect">/htgl/knowledge/showKnowledge.action?id=${id}&amp;from=update</result>
+            <result name="success" type="redirect">/htgl/knowledge/searchindex/showKnowledge.action?id=${id}&amp;from=update</result>
         </action>
         <action name="checkUpdate" class="knowledgeActionBean" method="checkUpdate">
             <result name="success" type="redirect">/htgl/knowledge/checkindex/showKnowledge.action?id=${id}&amp;from=update</result>

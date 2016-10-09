@@ -158,7 +158,7 @@ if("update".equals(from)) {
                     </h2>
 
                     <div class="widget-toolbar no-border"
-                        data-id="<s:property value=" knowledgeData.id " />">
+                        data-id="<s:property value=" knowledgeData.id " />" style="display: none">
                         <a href="#" data-action="update-time" title="将当前时间设置为更新时间"> <i
                             class="ace-icon fa fa-clock-o"></i>
                         </a> <a href="javascript:void(0)" title="编辑该知识"> <i

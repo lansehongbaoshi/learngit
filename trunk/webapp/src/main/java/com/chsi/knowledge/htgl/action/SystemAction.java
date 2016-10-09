@@ -1,10 +1,13 @@
 package com.chsi.knowledge.htgl.action;
 
+import java.util.Calendar;
 import java.util.List;
 
 import com.chsi.framework.util.ValidatorUtil;
 import com.chsi.knowledge.Constants;
 import com.chsi.knowledge.action.base.AjaxAction;
+import com.chsi.knowledge.index.service.LogOperService;
+import com.chsi.knowledge.pojo.LogOperData;
 import com.chsi.knowledge.pojo.SystemData;
 import com.chsi.knowledge.pojo.SystemOpenTimeData;
 import com.chsi.knowledge.pojo.TagData;
@@ -23,6 +26,7 @@ public class SystemAction extends AjaxAction {
     private static final long serialVersionUID = 12312412L;
     private SystemService systemService;
     private TagService tagService;
+    private LogOperService logOperService;
     private String id;
     private String name;
     private String description;
@@ -87,6 +91,14 @@ public class SystemAction extends AjaxAction {
     // public void setEndTime(String endTime) {
     // this.endTime = endTime;
     // }
+
+    public LogOperService getLogOperService() {
+        return logOperService;
+    }
+
+    public void setLogOperService(LogOperService logOperService) {
+        this.logOperService = logOperService;
+    }
 
     public SystemData getSystemData() {
         return systemData;
@@ -166,6 +178,9 @@ public class SystemAction extends AjaxAction {
         String[] endTime = getParameters().get("endTime");
         systemService.save(data, startTime, endTime);
         ManageCacheUtil.removeUnderwaySystem();
+        
+        saveLogOper("系统管理", "", "新增", "系统", id);
+        
         return SUCCESS;
     }
 
@@ -201,6 +216,8 @@ public class SystemAction extends AjaxAction {
         systemService.update(data, startTime, endTime);
         ManageCacheUtil.removeSystem(id);
         ManageCacheUtil.removeUnderwaySystem();
+        
+        saveLogOper("系统管理", "", "修改", "系统", id);
         return SUCCESS;
     }
 
@@ -215,8 +232,10 @@ public class SystemAction extends AjaxAction {
                 } else {
                     systemService.delete(systemData);
                     ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
+                    saveLogOper("系统管理", "", "删除", "系统", id);
                 }
             } else {
+                saveLogOper("系统管理", "", "删除", "系统", id);
                 ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
             }
         } else {
@@ -255,5 +274,17 @@ public class SystemAction extends AjaxAction {
 
     public void setCallback(String callback) {
         this.callback = callback;
+    }
+    public void saveLogOper(String m1,String m2,String oper,String message,String key){
+        LogOperData logOper = new LogOperData();
+        logOper.setCreateTime(Calendar.getInstance());
+        com.chsi.knowledge.vo.LoginUserVO user = com.chsi.knowledge.web.util.WebAppUtil.getLoginUserVO(httpRequest);
+        logOper.setUserId(user.getAcc().getId());
+        logOper.setM1(m1);
+        logOper.setM2(m2);
+        logOper.setOper(oper);
+        logOper.setMessage(message);
+        logOper.setKeyId(key);
+        logOperService.save(logOper);
     }
 }

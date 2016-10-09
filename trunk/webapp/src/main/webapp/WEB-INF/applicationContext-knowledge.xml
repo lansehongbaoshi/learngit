@@ -61,18 +61,21 @@
     <bean id="systemActionBean"  class="com.chsi.knowledge.htgl.action.SystemAction"  scope="request">
         <property name="systemService" ref="systemService" />
         <property name="tagService" ref="tagService" />
+        <property name="logOperService" ref="logOperService" />
     </bean>
     
     <bean id="tagActionBean"  class="com.chsi.knowledge.htgl.action.TagAction"  scope="request">
         <property name="systemService" ref="systemService" />
         <property name="tagService" ref="tagService" />
         <property name="knowTagRelationService" ref="knowTagRelationService" />
+        <property name="logOperService" ref="logOperService" />
     </bean>
     
     <bean id="recycleActionBean"  class="com.chsi.knowledge.htgl.action.RecycleAction"  scope="request">
         <property name="knowledgeService" ref="knowledgeService" />
         <property name="knowIndexService" ref="knowIndexService" />
         <property name="knowTagRelationService" ref="knowTagRelationService" />
+        <property name="logOperService" ref="logOperService" />
     </bean>
    
     <bean id="fileActionBean"  class="com.chsi.knowledge.file.action.FileAction"  scope="request">

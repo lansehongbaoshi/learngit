@@ -150,4 +150,9 @@
         <put-attribute name="body" value="/query/detail.jsp"/>
     </definition>
     
+    <!-- 日志部分 -->
+    <definition name="htgl.log.index" extends="htgl.admin.main" >
+        <put-attribute name="body" value="/htgl/log/index.jsp"/>
+    </definition>
+    
 </tiles-definitions> 

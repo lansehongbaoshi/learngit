@@ -1,6 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="com.chsi.framework.util.TimeUtil" %>
+<%@ page import="java.util.*" %>
+<%@ taglib uri="/struts-tags" prefix="s"%>
 <%
 String ctxPath = request.getContextPath();
+Calendar cal = Calendar.getInstance();
+cal.add(Calendar.DAY_OF_MONTH, -1);
+String endDate = TimeUtil.getTime(cal, "yyyy-MM-dd");
+cal.add(Calendar.DAY_OF_MONTH, -9);
+String startDate = TimeUtil.getTime(cal, "yyyy-MM-dd");
 %>
     <!--breadcrumbs-->
 <style>
@@ -14,7 +22,7 @@ String ctxPath = request.getContextPath();
         </script>
         <ul class="breadcrumb">
             <li> <i class="ace-icon fa fa-home home-icon"></i> <a href="/htgl/index.action">首页</a> </li>
-            <li class="active">知识管理</li>
+            <li class="active">日志管理</li>
         </ul>
         <!-- /.breadcrumb -->
 
@@ -35,32 +43,22 @@ String ctxPath = request.getContextPath();
         </div>
 
        <div class="rows">
-       <div class="col-xs-12 col-md-2">
-        <select id="type" class="form-control" name="type">
-        <option value="">请选择类型...</option>
-        <option value="PRIVATE">内部</option>
-        <option value="PUBLIC">公开</option>
-        </select>
-        </div>
-       <div class="col-xs-12 col-md-2">
-        <select id="systemIds" class="form-control" name="systemId">
-        </select>
-        </div>
-        <div class="col-xs-12 col-md-2">
-        <select id="tags">
-        <option value="">请选择标签...</option>
-        </select>
-        </div>
-        <div class="col-xs-12 col-md-6">
-        <div class="input-group">
-        <input id="keywords" type="text" class="form-control search-query" placeholder="知识点标题、回答、标签、关键字..." name="keywords" />
-        <span class="input-group-btn">
-<button type="button" id="searchBtn" class="btn btn-purple btn-sm">
-																			<span class="ace-icon fa fa-search icon-on-right bigger-110"></span> 搜索
-        </button>
-        </span>
-        </div>
-        </div>
+        <div id="date" class="" style="display:none;">
+            <span class="line-height-30">开始日期：</span>                            
+            <div class="input-group date form_datetime a_v_time" style="margin:0;" data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_input1">
+            <input id="startDate1" name="startDate" class="form-control for-height32" size="16" type="text" value="<%=startDate%>" readonly>
+            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+            </div>
+            <span class="line-height-30"> 截止日期：</span>
+            <div class="input-group date form_datetime a_v_time" style="margin:0;" data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_input1">
+            <input id="endDate1" name="endDate" class="form-control for-height32" size="16" type="text" value="<%=endDate%>" readonly>
+            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+            </div>
+            <p class="margin-top-10" style="text-align:right;"><button id="knowl_btn1">统计</button></p>
+            <p class="margin-top-10"><b>说明：</b><br>空会话——用户并未发出提问</p>
+         </div>
+       
+       
        </div>
 
         <div id="rows_content" class="rows" style="">
@@ -168,7 +166,7 @@ String ctxPath = request.getContextPath();
                             $("#search_result").append(str);
                         }
                         $("#search_table_header").html("搜索 \“"+knows[0].keywords +"\” 的结果").show();
-                        $("#dynamic-table_info").html("第"+pagination.curPage+"页，共"+ pagination.totalCount +" 条。");
+                        $("#dynamic-table_info").html("总计：共 "+ pagination.totalCount +" 条。");
                         $("#dynamic-table_paginate").html(formatP(pagination, systemId, keywords, curPage));
                         $("#table_footer_info").show();
                         //$("#rows_content").show();
