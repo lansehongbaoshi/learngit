@@ -124,10 +124,8 @@ public class RobotSetAction extends AjaxAction{
             }
         }
         
-        RobotQAListVO<RobotQABean> listBean = robotService.searchRobotConf(text, (curPage - 1) * Constants.PAGE_SIZE, Constants.PAGE_SIZE);
-        RobotQABean robotQABean = new RobotQABean();
-        RobotQAListVO<RobotQABean> result = new RobotQAListVO<RobotQABean>(listBean.getRobotBean(), listBean.getPagination());
-        
+        RobotQAListVO<RobotQABean> result = robotService.searchRobotConf(text, (curPage - 1) * Constants.PAGE_SIZE, Constants.PAGE_SIZE);
+       
         ajaxMessage.setO(result);
         writeCallbackJSON(callback);
         

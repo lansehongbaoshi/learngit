@@ -82,6 +82,9 @@
     <definition name="htgl.knowledge.show" extends="htgl.admin.main" >
         <put-attribute name="body" value="/htgl/knowledge/show.jsp"/>
     </definition>
+    <definition name="htgl.knowledge.showmodify" extends="htgl.admin.main" >
+        <put-attribute name="body" value="/htgl/knowledge/showmodify.jsp"/>
+    </definition>
     <definition name="cti.knowledge.show" extends="htgl.admin.main" >
         <put-attribute name="body" value="/cti/knowledge/show.jsp"/>
     </definition>

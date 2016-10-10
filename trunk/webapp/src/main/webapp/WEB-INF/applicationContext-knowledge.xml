@@ -106,5 +106,9 @@
         <property name="systemService" ref="systemService" />
         <property name="knowledgeService" ref="knowledgeService" />
     </bean>
+    <!-- 操作日志 -->
+    <bean id="logOperActionBean"  class="com.chsi.knowledge.htgl.action.SearchLogAction"  scope="request">
+        <property name="logOperService" ref="logOperService" />
+    </bean>
    
 </beans>

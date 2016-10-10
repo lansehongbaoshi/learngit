@@ -310,7 +310,7 @@ public class KnowledgeAction extends AjaxAction {
             data.setUpdateTime(Calendar.getInstance());
             data.setUpdater(getLoginedUserId());
             data.setType(type);
-            data.setKnowledgeStatus(KnowledgeStatus.DSH);
+            data.setKnowledgeStatus(KnowledgeStatus.YSH);
             knowledgeService.update(data, title, content, loginUserVO.getAcc().getId());
             
             knowTagRelationService.del(id);
@@ -325,7 +325,7 @@ public class KnowledgeAction extends AjaxAction {
                 }
             }
             knowIndexService.deleteKnowIndexBySolr(data.getId());
-//            knowIndexService.updateKnowIndex(data.getId());
+            knowIndexService.updateKnowIndex(data.getId());
             ManageCacheUtil.removeKnowledgeDataById(data.getId());
             LogOperData logOper = new LogOperData();
             logOper.setCreateTime(Calendar.getInstance());

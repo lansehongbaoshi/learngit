@@ -66,6 +66,7 @@ public class RobotSolrIndexServiceImpl extends BaseDbService implements
         List<RobotQSetData> list = robotDAO.allQ();
         List<SolrInputDocument> docs = new ArrayList<SolrInputDocument>();
         for(RobotQSetData robotQSetData:list){
+            if(robotQSetData.getQ().startsWith("#")) continue;
             Map<RobotQSetData, List<RobotASetData>> map = robotDAO.getSolrByRQ(robotQSetData);
             List<RobotASetData> listA = map.get(robotQSetData);
             SolrInputDocument doc = new SolrInputDocument();
@@ -77,7 +78,7 @@ public class RobotSolrIndexServiceImpl extends BaseDbService implements
                 anser[i++]=ra.getA();
             }
             doc.addField("a", anser);
-            doc.addField("num", 1);
+            doc.addField("num", robotQSetData.getNum());
             docs.add(doc);
         }
         
@@ -232,17 +233,20 @@ public class RobotSolrIndexServiceImpl extends BaseDbService implements
             }
             System.out.println("正在处理："+rqsd.getId()+":"+rqsd.getQ()+"问题。");
             
-            SolrInputDocument doc = new SolrInputDocument();
-            doc.addField("id", rqsd.getId());
-            doc.addField("q", robotIndexData.getQ());
-            String[] ansers = new String[robotIndexData.getA().size()];
-            for(int i=0;i<robotIndexData.getA().size();i++){
-                ansers[i]=robotIndexData.getA().get(i);
-            }
+            if(!robotIndexData.getQ().startsWith("#")){
+                SolrInputDocument doc = new SolrInputDocument();
+                doc.addField("id", rqsd.getId());
+                doc.addField("q", robotIndexData.getQ());
+                String[] ansers = new String[robotIndexData.getA().size()];
+                for(int i=0;i<robotIndexData.getA().size();i++){
+                    ansers[i]=robotIndexData.getA().get(i);
+                }
 
-            doc.addField("a", ansers);
-            doc.addField("num", 1);
-            docs.add(doc);
+                doc.addField("a", ansers);
+                doc.addField("num", 1);
+                docs.add(doc);
+            }
+            
             
         }
         try {

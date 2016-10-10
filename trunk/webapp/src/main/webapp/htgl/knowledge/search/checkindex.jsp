@@ -37,7 +37,7 @@ String ctxPath = request.getContextPath();
        <div class="rows">
        <div class="col-xs-12 col-md-2">
         <select id="type" class="form-control" name="type">
-        <option value="">请选择类型...</option>
+<!--         <option value="">请选择类型...</option> -->
         <option value="PRIVATE">内部</option>
 <!--         <option value="PUBLIC">公开</option> -->
         </select>

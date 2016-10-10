@@ -82,10 +82,12 @@ public class RobotServiceImpl extends BaseDbService implements RobotService {
         Map<String, String> map = new HashMap<String, String>();
         String keywords = SearchUtil.keywordsFilter(text);
         if("".equals(keywords)){
-            keywords = "*:*";
+            keywords = "text:*";
+        }else{
+            keywords = "text:"+keywords;
         }
         map.put("q", keywords);
-        map.put("qf", "q");
+        map.put("df", "text");
         Page<RobotQABean> page = searchClient.searchRobotConf(map, start, max);
         Pagination pagination = new Pagination(page.getTotalCount(), page.getPageCount(), page.getCurPage());
         RobotQAListVO<RobotQABean> robotQAListVO = new RobotQAListVO<RobotQABean>(page.getList(), pagination);
@@ -136,7 +138,7 @@ public class RobotServiceImpl extends BaseDbService implements RobotService {
                 SearchServiceClient searchClient = SearchServiceClientFactory
                         .getSearchServiceClient();
                 Map<String, String> map = new HashMap<String, String>();
-                map.put("q", "text:"+keywords);
+                map.put("q", "q:"+keywords);
                 map.put("qf", "q");
                 map.put("hl", "true");
                 map.put("hl.fl", "q");

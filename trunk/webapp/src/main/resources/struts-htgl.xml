@@ -29,11 +29,23 @@
               </interceptor-ref>
           </interceptor-stack>
         </interceptors>
-        <action name="index">
+        <action name="index" class="logOperActionBean" method="index">
             <result name="success" type="tiles">htgl.log.index</result>
         </action>
-        
     </package>
+    <package name="htgl.log.index" extends="knowledge-default" namespace="/htgl/log/index">
+        <interceptors>
+          <interceptor-stack name="knowledgeStack">
+              <interceptor-ref name="chsiDefaultStack"></interceptor-ref>
+              <interceptor-ref name="store">
+                  <param name="operationMode">AUTOMATIC</param>
+              </interceptor-ref>
+          </interceptor-stack>
+        </interceptors>
+        <action name="searchLogOper" class="logOperActionBean" method="searchLogOper">
+        </action>
+    </package>
+    
     
     <package name="htgl.search" extends="knowledge-default" namespace="/htgl/search">
         <interceptors>
@@ -108,7 +120,7 @@
           </interceptor-stack>
         </interceptors>
         <action name="showKnowledge" class="knowledgeActionBean" method="getKnow">
-            <result name="success" type="tiles">htgl.knowledge.show</result>
+            <result name="success" type="tiles">htgl.knowledge.showmodify</result>
         </action>
         <action name="addindex">
             <result name="success" type="tiles">htgl.knowledge.add.index</result>
