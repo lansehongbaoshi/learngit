@@ -252,7 +252,7 @@ function formatP(pagination, startDate, endDate, curPage) {
     console.log(curPage+"---"+pageCount);
     var prePage = "";
     var nextPage = "";
-    if (curPage - 1 > 0) {
+    if (curPage - 1 >= 0) {
         prePage = " <li class=\"paginate_button previous\" aria-controls=\"dynamic-table\" tabindex=\"0\" id=\"dynamic-table_previous\"><a href=\"javascript:void(0)\" onclick=\"showSearchResult('" + startDate + "','" + endDate + "','" + (curPage - 1) + "')\">上一页</a>";
     }
 
