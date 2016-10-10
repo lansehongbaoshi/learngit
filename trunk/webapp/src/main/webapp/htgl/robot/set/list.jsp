@@ -227,11 +227,11 @@ function showSearchResult(text,type,curPage){
                 var str = "";
                 str += "<tr role='row' class='"+odd_even+"'>";
                 str += "<td class='hidden-200'>"+k.q+"</td>";
-                str += "<td class='hidden-200'>";
+                str += "<td class='hidden-200'><ol>";
                	for(var j = 0;j<k.a.length;j++){
-               		str += "<div class='zxx_text_overflow_1' title='"+k.a[j]+"'>"+(j+1)+"."+k.a[j]+"</div><br>";
+               		str += "<li><p class='zxx_text_overflow_1' title='"+k.a[j]+"'>"+k.a[j]+"</p></li>";
                	}
-               	str += "</td>";
+               	str += "</ol></td>";
                	str += "<td class='hidden-260'><div class='hidden-sm hidden-xs action-buttons' data-id="+k.q+"> <a class='green' title='修改' target='_self' href='/htgl/robot/set/updateIndex.action?id="+k.id+"'><i class='ace-icon fa fa-pencil bigger-130'></i> </a> <a title='删除' class='red delBtn' href='javascript:void(0)'> <i class='ace-icon fa fa-trash-o bigger-130'></i> </a> </div></td>";
                 str += "</tr>";
                	$("#search_result").append(str);
@@ -277,32 +277,31 @@ function showBasicConf(){
     },function showbasicResult(date) {
     	var listBean = date.o;
     	var helloBean = listBean[0];
-    	var helloA ="<ul>";
+    	var helloA ="<ol>";
     	for(var i=0;i<helloBean.a.length;i++){
     		helloA += ("<li>"+helloBean.a[i]+"</li>");
     	}
-    	helloA +="</ul>";
+    	helloA +="</ol>";
     	$("#hello").html(helloA);
     	$("#hello").after("<td class='hidden-260'><div data-id='q95cfjzkvuzhuuw6' class='hidden-sm hidden-xs action-buttons'> <a href='/htgl/robot/set/updateIndex.action?id="+helloBean.id+"' target='_self' title='修改' class='green'><i class='ace-icon fa fa-pencil bigger-130'></i> </a> <a href='javascript:void(0)' class='red delBtn' title='删除'> <i class='ace-icon fa fa-trash-o bigger-130'></i> </a> </div></td>");
 
     	var noanswerBean = listBean[1];
-    	var noanswerA ="<ul>";
+    	var noanswerA ="<ol>";
     	for(var i=0;i<noanswerBean.a.length;i++){
     		noanswerA += "<li>"+noanswerBean.a[i]+"</li>";
     	}
-    	noanswerA +="</ul>";
+    	noanswerA +="</ol>";
     	$("#noanswer").html(noanswerA);
     	$("#noanswer").after("<td class='hidden-260'><div data-id='65rsrxlmzka9izh8' class='hidden-sm hidden-xs action-buttons'> <a href='/htgl/robot/set/updateIndex.action?id="+noanswerBean.id+"' target='_self' title='修改' class='green'><i class='ace-icon fa fa-pencil bigger-130'></i> </a> <a href='javascript:void(0)' class='red delBtn' title='删除'> <i class='ace-icon fa fa-trash-o bigger-130'></i> </a> </div></td>");
 
     	var blankBean = listBean[2];
-    	var blankA ="<ul>";
+    	var blankA ="<ol>";
     	for(var i=0;i<blankBean.a.length;i++){
     		blankA +=  "<li>"+blankBean.a[i]+"</li>";
     	}
-    	blankA +="</ul>";
+    	blankA +="</ol>";
     	$("#blank").html(blankA);
     	$("#blank").after("<td class='hidden-260'><div data-id='65rsrxlmzka9izh8' class='hidden-sm hidden-xs action-buttons'> <a href='/htgl/robot/set/updateIndex.action?id="+blankBean.id+"' target='_self' title='修改' class='green'><i class='ace-icon fa fa-pencil bigger-130'></i> </a> <a href='javascript:void(0)' class='red delBtn' title='删除'> <i class='ace-icon fa fa-trash-o bigger-130'></i> </a> </div></td>");
-
     	
     });
 	
