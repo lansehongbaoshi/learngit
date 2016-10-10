@@ -81,6 +81,12 @@
         <filter-name>LoginFilter</filter-name>
         <filter-class>com.chsi.knowledge.common.web.filter.LoginFilter</filter-class>
     </filter>
+    
+    <!-- 客服普通工作人员过滤器 -->
+    <filter>
+        <filter-name>CtiFilter</filter-name>
+        <filter-class>com.chsi.knowledge.common.web.filter.CtiFilter</filter-class>
+    </filter>
 
     <filter>
         <filter-name>DruidWebStatFilter</filter-name>
@@ -150,6 +156,11 @@
     <filter-mapping>
         <filter-name>LoginFilter</filter-name>
         <url-pattern>/index.jsp</url-pattern>
+    </filter-mapping>
+    
+    <filter-mapping>
+        <filter-name>CtiFilter</filter-name>
+        <url-pattern>/nocas/*</url-pattern>
     </filter-mapping>
 
     <filter-mapping>

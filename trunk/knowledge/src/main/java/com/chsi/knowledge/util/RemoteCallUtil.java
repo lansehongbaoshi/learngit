@@ -15,8 +15,6 @@ import com.chsi.contact.constant.client.ContactConstants;
 import com.chsi.framework.callcontrol.CallInfoHelper;
 import com.chsi.framework.remote.RemoteCallRs;
 import com.chsi.framework.util.ValidatorUtil;
-import com.chsi.lobdb.client.LobDbServiceClient;
-import com.chsi.lobdb.client.LobDbServiceClientFactory;
 import com.chsi.security.client.AuthorityServiceClient;
 import com.chsi.security.client.AuthorityServiceClientFactory;
 
@@ -29,8 +27,8 @@ public class RemoteCallUtil {
     private static String picsrvServerName;
     private static String contactProtocol;
     private static String contactServerName;// contact域名
+    private static String allowIp;
     
-    private static LobDbServiceClient lobDbServiceClient = LobDbServiceClientFactory.getLobDbServiceClient();
     private static ContactServiceClient contactService = ContactServiceClientFactory.getContactServiceClient();
     private static AuthorityServiceClient authorityServiceClient = AuthorityServiceClientFactory.getAuthorityServiceClient();
 
@@ -50,6 +48,7 @@ public class RemoteCallUtil {
                 picsrvServerName = properties.getProperty("sys.website.picsrv.servername");
                 contactProtocol = properties.getProperty("sys.website.contact.protocol");
                 contactServerName = properties.getProperty("sys.website.contact.servername");
+                allowIp = properties.getProperty("sys.website.knowledge.allowip");
             } catch (IOException e) {
                 e.printStackTrace();
             } finally {
@@ -75,6 +74,11 @@ public class RemoteCallUtil {
     
     public static String getPicsrvUrl() {
         return picsrvProtocol + "://" + picsrvServerName;
+    }
+    
+    //允许客服访问知识接口的ip
+    public static String getAllowIp() {
+        return allowIp;
     }
     
     /**

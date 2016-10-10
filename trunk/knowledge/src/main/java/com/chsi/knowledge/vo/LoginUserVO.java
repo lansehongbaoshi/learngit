@@ -15,6 +15,8 @@ public class LoginUserVO implements Serializable {
     UserOrganizationData org;
     List<String> auths;
     
+    public LoginUserVO() {}
+    
     public LoginUserVO(UserAccountData acc, UserOrganizationData org, List<String> auths) {
         this.acc = acc;
         this.org = org;

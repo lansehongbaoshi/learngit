@@ -38,5 +38,17 @@
         <action name="allSearch" class="searchActionBean" method="allSearch"></action>
         <action name="autoTitle" class="searchActionBean" method="autoTitle"></action>
     </package>
-    
+    <package name="nocas" extends="knowledge-default" namespace="/nocas">
+        <interceptors>
+          <interceptor-stack name="knowledgeStack">
+              <interceptor-ref name="chsiDefaultStack"></interceptor-ref>
+              <interceptor-ref name="store">
+                  <param name="operationMode">AUTOMATIC</param>
+              </interceptor-ref>
+          </interceptor-stack>
+        </interceptors>
+        <action name="searchKnow" class="ctiSearchActionBean" method="searchKnow"></action>
+        <action name="getKnow" class="ctiSearchActionBean" method="detailKnow"></action>
+        <action name="listSystem" class="systemActionBean" method="getSystems"></action>
+    </package>
 </struts>

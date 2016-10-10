@@ -29,6 +29,11 @@ public class WebAppUtil {
         return userId;
     }
     
+    public static String getUserIp() {
+        String userIp = CallInfoHelper.getCurrentUserIp();
+        return userIp;
+    }
+    
     public static void setLoginUserVO(HttpServletRequest request, LoginUserVO data) {
         WebUtils.setSessionAttribute(request, Constants.SESSION_KNOWLEDGE, data);
     }
