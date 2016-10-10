@@ -48,7 +48,7 @@ try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
     </a> <b class="arrow"></b></li>
     <li id="total_menu" class=""><a href="/htgl/total/list"> <i class="menu-icon fa fa-area-chart"></i> <span class="menu-text"> 统计分析 </span>
     </a> <b class="arrow"></b></li>
-    <li id="log_menu" class=""><a href="/htgl/log/index"> <i class="menu-icon fa fa-trash"></i> <span class="menu-text"> 日志管理 </span>
+    <li id="log_menu" class=""><a href="/htgl/log/index"> <i class="menu-icon fa fa-trash"></i> <span class="menu-text"> 日志查询 </span>
     </a> <b class="arrow"></b></li>
     <%} %>
   </ul>

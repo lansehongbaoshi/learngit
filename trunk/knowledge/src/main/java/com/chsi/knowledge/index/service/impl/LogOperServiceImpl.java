@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.chsi.contact.client.ContactServiceClient;
+import com.chsi.contact.client.ContactServiceClientFactory;
+import com.chsi.contact.constant.client.ContactConstants;
 import com.chsi.framework.service.BaseDbService;
 import com.chsi.knowledge.ServiceConstants;
 import com.chsi.knowledge.dao.KnowTagRelationDataDAO;
@@ -61,9 +64,10 @@ public class LogOperServiceImpl extends BaseDbService implements LogOperService 
         int totalCount = logOperDAO.getLogOpersCountByDate(start,end);
         Pagination pagination = new Pagination(totalCount, pageSize, curPage);
         List<LogOperVO> listVO = new ArrayList<LogOperVO>();
-        
+        ContactServiceClient contactService = ContactServiceClientFactory.getContactServiceClient();
         for(LogOperData logOper : list){
             LogOperVO logOperVO = new  LogOperVO(logOper);
+            logOperVO.setUserId(contactService.getRealInfoSingleItemValue(logOper.getUserId(), ContactConstants.ITEM_NAME_ID));
             logOperVO.setOper(logOper.getOper()+"--"+logOper.getMessage()+":"+logOper.getKeyId());
             listVO.add(logOperVO);
         }

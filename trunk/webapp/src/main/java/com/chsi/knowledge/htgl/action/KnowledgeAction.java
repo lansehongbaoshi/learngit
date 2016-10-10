@@ -477,6 +477,55 @@ public class KnowledgeAction extends AjaxAction {
         }
         LoginUserVO loginUserVO = getLoginUserVO();
         // 保存知识
+        knowledgeData = new KnowledgeData(null, keywords, null, 0, Integer.parseInt(sort), KnowledgeStatus.YSH, getLoginedUserId(), Calendar.getInstance(), null, null, type);
+        knowledgeService.save(knowledgeData, title, content, loginUserVO.getOrg().getCode(), getLoginedUserId());
+        for (String one : tagIds) {
+            TagData tagData = tagService.getTagData(one);
+            if (tagData != null) {
+                // 保存知识与标签关系
+                KnowTagRelationData knowTagRelationData = new KnowTagRelationData(null, knowledgeData, tagData);
+                knowTagRelationService.save(knowTagRelationData);
+                ManageCacheUtil.removeKnowTag(tagData.getId());
+            }
+        }
+        knowIndexService.updateKnowIndex(knowledgeData.getId());
+        id = knowledgeData.getId();
+        logOper.setCreateTime(Calendar.getInstance());
+        com.chsi.knowledge.vo.LoginUserVO user = com.chsi.knowledge.web.util.WebAppUtil.getLoginUserVO(httpRequest);
+        logOper.setUserId(user.getAcc().getId());
+
+        logOper.setM1("知识管理");
+        
+        logOper.setM2("");
+        logOper.setOper("新增");
+        logOper.setMessage("知识");
+        logOper.setKeyId(id);
+        logOperService.save(logOper);
+        return SUCCESS;
+        
+    }
+    public String addDSHKnowledge() throws Exception {
+        String error = "";
+        LogOperData logOper = new LogOperData();
+        if(ValidatorUtil.isNull(keywords)) {
+            error = "请输入关键字";
+        } else if(ValidatorUtil.isNull(title)) {
+            error = "请输入标题";
+        } else if(ValidatorUtil.isNull(content)) {
+            error = "请输入回答";
+        } else if(tagIds == null || tagIds.length == 0) {
+            error = "请先到\"<a href='/htgl/tag/index.action'>便签管理</a>\"中增加标签";
+        } else if(ValidatorUtil.isNull(sort)) {
+            error = "请输入热点度";
+        } else if(ValidatorUtil.isNull(type)) {
+            error = "请设定知识类型";
+        }
+        if(!"".equals(error)) {
+            request.put(Constants.REQUEST_ERROR, error);
+            return ERROR;
+        }
+        LoginUserVO loginUserVO = getLoginUserVO();
+        // 保存知识
         knowledgeData = new KnowledgeData(null, keywords, null, 0, Integer.parseInt(sort), KnowledgeStatus.DSH, getLoginedUserId(), Calendar.getInstance(), null, null, type);
         knowledgeService.save(knowledgeData, title, content, loginUserVO.getOrg().getCode(), getLoginedUserId());
         for (String one : tagIds) {
@@ -493,20 +542,15 @@ public class KnowledgeAction extends AjaxAction {
         logOper.setCreateTime(Calendar.getInstance());
         com.chsi.knowledge.vo.LoginUserVO user = com.chsi.knowledge.web.util.WebAppUtil.getLoginUserVO(httpRequest);
         logOper.setUserId(user.getAcc().getId());
-        if(user.getAuths().contains(com.chsi.knowledge.Constants.ROLE_CTI_USER)) {
-            logOper.setM1("知识新增");
-        }
-        if(user.getAuths().contains(com.chsi.knowledge.Constants.ROLE_KNOWLEDGE)) {
-            logOper.setM1("知识管理或者知识审核");
-        }
-        
+
+        logOper.setM1("知识新增");
+
         logOper.setM2("");
         logOper.setOper("新增");
         logOper.setMessage("知识");
         logOper.setKeyId(id);
         logOperService.save(logOper);
         return SUCCESS;
-        
     }
 
     public void delKnowledge() throws Exception {

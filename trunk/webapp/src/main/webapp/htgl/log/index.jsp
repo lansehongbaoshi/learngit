@@ -235,8 +235,8 @@ function showSearchResult(startDate, endDate, curPage) {
                     $("#search_result").append(str);
                 }
                 $("#search_table_header").html("搜索 \“"+$("#startDate1").val() +"\”至\“"+$("#endDate1").val()+"\” 的结果").show();
-                console.log("总计：共 "+ pagination.totalCount +" 条，第"+(parseInt(curPage)+1)+"页。");
-                $("#dynamic-table_info").html("总计：共 "+ pagination.totalCount +" 条，第"+(parseInt(curPage)+1)+"页。");
+                console.log("第"+(parseInt(curPage)+1)+"页,共 "+ pagination.totalCount +" 条。");
+                $("#dynamic-table_info").html("第"+(parseInt(curPage)+1)+"页,共 "+ pagination.totalCount +" 条。");
                 $("#dynamic-table_paginate").html(formatP(pagination, startDate, endDate, curPage));
                 $("#table_footer_info").show();
                 //$("#rows_content").show();

@@ -92,7 +92,7 @@
         </action>
         <action name="untopKnowledge" class="knowledgeActionBean" method="untopKnowledge">
         </action>
-        <action name="addKnowledge" class="knowledgeActionBean" method="addKnowledge">
+        <action name="addDSHKnowledge" class="knowledgeActionBean" method="addDSHKnowledge">
             <result name="success" type="redirect">/cti/knowledge/searchadd/showKnowledge.action?id=${id}&amp;from=add</result>
         </action>
         <action name="updateKnowledge" class="knowledgeActionBean" method="updateKnowledge">
