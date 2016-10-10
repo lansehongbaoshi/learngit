@@ -277,26 +277,29 @@ function showBasicConf(){
     },function showbasicResult(date) {
     	var listBean = date.o;
     	var helloBean = listBean[0];
-    	var helloA ="";
+    	var helloA ="<ul>";
     	for(var i=0;i<helloBean.a.length;i++){
-    		helloA += helloBean.a[i];
+    		helloA += ("<li>"+helloBean.a[i]+"</li>");
     	}
+    	helloA +="</ul>";
     	$("#hello").html(helloA);
     	$("#hello").after("<td class='hidden-260'><div data-id='q95cfjzkvuzhuuw6' class='hidden-sm hidden-xs action-buttons'> <a href='/htgl/robot/set/updateIndex.action?id="+helloBean.id+"' target='_self' title='修改' class='green'><i class='ace-icon fa fa-pencil bigger-130'></i> </a> <a href='javascript:void(0)' class='red delBtn' title='删除'> <i class='ace-icon fa fa-trash-o bigger-130'></i> </a> </div></td>");
 
     	var noanswerBean = listBean[1];
-    	var noanswerA ="";
+    	var noanswerA ="<ul>";
     	for(var i=0;i<noanswerBean.a.length;i++){
-    		noanswerA += noanswerBean.a[i];
+    		noanswerA += "<li>"+noanswerBean.a[i]+"</li>";
     	}
+    	noanswerA +="</ul>";
     	$("#noanswer").html(noanswerA);
     	$("#noanswer").after("<td class='hidden-260'><div data-id='65rsrxlmzka9izh8' class='hidden-sm hidden-xs action-buttons'> <a href='/htgl/robot/set/updateIndex.action?id="+noanswerBean.id+"' target='_self' title='修改' class='green'><i class='ace-icon fa fa-pencil bigger-130'></i> </a> <a href='javascript:void(0)' class='red delBtn' title='删除'> <i class='ace-icon fa fa-trash-o bigger-130'></i> </a> </div></td>");
 
     	var blankBean = listBean[2];
-    	var blankA ="";
+    	var blankA ="<ul>";
     	for(var i=0;i<blankBean.a.length;i++){
-    		blankA += blankBean.a[i];
+    		blankA +=  "<li>"+blankBean.a[i]+"</li>";
     	}
+    	blankA +="</ul>";
     	$("#blank").html(blankA);
     	$("#blank").after("<td class='hidden-260'><div data-id='65rsrxlmzka9izh8' class='hidden-sm hidden-xs action-buttons'> <a href='/htgl/robot/set/updateIndex.action?id="+blankBean.id+"' target='_self' title='修改' class='green'><i class='ace-icon fa fa-pencil bigger-130'></i> </a> <a href='javascript:void(0)' class='red delBtn' title='删除'> <i class='ace-icon fa fa-trash-o bigger-130'></i> </a> </div></td>");
 
