@@ -95,9 +95,7 @@
         <action name="checkUpdate" class="knowledgeActionBean" method="checkUpdate">
             <result name="success" type="redirect">/htgl/knowledge/checkindex/showKnowledge.action?id=${id}&amp;from=update</result>
         </action>
-        <action name="updateKnowledgeTime" class="knowledgeActionBean" method="updateKnowledgeTime">
-            <result name="success" type="redirect">/htgl/knowledge/showKnowledge.action?id=${id}&amp;from=update</result>
-        </action>
+        
         <action name="topKnowledge" class="knowledgeActionBean" method="topKnowledge">
         </action>
         <action name="untopKnowledge" class="knowledgeActionBean" method="untopKnowledge">
@@ -128,6 +126,9 @@
         <action name="modifyindex" class="knowledgeActionBean" method="modifyindex">
             <result name="success" type="tiles">htgl.knowledge.modify.index</result>
             <allowed-methods>modifyindex</allowed-methods>
+        </action>
+        <action name="updateKnowledgeTime" class="knowledgeActionBean" method="updateKnowledgeTime">
+            <result name="success" type="redirect">/htgl/knowledge/searchindex/showKnowledge.action?id=${id}&amp;from=update</result>
         </action>
     </package>
     <package name="htgl.knowledge.checkindex" extends="knowledge-default" namespace="/htgl/knowledge/checkindex">
@@ -186,7 +187,20 @@
         <action name="updateTag" class="systemActionBean" method="updateTag">
         </action>
     </package>
-    
+    <package name="htgl.system.listSystems" extends="knowledge-default" namespace="/htgl/system/listSystems">
+        <interceptors>
+          <interceptor-stack name="knowledgeStack">
+              <interceptor-ref name="chsiDefaultStack"></interceptor-ref>
+              <interceptor-ref name="store">
+                  <param name="operationMode">AUTOMATIC</param>
+              </interceptor-ref>
+          </interceptor-stack>
+        </interceptors>
+        <action name="updateKnowledgeTime" class="systemActionBean" method="updateKnowledgeTime"><!-- not ajax -->
+            <result name="success" type="redirect">/htgl/system/listSystems.action</result>
+        </action>
+        
+    </package>
     <package name="htgl.tag" extends="knowledge-default" namespace="/htgl/tag">
         <interceptors>
           <interceptor-stack name="knowledgeStack">

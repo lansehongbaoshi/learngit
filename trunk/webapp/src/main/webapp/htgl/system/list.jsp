@@ -39,10 +39,11 @@
                   <tr role="row">
                     <th class="hidden-180" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1" aria-label="Domain: activate to sort column ascending">系统位置</th>
                     <th class="hidden-180" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1" aria-label="Domain: activate to sort column ascending">系统代码</th>
-                    <th width="200" class="hidden-200" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1">系统名称</th>
-                    <th width="310" class="hidden-480 sorting" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1" aria-label="Clicks: activate to sort column ascending">系统描述</th>
+                    <th width="150" class="hidden-200" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1">系统名称</th>
+                    <th width="200" class="hidden-480 sorting" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1" aria-label="Clicks: activate to sort column ascending">系统描述</th>
                     <th width="80" class="hidden-200" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1">标签数目</th>
-                    <th width="340" class="hidden-200" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1">开放时间段</th>
+                    <th width="160" class="hidden-200" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1">知识数目(内部/公开)</th>
+                    <th width="300" class="hidden-200" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1">开放时间段</th>
                     <th class="sorting_disabled" rowspan="1" colspan="1" aria-label=""></th>
                   </tr>
                 </thead>
@@ -54,6 +55,7 @@
                       <td class="hidden-260"><s:property value="#data.name" /></td>
                       <td class="hidden-260"><s:property value="#data.description" /></td>
                       <td class="hidden-200"><s:property value="#data.tagCnt" /></td>
+                      <td class="hidden-200"><s:property value="#data.knowPrivateCnt" />/<s:property value="#data.knowPublicCnt" /></td>
                       <td class="hidden-200">
 	                      <s:iterator value="#data.list" var="time">
 	                          <a href="javascript:void(0)" data-toggle="modal" data-target="#myModal" onclick="openWindow('<s:property value="#time.id"/>')"><s:date name="#time.startTime" format="yyyy-MM-dd HH:mm:ss"/>—<s:date name="#time.endTime" format="yyyy-MM-dd HH:mm:ss"/></a>
@@ -61,7 +63,9 @@
                       </td>
                       <td class="hidden-260">
                         <div class="hidden-sm hidden-xs action-buttons" data-id="<s:property value='#data.id'/>">
-                          <a class="green" title="修改" target='_self' href="/htgl/system/updateSystemIndex.action?id=<s:property value='#data.id'/>"><i class="ace-icon fa fa-pencil bigger-130"></i> </a> <a title="删除" class="red delBtn" href="javascript:void(0)"> <i class="ace-icon fa fa-trash-o bigger-130"></i>
+                          <a class="green" title="修改" target='_self' href="/htgl/system/updateSystemIndex.action?id=<s:property value='#data.id'/>"><i class="ace-icon fa fa-pencil bigger-130"></i></a> 
+                          <a href="/htgl/system/listSystems/updateKnowledgeTime?id=<s:property value='#data.id'/>" title="将当前时间设置为更新时间"> <i class="ace-icon fa fa-clock-o"></i></a>
+                          <a title="删除" class="red delBtn" href="javascript:void(0)"> <i class="ace-icon fa fa-trash-o bigger-130"></i>
                           </a>
                         </div>
                       </td>

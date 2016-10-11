@@ -27,7 +27,7 @@ if("update".equals(from)) {
         showSearchResult($("#kId").val(),0);
         $("a[data-action='update-time']").on("click",function(){
             if(confirm("确定要修改该知识的更新时间为当前时间？")) {
-                document.location.href="/htgl/knowledge/updateKnowledgeTime.action?id=<s:property value=" knowledgeData.id " />";
+                document.location.href="/htgl/knowledge/searchindex/updateKnowledgeTime.action?id=<s:property value=" knowledgeData.id " />";
             }
         });
         $(document).on("click","a[data-action='delete']",function() {

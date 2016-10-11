@@ -3,6 +3,7 @@ package com.chsi.knowledge.service;
 import java.text.ParseException;
 import java.util.List;
 
+import com.chsi.knowledge.pojo.KnowledgeData;
 import com.chsi.knowledge.pojo.SystemData;
 import com.chsi.knowledge.pojo.SystemOpenTimeData;
 
@@ -42,5 +43,8 @@ public interface SystemService {
     List<SystemOpenTimeData> getOpenSystems();
     
     List<SystemData> getSystemDataByKnowledgeId(String knowledgeId);
+    int getKnowsCntBySystem(String systemId,String type);
+    List<KnowledgeData> getKnowsBySystem(String systemId);
+    void updateSystemKnowTime(List<KnowledgeData> knows);
     
 }

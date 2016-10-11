@@ -10,8 +10,11 @@ import java.util.List;
 
 import com.chsi.framework.service.BaseDbService;
 import com.chsi.knowledge.ServiceConstants;
+import com.chsi.knowledge.dao.KnowTagRelationDataDAO;
+import com.chsi.knowledge.dao.KnowledgeDataDAO;
 import com.chsi.knowledge.dao.SystemDataDAO;
 import com.chsi.knowledge.dao.SystemOpenTimeDAO;
+import com.chsi.knowledge.pojo.KnowledgeData;
 import com.chsi.knowledge.pojo.SystemData;
 import com.chsi.knowledge.pojo.SystemOpenTimeData;
 import com.chsi.knowledge.service.SystemService;
@@ -21,11 +24,15 @@ public class SystemServiceImpl extends BaseDbService implements SystemService{
 
     private SystemDataDAO systemDataDAO;
     private SystemOpenTimeDAO systemOpenTimeDAO;
+    private KnowTagRelationDataDAO knowTagRelationDataDAO;
+    private KnowledgeDataDAO knowledgeDataDAO;
     
     @Override
     protected void doCreate() {
         systemDataDAO = getDAO(ServiceConstants.SYSTEMDATA_DAO, SystemDataDAO.class);
         systemOpenTimeDAO = getDAO(ServiceConstants.SYSTEMOPENTIME_DAO, SystemOpenTimeDAO.class);
+        knowTagRelationDataDAO = getDAO(ServiceConstants.KNOWTAGRELATIONDATA_DAO, KnowTagRelationDataDAO.class);
+        knowledgeDataDAO = getDAO(ServiceConstants.KNOWLEDGEDATA_DAO, KnowledgeDataDAO.class);
     }
 
     @Override
@@ -142,6 +149,26 @@ public class SystemServiceImpl extends BaseDbService implements SystemService{
             }
         }
         return result;
+    }
+
+    @Override
+    public int getKnowsCntBySystem(String systemId,String type) {
+        // TODO Auto-generated method stub
+        long count = knowTagRelationDataDAO.getKnowsCntBySystemId(systemId,type);
+        return Integer.parseInt(String.valueOf(count));
+    }
+
+    @Override
+    public List<KnowledgeData> getKnowsBySystem(String systemId) {
+        // TODO Auto-generated method stub
+        return knowTagRelationDataDAO.getKnowsBySystemId(systemId);
+        
+    }
+
+    @Override
+    public void updateSystemKnowTime(List<KnowledgeData> knows) {
+        // TODO Auto-generated method stub
+        knowledgeDataDAO.update(knows);
     }
 
 }

@@ -1,12 +1,15 @@
 package com.chsi.knowledge.htgl.action;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
 import com.chsi.framework.util.ValidatorUtil;
 import com.chsi.knowledge.Constants;
 import com.chsi.knowledge.action.base.AjaxAction;
+import com.chsi.knowledge.dic.KnowledgeType;
 import com.chsi.knowledge.index.service.LogOperService;
+import com.chsi.knowledge.pojo.KnowledgeData;
 import com.chsi.knowledge.pojo.LogOperData;
 import com.chsi.knowledge.pojo.SystemData;
 import com.chsi.knowledge.pojo.SystemOpenTimeData;
@@ -14,6 +17,7 @@ import com.chsi.knowledge.pojo.TagData;
 import com.chsi.knowledge.service.SystemService;
 import com.chsi.knowledge.service.TagService;
 import com.chsi.knowledge.util.ManageCacheUtil;
+import com.chsi.knowledge.vo.SystemVO;
 
 /**
  * 后台管理 系统ACTION
@@ -31,7 +35,7 @@ public class SystemAction extends AjaxAction {
     private String name;
     private String description;
     private SystemData systemData;
-    private List<SystemData> systemDatas;
+    private List<SystemVO> systemDatas;
     private List<TagData> tagDatas;
     private String sort;
     private String callback;
@@ -108,11 +112,11 @@ public class SystemAction extends AjaxAction {
         this.systemData = systemData;
     }
 
-    public List<SystemData> getSystemDatas() {
+    public List<SystemVO> getSystemDatas() {
         return systemDatas;
     }
 
-    public void setSystemDatas(List<SystemData> systemDatas) {
+    public void setSystemDatas(List<SystemVO> systemDatas) {
         this.systemDatas = systemDatas;
     }
 
@@ -140,10 +144,17 @@ public class SystemAction extends AjaxAction {
     }
 
     public String listSystems() throws Exception {
-        systemDatas = systemService.getSystems();
-        for (SystemData data : systemDatas) {
-            List<TagData> list = ManageCacheUtil.getTagList(data.getId());
-            data.setTagCnt(list == null ? 0 : list.size());
+        List<SystemData> listSystem = systemService.getSystems();
+        systemDatas = new ArrayList<SystemVO>();
+        for (SystemData system : listSystem) {
+            List<TagData> list = ManageCacheUtil.getTagList(system.getId());
+            system.setTagCnt(list == null ? 0 : list.size());
+            SystemVO date = new SystemVO(system);
+            int priCnt = systemService.getKnowsCntBySystem(system.getId(), KnowledgeType.PRIVATE.toString());
+            int pubCnt = systemService.getKnowsCntBySystem(system.getId(), KnowledgeType.PUBLIC.toString());
+            date.setKnowPrivateCnt(priCnt);
+            date.setKnowPublicCnt(pubCnt);
+            systemDatas.add(date);
         }
         // List<SystemOpenTimeData> strList =
         // systemService.getOpenSystems();//测试用的
@@ -287,4 +298,19 @@ public class SystemAction extends AjaxAction {
         logOper.setKeyId(key);
         logOperService.save(logOper);
     }
+    public String updateKnowledgeTime(){
+        if(!ValidatorUtil.isNull(id)) {
+            List<KnowledgeData> knows = systemService.getKnowsBySystem(id);
+            if(knows!=null) {
+                for(KnowledgeData know : knows){
+                    know.setUpdateTime(Calendar.getInstance());
+                    know.setUpdater(getLoginedUserId());
+                }
+
+                systemService.updateSystemKnowTime(knows);
+            }
+        }
+        return SUCCESS;
+    }
+    
 }

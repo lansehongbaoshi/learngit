@@ -9,6 +9,7 @@ import com.chsi.knowledge.dao.KnowTagRelationDataDAO;
 import com.chsi.knowledge.dic.KnowledgeStatus;
 import com.chsi.knowledge.dic.KnowledgeType;
 import com.chsi.knowledge.pojo.KnowTagRelationData;
+import com.chsi.knowledge.pojo.KnowledgeData;
 
 public class KnowTagRelationDataDAOImpl extends BaseHibernateDAO implements KnowTagRelationDataDAO{
 
@@ -90,5 +91,29 @@ public class KnowTagRelationDataDAOImpl extends BaseHibernateDAO implements Know
         Query query = hibernateUtil.getSession().createQuery(DEL_RELATION + W + KNOWLEDGE_ID);
         query.setString("id", knowledgeId);
         return query.executeUpdate();
+    }
+
+    @Override
+    public long getKnowsCntBySystemId(String systemId, String type) {
+        // TODO Auto-generated method stub
+        String hql = "SELECT COUNT(*) FROM KnowledgeData C WHERE C.id IN " +
+        		" (SELECT A.knowledgeData.id FROM KnowTagRelationData A WHERE A.tagData.id IN (SELECT id FROM TagData B WHERE B.systemData.id =:systemId )) " +
+        		" AND C.type =:type";
+        Query query = hibernateUtil.getSession().createQuery(hql);
+        query.setString("systemId", systemId);
+        query.setString("type", type);
+        return (Long) query.uniqueResult();
+    }
+
+    @Override
+    public List<KnowledgeData> getKnowsBySystemId(String systemId) {
+        // TODO Auto-generated method stub
+        String hql = "SELECT C FROM KnowledgeData C WHERE C.id IN " +
+                " (SELECT A.knowledgeData.id FROM KnowTagRelationData A WHERE A.tagData.id IN (SELECT id FROM TagData B WHERE B.systemData.id =:systemId )) " +
+                " AND C.knowledgeStatus =:knowledgeStatus";
+        Query query = hibernateUtil.getSession().createQuery(hql);
+        query.setString("systemId", systemId);
+        query.setString("knowledgeStatus", String.valueOf(KnowledgeStatus.YSH.getNum()));
+        return query.list();
     }
 }

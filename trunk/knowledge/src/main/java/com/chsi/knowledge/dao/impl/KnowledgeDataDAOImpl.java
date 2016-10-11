@@ -204,6 +204,14 @@ public class KnowledgeDataDAOImpl extends BaseHibernateDAO implements KnowledgeD
         return (Long) query.uniqueResult();
 
     }
+
+    @Override
+    public void update(List<KnowledgeData> knows) {
+        // TODO Auto-generated method stub
+        for(KnowledgeData knowledgeData : knows){
+            hibernateUtil.update(knowledgeData);
+        }
+    }
     
     
 

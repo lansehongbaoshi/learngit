@@ -5,6 +5,7 @@ import java.util.List;
 import com.chsi.knowledge.dic.KnowledgeStatus;
 import com.chsi.knowledge.dic.KnowledgeType;
 import com.chsi.knowledge.pojo.KnowTagRelationData;
+import com.chsi.knowledge.pojo.KnowledgeData;
 
 public interface KnowTagRelationDataDAO {
     
@@ -58,4 +59,8 @@ public interface KnowTagRelationDataDAO {
      void save(KnowTagRelationData knowledgeTagRelationData);
      
      int del(String knowledgeId);
+
+    long getKnowsCntBySystemId(String systemId, String type);
+
+    List<KnowledgeData> getKnowsBySystemId(String systemId);
 }
