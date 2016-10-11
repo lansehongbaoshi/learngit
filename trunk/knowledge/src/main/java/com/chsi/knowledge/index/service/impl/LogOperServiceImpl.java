@@ -67,7 +67,11 @@ public class LogOperServiceImpl extends BaseDbService implements LogOperService 
         ContactServiceClient contactService = ContactServiceClientFactory.getContactServiceClient();
         for(LogOperData logOper : list){
             LogOperVO logOperVO = new  LogOperVO(logOper);
-            logOperVO.setUserId(contactService.getRealInfoSingleItemValue(logOper.getUserId(), ContactConstants.ITEM_NAME_ID));
+            String user = contactService.getRealInfoSingleItemValue(logOper.getUserId(), ContactConstants.ITEM_NAME_ID);
+            if(user==null||user.equals("")){
+                user = "未注册";
+            }
+            logOperVO.setUserId(user);
             logOperVO.setOper(logOper.getOper()+"--"+logOper.getMessage()+":"+logOper.getKeyId());
             listVO.add(logOperVO);
         }
