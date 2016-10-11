@@ -38,7 +38,7 @@ public class SearchUtil {
      * @return
      */
     public static String keywordsFilter2(String keywords) {
-        String regex = "[啊|嘛|呗|喽|呀|哟|啦]|[ `~!@#$^()=|'+-:;,\\%.<>/?￥…&*（）—【】‘；：”“'。，、\t？]";
+        String regex = "[了|吗|呢|啊|嘛|呗|喽|呀|哟|啦]|[ `~!@#$^()=|'+-:;,\\%.<>/?￥…&*（）—【】‘；：”“'。，、\t？]";
         String goodKeywords = "";
         if(keywords!=null) {
             goodKeywords = keywords.replaceAll(regex, "");

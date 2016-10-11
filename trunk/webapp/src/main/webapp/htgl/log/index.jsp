@@ -58,7 +58,7 @@ String startDate = TimeUtil.getTime(cal, "yyyy-MM-dd");
     <ul class="breadcrumb">
         <li><i class="ace-icon fa fa-home home-icon"></i> <a
             href="/htgl/index.action">首页</a></li>
-        <li class="active">日志管理</li>
+        <li class="active">日志查询</li>
     </ul>
     <!-- /.breadcrumb -->
 
