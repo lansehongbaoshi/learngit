@@ -117,4 +117,16 @@ public class KnowTagRelationDataDAOImpl extends BaseHibernateDAO implements Know
         query.setString("knowledgeStatus", String.valueOf(KnowledgeStatus.YSH.getNum()));
         return query.list();
     }
+
+    @Override
+    public List<KnowTagRelationData> getKnowsByTagId(String tagId) {
+        // TODO Auto-generated method stub
+        String hql = "SELECT C FROM KnowledgeData C WHERE C.id IN " +
+                " (SELECT A.knowledgeData.id FROM KnowTagRelationData A WHERE A.tagData.id =:tagId ) " +
+                " AND C.knowledgeStatus =:knowledgeStatus";
+        Query query = hibernateUtil.getSession().createQuery(hql);
+        query.setString("tagId", tagId);
+        query.setString("knowledgeStatus", String.valueOf(KnowledgeStatus.YSH.getNum()));
+        return query.list();
+    }
 }

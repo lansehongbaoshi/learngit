@@ -63,4 +63,6 @@ public interface KnowTagRelationDataDAO {
     long getKnowsCntBySystemId(String systemId, String type);
 
     List<KnowledgeData> getKnowsBySystemId(String systemId);
+
+    List<KnowTagRelationData> getKnowsByTagId(String tagId);
 }

@@ -29,4 +29,6 @@ public interface KnowTagRelationService {
     List<KnowTagRelationData> getKnowTagDatas(String tagId);
     
     List<KnowTagRelationData> getAllKnowTagDatas(String tagId);
+
+    List<KnowTagRelationData> getYSHKnowTagDatas(String tagId);
 }

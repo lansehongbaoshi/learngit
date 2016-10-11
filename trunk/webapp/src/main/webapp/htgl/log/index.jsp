@@ -164,7 +164,7 @@ String startDate = TimeUtil.getTime(cal, "yyyy-MM-dd");
                                         <th width="100" class="hidden-200" tabindex="3"
                                             aria-controls="dynamic-table" rowspan="1" colspan="1">操作内容</th>
                                         <th width="120" class="sorting_disabled" rowspan="1"
-                                            colspan="1" aria-label=""></th>
+                                            colspan="1" aria-label="" style="display: none"></th>
                                     </tr>
                                 </thead>
                                 <tbody id="search_result">
@@ -230,7 +230,7 @@ function showSearchResult(startDate, endDate, curPage) {
                     var logOper = logOpers[i];
                     var odd_even = (i%2==0)?"even":"odd";
                     
-                    var str = " <tr role=\"row\" data-id="+logOper.id+" class=\""+odd_even+"\"><td class=\"hidden-80\" title=\""+logOper.createDate+"\">" + logOper.createDate + "</td><td class=\"hidden-80\">" + logOper.userId + "</td><td class=\"hidden-160\">" + logOper.m1 + "</td><td class=\"hidden-260\"><div class='zxx_text_overflow_1' title='"+ logOper.oper +"'>" + logOper.oper + "<div></td><td><div class=\"hidden-sm hidden-xs action-buttons\"></div></td></tr>";
+                    var str = " <tr role=\"row\" data-id="+logOper.id+" class=\""+odd_even+"\"><td class=\"hidden-80\" title=\""+logOper.createDate+"\">" + logOper.createDate + "</td><td class=\"hidden-80\">" + logOper.userId + "</td><td class=\"hidden-160\">" + logOper.m1 + "</td><td class=\"hidden-260\"><div class='zxx_text_overflow_1' title='"+ logOper.oper +"'>" + logOper.oper + "<div></td><td style=\"display: none\"><div class=\"hidden-sm hidden-xs action-buttons\"></div></td></tr>";
                     
                     $("#search_result").append(str);
                 }
