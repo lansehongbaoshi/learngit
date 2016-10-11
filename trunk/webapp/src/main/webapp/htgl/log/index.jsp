@@ -134,7 +134,7 @@ String startDate = TimeUtil.getTime(cal, "yyyy-MM-dd");
                 <div class="col-xs-12">
 
                     <h3 class="row header smaller lighter blue">
-                        <span class="col-xs-7">知识点列表</span> <span class="col-xs-5"></span>
+                        <span class="col-xs-7">日志列表</span> <span class="col-xs-5"></span>
                     </h3>
 
                     <div class="table-header" id="search_table_header"
