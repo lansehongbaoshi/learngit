@@ -98,9 +98,10 @@ public class KnowTagRelationDataDAOImpl extends BaseHibernateDAO implements Know
         // TODO Auto-generated method stub
         String hql = "SELECT COUNT(*) FROM KnowledgeData C WHERE C.id IN " +
         		" (SELECT A.knowledgeData.id FROM KnowTagRelationData A WHERE A.tagData.id IN (SELECT id FROM TagData B WHERE B.systemData.id =:systemId )) " +
-        		" AND C.type =:type";
+        		" AND C.knowledgeStatus =:knowledgeStatus AND C.type =:type";
         Query query = hibernateUtil.getSession().createQuery(hql);
         query.setString("systemId", systemId);
+        query.setString("knowledgeStatus", String.valueOf(KnowledgeStatus.YSH.getNum()));
         query.setString("type", type);
         return (Long) query.uniqueResult();
     }

@@ -64,7 +64,7 @@
                       <td class="hidden-260">
                         <div class="hidden-sm hidden-xs action-buttons" data-id="<s:property value='#data.id'/>">
                           <a class="green" title="修改" target='_self' href="/htgl/system/updateSystemIndex.action?id=<s:property value='#data.id'/>"><i class="ace-icon fa fa-pencil bigger-130"></i></a> 
-                          <a href="/htgl/system/listSystems/updateKnowledgeTime?id=<s:property value='#data.id'/>" title="将当前时间设置为更新时间"> <i class="ace-icon fa fa-clock-o"></i></a>
+                          <a data-action="update-time" href="javascript:void(0)" title="将当前时间设置为更新时间"> <i class="ace-icon fa fa-clock-o bigger-130"></i></a>
                           <a title="删除" class="red delBtn" href="javascript:void(0)"> <i class="ace-icon fa fa-trash-o bigger-130"></i>
                           </a>
                         </div>
@@ -153,6 +153,13 @@ $(".save").click(function(){
         			}
           	)
         	}
+        });
+    	$("a[data-action='update-time']").on("click",function(){
+            if(confirm("确定刷新该系统下所有知识的更新时间吗？")) {
+            	var $div = $(this).closest("div");
+                var id = $div.data("id");
+                document.location.href="/htgl/system/listSystems/updateKnowledgeTime?id="+id;
+            }
         });
     })
 </script>
