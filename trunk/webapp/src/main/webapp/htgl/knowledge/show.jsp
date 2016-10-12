@@ -24,7 +24,6 @@ if("update".equals(from)) {
 <div class="breadcrumbs" id="breadcrumbs">
 <script type="text/javascript">
     $(function(){
-        showSearchResult($("#kId").val(),0);
         $("a[data-action='update-time']").on("click",function(){
             if(confirm("确定要修改该知识的更新时间为当前时间？")) {
                 document.location.href="/htgl/knowledge/updateKnowledgeTime.action?id=<s:property value=" knowledgeData.id " />";
@@ -64,46 +63,6 @@ if("update".equals(from)) {
         ace.settings.check('breadcrumbs', 'fixed')
     } catch (e) {}
     
-    
-    function showSearchResult(KId,curPage) {
-        $.getJSON("/htgl/knowledge/showDiscussContent.action", {
-               id:KId,
-                curPage: curPage
-            },
-            function showSearchResult(json) {
-                if (json.flag == 'true') {
-                    $("#search_result").html("");
-                    var knows = json.o.knows;
-                    var pagination = json.o.pagination;
-                    for (var i = 0; i < knows.length; i++) {
-                        var k = knows[i];
-                        var str = " <tr><td>"+k.userName+"</td><td>"+k.content+"</td><td>"+k.time+"</td></tr>";
-                        $("#search_result").append(str);
-                    }
-                    $("#dynamic-table_info").html("第"+pagination.curPage+"页，共"+ pagination.totalCount +" 条。");
-                    $("#dynamic-table_paginate").html(formatP(KId, pagination, curPage));
-                    $("#table_footer_info").show();
-                }
-            }
-        )
-    }
-
-    function formatP(KId, pagination, curPage) {
-        var curPage = pagination.curPage;
-        var totalCount = pagination.totalCount;
-        var pageCount = Math.ceil(totalCount / pagination.pageCount);
-        var prePage = "";
-        var nextPage = "";
-        if (curPage - 1 >= 0) {
-            prePage = " <li class=\"paginate_button previous\" aria-controls=\"dynamic-table\" tabindex=\"0\" id=\"dynamic-table_previous\"><a href=\"javascript:void(0)\" onclick=\"showSearchResult('"+KId+"','" + (curPage - 1) + "')\">上一页</a>";
-        }
-  
-        if (curPage + 1 < pageCount) {
-            nextPage = " <li class=\"paginate_button next\" aria-controls=\"dynamic-table\" tabindex=\"0\" id=\"dynamic-table_next\"><a href=\"javascript:void(0)\" onclick=\"showSearchResult('" +KId+"','" + (curPage + 1) + "')\">下一页</a></li>";
-        }
-        var htmlStr = "<ul class=\"pagination\">" + prePage + nextPage + "</ul>";
-        return htmlStr;
-    }
     function getLogOperData(keyId){
         $.getJSON("/htgl/knowledge/checkindex/getLogOper.action", {
             keyId:keyId
@@ -281,171 +240,9 @@ if("update".equals(from)) {
                 </div>
             </div>
 
-
-            <div class="widget-box widget-color-grey" style="border: none;">
-                <div class="widget-header">
-                    <h4 class="widget-title lighter smaller">用户评价</h4>
-                </div>
-
-                <div class="widget-body">
-                    <div class="widget-main padding-8">
-                    <table>
-                        <tbody>
-                            <tr><td rowspan="2" style="padding:5px 10px;"> 
-                            共参与 <s:property value="discussCountVO.sum" /> 人
-                            </td>
-                                <td style="padding:5px 10px;">
-                                <i class="ace-icon fa fa-thumbs-o-up blue bigger-130"></i> 认为有帮助：</td>
-                                <td width="150">
-                        <div class="progress  progress-mini" style="margin:0;">
-                            <div class="progress-bar"  style="width:  <s:property value='discussCountVO.usefulPersent'/>%;"></div>
-                        </div>
-                                </td>
-                                <td style="padding:5px 10px;">  
-                            <strong class="blue">
-                                <s:property value="discussCountVO.usefulPersent" />
-                        % 
-                            </strong>         
-                        （
-                        <s:property value="discussCountVO.useful" />
-                        人）
-                                </td>
-                      
-                            </tr>
-                            <tr>
-                                <td style="padding:5px 10px;">
-                                 <i class="ace-icon fa fa-thumbs-o-down red bigger-130"></i> 认为无帮助：
-                                </td>
-                                <td width="150">
-                        <div class="progress  progress-mini" style="margin:0;">
-                            <div class="progress-bar progress-bar-danger" style="height:15px; width:  <s:property value='discussCountVO.unusefulPersent'/>%;"></div>
-                        </div>
-                                </td>
-                                <td style="padding:5px 10px;">
-                                <strong class="red">
-                                    
-                        <s:property value="discussCountVO.unusefulPersent" />
-                        % （
-                                </strong>
-                        <s:property value="discussCountVO.unuseful" />
-                        人）
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                      
-
-
-                        <div id="discuss-content" style="border-top:solid 2px #478fca; margin: 10px 15px; padding: 10px; font-size: 14px;">
-                 
-                            
-                      
-                        <div class="itemdiv commentdiv">
-                                  <div class="user">
-                                    <img alt="Joe's Avatar" src="/assets/avatars/avatar2.png">
-                                  </div>
-
-                                  <div class="body">
-                                    <div class="name">
-                                    游客
-                                     </div>
-
-                                    <div class="time">
-                                      <i class="ace-icon fa fa-clock-o"></i>
-                                      <span class="blue">2016-06-13 14:58:03</span>
-                                    </div>
-
-                                    <div class="text">
-                                      <i class="ace-icon fa fa-quote-left"></i>
-                                      这是的some text…
-                                    </div>
-                                  </div>
-
-                                  <div class="tools" style="display:none">
-                                    <div class="action-buttons bigger-125">
-                                      <a href="#">
-                                        <i class="ace-icon fa fa-pencil blue"></i>
-                                      </a>
-
-                                      <a href="#">
-                                        <i class="ace-icon fa fa-trash-o red"></i>
-                                      </a>
-                                    </div>
-                                  </div>
-                                </div>
-
-                                 <div class="itemdiv commentdiv">
-                                  <div class="user">
-                                    <img alt="Joe's Avatar" src="/assets/avatars/avatar2.png">
-                                  </div>
-
-                                  <div class="body">
-                                    <div class="name">
-                                    游客
-                                     </div>
-
-                                    <div class="time">
-                                      <i class="ace-icon fa fa-clock-o"></i>
-                                      <span class="blue">2016-06-13 14:58:03</span>
-                                    </div>
-
-                                    <div class="text">
-                                      <i class="ace-icon fa fa-quote-left"></i>
-                                      这是的some text…
-                                    </div>
-                                  </div>
-
-                                  <div class="tools" style="display:none">
-                                    <div class="action-buttons bigger-125">
-                                      <a href="#">
-                                        <i class="ace-icon fa fa-pencil blue"></i>
-                                      </a>
-
-                                      <a href="#">
-                                        <i class="ace-icon fa fa-trash-o red"></i>
-                                      </a>
-                                    </div>
-                                  </div>
-                                </div>
-
-                               
-                            <table>
-                                <tr>
-                                    <th>姓名</th>
-                                    <th>内容</th>
-                                    <th>时间</th>
-                                </tr>
-
-                                <tbody id="search_result">
-                                    <s:iterator value="contentList.knows" id="o">
-                                        <tr>
-                                            <td><s:property value="#o.userName" /></td>
-                                            <td><s:property value="#o.content" /></td>
-                                            <td><s:property value="#o.time" /></td>
-                                        </tr>
-
-                                    </s:iterator>
-
-                                </tbody>
-
-                            </table>
-                            <div class="row" id="table_footer_info">
-                                <div class="col-xs-6">
-                                    <div class="dataTables_info" id="dynamic-table_info"
-                                        role="status" aria-live="polite"></div>
-                                </div>
-                                <div class="col-xs-6">
-                                    <div class="dataTables_paginate paging_simple_numbers"
-                                        id="dynamic-table_paginate"></div>
-                                </div>
-                            </div>
-
-                        </div>
-
-                    </div>
-                </div>
-            </div>
+            <jsp:include page="/common/userDiscuss.jsp">
+                <jsp:param name="kId" value="${id}" />
+            </jsp:include>
 
             <div class="clear"></div>
         </div>

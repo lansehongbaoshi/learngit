@@ -337,5 +337,17 @@
         <action name="delete" class="robotSetActionBean" method="delete">
         </action>
     </package>
+    <package name="common" extends="knowledge-default" namespace="/common">
+        <interceptors>
+          <interceptor-stack name="knowledgeStack">
+              <interceptor-ref name="chsiDefaultStack"></interceptor-ref>
+              <interceptor-ref name="store">
+                  <param name="operationMode">AUTOMATIC</param>
+              </interceptor-ref>
+          </interceptor-stack>
+        </interceptors>
+        <action name="showDiscussContent" class="knowledgeActionBean" method="showDiscussContent">
+        </action>
+    </package>
     
 </struts>
