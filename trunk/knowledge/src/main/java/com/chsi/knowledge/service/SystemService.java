@@ -34,7 +34,7 @@ public interface SystemService {
      * 获取所有系统列表
      * @return
      */
-    List<SystemData> getSystems();
+    List<SystemData> getSystems(boolean needTimeSet);
     
     /**
      * 获取当前处于开放状态的系统id

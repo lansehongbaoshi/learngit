@@ -80,7 +80,7 @@ public class CommonServiceImpl extends BaseDbService implements CommonService {
         List<SystemOpenTimeData> systems = systemService.getOpenSystems();
         if(systems.size()==0) {
             systems = new ArrayList<SystemOpenTimeData>();
-            List<SystemData> systemDataList = systemService.getSystems();
+            List<SystemData> systemDataList = systemService.getSystems(false);
             for(SystemData data:systemDataList) {
                 systems.add(new SystemOpenTimeData(data.getId()));
             }

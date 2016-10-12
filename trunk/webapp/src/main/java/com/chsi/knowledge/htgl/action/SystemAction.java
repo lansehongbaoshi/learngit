@@ -137,14 +137,14 @@ public class SystemAction extends AjaxAction {
     }
 
     public void getSystems() throws Exception {
-        List<SystemData> systems = systemService.getSystems();
+        List<SystemData> systems = systemService.getSystems(false);
         ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
         ajaxMessage.setO(systems);
         writeCallbackJSON(callback);
     }
 
     public String listSystems() throws Exception {
-        List<SystemData> listSystem = systemService.getSystems();
+        List<SystemData> listSystem = systemService.getSystems(true);
         systemDatas = new ArrayList<SystemVO>();
         for (SystemData system : listSystem) {
             List<TagData> list = ManageCacheUtil.getTagList(system.getId());

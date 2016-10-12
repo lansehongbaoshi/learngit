@@ -106,7 +106,7 @@
             </div>
 
             
-            <div class="rows" />
+            <div class="rows" >
             <h3 class="row header smaller lighter blue">
                 <div class="col-xs-3">常用语对话配置</div> <div class="col-xs-9">
                 <div class="col-xs-11">
@@ -130,6 +130,7 @@
                                 class="bigger-110">新增</span></span>
                     </a> </div></div>
             </h3>
+            </div>
             <div class="table-header" id="search_table_header" style="display:">
                 搜索 "*:*" 的结果</div>
             <div id="dynamic-table_wrapper"
@@ -167,10 +168,6 @@
                         <div class="dataTables_paginate paging_simple_numbers"
                             id="dynamic-table_paginate"></div>
                     </div>
-                </div>
-                <div class="row">
-                    <BR>
-                    <BR>
                 </div>
             </div>
             <%--col-xs-12--%>

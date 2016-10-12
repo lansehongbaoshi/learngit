@@ -107,13 +107,15 @@ public class SystemServiceImpl extends BaseDbService implements SystemService{
     }
 
     @Override
-    public List<SystemData> getSystems() {
+    public List<SystemData> getSystems(boolean needTimeSet) {
         List<SystemData> list = systemDataDAO.getSystems();
         if(list == null || list.size() == 0){
             return null;
         }
-        for(SystemData systemData:list){
-            systemData.setList(systemOpenTimeDAO.getList(systemData.getId()));
+        if(needTimeSet) {
+            for(SystemData systemData:list){
+                systemData.setList(systemOpenTimeDAO.getList(systemData.getId()));
+            }
         }
         return list;
     }

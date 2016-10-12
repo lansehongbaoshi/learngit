@@ -152,7 +152,7 @@ public class ManageCacheUtil {
                 }
             }
             
-            List<SystemData> systems = systemService.getSystems();
+            List<SystemData> systems = systemService.getSystems(false);
             systems.removeAll(result.keySet());
             SystemOpenTimeData openData = new SystemOpenTimeData();
             for(SystemData data:systems) {

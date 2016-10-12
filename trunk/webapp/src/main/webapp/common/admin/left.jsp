@@ -32,7 +32,7 @@ try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
     <%if(user.getAuths().contains(com.chsi.knowledge.Constants.ROLE_KNOWLEDGE)) {%>
     <li id="knowledge_menu" class=""><a href="/htgl/knowledge/searchindex.action"> <i class="menu-icon fa fa-pencil-square-o"></i> <span class="menu-text"> 知识管理 </span>
     </a> <b class="arrow"></b></li>
-    <li id="knowledgechexk_menu" class=""><a href="/htgl/knowledge/checkindex.action"> <i class="menu-icon fa fa-pencil-square-o"></i> <span class="menu-text"> 知识审核 </span>
+    <li id="knowledgechexk_menu" class=""><a href="/htgl/knowledge/checkindex.action"> <i class="menu-icon fa fa-check-square"></i> <span class="menu-text"> 知识审核 </span>
     </a> <b class="arrow"></b></li>
     <li id="tag_menu" class=""><a href="/htgl/tag/index.action"> <i class="menu-icon fa fa-tag"></i> <span class="menu-text"> 标签管理 </span>
     </a> <b class="arrow"></b></li>

@@ -131,7 +131,7 @@ public class ManageAction extends BasicAction{
                 log.info(systemId+"结束刷索引");
             }
         } else {
-            List<SystemData> systems = systemService.getSystems();
+            List<SystemData> systems = systemService.getSystems(false);
             for(SystemData system:systems) {
                 List<KnowledgeData> list = knowledgeService.get(system.getId(), KnowledgeStatus.YSH);
                 if (null != list) {
