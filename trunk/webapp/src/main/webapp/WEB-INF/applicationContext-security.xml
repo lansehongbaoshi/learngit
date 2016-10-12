@@ -63,6 +63,8 @@
         
         <intercept-url pattern="/query/**" access="ROLE_KNOWLEDGE_READONLY" />
         
+        <intercept-url pattern="/common/**" access="ROLE_KNOWLEDGE,ROLE_KNOWLEDGE_READONLY,ROLE_CTI_USER" /> 
+        
         <intercept-url pattern="/index.jsp" access="ROLE_KNOWLEDGE,ROLE_KNOWLEDGE_READONLY,ROLE_CTI_USER" /> 
 
         <!-- 公共资源-->
