@@ -84,8 +84,8 @@
     
     <!-- 客服普通工作人员过滤器 -->
     <filter>
-        <filter-name>CtiFilter</filter-name>
-        <filter-class>com.chsi.knowledge.common.web.filter.CtiFilter</filter-class>
+        <filter-name>IPFilter</filter-name>
+        <filter-class>com.chsi.knowledge.common.web.filter.IPFilter</filter-class>
     </filter>
 
     <filter>
@@ -159,7 +159,7 @@
     </filter-mapping>
     
     <filter-mapping>
-        <filter-name>CtiFilter</filter-name>
+        <filter-name>IPFilter</filter-name>
         <url-pattern>/nocas/*</url-pattern>
     </filter-mapping>
 

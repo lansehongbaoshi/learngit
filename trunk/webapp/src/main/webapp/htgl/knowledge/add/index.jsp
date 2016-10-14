@@ -8,7 +8,7 @@
 <%
     String ctxPath = request.getContextPath();
 SystemService systemService = ServiceFactory.getSystemService();
-List<SystemData> systems = systemService.getSystems();
+List<SystemData> systems = systemService.getSystems(false);
 %>
 <!--breadcrumbs-->
 <div class="breadcrumbs" id="breadcrumbs">
