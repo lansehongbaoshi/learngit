@@ -92,7 +92,7 @@
                 <div class="col-xs-11">
                     <div class="input-group">
                         <input id="keywords" type="text" class="form-control search-query"
-                            placeholder="请输入用户提问、机器人回答进行搜索" name="keywords" /> <span
+                            placeholder="请输入用户提问、机器人回答搜索配置" name="keywords" /> <span
                             class="input-group-btn">
                             <button type="button" id="searchBtn"
                                 class="btn btn-purple btn-sm">

@@ -123,13 +123,6 @@ if("update".equals(from)) {
                 <div class="widget-body">
                     <div class="widget-main padding-8">
                         <dl class="dl-horizontal">
-                            <dt>知识点编号：</dt>
-                            <dd>
-                                #
-                                <s:property value=" knowledgeData.id " />
-                                <input id="kId" type="hidden"
-                                    value="<s:property value='knowledgeData.id' />" />
-                            </dd>
                             <dt>热点度：</dt>
                             <dd>
                                 <s:property value=" knowledgeData.sort " />
