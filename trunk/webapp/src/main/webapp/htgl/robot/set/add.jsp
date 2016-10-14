@@ -12,13 +12,6 @@
     <li class="active">机器人配置</li>
   </ul>
   <!-- /.breadcrumb -->
-  <div class="nav-search" id="nav-search">
-    <form class="form-search">
-      <span class="input-icon"> <input type="text" placeholder="Search ..." class="nav-search-input" id="nav-search-input" autocomplete="off"> <i class="ace-icon fa fa-search nav-search-icon"></i>
-      </span>
-    </form>
-  </div>
-  <!-- /.nav-search -->
 </div>
 <div class="page-content">
   <div class="page-header">
@@ -31,7 +24,7 @@
           用户提问：<input type="text" name="q" value="" style="width: 600px;" maxlength="50" check="^[\S|\s]{1,}$" warn="用户提问不能为空"><span>（说明：多种相似的词汇或句子用","隔开，如：“姓名,名字”）</span>
         </p>
         <p>
-           匹配分词阀值：<input type="text" name="num" value="" check="^[1-9]\d*$" warn="关键词个数为正整数" style="width: 400px;"  maxlength="50" <s:if test="key.systemDefined">readonly="true"</s:if>><span>（说明：用户输入与系统配置提问匹配到的分词数目大于等于此值时才认为回答合理）</span>
+           匹配分词阈值：<input type="text" name="num" value="" check="^[1-9]\d*$" warn="关键词个数为正整数" style="width: 400px;"  maxlength="50" <s:if test="key.systemDefined">readonly="true"</s:if>><span>（说明：用户输入匹配用户提问的分词数目大于等于此值时才认为回答合理）</span>
         </p>
         <p>
           机器人回答：<input type="button" value="+" onclick="addLi()">

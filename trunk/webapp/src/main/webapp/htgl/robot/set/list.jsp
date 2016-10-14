@@ -22,23 +22,13 @@
         <li class="active">机器人配置</li>
     </ul>
     <!-- /.breadcrumb -->
-    <div class="nav-search" id="nav-search">
-        <form class="form-search">
-            <span class="input-icon"> <input type="text"
-                placeholder="Search ..." class="nav-search-input"
-                id="nav-search-input" autocomplete="off"> <i
-                class="ace-icon fa fa-search nav-search-icon"></i>
-            </span>
-        </form>
-    </div>
-    <!-- /.nav-search -->
 </div>
 <div class="page-content">
     <div class="rows">
         <div class="col-xs-12">
             <h3 class="row header smaller lighter orange">
                 机器人基本设置 <small> <i class="ace-icon fa fa-angle-double-right"></i>
-                    设置机器人开场白、问候语以及应急回答
+                    机器人开场白等设置
                 </small>
             </h3>
             <div class="dataTables_wrapper form-inline no-footer">
@@ -96,23 +86,13 @@
                         </tr>
                 </table>
             </div>
-
-            <div class="page-header">
-                <h1>
-                    查询 <small> <i class="ace-icon fa fa-angle-double-right"></i>
-                        根据条件查询
-                    </small>
-                </h1>
-            </div>
-
-            
             <div class="rows" >
             <h3 class="row header smaller lighter blue">
                 <div class="col-xs-3">常用语对话配置</div> <div class="col-xs-9">
                 <div class="col-xs-11">
                     <div class="input-group">
                         <input id="keywords" type="text" class="form-control search-query"
-                            placeholder="机器人对话问题、回答、关键字..." name="keywords" /> <span
+                            placeholder="请输入用户提问、机器人回答进行搜索" name="keywords" /> <span
                             class="input-group-btn">
                             <button type="button" id="searchBtn"
                                 class="btn btn-purple btn-sm">
@@ -145,7 +125,7 @@
                             <th width="340" class="hidden-200" tabindex="0"
                                 aria-controls="dynamic-table" rowspan="1" colspan="1">机器人回答</th>
                             <th width="100" class="hidden-200" tabindex="0"
-                                aria-controls="dynamic-table" rowspan="1" colspan="1">分词阀值</th>
+                                aria-controls="dynamic-table" rowspan="1" colspan="1">分词阈值</th>
                             <th class="sorting_disabled" rowspan="1" colspan="1"
                                 aria-label=""></th>
                         </tr>
