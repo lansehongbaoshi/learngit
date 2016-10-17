@@ -30,6 +30,8 @@ public class SearchVO {
     private long topTime;
     private boolean hasImage;
     private String lastUpdateTime;
+    private String creater;
+    private String createTime;
     
     private static SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     
@@ -81,6 +83,36 @@ public class SearchVO {
         this.topTime = topTime;
         this.hasImage = hasImage;
         this.lastUpdateTime = format.format(lastUpdateTime.getTime());;
+    }
+    public SearchVO(List<SystemData> systemDatas, String tags, String title, String summary, String contentTxt, String knowId,
+            List<String> tagIds, String keywords, int visitCnt, int sort, String type, long topTime, boolean hasImage, Calendar lastUpdateTime,String creater,Calendar createTime){
+        if(systemDatas!=null) {
+            this.systemId = systemDatas.get(0).getId();
+            this.system = systemDatas.get(0).getName();
+            if(systemDatas.size()>1) {
+                this.system+="...";
+            }
+            this.systems = "";
+            for(SystemData systemData:systemDatas) {
+                systems+=systemData.getName()+"&nbsp;";
+            }
+        }
+        this.tags = tags;
+        this.title = title;
+        this.summary = summary;
+        this.setContentTxt(contentTxt);
+        this.knowId = knowId;
+        this.tagIds = tagIds;
+        this.keywords = keywords;
+        this.visitCnt = visitCnt;
+        this.sort = sort;
+        this.type = type;
+        this.topTime = topTime;
+        this.hasImage = hasImage;
+        this.lastUpdateTime = format.format(lastUpdateTime.getTime());
+        this.creater = creater;
+        this.createTime = format.format(createTime.getTime());
+        
     }
 
     public String getSystemId() {
@@ -211,5 +243,20 @@ public class SearchVO {
         this.lastUpdateTime = lastUpdateTime;
     }
 
+    public String getCreater() {
+        return creater;
+    }
+
+    public void setCreater(String creater) {
+        this.creater = creater;
+    }
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
     
 }

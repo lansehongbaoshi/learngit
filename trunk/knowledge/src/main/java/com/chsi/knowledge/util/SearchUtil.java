@@ -5,6 +5,9 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.chsi.contact.client.ContactServiceClient;
+import com.chsi.contact.client.ContactServiceClientFactory;
+import com.chsi.contact.constant.client.ContactConstants;
 import com.chsi.framework.util.ValidatorUtil;
 import com.chsi.knowledge.pojo.KnowledgeData;
 import com.chsi.knowledge.vo.KnowListVO;
@@ -115,7 +118,12 @@ public class SearchUtil {
             boolean hasImage = hasImgTag(htmlContent);
             KnowledgeData data = ManageCacheUtil.getKnowledgeDataById(vo.getKnowledgeId());
             if(data!=null) {
-                tempVO = new SearchVO(data.getSystemDatas(), vo.getTags(), vo.getTitle(), summary, txtContent, vo.getKnowledgeId(), vo.getTagIds(), searchWords, data.getVisitCnt(), data.getSort(), data.getType(), data.getTopTime()==null?-1:data.getTopTime().getTimeInMillis(), hasImage, (data.getUpdateTime()==null ? data.getCreateTime():data.getUpdateTime()));
+                ContactServiceClient contactService = ContactServiceClientFactory.getContactServiceClient();
+                String userName = contactService.getRealInfoSingleItemValue(data.getCreater(), ContactConstants.ITEM_NAME_ID);
+                if("".equals(userName)||null==userName){
+                    userName = "未注册";
+                }
+                tempVO = new SearchVO(data.getSystemDatas(), vo.getTags(), vo.getTitle(), summary, txtContent, vo.getKnowledgeId(), vo.getTagIds(), searchWords, data.getVisitCnt(), data.getSort(), data.getType(), data.getTopTime()==null?-1:data.getTopTime().getTimeInMillis(), hasImage, (data.getUpdateTime()==null ? data.getCreateTime():data.getUpdateTime()),userName,data.getCreateTime());
                 searchList.add(tempVO);
             }
         }

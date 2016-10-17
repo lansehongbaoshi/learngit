@@ -21,9 +21,6 @@ String ctxPath = request.getContextPath();
 
 
     <div class="page-content">
-        <div class="page-header">
-            <h1> 查询 <small> <i class="ace-icon fa fa-angle-double-right"></i> 根据条件查询 </small> </h1>
-        </div>
 
        <div class="rows">
        <div class="col-xs-12 col-md-2">
@@ -38,7 +35,7 @@ String ctxPath = request.getContextPath();
         </select>
         </div>
         <div class="col-xs-12 col-md-2">
-        <select id="tags">
+        <select id="tags" class="form-control">
         <option value="">请选择标签...</option>
         </select>
         </div>
@@ -49,7 +46,7 @@ String ctxPath = request.getContextPath();
         <input id="keywords" type="text" style="display: none" class="form-control search-query" placeholder="知识点标题、回答、标签、关键字..." name="keywords" />
         <span class="input-group-btn">
 <button type="button" id="searchBtn" class="btn btn-purple btn-sm">
-																			<span class="ace-icon fa fa-search icon-on-right bigger-110"></span> 搜索
+																			<span class="ace-icon fa fa-search icon-on-right bigger-110"></span> 查询
         </button>
         </span>
         </div>
@@ -76,7 +73,7 @@ String ctxPath = request.getContextPath();
                         </h3>
          
                   
-                        <div class="table-header" id="search_table_header" style="display:none"> 搜索 "Latest Registered Domains" 的结果</div>
+                        <div class="table-header" id="search_table_header" style="display:none"> 查询 "Latest Registered Domains" 的结果</div>
 
                         <!-- div.table-responsive -->
 
@@ -91,8 +88,8 @@ String ctxPath = request.getContextPath();
                                             <th width="100" class="hidden-80" tabindex="1"  aria-controls="dynamic-table" rowspan="1" colspan="1" aria-label="Domain: activate to sort column ascending">标签</th>
                                             <th width="200" class="hidden-180" tabindex="1"  aria-controls="dynamic-table" rowspan="2" colspan="1" aria-label="Domain: activate to sort column ascending">标题</th>
                                              <th width=""  class="hidden-200" tabindex="3"  aria-controls="dynamic-table" rowspan="1" colspan="1">回答摘要</th> 
-                                            <th width="70" class="hidden-480" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1" aria-label="Clicks: activate to sort column ascending">热点度</th>
-                                            <th width="80" class="hidden-480" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1" aria-label="Clicks: activate to sort column ascending">点击次数</th>
+                                            <th width="70" class="hidden-480" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1" aria-label="Clicks: activate to sort column ascending">创建人</th>
+                                            <th width="80" class="hidden-480" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1" aria-label="Clicks: activate to sort column ascending">创建时间</th>
                                             <th width="80" class="hidden-480" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1" aria-label="Status: activate to sort column ascending">状态</th>
                                             <th width="120" class="sorting_disabled" rowspan="1" colspan="1" aria-label=""></th>
                                         </tr>
@@ -138,6 +135,7 @@ String ctxPath = request.getContextPath();
                 },
                 function showSearchResult(json) {
                     if (json.flag == 'true') {
+                    	console.log(json);
                         $("#search_result").html("");
                         $("#search_table_header").html("");
                         $("#dynamic-table_info").html("");
@@ -146,7 +144,7 @@ String ctxPath = request.getContextPath();
                         var knows = json.o.knows;
                         if(knows.length<1){
                            $("#search_result").html(" <tr role=\"row\" class=\"odd\"\><td  colspan=\"5\"> 无数据 </td><\/tr>");
-                            $("#search_table_header").html("搜索 \“"+$("#keywords").val() +"\” 的结果").show();
+                            $("#search_table_header").html("查询的结果").show();
                             return;
                         }
                         var pagination = json.o.pagination;
@@ -154,13 +152,15 @@ String ctxPath = request.getContextPath();
                             var k = knows[i];
                             var odd_even = (i%2==0)?"even":"odd";
                             if(k.topTime==-1){//未置顶热点问题
-                                var str = " <tr role=\"row\" data-id="+k.knowId+" class=\""+odd_even+"\"><td class=\"hidden-80\" title=\""+k.systems+"\">" + k.system + "</td><td class=\"hidden-80\">" + k.tags + "</td><td class=\"hidden-160\">" + (k.hasImage?("<i class=\"ace-icon fa fa-image bigger-130\"></i>&nbsp;"+k.title):k.title) + "</td><td class=\"hidden-260\"><div class='zxx_text_overflow_1' title='"+ k.contentTxt +"'>" + k.contentTxt + "<div></td><td class=\"hidden-80\">"+k.sort+"</td><td class=\"hidden-80\">"+k.visitCnt+"</td><td class=\hidden-80\><span class=\"label label-sm label-success\">待审核</span><span class=\"label label-sm label-success\">"+k.type+"</span></td><td><div class=\"hidden-sm hidden-xs action-buttons\"><a class=\"blue\" target='_blank' title=\"查看\" href=\"/cti/knowledge/searchadd/showKnowledge.action?id=" + k.knowId +"\"> <i class=\"ace-icon fa fa-search-plus bigger-130\"></i> </a> <a class=\"green\" title=\"修改\" href='javascript:void(0)' class='modifyclass'><i class=\"ace-icon fa fa-pencil bigger-130\"></i> </a></div>" + "</td></tr>";
+                                var str = " <tr role=\"row\" data-id="+k.knowId+" class=\""+odd_even+"\"><td class=\"hidden-80\" title=\""+k.systems+"\">" + k.system + "</td><td class=\"hidden-80\">" + k.tags + "</td><td class=\"hidden-160\">" + (k.hasImage?("<i class=\"ace-icon fa fa-image bigger-130\"></i>&nbsp;"+k.title):k.title) + "</td><td class=\"hidden-260\"><div class='zxx_text_overflow_1' title='"+ k.contentTxt +"'>" + k.contentTxt + "<div></td><td class=\"hidden-80\">"+k.creater+"</td><td class=\"hidden-80\">"+k.createTime+"</td><td class=\hidden-80\><span class=\"label label-sm label-success\">待审核</span><span class=\"label label-sm label-success\">"+k.type+"</span></td><td><div class=\"hidden-sm hidden-xs action-buttons\"><a class=\"blue\" target='_blank' title=\"查看\" href=\"/cti/knowledge/searchadd/showKnowledge.action?id=" + k.knowId +"\"> <i class=\"ace-icon fa fa-search-plus bigger-130\"></i> </a> <a class=\"green\" title=\"修改\" href='javascript:void(0)' class='modifyclass'><i class=\"ace-icon fa fa-pencil bigger-130\"></i> </a></div>" + "</td></tr>";
+
                             }else{//已置顶热点问题
-                            	var str = " <tr role=\"row\" data-id="+k.knowId+" class=\""+odd_even+"\"><td class=\"hidden-80\" title=\""+k.systems+"\">" + k.system + "</td><td class=\"hidden-80\">" + k.tags + "</td><td class=\"hidden-160\">" + (k.hasImage?("<i class=\"ace-icon fa fa-image bigger-130\"></i>&nbsp;"+k.title):k.title) + "</td><td class=\"hidden-260\">" + k.summary + "</td><td class=\"hidden-80\">"+k.sort+"</td><td class=\"hidden-80\">"+k.visitCnt+"</td><td class=\hidden-80\><span class=\"label label-sm label-success\">待审核</span><span class=\"label label-sm label-success\">"+k.type+"</span></td><td><div class=\"hidden-sm hidden-xs action-buttons\"><a class=\"blue\" target='_blank' title=\"查看\" href=\"/cti/knowledge/searchadd/showKnowledge.action?id=" + k.knowId +"\"> <i class=\"ace-icon fa fa-search-plus bigger-130\"></i> </a> <a class=\"green\" title=\"修改\" href='javascript:void(0)' class='modifyclass'><i class=\"ace-icon fa fa-pencil bigger-130\"></i> </a></div>" + "</td></tr>";
+                            	var str = " <tr role=\"row\" data-id="+k.knowId+" class=\""+odd_even+"\"><td class=\"hidden-80\" title=\""+k.systems+"\">" + k.system + "</td><td class=\"hidden-80\">" + k.tags + "</td><td class=\"hidden-160\">" + (k.hasImage?("<i class=\"ace-icon fa fa-image bigger-130\"></i>&nbsp;"+k.title):k.title) + "</td><td class=\"hidden-260\">" + k.summary + "</td><td class=\"hidden-80\">"+k.creater+"</td><td class=\"hidden-80\">"+k.createTime+"</td><td class=\hidden-80\><span class=\"label label-sm label-success\">待审核</span><span class=\"label label-sm label-success\">"+k.type+"</span></td><td><div class=\"hidden-sm hidden-xs action-buttons\"><a class=\"blue\" target='_blank' title=\"查看\" href=\"/cti/knowledge/searchadd/showKnowledge.action?id=" + k.knowId +"\"> <i class=\"ace-icon fa fa-search-plus bigger-130\"></i> </a> <a class=\"green\" title=\"修改\" href='javascript:void(0)' class='modifyclass'><i class=\"ace-icon fa fa-pencil bigger-130\"></i> </a></div>" + "</td></tr>";
+
                             }
                             $("#search_result").append(str);
                         }
-                        $("#search_table_header").html("搜索 \“"+knows[0].keywords +"\” 的结果").show();
+                        $("#search_table_header").html("查询的结果").show();
                         $("#dynamic-table_info").html("第"+(pagination.curPage)+"页，共"+ pagination.totalCount +" 条。");
                         $("#dynamic-table_paginate").html(formatP(pagination, systemId, keywords, curPage));
                         $("#table_footer_info").show();

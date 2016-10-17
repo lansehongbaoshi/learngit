@@ -71,8 +71,19 @@ public class SearchAction extends AjaxAction {
         }*/
         
         KnowListVO<KnowledgeVO> listVO = knowIndexService.searchKnow(queryParams, (curPage - 1) * Constants.PAGE_SIZE, Constants.PAGE_SIZE);
+        
         List<SearchVO> list = SearchUtil.exchangeResultList(listVO, keywords, 40);
         //saveSearchLog(list);
+        for(SearchVO knowVO : list){
+            if("PUBLIC".equals(knowVO.getType())){
+                knowVO.setType("公开");
+            }else if("PRIVATE".equals(knowVO.getType())){
+                knowVO.setType("内部");
+            }else{
+                knowVO.setType("其他");
+            }
+        }
+        
         KnowListVO<SearchVO> result = new KnowListVO<SearchVO>(list, listVO.getPagination());
         ajaxMessage.setO(result);
         writeCallbackJSON(callback);
@@ -118,6 +129,16 @@ public class SearchAction extends AjaxAction {
         
         List<SearchVO> list = SearchUtil.exchangeResultList(listVO, keywords, 40);
         //saveSearchLog(list);
+        for(SearchVO knowVO : list){
+            if("PUBLIC".equals(knowVO.getType())){
+                knowVO.setType("公开");
+            }else if("PRIVATE".equals(knowVO.getType())){
+                knowVO.setType("内部");
+            }else{
+                knowVO.setType("其他");
+            }
+        }
+        
         KnowListVO<SearchVO> result = new KnowListVO<SearchVO>(list, listVO.getPagination());
         ajaxMessage.setO(result);
         writeCallbackJSON(callback);
