@@ -22,7 +22,7 @@ String ctxPath = request.getContextPath();
 
     <div class="page-content">
         <div class="page-header">
-            <h1> 查询 <small> <i class="ace-icon fa fa-angle-double-right"></i> 根据条件查询 </small> </h1>
+            <h1> 搜索 <small> <i class="ace-icon fa fa-angle-double-right"></i> 根据条件搜索 </small> </h1>
         </div>
 
        <div class="rows">

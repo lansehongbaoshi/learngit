@@ -22,7 +22,7 @@ String ctxPath = request.getContextPath();
 
     <div class="page-content">
         <div class="page-header">
-            <h1> 查询 <small> <i class="ace-icon fa fa-angle-double-right"></i> 根据条件查询 </small> </h1>
+            <h1> 知识审核 <small> <i class="ace-icon fa fa-angle-double-right"></i> 根据条件查询 </small> </h1>
         </div>
 
        <div class="rows">
@@ -76,7 +76,7 @@ String ctxPath = request.getContextPath();
                         </h3>
          
                   
-                        <div class="table-header" id="search_table_header" style="display:none"> 搜索 "Latest Registered Domains" 的结果</div>
+                        <div class="table-header" id="search_table_header" style="display:none"> 查询 "Latest Registered Domains" 的结果</div>
 
                         <!-- div.table-responsive -->
 
@@ -146,7 +146,7 @@ String ctxPath = request.getContextPath();
                         var knows = json.o.knows;
                         if(knows.length<1){
                            $("#search_result").html(" <tr role=\"row\" class=\"odd\"\><td  colspan=\"5\"> 无数据 </td><\/tr>");
-                            $("#search_table_header").html("搜索 \“"+$("#keywords").val() +"\” 的结果").show();
+                            $("#search_table_header").html("查询 \“"+$("#keywords").val() +"\” 的结果").show();
                             return;
                         }
                         var pagination = json.o.pagination;
@@ -160,7 +160,7 @@ String ctxPath = request.getContextPath();
                             }
                             $("#search_result").append(str);
                         }
-                        $("#search_table_header").html("搜索 \“"+knows[0].keywords +"\” 的结果").show();
+                        $("#search_table_header").html("查询 \“"+knows[0].keywords +"\” 的结果").show();
                         $("#dynamic-table_info").html("第"+pagination.curPage+"页，共"+ pagination.totalCount +" 条。");
                         $("#dynamic-table_paginate").html(formatP(pagination, systemId, keywords, curPage));
                         $("#table_footer_info").show();

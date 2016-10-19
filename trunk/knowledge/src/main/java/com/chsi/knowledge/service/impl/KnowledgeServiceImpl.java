@@ -101,17 +101,12 @@ public class KnowledgeServiceImpl extends BaseDbService implements KnowledgeServ
         if (null == ktRelation) {
             return null;
         }
-        KnowledgeData knowledgeData = ktRelation.getKnowledgeData();
-        CmsServiceClient cmsServiceClient = CmsServiceClientFactory.getCmsServiceClient();
-        Article article = cmsServiceClient.getArticle(knowledgeData.getCmsId());
-        if (null == article) {
-            return null;
-        }
+        KnowledgeData knowledgeData = ManageCacheUtil.getKnowledgeDataById(id);
         Calendar lastOperTime = knowledgeData.getUpdateTime()==null ? knowledgeData.getCreateTime():knowledgeData.getUpdateTime();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         String updateTime = format.format(lastOperTime.getTime());
-        ConKnow conKnow = new ConKnow(knowledgeData.getId(), article.getTitle(), article.getContent(), knowledgeData.getKeywords(), knowledgeData.getVisitCnt(), updateTime);
-        List<Navigation> navigation = NavigationUtil.getNavigation(ktRelation.getTagData().getSystemData(), ktRelation.getTagData(), article.getTitle(), id);
+        ConKnow conKnow = new ConKnow(knowledgeData.getId(), knowledgeData.getTitle(), knowledgeData.getContent(), knowledgeData.getKeywords(), knowledgeData.getVisitCnt(), updateTime, knowledgeData.getSystemNames());
+        List<Navigation> navigation = NavigationUtil.getNavigation(ktRelation.getTagData().getSystemData(), ktRelation.getTagData(), knowledgeData.getTitle(), id);
         ViewKnowVO knowPageVO = new ViewKnowVO(conKnow, navigation);
         return knowPageVO;
     }

@@ -192,14 +192,14 @@ if("update".equals(from)) {
 
             <div class="widget-box widget-color-green2" style="border: none">
                 <div class="widget-header">
-                    <h4 class="widget-title lighter smaller">贡献者</h4>
+                    <h4 class="widget-title lighter smaller">操作人</h4>
                     <a href="#myModal" data-toggle="modal" style="color: white;">历史日志</a>
                 </div>
 
                 <div class="widget-body">
                     <div class="widget-main padding-8">
                         <dl class="dl-horizontal">
-                            <dt>创建者：</dt>
+                            <dt>创建人：</dt>
                             <dd>
                                 <s:property value="knowledgeData.createrName " />
                             </dd>
@@ -208,7 +208,7 @@ if("update".equals(from)) {
                                 <s:date format="yyyy-MM-dd HH:mm:ss"
                                     name="knowledgeData.createTime" />
                             </dd>
-                            <dt>最后更新者：</dt>
+                            <dt>最后更新人：</dt>
                             <dd>
                                 <s:property value=" knowledgeData.updaterName " />
                             </dd>

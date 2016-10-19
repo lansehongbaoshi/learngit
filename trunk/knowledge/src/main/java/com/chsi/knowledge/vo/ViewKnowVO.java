@@ -39,12 +39,13 @@ public class ViewKnowVO{
         private String title;
         private String content;
         private String keywords;
+        private String systems;
         private int visitCnt;
         private String updateTime;
         private boolean ifDiscussed;
 
         public ConKnow(String id, String title, String content,
-                String keywords, int visitCnt, String updateTime) {
+                String keywords, int visitCnt, String updateTime, String systems) {
             this.id = id;
             this.title = title;
             this.content = content;
@@ -52,6 +53,7 @@ public class ViewKnowVO{
             this.visitCnt = visitCnt;
             this.updateTime = updateTime;
             this.ifDiscussed = false;
+            this.systems = systems;
         }
 
         public boolean isIfDiscussed() {
@@ -108,6 +110,14 @@ public class ViewKnowVO{
 
         public void setUpdateTime(String updateTime) {
             this.updateTime = updateTime;
+        }
+
+        public String getSystems() {
+            return systems;
+        }
+
+        public void setSystems(String systems) {
+            this.systems = systems;
         }
 
     }

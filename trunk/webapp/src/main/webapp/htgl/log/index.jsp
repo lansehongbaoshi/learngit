@@ -106,7 +106,7 @@ String startDate = TimeUtil.getTime(cal, "yyyy-MM-dd");
                     <span class="input-group-btn">
                         <button type="button" id="searchBtn" class="btn btn-purple btn-sm">
                             <span class="ace-icon fa fa-search icon-on-right bigger-110"></span>
-                            搜索
+                            查询
                         </button>
                     </span>
                 </div>
@@ -127,7 +127,7 @@ String startDate = TimeUtil.getTime(cal, "yyyy-MM-dd");
                     </h3>
 
                     <div class="table-header" id="search_table_header"
-                        style="display: none">搜索 "Latest LogOper Domains" 的结果</div>
+                        style="display: none">查询 "Latest LogOper Domains" 的结果</div>
 
                     <!-- div.table-responsive -->
 
@@ -211,7 +211,7 @@ function showSearchResult(startDate, endDate, curPage) {
                 var logOpers = json.o.logOpers;
                 if(logOpers.length<1){
                    $("#search_result").html(" <tr role=\"row\" class=\"odd\"\><td  colspan=\"5\"> 无数据 </td><\/tr>");
-                    $("#search_table_header").html("搜索 \“"+$("#startDate1").val() +"\”至\“"+$("#endDate1").val()+"\” 的结果").show();
+                    $("#search_table_header").html("查询 \“"+$("#startDate1").val() +"\”至\“"+$("#endDate1").val()+"\” 的结果").show();
                     return;
                 }
                 var pagination = json.o.pagination;
@@ -223,7 +223,7 @@ function showSearchResult(startDate, endDate, curPage) {
                     
                     $("#search_result").append(str);
                 }
-                $("#search_table_header").html("搜索 \“"+$("#startDate1").val() +"\”至\“"+$("#endDate1").val()+"\” 的结果").show();
+                $("#search_table_header").html("查询 \“"+$("#startDate1").val() +"\”至\“"+$("#endDate1").val()+"\” 的结果").show();
                 console.log("第"+(parseInt(curPage)+1)+"页,共 "+ pagination.totalCount +" 条。");
                 $("#dynamic-table_info").html("第"+(parseInt(curPage)+1)+"页,共 "+ pagination.totalCount +" 条。");
                 $("#dynamic-table_paginate").html(formatP(pagination, startDate, endDate, curPage));

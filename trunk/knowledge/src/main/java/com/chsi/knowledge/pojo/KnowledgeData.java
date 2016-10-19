@@ -272,7 +272,7 @@ public class KnowledgeData extends PersistentObject {
         if(systemDatas!=null&&systemDatas.size()>0) {
             result = systemDatas.get(0).getName();
             if(systemDatas.size()>1) {
-                result += "...";
+                result += ";...";
             }
         }
         return result;
@@ -297,6 +297,22 @@ public class KnowledgeData extends PersistentObject {
             }
         }
         return result;
+    }
+    
+    @Transient
+    public String getTitle() {
+        if(article!=null) {
+            return article.getTitle();
+        }
+        return "";
+    }
+    
+    @Transient
+    public String getContent() {
+        if(article!=null) {
+            return article.getContent();
+        }
+        return "";
     }
     
     @Override

@@ -3,8 +3,7 @@
 				<div class="footer-inner">
 					<div class="footer-content">
 						<span class="bigger-120">
-							技术支持：<span class="blue bolder">设计部</span> &#92;
-							<span class="blue bolder">学信技术中心</span>
+							技术支持：<span class="blue bolder">学信网</span>
 						</span>
 					</div>
 				</div>
