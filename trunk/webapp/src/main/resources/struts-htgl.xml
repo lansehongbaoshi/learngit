@@ -85,10 +85,6 @@
             <allowed-methods></allowed-methods>
         </action>
         
-        <action name="addKnowledge" class="knowledgeActionBean" method="addKnowledge">
-            <result name="success" type="redirect">/htgl/knowledge/showKnowledge.action?id=${id}&amp;from=add</result>
-        </action>
-        
         <action name="updateKnowledge" class="knowledgeActionBean" method="updateKnowledge">
             <result name="success" type="redirect">/htgl/knowledge/searchindex/showKnowledge.action?id=${id}&amp;from=update</result>
         </action>
@@ -129,6 +125,23 @@
         </action>
         <action name="updateKnowledgeTime" class="knowledgeActionBean" method="updateKnowledgeTime">
             <result name="success" type="redirect">/htgl/knowledge/searchindex/showKnowledge.action?id=${id}&amp;from=update</result>
+        </action>
+    </package>
+    <package name="htgl.knowledge.searchindex.addindex" extends="knowledge-default" namespace="/htgl/knowledge/searchindex/addindex">
+        <interceptors>
+          <interceptor-stack name="knowledgeStack">
+              <interceptor-ref name="chsiDefaultStack"></interceptor-ref>
+              <interceptor-ref name="store">
+                  <param name="operationMode">AUTOMATIC</param>
+              </interceptor-ref>
+          </interceptor-stack>
+        </interceptors>
+        <action name="addKnowledge" class="knowledgeActionBean" method="addKnowledge">
+            <result name="success" type="redirect">/htgl/knowledge/searchindex/showKnowledge.action?id=${id}&amp;from=add</result>
+        </action>
+        <action name="checkRepeat" class="searchActionBean" method="checkRepeat">
+        </action>
+        <action name="checkBadWord" class="searchActionBean" method="checkBadWord">
         </action>
     </package>
     <package name="htgl.knowledge.checkindex" extends="knowledge-default" namespace="/htgl/knowledge/checkindex">

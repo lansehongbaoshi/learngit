@@ -277,6 +277,16 @@ public class KnowledgeData extends PersistentObject {
         }
         return result;
     }
+    @Transient
+    public String getTypeDic(){
+        if("PRIVATE".equals(this.type)){
+            return "内部";
+        }else if("PUBLIC".equals(this.type)){
+            return "公开";
+        }else{
+            return "其他";
+        }
+    }
     
     @Transient
     public String getSystemNames() {

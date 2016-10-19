@@ -66,7 +66,11 @@ public class FilterWordServiceImpl extends BaseDbService implements
             int index=0;
             for(String sentence : sentences){
                 index += sentence.length();
-                result.add(sentence+String.valueOf(content.charAt(index++)));
+                if(index<content.length()){
+                    result.add(sentence+String.valueOf(content.charAt(index++)));
+                }else{
+                    result.add(sentence);
+                }
             }
         }
         

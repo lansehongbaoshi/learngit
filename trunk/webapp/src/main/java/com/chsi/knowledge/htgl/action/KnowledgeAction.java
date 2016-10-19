@@ -274,15 +274,6 @@ public class KnowledgeAction extends AjaxAction {
     public String getKnow() throws Exception {
         knowTagRelationList = knowTagRelationService.getKnowTagRelationByKnowId(id);
         knowledgeData = knowledgeService.getKnowledgeWithArticleById(id);
-        String type = knowledgeData.getType();
-        if("PRIVATE".equals(type)){
-            knowledgeData.setType("内部");
-        }else if("PUBLIC".equals(type)){
-            knowledgeData.setType("公开");
-        }else{
-            knowledgeData.setType("其他");
-        }
-        
         String KId = knowledgeData.getId();
         discussCountVO = discussService.getDiscussCountVOByKId(KId);
         contentList = discussService.getDiscussInfoVOList(KId, 0, 10);
@@ -561,6 +552,7 @@ public class KnowledgeAction extends AjaxAction {
         LoginUserVO loginUserVO = getLoginUserVO();
         // 保存知识
         knowledgeData = new KnowledgeData(null, keywords, null, 0, Integer.parseInt(sort), KnowledgeStatus.YSH, getLoginedUserId(), Calendar.getInstance(), null, null, type);
+        knowledgeData.setCtiVisitCnt(0);
         knowledgeService.save(knowledgeData, title, content, loginUserVO.getOrg().getCode(), getLoginedUserId());
         for (String one : tagIds) {
             TagData tagData = tagService.getTagData(one);
@@ -610,6 +602,7 @@ public class KnowledgeAction extends AjaxAction {
         LoginUserVO loginUserVO = getLoginUserVO();
         // 保存知识
         knowledgeData = new KnowledgeData(null, keywords, null, 0, Integer.parseInt(sort), KnowledgeStatus.DSH, getLoginedUserId(), Calendar.getInstance(), null, null, type);
+        knowledgeData.setCtiVisitCnt(0);
         knowledgeService.save(knowledgeData, title, content, loginUserVO.getOrg().getCode(), getLoginedUserId());
         for (String one : tagIds) {
             TagData tagData = tagService.getTagData(one);

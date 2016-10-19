@@ -33,7 +33,7 @@ List<SystemData> systems = systemService.getSystems(false);
 	<div class="row">
 		<div class="col-xs-12">
 			<form id="myform"
-				action="<%=ctxPath%>/cti/knowledge/addKnowledge.action"
+				action="<%=ctxPath%>/cti/knowledge/searchadd/addindex/addDSHKnowledge.action"
 				method="post" enctype="multipart/form-data" class="form-horizontal">
 				<div class="form-group">
 					<label for="" class="col-sm-1 control-label no-padding-top">标题：</label>
@@ -195,12 +195,14 @@ $(function () {
         	keywords: html,
             t: new Date().getTime()
         },function showBadWordResult(json) {
-        	console.log(json.o.content);
+        	
         	if (json.flag == 'true') {
+        		console.log(json.o.content);
         		$("#contentModalText").html(json.o.content); 
         		$("#contentModal").modal("show");
         		
         	}else{
+        		console.log(html);
         		$("#content").val(html);
                 $("#myform").submit();
         	}

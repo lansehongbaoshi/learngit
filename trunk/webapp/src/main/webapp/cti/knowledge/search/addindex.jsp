@@ -246,7 +246,7 @@ String ctxPath = request.getContextPath();
                     var $tr = $(this).closest("tr");
                     var knowId = $tr.data("id");
                     $.getJSON(
-                        "<%=ctxPath%>/htgl/knowledge/delKnowledge.action",
+                        "<%=ctxPath%>/cti/knowledge/searchadd/delKnowledge.action",
                         {id:knowId},
                         function(data){
                             if(data.flag=='true') {

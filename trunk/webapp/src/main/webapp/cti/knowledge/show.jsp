@@ -135,7 +135,7 @@ if("update".equals(from)) {
                             <dt>知识类型：</dt>
                             <dd>
                                 <span class="label label-sm label-success"><s:property
-                                        value='knowledgeData.type' /></span>
+                                        value='knowledgeData.getTypeDic()' /></span>
                             </dd>
                         </dl>
                     </div>

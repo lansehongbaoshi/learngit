@@ -34,7 +34,10 @@ List<SystemData> systems = systemService.getSystems(false);
         <div class="form-group">
           <label for="" class="col-sm-1 control-label no-padding-top">标题：</label>
           <div class="col-sm-9">
-            <input id="title" type="text" name="title" style="width: 400px;" value="<s:property value="knowledgeData.article.title" escape="false" />">
+            <input id="title" type="text" name="title" style="width: 400px;float: left"
+                            value="<s:property value="knowledgeData.article.title" escape="false" />">
+            <span id="titleCheck" type="text" name="titleCheck" style="float: left"></span>
+            <div id='search_list'></div>
           </div>
         </div>
         <div class="form-group">
@@ -143,16 +146,31 @@ $(function(){
 	<s:iterator value="knowTagRelationList" id="knowTagRelation">
 	tagIds+='<s:property value="tagData.id"/>';
 	</s:iterator>
-    $("#modifyBtn").click(function(){
-    	var html = editor.getContent();
-	    $("#content").val(html);
-	    $("#myform").submit();
+	$("#modifyBtn").click(function () {
+        var html = editor.getContent();
+        $.getJSON("/htgl/knowledge/searchindex/addindex/checkBadWord.action", {
+            keywords: html,
+            t: new Date().getTime()
+        },function showBadWordResult(json) {
+            
+            if (json.flag == 'true') {
+                console.log(json.o.content);
+                $("#contentModalText").html(json.o.content); 
+                $("#contentModal").modal("show");
+                
+            }else{
+                console.log(html);
+                $("#content").val(html);
+                $("#myform").submit();
+            }
+        });
     });
-    $("#delBtn").click(function(){
-	   if(confirm("确定删除该知识点？")) {
-	       $("#mydelform").submit();
-	   }
+    $("#confirm").click(function () {
+        var html = editor.getContent();
+        $("#content").val(html);
+        $("#myform").submit();
     });
+
     $("#savetag").click(function () {
         var checked = $("#myModal .modal-body input:checked");
         var selectedtagSpan = $("#selectedtag");
@@ -162,13 +180,74 @@ $(function(){
             selectedtagSpan.append($(this).attr("title"));
         });
     });
+    
+    //自动完成
+//  searchInputIng();
+    
+	$("#title").blur(function () { 
+	    var title = $(this).val();
+	    console.log(title);
+	    $.getJSON("/htgl/knowledge/searchindex/addindex/checkRepeat.action", {
+	        keywords: title,
+	        t: new Date().getTime()
+	    },
+	    function showSearchResult(json) {
+	        if (json.flag == 'true') {
+	            if(json.o.flag== true){
+	                
+	                var text = "<font>检查不通过,有类似重复标题：<br>";
+	                for(var i=0;i<json.o.datas.length;i++){
+	                    text += json.o.datas[i].title+"<br>"
+	                }
+	                text += "</font>"
+	                $("#titleCheck").html(text); 
+	                $("#titleCheck").css("color","red");
+	                
+	            }else{
+	                $("#titleCheck").html("<font>检查通过</font>"); 
+	                $("#titleCheck").css("color","green");
+	            }
+	        }
+	    });
+	}); 
+    
     $("#myModal .modal-body input").each(function(){
     	if(tagIds.indexOf($(this).val())>-1) {
     		$(this).attr("checked","checked");
     	}
     });
 })
+
 </script>
+
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="contentModal" tabindex="-1" role="dialog" aria-labelledby="contentModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" 
+                        aria-hidden="true">×
+                </button>
+                <h4 class="modal-title" id="contentModalLabel">
+                    提交内容包含敏感词汇
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div id="contentModalText">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" 
+                        data-dismiss="modal">返回修改
+                </button>
+                <button id="confirm" type="button" class="btn btn-primary">
+                    继续提交
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 <!-- 配置文件 -->
 <script type="text/javascript" src="/ueditor/ueditor.config.js"></script>
 <!-- 编辑器源码文件 -->
@@ -186,4 +265,82 @@ UE.Editor.prototype.getActionUrl = function(action) {
     }
 }
     var editor = UE.getEditor('container');
+</script>
+<script type="text/javascript">
+
+function searchInputIng(){
+    $('#title').on('input paste',function(event){
+        event.stopPropagation();          
+        setTimeout(autoSearchFn,500); 
+    }).css('visibility','visible').focus();
+}
+function autoSearchFn(){    
+    var text = $.trim($('#title').val());
+    console.log(text);
+    
+    if(text ==""){ 
+        return false;
+    }
+    ajaxJSONP('http://kl.chsi.com.cn/cti/knowledge/searchadd/addindex/quickAll.action',text,inputSearchShow,true);
+//     if(text ==""){ 
+//         $('#hot_lists').show();
+//         $('#ask_list').html('');
+//         return false;
+//     }else if (text == InputText){
+//         return false;   
+//     }
+//     $('#hot_lists').hide();
+//     ajaxJSONP('quickall',text,inputSearch,true);
+}
+//通用ajax函数
+function ajaxJSONP(url,text,callback,flag){
+    var _url = url;
+    var data = "keywords="+text; 
+    InputText = text;
+    $.ajax({ 
+        global:true, 
+        type: "post",
+        cache: false,
+        async: true,
+        crossDomain:true,
+        url: _url,  
+        data:data,
+        dataType: "jsonp",  
+        jsonp: "callback", //回调函数的参数  
+        //jsonpCallback: callback, //回调函数的名称 
+        success: callback,
+        error: function(XMLHttpRequest, textStatus, errorThrown){
+            console.log(textStatus+":"+data);
+        }
+    });
+    return false;
+}
+function inputSearchShow(json){
+    if(!json.flag){ alert(json.errorMessages); return;}
+    console.log("展示搜索结果！");
+    console.log(json);
+    $("#search_list").html(template('input_list_detail',json));
+}
+//artTemplate辅助方法-高亮关键字
+template.helper('hightWord', function (k,o) {
+    var pattern = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？]",'g');
+    var _k = k.replace(pattern,'')
+     var reg = new RegExp("("+$.trim(_k)+")","g");
+    return  o.replace(reg, "<strong style='color:#c30'>$1</strong>");
+});
+
+</script>
+<!--自动完成内容-->
+<script id="input_list_detail" type="text/html">
+<ul class="hot_search_list">
+{{if o.knows.length>0 }}
+ {{each o.knows as value i}} 
+ <li>
+    <a class="ui-corner-all"  href="javascript:void(0)">[<span title="{{value.systems}}">{{value.system}}</span>]{{#hightWord(value.keywords,value.title)}}
+    </a>
+ </li> 
+ {{/each}}  
+{{/if}}
+</ul>
+
 </script>
