@@ -27,7 +27,6 @@ import com.chsi.knowledge.service.TagService;
 import com.chsi.knowledge.util.ManageCacheUtil;
 import com.chsi.knowledge.util.Navigation;
 import com.chsi.knowledge.util.NavigationUtil;
-import com.chsi.knowledge.util.PageUtil;
 import com.chsi.knowledge.util.Pagination;
 import com.chsi.knowledge.vo.ViewKnowVO;
 import com.chsi.knowledge.vo.ViewKnowVO.ConKnow;
@@ -191,6 +190,11 @@ public class KnowledgeServiceImpl extends BaseDbService implements KnowledgeServ
     @Override
     public void updateVisitCntPlusOne(String id) {
         knowledgeDataDAO.updateVisitCntPlusOne(id);
+    }
+    
+    @Override
+    public void updateCtiVisitCntPlusOne(String id) {
+        knowledgeDataDAO.updateCtiVisitCntPlusOne(id);
     }
 
     @Override

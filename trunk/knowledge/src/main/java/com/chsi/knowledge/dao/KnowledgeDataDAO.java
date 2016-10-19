@@ -64,6 +64,8 @@ public interface KnowledgeDataDAO {
      * @param id
      */
     void updateVisitCntPlusOne(String id);
+    
+    void updateCtiVisitCntPlusOne(String id);
 
     List<KnowledgeData> get(String systemId, String tag, KnowledgeStatus dsh,
             String type, int start, int size);

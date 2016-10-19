@@ -142,13 +142,17 @@ public class SearchAction extends AjaxAction {
         return NONE;
     }
     
-    // 全系统搜索标题（自动完成处用,如机器人）
+    // 全系统或限定系统搜索标题（自动完成处用,如机器人）
     public String autoTitle() throws Exception {
         keywords = SearchUtil.keywordsFilter2(keywords);
         Map<String, String> queryParams = new HashMap<String, String>();
         queryParams.put("q", keywords);
         queryParams.put("qf", "title");
-        queryParams.put("fq", "type:PUBLIC");
+        if(!ValidatorUtil.isNull(systemId)) {
+            queryParams.put("fq", String.format("type:PUBLIC AND system_ids:%s", systemId));
+        } else {
+            queryParams.put("fq", "type:PUBLIC");
+        }
         queryParams.put("fl", "id,title");
         queryParams.put("hl", "true");
         queryParams.put("hl.fl", "title");

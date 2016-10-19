@@ -30,7 +30,7 @@ public interface RobotService {
      * @param q
      * @return
      */
-    AnswerVO answer(String sessionId, String knowId, String q);
+    AnswerVO answer(String sessionId, String knowId, String q, String systemId);
     /**
      * 机器人配置查询
      * @param queryParams

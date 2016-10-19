@@ -26,6 +26,9 @@ import com.chsi.knowledge.index.service.KnowIndexService;
 import com.chsi.knowledge.pojo.KnowTagRelationData;
 import com.chsi.knowledge.pojo.KnowledgeData;
 import com.chsi.knowledge.pojo.SystemData;
+import com.chsi.knowledge.service.KnowledgeService;
+import com.chsi.knowledge.service.ServiceFactory;
+import com.chsi.knowledge.service.SystemService;
 import com.chsi.knowledge.util.Pagination;
 import com.chsi.knowledge.vo.KnowListVO;
 import com.chsi.news.vo.Article;
@@ -134,6 +137,7 @@ public class KnowIndexServiceImpl extends BaseDbService implements KnowIndexServ
 //        double sort = know.getVisitCnt() == (double)0.0 ? 0:Math.log10(know.getVisitCnt());
         index.setSort(know.getSort());
         index.setVisitCnt(know.getVisitCnt());
+        index.setCtiVisitCnt(know.getCtiVisitCnt()==null?0:know.getCtiVisitCnt());
         return index;
     }
 
@@ -202,12 +206,38 @@ public class KnowIndexServiceImpl extends BaseDbService implements KnowIndexServ
             start = 0;
         }
         queryParams.put("defType", "edismax");
-        String BF = "ord(visit_cnt)^0.1";
-        queryParams.put("bf", BF);
+        String BF = queryParams.get("bf");
+        if(BF==null) {
+            BF = "ord(visit_cnt)^0.1";
+        }
+        queryParams.put("bf", "ord(visit_cnt)^0.1");
         Page<KnowledgeVO> page = searchClient.searchKnow(queryParams, start, pageSize);
         Pagination pagination = new Pagination(page.getTotalCount(), page.getPageCount(), page.getCurPage());
         KnowListVO<KnowledgeVO> knowListVO = new KnowListVO<KnowledgeVO>(page.getList(), pagination);
         return knowListVO;
+    }
+
+    @Override
+    public void updateAllKnowledgeIndex() {
+        SystemService systemService = ServiceFactory.getSystemService();
+        KnowledgeService knowledgeService = ServiceFactory.getKnowledgeService();
+        List<SystemData> systems = systemService.getSystems(false);
+        for(SystemData system:systems) {
+            List<KnowledgeData> list = knowledgeService.get(system.getId(), KnowledgeStatus.YSH);
+            if (null != list) {
+                log.info(String.format("开始刷系统%s下知识索引，共%d", system.getId(), list.size()));
+                for (KnowledgeData temp : list) {
+                    try{
+                        updateKnowIndex(temp.getId());
+                        log.info(String.format("{method:'refreshIndex',knowId:'%s',result:'success'}", temp.getId()));
+                    } catch(Exception ex) {
+                        ex.printStackTrace();
+                        log.error(String.format("{method:'refreshIndex',knowId:'%s',result:'fail'}", temp.getId()));
+                    }
+                }
+                log.info(String.format("结束刷系统%s下知识索引", system.getId()));
+            }
+        }
     }
 
 }

@@ -47,4 +47,20 @@ public class QueueServiceImpl implements QueueService{
         return data;
     }
 
+    @Override
+    public void addCtiVisitKnowledgeId(String knowledgeId) {
+        if(!ValidatorUtil.isNull(knowledgeId)){
+            queue.enqueue(Constants.QUEUE_CTI_VISIT_KNOWLEDGEID_NAME, knowledgeId);
+        }
+    }
+
+    @Override
+    public String getCtiVisitKnowledgeId() {
+        Object knowledgeId = queue.dequeue(Constants.QUEUE_CTI_VISIT_KNOWLEDGEID_NAME);
+        if (null == knowledgeId) {
+            return null;
+        }
+        return knowledgeId.toString();
+    }
+
 }

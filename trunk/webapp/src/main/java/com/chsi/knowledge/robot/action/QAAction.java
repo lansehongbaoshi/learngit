@@ -51,7 +51,7 @@ public class QAAction extends AjaxAction {
 
     public void qa() throws Exception {
         if (!ValidatorUtil.isNull(sessionId)) {// sessionId必选参数，没有就说明异常
-            AnswerVO answerVO = robotService.answer(sessionId, knowId, q);
+            AnswerVO answerVO = robotService.answer(sessionId, knowId, q, systemId);
             ajaxMessage.setO(answerVO);
             ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
             writeJSON(ajaxMessage);

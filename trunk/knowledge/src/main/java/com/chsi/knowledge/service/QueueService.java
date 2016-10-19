@@ -12,6 +12,10 @@ public interface QueueService {
     void addVisitKnowledgeId(String knowledgeId);
     
     String getVisitKnowledgeId();
+    
+    void addCtiVisitKnowledgeId(String knowledgeId);
+    
+    String getCtiVisitKnowledgeId();
 
     void addSearchLog(SearchLogData data);
     

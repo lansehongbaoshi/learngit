@@ -1,18 +1,15 @@
 package com.chsi.knowledge.cti.action;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.chsi.framework.callcontrol.CallInfoHelper;
 import com.chsi.framework.util.ValidatorUtil;
 import com.chsi.knowledge.Constants;
 import com.chsi.knowledge.action.base.AjaxAction;
 import com.chsi.knowledge.index.service.KnowIndexService;
 import com.chsi.knowledge.pojo.KnowledgeData;
-import com.chsi.knowledge.pojo.SearchLogData;
 import com.chsi.knowledge.service.KnowledgeService;
 import com.chsi.knowledge.service.QueueService;
 import com.chsi.knowledge.service.ServiceFactory;
@@ -48,7 +45,7 @@ public class SearchAction extends AjaxAction {
     private QueueService queueService = ServiceFactory.getQueueService();
 
     // 指定系统内,关键字自动完成
-    public void quickSearchKnow() throws Exception {
+    /*public void quickSearchKnow() throws Exception {
         keywords = SearchUtil.keywordsFilter(keywords);
         if (ValidatorUtil.isNull(keywords)) {
             ajaxMessage.setO(new ArrayList<SearchVO>());
@@ -62,7 +59,7 @@ public class SearchAction extends AjaxAction {
         }
         ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
         writeCallbackJSON(callback);
-    }
+    }*/
 
     //指定系统内搜索，支持多系统
     public void searchKnow() throws Exception {
@@ -76,6 +73,7 @@ public class SearchAction extends AjaxAction {
             if (ids!=null && ids.length>0) {
                 queryParams.put("fq", SolrQueryUtil.generateFilterOrQuery("system_ids", ids));
             }
+            queryParams.put("bf", "ord(cti_visit_cnt)^0.1");
             KnowListVO<KnowledgeVO> listVO = knowIndexService.customSearch(queryParams, (curPage - 1) * Constants.PAGE_SIZE, Constants.PAGE_SIZE);
             List<SearchVO> list = SearchUtil.exchangeResultList(listVO, keywords, 15);
             KnowListVO<SearchVO> result = new KnowListVO<SearchVO>(list, listVO.getPagination());
@@ -88,7 +86,7 @@ public class SearchAction extends AjaxAction {
     }
     
     // 全系统搜索标题（自动完成处用,如机器人）
-    public String autoTitle() throws Exception {
+    /*public String autoTitle() throws Exception {
         keywords = SearchUtil.keywordsFilter(keywords);
         Map<String, String> queryParams = new HashMap<String, String>();
         queryParams.put("q", keywords);
@@ -103,7 +101,7 @@ public class SearchAction extends AjaxAction {
         ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
         writeCallbackJSON(callback);
         return NONE;
-    }
+    }*/
 
     //知识详情
     public void detailKnow() throws Exception {
@@ -122,6 +120,7 @@ public class SearchAction extends AjaxAction {
                 vo.setContent(data.getArticle().getContent());
                 ajaxMessage.setO(vo);
                 ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
+                queueService.addCtiVisitKnowledgeId(id);
             }
         }
         writeCallbackJSON(callback);
@@ -181,26 +180,6 @@ public class SearchAction extends AjaxAction {
 
     public void setCallback(String callback) {
         this.callback = callback;
-    }
-
-    private void saveSearchLog(List<SearchVO> list) {
-        SearchLogData data = new SearchLogData();
-        data.setKeyword(this.keywords);
-        data.setSystemId(this.systemId);
-        StringBuffer sb = new StringBuffer();
-        int i = 0;
-        for (SearchVO vo : list) {
-            i++;
-            if (i > 10)
-                break;// 最多存储10个搜索结果id
-            sb.append(vo.getKnowId());
-            sb.append(",");
-        }
-        data.setSearchResult(sb.toString());
-        data.setCreateTime(Calendar.getInstance());
-        data.setUserId(CallInfoHelper.getCurrentUser());
-        data.setUserIP(CallInfoHelper.getCurrentUserIp());
-        queueService.addSearchLog(data);
     }
 
     public String[] getIds() {

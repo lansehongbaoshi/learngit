@@ -36,6 +36,7 @@ public class KnowledgeData extends PersistentObject {
     private String type;
     private String cmsId;
     private int visitCnt;
+    private Integer ctiVisitCnt;
     private int sort;
     private KnowledgeStatus knowledgeStatus;
     private String creater;
@@ -131,6 +132,15 @@ public class KnowledgeData extends PersistentObject {
 
     public void setVisitCnt(int visitCnt) {
         this.visitCnt = visitCnt;
+    }
+
+    @Column(name = "CTI_VISIT_CNT")
+    public Integer getCtiVisitCnt() {
+        return ctiVisitCnt;
+    }
+
+    public void setCtiVisitCnt(Integer ctiVisitCnt) {
+        this.ctiVisitCnt = ctiVisitCnt;
     }
 
     @Column(name = "SORT")

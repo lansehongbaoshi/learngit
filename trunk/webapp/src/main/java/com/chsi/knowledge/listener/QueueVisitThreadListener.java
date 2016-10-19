@@ -15,6 +15,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.chsi.knowledge.task.CommonTask;
+import com.chsi.knowledge.thread.QueueCtiVisitThread;
 import com.chsi.knowledge.thread.QueueVisitThread;
 import com.chsi.knowledge.thread.RecordSearchLogThread;
 import com.ibm.icu.util.Calendar;
@@ -30,6 +31,7 @@ public class QueueVisitThreadListener implements ServletContextListener {
     private static String machineName;
 
     private QueueVisitThread queueVisitThread;
+    private QueueCtiVisitThread queueCtiVisitThread;
     private RecordSearchLogThread recordSearchLogThread;
 
     public void contextDestroyed(ServletContextEvent arg0) {
@@ -39,6 +41,9 @@ public class QueueVisitThreadListener implements ServletContextListener {
         if (recordSearchLogThread.isAlive()) {
             recordSearchLogThread.interrupt();
         }
+        if(queueCtiVisitThread.isAlive()) {
+            queueCtiVisitThread.interrupt();
+        }
     }
 
     public void contextInitialized(ServletContextEvent arg0) {
@@ -46,6 +51,8 @@ public class QueueVisitThreadListener implements ServletContextListener {
         queueVisitThread.start();
         recordSearchLogThread = new RecordSearchLogThread();
         recordSearchLogThread.start();
+        queueCtiVisitThread = new QueueCtiVisitThread();
+        queueCtiVisitThread.start();
         
         if(isWorkMachine()){
             Timer timer1 = new Timer();

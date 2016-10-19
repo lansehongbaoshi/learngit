@@ -9,7 +9,7 @@ import="com.chsi.knowledge.pojo.KnowledgeData,com.chsi.knowledge.util.ManageCach
 <script src='http://t1.chsi.com.cn/common/plugins/dialog/6.0.5/dialog-min.js'></script>
 <script src='http://t1.chsi.com.cn/common/plugins/dialog/6.0.5/dialog-plus-min.js'></script>
 <%String systemId = request.getParameter("system"); 
-systemId = systemId==null?"account":systemId;%>
+systemId = systemId==null?"":systemId;%>
 <style>
 .content { padding: 25px 0 30px 0; background: #ccc;}
 .logo { position: relative; width:1000px; height: 70px; margin:0 auto;  background-color: #28bca4; color: #fff; }
@@ -179,7 +179,7 @@ function input() {
 	$("#showbox").append("<div class='clearfix marginb'><div class='person'><div class='icon2'></div>"+q+"</div></div>");
 	var height = $("#showbox").prop("scrollHeight");//原来的高度	
 	$("#showbox").scrollTop(height);//滚动到原来的高度，正好从最新用户输入开始显示								
-	$.post("/robot/qa.action",{sessionId:sessionId,q:q},function(result){
+	$.post("/robot/qa.action",{sessionId:sessionId,q:q,systemId:"<%=systemId%>"},function(result){
 		if(result.flag=='true') {
 			var data = result.o;
 			//console.log(result);
@@ -418,53 +418,6 @@ function ajaxJSONP(data,callback){
 		},"json");
 	});      
 }    
-// function knListPage(json){
-//   if(!json.flag){ alert(json.errorMessages); return;}
-//  $("#kn_list").html(template('snippet_list',json["o"]));   
-//	$("#kn_list a").on("click",function(){
-//		var q=$(this).text();
-//		$("#showbox").append("<div class='clearfix marginb'><div class='person'><div class='icon2'></div>"+q+"</div></div");
-//		var height = $("#showbox").prop('scrollHeight');//原来的高度	
-//		$("#showbox").scrollTop(height);//滚动到原来的高度，正好从最新用户输入开始显示								
-//		var knowId = $(this).data("id");
-//		$.post("/robot/qa.action",{sessionId:sessionId,knowId:knowId},function(result){
-//			if(result.flag=='true') {
-//  			var data = result.o;
-//  			//console.log(result);
-//  			var a="<div class='clearfix marginb'><div class='robot'><div class='icon1'></div>";
-//				a+=data.result[0].summary;
-//				a+="<span class='system_1' data-id='"+data.result[0].systemId+"'>["+data.result[0].system+"]</span>";
-//  			a+="</div></div>";
-//  			$("#showbox").append(a);
-//  			var height = $("#showbox").prop('scrollHeight');//原来的高度	
-//				$("#showbox").scrollTop(height);//滚动到原来的高度，正好从最新用户输入开始显示					
-//			}
-//		},'json');
-//	});     
-     //drawPage("#pagenation_list",json["o"])
-//}  
- //分页初始化
-//function drawPage(ele,obj){
-//   var _last_tag = obj["navigations"].pop();
-//	var _page_obj = obj["knowListVO"].pagination;
-//	if(!!!_page_obj){ return false;}
-// 	$(ele).pagefoot({ css:"mj_pagefoot"      //分页脚css样式类
-//		,pageSize:_page_obj["pageCount"]  //每页显示的记录数
-//  	,displayNum:0  //显示的固定页数
-//  	,itemsNum:_page_obj["totalCount"]                //总记录数
-//  	,currentNum:_page_obj["curPage"]              //当前页码
-//  	,currentClass:"page_current"     //当前页码时样式
-//  	,linkClass:"page_normal"             //页码链接样式
-//  	,previous:"上一页"      			//上一页显示文本
-//  	,next:"下一页"         					 //下一页显示文本
-//  	,abledClass:"kn-pagination_down"		//上下页-可用时样式
-//		,disabledClass:"kn-page_up_no"		//上下页-不可用时样式
-//  	,paging:function(page){ //分页事件触发时callback函数
-//          _last_tag["param"]["curPage"] = page;
-//           ajaxJSONP($.param(_last_tag["param"]),'knListPage');          
-//      }           
-//	}); 
-//}   
 //自动完成
 $(function() {
 	$("#inputbox").autocomplete({
@@ -473,7 +426,7 @@ $(function() {
         delay: 200,
         source: function (request, response) {
             var term = request.term;
-            var postdata = {"keywords":request.term};
+            var postdata = {"keywords":request.term,"systemId":"<%=systemId%>"};
             var _url = "http://kl.chsi.com.cn/search/autoTitle.action";
             $.ajax({ 
 	            type: "get",
@@ -579,6 +532,7 @@ $(function() {
 //初始化
 $(function(){ 
     var systemId = "<%=systemId%>";
+    systemId = systemId==""?"account":systemId;
     $("#kn_labels ul li").each(function(){
         var thisID = $(this).attr("data-id");
         if(thisID==systemId){

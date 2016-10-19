@@ -131,23 +131,7 @@ public class ManageAction extends BasicAction{
                 log.info(systemId+"结束刷索引");
             }
         } else {
-            List<SystemData> systems = systemService.getSystems(false);
-            for(SystemData system:systems) {
-                List<KnowledgeData> list = knowledgeService.get(system.getId(), KnowledgeStatus.YSH);
-                if (null != list) {
-                    log.info(systemId+"开始刷索引，共"+list.size());
-                    for (KnowledgeData temp : list) {
-                        try{
-                            knowIndexService.updateKnowIndex(temp.getId());
-                            log.info(String.format("{method:'refreshIndex',knowId:'%s',result:'success'}", temp.getId()));
-                        } catch(Exception ex) {
-                            ex.printStackTrace();
-                            log.error(String.format("{method:'refreshIndex',knowId:'%s',result:'fail'}", temp.getId()));
-                        }
-                    }
-                    log.info(systemId+"结束刷索引");
-                }
-            }
+            knowIndexService.updateAllKnowledgeIndex();
         }
         return INPUT;
     }

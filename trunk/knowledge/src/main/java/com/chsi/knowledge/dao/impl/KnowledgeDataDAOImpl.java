@@ -17,7 +17,8 @@ public class KnowledgeDataDAOImpl extends BaseHibernateDAO implements KnowledgeD
 
     private static final String SELECT_KNOWLEDGE = "select p from KnowledgeData p";
     private static final String COUNT_KNOWTAGDATARELATION = "select count(p) from KnowTagRelationData p";
-    private static final String UPDATE_KNOWLEDGEVISITCNT = "update KnowledgeData p set p.visitCnt=p.visitCnt+1";
+    private static final String UPDATE_KNOWLEDGE_VISITCNT = "update KnowledgeData p set p.visitCnt=p.visitCnt+1";
+    private static final String UPDATE_KNOWLEDGE_CTI_VISITCNT = "update KnowledgeData p set p.ctiVisitCnt=p.ctiVisitCnt+1";
     
     private static final String SELECT_KNOWLEDGE_BY_SYSTEM = "select distinct p.knowledgeData from KnowTagRelationData p where p.tagData.systemData.id=:id";
     private static final String SELECT_TOP_KNOWLEDGE_BY_SYSTEM = "select p.knowledgeData from KnowTagRelationData p where p.tagData.systemData.id=:systemId and p.knowledgeData.topTime is not null order by p.knowledgeData.topTime desc";
@@ -75,10 +76,18 @@ public class KnowledgeDataDAOImpl extends BaseHibernateDAO implements KnowledgeD
 
     @Override
     public void updateVisitCntPlusOne(String id) {
-        String hql = UPDATE_KNOWLEDGEVISITCNT + W + ID;
+        String hql = UPDATE_KNOWLEDGE_VISITCNT + W + ID;
         Query query = hibernateUtil.getSession().createQuery(hql).setString("id", id);
         query.executeUpdate();
     }
+    
+    @Override
+    public void updateCtiVisitCntPlusOne(String id) {
+        String hql = UPDATE_KNOWLEDGE_CTI_VISITCNT + W + ID;
+        Query query = hibernateUtil.getSession().createQuery(hql).setString("id", id);
+        query.executeUpdate();
+    }
+
 
     @SuppressWarnings("unchecked")
     @Override

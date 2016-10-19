@@ -28,6 +28,10 @@ public class Constants {
      * 每个知识访问次数队列名称
      */
     public static final String QUEUE_VISIT_KNOWLEDGEID_NAME = "visit_knowledgeId";
+    /**
+     * 客服访问次数队列名称
+     */
+    public static final String QUEUE_CTI_VISIT_KNOWLEDGEID_NAME = "cti_visit_knowledgeId";
     //搜索日志队列
     public static final String QUEUE_SEARCH_LOG = "search_log";
     

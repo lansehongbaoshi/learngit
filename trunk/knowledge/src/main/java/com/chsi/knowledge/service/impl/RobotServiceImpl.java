@@ -95,7 +95,7 @@ public class RobotServiceImpl extends BaseDbService implements RobotService {
         
     }
     
-    public AnswerVO answer(String sessionId, String knowId, String q) {
+    public AnswerVO answer(String sessionId, String knowId, String q, String systemId) {
         AnswerVO answerVO = null;
         if (!ValidatorUtil.isNull(knowId)) {// 确定知识时传递knowId、q
             KnowledgeData knowledgeData = ManageCacheUtil.getKnowledgeDataById(knowId);
@@ -135,8 +135,7 @@ public class RobotServiceImpl extends BaseDbService implements RobotService {
                 answerVO.setAType(AType.ROBOT);
                 answerVO.setContent(intent.getContent());
             }else{
-                SearchServiceClient searchClient = SearchServiceClientFactory
-                        .getSearchServiceClient();
+                SearchServiceClient searchClient = SearchServiceClientFactory.getSearchServiceClient();
                 Map<String, String> map = new HashMap<String, String>();
                 map.put("q", "q:"+keywords);
                 map.put("qf", "q");
@@ -144,30 +143,34 @@ public class RobotServiceImpl extends BaseDbService implements RobotService {
                 map.put("hl.fl", "q");
                 map.put("hl.simple.pre", "<strong style='color:#c30'>");
                 map.put("hl.simple.post", "</strong>");
-                List<RobotQABean> robotAList = searchClient.searchRobotQA(map, 0, 100);
-                if(robotAList.size()>0) {//机器人常用语回答不记录后台日志
+                List<RobotQABean> robotAList = searchClient.searchRobotQA(map, 0, 100);//机器人常用语对话库搜索
+                if(robotAList.size()>0) {//机器人常用语对话库搜索到的话返回，不记录后台日志
                     int randomIndex = (int)(Math.random()*robotAList.size());
                     String[] anser = robotAList.get(0).getA();
                     String content = anser[(int)(Math.random()*anser.length)];
                     answerVO.setAType(AType.ROBOT);
                     answerVO.setContent(content);
-                } else {
+                } else {//机器人常用语对话库未搜索到的话搜索知识库
                     String definiteKeyword = SearchUtil.formatFullMatchKeyword(q);
                     Map<String, String> queryParams = new HashMap<String, String>();
                     queryParams.put("q", definiteKeyword);
                     queryParams.put("qf", "title");
-                    queryParams.put("fq", "type:PUBLIC");
+                    if(!ValidatorUtil.isNull(systemId)) {
+                        queryParams.put("fq", String.format("type:PUBLIC AND system_ids:%s", systemId));
+                    } else {
+                        queryParams.put("fq", "type:PUBLIC");
+                    }
                     KnowIndexService knowIndexService = ServiceFactory.getKnowIndexService();
                     KnowListVO<KnowledgeVO> list = knowIndexService.customSearch(queryParams, 0, 5);//不分词，全匹配搜索
                     AType aType = null;
-                    if(list.getKnows().size()>0) {
-                        if(list.getKnows().size()==1) {
+                    if(list.getKnows().size()>0) {//全匹配搜索搜索到了
+                        if(list.getKnows().size()==1) {//如果只搜索到一个
                             aType = AType.DEFINITE;
                             answerVO.setContent(list.getKnows().get(0).getContent());
                         } else {
                             aType = AType.INDEFINITE;
                         }
-                    } else {
+                    } else {///全匹配搜索未搜索到则进行普通搜索（分词匹配）
                         queryParams.put("q", keywords);
                         list = knowIndexService.customSearch(queryParams, 0, 5);//全匹配搜索不到再分词搜索
                         if(list.getKnows().size()>0) {

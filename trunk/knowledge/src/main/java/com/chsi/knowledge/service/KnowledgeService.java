@@ -96,6 +96,8 @@ public interface KnowledgeService {
     
     void updateVisitCntPlusOne(String id);
     
+    void updateCtiVisitCntPlusOne(String id);
+    
     /*前台service结束*/
     
     
