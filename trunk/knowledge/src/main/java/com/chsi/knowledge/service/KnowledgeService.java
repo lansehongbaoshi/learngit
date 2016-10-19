@@ -126,5 +126,9 @@ public interface KnowledgeService {
     List<TagData> getTagDatasByKnowId(KnowledgeData know);
 
     long getKnowledgeCount(String systemId, String tag, KnowledgeStatus dsh,
-            String type);
+            String type, String userId);
+
+    List<KnowledgeData> getKnowledgeByStatusAndUserId(String systemId,
+            String tag, KnowledgeStatus dsh, String type, String userId,
+            int start, int size);
 }

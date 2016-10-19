@@ -39,6 +39,7 @@
         <property name="knowIndexService" ref="knowIndexService" />
         <property name="systemService" ref="systemService" />
         <property name="knowledgeService" ref="knowledgeService" />
+        <property name="filterWordService" ref="filterWordService" />
     </bean> 
     
     <bean id="knowledgeActionBean"  class="com.chsi.knowledge.htgl.action.KnowledgeAction"  scope="request">

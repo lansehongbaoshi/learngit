@@ -73,8 +73,11 @@ public interface KnowledgeDataDAO {
     List<TagData> getTagDatasByKnowId(String id);
 
     long getKnowledgeCount(String systemId, String tag, KnowledgeStatus dsh,
-            String type);
+            String type, String userId);
 
     void update(List<KnowledgeData> knows);
+
+    List<KnowledgeData> get(String systemId, String tag, KnowledgeStatus dsh,
+            String type, String userId, int start, int size);
 
 }

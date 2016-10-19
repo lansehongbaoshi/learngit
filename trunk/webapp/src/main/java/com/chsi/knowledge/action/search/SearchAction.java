@@ -1,10 +1,15 @@
 package com.chsi.knowledge.action.search;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+
+import net.sf.json.JSONObject;
 
 import com.chsi.framework.callcontrol.CallInfoHelper;
 import com.chsi.framework.util.ValidatorUtil;
@@ -13,6 +18,7 @@ import com.chsi.knowledge.action.base.AjaxAction;
 import com.chsi.knowledge.index.service.KnowIndexService;
 import com.chsi.knowledge.pojo.SearchLogData;
 import com.chsi.knowledge.pojo.SystemOpenTimeData;
+import com.chsi.knowledge.service.FilterWordService;
 import com.chsi.knowledge.service.KnowledgeService;
 import com.chsi.knowledge.service.QueueService;
 import com.chsi.knowledge.service.ServiceFactory;
@@ -22,6 +28,7 @@ import com.chsi.knowledge.util.SearchUtil;
 import com.chsi.knowledge.vo.KnowListVO;
 import com.chsi.knowledge.vo.SearchVO;
 import com.chsi.search.client.vo.KnowledgeVO;
+import com.chsi.search.client.vo.RepeatVO;
 
 /**
  * 外部开放的搜索action
@@ -33,6 +40,7 @@ public class SearchAction extends AjaxAction {
     private static final long serialVersionUID = 1L;
     private KnowIndexService knowIndexService;
     private KnowledgeService knowledgeService;
+    private FilterWordService filterWordService;
     private SystemService systemService;
     private String keywords;
     private String systemId;
@@ -168,6 +176,13 @@ public class SearchAction extends AjaxAction {
         writeCallbackJSON(callback);
         return NONE;
     }
+    //标题查重
+    public void checkRepeat() throws Exception{
+        RepeatVO<KnowledgeVO> result = knowIndexService.getRepeatKnows(keywords);
+        ajaxMessage.setO(result);
+        ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
+        writeCallbackJSON(callback);
+    }
 
     // 搜索关键字热度排名前几个
     /*public String topKeywords() throws Exception {
@@ -226,6 +241,14 @@ public class SearchAction extends AjaxAction {
         this.knowledgeService = knowledgeService;
     }
 
+    public FilterWordService getFilterWordService() {
+        return filterWordService;
+    }
+
+    public void setFilterWordService(FilterWordService filterWordService) {
+        this.filterWordService = filterWordService;
+    }
+
     public String getCallback() {
         return callback;
     }
@@ -253,4 +276,24 @@ public class SearchAction extends AjaxAction {
         data.setUserIP(CallInfoHelper.getCurrentUserIp());
         queueService.addSearchLog(data);
     }
+    public void checkBadWord() throws IOException{
+        Set<String>  badWords = filterWordService.getBadWords(keywords);
+        Object[] obj = filterWordService.highlightBadWords(keywords);
+        List<String> sentences = filterWordService.getBadSentences(keywords);
+        if(badWords.size()>0){
+            ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
+            JSONObject json = new JSONObject();
+            String text = "";
+            for(String sentence : sentences){
+                text += sentence+"</br>";
+            }
+            json.put("content", text);
+            ajaxMessage.setO(json);
+            writeCallbackJSON(callback);
+        }else{
+            ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
+            writeCallbackJSON(callback);
+        }
+    }
+    
 }

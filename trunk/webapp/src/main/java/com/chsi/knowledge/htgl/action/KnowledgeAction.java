@@ -274,6 +274,14 @@ public class KnowledgeAction extends AjaxAction {
     public String getKnow() throws Exception {
         knowTagRelationList = knowTagRelationService.getKnowTagRelationByKnowId(id);
         knowledgeData = knowledgeService.getKnowledgeWithArticleById(id);
+        String type = knowledgeData.getType();
+        if("PRIVATE".equals(type)){
+            knowledgeData.setType("内部");
+        }else if("PUBLIC".equals(type)){
+            knowledgeData.setType("公开");
+        }else{
+            knowledgeData.setType("其他");
+        }
         
         String KId = knowledgeData.getId();
         discussCountVO = discussService.getDiscussCountVOByKId(KId);
@@ -349,6 +357,81 @@ public class KnowledgeAction extends AjaxAction {
         request.put(Constants.REQUEST_ERROR, "参数不能为空");
         return ERROR;
     }
+    
+    public String updateSelfKnowledge() throws Exception {
+        String error = "";
+        if(ValidatorUtil.isNull(keywords)) {
+            error = "请输入关键字";
+        } else if(ValidatorUtil.isNull(title)) {
+            error = "请输入标题";
+        } else if(ValidatorUtil.isNull(content)) {
+            error = "请输入回答";
+        } else if(tagIds == null || tagIds.length == 0) {
+            error = "请先到\"<a href='/htgl/tag/index.action'>便签管理</a>\"中增加标签";
+        } else if(ValidatorUtil.isNull(sort)) {
+            error = "请输入热点度";
+        } else if(ValidatorUtil.isNull(type)) {
+            error = "请设定知识类型";
+        }
+        if(!"".equals(error)) {
+            request.put(Constants.REQUEST_ERROR, error);
+            return ERROR;
+        }
+        LoginUserVO loginUserVO = getLoginUserVO();
+        if (!ValidatorUtil.isNull(id) && !ValidatorUtil.isNull(title) && !ValidatorUtil.isNull(content) && !ValidatorUtil.isNull(sort) && tagIds != null && tagIds.length > 0 && !ValidatorUtil.isNull(keywords)&& !ValidatorUtil.isNull(type)) {
+            KnowledgeData data = knowledgeService.getKnowledgeById(id);
+            
+            if(!loginUserVO.getAcc().getId().equals(data.getCreater())){
+                request.put(Constants.REQUEST_ERROR, "没有权限对该知识进行操作");
+                return ERROR;
+            }
+            
+            data.setKeywords(keywords);
+            data.setSort(Integer.parseInt(sort));
+            data.setUpdateTime(Calendar.getInstance());
+            data.setUpdater(getLoginedUserId());
+            data.setType(type);
+            data.setKnowledgeStatus(KnowledgeStatus.YSH);
+            knowledgeService.update(data, title, content, loginUserVO.getAcc().getId());
+            
+            knowTagRelationService.del(id);
+            for (String one : tagIds) {
+                TagData tagData = tagService.getTagData(one);
+                if (tagData != null) {
+                    KnowTagRelationData newKnowTagRelationData = new KnowTagRelationData();
+                    newKnowTagRelationData.setKnowledgeData(data);
+                    newKnowTagRelationData.setTagData(tagData);
+                    knowTagRelationService.save(newKnowTagRelationData);
+                    ManageCacheUtil.removeKnowTag(tagData.getId());
+                }
+            }
+            knowIndexService.deleteKnowIndexBySolr(data.getId());
+            knowIndexService.updateKnowIndex(data.getId());
+            ManageCacheUtil.removeKnowledgeDataById(data.getId());
+            LogOperData logOper = new LogOperData();
+            logOper.setCreateTime(Calendar.getInstance());
+            com.chsi.knowledge.vo.LoginUserVO user = com.chsi.knowledge.web.util.WebAppUtil.getLoginUserVO(httpRequest);
+            logOper.setUserId(user.getAcc().getId());
+            if(user.getAuths().contains(com.chsi.knowledge.Constants.ROLE_CTI_USER)) {
+                logOper.setM1("知识新增");
+            }
+            if(user.getAuths().contains(com.chsi.knowledge.Constants.ROLE_KNOWLEDGE)) {
+                logOper.setM1("知识管理");
+            }
+            
+            logOper.setM2("");
+            logOper.setOper("修改");
+            logOper.setMessage("知识");
+            logOper.setKeyId(id);
+            logOperService.save(logOper);
+            
+            return SUCCESS;
+        }
+        request.put(Constants.REQUEST_ERROR, "参数不能为空");
+        return ERROR;
+        
+    }
+    
     
  // 更新某个知识点，包括更新系统内的knowledge表、新闻系统里的知识点以及搜索引擎的索引
     public String checkUpdate() throws Exception {

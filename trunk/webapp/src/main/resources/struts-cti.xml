@@ -51,7 +51,7 @@
             <result name="success" type="tiles">cti.knowledge.show</result>
         </action>
         <action name="searchAllKnow" class="htglSearchActionBean" method="searchAllKnow"></action>
-        <action name="searchDSHKnow" class="htglSearchActionBean" method="searchDSHKnow"></action>
+        <action name="searchSelfDSHKnow" class="htglSearchActionBean" method="searchSelfDSHKnow"></action>
     </package>
     <package name="cti.view" extends="knowledge-default" namespace="/cti/view">
         <interceptors>
@@ -142,4 +142,22 @@
         </action>
         
     </package>
+    <package name="cti.knowledge.searchadd.addindex" extends="knowledge-default" namespace="/cti/knowledge/searchadd/addindex">
+        <interceptors>
+          <interceptor-stack name="knowledgeStack">
+              <interceptor-ref name="chsiDefaultStack"></interceptor-ref>
+              <interceptor-ref name="store">
+                  <param name="operationMode">AUTOMATIC</param>
+              </interceptor-ref>
+          </interceptor-stack>
+        </interceptors>
+        <action name="quickAll" class="searchActionBean" method="quickAll">
+        </action>
+        <action name="checkRepeat" class="searchActionBean" method="checkRepeat">
+        </action>
+        <action name="checkBadWord" class="searchActionBean" method="checkBadWord">
+        </action>
+    </package> 
+    
+    
 </struts>

@@ -64,9 +64,18 @@ public interface KnowIndexService {
     * @param pageSize
     */
    KnowListVO<KnowledgeVO> customSearch(Map<String, String> queryParams, int start, int pageSize);
+
+   /**
+    * 查询相同或者类似的Title
+    * @param title
+    * @return
+    */
+   com.chsi.search.client.vo.RepeatVO<KnowledgeVO> getRepeatKnows(String title);
+
    
    /**
     * 刷新系统所有知识索引
     */
    void updateAllKnowledgeIndex();
+
 }

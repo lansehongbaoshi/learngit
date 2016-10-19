@@ -67,5 +67,8 @@
     </bean>
     <bean id="logOperService" class="com.chsi.knowledge.index.service.impl.LogOperServiceImpl" parent="baseDbService">
     </bean>
+    <bean id="filterWordService" class="com.chsi.knowledge.service.impl.FilterWordServiceImpl" parent="baseDbService">
+    </bean>
+    
     
 </beans>

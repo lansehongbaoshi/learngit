@@ -188,7 +188,7 @@ public class KnowledgeDataDAOImpl extends BaseHibernateDAO implements KnowledgeD
 
     @Override
     public long getKnowledgeCount(String systemId, String tag,
-            KnowledgeStatus dsh, String type) {
+            KnowledgeStatus dsh, String type,String userId) {
         // TODO Auto-generated method stub
         String hql = "select COUNT(*) from KnowledgeData A where 1=1 ";
         if(dsh != null ){
@@ -197,6 +197,10 @@ public class KnowledgeDataDAOImpl extends BaseHibernateDAO implements KnowledgeD
         
         if(!ValidatorUtil.isNull(type) ){
             hql += " and A.type = '"+type+"' ";
+        }
+        
+        if(!ValidatorUtil.isNull(userId) ){
+            hql += " and A.creater = '"+userId+"' ";
         }
         
         if(!ValidatorUtil.isNull(systemId) &&  ValidatorUtil.isNull(tag)){
@@ -220,6 +224,40 @@ public class KnowledgeDataDAOImpl extends BaseHibernateDAO implements KnowledgeD
         for(KnowledgeData knowledgeData : knows){
             hibernateUtil.update(knowledgeData);
         }
+    }
+
+    @Override
+    public List<KnowledgeData> get(String systemId, String tag,
+            KnowledgeStatus dsh, String type, String userId, int start, int size) {
+        String hql = "select A from KnowledgeData A where 1=1 ";
+        if(dsh != null ){
+            hql += " and A.knowledgeStatus = "+dsh.getNum()+" ";
+        }
+        
+        if(!ValidatorUtil.isNull(type) ){
+            hql += " and A.type = '"+type+"' ";
+        }
+        
+        if(!ValidatorUtil.isNull(userId) ){
+            hql += " and A.creater = '"+userId+"' ";
+        }
+        
+        if(!ValidatorUtil.isNull(systemId) &&  ValidatorUtil.isNull(tag)){
+            hql += " and A.id in ( select distinct B.knowledgeData.id from KnowTagRelationData B where B.tagData.id in (select C.id from TagData C where C.systemData.id = '"+systemId+"'))";
+            
+        }
+        if(!ValidatorUtil.isNull(tag)){
+            hql += " and A.id in ( select distinct B.knowledgeData.id from KnowTagRelationData B where B.tagData.id in ('"+tag+"'))";
+        }
+        hql += " order by A.createTime ";
+
+        System.out.println(hql);
+        Query query = hibernateUtil.getSession().createQuery(hql);
+        query.setFirstResult(start);
+        query.setMaxResults(size);
+        
+        List<KnowledgeData> list = query.list();
+        return list;
     }
     
     

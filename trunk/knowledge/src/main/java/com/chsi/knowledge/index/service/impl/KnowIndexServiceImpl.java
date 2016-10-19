@@ -35,6 +35,7 @@ import com.chsi.news.vo.Article;
 import com.chsi.search.client.SearchServiceClient;
 import com.chsi.search.client.SearchServiceClientFactory;
 import com.chsi.search.client.vo.KnowledgeVO;
+import com.chsi.search.client.vo.RepeatVO;
 import com.chsi.search.common.indexdata.KnowIndexData;
 import com.chsi.search.proto.SearchProtos;
 import com.chsi.search.type.QueueNameType;
@@ -215,6 +216,29 @@ public class KnowIndexServiceImpl extends BaseDbService implements KnowIndexServ
         Pagination pagination = new Pagination(page.getTotalCount(), page.getPageCount(), page.getCurPage());
         KnowListVO<KnowledgeVO> knowListVO = new KnowListVO<KnowledgeVO>(page.getList(), pagination);
         return knowListVO;
+    }
+
+    @Override
+    public RepeatVO<KnowledgeVO> getRepeatKnows(String title) {
+        // TODO Auto-generated method stub
+        SearchServiceClient searchClient = SearchServiceClientFactory.getSearchServiceClient();
+        
+        Map<String, String> queryParams =new HashMap<String, String>();
+        queryParams.put("q", title);
+        queryParams.put("qf", "title");
+        queryParams.put("fq", "type:PUBLIC");
+        queryParams.put("fl", "id,title");
+        queryParams.put("hl", "true");
+        queryParams.put("hl.fl", "title");
+        queryParams.put("hl.simple.pre", "<strong style='color:#c30'>");
+        queryParams.put("hl.simple.post", "</strong>");
+        queryParams.put("defType", "edismax");
+        String BF = "ord(visit_cnt)^1 div(sort,1000)^1";
+        queryParams.put("bf", BF);
+        
+        RepeatVO<KnowledgeVO> result = searchClient.getRepeatKnows(queryParams, 0.6);
+        
+        return result;
     }
 
     @Override
