@@ -42,8 +42,6 @@ String ctxPath = request.getContextPath();
         <option value="">请选择标签...</option>
         </select>
         </div>
-        <div class="col-xs-12 col-md-5">
-        </div>
         <div class="col-xs-12 col-md-1">
         <div class="input-group">
         <input id="keywords" type="text" style="display: none" class="form-control search-query" placeholder="知识点标题、回答、标签、关键字..." name="keywords" />
@@ -74,9 +72,6 @@ String ctxPath = request.getContextPath();
                         </span>
                         
                         </h3>
-         
-                  
-                        <div class="table-header" id="search_table_header" style="display:none"> 查询 "Latest Registered Domains" 的结果</div>
 
                         <!-- div.table-responsive -->
 
@@ -146,7 +141,6 @@ String ctxPath = request.getContextPath();
                         var knows = json.o.knows;
                         if(knows.length<1){
                            $("#search_result").html(" <tr role=\"row\" class=\"odd\"\><td  colspan=\"5\"> 无数据 </td><\/tr>");
-                            $("#search_table_header").html("查询 \“"+$("#keywords").val() +"\” 的结果").show();
                             return;
                         }
                         var pagination = json.o.pagination;
@@ -160,7 +154,6 @@ String ctxPath = request.getContextPath();
                             }
                             $("#search_result").append(str);
                         }
-                        $("#search_table_header").html("查询 \“"+knows[0].keywords +"\” 的结果").show();
                         $("#dynamic-table_info").html("第"+pagination.curPage+"页，共"+ pagination.totalCount +" 条。");
                         $("#dynamic-table_paginate").html(formatP(pagination, systemId, keywords, curPage));
                         $("#table_footer_info").show();
