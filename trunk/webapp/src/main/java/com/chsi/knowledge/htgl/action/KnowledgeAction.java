@@ -373,19 +373,29 @@ public class KnowledgeAction extends AjaxAction {
         if (!ValidatorUtil.isNull(id) && !ValidatorUtil.isNull(title) && !ValidatorUtil.isNull(content) && !ValidatorUtil.isNull(sort) && tagIds != null && tagIds.length > 0 && !ValidatorUtil.isNull(keywords)&& !ValidatorUtil.isNull(type)) {
             KnowledgeData data = knowledgeService.getKnowledgeById(id);
             
+            LogOperData logOper = new LogOperData();
+            logOper.setCreateTime(Calendar.getInstance());
+            com.chsi.knowledge.vo.LoginUserVO user = com.chsi.knowledge.web.util.WebAppUtil.getLoginUserVO(httpRequest);
+            logOper.setUserId(user.getAcc().getId());
+            
+            logOper.setM2("");
+            logOper.setOper("修改");
+            logOper.setMessage("知识");
+            logOper.setKeyId(id);
+            
             if(data.getKnowledgeStatus()==KnowledgeStatus.YSH){
                 if(KnowledgeType.PUBLIC.toString().equals(data.getType())){
                     request.put(Constants.REQUEST_ERROR, "没有权限对该知识进行操作");
                     return ERROR;
                 }
-                
+                logOper.setM1("知识管理");
             }else if(data.getKnowledgeStatus()==KnowledgeStatus.DSH){
                 if((!loginUserVO.getAcc().getId().equals(data.getCreater())) && (!loginUserVO.getAcc().getId().equals(data.getUpdater()))){
                     request.put(Constants.REQUEST_ERROR, "没有权限对该知识进行操作");
                     return ERROR;
                 }
+                logOper.setM1("知识新增");
             }
-            
             
             data.setKeywords(keywords);
             data.setSort(Integer.parseInt(sort));
@@ -409,15 +419,7 @@ public class KnowledgeAction extends AjaxAction {
             knowIndexService.deleteKnowIndexBySolr(data.getId());
 //            knowIndexService.updateKnowIndex(data.getId());
             ManageCacheUtil.removeKnowledgeDataById(data.getId());
-            LogOperData logOper = new LogOperData();
-            logOper.setCreateTime(Calendar.getInstance());
-            com.chsi.knowledge.vo.LoginUserVO user = com.chsi.knowledge.web.util.WebAppUtil.getLoginUserVO(httpRequest);
-            logOper.setUserId(user.getAcc().getId());       
-            logOper.setM1("知识新增");
-            logOper.setM2("");
-            logOper.setOper("修改");
-            logOper.setMessage("知识");
-            logOper.setKeyId(id);
+            
             logOperService.save(logOper);
             
             return SUCCESS;

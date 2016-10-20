@@ -14,7 +14,7 @@ String ctxPath = request.getContextPath();
         </script>
         <ul class="breadcrumb">
             <li> <i class="ace-icon fa fa-home home-icon"></i> <a href="/cti/index.action">首页</a> </li>
-            <li class="active">知识查询</li>
+            <li class="active">知识管理</li>
         </ul>
         <!-- /.breadcrumb -->
     </div>
