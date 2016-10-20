@@ -56,7 +56,7 @@ public class Intent {
         //询问日期的意图
         if(((result.contains("星期") || result.contains("周")) && result.contains("几")) ||  result.contains("几号")){
             intentType = IntentType.date;
-//            return true;
+            return true;
         }
         //询问时间
         if(result.contains("几点") || (result.contains("时间")) && result.contains("现在")){
@@ -137,8 +137,12 @@ public class Intent {
                     if(weatherCode == null){
                         content = "缺少输入的地址或者您输入的语句不通顺。";
                     }else{
-                        JSONObject weather = getWeather(weatherCode);
-                        content = DateUtil.getDateWeek(time.dateType)+" "+weather.getString("temp"+(time.dateType+1))+" "+weather.getString("weather"+(time.dateType+1));
+                        
+                        if(time.dateType>0){
+                            content = "http://www.weather.com.cn/weather1d/"+weatherCode.getWeatherCode()+".shtml";
+                        }else{
+                            content = "http://www.weather.com.cn/weather/"+weatherCode.getWeatherCode()+".shtml";
+                        }
                     }
                     
                 }else{
@@ -152,8 +156,14 @@ public class Intent {
                     content = "抱歉，您输入的地址没有在中央气象局公布的地址名单中！";
                 }else{
                     
-                    JSONObject weather = getWeather(weatherCode);
-                    content = DateUtil.getDateWeek(time.dateType)+" "+weather.getString("temp"+(time.dateType+1))+" "+weather.getString("weather"+(time.dateType+1));
+//                    JSONObject weather = getWeather(weatherCode);
+//                    content = DateUtil.getDateWeek(time.dateType)+" "+weather.getString("temp"+(time.dateType+1))+" "+weather.getString("weather"+(time.dateType+1));
+                    if(time.dateType>0){
+                        content = "http://www.weather.com.cn/weather1d/"+weatherCode.getWeatherCode()+".shtml";
+                    }else{
+                        content = "http://www.weather.com.cn/weather/"+weatherCode.getWeatherCode()+".shtml";
+                    }
+                    
                 }
             }else {
                 RobotService robotService = ServiceFactory.getRobotService();
@@ -161,8 +171,13 @@ public class Intent {
                 if(weatherCode == null){
                     content = "抱歉，您输入的地址没有在中央气象局公布的地址名单中！";
                 }else{
-                    JSONObject weather = getWeather(weatherCode);
-                    content = DateUtil.getDateWeek(time.dateType)+" "+weather.getString("temp"+(time.dateType+1))+" "+weather.getString("weather"+(time.dateType+1));
+//                    JSONObject weather = getWeather(weatherCode);
+//                    content = DateUtil.getDateWeek(time.dateType)+" "+weather.getString("temp"+(time.dateType+1))+" "+weather.getString("weather"+(time.dateType+1));
+                    if(time.dateType>0){
+                        content = "http://www.weather.com.cn/weather1d/"+weatherCode.getWeatherCode()+".shtml";
+                    }else{
+                        content = "http://www.weather.com.cn/weather/"+weatherCode.getWeatherCode()+".shtml";
+                    }
                 }
             }
         }
