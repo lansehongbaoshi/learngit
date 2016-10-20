@@ -83,6 +83,7 @@ public class RobotServiceImpl extends BaseDbService implements RobotService {
         String keywords = SearchUtil.keywordsFilter(text);
         if("".equals(keywords)){
             keywords = "text:*";
+            map.put("sort", "_version_ desc");
         }else{
             keywords = "text:"+keywords;
         }

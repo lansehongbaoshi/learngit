@@ -1,36 +1,24 @@
 package com.chsi.knowledge.htgl.action;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.chsi.framework.util.ValidatorUtil;
 import com.chsi.knowledge.Constants;
 import com.chsi.knowledge.action.base.AjaxAction;
-import com.chsi.knowledge.index.service.KnowIndexService;
 import com.chsi.knowledge.pojo.RobotASetData;
 import com.chsi.knowledge.pojo.RobotQSetData;
 import com.chsi.knowledge.service.RobotService;
 import com.chsi.knowledge.service.RobotSolrIndexService;
 import com.chsi.knowledge.util.ManageCacheUtil;
-import com.chsi.knowledge.util.SearchUtil;
-import com.chsi.knowledge.vo.KnowListVO;
 import com.chsi.knowledge.vo.RobotQAListVO;
-import com.chsi.knowledge.vo.SearchVO;
 import com.chsi.search.client.SearchServiceClient;
 import com.chsi.search.client.SearchServiceClientFactory;
-import com.chsi.search.client.vo.KnowledgeVO;
 import com.chsi.search.client.vo.RobotQABean;
 import com.chsi.search.common.indexdata.RobotIndexData;
-import com.opensymphony.xwork2.Action;
 /**
  * 后台管理 机器人配置
  * @author zhangzh

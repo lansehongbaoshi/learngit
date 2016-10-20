@@ -88,7 +88,7 @@ SystemId：<select id="systemIds" class="systemIds form-control" name="systemId"
         </a>
         &nbsp;&nbsp;
         <a href="javascript:void(0)" onclick="delRobotIndex();" target="_self" > 
-            <span >刪除索引索引</span>
+            <span >刪除机器人对话索引</span>
         </a> 
      </div>
   </div>
