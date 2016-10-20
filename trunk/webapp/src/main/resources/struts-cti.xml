@@ -115,7 +115,20 @@
         </action>
         
     </package>
-    
+    <package name="cti.knowledge.searchindex.modifyindex" extends="knowledge-default" namespace="/cti/knowledge/searchindex/modifyindex">
+        <interceptors>
+          <interceptor-stack name="knowledgeStack">
+              <interceptor-ref name="chsiDefaultStack"></interceptor-ref>
+              <interceptor-ref name="store">
+                  <param name="operationMode">AUTOMATIC</param>
+              </interceptor-ref>
+          </interceptor-stack>
+        </interceptors>
+        <action name="updateSelfKnowledge" class="knowledgeActionBean" method="updateSelfKnowledge">
+<!--             <result name="success" type="redirect">/cti/knowledge/searchindex.action</result> -->
+            <result name="success" type="redirect">/cti/knowledge/searchindex/showKnowledge.action?id=${id}&amp;from=add</result>
+        </action>
+    </package>
     <package name="cti.knowledge.searchadd" extends="knowledge-default" namespace="/cti/knowledge/searchadd">
         <interceptors>
           <interceptor-stack name="knowledgeStack">
@@ -134,7 +147,7 @@
         <action name="modifyadd" class="knowledgeActionBean" method="modifyadd">
             <result name="success" type="tiles">cti.knowledge.modify.add</result>
         </action>
-        <action name="updateKnowledge" class="knowledgeActionBean" method="updateKnowledge">
+        <action name="updateSelfKnowledge" class="knowledgeActionBean" method="updateSelfKnowledge">
             <result name="success" type="redirect">/cti/knowledge/searchadd.action</result>
         </action>
         <action name="delKnowledge" class="knowledgeActionBean" method="delKnowledge">

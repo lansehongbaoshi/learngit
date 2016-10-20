@@ -8,6 +8,7 @@ import com.chsi.framework.util.ValidatorUtil;
 import com.chsi.knowledge.Constants;
 import com.chsi.knowledge.action.base.AjaxAction;
 import com.chsi.knowledge.dic.KnowledgeStatus;
+import com.chsi.knowledge.dic.KnowledgeType;
 import com.chsi.knowledge.index.service.KnowIndexService;
 import com.chsi.knowledge.index.service.LogOperService;
 import com.chsi.knowledge.pojo.KnowTagRelationData;
@@ -372,17 +373,26 @@ public class KnowledgeAction extends AjaxAction {
         if (!ValidatorUtil.isNull(id) && !ValidatorUtil.isNull(title) && !ValidatorUtil.isNull(content) && !ValidatorUtil.isNull(sort) && tagIds != null && tagIds.length > 0 && !ValidatorUtil.isNull(keywords)&& !ValidatorUtil.isNull(type)) {
             KnowledgeData data = knowledgeService.getKnowledgeById(id);
             
-            if(!loginUserVO.getAcc().getId().equals(data.getCreater())){
-                request.put(Constants.REQUEST_ERROR, "没有权限对该知识进行操作");
-                return ERROR;
+            if(data.getKnowledgeStatus()==KnowledgeStatus.YSH){
+                if(KnowledgeType.PUBLIC.toString().equals(data.getType())){
+                    request.put(Constants.REQUEST_ERROR, "没有权限对该知识进行操作");
+                    return ERROR;
+                }
+                
+            }else if(data.getKnowledgeStatus()==KnowledgeStatus.DSH){
+                if((!loginUserVO.getAcc().getId().equals(data.getCreater())) && (!loginUserVO.getAcc().getId().equals(data.getUpdater()))){
+                    request.put(Constants.REQUEST_ERROR, "没有权限对该知识进行操作");
+                    return ERROR;
+                }
             }
+            
             
             data.setKeywords(keywords);
             data.setSort(Integer.parseInt(sort));
             data.setUpdateTime(Calendar.getInstance());
             data.setUpdater(getLoginedUserId());
             data.setType(type);
-            data.setKnowledgeStatus(KnowledgeStatus.YSH);
+            data.setKnowledgeStatus(KnowledgeStatus.DSH);
             knowledgeService.update(data, title, content, loginUserVO.getAcc().getId());
             
             knowTagRelationService.del(id);
@@ -397,19 +407,13 @@ public class KnowledgeAction extends AjaxAction {
                 }
             }
             knowIndexService.deleteKnowIndexBySolr(data.getId());
-            knowIndexService.updateKnowIndex(data.getId());
+//            knowIndexService.updateKnowIndex(data.getId());
             ManageCacheUtil.removeKnowledgeDataById(data.getId());
             LogOperData logOper = new LogOperData();
             logOper.setCreateTime(Calendar.getInstance());
             com.chsi.knowledge.vo.LoginUserVO user = com.chsi.knowledge.web.util.WebAppUtil.getLoginUserVO(httpRequest);
-            logOper.setUserId(user.getAcc().getId());
-            if(user.getAuths().contains(com.chsi.knowledge.Constants.ROLE_CTI_USER)) {
-                logOper.setM1("知识新增");
-            }
-            if(user.getAuths().contains(com.chsi.knowledge.Constants.ROLE_KNOWLEDGE)) {
-                logOper.setM1("知识管理");
-            }
-            
+            logOper.setUserId(user.getAcc().getId());       
+            logOper.setM1("知识新增");
             logOper.setM2("");
             logOper.setOper("修改");
             logOper.setMessage("知识");

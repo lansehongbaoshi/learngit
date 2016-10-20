@@ -32,6 +32,8 @@ public class SearchVO {
     private String lastUpdateTime;
     private String creater;
     private String createTime;
+    private String updater;
+    private String updateTime;
     
     private static SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     
@@ -85,7 +87,7 @@ public class SearchVO {
         this.lastUpdateTime = format.format(lastUpdateTime.getTime());;
     }
     public SearchVO(List<SystemData> systemDatas, String tags, String title, String summary, String contentTxt, String knowId,
-            List<String> tagIds, String keywords, int visitCnt, int sort, String type, long topTime, boolean hasImage, Calendar lastUpdateTime,String creater,Calendar createTime){
+            List<String> tagIds, String keywords, int visitCnt, int sort, String type, long topTime, boolean hasImage, Calendar lastUpdateTime,String creater,Calendar createTime,String updater,Calendar updateTime){
         if(systemDatas!=null) {
             this.systemId = systemDatas.get(0).getId();
             this.system = systemDatas.get(0).getName();
@@ -110,8 +112,16 @@ public class SearchVO {
         this.topTime = topTime;
         this.hasImage = hasImage;
         this.lastUpdateTime = format.format(lastUpdateTime.getTime());
+        if(creater==null){
+            creater = "未注册";
+        }
+        if(updater==null){
+            updater = "未注册";
+        }
         this.creater = creater;
-        this.createTime = format.format(createTime.getTime());
+        this.updater = updater;
+        if(createTime!=null) this.createTime = format.format(createTime.getTime());
+        if(updateTime!=null) this.updateTime = format.format(updateTime.getTime());
         
     }
 
@@ -257,6 +267,22 @@ public class SearchVO {
 
     public void setCreateTime(String createTime) {
         this.createTime = createTime;
+    }
+
+    public String getUpdater() {
+        return updater;
+    }
+
+    public void setUpdater(String updater) {
+        this.updater = updater;
+    }
+
+    public String getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(String updateTime) {
+        this.updateTime = updateTime;
     }
     
 }

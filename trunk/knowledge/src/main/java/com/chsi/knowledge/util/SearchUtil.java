@@ -118,12 +118,12 @@ public class SearchUtil {
             boolean hasImage = hasImgTag(htmlContent);
             KnowledgeData data = ManageCacheUtil.getKnowledgeDataById(vo.getKnowledgeId());
             if(data!=null) {
-                ContactServiceClient contactService = ContactServiceClientFactory.getContactServiceClient();
-                String userName = contactService.getRealInfoSingleItemValue(data.getCreater(), ContactConstants.ITEM_NAME_ID);
-                if("".equals(userName)||null==userName){
-                    userName = "未注册";
-                }
-                tempVO = new SearchVO(data.getSystemDatas(), vo.getTags(), vo.getTitle(), summary, txtContent, vo.getKnowledgeId(), vo.getTagIds(), searchWords, data.getVisitCnt(), data.getSort(), data.getType(), data.getTopTime()==null?-1:data.getTopTime().getTimeInMillis(), hasImage, (data.getUpdateTime()==null ? data.getCreateTime():data.getUpdateTime()),userName,data.getCreateTime());
+//                ContactServiceClient contactService = ContactServiceClientFactory.getContactServiceClient();
+//                String userName = contactService.getRealInfoSingleItemValue(data.getCreater(), ContactConstants.ITEM_NAME_ID);
+//                if("".equals(userName)||null==userName){
+//                    userName = "未注册";
+//                }
+                tempVO = new SearchVO(data.getSystemDatas(), vo.getTags(), vo.getTitle(), summary, txtContent, vo.getKnowledgeId(), vo.getTagIds(), searchWords, data.getVisitCnt(), data.getSort(), data.getType(), data.getTopTime()==null?-1:data.getTopTime().getTimeInMillis(), hasImage, (data.getUpdateTime()==null ? data.getCreateTime():data.getUpdateTime()),data.getCreaterName(),data.getCreateTime(),data.getUpdaterName(),data.getUpdateTime());
                 searchList.add(tempVO);
             }
         }
