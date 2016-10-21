@@ -26,30 +26,33 @@ systemId = systemId==null?"":systemId;%>
 .main { width:1000px; margin:0 auto; background: #f1f1f1; }
 .main .left { float: left; width: 645px; position: relative; padding-top: 12px; }
 .main .left .tp { width: 590px; margin: 0 auto; padding-left: 35px; border-radius: 5px; line-height: 35px; color: #666; background: url(../images/wap/help/tp.png) no-repeat 5px 8px;  background-color: #dffef9; }
-.main .left #showbox { position: relative; height: 478px; padding-top: 30px; border-bottom: 1px solid #d3d3d3; overflow-y: scroll;overflow-x: hidden; }
-.main .left #sendbox { position: relative; height: 165px;   background: #fff; }
-.main .left #sendbox .send_top { height: 100px;}
-.main .left #sendbox .send_bottom { height: 65px;  background: #f1f1f1; } 
-.main .left #sendbox #inputbox { width: 625px; height: 80px; padding: 10px; line-height: 25px; border: none;  }
-.main .left #sendbox #sendBtn { position: absolute; right: 10px; bottom: 12px; display: inline-block; width: 90px; padding: 6px 12px;  border: 1px solid transparent; border-radius: 5px; line-height: 1.42857;	box-shadow: 0 0 0 #209683  inset, 0 3px 0 0 #209683; background-color: #28bca4; border-color: #28bca4; color: #fff; font-size: 16px; text-align: center; cursor: pointer; }
-.main .left #sendbox #contentwordage { position: absolute; left: 10px; bottom: 20px;  color: #999;}
-.main .left #sendbox #contentwordage .red { color: #f30;}
+.main .left .showbox { position: relative; height: 478px; padding-top: 30px; border-bottom: 1px solid #d3d3d3; overflow-y: scroll;overflow-x: hidden; }
+.main .left .sendbox { position: relative; height: 165px;   background: #fff; }
+.main .left .sendbox .send_top { height: 100px;}
+.main .left .sendbox .send_bottom { height: 65px;  background: #f1f1f1; } 
+.main .left .sendbox .inputbox { width: 625px; height: 80px; padding: 10px; line-height: 25px; border: none;  }
+.main .left .sendbox .sendBtn { position: absolute; right: 10px; bottom: 12px; display: inline-block; width: 90px; padding: 6px 12px;  border: 1px solid transparent; border-radius: 5px; line-height: 1.42857;	box-shadow: 0 0 0 #209683  inset, 0 3px 0 0 #209683; background-color: #28bca4; border-color: #28bca4; color: #fff; font-size: 16px; text-align: center; cursor: pointer; }
+.main .left .sendbox .contentwordage { position: absolute; left: 10px; bottom: 20px;  color: #999;}
+.main .left .sendbox .contentwordage .red { color: #f30;}
 .main .left .all_tips { position: absolute; bottom: 165px; left: 0; }
 .main .right{ float: right; width: 354px; height: 721px;  border-left: 1px solid #d3d3d3; background: #fff;}
 #ui-id-1 {max-width: 665px;}
-#kn_labels {  background: #f1f1f1; overflow: hidden;}
-#kn_labels ul { width: 120%;}
-#kn_labels ul li { float: left;  width: 117px; height: 50px; line-height: 50px; border-right: 1px solid #d3d3d3; border-bottom: 1px solid #d3d3d3; text-align: center; color: #666;  background: #f1f1f1;}
-#kn_labels ul li.cn {cursor: pointer;}
-#kn_labels ul li.selected { background: #fff; color: #333;}
-#kn_labels ul li.no-border-right { border-right: none;}
-#kn_lists .top_title { padding: 12px; border-bottom: 1px solid #d3d3d3; }
-#kn_lists ul li { padding:2px 12px; height: 35px; line-height: 35px; border-bottom: 1px solid #d3d3d3; color: #666; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
-#kn_lists ul li a { color: #666; }
-#kn_lists .pagenation { padding:30px 12px;}
-#kn_lists .pagenation .kn-page_up_no { display:inline-block ; width: 70px; height: 30px; margin-right: 25px; line-height: 30px; border: 1px solid #d3d3d3; border-radius: 5px;  text-align: center;  background: #f2f2f2; cursor: default; }
-#kn_lists .pagenation .kn-pagination_down {  display:inline-block ; width: 70px; height: 30px; margin-right: 25px; line-height: 30px; border: 1px solid #28bca4;  border-radius: 5px;text-align: center;   color: #fff; background: #28bca4; cursor: pointer; }
-#kn_lists .pagenation .kn-pagination_down:hover{text-decoration: none; opacity: 0.8; filter:alpha(opacity=80);}
+.kn_labels { position: relative; margin-bottom: 20px; background: #fff;}
+.kn_labels ul { width: 120%;}
+.kn_labels ul li { float: left;  width: 117px; height: 50px; line-height: 50px; border-right: 1px solid #eaeaea; border-bottom: 1px solid #eaeaea; text-align: center; color: #666;  background: #fff; overflow: hidden;}
+.kn_labels ul li.cn {cursor: pointer;}
+.kn_labels ul li.selected { background: #fcf4c7; color: #333;}
+.kn_labels ul li.no-border-right { width: 118px; border-right: none;}
+.kn_labels ul li.hide {display: none;}
+.more { position: absolute; right: 0px; bottom: -20px; width: 50px; height: 20px; line-height: 20px; background: #dffef9; cursor: pointer; text-align: center;}
+.kn_lists .top_title { position: relative; height: 25px; border-bottom: 1px dotted #d3d3d3; margin-bottom: 15px; }
+.kn_lists .top_title .title-content { position: absolute; top: 10px; left: 0; height: 30px; padding: 0 12px; background: #fff;}
+.kn_lists ul li { padding:0 12px; height: 30px; line-height: 30px; color: #999; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
+.kn_lists ul li a { color: #999; }
+.kn_lists .pagenation { padding:30px 12px;}
+.kn_lists .pagenation .kn-page_up_no { display:inline-block ; width: 70px; height: 30px; margin-right: 25px; line-height: 30px; border: 1px solid #d3d3d3; border-radius: 5px;  text-align: center;  background: #f2f2f2; cursor: default; }
+.kn_lists .pagenation .kn-pagination_down {  display:inline-block ; width: 70px; height: 30px; margin-right: 25px; line-height: 30px; border: 1px solid #28bca4;  border-radius: 5px;text-align: center;   color: #fff; background: #28bca4; cursor: pointer; }
+.kn_lists .pagenation .kn-pagination_down:hover{text-decoration: none; opacity: 0.8; filter:alpha(opacity=80);}
 .main .right .advert{ height: 65px;  background: #f1f1f1; }
 .system {color: #999; margin-left: 10px;}
 .hide { display: none;}
@@ -85,22 +88,22 @@ systemId = systemId==null?"":systemId;%>
 <div class="main clearfix">
 	<div class="left">
 		<div class="tp">对话已建立，学信网机器人正在为您服务 ......</div>
-		<div id="showbox"></div>
-		<div id="sendbox">
+		<div id="showbox" class="showbox"></div>
+		<div id="sendbox" class="sendbox">
 			<div class="send_top">
-				<textarea id="inputbox" maxlength="100" autocomplete="off" placeholder="请用一句话简要描述您的问题，比如：如何找回用户名和密码"></textarea>
+				<textarea id="inputbox" class="inputbox" maxlength="100" autocomplete="off" placeholder="请用一句话简要描述您的问题，比如：如何找回用户名和密码"></textarea>
 				<input id="judge" type="hidden" value="" />
 			</div>
 			<div class="send_bottom">
-				<input id="sendBtn" type="button" value="发送"/>
-				<span id="contentwordage"></span>
+				<input id="sendBtn" class="sendBtn" type="button" value="发送"/>
+				<span id="contentwordage" class="contentwordage"></span>
 			</div>
 		</div>
 		<div class="all_tips"></div>
 	</div>
 	<div class="right">
 		<div class="normal-question">
-			<div id="kn_labels" >
+			<div id="kn_labels" class="kn_labels" >
 				<ul class="clearfix">
 					<li class="cn" onclick="ajaxJSONP('systemId=account','knList')" data-id="account" >学信网账号</li>
 					<li class="cn" onclick="ajaxJSONP('systemId=my','knList')" data-id="my">学信档案</li>
@@ -111,13 +114,16 @@ systemId = systemId==null?"":systemId;%>
                     <li class="cn" onclick="ajaxJSONP('systemId=yz_gat','knList')" data-id="yz_gat">面向港澳台招生</li>
                     <li class="cn" onclick="ajaxJSONP('systemId=gk_tk','knList')" data-id="gk_tk">高考统考招生</li>
                     <li class="cn no-border-right" onclick="ajaxJSONP('systemId=gk_ts','knList')" data-id="gk_ts">高考特殊类型招生</li>
-                    <li class="cn" onclick="ajaxJSONP('systemId=gk_wb','knList')" data-id="gk_wb">高考特殊类型报名</li>
-                    <li class="cn" onclick="ajaxJSONP('systemId=xlrz','knList')" data-id="xlrz">学历与成绩认证</li>
-                    <li class="no-border-right"></li>
+                    <li class="cn over hide" onclick="ajaxJSONP('systemId=gk_wb','knList')" data-id="gk_wb">高考特殊类型报名</li>
+                    <li class="cn over hide" onclick="ajaxJSONP('systemId=xlrz','knList')" data-id="xlrz">学历与成绩认证</li>
+                    <li class="no-border-right over hide"></li>
 				</ul>
+				<div class="more">更多</div>
 			</div>
-			<div id="kn_lists">
-				<div class="top_title">热门问题</div>
+			<div id="kn_lists" class="kn_lists">
+				<div class="top_title">
+				    <div class="title-content">热门问题-<span id="systemname"></span></div>
+				</div>
 				<div id="kn_list"></div>
 				<!--<ul>
 					<li>1、如何判断网报是否成功？</li>
@@ -310,8 +316,10 @@ $(function(){
     });
     //控制选择标签变色
  	$("#kn_labels ul .cn").on("click",function(){
-		$(this).addClass("selected").siblings().removeClass("selected");		
-	}); 
+		$(this).addClass("selected").siblings().removeClass("selected");
+		var systemName=$(this).html();
+        $("#systemname").html(systemName);
+	});
 	//图片跳转
 	$("#showbox").on("click","img",function(){
 		var s_src=$(this)[0].src;
@@ -357,7 +365,17 @@ $(function(){
                 },
                 cancelValue: "取消"	                    
         }).showModal();	
-	});	
+	});
+	//展开收起
+	$(".more").click(function(){
+	    if($(".over").is(":hidden")){
+	        $(".over").removeClass("hide");
+	        $(this).html("收起");
+	    }else{
+	        $(".over").addClass("hide");
+            $(this).html("更多");
+	    }
+	})
 });
 
 //artTemplate辅助方法
@@ -537,6 +555,8 @@ $(function(){
         var thisID = $(this).attr("data-id");
         if(thisID==systemId){
             $(this).addClass("selected");
+            var systemName=$(this).html();
+            $("#systemname").html(systemName);
         }
     });
     ajaxJSONP("systemId="+systemId,"knList");   
