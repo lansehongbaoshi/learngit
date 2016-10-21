@@ -222,9 +222,9 @@ if("update".equals(from)) {
                 </div>
             </div>
 
-<%--             <jsp:include page="/common/userDiscuss.jsp"> --%>
-<%--                 <jsp:param name="kId" value="${id}" /> --%>
-<%--             </jsp:include> --%>
+            <jsp:include page="/common/userDiscuss.jsp">
+                <jsp:param name="kId" value="${id}" />
+            </jsp:include>
 
             <div class="clear"></div>
         </div>
