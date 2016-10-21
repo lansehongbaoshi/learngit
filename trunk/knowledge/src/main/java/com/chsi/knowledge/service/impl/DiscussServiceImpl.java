@@ -47,8 +47,8 @@ public class DiscussServiceImpl extends BaseDbService implements DiscussService 
     @Override
     public KnowListVO<DiscussInfoVO> getDiscussInfoVOList(String KId, int start, int pageSize) {
         int count = discussDataDAO.getDiscussInfoVOList(KId);
-        Iterator<DiscussInfoVO> iterator = discussDataDAO.getDiscussInfoVOList(KId, start, pageSize).iterator();
-        Page<DiscussInfoVO> page = PageUtil.getPage(iterator, start, pageSize, count);
+        Iterator<DiscussInfoVO> iterator = discussDataDAO.getDiscussInfoVOList(KId, start*pageSize, pageSize).iterator();
+        Page<DiscussInfoVO> page = PageUtil.getPage(iterator, start*pageSize, pageSize, count);
         Pagination pagination = new Pagination(page.getTotalCount(), page.getPageCount(), start);
         KnowListVO<DiscussInfoVO> knowListVO = new KnowListVO<DiscussInfoVO>(page.getList(), pagination);
         return knowListVO;
