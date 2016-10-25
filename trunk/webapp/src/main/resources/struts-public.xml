@@ -38,7 +38,7 @@
         <action name="allSearch" class="searchActionBean" method="allSearch"></action>
         <action name="autoTitle" class="searchActionBean" method="autoTitle"></action>
     </package>
-    <package name="nocas" extends="knowledge-default" namespace="/nocas">
+    <package name="admin.nocas" extends="knowledge-default" namespace="/admin/nocas">
         <interceptors>
           <interceptor-stack name="knowledgeStack">
               <interceptor-ref name="chsiDefaultStack"></interceptor-ref>

@@ -158,10 +158,10 @@
         <url-pattern>/index.jsp</url-pattern>
     </filter-mapping>
     
-    <filter-mapping>
+    <!-- <filter-mapping>
         <filter-name>IPFilter</filter-name>
         <url-pattern>/nocas/*</url-pattern>
-    </filter-mapping>
+    </filter-mapping> -->
 
     <filter-mapping>
         <filter-name>StrutsPrepareFilter</filter-name>
