@@ -148,7 +148,7 @@ $(function(){
 	</s:iterator>
 	$("#modifyBtn").click(function () {
         var html = editor.getContent();
-        $.getJSON("/htgl/knowledge/searchindex/addindex/checkBadWord.action", {
+        $.post("/htgl/knowledge/searchindex/addindex/checkBadWord.action", {
             keywords: html,
             t: new Date().getTime()
         },function showBadWordResult(json) {
