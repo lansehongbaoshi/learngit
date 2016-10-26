@@ -227,7 +227,7 @@ function checkTitle(){
                         aria-hidden="true">×
                 </button>
                 <h4 class="modal-title" id="contentModalLabel">
-                    提交内容包含敏感词汇
+                    内容包含敏感词汇
                 </h4>
             </div>
             <div class="modal-body">
@@ -236,10 +236,10 @@ function checkTitle(){
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" 
-                        data-dismiss="modal">返回修改
+                        data-dismiss="modal">返回审核
                 </button>
                 <button id="confirm" type="button" class="btn btn-primary">
-                    继续提交
+                    继续通过
                 </button>
             </div>
         </div><!-- /.modal-content -->
