@@ -12,6 +12,27 @@ SystemService systemService = ServiceFactory.getSystemService();
 List<SystemData> systems = systemService.getSystems(false);
 %>
 <script type="text/javascript" src='http://t1.chei.com.cn/common/wap/help/js/template.js'></script>
+<script type="text/javascript" src="//apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+<style>
+  .ui-autocomplete {
+    max-height: 100px;
+    overflow-y: auto;
+    /* 防止水平滚动条 */
+    overflow-x: hidden;
+  }
+  /* IE 6 不支持 max-height
+   * 我们使用 height 代替，但是这会强制菜单总是显示为那个高度
+   */
+  html .ui-autocomplete {
+    height: 100px;
+  }
+  
+  .ui-autocomplete-loading {
+    background: white url('images/ui-anim_basic_16x16.gif') right center no-repeat;
+  }
+  
+</style>
+
 <!--breadcrumbs-->
 <div class="breadcrumbs" id="breadcrumbs">
 	<script type="text/javascript">
@@ -33,7 +54,7 @@ List<SystemData> systems = systemService.getSystems(false);
 	<div class="row">
 		<div class="col-xs-12">
 			<form id="myform"
-				action="<%=ctxPath%>/cti/knowledge/searchadd/addindex/addDSHKnowledge.action"
+				action="<%=ctxPath%>/cti/knowledge/searchindex/addindex/addDSHKnowledge.action"
 				method="post" enctype="multipart/form-data" class="form-horizontal">
 				<div class="form-group">
 					<label for="" class="col-sm-1 control-label no-padding-top">标题：</label>
@@ -225,6 +246,29 @@ $(function () {
     });
     //自动完成
 //    searchInputIng();
+    $("#title").autocomplete({
+    	source: function( request, response ) {
+            $.ajax({
+              url: "http://kl.chsi.com.cn/cti/knowledge/searchadd/addindex/quickAll.action",
+              dataType: "jsonp",
+              data: {
+                keywords:$.trim($("#title").val()),
+                t: new Date().getTime()
+              },
+              success: function( data ) {
+            	console.log(data.o.knows);
+                response( $.map( data.o.knows, function( item ) {
+                  return {
+                    label: "["+item.system+"]"+item.title,
+                    value: item.title
+                  }
+                }));
+              }
+            });
+          },
+          minLength: 2
+    });
+    $(".ui-helper-hidden-accessible").css("display","none");
     $("#title").blur(function () { 
         
         var title = $(this).val();
@@ -243,10 +287,15 @@ $(function () {
         			text += "</font>"
         			$("#titleCheck").html(text); 
                     $("#titleCheck").css("color","red");
+//                     $(".ui-helper-hidden-accessible").html(text);
+//                     $(".ui-helper-hidden-accessible").css("color","red");
+//                     $(".ui-helper-hidden-accessible").css("display","");
         			
         		}else{
+
         			$("#titleCheck").html("<font>检查通过</font>"); 
                     $("#titleCheck").css("color","green");
+
         		}
         		
         	}

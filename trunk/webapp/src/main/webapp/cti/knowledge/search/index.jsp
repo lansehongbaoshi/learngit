@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
 String ctxPath = request.getContextPath();
 %>
@@ -60,8 +61,8 @@ String ctxPath = request.getContextPath();
                        
                         <h3 class="row header smaller lighter blue">
                         <span class="col-xs-7">知识点列表</span>
-                        <span class="col-xs-5" style="display: none">
-                            <a  href="/cti/knowledge/addindex.action" target="_self"  class="btn-new-mail pull-right">
+                        <span class="col-xs-5" style="display: ">
+                            <a  href="/cti/knowledge/searchindex/addindex.action" target="_self"  class="btn-new-mail pull-right">
 														<span class="btn btn-primary no-border">
 															<i class="ace-icon fa glyphicon-plus bigger-130"></i>
 															<span class="bigger-110">新增</span>
@@ -150,9 +151,9 @@ String ctxPath = request.getContextPath();
                             var k = knows[i];
                             var odd_even = (i%2==0)?"even":"odd";
                             if(k.topTime==-1){//未置顶热点问题
-                                var str = " <tr role=\"row\" data-id="+k.knowId+" class=\""+odd_even+"\"><td class=\"hidden-80\" title=\""+k.systems+"\">" + k.system + "</td><td class=\"hidden-80\">" + k.tags + "</td><td class=\"hidden-160\">" + (k.hasImage?("<i class=\"ace-icon fa fa-image bigger-130\"></i>&nbsp;"+k.title):k.title) + "</td><td class=\"hidden-260\"><div class='zxx_text_overflow_1' title='"+ k.contentTxt +"'>" + k.contentTxt + "<div></td><td class=\"hidden-80\">"+k.sort+"</td><td class=\"hidden-80\">"+k.visitCnt+"</td><td class=\hidden-80\><span class=\"label label-sm label-success\">已发布</span><span class=\"label label-sm label-success\">"+k.type+"</span></td><td><div class=\"hidden-sm hidden-xs action-buttons\"><a class=\"blue\" target='_blank' title=\"查看\" href=\"/cti/knowledge/searchindex/showKnowledge.action?id=" + k.knowId +"\"> <i class=\"ace-icon fa fa-search-plus bigger-130\"></i> </a> <a class=\"green\" title=\"修改\" href='javascript:void(0)' class='modifyclass'><i class=\"ace-icon fa fa-pencil bigger-130\"></i> </a></div>" + "</td></tr>";
+                                var str = " <tr role=\"row\" data-id="+k.knowId+" class=\""+odd_even+"\"><td class=\"hidden-80\" title=\""+k.systems+"\">" + k.system + "</td><td class=\"hidden-80\">" + k.tags + "</td><td class=\"hidden-160\">" + (k.hasImage?("<i class=\"ace-icon fa fa-image bigger-130\"></i>&nbsp;"+k.title):k.title) + "</td><td class=\"hidden-260\"><div class='zxx_text_overflow_1' title='"+ k.contentTxt +"'>" + k.contentTxt + "<div></td><td class=\"hidden-80\">"+k.sort+"</td><td class=\"hidden-80\">"+k.visitCnt+"</td><td class=\hidden-80\><span class=\"label label-sm label-success\">已发布</span><span class=\"label label-sm label-success\">"+k.typeDic+"</span></td><td><div class=\"hidden-sm hidden-xs action-buttons\"><a class=\"blue\" target='_blank' title=\"查看\" href=\"/cti/knowledge/searchindex/showKnowledge.action?id=" + k.knowId +"\"> <i class=\"ace-icon fa fa-search-plus bigger-130\"></i> </a>"+((k.type=="PRIVATE")?("<a class=\"green\" title=\"修改\" href='javascript:void(0)' class='modifyclass'><i class=\"ace-icon fa fa-pencil bigger-130\"></i> </a>"):"")+"</div></td></tr>";
                             }else{//已置顶热点问题
-                            	var str = " <tr role=\"row\" data-id="+k.knowId+" class=\""+odd_even+"\"><td class=\"hidden-80\" title=\""+k.systems+"\">" + k.system + "</td><td class=\"hidden-80\">" + k.tags + "</td><td class=\"hidden-160\">" + (k.hasImage?("<i class=\"ace-icon fa fa-image bigger-130\"></i>&nbsp;"+k.title):k.title) + "</td><td class=\"hidden-260\">" + k.summary + "</td><td class=\"hidden-80\">"+k.sort+"</td><td class=\"hidden-80\">"+k.visitCnt+"</td><td class=\hidden-80\><span class=\"label label-sm label-success\">已发布</span><span class=\"label label-sm label-success\">"+k.type+"</span></td><td><div class=\"hidden-sm hidden-xs action-buttons\"><a class=\"blue\" target='_blank' title=\"查看\" href=\"/cti/knowledge/searchindex/showKnowledge.action?id=" + k.knowId +"\"> <i class=\"ace-icon fa fa-search-plus bigger-130\"></i> </a> <a class=\"green\" title=\"修改\" href='javascript:void(0)' class='modifyclass'><i class=\"ace-icon fa fa-pencil bigger-130\"></i> </a></div>" + "</td></tr>";
+                            	var str = " <tr role=\"row\" data-id="+k.knowId+" class=\""+odd_even+"\"><td class=\"hidden-80\" title=\""+k.systems+"\">" + k.system + "</td><td class=\"hidden-80\">" + k.tags + "</td><td class=\"hidden-160\">" + (k.hasImage?("<i class=\"ace-icon fa fa-image bigger-130\"></i>&nbsp;"+k.title):k.title) + "</td><td class=\"hidden-260\">" + k.summary + "</td><td class=\"hidden-80\">"+k.sort+"</td><td class=\"hidden-80\">"+k.visitCnt+"</td><td class=\hidden-80\><span class=\"label label-sm label-success\">已发布</span><span class=\"label label-sm label-success\">"+k.typeDic+"</span></td><td><div class=\"hidden-sm hidden-xs action-buttons\"><a class=\"blue\" target='_blank' title=\"查看\" href=\"/cti/knowledge/searchindex/showKnowledge.action?id=" + k.knowId +"\"> <i class=\"ace-icon fa fa-search-plus bigger-130\"></i> </a> "+((k.type=="PRIVATE")?("<a class=\"green\" title=\"修改\" href='javascript:void(0)' class='modifyclass'><i class=\"ace-icon fa fa-pencil bigger-130\"></i> </a>"):"")+"</div></td></tr>";
                             }
                             $("#search_result").append(str);
                         }

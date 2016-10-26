@@ -34,6 +34,7 @@ public class SearchVO {
     private String createTime;
     private String updater;
     private String updateTime;
+    private String typeDic;
     
     private static SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     
@@ -82,6 +83,7 @@ public class SearchVO {
         this.visitCnt = visitCnt;
         this.sort = sort;
         this.type = type;
+        this.typeDic = getTypeDic(type);
         this.topTime = topTime;
         this.hasImage = hasImage;
         this.lastUpdateTime = format.format(lastUpdateTime.getTime());;
@@ -109,6 +111,7 @@ public class SearchVO {
         this.visitCnt = visitCnt;
         this.sort = sort;
         this.type = type;
+        this.typeDic = getTypeDic(type);
         this.topTime = topTime;
         this.hasImage = hasImage;
         this.lastUpdateTime = format.format(lastUpdateTime.getTime());
@@ -283,6 +286,23 @@ public class SearchVO {
 
     public void setUpdateTime(String updateTime) {
         this.updateTime = updateTime;
+    }
+    public String getTypeDic(String type){
+        if("PUBLIC".equals(this.getType())){
+            return "公开";
+        }else if("PRIVATE".equals(this.getType())){
+            return "内部";
+        }else{
+            return "其他";
+        }
+    }
+    
+    public String getTypeDic(){
+        return this.typeDic;
+    }
+
+    public void setTypeDic(String type) {
+        this.typeDic = getTypeDic(type);
     }
     
 }

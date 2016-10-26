@@ -177,32 +177,9 @@ $(function(){
     
   //自动完成
 //  searchInputIng();
-    
+    checkTitle();
     $("#title").blur(function () { 
-        var title = $(this).val();
-        console.log(title);
-        $.getJSON("/cti/knowledge/searchadd/addindex/checkRepeat.action", {
-            keywords: title,
-            t: new Date().getTime()
-        },
-        function showSearchResult(json) {
-            if (json.flag == 'true') {
-                if(json.o.flag== true){
-                    
-                    var text = "<font>检查不通过,有类似重复标题：<br>";
-                    for(var i=0;i<json.o.datas.length;i++){
-                        text += json.o.datas[i].title+"<br>"
-                    }
-                    text += "</font>"
-                    $("#titleCheck").html(text); 
-                    $("#titleCheck").css("color","red");
-                    
-                }else{
-                    $("#titleCheck").html("<font>检查通过</font>"); 
-                    $("#titleCheck").css("color","green");
-                }
-            }
-        });
+    	checkTitle();
     }); 
     
     $("#myModal .modal-body input").each(function(){
@@ -211,6 +188,34 @@ $(function(){
     	}
     });
 })
+function checkTitle(){
+	var title = $(this).val();
+    console.log(title);
+    $.getJSON("/cti/knowledge/searchadd/addindex/checkRepeat.action", {
+        keywords: title,
+        t: new Date().getTime()
+    },
+    function showSearchResult(json) {
+        if (json.flag == 'true') {
+            if(json.o.flag== true){
+                
+                var text = "<font>检查不通过,有类似重复标题：<br>";
+                for(var i=0;i<json.o.datas.length;i++){
+                    text += json.o.datas[i].title+"<br>"
+                }
+                text += "</font>"
+                $("#titleCheck").html(text); 
+                $("#titleCheck").css("color","red");
+                
+            }else{
+                $("#titleCheck").html("<font>检查通过</font>"); 
+                $("#titleCheck").css("color","green");
+            }
+        }
+    });
+}
+
+
 </script>
 
 <!-- 模态框（Modal） -->

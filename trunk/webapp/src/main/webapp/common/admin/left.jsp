@@ -26,7 +26,7 @@ try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
     <li id="search_menu" class=""><a href="/cti/knowledge/searchindex.action"> <i class="menu-icon fa fa-pencil-square-o"></i> <span class="menu-text"> 知识管理 </span>
     </a> <b class="arrow"></b></li>
     
-    <li id="add_menu" class=""><a href="/cti/knowledge/searchadd.action"> <i class="menu-icon fa fa-file-text"></i> <span class="menu-text"> 知识新增</span>
+    <li id="add_menu" class=""><a href="/cti/knowledge/searchadd.action"> <i class="menu-icon fa fa-file-text"></i> <span class="menu-text"> 待审核知识 </span>
     </a> <b class="arrow"></b></li>
     <%} %>
     <%if(user.getAuths().contains(com.chsi.knowledge.Constants.ROLE_KNOWLEDGE)) {%>
