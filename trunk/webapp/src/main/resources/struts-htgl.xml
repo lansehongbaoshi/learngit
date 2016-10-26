@@ -103,6 +103,8 @@
         </action>
         <action name="showDiscussContent" class="knowledgeActionBean" method="showDiscussContent">
         </action>
+        <action name="quickAll" class="searchActionBean" method="quickAll">
+        </action>
     </package>
     <package name="htgl.knowledge.searchindex" extends="knowledge-default" namespace="/htgl/knowledge/searchindex">
         <interceptors>

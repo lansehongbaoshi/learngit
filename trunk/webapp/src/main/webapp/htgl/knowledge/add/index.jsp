@@ -10,6 +10,8 @@
 SystemService systemService = ServiceFactory.getSystemService();
 List<SystemData> systems = systemService.getSystems(false);
 %>
+<link rel="stylesheet" type="text/css" href="http://t1.chei.com.cn/common/zbbm/js/autocomplete/jqueryui.autocomplete.css" />
+<script src="http://t1.chei.com.cn/common/zbbm/js/autocomplete/jqueryui.autocomplete.js"></script>
 <!--breadcrumbs-->
 <div class="breadcrumbs" id="breadcrumbs">
   <script type="text/javascript">
@@ -34,7 +36,7 @@ List<SystemData> systems = systemService.getSystems(false);
         <div class="form-group">
           <label for="" class="col-sm-1 control-label no-padding-top">标题：</label>
           <div class="col-sm-9">
-            <input id="title" type="text" name="title" style="width: 400px;float: left"
+            <input id="title" class="ui-input ui-autocomplete-input" type="text" name="title" style="width: 400px;float: left"
                             value="">
             <span id="titleCheck" type="text" name="titleCheck" style="float: left"></span>
             <div id='search_list'></div>
@@ -218,6 +220,73 @@ $(function() {
 		
 	    //自动完成
 //	    searchInputIng();
+	    
+	$('#title').autocomplete({
+        minLength : 0,
+        max : 5,
+        delay : 500,
+        source : function(request, response) {
+            var term = request.term;
+            //if (term in cache) { response(cache[term]); return;}
+            var postdata = {
+                "keywords" : request.term
+            }
+            var _url = "http://kl.chsi.com.cn/htgl/knowledge/quickAll.action";
+            $.ajax({
+                type : "get",
+                cache : false,
+                async : true,
+                crossDomain : true,
+                url : _url,
+                data : postdata,
+                dataType : "jsonp",
+                jsonp : "callback", //回调函数的参数  
+                jsonpCallback : "parseAutoSearch", //回调函数的名称  
+                success : function(data) {
+                    if (!data['flag']) {
+                        return;
+                    }
+                    //if(data['o'].length<1){response(); return;}
+                    //cache[term] = data["o"];
+                    console.log(data);
+                    response($.map(data.o.knows,function(item) {
+                        return {
+                            value : item.title,
+                            tagId : item.tagIds[0],
+                            keywords : item.keywords,
+                            label : item.title,
+                            desc : item.summary
+                        }
+                    }));
+
+                },
+                error : function(XMLHttpRequest,
+                        textStatus, errorThrown) {
+                    alert(textStatus)
+                    alert('请求时发生了错误，请稍后再试');
+                }
+            });
+
+        },
+        focus : function(event, ui) {
+            $('#search_n').val(ui.item.value);
+        },
+
+        select : function(event, ui) {
+            $("#help_search_form").submit();
+        }
+
+    }).data("ui-autocomplete")._renderItem = function(ul,item) {
+        var reg = new RegExp("(" + item.keywords + ")", "g");
+        item.desc = item.desc.replace(reg,
+                "<strong style='color:#c30'>$1</strong>");
+        item.label = item.label.replace(reg,
+                "<strong style='color:#c30'>$1</strong>");
+
+        return $("<li>").append(
+                "<a>" + item.label + "<br/><span class='summer_stuff'>"
+                        + item.desc + "</span></a>").appendTo(ul);
+    };
 	    
 	$("#title").blur(function () { 
         var title = $(this).val();
