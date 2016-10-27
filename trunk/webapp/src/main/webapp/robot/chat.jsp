@@ -475,6 +475,7 @@ $(function() {
         },
 		focus: function(event, ui) {
 			$("#judge").val("0");
+			return false;
 		},
 		change:function(event, ui) {
 			 $("#judge").val("");
