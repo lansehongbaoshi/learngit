@@ -261,6 +261,9 @@ $(function(){
     	}
     });
 });
+function showRepeatTitle(){
+	$("#repeatTitleModal").modal("show");
+}
 function checkTitle() {
     var title = $("#title").val();
     console.log("知识的id:${id}");
@@ -273,14 +276,15 @@ function checkTitle() {
         if (json.flag == 'true') {
             if(json.o.flag== true){
                 
-                var text = "<font>疑似重复标题：<br>";
+                var text = "<font>";
                 for(var i=0;i<json.o.datas.length;i++){
                     text += json.o.datas[i].title+"<br>"
                 }
                 text += "</font>"
-                $("#titleCheck").html(text); 
-                $("#titleCheck").css("color","red");
-                
+                $("#titleModalText").html(text); 
+                $("#titleModalText").css("color","red");
+                $("#titleCheck").html("<font ><a onclick='showRepeatTitle()' style='color:red;'>存在疑似重复标题点击查看</a></font>"); 
+
             }else{
                 $("#titleCheck").html("<font>检查通过</font>"); 
                 $("#titleCheck").css("color","green");
@@ -318,6 +322,35 @@ function checkTitle() {
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="repeatTitleModal" tabindex="-1" role="dialog" aria-labelledby="titleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" 
+                        aria-hidden="true">×
+                </button>
+                <h4 class="modal-title" id="titleModalLabel">
+                    疑似重复的标题
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div id="titleModalText">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" 
+                        data-dismiss="modal">确定
+                </button>
+            </div>
+                
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
 
 <!-- 配置文件 -->
 <script type="text/javascript" src="/ueditor/ueditor.config.js"></script>
