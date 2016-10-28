@@ -219,14 +219,14 @@ public class KnowIndexServiceImpl extends BaseDbService implements KnowIndexServ
     }
 
     @Override
-    public RepeatVO<KnowledgeVO> getRepeatKnows(String title) {
+    public RepeatVO<KnowledgeVO> getRepeatKnows(String knowId,String title) {
         // TODO Auto-generated method stub
         SearchServiceClient searchClient = SearchServiceClientFactory.getSearchServiceClient();
         
         Map<String, String> queryParams =new HashMap<String, String>();
         queryParams.put("q", title);
         queryParams.put("qf", "title");
-        queryParams.put("fq", "type:PUBLIC");
+        queryParams.put("fq", "NOT id:"+knowId+" AND　type:PUBLIC");
         queryParams.put("fl", "id,title");
         queryParams.put("hl", "true");
         queryParams.put("hl.fl", "title");
@@ -236,7 +236,7 @@ public class KnowIndexServiceImpl extends BaseDbService implements KnowIndexServ
         String BF = "ord(visit_cnt)^1 div(sort,1000)^1";
         queryParams.put("bf", BF);
         
-        RepeatVO<KnowledgeVO> result = searchClient.getRepeatKnows(queryParams, 0.6);
+        RepeatVO<KnowledgeVO> result = searchClient.getRepeatKnows(queryParams, 0.3);
         
         return result;
     }

@@ -70,7 +70,7 @@ public interface KnowIndexService {
     * @param title
     * @return
     */
-   com.chsi.search.client.vo.RepeatVO<KnowledgeVO> getRepeatKnows(String title);
+   com.chsi.search.client.vo.RepeatVO<KnowledgeVO> getRepeatKnows(String knowId,String title);
 
    
    /**

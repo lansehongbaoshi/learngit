@@ -353,7 +353,7 @@ $(function () {
         	if (json.flag == 'true') {
         		if(json.o.flag== true){
         			
-        			var text = "<font>检查不通过,有类似重复标题：<br>";
+        			var text = "<font>疑似重复标题：<br>";
         			for(var i=0;i<json.o.datas.length;i++){
         				text += json.o.datas[i].title+"<br>"
         			}

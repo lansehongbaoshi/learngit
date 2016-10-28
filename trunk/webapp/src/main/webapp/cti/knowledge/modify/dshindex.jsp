@@ -260,15 +260,16 @@ $(function(){
 });
 	function checkTitle() {
 		var title = $("#title").val();
-		console.log(title);
+		console.log("知识的id:${id}");
 		$.getJSON("/cti/knowledge/searchadd/addindex/checkRepeat.action", {
 			keywords : title,
+			knowId:"${id}",
 			t : new Date().getTime()
 		}, function showSearchResult(json) {
 			if (json.flag == 'true') {
 				if (json.o.flag == true) {
 
-					var text = "<font>检查不通过,有类似重复标题：<br>";
+					var text = "<font>疑似重复标题：<br>";
 					for ( var i = 0; i < json.o.datas.length; i++) {
 						text += json.o.datas[i].title + "<br>"
 					}

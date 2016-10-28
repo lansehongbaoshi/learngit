@@ -140,8 +140,10 @@ public class Intent {
                         
                         if(time.dateType>0){
                             content = "http://www.weather.com.cn/weather1d/"+weatherCode.getWeatherCode()+".shtml";
+                            content = "请前往：<a href='"+content+"' target='_blank'>"+content+"</a>查看";
                         }else{
                             content = "http://www.weather.com.cn/weather/"+weatherCode.getWeatherCode()+".shtml";
+                            content = "请前往：<a href='"+content+"' target='_blank'>"+content+"</a>查看";
                         }
                     }
                     
@@ -160,8 +162,10 @@ public class Intent {
 //                    content = DateUtil.getDateWeek(time.dateType)+" "+weather.getString("temp"+(time.dateType+1))+" "+weather.getString("weather"+(time.dateType+1));
                     if(time.dateType>0){
                         content = "http://www.weather.com.cn/weather1d/"+weatherCode.getWeatherCode()+".shtml";
+                        content = "请前往：<a href='"+content+"' target='_blank'>"+content+"</a>查看";
                     }else{
                         content = "http://www.weather.com.cn/weather/"+weatherCode.getWeatherCode()+".shtml";
+                        content = "请前往：<a href='"+content+"' target='_blank'>"+content+"</a>查看";
                     }
                     
                 }
@@ -175,8 +179,10 @@ public class Intent {
 //                    content = DateUtil.getDateWeek(time.dateType)+" "+weather.getString("temp"+(time.dateType+1))+" "+weather.getString("weather"+(time.dateType+1));
                     if(time.dateType>0){
                         content = "http://www.weather.com.cn/weather1d/"+weatherCode.getWeatherCode()+".shtml";
+                        content = "请前往：<a href='"+content+"' target='_blank'>"+content+"</a>查看";
                     }else{
                         content = "http://www.weather.com.cn/weather/"+weatherCode.getWeatherCode()+".shtml";
+                        content = "请前往：<a href='"+content+"' target='_blank'>"+content+"</a>查看";
                     }
                 }
             }

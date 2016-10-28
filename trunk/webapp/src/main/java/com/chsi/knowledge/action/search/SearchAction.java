@@ -43,6 +43,7 @@ public class SearchAction extends AjaxAction {
     private FilterWordService filterWordService;
     private SystemService systemService;
     private String keywords;
+    private String knowId;
     private String systemId;
     private int curPage;
     private String callback;
@@ -178,7 +179,10 @@ public class SearchAction extends AjaxAction {
     }
     //标题查重
     public void checkRepeat() throws Exception{
-        RepeatVO<KnowledgeVO> result = knowIndexService.getRepeatKnows(keywords);
+        if(ValidatorUtil.isNull(knowId)) {
+            knowId="?";
+        }
+        RepeatVO<KnowledgeVO> result = knowIndexService.getRepeatKnows(knowId,keywords);
         ajaxMessage.setO(result);
         ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
         writeCallbackJSON(callback);
@@ -255,6 +259,14 @@ public class SearchAction extends AjaxAction {
 
     public void setCallback(String callback) {
         this.callback = callback;
+    }
+
+    public String getKnowId() {
+        return knowId;
+    }
+
+    public void setKnowId(String knowId) {
+        this.knowId = knowId;
     }
 
     private void saveSearchLog(List<SearchVO> list) {

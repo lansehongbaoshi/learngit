@@ -34,7 +34,7 @@ List<SystemData> systems = systemService.getSystems(false);
       <form id="myform" action="<%=ctxPath%>/htgl/knowledge/updateKnowledge.action" method="post" enctype="multipart/form-data" class="form-horizontal">
         <input type="hidden" name="id" value="<s:property value=" id " />"> <input type="hidden" id="content" name="content" value="">
         <div class="form-group">
-          <label for="" class="ui-input ui-autocomplete-input" class="col-sm-1 control-label no-padding-top ">标题：</label>
+          <label for="" class="col-sm-1 ui-input ui-autocomplete-input" class="col-sm-1 control-label no-padding-top ">标题：</label>
           <div class="col-sm-9">
             <input id="title" class="ui-input ui-autocomplete-input" type="text" name="title" style="width: 400px;float: left"
                             value="<s:property value="knowledgeData.article.title" escape="false" />">
@@ -263,16 +263,17 @@ $(function(){
 });
 function checkTitle() {
     var title = $("#title").val();
-    console.log(title);
+    console.log("知识的id:${id}");
     $.getJSON("/htgl/knowledge/searchindex/addindex/checkRepeat.action", {
         keywords: title,
+        knowId:"${id}",
         t: new Date().getTime()
     },
     function showSearchResult(json) {
         if (json.flag == 'true') {
             if(json.o.flag== true){
                 
-                var text = "<font>检查不通过,有类似重复标题：<br>";
+                var text = "<font>疑似重复标题：<br>";
                 for(var i=0;i<json.o.datas.length;i++){
                     text += json.o.datas[i].title+"<br>"
                 }
