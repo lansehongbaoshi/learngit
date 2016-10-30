@@ -116,6 +116,8 @@ int otherNum = 5;
         <div class="pswp__scroll-wrap">
             <div class="pswp__container">
                 <div class="pswp__item"></div>
+                <div class="pswp__item"></div>
+                <div class="pswp__item"></div>
             </div>
             <div class="pswp__ui pswp__ui--hidden">
                 <div class="pswp__top-bar">
@@ -146,7 +148,7 @@ int otherNum = 5;
         </div>
     </div>
     </div>
-  </body>
+
 <link rel="stylesheet" href="http://t1.chei.com.cn/common/wap/photoswipe/css/photoswipe.css"> 
 <link rel="stylesheet" href="http://t1.chei.com.cn/common/wap/photoswipe/css/default-skin/default-skin.css"> 
 <script src="http://t1.chei.com.cn/common/wap/photoswipe/js/photoswipe.min.js"></script> 
@@ -292,5 +294,5 @@ function openPhotoSwipe(index,imgArr){
 }
 
 </script> 
-
+</body>
 </html>

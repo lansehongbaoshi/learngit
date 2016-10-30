@@ -11,7 +11,7 @@ import="com.chsi.knowledge.pojo.KnowledgeData,com.chsi.knowledge.util.ManageCach
     <meta name="Description" content="学信网帮助中心，学信网账号、学信档案、应征报名、四六级查分、研招统考、研招推免、学历与成绩认证、面向港澳台招生、高考统考招生、高考特殊类型招生、高考特殊类型报名">
     <link href="http://t1.chei.com.cn/common/wap/help/css/reset.min.css" rel="stylesheet"/>
     <link href="http://t2.chei.com.cn/common/wap/help/css/style.min.css?20160922" rel="stylesheet"/>
-    <!--[if lt IE 9]><script src="'http://t3.chei.com.cn/common/wap/help/js/respond.js"></script><![endif]-->
+    <!--[if lt IE 9]><script src="http://t3.chei.com.cn/common/wap/help/js/respond.js"></script><![endif]-->
     <script type="text/javascript" src="http://t4.chei.com.cn/common/jquery/2.1.1/jquery.min.js"></script>
   
     <script type="text/javascript" src='http://t1.chei.com.cn/common/wap/help/js/template.js'></script>
