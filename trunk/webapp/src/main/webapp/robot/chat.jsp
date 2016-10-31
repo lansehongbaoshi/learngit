@@ -19,24 +19,25 @@ systemId = systemId==null?"":systemId;%>
 .logo .switch { position: absolute; right: 15px; top: 20px; width: 30px; height: 30px; background: url(../images/wap/help/close.png) no-repeat; cursor: pointer;}	
 .logo .switch:hover{ opacity: 0.8; filter:alpha(opacity=80);}
 .logo .weixin { position: absolute; right: 60px; top: 0px; width: 70px; height: 70px; line-height: 110px; background: url(../images/wap/help/weixin.png) 15px 10px no-repeat; font-size: 12px; text-align: center; cursor: pointer;}
-.logo .weixin .weixin_l {position: absolute; top: 69px; right: -10px; display: none; width: 180px; height: 180px; border-radius: 3px; box-shadow: 0px 4px 6px #999; background: url(../images/wap/help/chsi.jpg) no-repeat;}
+.logo .weixin .weixin_l {position: absolute; top: 69px; right: -10px; display: none; width: 180px; height: 180px; border-radius: 3px; box-shadow: 0px 4px 6px #999; background: url(../images/wap/help/chsi.jpg) no-repeat; z-index: 10;}
 .logo .weixin .triangle-up {position: absolute; top:62px; right: 30px; display: none; width: 0; height: 0; border-left: 8px solid transparent;border-right: 8px solid transparent; border-bottom: 8px solid #fff;}
 .logo .weixin:hover .weixin_l { display: block;}
 .logo .weixin:hover .triangle-up { display: block;}
 .main { width:1000px; margin:0 auto; background: #f1f1f1; }
 .main .left { float: left; width: 645px; position: relative; padding-top: 12px; }
 .main .left .tp { width: 590px; margin: 0 auto; padding-left: 35px; border-radius: 5px; line-height: 35px; color: #666; background: url(../images/wap/help/tp.png) no-repeat 5px 8px;  background-color: #dffef9; }
-.main .left .showbox { position: relative; height: 478px; padding-top: 30px; border-bottom: 1px solid #d3d3d3; overflow-y: scroll;overflow-x: hidden; }
+.main .left .showbox { position: relative; height: 440px; padding-top: 30px; border-bottom: 1px solid #d3d3d3; overflow-y: scroll;overflow-x: hidden; }
 .main .left .sendbox { position: relative; height: 165px;   background: #fff; }
 .main .left .sendbox .send_top { height: 100px;}
 .main .left .sendbox .send_bottom { height: 65px;  background: #f1f1f1; } 
 .main .left .sendbox .inputbox { width: 625px; height: 80px; padding: 10px; line-height: 25px; border: none;  }
 .main .left .sendbox .sendBtn { position: absolute; right: 10px; bottom: 12px; display: inline-block; width: 90px; padding: 6px 12px;  border: 1px solid transparent; border-radius: 5px; line-height: 1.42857;	box-shadow: 0 0 0 #209683  inset, 0 3px 0 0 #209683; background-color: #28bca4; border-color: #28bca4; color: #fff; font-size: 16px; text-align: center; cursor: pointer; }
+.main .left .sendbox .sendBtn:hover { opacity: 0.8; filter:alpha(opacity=80);}
 .main .left .sendbox .contentwordage { position: absolute; left: 10px; bottom: 20px;  color: #999;}
 .main .left .sendbox .contentwordage .red { color: #f30;}
 .main .left .all_tips { position: absolute; bottom: 165px; left: 0; }
-.main .right{ float: right; width: 354px; height: 721px;  border-left: 1px solid #d3d3d3; background: #fff;}
-#ui-id-1 {max-width: 665px;}
+.main .right{ float: right; width: 354px; height: 683px;  border-left: 1px solid #d3d3d3; background: #fff;}
+#ui-id-1 {max-width: 640px;}
 .kn_labels { position: relative; margin-bottom: 20px; background: #fff;}
 .kn_labels ul { width: 120%;}
 .kn_labels ul li { float: left;  width: 117px; height: 50px; line-height: 50px; border-right: 1px solid #eaeaea; border-bottom: 1px solid #eaeaea; text-align: center; color: #666;  background: #fff; overflow: hidden;}
@@ -73,6 +74,7 @@ systemId = systemId==null?"":systemId;%>
 .person{position:relative; float: right; max-width: 466px;  margin-right: 65px; padding: 10px; border: 1px solid #28bca4; border-radius: 5px; background-color: #28bca4; color: #fff; word-break: break-all; word-wrap: break-word;}
 .person .icon2 { position: absolute; right: -75px; top: -6px; width: 62px; height: 62px; background: url(../images/wap/help/icon_user.png) no-repeat 0 5px;}
 .ui-dialog-content img {max-width: 1200px;}
+.ui-widget {font:14px tahoma,arial,'Microsoft YaHei','微软雅黑','宋体', SimSun, sans-serif}
 </style>
 <div class="logo">
 	<div class="logo_img"></div>
