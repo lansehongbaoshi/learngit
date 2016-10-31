@@ -14,7 +14,7 @@ String ctxPath = request.getContextPath();
         </script>
         <ul class="breadcrumb">
             <li> <i class="ace-icon fa fa-home home-icon"></i> <a href="/cti/index.action">首页</a> </li>
-            <li class="active">知识新增</li>
+            <li class="active">待审核知识</li>
         </ul>
         <!-- /.breadcrumb -->
     </div>
@@ -25,7 +25,7 @@ String ctxPath = request.getContextPath();
        <div class="rows">
        <div class="col-xs-12 col-md-2">
         <select id="type" class="form-control" name="type">
-        <option value="">请选择类型...</option>
+<!--         <option value="">请选择类型...</option> -->
         <option value="PRIVATE">内部</option>
 <!--         <option value="PUBLIC">公开</option> -->
         </select>
@@ -60,7 +60,7 @@ String ctxPath = request.getContextPath();
                     <div class="col-xs-12">
                        
                         <h3 class="row header smaller lighter blue">
-                        <span class="col-xs-7">待审核知识点列表</span>
+                        <span class="col-xs-7">待审核知识列表</span>
                         <span class="col-xs-5" style="display: none">
                             <a  href="/cti/knowledge/searchadd/addindex.action" target="_self"  class="btn-new-mail pull-right">
 														<span class="btn btn-primary no-border">

@@ -286,7 +286,7 @@ function checkTitle() {
                 text += "</font>"
                 $("#titleModalText").html(text); 
                 $("#titleModalText").css("color","red");
-                $("#titleCheck").html("<font ><a onclick='showRepeatTitle()' style='color:red;'>存在疑似重复标题点击查看</a></font>"); 
+                $("#titleCheck").html("<font style='color:red;'>存在疑似重复标题，点击<a href='javascript:void(0)' onclick='showRepeatTitle()' >查看</a></font>"); 
 
                 
             }else{
