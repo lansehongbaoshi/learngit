@@ -212,7 +212,7 @@ function showSearchResult(text,type,curPage){
                    }
                    str += "</ol></td>";
                    str += "<td class='hidden-100'>"+k.num+"</td>";
-                   str += "<td class='hidden-260'><div class='hidden-sm hidden-xs action-buttons' data-id="+k.q+"> <a class='green' title='修改' target='_self' href='/htgl/robot/set/updateIndex.action?id="+k.id+"'><i class='ace-icon fa fa-pencil bigger-130'></i> </a> <a title='删除' class='red delBtn' href='javascript:void(0)'> <i class='ace-icon fa fa-trash-o bigger-130'></i> </a> </div></td>";
+                   str += "<td class='hidden-260'><div class='hidden-sm hidden-xs action-buttons' data-id="+k.id+"> <a class='green' title='修改' target='_self' href='/htgl/robot/set/updateIndex.action?id="+k.id+"'><i class='ace-icon fa fa-pencil bigger-130'></i> </a> <a title='删除' class='red delBtn' href='javascript:void(0)'> <i class='ace-icon fa fa-trash-o bigger-130'></i> </a> </div></td>";
                 str += "</tr>";
                    $("#search_result").append(str);
             }
@@ -332,6 +332,8 @@ $(function () {
                     if(data.flag=='true') {
                         alert("删除成功");
                         $div.closest("tr").remove();
+                        var text = $("#keywords").val();
+                        showSearchResult(text,"question",1);
                     } else {
                         var errMsg = data.errorMessages.pop();
                         alert(errMsg);
