@@ -284,10 +284,6 @@ function checkTitle() {
                 $("#titleModalText").html(text); 
                 $("#titleModalText").css("color","red");
                 $("#titleCheck").html("<font style='color:red;'>存在疑似重复标题，点击<a href='javascript:void(0)' onclick='showRepeatTitle()' >查看</a></font>"); 
-
-            }else{
-                $("#titleCheck").html("<font>检查通过</font>"); 
-                $("#titleCheck").css("color","green");
             }
         }
     });
