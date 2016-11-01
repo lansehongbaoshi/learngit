@@ -293,7 +293,7 @@ public class KnowledgeAction extends AjaxAction {
             error = "请输入回答";
         } else if(tagIds == null || tagIds.length == 0) {
             error = "请先到\"<a href='/htgl/tag/index.action'>便签管理</a>\"中增加标签";
-        } else if(ValidatorUtil.isNumber(sort, 1, 2)&&Integer.parseInt(sort)>0) {
+        } else if(!ValidatorUtil.isNumber(sort)||(Integer.parseInt(sort)<1||Integer.parseInt(sort)>99)) {
             error = "请输入热点度:1~99之间的数字,数值越大,排序越靠前";
         } else if(ValidatorUtil.isNull(type)) {
             error = "请设定知识类型";
@@ -360,7 +360,7 @@ public class KnowledgeAction extends AjaxAction {
             error = "请输入回答";
         } else if(tagIds == null || tagIds.length == 0) {
             error = "请先到\"<a href='/htgl/tag/index.action'>便签管理</a>\"中增加标签";
-        } else if(ValidatorUtil.isNumber(sort, 1, 2)&&Integer.parseInt(sort)>0) {
+        } else if(!ValidatorUtil.isNumber(sort)||(Integer.parseInt(sort)<1||Integer.parseInt(sort)>99)) {
             error = "请输入热点度:1~99之间的数字,数值越大,排序越靠前";
         } else if(ValidatorUtil.isNull(type)) {
             error = "请设定知识类型";
@@ -441,8 +441,8 @@ public class KnowledgeAction extends AjaxAction {
             error = "请输入回答";
         } else if(tagIds == null || tagIds.length == 0) {
             error = "请先到\"<a href='/htgl/tag/index.action'>便签管理</a>\"中增加标签";
-        } else if(ValidatorUtil.isNull(sort)) {
-            error = "请输入热点度";
+        } else if(!ValidatorUtil.isNumber(sort)||(Integer.parseInt(sort)<1||Integer.parseInt(sort)>99)) {
+            error = "请输入热点度:1~99之间的数字,数值越大,排序越靠前";
         } else if(ValidatorUtil.isNull(type)) {
             error = "请设定知识类型";
         }
@@ -546,8 +546,8 @@ public class KnowledgeAction extends AjaxAction {
             error = "请输入回答";
         } else if(tagIds == null || tagIds.length == 0) {
             error = "请先到\"<a href='/htgl/tag/index.action'>便签管理</a>\"中增加标签";
-        } else if(ValidatorUtil.isNull(sort)) {
-            error = "请输入热点度";
+        } else if(!ValidatorUtil.isNumber(sort)||(Integer.parseInt(sort)<1||Integer.parseInt(sort)>99)) {
+            error = "请输入热点度:1~99之间的数字,数值越大,排序越靠前";
         } else if(ValidatorUtil.isNull(type)) {
             error = "请设定知识类型";
         }
@@ -596,8 +596,8 @@ public class KnowledgeAction extends AjaxAction {
             error = "请输入回答";
         } else if(tagIds == null || tagIds.length == 0) {
             error = "请先到\"<a href='/htgl/tag/index.action'>便签管理</a>\"中增加标签";
-        } else if(ValidatorUtil.isNull(sort)) {
-            error = "请输入热点度";
+        } else if(!ValidatorUtil.isNumber(sort)||(Integer.parseInt(sort)<1||Integer.parseInt(sort)>99)) {
+            error = "请输入热点度:1~99之间的数字,数值越大,排序越靠前";
         } else if(ValidatorUtil.isNull(type)) {
             error = "请设定知识类型";
         }
