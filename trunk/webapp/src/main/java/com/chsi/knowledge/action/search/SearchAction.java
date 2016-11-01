@@ -43,6 +43,8 @@ public class SearchAction extends AjaxAction {
     private FilterWordService filterWordService;
     private SystemService systemService;
     private String keywords;
+    private String title;
+    private String content;
     private String knowId;
     private String systemId;
     private int curPage;
@@ -221,6 +223,22 @@ public class SearchAction extends AjaxAction {
         this.keywords = keywords;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
     public String getSystemId() {
         return systemId;
     }
@@ -289,16 +307,42 @@ public class SearchAction extends AjaxAction {
         queueService.addSearchLog(data);
     }
     public void checkBadWord() throws IOException{
-        Set<String>  badWords = filterWordService.getBadWords(keywords);
-        Object[] obj = filterWordService.highlightBadWords(keywords);
-        List<String> sentences = filterWordService.getBadSentences(keywords);
-        if(badWords.size()>0){
+        
+        String text = "";
+        boolean flag = false;
+        Set<String>  badTitleWords = filterWordService.getBadWords(title);
+        Object[] objTitle = filterWordService.highlightBadWords(title);
+        if(badTitleWords!=null&&badTitleWords.size()>0){
             ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
-            JSONObject json = new JSONObject();
-            String text = "";
+            flag = true;
+            text += "<h5>标题</h5><br>";
+            text += objTitle[1]+"<br><hr/>";
+        }
+        
+        Set<String>  badKeyWords = filterWordService.getBadWords(keywords);
+        Object[] objKeyWords = filterWordService.highlightBadWords(keywords);
+        if(badKeyWords!=null&&badKeyWords.size()>0){
+            ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
+            flag = true;
+            text += "<h5>关键字</h5><br>";
+            text += objKeyWords[1]+"<br><hr/>";
+        }
+        
+        
+        Set<String>  badContentWords = filterWordService.getBadWords(content);
+        Object[] objContent = filterWordService.highlightBadWords(content);
+        List<String> sentences = filterWordService.getBadSentences(content);
+        if(badContentWords!=null&&badContentWords.size()>0){
+            text += "<h5>内容</h5><br>";
+            ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
+            flag = true;
             for(String sentence : sentences){
                 text += sentence+"</br>";
             }
+            text += "<hr/>";
+        }
+        if(flag){
+            JSONObject json = new JSONObject();
             json.put("content", text);
             ajaxMessage.setO(json);
             writeCallbackJSON(callback);

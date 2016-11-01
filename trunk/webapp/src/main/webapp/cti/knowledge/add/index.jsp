@@ -173,7 +173,7 @@ List<SystemData> systems = systemService.getSystems(false);
                         aria-hidden="true">×
                 </button>
                 <h4 class="modal-title" id="contentModalLabel">
-                    提交内容包含敏感词汇
+                    提交信息包含敏感词如下
                 </h4>
             </div>
             <div class="modal-body">
@@ -240,9 +240,13 @@ UE.Editor.prototype.getActionUrl = function(action) {
 <script>
 $(function () {
     $("#modifyBtn").click(function () {
-        var html = editor.getContent();
+    	var content = editor.getContent();
+        var title = $("#title").val();
+        var keywords = $("#keywords").val();
         $.getJSON("/cti/knowledge/searchadd/addindex/checkBadWord.action", {
-        	keywords: html,
+        	content : content,
+            title : title,
+            keywords: keywords,
             t: new Date().getTime()
         },function showBadWordResult(json) {
         	

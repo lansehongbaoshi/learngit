@@ -34,7 +34,7 @@ List<SystemData> systems = systemService.getSystems(false);
       <form id="myform" action="<%=ctxPath%>/htgl/knowledge/updateKnowledge.action" method="post" enctype="multipart/form-data" class="form-horizontal">
         <input type="hidden" name="id" value="<s:property value=" id " />"> <input type="hidden" id="content" name="content" value="">
         <div class="form-group">
-          <label for="" class="col-sm-1 ui-input ui-autocomplete-input" class="col-sm-1 control-label no-padding-top ">标题：</label>
+          <label for="" class="col-sm-1 control-label ui-autocomplete-input" class="col-sm-1 control-label no-padding-top ">标题：</label>
           <div class="col-sm-9">
             <input id="title" class="ui-input ui-autocomplete-input" type="text" name="title" style="width: 400px;float: left"
                             value="<s:property value="knowledgeData.article.title" escape="false" />">
@@ -144,26 +144,30 @@ $(function(){
 	</s:iterator>
     
     $("#modifyBtn").click(function () {
-        var html = editor.getContent();
+        var content = editor.getContent();
+        var title = $("#title").val();
+        var keywords = $("#keywords").val();
         $.post("/htgl/knowledge/searchindex/addindex/checkBadWord.action", {
-            keywords: html,
+        	content : content,
+        	title : title,
+            keywords: keywords,
             t: new Date().getTime()
         },function showBadWordResult(json) {
-            
             if (json.flag == 'true') {
                 console.log(json.o.content);
                 $("#contentModalText").html(json.o.content); 
                 $("#contentModal").modal("show");
                 
             }else{
-                console.log(html);
+                console.log(content);
                 isChanged = false;
-                $("#content").val(html);
+                $("#content").val(content);
                 $("#myform").submit();
             }
         });
     });
     $("#confirm").click(function () {
+    	console.log("点击了提交按钮");
     	isChanged = false;
         var html = editor.getContent();
         $("#content").val(html);
@@ -300,7 +304,7 @@ function checkTitle() {
                         aria-hidden="true">×
                 </button>
                 <h4 class="modal-title" id="contentModalLabel">
-                    提交内容包含敏感词汇
+                    提交信息包含敏感词如下
                 </h4>
             </div>
             <div class="modal-body">

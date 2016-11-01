@@ -102,11 +102,11 @@ public class RobotSetAction extends AjaxAction{
         ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
 
         if(ValidatorUtil.isNull(text)){
-            text = "*:*";
+            text = "*";
         }
         if(text!=null){
             if("".equals(text.trim())){
-                text = "*:*";
+                text = "*";
             }else{
                 text = text.trim();
             }

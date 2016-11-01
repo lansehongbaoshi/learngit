@@ -51,7 +51,7 @@ List<SystemData> systems = systemService.getSystems(false);
         <div class="form-group">
           <label for="" class="col-sm-1 control-label no-padding-top">热点度：</label>
           <div class="col-sm-9">
-            <input id="sort" type="text" name="sort" style="width: 100px;" value=""> <span>（说明：1~99之间的数字,数值越大,排序越靠前）</span>
+            <input id="sort" type="text" name="sort" style="width: 100px;" value="" check="^[1-9]\d*$" warn="关键词个数为正整数" max="99" min="1"> <span>（说明：1~99之间的数字,数值越大,排序越靠前）</span>
           </div>
         </div>
         <div class="form-group">
@@ -140,7 +140,7 @@ List<SystemData> systems = systemService.getSystems(false);
                         aria-hidden="true">×
                 </button>
                 <h4 class="modal-title" id="contentModalLabel">
-                    提交内容包含敏感词汇
+                    提交信息包含敏感词如下
                 </h4>
             </div>
             <div class="modal-body">
@@ -212,9 +212,13 @@ List<SystemData> systems = systemService.getSystems(false);
 <script>
 $(function() {
 	$("#modifyBtn").click(function () {
-        var html = editor.getContent();
+		var content = editor.getContent();
+        var title = $("#title").val();
+        var keywords = $("#keywords").val();
         $.post("/htgl/knowledge/searchindex/addindex/checkBadWord.action", {
-            keywords: html,
+        	content : content,
+            title : title,
+            keywords: keywords,
             t: new Date().getTime()
         },function showBadWordResult(json) {
             
@@ -224,8 +228,8 @@ $(function() {
                 $("#contentModal").modal("show");
                 
             }else{
-                console.log(html);
-                $("#content").val(html);
+                console.log(content);
+                $("#content").val(content);
                 $("#myform").submit();
             }
         });

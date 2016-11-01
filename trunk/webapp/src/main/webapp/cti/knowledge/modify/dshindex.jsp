@@ -143,9 +143,13 @@ $(function(){
 	tagIds+='<s:property value="tagData.id"/>';
 	</s:iterator>
 	$("#modifyBtn").click(function () {
-        var html = editor.getContent();
+		var content = editor.getContent();
+        var title = $("#title").val();
+        var keywords = $("#keywords").val();
         $.getJSON("/cti/knowledge/searchadd/addindex/checkBadWord.action", {
-            keywords: html,
+        	content : content,
+            title : title,
+            keywords: keywords,
             t: new Date().getTime()
         },function showBadWordResult(json) {
             
@@ -155,8 +159,8 @@ $(function(){
                 $("#contentModal").modal("show");
                 
             }else{
-                console.log(html);
-                $("#content").val(html);
+                console.log(content);
+                $("#content").val(content);
                 $("#myform").submit();
             }
         });

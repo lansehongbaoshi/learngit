@@ -80,7 +80,7 @@ public class RobotServiceImpl extends BaseDbService implements RobotService {
         SearchServiceClient searchClient = SearchServiceClientFactory
                 .getSearchServiceClient();
         Map<String, String> map = new HashMap<String, String>();
-        String keywords = SearchUtil.keywordsFilter(text);
+        String keywords = text;
         if("".equals(keywords)){
             keywords = "text:*";
             map.put("sort", "_version_ desc");

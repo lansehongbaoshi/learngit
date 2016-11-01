@@ -21,16 +21,16 @@
     <form name="" action="/htgl/robot/set/add.action" method="get" onsubmit="return checkForm(this)">
       <div class="col-xs-12">
         <p>
-          用户提问：<input type="text" name="q" value="" style="width: 600px;" maxlength="50" check="^[\S|\s]{1,}$" warn="用户提问不能为空"><span>（说明：多种相似的词汇或句子用","隔开，如：“姓名,名字”）</span>
+          用户提问：<input type="text" name="q" value="" style="width: 600px;" maxlength="50" check="^[\S]{1,}$" warn="用户提问不能为空"><span>（说明：多种相似的词汇或句子用","隔开，如：“姓名,名字”）</span>
         </p>
         <p>
-           匹配分词阈值：<input type="text" name="num" value="" check="^[1-9]\d*$" warn="关键词个数为正整数" style="width: 400px;"  maxlength="50" <s:if test="key.systemDefined">readonly="true"</s:if>><span>（说明：用户输入匹配用户提问的分词数目大于等于此值时才认为回答合理）</span>
+           匹配分词阈值：<input type="text" name="num" value="" check="^[1-9]\d*$" warn="匹配分词阈值为正整数" style="width: 400px;"  maxlength="50" <s:if test="key.systemDefined">readonly="true"</s:if>><span>（说明：用户输入匹配用户提问的分词数目大于等于此值时才认为回答合理）</span>
         </p>
         <p>
           机器人回答：<input type="button" value="+" onclick="addLi()">
         </p>
         <ol>
-          <li><input type="text" name="a" style="width: 600px;" maxlength="1000" check="^[\S|\s]{1,}$" warn="请补充完整机器人回答">&nbsp;&nbsp;<input type="button" value="x" onclick="removeLi(this)"></li>
+          <li><input type="text" name="a" style="width: 600px;" maxlength="1000" check="^[\S]{1,}$" warn="请补充完整机器人回答">&nbsp;&nbsp;<input type="button" value="x" onclick="removeLi(this)"></li>
         </ol>
         <div class="clear"></div>
         <div class="clearfix form-actions">
@@ -50,7 +50,7 @@
 </div>
 <script type="text/javascript">
 function addLi(){
-	$("ol").append("<li><input type='text' name='a' style='width: 600px;' maxlength='1000' value='' check='^[\\S|\\s]{1,}$' warn='请补充完整机器人回答'>&nbsp;&nbsp;<input type='button' value='x' onclick='removeLi(this)'></li>");
+	$("ol").append("<li><input type='text' name='a' style='width: 600px;' maxlength='1000' value='' check='^[\\S]{1,}$' warn='请补充完整机器人回答'>&nbsp;&nbsp;<input type='button' value='x' onclick='removeLi(this)'></li>");
 }
 function removeLi(obj){
 	if($("ol li").size()<=1) {
