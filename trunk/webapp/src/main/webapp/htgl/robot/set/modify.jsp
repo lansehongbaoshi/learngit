@@ -18,7 +18,7 @@
     <h1>修改对话</h1>
   </div>
   <div class="row">
-    <form name="" action="/htgl/robot/set/update.action" method="post" onsubmit="return checkForm(this)" enctype="multipart/form-data">
+    <form name="" action="/htgl/robot/set/update.action" method="post" onsubmit="return checkForm(this)&&checkTheForm(this)" enctype="multipart/form-data">
       <div class="col-xs-12">
       <s:iterator value="qaSet" id="entry">
       <input type="hidden" name="id" value="<s:property value='key.id'/>">
@@ -26,7 +26,7 @@
           用户提问：<input type="text" name="q" value="<s:property value="key.q"/>" check="^[\S|\s]{1,}$" warn="用户提问不能为空" style="width: 600px;"  maxlength="50" <s:if test="key.systemDefined">readonly="true"</s:if>><span>（说明：多种相似的词汇或句子用","隔开，如：“姓名,名字”）</span>
         </p>
         <p>
-          匹配分词阈值：<input type="text" name="num" value="<s:property value="key.num"/>" check="^[1-9]\d*$" warn="匹配分词阈值为正整数(1~100之间)" style="width: 400px;"  max="100" min="0" <s:if test="key.systemDefined">readonly="true"</s:if>><span>（说明：用户输入匹配用户提问的分词数目大于等于此值时才认为回答合理）</span>
+          匹配分词阈值：<input type="text" name="num" value="<s:property value="key.num"/>" check="^[1-9]\d{1,2}$" warn="匹配分词阈值为正整数(1~999之间)" style="width: 400px;"  max="100" min="0" <s:if test="key.systemDefined">readonly="true"</s:if>><span>（说明：用户输入匹配用户提问的分词数目大于等于此值时才认为回答合理）</span>
         </p>
         <p>
           机器人回答：<input type="button" value="+" onclick="addLi()"></p>
@@ -67,7 +67,7 @@ function removeLi(obj){
     }
     $(obj).parent().remove();
 }
-function checkForm(form){
+function checkTheForm(form){
 	var err;
 	var question = $("input[name='q']")[0];
 	var questionText = $.trim($(question).val());
@@ -77,13 +77,13 @@ function checkForm(form){
 		return false;
 	}
 	
-	var num = $("input[name='num']")[0];
-    var numText = $.trim($(num).val());
-    if(numText==""||Number(numText)<1||Number(numText)>100){
-        err = "匹配分词阈值为正整数(1~100之间)";
-        alert(err);
-        return false;
-    }
+// 	var num = $("input[name='num']")[0];
+//     var numText = $.trim($(num).val());
+//     if(numText==""||Number(numText)<1||Number(numText)>100){
+//         err = "匹配分词阈值为正整数(1~100之间)";
+//         alert(err);
+//         return false;
+//     }
 	
 	var answers = $("input[name='a']");
 	for(var index=0;index<answers.length;index++){

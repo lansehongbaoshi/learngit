@@ -283,7 +283,7 @@ $(function(){
 	                }
 	                text += "</font>"
 	                $("#titleModalText").html(text); 
-	                $("#titleModalText").css("color","red");
+//	                $("#titleModalText").css("color","red");
 	                $("#titleCheck").html("<font style='color:red;'>存在疑似重复标题，点击<a href='javascript:void(0)' onclick='showRepeatTitle()' >查看</a></font>"); 
 				}
 			}
