@@ -31,12 +31,12 @@ List<SystemData> systems = systemService.getSystems(false);
   </div>
   <div class="row">
     <div class="col-xs-12">
-      <form id="myform" action="<%=ctxPath%>/htgl/knowledge/updateKnowledge.action" method="post" enctype="multipart/form-data" class="form-horizontal">
+      <form id="myform" action="<%=ctxPath%>/htgl/knowledge/updateKnowledge.action" method="post" enctype="multipart/form-data" class="form-horizontal" onsubmit="return checkTheForm(this)">
         <input type="hidden" name="id" value="<s:property value=" id " />"> <input type="hidden" id="content" name="content" value="">
         <div class="form-group">
           <label for="" class="col-sm-1 control-label ui-autocomplete-input" class="col-sm-1 control-label no-padding-top ">标题：</label>
           <div class="col-sm-9">
-            <input id="title" class="ui-input ui-autocomplete-input" type="text" name="title" style="width: 400px;float: left"
+            <input id="title" class="ui-input ui-autocomplete-input" type="text" name="title" style="width: 400px;float: left" maxlength="100"
                             value="<s:property value="knowledgeData.article.title" escape="false" />">
             <span id="titleCheck" type="text" name="titleCheck" style="float: left"></span>
             <div id='search_list'></div>
@@ -45,13 +45,13 @@ List<SystemData> systems = systemService.getSystems(false);
         <div class="form-group">
           <label for="" class="col-sm-1 control-label no-padding-top">关键字：</label>
           <div class="col-sm-9">
-            <input id="keywords" type="text" name="keywords" style="width: 200px;" value="<s:property value=" knowledgeData.keywords " />"> <span>（说明：2~3个,英文逗号,隔开）</span>
+            <input id="keywords" type="text" name="keywords" style="width: 200px;" value="<s:property value=" knowledgeData.keywords " />"> <span>（建议：2~3个,英文逗号,隔开）</span>
           </div>
         </div>
         <div class="form-group">
           <label for="" class="col-sm-1 control-label no-padding-top">热点度：</label>
           <div class="col-sm-9">
-            <input id="sort" type="text" name="sort" style="width: 100px;" value="<s:property value=" knowledgeData.sort " />"> <span>（说明：1~99之间的数字,数值越大,排序越靠前）</span>
+            <input id="sort" type="text" name="sort" style="width: 100px;" value="<s:property value=" knowledgeData.sort " />"> <span>（说明：1~99之间的整数,数值越大,排序越靠前）</span>
           </div>
         </div>
         <div class="form-group">
@@ -154,12 +154,12 @@ $(function(){
             t: new Date().getTime()
         },function showBadWordResult(json) {
             if (json.flag == 'true') {
-                console.log(json.o.content);
+//                console.log(json.o.content);
                 $("#contentModalText").html(json.o.content); 
                 $("#contentModal").modal("show");
                 
             }else{
-                console.log(content);
+//                console.log(content);
                 isChanged = false;
                 $("#content").val(content);
                 $("#myform").submit();
@@ -291,6 +291,43 @@ function checkTitle() {
             }
         }
     });
+}
+
+function checkTheForm(from){
+
+	var keywords = $("#keywords").val();
+	if(keywords.length<1){
+		alert("请输入关键字");
+		return false;
+	}
+	var title = $("#title").val();
+	if(title.length<1||title.length>100){
+        alert("请输入标题并且长度在100以内");
+        return false;
+    }
+	var content = editor.getContent();
+	if(content.length<1){
+        alert("请输入内容");
+        return false;
+    }
+	var tagIds = $("#selectedtag input[name='tagIds']");
+	if(tagIds.length<1){
+        alert("请先到便签管理中增加标签");
+        return false;
+    }
+	var sort = $("#sort").val();
+	var r = /^[1-9][0-9]{0,1}$/;　　//正整数
+    var flag=r.test(sort);
+    if(!flag||sort.length<1||Number(sort)<1||Number(sort)>99){
+        alert("请输入热点度:1~99之间的整数,数值越大,排序越靠前");
+        return false;
+    }
+	var type = $($("select[name='type']")[0]).val();
+	if(type.length<1){
+        alert("请选择类型");
+        return false;
+    }
+	return true;
 }
 
 </script>

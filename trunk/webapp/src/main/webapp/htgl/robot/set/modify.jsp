@@ -26,7 +26,7 @@
           用户提问：<input type="text" name="q" value="<s:property value="key.q"/>" check="^[\S|\s]{1,}$" warn="用户提问不能为空" style="width: 600px;"  maxlength="50" <s:if test="key.systemDefined">readonly="true"</s:if>><span>（说明：多种相似的词汇或句子用","隔开，如：“姓名,名字”）</span>
         </p>
         <p>
-          匹配分词阈值：<input type="text" name="num" value="<s:property value="key.num"/>" check="^[1-9]\d{1,2}$" warn="匹配分词阈值为正整数(1~999之间)" style="width: 400px;"  max="100" min="0" <s:if test="key.systemDefined">readonly="true"</s:if>><span>（说明：用户输入匹配用户提问的分词数目大于等于此值时才认为回答合理）</span>
+          匹配分词阈值：<input type="text" name="num" value="<s:property value="key.num"/>" check="^[1-9]\d{0,2}$" warn="匹配分词阈值为正整数(1~999之间)" style="width: 400px;"  max="100" min="0" <s:if test="key.systemDefined">readonly="true"</s:if>><span>（说明：用户输入匹配用户提问的分词数目大于等于此值时才认为回答合理）</span>
         </p>
         <p>
           机器人回答：<input type="button" value="+" onclick="addLi()"></p>

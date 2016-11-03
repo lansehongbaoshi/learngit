@@ -57,11 +57,11 @@ List<SystemData> systems = systemService.getSystems(false);
 		<div class="col-xs-12">
 			<form id="myform"
 				action="<%=ctxPath%>/cti/knowledge/searchindex/addindex/addDSHKnowledge.action"
-				method="post" enctype="multipart/form-data" class="form-horizontal">
+				method="post" enctype="multipart/form-data" class="form-horizontal" onsubmit="return checkTheForm(this)">
 				<div class="form-group">
 					<label for="" class="col-sm-1 control-label no-padding-top">标题：</label>
 					<div class="col-sm-9">
-						<input id="title" class="ui-input ui-autocomplete-input" type="text" name="title" style="width: 400px;float: left"
+						<input id="title" class="ui-input ui-autocomplete-input" type="text" name="title" style="width: 400px;float: left" maxlength="100"
 							value="">
 						<span id="titleCheck" type="text" name="titleCheck" style="float: left"></span>
 						<div id='search_list'></div>
@@ -72,14 +72,14 @@ List<SystemData> systems = systemService.getSystems(false);
 					<label for="" class="col-sm-1 control-label no-padding-top">关键字：</label>
 					<div class="col-sm-9">
 						<input id="keywords" type="text" name="keywords"
-							style="width: 200px;" value=""> <span>（说明：2~3个,英文逗号,隔开）</span>
+							style="width: 200px;" value=""> <span>（建议：2~3个,英文逗号,隔开）</span>
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="" class="col-sm-1 control-label no-padding-top">热点度：</label>
 					<div class="col-sm-9">
 						<input id="sort" type="text" name="sort" style="width: 100px;"
-							value="20" readonly="readonly"> <span>（说明：1~99之间的数字,数值越大,排序越靠前）</span>
+							value="20" > <span>（说明：1~99之间的整数,数值越大,排序越靠前）</span>
 					</div>
 				</div>
 				<div class="form-group">
@@ -256,8 +256,8 @@ $(function () {
         		$("#contentModal").modal("show");
         		
         	}else{
-        		console.log(html);
-        		$("#content").val(html);
+        		console.log(content);
+        		$("#content").val(content);
                 $("#myform").submit();
         	}
         });
@@ -270,11 +270,12 @@ $(function () {
     });
     $("#savetag").click(function () {
 		var checked = $("#myModal .modal-body input:checked");
+		console.log(checked);
 		var selectedtagSpan = $("#selectedtag");
 		selectedtagSpan.html("");
 	    checked.each(function(){
-    	selectedtagSpan.append($(this).clone());
-    	selectedtagSpan.append($(this).attr("title"));
+	    	selectedtagSpan.append($(this).clone());
+	    	selectedtagSpan.append($(this).attr("title"));
         });
     });
     //自动完成
@@ -404,7 +405,42 @@ $(function () {
 function showRepeatTitle(){
     $("#repeatTitleModal").modal("show");
 }
+function checkTheForm(from){
 
+    var keywords = $("#keywords").val();
+    if(keywords.length<1){
+        alert("请输入关键字");
+        return false;
+    }
+    var title = $("#title").val();
+    if(title.length<1||title.length>100){
+        alert("请输入标题并且长度在100以内");
+        return false;
+    }
+    var content = editor.getContent();
+    if(content.length<1){
+        alert("请输入内容");
+        return false;
+    }
+    var tagIds = $("#selectedtag input[name='tagIds']");
+    if(tagIds.length<1){
+        alert("请先到便签管理中增加标签");
+        return false;
+    }
+    var sort = $("#sort").val();
+    var r = /^[1-9][0-9]{0,1}$/;　　//正整数
+    var flag=r.test(sort);
+    if(!flag||sort.length<1||Number(sort)<1||Number(sort)>99){
+        alert("请输入热点度:1~99之间的整数,数值越大,排序越靠前");
+        return false;
+    }
+    var type = $($("select[name='type']")[0]).val();
+    if(type.length<1){
+        alert("请选择类型");
+        return false;
+    }
+    return true;
+}
 
 function searchInputIng(){
     $('#title').on('input paste',function(event){
