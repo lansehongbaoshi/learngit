@@ -200,7 +200,7 @@ public class KnowledgeDataDAOImpl extends BaseHibernateDAO implements KnowledgeD
         }
         
         if(!ValidatorUtil.isNull(userId) ){
-            hql += " and A.creater = '"+userId+"' ";
+            hql += " and ( A.creater = '"+userId+"' or A.updater = '"+userId+"' ) ";
         }
         
         if(!ValidatorUtil.isNull(systemId) &&  ValidatorUtil.isNull(tag)){
