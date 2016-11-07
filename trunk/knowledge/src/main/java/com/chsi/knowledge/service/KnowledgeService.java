@@ -137,5 +137,5 @@ public interface KnowledgeService {
      * @param rank
      * @return
      */
-    public boolean judgeKnowledgeInTopCount(KnowledgeData knowledge,int rank);
+    public boolean judgeKnowledgeInTopCount(String knowId,int rank);
 }

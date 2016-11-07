@@ -324,7 +324,7 @@ public class KnowledgeAction extends AjaxAction {
                     ManageCacheUtil.removeKnowTag(tagData.getId());
                 }
             }
-            knowledgeService.judgeKnowledgeInTopCount(data, 10);
+            knowledgeService.judgeKnowledgeInTopCount(data.getId(), 10);
             knowIndexService.deleteKnowIndexBySolr(data.getId());
             knowIndexService.updateKnowIndex(data.getId());
             ManageCacheUtil.removeKnowledgeDataById(data.getId());
@@ -417,7 +417,7 @@ public class KnowledgeAction extends AjaxAction {
                     ManageCacheUtil.removeKnowTag(tagData.getId());
                 }
             }
-            knowledgeService.judgeKnowledgeInTopCount(data, 10);
+            knowledgeService.judgeKnowledgeInTopCount(data.getId(), 10);
             knowIndexService.deleteKnowIndexBySolr(data.getId());
 //            knowIndexService.updateKnowIndex(data.getId());
             ManageCacheUtil.removeKnowledgeDataById(data.getId());
@@ -474,7 +474,7 @@ public class KnowledgeAction extends AjaxAction {
                     ManageCacheUtil.removeKnowTag(tagData.getId());
                 }
             }
-            knowledgeService.judgeKnowledgeInTopCount(data, 10);
+            knowledgeService.judgeKnowledgeInTopCount(data.getId(), 10);
             knowIndexService.deleteKnowIndexBySolr(data.getId());
             knowIndexService.updateKnowIndex(data.getId());
             ManageCacheUtil.removeKnowledgeDataById(data.getId());
@@ -520,6 +520,7 @@ public class KnowledgeAction extends AjaxAction {
                 data.setTopTime(Calendar.getInstance());
                 data.setUpdater(getLoginedUserId());
                 knowledgeService.update(data);
+                knowledgeService.judgeKnowledgeInTopCount(data.getId(), 10);
             }
         }
         return NONE;
@@ -533,6 +534,7 @@ public class KnowledgeAction extends AjaxAction {
                 data.setTopTime(null);
                 data.setUpdater(getLoginedUserId());
                 knowledgeService.update(data);
+                knowledgeService.judgeKnowledgeInTopCount(data.getId(), 10);
             }
         }
         return NONE;
@@ -572,7 +574,7 @@ public class KnowledgeAction extends AjaxAction {
                 ManageCacheUtil.removeKnowTag(tagData.getId());
             }
         }
-        knowledgeService.judgeKnowledgeInTopCount(knowledgeData, 10);
+        knowledgeService.judgeKnowledgeInTopCount(knowledgeData.getId(), 10);
         knowIndexService.updateKnowIndex(knowledgeData.getId());
         id = knowledgeData.getId();
         logOper.setCreateTime(Calendar.getInstance());
@@ -654,7 +656,7 @@ public class KnowledgeAction extends AjaxAction {
                     ManageCacheUtil.removeKnowTag(one.getTagData().getId());
                 }
                 //清理知识删除之后的缓存
-                knowledgeService.judgeKnowledgeInTopCount(data, 10);
+                knowledgeService.judgeKnowledgeInTopCount(data.getId(), 10);
                 
                 LogOperData logOper = new LogOperData();
                 logOper.setCreateTime(Calendar.getInstance());

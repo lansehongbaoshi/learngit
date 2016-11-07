@@ -292,7 +292,15 @@ public class KnowledgeServiceImpl extends BaseDbService implements KnowledgeServ
         return list;
     }
     
-    public boolean judgeKnowledgeInTopCount(KnowledgeData knowledge,int rank){
+    public boolean judgeKnowledgeInTopCount(String knowId,int rank){
+        
+        KnowledgeData knowledge = ManageCacheUtil.getKnowledgeDataById(knowId);
+        //首先判断该知识是不是置顶的知识
+        if(knowledge.getTopTime()!=null){
+            String key = "com.chsi.knowledge.util.ManageCacheUtil.getCatalogTopKnowl";
+            MemCachedUtil.removeByKey(key);
+            return true;
+        }
         
         Map<SystemData, List<KnowledgeData>> map = ManageCacheUtil.getCatalogTopKnowl(10);
         List<SystemData> systems = new ArrayList<SystemData>();
