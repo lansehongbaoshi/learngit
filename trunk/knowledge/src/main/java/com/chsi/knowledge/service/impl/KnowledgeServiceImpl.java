@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import com.chsi.cms.client.CmsServiceClient;
@@ -25,6 +26,7 @@ import com.chsi.knowledge.service.ServiceFactory;
 import com.chsi.knowledge.service.SystemService;
 import com.chsi.knowledge.service.TagService;
 import com.chsi.knowledge.util.ManageCacheUtil;
+import com.chsi.knowledge.util.MemCachedUtil;
 import com.chsi.knowledge.util.Navigation;
 import com.chsi.knowledge.util.NavigationUtil;
 import com.chsi.knowledge.util.Pagination;
@@ -288,6 +290,41 @@ public class KnowledgeServiceImpl extends BaseDbService implements KnowledgeServ
         // TODO Auto-generated method stub
         List<KnowledgeData> list = knowledgeDataDAO.get(systemId,tag,dsh,type,userId,start,size);
         return list;
+    }
+    
+    public boolean judgeKnowledgeInTopCount(KnowledgeData knowledge,int rank){
+        
+        Map<SystemData, List<KnowledgeData>> map = ManageCacheUtil.getCatalogTopKnowl(10);
+        List<SystemData> systems = new ArrayList<SystemData>();
+        List<KnowTagRelationData> knowTagRelations = knowTagRelationDAO.getKnowTagRelationByKnowId(knowledge.getId());
+        if(knowTagRelations!=null){
+            for(KnowTagRelationData knowTagRelation : knowTagRelations){
+                SystemData system = knowTagRelation.getTagData().getSystemData();
+                if(!systems.contains(system)){
+                    systems.add(system);
+                }
+            }
+        }
+        
+        if(systems.size()>0){
+            for(SystemData system : systems){
+                List<KnowledgeData> knows = map.get(system);
+                if(knows.size()<10){
+                    String key = "com.chsi.knowledge.util.ManageCacheUtil.getCatalogTopKnowl";
+                    MemCachedUtil.removeByKey(key);
+                    return true;
+                }else{
+                    for(KnowledgeData know : knows){
+                        if(know.getVisitCnt()<=knowledge.getVisitCnt()){
+                            String key = "com.chsi.knowledge.util.ManageCacheUtil.getCatalogTopKnowl";
+                            MemCachedUtil.removeByKey(key);
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false; 
     }
 
 }

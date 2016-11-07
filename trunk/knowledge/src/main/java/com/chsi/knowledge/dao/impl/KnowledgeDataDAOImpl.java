@@ -21,7 +21,7 @@ public class KnowledgeDataDAOImpl extends BaseHibernateDAO implements KnowledgeD
     private static final String UPDATE_KNOWLEDGE_CTI_VISITCNT = "update KnowledgeData p set p.ctiVisitCnt=p.ctiVisitCnt+1";
     
     private static final String SELECT_KNOWLEDGE_BY_SYSTEM = "select distinct p.knowledgeData from KnowTagRelationData p where p.tagData.systemData.id=:id";
-    private static final String SELECT_TOP_KNOWLEDGE_BY_SYSTEM = "select p.knowledgeData from KnowTagRelationData p where p.tagData.systemData.id=:systemId and p.knowledgeData.topTime is not null order by p.knowledgeData.topTime desc";
+    private static final String SELECT_TOP_KNOWLEDGE_BY_SYSTEM = "select p.knowledgeData from KnowTagRelationData p where p.tagData.systemData.id=:systemId and p.knowledgeData.topTime is not null and p.knowledgeData.knowledgeStatus=:knowledgeStatus order by p.knowledgeData.topTime desc";
     private static final String SELECT_KNOWLEDGE_BY_STATUS = "select distinct p.knowledgeData from KnowTagRelationData p where p.knowledgeData.knowledgeStatus=:status";
     
     private static final String W = " where ";
@@ -141,6 +141,7 @@ public class KnowledgeDataDAOImpl extends BaseHibernateDAO implements KnowledgeD
         String hql = SELECT_TOP_KNOWLEDGE_BY_SYSTEM;
         Query query = hibernateUtil.getSession().createQuery(hql);
         query.setString("systemId", systemId);
+        query.setParameter("knowledgeStatus", KnowledgeStatus.YSH);
         List<KnowledgeData> list = query.list();
         return list;
     }

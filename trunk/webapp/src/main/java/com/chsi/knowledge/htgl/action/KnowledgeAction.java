@@ -324,6 +324,7 @@ public class KnowledgeAction extends AjaxAction {
                     ManageCacheUtil.removeKnowTag(tagData.getId());
                 }
             }
+            knowledgeService.judgeKnowledgeInTopCount(data, 10);
             knowIndexService.deleteKnowIndexBySolr(data.getId());
             knowIndexService.updateKnowIndex(data.getId());
             ManageCacheUtil.removeKnowledgeDataById(data.getId());
@@ -416,6 +417,7 @@ public class KnowledgeAction extends AjaxAction {
                     ManageCacheUtil.removeKnowTag(tagData.getId());
                 }
             }
+            knowledgeService.judgeKnowledgeInTopCount(data, 10);
             knowIndexService.deleteKnowIndexBySolr(data.getId());
 //            knowIndexService.updateKnowIndex(data.getId());
             ManageCacheUtil.removeKnowledgeDataById(data.getId());
@@ -472,6 +474,7 @@ public class KnowledgeAction extends AjaxAction {
                     ManageCacheUtil.removeKnowTag(tagData.getId());
                 }
             }
+            knowledgeService.judgeKnowledgeInTopCount(data, 10);
             knowIndexService.deleteKnowIndexBySolr(data.getId());
             knowIndexService.updateKnowIndex(data.getId());
             ManageCacheUtil.removeKnowledgeDataById(data.getId());
@@ -569,6 +572,7 @@ public class KnowledgeAction extends AjaxAction {
                 ManageCacheUtil.removeKnowTag(tagData.getId());
             }
         }
+        knowledgeService.judgeKnowledgeInTopCount(knowledgeData, 10);
         knowIndexService.updateKnowIndex(knowledgeData.getId());
         id = knowledgeData.getId();
         logOper.setCreateTime(Calendar.getInstance());
@@ -649,6 +653,8 @@ public class KnowledgeAction extends AjaxAction {
                 for(KnowTagRelationData one:ktrList) {
                     ManageCacheUtil.removeKnowTag(one.getTagData().getId());
                 }
+                //清理知识删除之后的缓存
+                knowledgeService.judgeKnowledgeInTopCount(data, 10);
                 
                 LogOperData logOper = new LogOperData();
                 logOper.setCreateTime(Calendar.getInstance());

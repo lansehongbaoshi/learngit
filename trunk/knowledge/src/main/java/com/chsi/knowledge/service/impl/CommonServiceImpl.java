@@ -108,7 +108,7 @@ public class CommonServiceImpl extends BaseDbService implements CommonService {
             if(cnt>=total) break;
             CntVO vo = listTemp.get(i);
             KnowledgeData data = ManageCacheUtil.getKnowledgeDataById(vo.getId());
-            if(data!=null && data.getTopTime()==null && KnowledgeType.PUBLIC.toString().equals(data.getType())) {//公开的、非置顶的
+            if(data!=null && data.getTopTime()==null && KnowledgeType.PUBLIC.toString().equals(data.getType()) && data.getKnowledgeStatus()==KnowledgeStatus.YSH) {//公开的、非置顶的
                 result.add(data);
                 cnt++;
             }

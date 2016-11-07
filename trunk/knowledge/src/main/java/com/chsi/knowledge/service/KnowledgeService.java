@@ -131,4 +131,11 @@ public interface KnowledgeService {
     List<KnowledgeData> getKnowledgeByStatusAndUserId(String systemId,
             String tag, KnowledgeStatus dsh, String type, String userId,
             int start, int size);
+    /**
+     * 判断该知识是否在前rank名在各个系统中
+     * @param knowledge
+     * @param rank
+     * @return
+     */
+    public boolean judgeKnowledgeInTopCount(KnowledgeData knowledge,int rank);
 }
