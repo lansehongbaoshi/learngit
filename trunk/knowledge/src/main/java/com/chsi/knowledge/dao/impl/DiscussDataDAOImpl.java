@@ -10,6 +10,7 @@ import com.chsi.account.client.AccountServiceClientFactory;
 import com.chsi.account.client.UserAccountData;
 import com.chsi.framework.hibernate.BaseHibernateDAO;
 import com.chsi.knowledge.dao.DiscussDataDAO;
+import com.chsi.knowledge.dic.DiscussStatus;
 import com.chsi.knowledge.pojo.DiscussData;
 import com.chsi.knowledge.vo.DiscussCountVO;
 import com.chsi.knowledge.vo.DiscussInfoVO;
@@ -98,6 +99,22 @@ public class DiscussDataDAOImpl extends BaseHibernateDAO implements DiscussDataD
         Object obj = query.uniqueResult();
         return obj==null?0:Integer.parseInt(String.valueOf(obj));
         
+    }
+
+    @Override
+    public int getCountByKId(String kId, DiscussStatus status) {
+        // TODO Auto-generated method stub
+        String sql = null;
+        if(status==null){
+            sql = " SELECT sum(1) FROM DISCUSS D WHERE D.KNOWLEDGE_ID =:KId ";
+        }else if(status==DiscussStatus.USEFUL){
+            sql = " SELECT sum(1) FROM DISCUSS D WHERE D.KNOWLEDGE_ID =:KId AND D.DISCUSS = '1' ";
+        }else if(status==DiscussStatus.UNUSEFUL){
+            sql = " SELECT sum(1) FROM DISCUSS D WHERE D.KNOWLEDGE_ID =:KId AND D.DISCUSS = '0' ";
+        }
+        Query query = hibernateUtil.getSession().createSQLQuery(sql).setString("KId", kId);
+        Object obj = query.uniqueResult();
+        return obj==null?0:Integer.parseInt(String.valueOf(obj));
     }
 
 }

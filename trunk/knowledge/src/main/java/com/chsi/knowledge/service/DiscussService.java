@@ -1,6 +1,7 @@
 package com.chsi.knowledge.service;
 
-import com.chsi.framework.page.Page;
+import net.sf.json.JSONObject;
+
 import com.chsi.knowledge.pojo.DiscussData;
 import com.chsi.knowledge.vo.DiscussCountVO;
 import com.chsi.knowledge.vo.DiscussInfoVO;
@@ -23,4 +24,5 @@ public interface DiscussService {
     DiscussCountVO getDiscussCountVOByKId(String KId);
     
     KnowListVO<DiscussInfoVO> getDiscussInfoVOList(String KId, int start, int pageSize);
+    JSONObject getDiscussCount(String kId);
 }

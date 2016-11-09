@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import net.sf.json.JSON;
+import net.sf.json.JSONObject;
+
 import com.chsi.framework.util.ValidatorUtil;
 import com.chsi.knowledge.Constants;
 import com.chsi.knowledge.action.base.AjaxAction;
@@ -703,6 +706,14 @@ public class KnowledgeAction extends AjaxAction {
         ajaxMessage.setO(contentList);
         writeJSON(ajaxMessage);
     }
+    public void showDiscussCount() throws Exception{
+        String KId = id;
+        JSONObject count = discussService.getDiscussCount(KId);
+        ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
+        ajaxMessage.setO(count);
+        writeJSON(ajaxMessage);
+    }
+    
 
     public String getType() {
         return type;

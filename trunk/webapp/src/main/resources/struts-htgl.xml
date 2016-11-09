@@ -363,6 +363,8 @@
         </interceptors>
         <action name="showDiscussContent" class="knowledgeActionBean" method="showDiscussContent">
         </action>
+        <action name="showDiscussCount" class="knowledgeActionBean" method="showDiscussCount">
+        </action>
     </package>
     
 </struts>

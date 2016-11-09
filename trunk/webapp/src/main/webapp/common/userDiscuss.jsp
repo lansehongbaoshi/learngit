@@ -10,7 +10,7 @@ String knowledgeId = request.getParameter("kId");
 
     <div class="widget-body">
         <div class="widget-main padding-8">
-            <table>
+            <table id="discussCount">
                 <tbody>
                     <tr><td rowspan="2" style="padding:5px 10px;"> 
                     共参与 <s:property value="discussCountVO.sum" /> 人
@@ -46,8 +46,8 @@ String knowledgeId = request.getParameter("kId");
                         <strong class="red">
                                     
                 <s:property value="discussCountVO.unusefulPersent" />
-                % （
-                        </strong>
+                % 
+                        </strong>（
                 <s:property value="discussCountVO.unuseful" />
                 人）
                         </td>
@@ -117,7 +117,32 @@ String knowledgeId = request.getParameter("kId");
 $(function(){
 	console.log("知识的kId：<%=knowledgeId%>");
 	showSearchResult("<%=knowledgeId%>",0);
+	showDiscussCount("<%=knowledgeId%>");
 });
+
+function showDiscussCount(KId){
+	$.getJSON("/common/showDiscussCount.action", {
+        id:KId
+    },function showCountResult(json){
+    	console.log(json);
+    	if (json.flag == 'true') {
+    		$("#discussCount").html("");
+    		var count = json.o;
+    		var usefulPersent;
+    		var unusefulPersent;
+    		if(count.total!="0"){
+    			usefulPersent = (Number(count.useful)*100/Number(count.total)).toFixed(2);
+                unusefulPersent = (Number(count.unuseful)*100/Number(count.total)).toFixed(2);
+    		}else{
+    			usefulPersent = 0;
+    			unusefulPersent = 0;
+    		}
+    		
+    		var text = "<tbody><tr><td rowspan=\"2\" style=\"padding:5px 10px;\">共参与 "+count.total+" 人</td><td style=\"padding:5px 10px;\"><i class=\"ace-icon fa fa-thumbs-o-up blue bigger-130\"></i> 认为有帮助：</td><td width=\"150\"><div class=\"progress  progress-mini\" style=\"margin:0;\"><div class=\"progress-bar\"  style=\"width:  "+usefulPersent+"%;\"></div></div></td><td style=\"padding:5px 10px;\"><strong class=\"blue\">"+usefulPersent+"% </strong>（"+count.useful+"人）</td></tr><tr><td style=\"padding:5px 10px;\"><i class=\"ace-icon fa fa-thumbs-o-down red bigger-130\"></i> 认为无帮助：</td><td width=\"150\"><div class=\"progress  progress-mini\" style=\"margin:0;\"><div class=\"progress-bar progress-bar-danger\" style=\"height:15px; width:  "+unusefulPersent+"%;\"></div></div></td><td style=\"padding:5px 10px;\"><strong class=\"red\">"+unusefulPersent+"% </strong>（"+count.unuseful+"人）</td></tr></tbody>";
+    		$("#discussCount").html(text);
+    	}
+    });
+}
 
 function showSearchResult(KId,curPage) {
     $.getJSON("/common/showDiscussContent.action", {

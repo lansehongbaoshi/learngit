@@ -2,6 +2,7 @@ package com.chsi.knowledge.dao;
 
 import java.util.List;
 
+import com.chsi.knowledge.dic.DiscussStatus;
 import com.chsi.knowledge.pojo.DiscussData;
 import com.chsi.knowledge.vo.DiscussCountVO;
 import com.chsi.knowledge.vo.DiscussInfoVO;
@@ -23,4 +24,5 @@ public interface DiscussDataDAO {
     
     List<DiscussInfoVO> getDiscussInfoVOList(String KId, int start, int pageSize);
     int getDiscussInfoVOList(String KId);
+    int getCountByKId(String kId, DiscussStatus status);
 }
