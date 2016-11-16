@@ -230,6 +230,7 @@ $(function() {
             }else{
                 console.log(content);
                 $("#content").val(content);
+                isChanged = false;
                 $("#myform").submit();
             }
         });
