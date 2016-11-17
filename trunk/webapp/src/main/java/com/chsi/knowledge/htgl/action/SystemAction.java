@@ -303,9 +303,11 @@ public class SystemAction extends AjaxAction {
             List<KnowledgeData> knows = systemService.getKnowsBySystem(id);
             if(knows!=null) {
                 for(KnowledgeData know : knows){
-                    ManageCacheUtil.removeKnowledgeDataById(know.getId());
-                    know.setUpdateTime(Calendar.getInstance());
-                    know.setUpdater(getLoginedUserId());
+                    if(KnowledgeType.PUBLIC.toString().equals(know.getType())){
+                        ManageCacheUtil.removeKnowledgeDataById(know.getId());
+                        know.setUpdateTime(Calendar.getInstance());
+                        know.setUpdater(getLoginedUserId());
+                    }
                 }
 
                 systemService.updateSystemKnowTime(knows);
