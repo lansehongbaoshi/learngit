@@ -356,7 +356,7 @@ function checkTheForm(from){
                         data-dismiss="modal">返回修改
                 </button>
                 <button id="confirm" type="button" class="btn btn-primary">
-                    继续提交
+                    继续审核通过
                 </button>
             </div>
         </div><!-- /.modal-content -->
