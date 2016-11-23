@@ -69,8 +69,14 @@ List<SystemData> systems = systemService.getSystems(false);
           <label for="" class="col-sm-1 control-label no-padding-top"> 类型： </label>
           <div class="col-sm-9" id="">
           <select name="type">
-          <option value="<%=KnowledgeType.PUBLIC.toString()%>">公开</option>
-          <option value="<%=KnowledgeType.PRIVATE.toString()%>">内部</option>
+          <s:if test="knowledgeData.type==\"PUBLIC\"">
+            <option value="<%=KnowledgeType.PUBLIC.toString()%>">公开</option>
+            <option value="<%=KnowledgeType.PRIVATE.toString()%>">内部</option>
+          </s:if>
+          <s:else>
+            <option value="<%=KnowledgeType.PRIVATE.toString()%>">内部</option>
+            <option value="<%=KnowledgeType.PUBLIC.toString()%>">公开</option>
+          </s:else>
           </select>
           </div>
         </div>
@@ -340,7 +346,7 @@ function checkTheForm(from){
                 <button type="button" class="close" data-dismiss="modal" 
                         aria-hidden="true">×
                 </button>
-                <h4 class="modal-title" id="contentModalLabel">
+                <h4 class="modal-title" id="contentModalLabel" style="font-weight:700">
                     提交信息包含敏感词如下
                 </h4>
             </div>

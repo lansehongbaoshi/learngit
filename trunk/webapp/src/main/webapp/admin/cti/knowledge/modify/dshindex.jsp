@@ -336,7 +336,7 @@ $(function(){
                 <button type="button" class="close" data-dismiss="modal" 
                         aria-hidden="true">×
                 </button>
-                <h4 class="modal-title" id="contentModalLabel">
+                <h4 class="modal-title" id="contentModalLabel" style="font-weight:700">
                     内容包含敏感词汇
                 </h4>
             </div>
