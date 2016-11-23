@@ -42,7 +42,7 @@
         <property name="filterWordService" ref="filterWordService" />
     </bean> 
     
-    <bean id="knowledgeActionBean"  class="com.chsi.knowledge.htgl.action.KnowledgeAction"  scope="request">
+    <bean id="knowledgeActionBean"  class="com.chsi.knowledge.admin.action.KnowledgeAction"  scope="request">
         <property name="knowIndexService" ref="knowIndexService" />
         <property name="knowledgeService" ref="knowledgeService" />
         <property name="logOperService" ref="logOperService" />
@@ -59,20 +59,20 @@
         <property name="systemService" ref="systemService" />
     </bean>
    
-    <bean id="systemActionBean"  class="com.chsi.knowledge.htgl.action.SystemAction"  scope="request">
+    <bean id="systemActionBean"  class="com.chsi.knowledge.admin.action.SystemAction"  scope="request">
         <property name="systemService" ref="systemService" />
         <property name="tagService" ref="tagService" />
         <property name="logOperService" ref="logOperService" />
     </bean>
     
-    <bean id="tagActionBean"  class="com.chsi.knowledge.htgl.action.TagAction"  scope="request">
+    <bean id="tagActionBean"  class="com.chsi.knowledge.admin.action.TagAction"  scope="request">
         <property name="systemService" ref="systemService" />
         <property name="tagService" ref="tagService" />
         <property name="knowTagRelationService" ref="knowTagRelationService" />
         <property name="logOperService" ref="logOperService" />
     </bean>
     
-    <bean id="recycleActionBean"  class="com.chsi.knowledge.htgl.action.RecycleAction"  scope="request">
+    <bean id="recycleActionBean"  class="com.chsi.knowledge.admin.action.RecycleAction"  scope="request">
         <property name="knowledgeService" ref="knowledgeService" />
         <property name="knowIndexService" ref="knowIndexService" />
         <property name="knowTagRelationService" ref="knowTagRelationService" />
@@ -82,7 +82,7 @@
     <bean id="fileActionBean"  class="com.chsi.knowledge.file.action.FileAction"  scope="request">
     </bean>
     
-    <bean id="htglSearchActionBean"  class="com.chsi.knowledge.htgl.action.SearchAction"  scope="request">
+    <bean id="htglSearchActionBean"  class="com.chsi.knowledge.admin.action.SearchAction"  scope="request">
         <property name="knowIndexService" ref="knowIndexService" />
         <property name="systemService" ref="systemService" />
         <property name="knowledgeService" ref="knowledgeService" />
@@ -93,12 +93,12 @@
         <property name="knowIndexService" ref="knowIndexService" />
     </bean>
     
-    <bean id="robotSetActionBean"  class="com.chsi.knowledge.htgl.action.RobotSetAction"  scope="request">
+    <bean id="robotSetActionBean"  class="com.chsi.knowledge.admin.action.RobotSetAction"  scope="request">
         <property name="robotService" ref="robotService" />
         <property name="robotSolrIndexService" ref="robotSolrIndexService" />
     </bean>
     
-    <bean id="totalActionBean"  class="com.chsi.knowledge.htgl.action.TotalAction"  scope="request">
+    <bean id="totalActionBean"  class="com.chsi.knowledge.admin.action.TotalAction"  scope="request">
         <property name="robotService" ref="robotService" />
     </bean>
     
@@ -108,7 +108,7 @@
         <property name="knowledgeService" ref="knowledgeService" />
     </bean>
     <!-- 操作日志 -->
-    <bean id="logOperActionBean"  class="com.chsi.knowledge.htgl.action.SearchLogAction"  scope="request">
+    <bean id="logOperActionBean"  class="com.chsi.knowledge.admin.action.SearchLogAction"  scope="request">
         <property name="logOperService" ref="logOperService" />
     </bean>
    

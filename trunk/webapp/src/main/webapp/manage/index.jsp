@@ -12,7 +12,7 @@ String ctxPath = request.getContextPath();
 <script src="/assets/js/jquery.2.1.1.min.js"></script>
 <script type="text/javascript">
 $(function () {
-$.getJSON("/htgl/system/listSystem.action",
+$.getJSON("/admin/system/listSystem.action",
         function showSystems(json) {
             if (json.flag == "true") {
                 var options = "";
@@ -26,7 +26,7 @@ $.getJSON("/htgl/system/listSystem.action",
     );
 })
 function synchronizationIndex(){
-    $.getJSON("<%=ctxPath %>/htgl/robot/set/synchronizationIndex.action",function(date){
+    $.getJSON("<%=ctxPath %>/admin/robot/set/synchronizationIndex.action",function(date){
     	if(date.flag=="true"){
     		alert("数据同步成功！");
     	}
@@ -34,7 +34,7 @@ function synchronizationIndex(){
 }
 
 function delRobotIndex(){
-    $.getJSON("<%=ctxPath %>/htgl/robot/set/delRobotIndex.action",function(date){
+    $.getJSON("<%=ctxPath %>/admin/robot/set/delRobotIndex.action",function(date){
         if(date.flag=="true"){
             alert("索引删除成功！");
         }
@@ -75,7 +75,7 @@ SystemId：<select id="systemIds" class="systemIds form-control" name="systemId"
 <h2>机器人配置</h2>
 <div class="row">
   <p style="font-weight:bold;">说明：支持txt格式上传，txt里问答各占一行，问答之间隔一空白行。一个提问多种回答的，可以按相同的提问不同的回答写多个。上传完毕后会自动建立上传对话的索引。</p>
-    <form name="" action="<%=ctxPath %>/htgl/robot/set/updateCommit.action" method="post" onsubmit="" enctype="multipart/form-data">
+    <form name="" action="<%=ctxPath %>/admin/robot/set/updateCommit.action" method="post" onsubmit="" enctype="multipart/form-data">
       <div class="col-xs-12">
         文件：<input type="file" name="file">
         <input type="submit" value="提交">

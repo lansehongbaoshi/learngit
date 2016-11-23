@@ -86,7 +86,7 @@
         <!-- <global-exception-mappings> <exception-mapping result="global.exception"
             exception="java.lang.Exception" /> </global-exception-mappings> 
             <action name="index"
-            class="index"> <result name="success" type="redirect">/htgl/indexAction</result>
+            class="index"> <result name="success" type="redirect">/admin/indexAction</result>
             <result name="indexJsp" type="dispatcher">/index.jsp</result> 
             </action> <global-results>
             <result name="Exception" type="tiles"></result> </global-results> 
@@ -98,8 +98,8 @@
 
     <include file="struts-public.xml"></include>
     <include file="struts-manage.xml"></include>
-    <include file="struts-htgl.xml"></include>
-    <include file="struts-query.xml"></include>
+    <include file="struts-admin.xml"></include>
     <include file="struts-robot.xml"></include>
     <include file="struts-cti.xml"></include>
+    <include file="struts-query.xml"></include>
 </struts>

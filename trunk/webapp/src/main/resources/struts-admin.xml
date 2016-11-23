@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+
+    <package name="admin" extends="knowledge-default" namespace="/admin">
+        <interceptors>
+          <interceptor-stack name="knowledgeStack">
+              <interceptor-ref name="chsiDefaultStack"></interceptor-ref>
+              <interceptor-ref name="store">
+                  <param name="operationMode">AUTOMATIC</param>
+              </interceptor-ref>
+          </interceptor-stack>
+        </interceptors>
+        <action name="index">
+            <result name="success" type="tiles">admin.index</result>
+        </action>
+        <action name="listSystem" class="systemActionBean" method="getSystems"></action>
+        <action name="listTag" class="tagActionBean" method="list"></action>
+    </package>
+    
+    <package name="admin.log" extends="knowledge-default" namespace="/admin/log">
+        <interceptors>
+          <interceptor-stack name="knowledgeStack">
+              <interceptor-ref name="chsiDefaultStack"></interceptor-ref>
+              <interceptor-ref name="store">
+                  <param name="operationMode">AUTOMATIC</param>
+              </interceptor-ref>
+          </interceptor-stack>
+        </interceptors>
+        <action name="index" class="logOperActionBean" method="index">
+            <result name="success" type="tiles">admin.log.index</result>
+        </action>
+    </package>
+    <package name="admin.log.index" extends="knowledge-default" namespace="/admin/log/index">
+        <interceptors>
+          <interceptor-stack name="knowledgeStack">
+              <interceptor-ref name="chsiDefaultStack"></interceptor-ref>
+              <interceptor-ref name="store">
+                  <param name="operationMode">AUTOMATIC</param>
+              </interceptor-ref>
+          </interceptor-stack>
+        </interceptors>
+        <action name="searchLogOper" class="logOperActionBean" method="searchLogOper">
+        </action>
+    </package>
+    
+    
+    <package name="admin.search" extends="knowledge-default" namespace="/admin/search">
+        <interceptors>
+          <interceptor-stack name="knowledgeStack">
+              <interceptor-ref name="chsiDefaultStack"></interceptor-ref>
+              <interceptor-ref name="store">
+                  <param name="operationMode">AUTOMATIC</param>
+              </interceptor-ref>
+          </interceptor-stack>
+        </interceptors>
+        <action name="searchindex" class="knowledgeActionBean" method="searchindex">
+            <result name="success" type="tiles">admin.search.index</result>
+        </action>
+        <action name="showKnowledge" class="knowledgeActionBean" method="getKnow">
+            <result name="success" type="tiles">admin.knowledge.show</result>
+        </action>
+        <action name="searchAllKnow" class="htglSearchActionBean" method="searchAllKnow"></action>
+        <action name="searchDSHKnow" class="htglSearchActionBean" method="searchDSHKnow"></action>
+    </package>
+    
+    
+    <package name="admin.knowledge" extends="knowledge-default" namespace="/admin/knowledge">
+        <interceptors>
+          <interceptor-stack name="knowledgeStack">
+              <interceptor-ref name="chsiDefaultStack"></interceptor-ref>
+              <interceptor-ref name="store">
+                  <param name="operationMode">AUTOMATIC</param>
+              </interceptor-ref>
+          </interceptor-stack>
+        </interceptors>
+        <action name="searchindex" class="knowledgeActionBean" method="searchindex">
+            <result name="success" type="tiles">admin.knowledge.search.index</result>
+            <allowed-methods></allowed-methods>
+        </action>
+        <action name="checkindex" class="knowledgeActionBean" method="searchindex">
+            <result name="success" type="tiles">admin.knowledge.search.checkindex</result>
+            <allowed-methods></allowed-methods>
+        </action>
+        
+        <action name="updateKnowledge" class="knowledgeActionBean" method="updateKnowledge">
+            <result name="success" type="redirect">/admin/knowledge/searchindex/showKnowledge.action?id=${id}&amp;from=update</result>
+        </action>
+        <action name="checkUpdate" class="knowledgeActionBean" method="checkUpdate">
+            <result name="success" type="redirect">/admin/knowledge/checkindex/showKnowledge.action?id=${id}&amp;from=update</result>
+        </action>
+        
+        <action name="topKnowledge" class="knowledgeActionBean" method="topKnowledge">
+        </action>
+        <action name="untopKnowledge" class="knowledgeActionBean" method="untopKnowledge">
+        </action>
+        <action name="delKnowledge" class="knowledgeActionBean" method="delKnowledge">
+        </action>
+        <action name="showKnowledge" class="knowledgeActionBean" method="getKnow">
+            <result name="success" type="tiles">admin.knowledge.show</result>
+        </action>
+        <action name="showDiscussContent" class="knowledgeActionBean" method="showDiscussContent">
+        </action>
+        <action name="quickAll" class="searchActionBean" method="quickAll">
+        </action>
+    </package>
+    <package name="admin.knowledge.searchindex" extends="knowledge-default" namespace="/admin/knowledge/searchindex">
+        <interceptors>
+          <interceptor-stack name="knowledgeStack">
+              <interceptor-ref name="chsiDefaultStack"></interceptor-ref>
+              <interceptor-ref name="store">
+                  <param name="operationMode">AUTOMATIC</param>
+              </interceptor-ref>
+          </interceptor-stack>
+        </interceptors>
+        <action name="showKnowledge" class="knowledgeActionBean" method="getKnow">
+            <result name="success" type="tiles">admin.knowledge.showmodify</result>
+        </action>
+        <action name="addindex">
+            <result name="success" type="tiles">admin.knowledge.add.index</result>
+        </action>
+        <action name="modifyindex" class="knowledgeActionBean" method="modifyindex">
+            <result name="success" type="tiles">admin.knowledge.modify.index</result>
+            <allowed-methods>modifyindex</allowed-methods>
+        </action>
+        <action name="updateKnowledgeTime" class="knowledgeActionBean" method="updateKnowledgeTime">
+            <result name="success" type="redirect">/admin/knowledge/searchindex/showKnowledge.action?id=${id}&amp;from=update</result>
+        </action>
+    </package>
+    <package name="admin.knowledge.searchindex.addindex" extends="knowledge-default" namespace="/admin/knowledge/searchindex/addindex">
+        <interceptors>
+          <interceptor-stack name="knowledgeStack">
+              <interceptor-ref name="chsiDefaultStack"></interceptor-ref>
+              <interceptor-ref name="store">
+                  <param name="operationMode">AUTOMATIC</param>
+              </interceptor-ref>
+          </interceptor-stack>
+        </interceptors>
+        <action name="addKnowledge" class="knowledgeActionBean" method="addKnowledge">
+            <result name="success" type="redirect">/admin/knowledge/searchindex/showKnowledge.action?id=${id}&amp;from=add</result>
+        </action>
+        <action name="checkRepeat" class="searchActionBean" method="checkRepeat">
+        </action>
+        <action name="checkBadWord" class="searchActionBean" method="checkBadWord">
+        </action>
+    </package>
+    <package name="admin.knowledge.checkindex" extends="knowledge-default" namespace="/admin/knowledge/checkindex">
+        <interceptors>
+          <interceptor-stack name="knowledgeStack">
+              <interceptor-ref name="chsiDefaultStack"></interceptor-ref>
+              <interceptor-ref name="store">
+                  <param name="operationMode">AUTOMATIC</param>
+              </interceptor-ref>
+          </interceptor-stack>
+        </interceptors>
+        <action name="showKnowledge" class="knowledgeActionBean" method="getKnow">
+            <result name="success" type="tiles">admin.knowledge.show</result>
+        </action>
+        <action name="addindex">
+            <result name="success" type="tiles">admin.knowledge.add.index</result>
+        </action>
+        <action name="modifycheck" class="knowledgeActionBean" method="modifycheck">
+            <result name="success" type="tiles">admin.knowledge.modify.check</result>
+        </action>
+        <action name="getLogOper" class="knowledgeActionBean" method="getLogOper">
+        </action>
+        
+    </package>
+    <package name="admin.system" extends="knowledge-default" namespace="/admin/system">
+        <interceptors>
+          <interceptor-stack name="knowledgeStack">
+              <interceptor-ref name="chsiDefaultStack"></interceptor-ref>
+              <interceptor-ref name="store">
+                  <param name="operationMode">AUTOMATIC</param>
+              </interceptor-ref>
+          </interceptor-stack>
+        </interceptors>
+        <action name="listSystem" class="systemActionBean" method="getSystems"></action><!-- ajax -->
+        <action name="listSystems" class="systemActionBean" method="listSystems"><!-- not ajax -->
+            <result name="success" type="tiles">admin.system.list</result>
+        </action>
+        <action name="updateSystemIndex" class="systemActionBean" method="updateIndex">
+            <result name="success" type="tiles">admin.system.modify</result>
+        </action>
+        <action name="updateSystem" class="systemActionBean" method="update">
+            <result name="success" type="redirect">/admin/system/listSystems.action</result>
+        </action>
+        <action name="addSystemIndex">
+            <result name="success" type="tiles">admin.system.add</result>
+        </action>
+        <action name="addSystem" class="systemActionBean" method="add">
+            <result name="success" type="redirect">/admin/system/listSystems.action</result>
+        </action>
+        <action name="delSystem" class="systemActionBean" method="delete">
+            <result name="success" type="redirect">/admin/system/listSystems.action</result>
+        </action>
+        <action name="list" class="systemActionBean" method="list">
+            <result name="success">/admin/system/addTag.jsp</result>
+        </action>
+        <action name="updateTag" class="systemActionBean" method="updateTag">
+        </action>
+    </package>
+    <package name="admin.system.listSystems" extends="knowledge-default" namespace="/admin/system/listSystems">
+        <interceptors>
+          <interceptor-stack name="knowledgeStack">
+              <interceptor-ref name="chsiDefaultStack"></interceptor-ref>
+              <interceptor-ref name="store">
+                  <param name="operationMode">AUTOMATIC</param>
+              </interceptor-ref>
+          </interceptor-stack>
+        </interceptors>
+        <action name="updateKnowledgeTime" class="systemActionBean" method="updateKnowledgeTime"><!-- not ajax -->
+            <result name="success" type="redirect">/admin/system/listSystems.action</result>
+        </action>
+        
+    </package>
+    <package name="admin.tag" extends="knowledge-default" namespace="/admin/tag">
+        <interceptors>
+          <interceptor-stack name="knowledgeStack">
+              <interceptor-ref name="chsiDefaultStack"></interceptor-ref>
+              <interceptor-ref name="store">
+                  <param name="operationMode">AUTOMATIC</param>
+              </interceptor-ref>
+          </interceptor-stack>
+        </interceptors>
+        <action name="index">
+            <result name="success" type="tiles">admin.tag.list</result>
+        </action>
+        <action name="list" class="tagActionBean" method="list"></action>
+        <action name="addIndex">
+            <result name="success" type="tiles">admin.tag.add</result>
+        </action>
+        <action name="add" class="tagActionBean" method="add">
+            <result name="success" type="redirect">/admin/tag/index.action?systemId=${systemId}&amp;</result>
+        </action>
+        <action name="updateIndex" class="tagActionBean" method="updateIndex">
+            <result name="success" type="tiles">admin.tag.modify</result>
+        </action>
+        <action name="update" class="tagActionBean" method="update">
+            <result name="success" type="redirect">/admin/tag/index.action?systemId=${systemId}&amp;</result>
+        </action>
+        <action name="delete" class="tagActionBean" method="delete">
+        </action>
+    </package>
+    
+    <package name="admin.recycle" extends="knowledge-default" namespace="/admin/recycle">
+        <interceptors>
+          <interceptor-stack name="knowledgeStack">
+              <interceptor-ref name="chsiDefaultStack"></interceptor-ref>
+              <interceptor-ref name="store">
+                  <param name="operationMode">AUTOMATIC</param>
+              </interceptor-ref>
+          </interceptor-stack>
+        </interceptors>
+        <action name="index">
+            <result name="success" type="tiles">admin.recycle.index</result>
+        </action>
+        <action name="list" class="recycleActionBean" method="list"></action>
+        <action name="rollback" class="recycleActionBean" method="rollback"></action>
+        <action name="delKnowledgePermanently" class="recycleActionBean" method="delKnowledgePermanently">
+        </action>
+    </package>
+    
+    <package name="admin.file" extends="knowledge-default" namespace="/admin/file">
+        <interceptors>
+          <interceptor-stack name="knowledgeStack">
+              <interceptor-ref name="chsiDefaultStack"></interceptor-ref>
+              <interceptor-ref name="store">
+                  <param name="operationMode">AUTOMATIC</param>
+              </interceptor-ref>
+          </interceptor-stack>
+        </interceptors>
+        <action name="up" class="fileActionBean" method="upfile"></action>
+    </package>
+    
+    <package name="admin.view" extends="knowledge-default" namespace="/admin/view">
+        <interceptors>
+          <interceptor-stack name="knowledgeStack">
+              <interceptor-ref name="chsiDefaultStack"></interceptor-ref>
+              <interceptor-ref name="store">
+                  <param name="operationMode">AUTOMATIC</param>
+              </interceptor-ref>
+          </interceptor-stack>
+        </interceptors>
+        <action name="viewKnowledge" class="knowledgeViewActionBean" method="viewKnowledge">
+            <result name="success">/admin/view/viewknowledge.jsp</result>
+        </action>
+    </package>
+    
+    <package name="admin.total" extends="knowledge-default" namespace="/admin/total">
+        <interceptors>
+          <interceptor-stack name="knowledgeStack">
+              <interceptor-ref name="chsiDefaultStack"></interceptor-ref>
+              <interceptor-ref name="store">
+                  <param name="operationMode">AUTOMATIC</param>
+              </interceptor-ref>
+          </interceptor-stack>
+        </interceptors>
+        <action name="list">
+            <result name="success" type="tiles">admin.total.list</result>
+        </action>
+        <action name="option" class="totalActionBean" method="option">
+            <result name="success" type="tiles">admin.total.option</result>
+        </action>
+        <action name="listQ" class="totalActionBean" method="listQ">
+            <result name="success" type="tiles">admin.total.listQ</result>
+        </action>
+    </package>
+    
+    <package name="admin.robot.set" extends="knowledge-default" namespace="/admin/robot/set">
+        <interceptors>
+          <interceptor-stack name="knowledgeStack">
+              <interceptor-ref name="chsiDefaultStack"></interceptor-ref>
+              <interceptor-ref name="store">
+                  <param name="operationMode">AUTOMATIC</param>
+              </interceptor-ref>
+          </interceptor-stack>
+        </interceptors>
+        <action name="uploadDic" class="robotSetActionBean" method="upload">
+            <result name="success" type="tiles">admin.robot.set.uploaddic</result>
+        </action>
+        <action name="updateCommit" class="robotSetActionBean" method="updateCommit">
+            <result name="success" >/manage/index.jsp</result>
+            <result name="error" >/manage/index.jsp</result>
+        </action>
+        <action name="synchronizationIndex" class="robotSetActionBean" method="synchronizationIndex">
+        </action>
+        <action name="delRobotIndex" class="robotSetActionBean" method="delRobotIndex">
+        </action>
+        <action name="listDate" class="robotSetActionBean" method="list">
+        </action>
+        <action name="basicDate" class="robotSetActionBean" method="listBasic">
+        </action>
+        <action name="list" class="robotSetActionBean" method="listIndex">
+            <!-- -->
+            <result name="success" type="tiles">admin.robot.set.list</result>
+        </action>
+        <action name="addIndex">
+            <result name="success" type="tiles">admin.robot.set.add</result>
+        </action>
+        <action name="add" class="robotSetActionBean" method="add">
+            <result name="success" type="redirect">/admin/robot/set/list</result>
+        </action>
+        <action name="updateIndex" class="robotSetActionBean" method="updateIndex">
+            <result name="success" type="tiles">admin.robot.set.modify</result>
+        </action>
+        <action name="update" class="robotSetActionBean" method="update">
+            <result name="success" type="redirect">/admin/robot/set/list</result>
+        </action>
+        <action name="delete" class="robotSetActionBean" method="delete">
+        </action>
+    </package>
+    <package name="common" extends="knowledge-default" namespace="/common">
+        <interceptors>
+          <interceptor-stack name="knowledgeStack">
+              <interceptor-ref name="chsiDefaultStack"></interceptor-ref>
+              <interceptor-ref name="store">
+                  <param name="operationMode">AUTOMATIC</param>
+              </interceptor-ref>
+          </interceptor-stack>
+        </interceptors>
+        <action name="showDiscussContent" class="knowledgeActionBean" method="showDiscussContent">
+        </action>
+        <action name="showDiscussCount" class="knowledgeActionBean" method="showDiscussCount">
+        </action>
+    </package>
+</struts>

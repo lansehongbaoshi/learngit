@@ -117,16 +117,6 @@
         <filter-name>userInputSecureFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-    <filter-mapping>
-        <filter-name>springSecurityFilterChain</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
-    
-    
-    <filter-mapping>
-        <filter-name>CallinfoFilter</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
     
     <filter-mapping>
         <filter-name>encodingFilter</filter-name>
@@ -134,23 +124,39 @@
     </filter-mapping>
     
     <filter-mapping>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <url-pattern>/admin/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <url-pattern>/manage/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <url-pattern>/index.jsp</url-pattern>
+    </filter-mapping>
+    
+    <filter-mapping>
+        <filter-name>CallinfoFilter</filter-name>
+        <url-pattern>/admin/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>CallinfoFilter</filter-name>
+        <url-pattern>/manage/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>CallinfoFilter</filter-name>
+        <url-pattern>/index.jsp</url-pattern>
+    </filter-mapping>
+    
+    <filter-mapping>
         <filter-name>LoginFilter</filter-name>
-        <url-pattern>/htgl/*</url-pattern>
+        <url-pattern>/admin/*</url-pattern>
     </filter-mapping>
     
     <filter-mapping>
         <filter-name>LoginFilter</filter-name>
         <url-pattern>/manage/*</url-pattern>
-    </filter-mapping>
-    
-    <filter-mapping>
-        <filter-name>LoginFilter</filter-name>
-        <url-pattern>/cti/*</url-pattern>
-    </filter-mapping>
-    
-    <filter-mapping>
-        <filter-name>LoginFilter</filter-name>
-        <url-pattern>/query/*</url-pattern>
     </filter-mapping>
     
     <filter-mapping>

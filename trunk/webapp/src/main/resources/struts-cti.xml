@@ -4,7 +4,7 @@
         "http://struts.apache.org/dtds/struts-2.3.dtd">
 <struts>
 
-    <package name="cti" extends="knowledge-default" namespace="/cti">
+    <package name="admin.cti" extends="knowledge-default" namespace="/admin/cti">
         <interceptors>
           <interceptor-stack name="knowledgeStack">
               <interceptor-ref name="chsiDefaultStack"></interceptor-ref>
@@ -14,7 +14,7 @@
           </interceptor-stack>
         </interceptors>
         <action name="index">
-            <result name="success" type="tiles">cti.index</result>
+            <result name="success" type="tiles">admin.cti.index</result>
         </action>
         <action name="searchKnow" class="ctiSearchActionBean" method="searchKnow"></action>
         <action name="getKnow" class="ctiSearchActionBean" method="detailKnow"></action>
@@ -22,7 +22,7 @@
         <action name="listSystem" class="systemActionBean" method="getSystems"></action>
         <action name="listTag" class="tagActionBean" method="list"></action>
     </package>
-    <package name="cti.file" extends="knowledge-default" namespace="/cti/file">
+    <package name="admin.cti.file" extends="knowledge-default" namespace="/admin/cti/file">
         <interceptors>
           <interceptor-stack name="knowledgeStack">
               <interceptor-ref name="chsiDefaultStack"></interceptor-ref>
@@ -34,7 +34,7 @@
         <action name="up" class="fileActionBean" method="upfile"></action>
     </package>
     
-    <package name="cti.search" extends="knowledge-default" namespace="/cti/search">
+    <package name="admin.cti.search" extends="knowledge-default" namespace="/admin/cti/search">
         <interceptors>
           <interceptor-stack name="knowledgeStack">
               <interceptor-ref name="chsiDefaultStack"></interceptor-ref>
@@ -44,16 +44,16 @@
           </interceptor-stack>
         </interceptors>
         <action name="searchindex" class="knowledgeActionBean" method="searchindex">
-            <result name="success" type="tiles">cti.search.index</result>
+            <result name="success" type="tiles">admin.cti.search.index</result>
         </action>
         
         <action name="showKnowledge" class="knowledgeActionBean" method="getKnow">
-            <result name="success" type="tiles">cti.knowledge.show</result>
+            <result name="success" type="tiles">admin.cti.knowledge.show</result>
         </action>
         <action name="searchAllKnow" class="htglSearchActionBean" method="searchAllKnow"></action>
         <action name="searchSelfDSHKnow" class="htglSearchActionBean" method="searchSelfDSHKnow"></action>
     </package>
-    <package name="cti.view" extends="knowledge-default" namespace="/cti/view">
+    <package name="admin.cti.view" extends="knowledge-default" namespace="/admin/cti/view">
         <interceptors>
           <interceptor-stack name="knowledgeStack">
               <interceptor-ref name="chsiDefaultStack"></interceptor-ref>
@@ -63,11 +63,11 @@
           </interceptor-stack>
         </interceptors>
         <action name="viewKnowledge" class="knowledgeViewActionBean" method="viewKnowledge">
-            <result name="success">/cti/view/viewknowledge.jsp</result>
+            <result name="success">/admin/cti/view/viewknowledge.jsp</result>
         </action>
     </package>
     
-    <package name="cti.knowledge" extends="knowledge-default" namespace="/cti/knowledge">
+    <package name="admin.cti.knowledge" extends="knowledge-default" namespace="/admin/cti/knowledge">
         <interceptors>
           <interceptor-stack name="knowledgeStack">
               <interceptor-ref name="chsiDefaultStack"></interceptor-ref>
@@ -80,11 +80,11 @@
         </action>
         
         <action name="searchindex" class="knowledgeActionBean" method="searchindex">
-            <result name="success" type="tiles">cti.knowledge.search.index</result>
+            <result name="success" type="tiles">admin.cti.knowledge.search.index</result>
             <allowed-methods></allowed-methods>
         </action>
         <action name="searchadd" class="knowledgeActionBean" method="searchindex">
-            <result name="success" type="tiles">cti.knowledge.search.addindex</result>
+            <result name="success" type="tiles">admin.cti.knowledge.search.addindex</result>
             <allowed-methods></allowed-methods>
         </action>
         
@@ -93,10 +93,10 @@
         <action name="untopKnowledge" class="knowledgeActionBean" method="untopKnowledge">
         </action>
         <action name="updateKnowledge" class="knowledgeActionBean" method="updateKnowledge">
-            <result name="success" type="redirect">/cti/knowledge/searchindex.action</result>
+            <result name="success" type="redirect">/admin/cti/knowledge/searchindex.action</result>
         </action>
     </package>
-    <package name="cti.knowledge.searchindex" extends="knowledge-default" namespace="/cti/knowledge/searchindex">
+    <package name="admin.cti.knowledge.searchindex" extends="knowledge-default" namespace="/admin/cti/knowledge/searchindex">
         <interceptors>
           <interceptor-stack name="knowledgeStack">
               <interceptor-ref name="chsiDefaultStack"></interceptor-ref>
@@ -106,19 +106,19 @@
           </interceptor-stack>
         </interceptors>
         <action name="addindex">
-            <result name="success" type="tiles">cti.knowledge.add.index</result>
+            <result name="success" type="tiles">admin.cti.knowledge.add.index</result>
         </action>
         <action name="modifyindex" class="knowledgeActionBean" method="modifyindex">
-            <result name="success" type="tiles">cti.knowledge.modify.index</result>
+            <result name="success" type="tiles">admin.cti.knowledge.modify.index</result>
             <allowed-methods>modifyindex</allowed-methods>
         </action>
         
         <action name="showKnowledge" class="knowledgeActionBean" method="getKnow">
-            <result name="success" type="tiles">cti.knowledge.show</result>
+            <result name="success" type="tiles">admin.cti.knowledge.show</result>
         </action>
         
     </package>
-    <package name="cti.knowledge.searchindex.addindex" extends="knowledge-default" namespace="/cti/knowledge/searchindex/addindex">
+    <package name="admin.cti.knowledge.searchindex.addindex" extends="knowledge-default" namespace="/admin/cti/knowledge/searchindex/addindex">
         <interceptors>
           <interceptor-stack name="knowledgeStack">
               <interceptor-ref name="chsiDefaultStack"></interceptor-ref>
@@ -128,10 +128,10 @@
           </interceptor-stack>
         </interceptors>
         <action name="addDSHKnowledge" class="knowledgeActionBean" method="addDSHKnowledge">
-            <result name="success" type="redirect">/cti/knowledge/searchindex/showKnowledge.action?id=${id}&amp;from=add</result>
+            <result name="success" type="redirect">/admin/cti/knowledge/searchindex/showKnowledge.action?id=${id}&amp;from=add</result>
         </action>
     </package>
-    <package name="cti.knowledge.searchindex.modifyindex" extends="knowledge-default" namespace="/cti/knowledge/searchindex/modifyindex">
+    <package name="admin.cti.knowledge.searchindex.modifyindex" extends="knowledge-default" namespace="/admin/cti/knowledge/searchindex/modifyindex">
         <interceptors>
           <interceptor-stack name="knowledgeStack">
               <interceptor-ref name="chsiDefaultStack"></interceptor-ref>
@@ -141,11 +141,11 @@
           </interceptor-stack>
         </interceptors>
         <action name="updateSelfKnowledge" class="knowledgeActionBean" method="updateSelfKnowledge">
-<!--             <result name="success" type="redirect">/cti/knowledge/searchindex.action</result> -->
-            <result name="success" type="redirect">/cti/knowledge/searchindex/showKnowledge.action?id=${id}&amp;from=add</result>
+<!--             <result name="success" type="redirect">/admin/cti/knowledge/searchindex.action</result> -->
+            <result name="success" type="redirect">/admin/cti/knowledge/searchindex/showKnowledge.action?id=${id}&amp;from=add</result>
         </action>
     </package>
-    <package name="cti.knowledge.searchadd" extends="knowledge-default" namespace="/cti/knowledge/searchadd">
+    <package name="admin.cti.knowledge.searchadd" extends="knowledge-default" namespace="/admin/cti/knowledge/searchadd">
         <interceptors>
           <interceptor-stack name="knowledgeStack">
               <interceptor-ref name="chsiDefaultStack"></interceptor-ref>
@@ -155,21 +155,21 @@
           </interceptor-stack>
         </interceptors>
         <action name="addindex">
-            <result name="success" type="tiles">cti.knowledge.add.index</result>
+            <result name="success" type="tiles">admin.cti.knowledge.add.index</result>
         </action>
         <action name="showKnowledge" class="knowledgeActionBean" method="getKnow">
-            <result name="success" type="tiles">cti.knowledge.show</result>
+            <result name="success" type="tiles">admin.cti.knowledge.show</result>
         </action>
         <action name="modifyadd" class="knowledgeActionBean" method="modifyadd">
-            <result name="success" type="tiles">cti.knowledge.modify.add</result>
+            <result name="success" type="tiles">admin.cti.knowledge.modify.add</result>
         </action>
         <action name="updateSelfKnowledge" class="knowledgeActionBean" method="updateSelfKnowledge">
-            <result name="success" type="redirect">/cti/knowledge/searchadd.action</result>
+            <result name="success" type="redirect">/admin/cti/knowledge/searchadd.action</result>
         </action>
         <action name="delKnowledge" class="knowledgeActionBean" method="delKnowledge">
         </action>
     </package>
-    <package name="cti.knowledge.searchadd.addindex" extends="knowledge-default" namespace="/cti/knowledge/searchadd/addindex">
+    <package name="admin.cti.knowledge.searchadd.addindex" extends="knowledge-default" namespace="/admin/cti/knowledge/searchadd/addindex">
         <interceptors>
           <interceptor-stack name="knowledgeStack">
               <interceptor-ref name="chsiDefaultStack"></interceptor-ref>

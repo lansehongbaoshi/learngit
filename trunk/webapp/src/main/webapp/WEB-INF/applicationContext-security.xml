@@ -51,17 +51,16 @@
         <anonymous />
         <remember-me />
         <!--登录监测页面-->
-        <intercept-url pattern="/j_spring_cas_security_check" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+        <intercept-url pattern="/admin/j_spring_cas_security_check" access="IS_AUTHENTICATED_ANONYMOUSLY" />
 
         <intercept-url pattern="/htgl/admin/druid/**" access="ROLE_XLRZ_MODULE_ADMIN_MODIFY" />
-        <intercept-url pattern="/htgl/system/**" access="ROLE_KNOWLEDGE_ADMIN" /> 
-        <intercept-url pattern="/htgl/**" access="ROLE_KNOWLEDGE" /> 
+        
+        <intercept-url pattern="/admin/cti/**" access="ROLE_CTI_USER" />
+        <intercept-url pattern="/admin/query/**" access="ROLE_KNOWLEDGE_READONLY" />
+        <intercept-url pattern="/admin/system/**" access="ROLE_KNOWLEDGE_ADMIN" /> 
+        <intercept-url pattern="/admin/**" access="ROLE_KNOWLEDGE" /> 
         
         <intercept-url pattern="/manage/**" access="ROLE_KNOWLEDGE_ADMIN" />
-        
-        <intercept-url pattern="/cti/**" access="ROLE_CTI_USER" />
-        
-        <intercept-url pattern="/query/**" access="ROLE_KNOWLEDGE_READONLY" />
         
         <intercept-url pattern="/common/**" access="ROLE_KNOWLEDGE,ROLE_KNOWLEDGE_READONLY,ROLE_CTI_USER" /> 
         
@@ -96,7 +95,7 @@
      
     <!-- Cas configure-->
     <beans:bean id="serviceProperties" class="org.springframework.security.ui.cas.ServiceProperties">
-        <beans:property name="service" value="${sys.website.knowledge.protocol}://${sys.website.knowledge.servername}/j_spring_cas_security_check"/>
+        <beans:property name="service" value="${sys.website.knowledge.protocol}://${sys.website.knowledge.servername}/admin/j_spring_cas_security_check"/>
         <beans:property name="sendRenew" value="false"/>
     </beans:bean>    
     
@@ -107,7 +106,7 @@
         <beans:property name="invalidateSessionOnSuccessfulAuthentication" value="true"/><!--Protect against session fixation attacks -->
         <beans:property name="authenticationManager" ref="authenticationManager"/>
         <beans:property name="authenticationFailureUrl" value="/casfailed.jsp"/>
-        <beans:property name="defaultTargetUrl" value="/"/>
+        <beans:property name="defaultTargetUrl" value="/admin/"/>
     </beans:bean>
 
     <beans:bean id="casProcessingFilterEntryPoint"
@@ -139,7 +138,7 @@
 
     <beans:bean id="casLogoutCallbackFilter"   class="com.chsi.framework.springsecurity.cas.filter.CasLogoutCallbackFilter">
         <custom-filter after="LOGOUT_FILTER "/>
-        <beans:property name="filterProcessesUrl" value="/j_spring_cas_security_check" /><!--与CasProcessingfFlter监控的url一致-->
+        <beans:property name="filterProcessesUrl" value="/admin/j_spring_cas_security_check" /><!--与CasProcessingfFlter监控的url一致-->
         <beans:property name="expiredTicketCache" ref="expiredTicketCache" />
     </beans:bean>    
 

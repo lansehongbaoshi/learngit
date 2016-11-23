@@ -9,153 +9,153 @@
     
     <!-- 用不到了 -->
      <!-- knowledge layout框架 -->
-   <definition name="htgl.admin.main" template="/layout/admin.jsp" >
+   <definition name="admin.main" template="/layout/admin.jsp" >
         <put-attribute name="title" value="学信网知识库管理系统"/>
     </definition>
-   <definition name="htgl.knowledge.modal" template="/layout/modal.jsp" >
+   <definition name="admin.knowledge.modal" template="/layout/modal.jsp" >
         <put-attribute name="title" value="知识库"/>
     </definition>
     
    <!--  tag部分 -->
-    <definition name="htgl.tag.tagList" extends="htgl.knowledge.modal" >
-        <put-attribute name="content" value="/htgl/tag/tagList.jsp"/>
+    <definition name="admin.tag.tagList" extends="admin.knowledge.modal" >
+        <put-attribute name="content" value="/admin/tag/tagList.jsp"/>
     </definition>
     
     <!--knowledge部分  -->
-    <definition name="htgl.knowledge.knowledgeList" extends="htgl.knowledge.modal" >
-        <put-attribute name="content" value="/htgl/knowledge/knowledgeList.jsp"/>
+    <definition name="admin.knowledge.knowledgeList" extends="admin.knowledge.modal" >
+        <put-attribute name="content" value="/admin/knowledge/knowledgeList.jsp"/>
     </definition>
     
-    <definition name="htgl.knowledge.knowledge" extends="htgl.knowledge.modal" >
-        <put-attribute name="content" value="/htgl/knowledge/knowledge.jsp"/>
+    <definition name="admin.knowledge.knowledge" extends="admin.knowledge.modal" >
+        <put-attribute name="content" value="/admin/knowledge/knowledge.jsp"/>
     </definition>
     
     <!--后台管理页面  -->
-    <definition name="htgl.index" extends="htgl.admin.main" >
-        <put-attribute name="body" value="/htgl/index.jsp"/>
+    <definition name="admin.index" extends="admin.main" >
+        <put-attribute name="body" value="/admin/index.jsp"/>
     </definition>
-    <definition name="cti.index" extends="htgl.admin.main" >
-        <put-attribute name="body" value="/cti/index.jsp"/>
+    <definition name="admin.cti.index" extends="admin.main" >
+        <put-attribute name="body" value="/admin/cti/index.jsp"/>
     </definition>
     
     <!-- search部分 -->
-    <definition name="htgl.search.index" extends="htgl.admin.main" >
-        <put-attribute name="body" value="/htgl/search/index.jsp"/>
+    <definition name="admin.search.index" extends="admin.main" >
+        <put-attribute name="body" value="/admin/search/index.jsp"/>
     </definition>
-    <definition name="cti.search.index" extends="htgl.admin.main" >
-        <put-attribute name="body" value="/cti/search/index.jsp"/>
+    <definition name="admin.cti.search.index" extends="admin.main" >
+        <put-attribute name="body" value="/admin/cti/search/index.jsp"/>
     </definition>
     
     
     <!--知识点相关  -->
-    <definition name="htgl.knowledge.search.index" extends="htgl.admin.main" >
-        <put-attribute name="body" value="/htgl/knowledge/search/index.jsp"/>
+    <definition name="admin.knowledge.search.index" extends="admin.main" >
+        <put-attribute name="body" value="/admin/knowledge/search/index.jsp"/>
     </definition>
-    <definition name="htgl.knowledge.search.checkindex" extends="htgl.admin.main" >
-        <put-attribute name="body" value="/htgl/knowledge/search/checkindex.jsp"/>
+    <definition name="admin.knowledge.search.checkindex" extends="admin.main" >
+        <put-attribute name="body" value="/admin/knowledge/search/checkindex.jsp"/>
     </definition>
-    <definition name="cti.knowledge.search.index" extends="htgl.admin.main" >
-        <put-attribute name="body" value="/cti/knowledge/search/index.jsp"/>
+    <definition name="admin.cti.knowledge.search.index" extends="admin.main" >
+        <put-attribute name="body" value="/admin/cti/knowledge/search/index.jsp"/>
     </definition>
-    <definition name="cti.knowledge.search.addindex" extends="htgl.admin.main" >
-        <put-attribute name="body" value="/cti/knowledge/search/addindex.jsp"/>
+    <definition name="admin.cti.knowledge.search.addindex" extends="admin.main" >
+        <put-attribute name="body" value="/admin/cti/knowledge/search/addindex.jsp"/>
     </definition>
     
-    <definition name="htgl.knowledge.modify.index" extends="htgl.admin.main" >
-        <put-attribute name="body" value="/htgl/knowledge/modify/index.jsp"/>
+    <definition name="admin.knowledge.modify.index" extends="admin.main" >
+        <put-attribute name="body" value="/admin/knowledge/modify/index.jsp"/>
     </definition>
-    <definition name="htgl.knowledge.modify.check" extends="htgl.admin.main" >
-        <put-attribute name="body" value="/htgl/knowledge/modify/modifycheck.jsp"/>
+    <definition name="admin.knowledge.modify.check" extends="admin.main" >
+        <put-attribute name="body" value="/admin/knowledge/modify/modifycheck.jsp"/>
     </definition>
-    <definition name="cti.knowledge.modify.index" extends="htgl.admin.main" >
-        <put-attribute name="body" value="/cti/knowledge/modify/index.jsp"/>
+    <definition name="admin.cti.knowledge.modify.index" extends="admin.main" >
+        <put-attribute name="body" value="/admin/cti/knowledge/modify/index.jsp"/>
     </definition>
-    <definition name="cti.knowledge.modify.add" extends="htgl.admin.main" >
-        <put-attribute name="body" value="/cti/knowledge/modify/dshindex.jsp"/>
+    <definition name="admin.cti.knowledge.modify.add" extends="admin.main" >
+        <put-attribute name="body" value="/admin/cti/knowledge/modify/dshindex.jsp"/>
     </definition>
-    <definition name="htgl.knowledge.add.index" extends="htgl.admin.main" >
-        <put-attribute name="body" value="/htgl/knowledge/add/index.jsp"/>
+    <definition name="admin.knowledge.add.index" extends="admin.main" >
+        <put-attribute name="body" value="/admin/knowledge/add/index.jsp"/>
     </definition>
-    <definition name="cti.knowledge.add.index" extends="htgl.admin.main" >
-        <put-attribute name="body" value="/cti/knowledge/add/index.jsp"/>
+    <definition name="admin.cti.knowledge.add.index" extends="admin.main" >
+        <put-attribute name="body" value="/admin/cti/knowledge/add/index.jsp"/>
     </definition>
-    <definition name="htgl.knowledge.show" extends="htgl.admin.main" >
-        <put-attribute name="body" value="/htgl/knowledge/show.jsp"/>
+    <definition name="admin.knowledge.show" extends="admin.main" >
+        <put-attribute name="body" value="/admin/knowledge/show.jsp"/>
     </definition>
-    <definition name="htgl.knowledge.showmodify" extends="htgl.admin.main" >
-        <put-attribute name="body" value="/htgl/knowledge/showmodify.jsp"/>
+    <definition name="admin.knowledge.showmodify" extends="admin.main" >
+        <put-attribute name="body" value="/admin/knowledge/showmodify.jsp"/>
     </definition>
-    <definition name="cti.knowledge.show" extends="htgl.admin.main" >
-        <put-attribute name="body" value="/cti/knowledge/show.jsp"/>
+    <definition name="admin.cti.knowledge.show" extends="admin.main" >
+        <put-attribute name="body" value="/admin/cti/knowledge/show.jsp"/>
     </definition>
     
     <!--系统相关  -->
-    <definition name="htgl.system.list" extends="htgl.admin.main" >
-        <put-attribute name="body" value="/htgl/system/list.jsp"/>
+    <definition name="admin.system.list" extends="admin.main" >
+        <put-attribute name="body" value="/admin/system/list.jsp"/>
     </definition>
-    <definition name="htgl.system.modify" extends="htgl.admin.main" >
-        <put-attribute name="body" value="/htgl/system/modify.jsp"/>
+    <definition name="admin.system.modify" extends="admin.main" >
+        <put-attribute name="body" value="/admin/system/modify.jsp"/>
     </definition>
-    <definition name="htgl.system.add" extends="htgl.admin.main" >
-        <put-attribute name="body" value="/htgl/system/add.jsp"/>
+    <definition name="admin.system.add" extends="admin.main" >
+        <put-attribute name="body" value="/admin/system/add.jsp"/>
     </definition>
     <!--标签相关  -->
-    <definition name="htgl.tag.list" extends="htgl.admin.main" >
-        <put-attribute name="body" value="/htgl/tag/list.jsp"/>
+    <definition name="admin.tag.list" extends="admin.main" >
+        <put-attribute name="body" value="/admin/tag/list.jsp"/>
     </definition>
-    <definition name="htgl.tag.modify" extends="htgl.admin.main" >
-        <put-attribute name="body" value="/htgl/tag/modify.jsp"/>
+    <definition name="admin.tag.modify" extends="admin.main" >
+        <put-attribute name="body" value="/admin/tag/modify.jsp"/>
     </definition>
-    <definition name="htgl.tag.add" extends="htgl.admin.main" >
-        <put-attribute name="body" value="/htgl/tag/add.jsp"/>
+    <definition name="admin.tag.add" extends="admin.main" >
+        <put-attribute name="body" value="/admin/tag/add.jsp"/>
     </definition>
     <!-- 回收站 -->
-    <definition name="htgl.recycle.index" extends="htgl.admin.main" >
-        <put-attribute name="body" value="/htgl/recycle/index.jsp"/>
+    <definition name="admin.recycle.index" extends="admin.main" >
+        <put-attribute name="body" value="/admin/recycle/index.jsp"/>
     </definition>
     
     <!-- 机器人 -->
-    <definition name="robot.index" extends="htgl.knowledge.modal" >
+    <definition name="robot.index" extends="admin.knowledge.modal" >
         <put-attribute name="title" value="学信网机器人"/>
         <put-attribute name="content" value="/robot/chat.jsp"/>
     </definition>
     
     <!-- 机器人配置 -->
-    <definition name="htgl.robot.set.uploaddic" extends="htgl.admin.main" >
-        <put-attribute name="body" value="/htgl/robot/set/uploaddic.jsp"/>
+    <definition name="admin.robot.set.uploaddic" extends="admin.main" >
+        <put-attribute name="body" value="/admin/robot/set/uploaddic.jsp"/>
     </definition>
-    <definition name="htgl.robot.set.list" extends="htgl.admin.main" >
-        <put-attribute name="body" value="/htgl/robot/set/list.jsp"/>
+    <definition name="admin.robot.set.list" extends="admin.main" >
+        <put-attribute name="body" value="/admin/robot/set/list.jsp"/>
     </definition>
-    <definition name="htgl.robot.set.add" extends="htgl.admin.main" >
-        <put-attribute name="body" value="/htgl/robot/set/add.jsp"/>
+    <definition name="admin.robot.set.add" extends="admin.main" >
+        <put-attribute name="body" value="/admin/robot/set/add.jsp"/>
     </definition>
-    <definition name="htgl.robot.set.modify" extends="htgl.admin.main" >
-        <put-attribute name="body" value="/htgl/robot/set/modify.jsp"/>
+    <definition name="admin.robot.set.modify" extends="admin.main" >
+        <put-attribute name="body" value="/admin/robot/set/modify.jsp"/>
     </definition>
     
     <!-- 统计 -->
-    <definition name="htgl.total.list" extends="htgl.admin.main" >
-        <put-attribute name="body" value="/htgl/total/list.jsp"/>
+    <definition name="admin.total.list" extends="admin.main" >
+        <put-attribute name="body" value="/admin/total/list.jsp"/>
     </definition>
-    <definition name="htgl.total.option" extends="htgl.admin.main" >
-        <put-attribute name="body" value="/htgl/total/option.jsp"/>
+    <definition name="admin.total.option" extends="admin.main" >
+        <put-attribute name="body" value="/admin/total/option.jsp"/>
     </definition>
-    <definition name="htgl.total.listQ" extends="htgl.admin.main" >
-        <put-attribute name="body" value="/htgl/total/listQ.jsp"/>
+    <definition name="admin.total.listQ" extends="admin.main" >
+        <put-attribute name="body" value="/admin/total/listQ.jsp"/>
     </definition>
     
-    <!-- 对外查询 -->
-    <definition name="query.index" extends="htgl.admin.main" >
-        <put-attribute name="body" value="/query/index.jsp"/>
+    <!-- 业务平台用户查询内部知识，例如编辑部 -->
+    <definition name="admin.query.index" extends="admin.main" >
+        <put-attribute name="body" value="/admin/query/index.jsp"/>
     </definition>
-    <definition name="query.detail" extends="htgl.admin.main" >
-        <put-attribute name="body" value="/query/detail.jsp"/>
+    <definition name="admin.query.detail" extends="admin.main" >
+        <put-attribute name="body" value="/admin/query/detail.jsp"/>
     </definition>
     
     <!-- 日志部分 -->
-    <definition name="htgl.log.index" extends="htgl.admin.main" >
-        <put-attribute name="body" value="/htgl/log/index.jsp"/>
+    <definition name="admin.log.index" extends="admin.main" >
+        <put-attribute name="body" value="/admin/log/index.jsp"/>
     </definition>
     
 </tiles-definitions> 

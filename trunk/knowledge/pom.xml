@@ -197,4 +197,15 @@
             <scope>compile</scope>
         </dependency>
     </dependencies>
+    <repositories>
+        <repository>
+            <id>chsi</id>
+            <name>Chsi Repository</name>
+            <layout>default</layout>
+            <url>http://maven.chsi.com.cn/maven2</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
 </project>

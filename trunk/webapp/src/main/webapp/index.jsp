@@ -4,11 +4,11 @@ com.chsi.knowledge.vo.LoginUserVO user = com.chsi.knowledge.web.util.WebAppUtil.
 String ctxPath = request.getContextPath();
 
 if(user.getAuths().contains(com.chsi.knowledge.Constants.ROLE_CTI_USER)) {
-    response.sendRedirect(ctxPath + "/cti/index.action");
+    response.sendRedirect(ctxPath + "/admin/cti/index.action");
 }else if(user.getAuths().contains(com.chsi.knowledge.Constants.ROLE_KNOWLEDGE_READONLY)) {
-    response.sendRedirect(ctxPath + "/query/searchindex.action");
+    response.sendRedirect(ctxPath + "/admin/query/searchindex.action");
 }else{
-    response.sendRedirect(ctxPath + "/htgl/index.action");
+    response.sendRedirect(ctxPath + "/admin/index.action");
 }
 
 %>

@@ -8,10 +8,10 @@ try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
 </script>
   <ul id="menu" class="nav nav-list">
     <%if(user.getAuths().contains(com.chsi.knowledge.Constants.ROLE_CTI_USER)) {%>
-        <li id="homepage_menu" class=""><a href="/cti/index.action"> <i class="menu-icon fa fa-tachometer"></i> <span class="menu-text"> 首页 </span>
+        <li id="homepage_menu" class=""><a href="/admin/cti/index.action"> <i class="menu-icon fa fa-tachometer"></i> <span class="menu-text"> 首页 </span>
         </a> <b class="arrow"></b></li>
     <%} else if(user.getAuths().contains(com.chsi.knowledge.Constants.ROLE_KNOWLEDGE)){ %>
-     <li id="homepage_menu" class=""><a href="/htgl/index.action"> <i class="menu-icon fa fa-tachometer"></i> <span class="menu-text"> 首页 </span>
+     <li id="homepage_menu" class=""><a href="/admin/index.action"> <i class="menu-icon fa fa-tachometer"></i> <span class="menu-text"> 首页 </span>
         </a> <b class="arrow"></b></li>
     <%} %>
     
@@ -23,32 +23,32 @@ try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
     
     <%if(user.getAuths().contains(com.chsi.knowledge.Constants.ROLE_CTI_USER)) {%>
     
-    <li id="search_menu" class=""><a href="/cti/knowledge/searchindex.action"> <i class="menu-icon fa fa-pencil-square-o"></i> <span class="menu-text"> 知识管理 </span>
+    <li id="search_menu" class=""><a href="/admin/cti/knowledge/searchindex.action"> <i class="menu-icon fa fa-pencil-square-o"></i> <span class="menu-text"> 知识管理 </span>
     </a> <b class="arrow"></b></li>
     
-    <li id="add_menu" class=""><a href="/cti/knowledge/searchadd.action"> <i class="menu-icon fa fa-file-text"></i> <span class="menu-text"> 待审核知识 </span>
+    <li id="add_menu" class=""><a href="/admin/cti/knowledge/searchadd.action"> <i class="menu-icon fa fa-file-text"></i> <span class="menu-text"> 待审核知识 </span>
     </a> <b class="arrow"></b></li>
     <%} %>
     <%if(user.getAuths().contains(com.chsi.knowledge.Constants.ROLE_KNOWLEDGE)) {%>
-    <li id="knowledge_menu" class=""><a href="/htgl/knowledge/searchindex.action"> <i class="menu-icon fa fa-pencil-square-o"></i> <span class="menu-text"> 知识管理 </span>
+    <li id="knowledge_menu" class=""><a href="/admin/knowledge/searchindex.action"> <i class="menu-icon fa fa-pencil-square-o"></i> <span class="menu-text"> 知识管理 </span>
     </a> <b class="arrow"></b></li>
-    <li id="knowledgechexk_menu" class=""><a href="/htgl/knowledge/checkindex.action"> <i class="menu-icon fa fa-gavel"></i> <span class="menu-text"> 知识审核 </span>
+    <li id="knowledgechexk_menu" class=""><a href="/admin/knowledge/checkindex.action"> <i class="menu-icon fa fa-gavel"></i> <span class="menu-text"> 知识审核 </span>
     </a> <b class="arrow"></b></li>
-    <li id="tag_menu" class=""><a href="/htgl/tag/index.action"> <i class="menu-icon fa fa-tag"></i> <span class="menu-text"> 标签管理 </span>
+    <li id="tag_menu" class=""><a href="/admin/tag/index.action"> <i class="menu-icon fa fa-tag"></i> <span class="menu-text"> 标签管理 </span>
     </a> <b class="arrow"></b></li>
     <%} %>
     <%if(user.getAuths().contains(com.chsi.knowledge.Constants.ROLE_KNOWLEDGE_ADMIN)) {%>
-    <li id="system_menu" class=""><a href="/htgl/system/listSystems"> <i class="menu-icon fa fa-desktop"></i> <span class="menu-text"> 系统管理 </span>
+    <li id="system_menu" class=""><a href="/admin/system/listSystems"> <i class="menu-icon fa fa-desktop"></i> <span class="menu-text"> 系统管理 </span>
     </a> <b class="arrow"></b></li>
     <%} %>
     <%if(user.getAuths().contains(com.chsi.knowledge.Constants.ROLE_KNOWLEDGE)) {%>
-    <li id="recycle_menu" class=""><a href="/htgl/recycle/index"> <i class="menu-icon fa fa-trash"></i> <span class="menu-text"> 回收站 </span>
+    <li id="recycle_menu" class=""><a href="/admin/recycle/index"> <i class="menu-icon fa fa-trash"></i> <span class="menu-text"> 回收站 </span>
     </a> <b class="arrow"></b></li>
-    <li id="robot_menu" class=""><a href="/htgl/robot/set/list"> <i class="menu-icon fa fa-gear"></i> <span class="menu-text"> 机器人配置 </span>
+    <li id="robot_menu" class=""><a href="/admin/robot/set/list"> <i class="menu-icon fa fa-gear"></i> <span class="menu-text"> 机器人配置 </span>
     </a> <b class="arrow"></b></li>
-    <li id="total_menu" class=""><a href="/htgl/total/list"> <i class="menu-icon fa fa-area-chart"></i> <span class="menu-text"> 统计分析 </span>
+    <li id="total_menu" class=""><a href="/admin/total/list"> <i class="menu-icon fa fa-area-chart"></i> <span class="menu-text"> 统计分析 </span>
     </a> <b class="arrow"></b></li>
-    <li id="log_menu" class=""><a href="/htgl/log/index"> <i class="menu-icon fa fa-trash"></i> <span class="menu-text"> 日志查询 </span>
+    <li id="log_menu" class=""><a href="/admin/log/index"> <i class="menu-icon fa fa-trash"></i> <span class="menu-text"> 日志查询 </span>
     </a> <b class="arrow"></b></li>
     <%} %>
   </ul>
@@ -64,7 +64,7 @@ try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
 // 	else if(url.indexOf("/system/")>-1) $("#system_menu").addClass("active");
 // 	else if(url.indexOf("/search/")>-1) $("#search_menu").addClass("active");
 // 	else if(url.indexOf("/recycle/")>-1) $("#recycle_menu").addClass("active");
-// 	else if(url.indexOf("/htgl/index")>-1) $("#homepage_menu").addClass("active");
+// 	else if(url.indexOf("/admin/index")>-1) $("#homepage_menu").addClass("active");
 	
 	$(function () {
 		var flag = false;

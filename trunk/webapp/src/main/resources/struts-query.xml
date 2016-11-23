@@ -4,7 +4,7 @@
         "http://struts.apache.org/dtds/struts-2.3.dtd">
 <struts>
 
-    <package name="query" extends="knowledge-default" namespace="/query">
+    <package name="admin.query" extends="knowledge-default" namespace="/admin/query">
         <interceptors>
           <interceptor-stack name="knowledgeStack">
               <interceptor-ref name="chsiDefaultStack"></interceptor-ref>
@@ -16,10 +16,10 @@
         <action name="listSystem" class="systemActionBean" method="getSystems"></action>
         <action name="listTag" class="tagActionBean" method="list"></action>
         <action name="searchindex" class="knowledgeActionBean" method="searchindex">
-            <result name="success" type="tiles">query.index</result>
+            <result name="success" type="tiles">admin.query.index</result>
         </action>
         <action name="viewKnowledge" class="knowledgeActionBean" method="getKnow">
-            <result name="success" type="tiles">query.detail</result>
+            <result name="success" type="tiles">admin.query.detail</result>
         </action>
         <action name="searchAllKnow" class="htglSearchActionBean" method="searchAllKnow"></action>
     </package>

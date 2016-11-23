@@ -18,7 +18,7 @@
             </button>
 
             <div class="navbar-header pull-left">
-                <a href="/htgl/index.action" class="navbar-brand">
+                <a href="/admin/index.action" class="navbar-brand">
                     <small>
 							<i class="fa fa-leaf"></i>  <img src="/assets/images/logo_title.png" alt="学信网知识库管理系统"/>
 						</small>
