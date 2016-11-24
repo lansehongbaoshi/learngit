@@ -184,7 +184,8 @@
         </action>
         <action name="checkBadWord" class="searchActionBean" method="checkBadWord">
         </action>
-        
+        <action name="autoAllTitle" class="searchActionBean" method="autoAllTitle">
+        </action>
     </package> 
     
     

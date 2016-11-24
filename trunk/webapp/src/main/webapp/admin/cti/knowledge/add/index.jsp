@@ -288,7 +288,7 @@ $(function () {
         source: function (request, response) {
             var term = request.term;
             var postdata = {"keywords":request.term,"systemId":""};
-            var _url = "http://kl.chsi.com.cn/search/autoTitle.action";
+            var _url = "/admin/cti/knowledge/searchadd/addindex/autoAllTitle.action";
             $.ajax({ 
                 type: "get",
                 cache: false,

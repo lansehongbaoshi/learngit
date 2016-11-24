@@ -153,7 +153,7 @@ public class SearchAction extends AjaxAction {
         return NONE;
     }
     
-    // 全系统或限定系统搜索标题（自动完成处用,如机器人）
+    // 全系统或限定系统搜索公开标题（自动完成处用,如机器人）
     public String autoTitle() throws Exception {
         keywords = SearchUtil.keywordsFilter2(keywords);
         Map<String, String> queryParams = new HashMap<String, String>();
@@ -179,6 +179,28 @@ public class SearchAction extends AjaxAction {
         writeCallbackJSON(callback);
         return NONE;
     }
+    // 全系统或限定系统搜索全部标题（自动完成处用,如机器人）
+    public String autoAllTitle() throws Exception {
+        keywords = SearchUtil.keywordsFilter2(keywords);
+        Map<String, String> queryParams = new HashMap<String, String>();
+        queryParams.put("q", keywords);
+        queryParams.put("qf", "title");
+        queryParams.put("fl", "id,title");
+        queryParams.put("hl", "true");
+        queryParams.put("hl.fl", "title");
+        queryParams.put("hl.simple.pre", "<strong style='color:#c30'>");
+        queryParams.put("hl.simple.post", "</strong>");
+//        queryParams.put("fl", "title,id");
+        KnowListVO<KnowledgeVO> listVO = knowIndexService.customSearch(queryParams, (curPage - 1) * Constants.SEARCH_PAGE_SIZE, Constants.SEARCH_PAGE_SIZE);
+        List<SearchVO> list = SearchUtil.exchangeResultList(listVO, keywords, 14);
+//            saveSearchLog(list);
+        KnowListVO<SearchVO> result = new KnowListVO<SearchVO>(list, listVO.getPagination());
+        ajaxMessage.setO(result);
+        ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
+        writeCallbackJSON(callback);
+        return NONE;
+    }
+    
     //标题查重
     public void checkRepeat() throws Exception{
         if(ValidatorUtil.isNull(knowId)) {
