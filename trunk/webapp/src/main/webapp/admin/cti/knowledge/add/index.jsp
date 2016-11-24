@@ -280,99 +280,57 @@ $(function () {
     });
     //自动完成
 //    searchInputIng();
-//     $("#title").autocomplete({
-//     	source: function( request, response ) {
-//             $.ajax({
-//               url: "http://kl.chsi.com.cn/admin/cti/knowledge/searchadd/addindex/quickAll.action",
-//               dataType: "jsonp",
-//               data: {
-//                 keywords:$.trim($("#title").val()),
-//                 t: new Date().getTime()
-//               },
-//               success: function( data ) {
-//             	console.log(data.o.knows);
-//                 response( $.map( data.o.knows, function( item ) {
-//                   return {
-//                     label: "["+item.system+"]"+item.title,
-//                     value: item.title
-//                   }
-//                 }));
-//               }
-//             });
-//           },
-//           minLength: 2
-//     });
-//     $(".ui-helper-hidden-accessible").css("display","none");
 
-    $('#title').autocomplete({
-        minLength : 0,
-        max : 5,
-        delay : 500,
-        source : function(request, response) {
+    $("#title").autocomplete({
+        minLength: 0,
+        max: 5,
+        delay: 200,
+        source: function (request, response) {
             var term = request.term;
-            //if (term in cache) { response(cache[term]); return;}
-            var postdata = {
-                "keywords" : request.term
-            }
-            var _url = "http://kl.chsi.com.cn/admin/cti/knowledge/searchadd/addindex/quickAll.action";
-            $.ajax({
-                type : "get",
-                cache : false,
-                async : true,
-                crossDomain : true,
-                url : _url,
-                data : postdata,
-                dataType : "jsonp",
-                jsonp : "callback", //回调函数的参数  
-                jsonpCallback : "parseAutoSearch", //回调函数的名称  
-                success : function(data) {
-                    if (!data['flag']) {
-                        return;
-                    }
-                    //if(data['o'].length<1){response(); return;}
-                    //cache[term] = data["o"];
+            var postdata = {"keywords":request.term,"systemId":""};
+            var _url = "http://kl.chsi.com.cn/search/autoTitle.action";
+            $.ajax({ 
+                type: "get",
+                cache: false,
+                async: true,
+                crossDomain:true,
+                url: _url,  
+                data:postdata, 
+                dataType: "jsonp",
+                jsonp: "callback", //回调函数的参数  
+                jsonpCallback: "parseAutoSearch", //回调函数的名称  
+                success: function(data) {
                     console.log(data);
-                    response($.map(data.o.knows,function(item) {
+                    response($.map(data["o"].knows, function(item){
                         return {
-                            value : item.title,
-                            tagId : item.tagIds[0],
-                            keywords : item.keywords,
-                            label : item.title,
-                            desc : item.summary
-                        }
+                            value: item.title,
+                            keywords: item.keywords,
+                            label: item.title,
+                            desc: item.summary,
+                            system: item.system,
+                            knowId: item.knowId
+                        }                       
                     }));
-
                 },
-                error : function(XMLHttpRequest,
-                        textStatus, errorThrown) {
-                    alert(textStatus)
-                    alert('请求时发生了错误，请稍后再试');
-                }
-            });
-
+                error: function(XMLHttpRequest, textStatus, errorThrown){
+                    alert(textStatus+'请求时发生了错误，请稍后再试');  
+                }  
+            }); 
         },
-        focus : function(event, ui) {
-            $('#search_n').val(ui.item.value);
+        focus: function(event, ui) {
+            $("#judge").val("0");
+            return false;
         },
-
-        select : function(event, ui) {
-            $("#help_search_form").submit();
-        }
-
-    }).data("ui-autocomplete")._renderItem = function(ul,item) {
-        var reg = new RegExp("(" + item.keywords + ")", "g");
-        item.desc = item.desc.replace(reg,
-                "<strong style='color:#c30'>$1</strong>");
-        item.label = item.label.replace(reg,
-                "<strong style='color:#c30'>$1</strong>");
-
-        return $("<li>").append(
-                "<a>" + item.label + "<br/><span class='summer_stuff'>"
-                        + item.desc + "</span></a>").appendTo(ul);
+        change:function(event, ui) {
+             $("#judge").val("");
+        },
+        select: function(event, ui){
+            $("#judge").val("");
+            return false;
+       }
+    }).data("ui-autocomplete")._renderItem = function (ul, item) {   
+        return $("<li>").append("<a>"+item.label+"<span class='system'>["+item.system+"]</span></a>").appendTo(ul);
     };
-
-
-
     
     $("#title").blur(function () { 
         
@@ -441,79 +399,4 @@ function checkTheForm(from){
     }
     return true;
 }
-
-function searchInputIng(){
-    $('#title').on('input paste',function(event){
-        event.stopPropagation();          
-        setTimeout(autoSearchFn,500); 
-    }).css('visibility','visible').focus();
-}
-function autoSearchFn(){    
-    var text = $.trim($('#title').val());
-    console.log(text);
-    
-    if(text ==""){ 
-    	return false;
-    }
-    ajaxJSONP('http://kl.chsi.com.cn/admin/cti/knowledge/searchadd/addindex/quickAll.action',text,inputSearchShow,true);
-//     if(text ==""){ 
-//         $('#hot_lists').show();
-//         $('#ask_list').html('');
-//         return false;
-//     }else if (text == InputText){
-//         return false;   
-//     }
-//     $('#hot_lists').hide();
-//     ajaxJSONP('quickall',text,inputSearch,true);
-}
-//通用ajax函数
-function ajaxJSONP(url,text,callback,flag){
-    var _url = url;
-    var data = "keywords="+text; 
-    InputText = text;
-    $.ajax({ 
-        global:true, 
-        type: "post",
-        cache: false,
-        async: true,
-        crossDomain:true,
-        url: _url,  
-        data:data,
-        dataType: "jsonp",  
-        jsonp: "callback", //回调函数的参数  
-        //jsonpCallback: callback, //回调函数的名称 
-        success: callback,
-        error: function(XMLHttpRequest, textStatus, errorThrown){
-            console.log(textStatus+":"+data);
-        }
-    });
-    return false;
-}
-function inputSearchShow(json){
-    if(!json.flag){ alert(json.errorMessages); return;}
-    console.log("展示搜索结果！");
-    console.log(json);
-    $("#search_list").html(template('input_list_detail',json));
-}
-//artTemplate辅助方法-高亮关键字
-template.helper('hightWord', function (k,o) {
-    var pattern = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？]",'g');
-    var _k = k.replace(pattern,'')
-     var reg = new RegExp("("+$.trim(_k)+")","g");
-    return  o.replace(reg, "<strong style='color:#c30'>$1</strong>");
-});
-</script>
-<!--自动完成内容-->
-<script id="input_list_detail" type="text/html">
-<ul class="hot_search_list">
-{{if o.knows.length>0 }}
- {{each o.knows as value i}} 
- <li>
-    <a class="ui-corner-all"  href="javascript:void(0)">[<span title="{{value.systems}}">{{value.system}}</span>]{{#hightWord(value.keywords,value.title)}}
-    </a>
- </li> 
- {{/each}}  
-{{/if}}
-</ul>
-
 </script>
