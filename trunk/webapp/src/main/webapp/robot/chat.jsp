@@ -179,7 +179,16 @@ function ajaxJSONP_s(data,callback){
 }
 function feedback(json){
     return false;
-}	
+}
+function errorMsg(){
+    var a="<div class='clearfix marginb hide'><div class='robot'><div class='icon1'></div>请准确描述问题噢~关键字应正确输入，方便为您解答。。。</div>";
+    $("#showbox").append(a);
+    setTimeout(function () {
+        $("#showbox .marginb:last").removeClass("hide");
+        var height = $("#showbox").prop('scrollHeight');//原来的高度 
+        $("#showbox").scrollTop(height);//滚动到原来的高度，正好从最新用户输入开始显示        
+    }, 500);
+}
 //文本框输入调用
 function input() {
 	var q =htmlspecialchars($("#inputbox").val());
@@ -218,7 +227,7 @@ function input() {
 				$("#showbox").scrollTop(height);//滚动到原来的高度，正好从最新用户输入开始显示		
 			}, 500);									
 		}
-	},"json");
+	},"json").error(function(){errorMsg();});
 	$("#inputbox").val("");	
 }
 //点击常见问题
@@ -271,7 +280,7 @@ $(function(){
 					$("#showbox").scrollTop(height);//滚动到原来的高度，正好从最新用户输入开始显示		
 				}, 500);	
 			}
-		},'json');
+		},'json').error(function(){errorMsg();});
 	});
 	//控制页面整体高度
 	var _wh = $(window).height();
@@ -435,7 +444,7 @@ function ajaxJSONP(data,callback){
 					$("#showbox").scrollTop(height);//滚动到原来的高度，正好从最新用户输入开始显示		
 				}, 500);
 			}
-		},"json");
+		},"json").error(function(){errorMsg();});
 	});      
 }    
 //自动完成
@@ -508,7 +517,7 @@ $(function() {
 				}, 500);					
 				$("#judge").val("");
 				$("#inputbox").val("");
-			},"json"); 
+			},"json").error(function(){errorMsg();});
 			var pattern = "还可以输入<span class='red'>100</span>个字";
             $("#contentwordage").html(pattern);	 
             $("#judge").val("");
