@@ -12,14 +12,14 @@ import="com.chsi.knowledge.pojo.KnowledgeData,com.chsi.knowledge.util.ManageCach
 systemId = systemId==null?"":systemId;%>
 <style>
 .content { padding: 25px 0 30px 0; background: #ccc;}
-.logo { position: relative; width:1000px; height: 70px; margin:0 auto;  background-color: #28bca4; color: #fff; }
+.logo { position: relative; width:1000px; height: 70px; margin:0 auto;  background-color: #28bca4; color: #fff; z-index: 999; }
 .logo .logo_img { position: absolute; left: 0px; top: -25px; width: 78px; height: 93px; background: url(../images/wap/help/logo.png) no-repeat 2px 0;}	
 .logo .logo_title { padding: 10px 0 0 85px; font-size: 22px;}
 .logo .logo_sub { padding: 0px 0 0 85px; font-size: 16px; opacity: 0.5; filter:alpha(opacity=50);}
 .logo .switch { position: absolute; right: 15px; top: 20px; width: 30px; height: 30px; background: url(../images/wap/help/close.png) no-repeat; cursor: pointer;}	
 .logo .switch:hover{ opacity: 0.8; filter:alpha(opacity=80);}
 .logo .weixin { position: absolute; right: 60px; top: 0px; width: 70px; height: 70px; line-height: 110px; background: url(../images/wap/help/weixin.png) 15px 10px no-repeat; font-size: 12px; text-align: center; cursor: pointer;}
-.logo .weixin .weixin_l {position: absolute; top: 69px; right: -10px; display: none; width: 180px; height: 180px; border-radius: 3px; box-shadow: 0px 4px 6px #999; background: url(../images/wap/help/chsi.jpg) no-repeat; z-index: 10;}
+.logo .weixin .weixin_l {position: absolute; top: 69px; right: -10px; display: none; width: 180px; height: 180px; border-radius: 3px; box-shadow: 0px 4px 6px #999; background: url(../images/wap/help/chsi.jpg) no-repeat;}
 .logo .weixin .triangle-up {position: absolute; top:62px; right: 30px; display: none; width: 0; height: 0; border-left: 8px solid transparent;border-right: 8px solid transparent; border-bottom: 8px solid #fff;}
 .logo .weixin:hover .weixin_l { display: block;}
 .logo .weixin:hover .triangle-up { display: block;}
