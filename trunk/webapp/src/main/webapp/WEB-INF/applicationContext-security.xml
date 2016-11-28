@@ -55,6 +55,7 @@
 
         <intercept-url pattern="/htgl/admin/druid/**" access="ROLE_XLRZ_MODULE_ADMIN_MODIFY" />
         
+        <intercept-url pattern="/admin/nocas/**" access="IS_AUTHENTICATED_ANONYMOUSLY" />
         <intercept-url pattern="/admin/cti/**" access="ROLE_CTI_USER" />
         <intercept-url pattern="/admin/query/**" access="ROLE_KNOWLEDGE_READONLY" />
         <intercept-url pattern="/admin/system/**" access="ROLE_KNOWLEDGE_ADMIN" /> 

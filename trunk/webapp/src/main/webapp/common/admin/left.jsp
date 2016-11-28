@@ -17,7 +17,7 @@ try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
     
     <%if(user.getAuths().contains(com.chsi.knowledge.Constants.ROLE_KNOWLEDGE_READONLY)) {%>
     
-    <li id="search_menu" class=""><a href="/query/searchindex.action"> <i class="menu-icon fa fa-search"></i> <span class="menu-text"> 知识查询 </span>
+    <li id="search_menu" class=""><a href="/admin/query/searchindex.action"> <i class="menu-icon fa fa-search"></i> <span class="menu-text"> 知识查询 </span>
     </a> <b class="arrow"></b></li>
     <%} %>
     

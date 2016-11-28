@@ -17,6 +17,7 @@ import com.chsi.account.client.AccountServiceClientFactory;
 import com.chsi.account.client.UserAccountData;
 import com.chsi.account.client.UserOrganizationData;
 import com.chsi.framework.remote.RemoteCallRs;
+import com.chsi.framework.util.ValidatorUtil;
 import com.chsi.knowledge.util.RemoteCallUtil;
 import com.chsi.knowledge.vo.LoginUserVO;
 import com.chsi.knowledge.web.util.WebAppUtil;
@@ -25,6 +26,7 @@ import com.chsi.knowledge.web.util.WebAppUtil;
  * @author chenjian
  */
 public class LoginFilter  implements Filter {
+    private String[] exclusionsPaths = null;
 
     public void destroy() {
         // TODO Auto-generated method stub
@@ -35,6 +37,15 @@ public class LoginFilter  implements Filter {
             FilterChain arg2) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest)arg0;
         HttpServletResponse response = (HttpServletResponse)arg1;
+        String uri = request.getRequestURI();
+        if(exclusionsPaths!=null) {
+            for(String path:exclusionsPaths) {
+                if(uri.contains(path)) {
+                    arg2.doFilter(arg0, arg1);
+                    return;
+                }
+            }
+        }
         LoginUserVO user = WebAppUtil.getLoginUserVO(request);
         if (null == user) {
             String userId = WebAppUtil.getUserId();
@@ -57,9 +68,15 @@ public class LoginFilter  implements Filter {
         arg2.doFilter(arg0, arg1);
     }
 
-    public void init(FilterConfig arg0) throws ServletException {
-        // TODO Auto-generated method stub
-        
+    public void init(FilterConfig config) throws ServletException {
+        try {
+            String exclusions = config.getInitParameter("exclusions");
+            if (!ValidatorUtil.isNull(exclusions)) {
+                exclusionsPaths = exclusions.split(",");
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
 }
