@@ -181,9 +181,11 @@ public class RobotSetAction extends AjaxAction{
             robotIndexData.setA(anser);
             robotIndexData.setNum(num);
             robotService.deleteRobotQASet(id);
-            SearchServiceClient searchClient = SearchServiceClientFactory.getSearchServiceClient();
-            searchClient.updateRobotQA(robotIndexData);
-            searchClient.deleteRobotQA(id);
+            if(!robotIndexData.getQ().startsWith("#")){
+                SearchServiceClient searchClient = SearchServiceClientFactory.getSearchServiceClient();
+                searchClient.updateRobotQA(robotIndexData);
+                searchClient.deleteRobotQA(id);
+            }
             ManageCacheUtil.removeRobotABySpecialQ(q);
         }
         return SUCCESS;
