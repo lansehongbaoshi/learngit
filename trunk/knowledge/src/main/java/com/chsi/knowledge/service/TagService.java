@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.chsi.knowledge.dic.KnowledgeStatus;
 import com.chsi.knowledge.dic.KnowledgeType;
+import com.chsi.knowledge.dic.TagProperty;
 import com.chsi.knowledge.pojo.TagData;
 import com.chsi.knowledge.vo.ViewTagVO;
 /**
@@ -31,6 +32,8 @@ public interface TagService {
     void delete(TagData tagData);
     
     TagData getTagData(String systemId, String name);
+    
+    List<TagData> getTagData(String systemId, TagProperty property);
     
     TagData getTagData(String id);
 }

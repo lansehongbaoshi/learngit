@@ -1,7 +1,6 @@
 package com.chsi.knowledge.action.search;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -53,13 +52,13 @@ public class SearchAction extends AjaxAction {
 
     // 指定系统内,关键字自动完成
     public void quickSearchKnow() throws Exception {
-        keywords = SearchUtil.keywordsFilter(keywords);
-        if (ValidatorUtil.isNull(keywords)) {
+        String goodKeywords = SearchUtil.keywordsFilter(keywords);
+        if (ValidatorUtil.isNull(goodKeywords)) {
             ajaxMessage.setO(new ArrayList<SearchVO>());
         } else if (null == systemService.getSystemById(systemId)) {
             ajaxMessage.setO(new ArrayList<SearchVO>());
         } else {
-            KnowListVO<KnowledgeVO> listVO = knowIndexService.searchKnow(keywords, systemId, (curPage - 1) * Constants.SEARCH_PAGE_SIZE, Constants.SEARCH_PAGE_SIZE);
+            KnowListVO<KnowledgeVO> listVO = knowIndexService.searchKnow(goodKeywords, systemId, (curPage - 1) * Constants.SEARCH_PAGE_SIZE, Constants.SEARCH_PAGE_SIZE);
             List<SearchVO> list = SearchUtil.exchangeResultList(listVO, keywords, 14);
 //            saveSearchLog(list);
             ajaxMessage.setO(list);
@@ -70,12 +69,12 @@ public class SearchAction extends AjaxAction {
 
     // 指定系统内搜索
     public void searchAllKnow() throws Exception {
-        keywords = SearchUtil.keywordsFilter(keywords);
+        String goodKeywords = SearchUtil.keywordsFilter(keywords);
         if (null == systemService.getSystemById(systemId)) {
             ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
         } else {
             ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
-            KnowListVO<KnowledgeVO> listVO = knowIndexService.searchKnow(keywords, systemId, (curPage - 1) * Constants.PAGE_SIZE, Constants.PAGE_SIZE);
+            KnowListVO<KnowledgeVO> listVO = knowIndexService.searchKnow(goodKeywords, systemId, (curPage - 1) * Constants.PAGE_SIZE, Constants.PAGE_SIZE);
             List<SearchVO> list = SearchUtil.exchangeResultList(listVO, keywords, 40);
             if(!ValidatorUtil.isNull(keywords)) {
                 saveSearchLog(list);
@@ -88,9 +87,9 @@ public class SearchAction extends AjaxAction {
 
     // 全系统搜索（自动完成处用），对外使用（如帮助中心）
     public String quickAll() throws Exception {
-        keywords = SearchUtil.keywordsFilter(keywords);
+        String goodKeywords = SearchUtil.keywordsFilter(keywords);
         Map<String, String> queryParams = new HashMap<String, String>();
-        queryParams.put("q", keywords);
+        queryParams.put("q", goodKeywords);
         List<SystemOpenTimeData> systems = ManageCacheUtil.getUnderwaySystem();
         if(systems!=null) {
             StringBuffer sb = new StringBuffer();
@@ -121,10 +120,10 @@ public class SearchAction extends AjaxAction {
 
     // 全系统搜索，对外使用（如帮助中心）
     public String allSearch() throws Exception {
-        keywords = SearchUtil.keywordsFilter(keywords);
+        String goodKeywords = SearchUtil.keywordsFilter(keywords);
         ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
         Map<String, String> queryParams = new HashMap<String, String>();
-        queryParams.put("q", keywords);
+        queryParams.put("q", goodKeywords);
         List<SystemOpenTimeData> systems = ManageCacheUtil.getUnderwaySystem();
         if(systems!=null) {
             StringBuffer sb = new StringBuffer();
@@ -155,9 +154,9 @@ public class SearchAction extends AjaxAction {
     
     // 全系统或限定系统搜索公开标题（自动完成处用,如机器人）
     public String autoTitle() throws Exception {
-        keywords = SearchUtil.keywordsFilter2(keywords);
+        String goodKeywords = SearchUtil.keywordsFilter2(keywords);
         Map<String, String> queryParams = new HashMap<String, String>();
-        queryParams.put("q", keywords);
+        queryParams.put("q", goodKeywords);
         queryParams.put("qf", "title");
         if(!ValidatorUtil.isNull(systemId)) {
             queryParams.put("fq", String.format("type:PUBLIC AND system_ids:%s", systemId));
@@ -181,9 +180,9 @@ public class SearchAction extends AjaxAction {
     }
     // 全系统或限定系统搜索全部标题（自动完成处用,如机器人）
     public String autoAllTitle() throws Exception {
-        keywords = SearchUtil.keywordsFilter2(keywords);
+        String goodKeywords = SearchUtil.keywordsFilter2(keywords);
         Map<String, String> queryParams = new HashMap<String, String>();
-        queryParams.put("q", keywords);
+        queryParams.put("q", goodKeywords);
         queryParams.put("qf", "title");
         queryParams.put("fl", "id,title");
         queryParams.put("hl", "true");

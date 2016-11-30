@@ -28,7 +28,7 @@ try{
     if(keyword!=null) {
         List<OrgUserInfoVO> orgUsers = searchClient.getOrgUserInfos(keyword, orgTypes, orderBy!=null?orderBy:"", 0, 100).getList();
         for(OrgUserInfoVO vo:orgUsers) {
-            out.println(String.format("<p>xm:%s,dwdm:%s,dwmc:%s,userType:%s</p>",vo.getXm(),vo.getDwdm(),vo.getDwmc(),vo.getUserType()));
+            out.println(String.format("<p>xm:%s,dwdm:%s,dwmc:%s,userType:%s,zwlx:%s</p>",vo.getXm(),vo.getDwdm(),vo.getDwmc(),vo.getUserType(),vo.getZwlx()));
         }
     	//out.println("=====searchClient.getOrgInfos(\"邢台\", orgTypes, \"dwdm\", 0, 20).getList().size()"+searchClient.getOrgInfos("邢台", orgTypes, "dwdm", 0, 20).getList().size());
     }else{%>

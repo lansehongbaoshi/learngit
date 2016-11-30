@@ -5,9 +5,11 @@ import java.util.Map;
 
 import com.chsi.knowledge.Constants;
 import com.chsi.knowledge.action.base.AjaxAction;
+import com.chsi.knowledge.dic.TagProperty;
 import com.chsi.knowledge.pojo.KnowTagRelationData;
 import com.chsi.knowledge.pojo.KnowledgeData;
 import com.chsi.knowledge.pojo.SystemData;
+import com.chsi.knowledge.pojo.TagData;
 import com.chsi.knowledge.service.KnowTagRelationService;
 import com.chsi.knowledge.service.KnowledgeService;
 import com.chsi.knowledge.service.QueueService;
@@ -47,7 +49,20 @@ public class KnowledgeAction extends AjaxAction{
             ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
         } else {
             if (tagId != null && tagId.equals("normal")) {
-                if("zb".equals(systemId)) {
+                List<TagData> list = tagService.getTagData(systemId, TagProperty.DEFAULT);
+                if(list.size()>0) {
+                    tagId = list.get(0).getId();
+                } else {
+                    list = tagService.get(systemId);
+                    if(list.size()>0) {
+                        tagId = list.get(0).getId();
+                    } else {
+                        ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
+                        writeCallbackJSON(callback);
+                        return;
+                    }
+                }
+                /*if("zb".equals(systemId)) {
                     tagId = tagService.getTagData(systemId, "常见问题").getId();
                 } else if("yz_wb".equals(systemId)) {
                     tagId = tagService.getTagData(systemId, "报名资格").getId();
@@ -56,8 +71,13 @@ public class KnowledgeAction extends AjaxAction{
                 } else if("account".equals(systemId)) {
                     tagId = tagService.getTagData(systemId, "常见问题").getId();
                 } else if("my".equals(systemId)) {
-                    tagId = tagService.getTagData(systemId, "学籍查询").getId();
-                }
+                    tag = tagService.getTagData("th2vv4ybh868t8f3");//默认为：学籍信息
+                    if(tag!=null) {
+                        tagId = tag.getId();
+                    } else {
+                        tagId = tagService.get("my").get(0).getId();
+                    }
+                }*/
             }
             ViewKnowsVO viewKnowsVO = knowledgeService.getViewKnowsVO(systemData, tagId, (curPage - 1) * Constants.PAGE_SIZE, Constants.PAGE_SIZE);
             ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);

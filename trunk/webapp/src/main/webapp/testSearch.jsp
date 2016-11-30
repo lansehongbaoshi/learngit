@@ -27,7 +27,7 @@ try{
     if(keyword!=null) {
         List<OrgInfoVO> orgs = searchClient.getOrgInfos(keyword, orgTypes, "", 0, 100).getList();
         for(OrgInfoVO vo:orgs) {
-            out.println(String.format("<p>dwdm:%s,dwmc:%s,orgType:%s</p>",vo.getDwdm(),vo.getDwmc(),vo.getOrgType()));
+            out.println(String.format("<p>dwdm:%s,dwmc:%s,orgType:%s,orgTagIds:%s</p>",vo.getDwdm(),vo.getDwmc(),vo.getOrgType(),Arrays.toString(vo.getTagIds().toArray())));
         }
     	//out.println("=====searchClient.getOrgInfos(\"邢台\", orgTypes, \"dwdm\", 0, 20).getList().size()"+searchClient.getOrgInfos("邢台", orgTypes, "dwdm", 0, 20).getList().size());
     }else{%>

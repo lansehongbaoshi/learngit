@@ -9,6 +9,7 @@ import com.chsi.knowledge.dao.KnowledgeDataDAO;
 import com.chsi.knowledge.dao.TagDataDAO;
 import com.chsi.knowledge.dic.KnowledgeStatus;
 import com.chsi.knowledge.dic.KnowledgeType;
+import com.chsi.knowledge.dic.TagProperty;
 import com.chsi.knowledge.pojo.KnowTagRelationData;
 import com.chsi.knowledge.pojo.TagData;
 import com.chsi.knowledge.service.TagService;
@@ -80,6 +81,12 @@ public class TagServiceImpl extends BaseDbService implements TagService{
     @Override
     public void delete(TagData tagData) {
         tagDataDAO.delete(tagData);
+    }
+
+    @Override
+    public List<TagData> getTagData(String systemId, TagProperty property) {
+        List<TagData> list = tagDataDAO.getTagData(systemId, property.ordinal());
+        return list;
     }
 
 }

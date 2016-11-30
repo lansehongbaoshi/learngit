@@ -31,6 +31,7 @@ public class TagAction extends AjaxAction{
     private String id;
     private String name;
     private String description;
+    private String property;
     
     private TagData tagData;
     
@@ -110,6 +111,14 @@ public class TagAction extends AjaxAction{
         this.sort = sort;
     }
     
+    public String getProperty() {
+        return property;
+    }
+
+    public void setProperty(String property) {
+        this.property = property;
+    }
+
     public List<TagData> getTags() {
         return this.tags;
     }
@@ -144,6 +153,7 @@ public class TagAction extends AjaxAction{
             return ERROR;
         }
         TagData tagData = new TagData(null, system, name, description, sort);
+        tagData.setProperty(ValidatorUtil.isNull(property)?0:Integer.parseInt(property));
         tagService.saveOrUpdate(tagData);
         id = tagData.getId();
         ManageCacheUtil.removeTagList(systemId);
@@ -172,6 +182,7 @@ public class TagAction extends AjaxAction{
         tagData.setName(name);
         tagData.setSort(sort);
         tagData.setDescription(description);
+        tagData.setProperty(ValidatorUtil.isNull(property)?0:Integer.parseInt(property));
         tagService.saveOrUpdate(tagData);
         setSystemId(tagData.getSystemData().getId());
         ManageCacheUtil.removeTagList(getSystemId());

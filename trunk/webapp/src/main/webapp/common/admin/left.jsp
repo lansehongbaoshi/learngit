@@ -7,7 +7,7 @@ com.chsi.knowledge.vo.LoginUserVO user = com.chsi.knowledge.web.util.WebAppUtil.
 try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
 </script>
   <ul id="menu" class="nav nav-list">
-    <%if(user.getAuths().contains(com.chsi.knowledge.Constants.ROLE_CTI_USER)) {%>
+    <%if(user.getAuths().contains(com.chsi.knowledge.Constants.ROLE_CTI_USER) && !user.getAuths().contains(com.chsi.knowledge.Constants.ROLE_KNOWLEDGE)) {%>
         <li id="homepage_menu" class=""><a href="/admin/cti/index.action"> <i class="menu-icon fa fa-tachometer"></i> <span class="menu-text"> 首页 </span>
         </a> <b class="arrow"></b></li>
     <%} else if(user.getAuths().contains(com.chsi.knowledge.Constants.ROLE_KNOWLEDGE)){ %>
@@ -21,7 +21,7 @@ try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
     </a> <b class="arrow"></b></li>
     <%} %>
     
-    <%if(user.getAuths().contains(com.chsi.knowledge.Constants.ROLE_CTI_USER)) {%>
+    <%if(user.getAuths().contains(com.chsi.knowledge.Constants.ROLE_CTI_USER) && !user.getAuths().contains(com.chsi.knowledge.Constants.ROLE_KNOWLEDGE)) {%>
     
     <li id="search_menu" class=""><a href="/admin/cti/knowledge/searchindex.action"> <i class="menu-icon fa fa-pencil-square-o"></i> <span class="menu-text"> 知识管理 </span>
     </a> <b class="arrow"></b></li>

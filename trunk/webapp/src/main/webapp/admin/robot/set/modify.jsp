@@ -29,7 +29,7 @@
           匹配分词阈值：<input type="text" name="num" value="<s:property value="key.num"/>" check="^[1-9]\d{0,2}$" warn="匹配分词阈值为正整数(1~999之间)" style="width: 400px;"  max="100" min="0" <s:if test="key.systemDefined">readonly="true"</s:if>><span>（说明：用户输入匹配用户提问的分词数目大于等于此值时才认为回答合理）</span>
         </p>
         <p>
-          机器人回答：<input type="button" value="+" onclick="addLi()"></p>
+          机器人回答：<input type="button" value="+" onclick="addLi()"><span>（说明：如需换行，请在新一行前加&lt;br&gt;）</span></p>
         <ol>
           <s:iterator value="value" var="a" status="index">
             <li>

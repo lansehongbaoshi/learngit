@@ -34,9 +34,11 @@
                     </p>
 
                     <p>标签排序：
-                        <input id="sort" type="text" name="sort" style="width: 100px;" value=""> <span>（说明：1~999之间的数字,数值越大,排序越靠前）<span>
+                        <input id="sort" type="text" name="sort" style="width: 100px;" value=""> <span>（说明：1~999之间的数字,数值越大,排序越靠前）</span>
                             </p>
-                       
+                    <p>默认标签：
+                        <input id="" type="checkbox" name="property" style="width: 100px;" value="1" > <span>（说明：勾上则为默认标签，一个系统只能勾一个默认标签）</span>
+                            </p>   
                     
                         <div class="clear"></div>
                         <div class="clearfix form-actions">

@@ -32,6 +32,8 @@ public class TagData extends PersistentObject {
     
     private int knowCnt;//关联的知识数量
     private boolean flag;
+    
+    private Integer property;
 
     public void setData(PersistentObject persistentObject) {
         TagData tagData = (TagData) persistentObject;
@@ -104,6 +106,15 @@ public class TagData extends PersistentObject {
 
     public void setSort(int sort) {
         this.sort = sort;
+    }
+    
+    @Column(name = "PROPERTY")
+    public Integer getProperty() {
+        return property;
+    }
+
+    public void setProperty(Integer property) {
+        this.property = property;
     }
 
     @Transient
