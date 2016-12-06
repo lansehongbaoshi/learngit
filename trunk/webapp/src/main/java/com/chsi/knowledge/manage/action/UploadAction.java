@@ -36,12 +36,14 @@ import com.chsi.knowledge.service.TagService;
 import com.chsi.knowledge.vo.LoginUserVO;
 import com.ibm.icu.text.DecimalFormat;
 import com.ibm.icu.text.SimpleDateFormat;
+
 /**
  * 导入数据类
+ * 
  * @author chenjian
  */
 public class UploadAction extends AjaxAction {
- 
+
     private static final long serialVersionUID = 1L;
     private TagService tagService;
     private KnowledgeService knowledgeService;
@@ -51,11 +53,11 @@ public class UploadAction extends AjaxAction {
     private File upload;
     private String uploadContentType; // 文件的内容类型
     private String uploadFileName; // 上传文件名
-    
+
     private String id;
     private String name;
     private String desc;
-    
+
     public String getId() {
         return id;
     }
@@ -80,8 +82,8 @@ public class UploadAction extends AjaxAction {
         this.desc = desc;
     }
 
-    //保存知识点到系统内和新闻系统
-    private void saveData(String[][] result){
+    // 保存知识点到系统内和新闻系统
+    private void saveData(String[][] result) {
         // 保存系统
         SystemData system = new SystemData(id, name, desc);
         systemService.save(system);
@@ -100,33 +102,31 @@ public class UploadAction extends AjaxAction {
             tagData = new TagData(null, system, name, name, 0);
             tagService.saveOrUpdate(tagData);
             list.add(tagData);
-        }  
+        }
         /**
          * 插知识代码
          */
-        KnowledgeData knowledgeData = null;   
+        KnowledgeData knowledgeData = null;
         for (int i = 0; i < result.length; i++) {
             TagData tagData2 = null;
             for (TagData t : list) {
                 if (t.getName().equals(result[i][0]))
                     tagData2 = t;
             }
-            knowledgeData = new KnowledgeData(null, result[i][1], null, 0, Integer.parseInt(result[i][4]), 
-                                            KnowledgeStatus.YSH, getLoginedUserId(), Calendar.getInstance(),
-                                            null, null, KnowledgeType.PUBLIC.toString());
-            
+            knowledgeData = new KnowledgeData(null, result[i][1], null, 0, Integer.parseInt(result[i][4]), KnowledgeStatus.YSH, getLoginedUserId(), Calendar.getInstance(), null, null, KnowledgeType.PUBLIC.toString());
+
             LoginUserVO loginUserVO = getLoginUserVO();
-            //保存知识
+            // 保存知识
             knowledgeService.save(knowledgeData, result[i][2], result[i][3], loginUserVO.getOrg().getCode(), getLoginedUserId());
-            //保存知识与标签关系
-            KnowTagRelationData knowTagRelationData = new KnowTagRelationData(null,knowledgeData,tagData2);
+            // 保存知识与标签关系
+            KnowTagRelationData knowTagRelationData = new KnowTagRelationData(null, knowledgeData, tagData2);
             knowTagRelationService.save(knowTagRelationData);
-        } 
-        
+        }
+
     }
-    
+
     public String upload() throws Exception {
-        if(ValidatorUtil.isNull(id)||ValidatorUtil.isNull(name)||ValidatorUtil.isNull(desc)) {
+        if (ValidatorUtil.isNull(id) || ValidatorUtil.isNull(name) || ValidatorUtil.isNull(desc)) {
             return ERROR;
         }
         String[][] result = getData(upload, 1);
@@ -136,6 +136,7 @@ public class UploadAction extends AjaxAction {
 
     /**
      * 读取Excel的内容，第一维数组存储的是一行中格列的值，二维数组存储的是多少个行
+     * 
      * @param file
      *            读取数据的源Excel
      * @param ignoreRows
@@ -145,12 +146,10 @@ public class UploadAction extends AjaxAction {
      * @throws IOException
      */
 
-    public  String[][] getData(File file, int ignoreRows)
-    throws FileNotFoundException, IOException {
+    public String[][] getData(File file, int ignoreRows) throws FileNotFoundException, IOException {
         List<String[]> result = new ArrayList<String[]>();
         int rowSize = 0;
-        BufferedInputStream in = new BufferedInputStream(new FileInputStream(
-        file));
+        BufferedInputStream in = new BufferedInputStream(new FileInputStream(file));
         // 打开HSSFWorkbook
         POIFSFileSystem fs = new POIFSFileSystem(in);
         HSSFWorkbook wb = new HSSFWorkbook(fs);
@@ -206,7 +205,7 @@ public class UploadAction extends AjaxAction {
                             value = "";
                             break;
                         case HSSFCell.CELL_TYPE_BOOLEAN:
-                            value = (cell.getBooleanCellValue() == true ? "Y"  : "N");
+                            value = (cell.getBooleanCellValue() == true ? "Y" : "N");
                             break;
                         default:
                             value = "";
@@ -234,6 +233,7 @@ public class UploadAction extends AjaxAction {
 
     /**
      * 去掉字符串右边的空格
+     * 
      * @param str
      *            要处理的字符串
      * @return 处理后的字符串
@@ -251,8 +251,6 @@ public class UploadAction extends AjaxAction {
         }
         return str.substring(0, length);
     }
-
-
 
     public TagService getTagService() {
         return tagService;
@@ -290,8 +288,7 @@ public class UploadAction extends AjaxAction {
         return knowTagRelationService;
     }
 
-    public void setKnowTagRelationService(
-            KnowTagRelationService knowTagRelationService) {
+    public void setKnowTagRelationService(KnowTagRelationService knowTagRelationService) {
         this.knowTagRelationService = knowTagRelationService;
     }
 
@@ -311,6 +308,4 @@ public class UploadAction extends AjaxAction {
         this.uploadFileName = uploadFileName;
     }
 
-    
-    
 }

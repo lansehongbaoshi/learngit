@@ -1,6 +1,5 @@
 package com.chsi.knowledge.service.impl;
 
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -14,19 +13,20 @@ import com.chsi.knowledge.dao.KnowTagRelationDataDAO;
 import com.chsi.knowledge.dao.KnowledgeDataDAO;
 import com.chsi.knowledge.dao.SystemDataDAO;
 import com.chsi.knowledge.dao.SystemOpenTimeDAO;
+import com.chsi.knowledge.dic.SystemProperty;
 import com.chsi.knowledge.pojo.KnowledgeData;
 import com.chsi.knowledge.pojo.SystemData;
 import com.chsi.knowledge.pojo.SystemOpenTimeData;
 import com.chsi.knowledge.service.SystemService;
 import com.chsi.knowledge.util.ManageCacheUtil;
 
-public class SystemServiceImpl extends BaseDbService implements SystemService{
+public class SystemServiceImpl extends BaseDbService implements SystemService {
 
     private SystemDataDAO systemDataDAO;
     private SystemOpenTimeDAO systemOpenTimeDAO;
     private KnowTagRelationDataDAO knowTagRelationDataDAO;
     private KnowledgeDataDAO knowledgeDataDAO;
-    
+
     @Override
     protected void doCreate() {
         systemDataDAO = getDAO(ServiceConstants.SYSTEMDATA_DAO, SystemDataDAO.class);
@@ -37,13 +37,13 @@ public class SystemServiceImpl extends BaseDbService implements SystemService{
 
     @Override
     protected void doRemove() {
-        
+
     }
-    
+
     @Override
     public SystemData getSystemById(String id) {
         SystemData systemData = systemDataDAO.getSystemById(id);
-        if(systemData!=null) {
+        if (systemData != null) {
             systemData.setList(systemOpenTimeDAO.getList(id));
         }
         return systemData;
@@ -53,14 +53,14 @@ public class SystemServiceImpl extends BaseDbService implements SystemService{
     public void save(SystemData systemData) {
         systemDataDAO.save(systemData);
     }
-    
+
     @Override
-    public void save(SystemData systemData,String[] startTime, String[] endTime) throws ParseException {
+    public void save(SystemData systemData, String[] startTime, String[] endTime) throws ParseException {
         systemDataDAO.save(systemData);
-        if(startTime != null && endTime != null){
-            if(startTime.length >0 && endTime.length >0){
-                for(int i=0;i<startTime.length;i++){
-                    if(!"".equals(startTime[i]) || !"".equals(endTime[i])){
+        if (startTime != null && endTime != null) {
+            if (startTime.length > 0 && endTime.length > 0) {
+                for (int i = 0; i < startTime.length; i++) {
+                    if (!"".equals(startTime[i]) || !"".equals(endTime[i])) {
                         SystemOpenTimeData systemOpenTimeData = new SystemOpenTimeData();
                         systemOpenTimeData.setSystemId(systemData.getId());
                         systemOpenTimeData.setStartTime(getCalendar(startTime[i]));
@@ -71,30 +71,30 @@ public class SystemServiceImpl extends BaseDbService implements SystemService{
             }
         }
     }
-    
-    private Calendar getCalendar(String time) throws ParseException{
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");  
-        Date date = sdf.parse(time); 
+
+    private Calendar getCalendar(String time) throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        Date date = sdf.parse(time);
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         return calendar;
     }
-    
+
     @Override
     public void update(SystemData systemData) {
         systemDataDAO.update(systemData);
         ManageCacheUtil.removeSystem(systemData.getId());
     }
-    
+
     @Override
     public void update(SystemData systemData, String[] startTime, String[] endTime) throws ParseException {
         systemDataDAO.update(systemData);
         ManageCacheUtil.removeSystem(systemData.getId());
         systemOpenTimeDAO.delete(systemData.getId());
-        if(startTime != null && endTime != null){
-            if(startTime.length >0 && endTime.length >0){
-                for(int i=0;i<startTime.length;i++){
-                    if(!"".equals(startTime[i]) || !"".equals(endTime[i])){
+        if (startTime != null && endTime != null) {
+            if (startTime.length > 0 && endTime.length > 0) {
+                for (int i = 0; i < startTime.length; i++) {
+                    if (!"".equals(startTime[i]) || !"".equals(endTime[i])) {
                         SystemOpenTimeData systemOpenTimeData = new SystemOpenTimeData();
                         systemOpenTimeData.setSystemId(systemData.getId());
                         systemOpenTimeData.setStartTime(getCalendar(startTime[i]));
@@ -107,13 +107,18 @@ public class SystemServiceImpl extends BaseDbService implements SystemService{
     }
 
     @Override
-    public List<SystemData> getSystems(boolean needTimeSet) {
-        List<SystemData> list = systemDataDAO.getSystems();
-        if(list == null || list.size() == 0){
+    public List<SystemData> getSystems(boolean needTimeSet, SystemProperty property) {
+        List<SystemData> list;
+        if(property==null) {
+            list = systemDataDAO.getSystems();
+        } else {
+            list = systemDataDAO.getSystems(property.ordinal());
+        }
+        if (list == null || list.size() == 0) {
             return null;
         }
-        if(needTimeSet) {
-            for(SystemData systemData:list){
+        if (needTimeSet) {
+            for (SystemData systemData : list) {
                 systemData.setList(systemOpenTimeDAO.getList(systemData.getId()));
             }
         }
@@ -127,8 +132,8 @@ public class SystemServiceImpl extends BaseDbService implements SystemService{
     }
 
     @Override
-    public List<SystemOpenTimeData> getOpenSystems() {
-        return systemOpenTimeDAO.getOpenSystems();
+    public List<SystemOpenTimeData> getUnderwaySystem() {
+        return systemOpenTimeDAO.getUnderwaySystem();
     }
 
     @Override
@@ -145,8 +150,8 @@ public class SystemServiceImpl extends BaseDbService implements SystemService{
     public List<SystemData> getSystemDataByKnowledgeId(String knowledgeId) {
         List<String> systemIds = systemDataDAO.getSystemIdByKnowledgeId(knowledgeId);
         List<SystemData> result = new ArrayList<SystemData>();
-        if(systemIds!=null && systemIds.size()>0) {
-            for(String systemId:systemIds) {
+        if (systemIds != null && systemIds.size() > 0) {
+            for (String systemId : systemIds) {
                 result.add(ManageCacheUtil.getSystem(systemId));
             }
         }
@@ -154,22 +159,19 @@ public class SystemServiceImpl extends BaseDbService implements SystemService{
     }
 
     @Override
-    public int getKnowsCntBySystem(String systemId,String type) {
-        // TODO Auto-generated method stub
-        long count = knowTagRelationDataDAO.getKnowsCntBySystemId(systemId,type);
+    public int getKnowsCntBySystem(String systemId, String type) {
+        long count = knowTagRelationDataDAO.getKnowsCntBySystemId(systemId, type);
         return Integer.parseInt(String.valueOf(count));
     }
 
     @Override
     public List<KnowledgeData> getKnowsBySystem(String systemId) {
-        // TODO Auto-generated method stub
         return knowTagRelationDataDAO.getKnowsBySystemId(systemId);
-        
+
     }
 
     @Override
     public void updateSystemKnowTime(List<KnowledgeData> knows) {
-        // TODO Auto-generated method stub
         knowledgeDataDAO.update(knows);
     }
 

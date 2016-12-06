@@ -10,8 +10,7 @@ import com.chsi.framework.hibernate.BaseHibernateDAO;
 import com.chsi.knowledge.dao.LogOperDataDAO;
 import com.chsi.knowledge.pojo.LogOperData;
 
-public class LogOperDataDAOImpl extends BaseHibernateDAO implements
-        LogOperDataDAO {
+public class LogOperDataDAOImpl extends BaseHibernateDAO implements LogOperDataDAO {
 
     @Override
     public void save(LogOperData logOper) {
@@ -28,29 +27,26 @@ public class LogOperDataDAOImpl extends BaseHibernateDAO implements
         return query.list();
     }
 
-    
-
     @Override
     public int getLogOpersCountByDate(Date startDate, Date endDate) {
         String hql = "SELECT COUNT(*) FROM LogOperData A WHERE A.createTime between ? and ? ORDER BY A.createTime DESC";
         Query query = hibernateUtil.getSession().createQuery(hql);
         query.setDate(0, startDate);
-        query.setDate(1,endDate );
-        
+        query.setDate(1, endDate);
+
         return Integer.parseInt(query.uniqueResult().toString());
     }
 
     @Override
-    public List<LogOperData> getLogOpersByDate(Date startDate,
-            Date endDate, int curPage, int pageSize) {
+    public List<LogOperData> getLogOpersByDate(Date startDate, Date endDate, int curPage, int pageSize) {
         String hql = "SELECT A FROM LogOperData A WHERE A.createTime between ? and ? ORDER BY A.createTime DESC";
         Query query = hibernateUtil.getSession().createQuery(hql);
         query.setDate(0, startDate);
-        query.setDate(1,endDate );
-        
+        query.setDate(1, endDate);
+
         query.setMaxResults(pageSize);
-        query.setFirstResult(curPage*pageSize);
+        query.setFirstResult(curPage * pageSize);
         return query.list();
     }
-    
+
 }

@@ -52,7 +52,7 @@ public class KnowledgeAction extends AjaxAction {
     private ViewKnowVO viewKnowVO;
     private KnowledgeData knowledgeData;
     private List<KnowTagRelationData> knowTagRelationList;
-    
+
     private KnowledgeService knowledgeService;
     private KnowIndexService knowIndexService;
     private TagService tagService;
@@ -62,9 +62,9 @@ public class KnowledgeAction extends AjaxAction {
     private DiscussCountVO discussCountVO;
     private KnowListVO<DiscussInfoVO> contentList;
     private LogOperService logOperService;
-    
+
     private int curPage;
-    
+
     protected AjaxMessage ajaxMessage = new AjaxMessage();
 
     public String getId() {
@@ -178,7 +178,7 @@ public class KnowledgeAction extends AjaxAction {
     public void setKnowTagRelationService(KnowTagRelationService knowTagRelationService) {
         this.knowTagRelationService = knowTagRelationService;
     }
-    
+
     public DiscussService getDiscussService() {
         return discussService;
     }
@@ -194,7 +194,7 @@ public class KnowledgeAction extends AjaxAction {
     public void setDiscussCountVO(DiscussCountVO discussCountVO) {
         this.discussCountVO = discussCountVO;
     }
-    
+
     public KnowListVO<DiscussInfoVO> getContentList() {
         return contentList;
     }
@@ -202,7 +202,7 @@ public class KnowledgeAction extends AjaxAction {
     public void setContentList(KnowListVO<DiscussInfoVO> contentList) {
         this.contentList = contentList;
     }
-    
+
     public int getCurPage() {
         return curPage;
     }
@@ -218,8 +218,6 @@ public class KnowledgeAction extends AjaxAction {
     public void setKeyId(String keyId) {
         this.keyId = keyId;
     }
-
-
 
     private static final long serialVersionUID = 464316546L;
 
@@ -241,6 +239,7 @@ public class KnowledgeAction extends AjaxAction {
         request.put(Constants.REQUEST_ERROR, "参数不能为空");
         return ERROR;
     }
+
     public String modifycheck() throws Exception {
         if (!ValidatorUtil.isNull(id)) {
             knowledgeData = knowledgeService.getKnowledgeWithArticleById(id);
@@ -249,7 +248,7 @@ public class KnowledgeAction extends AjaxAction {
                 if (knowTagRelationList != null && knowTagRelationList.size() > 0) {
                     return SUCCESS;
                 }
-            }else {
+            } else {
                 request.put(Constants.REQUEST_ERROR, "该知识点已审核通过，或者该知识点为在待审核状态！");
                 return ERROR;
             }
@@ -258,8 +257,7 @@ public class KnowledgeAction extends AjaxAction {
         request.put(Constants.REQUEST_ERROR, "参数不能为空");
         return ERROR;
     }
-    
-    
+
     public String modifyadd() throws Exception {
         if (!ValidatorUtil.isNull(id)) {
             knowledgeData = knowledgeService.getKnowledgeWithArticleById(id);
@@ -281,32 +279,32 @@ public class KnowledgeAction extends AjaxAction {
         String KId = knowledgeData.getId();
         discussCountVO = discussService.getDiscussCountVOByKId(KId);
         contentList = discussService.getDiscussInfoVOList(KId, 0, 10);
-        
+
         return SUCCESS;
     }
 
     // 更新某个知识点，包括更新系统内的knowledge表、新闻系统里的知识点
     public String updateKnowledge() throws Exception {
         String error = "";
-        if(ValidatorUtil.isNull(keywords)) {
+        if (ValidatorUtil.isNull(keywords)) {
             error = "请输入关键字";
-        } else if(ValidatorUtil.isNull(title)||title.length()>100) {
+        } else if (ValidatorUtil.isNull(title) || title.length() > 100) {
             error = "请输入标题并且长度在100以内";
-        } else if(ValidatorUtil.isNull(content)) {
+        } else if (ValidatorUtil.isNull(content)) {
             error = "请输入回答";
-        } else if(tagIds == null || tagIds.length == 0) {
+        } else if (tagIds == null || tagIds.length == 0) {
             error = "请先到\"<a href='/admin/tag/index.action'>便签管理</a>\"中增加标签";
-        } else if(!ValidatorUtil.isNumber(sort)||(Integer.parseInt(sort)<1||Integer.parseInt(sort)>99)) {
+        } else if (!ValidatorUtil.isNumber(sort) || (Integer.parseInt(sort) < 1 || Integer.parseInt(sort) > 99)) {
             error = "请输入热点度:1~99之间的整数,数值越大,排序越靠前";
-        } else if(ValidatorUtil.isNull(type)) {
+        } else if (ValidatorUtil.isNull(type)) {
             error = "请设定知识类型";
         }
-        if(!"".equals(error)) {
+        if (!"".equals(error)) {
             request.put(Constants.REQUEST_ERROR, error);
             return ERROR;
         }
         LoginUserVO loginUserVO = getLoginUserVO();
-        if (!ValidatorUtil.isNull(id) && !ValidatorUtil.isNull(title) && !ValidatorUtil.isNull(content) && !ValidatorUtil.isNull(sort) && tagIds != null && tagIds.length > 0 && !ValidatorUtil.isNull(keywords)&& !ValidatorUtil.isNull(type)) {
+        if (!ValidatorUtil.isNull(id) && !ValidatorUtil.isNull(title) && !ValidatorUtil.isNull(content) && !ValidatorUtil.isNull(sort) && tagIds != null && tagIds.length > 0 && !ValidatorUtil.isNull(keywords) && !ValidatorUtil.isNull(type)) {
             KnowledgeData data = knowledgeService.getKnowledgeById(id);
             data.setKeywords(keywords);
             data.setSort(Integer.parseInt(sort));
@@ -315,7 +313,7 @@ public class KnowledgeAction extends AjaxAction {
             data.setType(type);
             data.setKnowledgeStatus(KnowledgeStatus.YSH);
             knowledgeService.update(data, title, content, loginUserVO.getAcc().getId());
-            
+
             knowTagRelationService.del(id);
             for (String one : tagIds) {
                 TagData tagData = tagService.getTagData(one);
@@ -335,72 +333,72 @@ public class KnowledgeAction extends AjaxAction {
             logOper.setCreateTime(Calendar.getInstance());
             com.chsi.knowledge.vo.LoginUserVO user = com.chsi.knowledge.web.util.WebAppUtil.getLoginUserVO(httpRequest);
             logOper.setUserId(user.getAcc().getId());
-            if(user.getAuths().contains(com.chsi.knowledge.Constants.ROLE_CTI_USER)) {
+            if (user.getAuths().contains(com.chsi.knowledge.Constants.ROLE_CTI_USER)) {
                 logOper.setM1("知识新增");
             }
-            if(user.getAuths().contains(com.chsi.knowledge.Constants.ROLE_KNOWLEDGE)) {
+            if (user.getAuths().contains(com.chsi.knowledge.Constants.ROLE_KNOWLEDGE)) {
                 logOper.setM1("知识管理");
             }
-            
+
             logOper.setM2("");
             logOper.setOper("修改");
             logOper.setMessage("知识");
             logOper.setKeyId(id);
             logOperService.save(logOper);
-            
+
             return SUCCESS;
         }
         request.put(Constants.REQUEST_ERROR, "参数不能为空");
         return ERROR;
     }
-    
+
     public String updateSelfKnowledge() throws Exception {
         String error = "";
-        if(ValidatorUtil.isNull(keywords)) {
+        if (ValidatorUtil.isNull(keywords)) {
             error = "请输入关键字";
-        } else if(ValidatorUtil.isNull(title)||title.length()>100) {
+        } else if (ValidatorUtil.isNull(title) || title.length() > 100) {
             error = "请输入标题并且长度在100以内。";
-        } else if(ValidatorUtil.isNull(content)) {
+        } else if (ValidatorUtil.isNull(content)) {
             error = "请输入回答";
-        } else if(tagIds == null || tagIds.length == 0) {
+        } else if (tagIds == null || tagIds.length == 0) {
             error = "请先到\"<a href='/admin/tag/index.action'>便签管理</a>\"中增加标签";
-        } else if(!ValidatorUtil.isNumber(sort)||(Integer.parseInt(sort)<1||Integer.parseInt(sort)>99)) {
+        } else if (!ValidatorUtil.isNumber(sort) || (Integer.parseInt(sort) < 1 || Integer.parseInt(sort) > 99)) {
             error = "请输入热点度:1~99之间的整数,数值越大,排序越靠前";
-        } else if(ValidatorUtil.isNull(type)) {
+        } else if (ValidatorUtil.isNull(type)) {
             error = "请设定知识类型";
         }
-        if(!"".equals(error)) {
+        if (!"".equals(error)) {
             request.put(Constants.REQUEST_ERROR, error);
             return ERROR;
         }
         LoginUserVO loginUserVO = getLoginUserVO();
-        if (!ValidatorUtil.isNull(id) && !ValidatorUtil.isNull(title) && !ValidatorUtil.isNull(content) && !ValidatorUtil.isNull(sort) && tagIds != null && tagIds.length > 0 && !ValidatorUtil.isNull(keywords)&& !ValidatorUtil.isNull(type)) {
+        if (!ValidatorUtil.isNull(id) && !ValidatorUtil.isNull(title) && !ValidatorUtil.isNull(content) && !ValidatorUtil.isNull(sort) && tagIds != null && tagIds.length > 0 && !ValidatorUtil.isNull(keywords) && !ValidatorUtil.isNull(type)) {
             KnowledgeData data = knowledgeService.getKnowledgeById(id);
-            
+
             LogOperData logOper = new LogOperData();
             logOper.setCreateTime(Calendar.getInstance());
             com.chsi.knowledge.vo.LoginUserVO user = com.chsi.knowledge.web.util.WebAppUtil.getLoginUserVO(httpRequest);
             logOper.setUserId(user.getAcc().getId());
-            
+
             logOper.setM2("");
             logOper.setOper("修改");
             logOper.setMessage("知识");
             logOper.setKeyId(id);
-            
-            if(data.getKnowledgeStatus()==KnowledgeStatus.YSH){
-                if(KnowledgeType.PUBLIC.toString().equals(data.getType())){
+
+            if (data.getKnowledgeStatus() == KnowledgeStatus.YSH) {
+                if (KnowledgeType.PUBLIC.toString().equals(data.getType())) {
                     request.put(Constants.REQUEST_ERROR, "没有权限对该知识进行操作");
                     return ERROR;
                 }
                 logOper.setM1("知识管理");
-            }else if(data.getKnowledgeStatus()==KnowledgeStatus.DSH){
-                if((!loginUserVO.getAcc().getId().equals(data.getCreater())) && (!loginUserVO.getAcc().getId().equals(data.getUpdater()))){
+            } else if (data.getKnowledgeStatus() == KnowledgeStatus.DSH) {
+                if ((!loginUserVO.getAcc().getId().equals(data.getCreater())) && (!loginUserVO.getAcc().getId().equals(data.getUpdater()))) {
                     request.put(Constants.REQUEST_ERROR, "没有权限对该知识进行操作");
                     return ERROR;
                 }
                 logOper.setM1("知识新增");
             }
-            
+
             data.setKeywords(keywords);
             data.setSort(Integer.parseInt(sort));
             data.setUpdateTime(Calendar.getInstance());
@@ -408,7 +406,7 @@ public class KnowledgeAction extends AjaxAction {
             data.setType(type);
             data.setKnowledgeStatus(KnowledgeStatus.DSH);
             knowledgeService.update(data, title, content, loginUserVO.getAcc().getId());
-            
+
             knowTagRelationService.del(id);
             for (String one : tagIds) {
                 TagData tagData = tagService.getTagData(one);
@@ -422,41 +420,40 @@ public class KnowledgeAction extends AjaxAction {
             }
             knowledgeService.judgeKnowledgeInTopCount(data.getId(), 10);
             knowIndexService.deleteKnowIndexBySolr(data.getId());
-//            knowIndexService.updateKnowIndex(data.getId());
+            // knowIndexService.updateKnowIndex(data.getId());
             ManageCacheUtil.removeKnowledgeDataById(data.getId());
-            
+
             logOperService.save(logOper);
-            
+
             return SUCCESS;
         }
         request.put(Constants.REQUEST_ERROR, "参数不能为空");
         return ERROR;
-        
+
     }
-    
-    
- // 更新某个知识点，包括更新系统内的knowledge表、新闻系统里的知识点以及搜索引擎的索引
+
+    // 更新某个知识点，包括更新系统内的knowledge表、新闻系统里的知识点以及搜索引擎的索引
     public String checkUpdate() throws Exception {
         String error = "";
-        if(ValidatorUtil.isNull(keywords)) {
+        if (ValidatorUtil.isNull(keywords)) {
             error = "请输入关键字";
-        } else if(ValidatorUtil.isNull(title)||title.length()>100) {
+        } else if (ValidatorUtil.isNull(title) || title.length() > 100) {
             error = "请输入标题并且长度在100以内。";
-        } else if(ValidatorUtil.isNull(content)) {
+        } else if (ValidatorUtil.isNull(content)) {
             error = "请输入回答";
-        } else if(tagIds == null || tagIds.length == 0) {
+        } else if (tagIds == null || tagIds.length == 0) {
             error = "请先到\"<a href='/admin/tag/index.action'>便签管理</a>\"中增加标签";
-        } else if(!ValidatorUtil.isNumber(sort)||(Integer.parseInt(sort)<1||Integer.parseInt(sort)>99)) {
+        } else if (!ValidatorUtil.isNumber(sort) || (Integer.parseInt(sort) < 1 || Integer.parseInt(sort) > 99)) {
             error = "请输入热点度:1~99之间的整数,数值越大,排序越靠前";
-        } else if(ValidatorUtil.isNull(type)) {
+        } else if (ValidatorUtil.isNull(type)) {
             error = "请设定知识类型";
         }
-        if(!"".equals(error)) {
+        if (!"".equals(error)) {
             request.put(Constants.REQUEST_ERROR, error);
             return ERROR;
         }
         LoginUserVO loginUserVO = getLoginUserVO();
-        if (!ValidatorUtil.isNull(id) && !ValidatorUtil.isNull(title) && !ValidatorUtil.isNull(content) && !ValidatorUtil.isNull(sort) && tagIds != null && tagIds.length > 0 && !ValidatorUtil.isNull(keywords)&& !ValidatorUtil.isNull(type)) {
+        if (!ValidatorUtil.isNull(id) && !ValidatorUtil.isNull(title) && !ValidatorUtil.isNull(content) && !ValidatorUtil.isNull(sort) && tagIds != null && tagIds.length > 0 && !ValidatorUtil.isNull(keywords) && !ValidatorUtil.isNull(type)) {
             KnowledgeData data = knowledgeService.getKnowledgeById(id);
             data.setKeywords(keywords);
             data.setSort(Integer.parseInt(sort));
@@ -465,7 +462,7 @@ public class KnowledgeAction extends AjaxAction {
             data.setType(type);
             data.setKnowledgeStatus(KnowledgeStatus.YSH);
             knowledgeService.update(data, title, content, loginUserVO.getAcc().getId());
-            
+
             knowTagRelationService.del(id);
             for (String one : tagIds) {
                 TagData tagData = tagService.getTagData(one);
@@ -491,22 +488,18 @@ public class KnowledgeAction extends AjaxAction {
             logOper.setMessage("知识");
             logOper.setKeyId(id);
             logOperService.save(logOper);
-            
+
             return SUCCESS;
         }
         request.put(Constants.REQUEST_ERROR, "参数不能为空");
         return ERROR;
     }
-    
-    
-    
-    
-    
-    //更新知识最后更新时间
+
+    // 更新知识最后更新时间
     public String updateKnowledgeTime() throws Exception {
-        if(!ValidatorUtil.isNull(id)) {
+        if (!ValidatorUtil.isNull(id)) {
             KnowledgeData data = knowledgeService.getKnowledgeById(id);
-            if(data!=null) {
+            if (data != null) {
                 data.setUpdateTime(Calendar.getInstance());
                 data.setUpdater(getLoginedUserId());
                 knowledgeService.update(data);
@@ -514,12 +507,12 @@ public class KnowledgeAction extends AjaxAction {
         }
         return SUCCESS;
     }
-    
-    //置顶知识
+
+    // 置顶知识
     public String topKnowledge() throws Exception {
-        if(!ValidatorUtil.isNull(id)) {
+        if (!ValidatorUtil.isNull(id)) {
             KnowledgeData data = knowledgeService.getKnowledgeById(id);
-            if(data!=null) {
+            if (data != null) {
                 data.setTopTime(Calendar.getInstance());
                 data.setUpdater(getLoginedUserId());
                 knowledgeService.update(data);
@@ -528,12 +521,12 @@ public class KnowledgeAction extends AjaxAction {
         }
         return NONE;
     }
-    
-    //取消置顶知识
+
+    // 取消置顶知识
     public String untopKnowledge() throws Exception {
-        if(!ValidatorUtil.isNull(id)) {
+        if (!ValidatorUtil.isNull(id)) {
             KnowledgeData data = knowledgeService.getKnowledgeById(id);
-            if(data!=null) {
+            if (data != null) {
                 data.setTopTime(null);
                 data.setUpdater(getLoginedUserId());
                 knowledgeService.update(data);
@@ -546,20 +539,20 @@ public class KnowledgeAction extends AjaxAction {
     public String addKnowledge() throws Exception {
         String error = "";
         LogOperData logOper = new LogOperData();
-        if(ValidatorUtil.isNull(keywords)) {
+        if (ValidatorUtil.isNull(keywords)) {
             error = "请输入关键字";
-        } else if(ValidatorUtil.isNull(title)||title.length()>100) {
+        } else if (ValidatorUtil.isNull(title) || title.length() > 100) {
             error = "请输入标题并且长度在100以内。";
-        } else if(ValidatorUtil.isNull(content)) {
+        } else if (ValidatorUtil.isNull(content)) {
             error = "请输入回答";
-        } else if(tagIds == null || tagIds.length == 0) {
+        } else if (tagIds == null || tagIds.length == 0) {
             error = "请先到\"<a href='/admin/tag/index.action'>便签管理</a>\"中增加标签";
-        } else if(!ValidatorUtil.isNumber(sort)||(Integer.parseInt(sort)<1||Integer.parseInt(sort)>99)) {
+        } else if (!ValidatorUtil.isNumber(sort) || (Integer.parseInt(sort) < 1 || Integer.parseInt(sort) > 99)) {
             error = "请输入热点度:1~99之间的整数,数值越大,排序越靠前";
-        } else if(ValidatorUtil.isNull(type)) {
+        } else if (ValidatorUtil.isNull(type)) {
             error = "请设定知识类型";
         }
-        if(!"".equals(error)) {
+        if (!"".equals(error)) {
             request.put(Constants.REQUEST_ERROR, error);
             return ERROR;
         }
@@ -585,32 +578,33 @@ public class KnowledgeAction extends AjaxAction {
         logOper.setUserId(user.getAcc().getId());
 
         logOper.setM1("知识管理");
-        
+
         logOper.setM2("");
         logOper.setOper("新增");
         logOper.setMessage("知识");
         logOper.setKeyId(id);
         logOperService.save(logOper);
         return SUCCESS;
-        
+
     }
+
     public String addDSHKnowledge() throws Exception {
         String error = "";
         LogOperData logOper = new LogOperData();
-        if(ValidatorUtil.isNull(keywords)) {
+        if (ValidatorUtil.isNull(keywords)) {
             error = "请输入关键字";
-        } else if(ValidatorUtil.isNull(title)||title.length()>100) {
+        } else if (ValidatorUtil.isNull(title) || title.length() > 100) {
             error = "请输入标题并且长度在100以内。";
-        } else if(ValidatorUtil.isNull(content)) {
+        } else if (ValidatorUtil.isNull(content)) {
             error = "请输入回答";
-        } else if(tagIds == null || tagIds.length == 0) {
+        } else if (tagIds == null || tagIds.length == 0) {
             error = "请先到\"<a href='/admin/tag/index.action'>便签管理</a>\"中增加标签";
-        } else if(!ValidatorUtil.isNumber(sort)||(Integer.parseInt(sort)<1||Integer.parseInt(sort)>99)) {
+        } else if (!ValidatorUtil.isNumber(sort) || (Integer.parseInt(sort) < 1 || Integer.parseInt(sort) > 99)) {
             error = "请输入热点度:1~99之间的整数,数值越大,排序越靠前";
-        } else if(ValidatorUtil.isNull(type)) {
+        } else if (ValidatorUtil.isNull(type)) {
             error = "请设定知识类型";
         }
-        if(!"".equals(error)) {
+        if (!"".equals(error)) {
             request.put(Constants.REQUEST_ERROR, error);
             return ERROR;
         }
@@ -628,7 +622,7 @@ public class KnowledgeAction extends AjaxAction {
                 ManageCacheUtil.removeKnowTag(tagData.getId());
             }
         }
-//        knowIndexService.updateKnowIndex(knowledgeData.getId());
+        // knowIndexService.updateKnowIndex(knowledgeData.getId());
         id = knowledgeData.getId();
         logOper.setCreateTime(Calendar.getInstance());
         com.chsi.knowledge.vo.LoginUserVO user = com.chsi.knowledge.web.util.WebAppUtil.getLoginUserVO(httpRequest);
@@ -647,20 +641,21 @@ public class KnowledgeAction extends AjaxAction {
     public void delKnowledge() throws Exception {
         if (!ValidatorUtil.isNull(id)) {
             KnowledgeData data = knowledgeService.getKnowledgeById(id);
-            if(data!=null) {
+            if (data != null) {
                 knowIndexService.deleteKnowIndexBySolr(data.getId());// 删索引
-//                CmsServiceClient cmsServiceClient = CmsServiceClientFactory.getCmsServiceClient();
-//                cmsServiceClient.deleteArticle(data.getCmsId());// 从新闻系统删除
+                // CmsServiceClient cmsServiceClient =
+                // CmsServiceClientFactory.getCmsServiceClient();
+                // cmsServiceClient.deleteArticle(data.getCmsId());// 从新闻系统删除
                 data.setKnowledgeStatus(KnowledgeStatus.YSC);
                 knowledgeService.update(data);// 从本系统删除,非真删除
-//                knowTagRelationService.del(data.getId());
+                // knowTagRelationService.del(data.getId());
                 List<KnowTagRelationData> ktrList = knowTagRelationService.getKnowTagRelationByKnowId(data.getId());
-                for(KnowTagRelationData one:ktrList) {
+                for (KnowTagRelationData one : ktrList) {
                     ManageCacheUtil.removeKnowTag(one.getTagData().getId());
                 }
-                //清理知识删除之后的缓存
+                // 清理知识删除之后的缓存
                 knowledgeService.judgeKnowledgeInTopCount(data.getId(), 10);
-                
+
                 LogOperData logOper = new LogOperData();
                 logOper.setCreateTime(Calendar.getInstance());
                 com.chsi.knowledge.vo.LoginUserVO user = com.chsi.knowledge.web.util.WebAppUtil.getLoginUserVO(httpRequest);
@@ -671,7 +666,7 @@ public class KnowledgeAction extends AjaxAction {
                 logOper.setMessage("知识");
                 logOper.setKeyId(id);
                 logOperService.save(logOper);
-                
+
             }
             ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
         } else {
@@ -680,40 +675,40 @@ public class KnowledgeAction extends AjaxAction {
         }
         writeJSON(ajaxMessage);
     }
-    
-    public void getLogOper() throws Exception{
+
+    public void getLogOper() throws Exception {
         if (!ValidatorUtil.isNull(keyId)) {
             List<LogOperData> listData = logOperService.getLogOperByKeyId(keyId);
             List<LogOperVO> listVO = new ArrayList<LogOperVO>();
-            for(LogOperData logOper : listData){
+            for (LogOperData logOper : listData) {
                 LogOperVO logOperVO = new LogOperVO(logOper);
                 listVO.add(logOperVO);
             }
             ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
             ajaxMessage.setO(listVO);
-        }else {
+        } else {
             ajaxMessage.addMessage("keyId不能为空！");
             ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
         }
         writeJSON(ajaxMessage);
-        
+
     }
-    
-    public void showDiscussContent() throws Exception{
+
+    public void showDiscussContent() throws Exception {
         String KId = id;
         contentList = discussService.getDiscussInfoVOList(KId, curPage, 10);
         ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
         ajaxMessage.setO(contentList);
         writeJSON(ajaxMessage);
     }
-    public void showDiscussCount() throws Exception{
+
+    public void showDiscussCount() throws Exception {
         String KId = id;
         JSONObject count = discussService.getDiscussCount(KId);
         ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
         ajaxMessage.setO(count);
         writeJSON(ajaxMessage);
     }
-    
 
     public String getType() {
         return type;
@@ -746,5 +741,5 @@ public class KnowledgeAction extends AjaxAction {
     public void setLogOperService(LogOperService logOperService) {
         this.logOperService = logOperService;
     }
-    
+
 }

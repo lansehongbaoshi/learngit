@@ -27,7 +27,7 @@
 		          系统位置： <input type="text" name="sort" value="" style="width: 400px;">
 		           </p>
                     <p>
-                        系统代码：<input type="text" name="id" value="" style="width: 400px;"><span>（说明：填写系统简称代码，如征兵就写“zb”）<span>
+                        系统代码：<input type="text" name="id" value="" style="width: 400px;"><span>（说明：填写系统简称代码，如征兵就写“zb”）</span>
                     </p>
                     <p>系统名称：<input type="text" name="name" value="" style="width: 400px;" >
                     </p>
@@ -36,11 +36,13 @@
                     </p>
                     
                     <p>
-                    开放时间段：<input type="button" value="+" onclick="addLi()"><br>
+                    开放时间段：<input type="button" value="+" onclick="addLi()"><span>（说明："内部"系统无需设置）</span><br>
+                    </p>
                     <ol>
                     </ol>
+                    <p>
+                       系统属性：<input type="radio" name="property" value="0" checked="checked">公开&nbsp;&nbsp;<input type="radio" name="property" value="1">内部
                     </p>
-                    
                         <div class="clear"></div>
                         <div class="clearfix form-actions">
                             <div class="col-md-offset-3 col-md-9">

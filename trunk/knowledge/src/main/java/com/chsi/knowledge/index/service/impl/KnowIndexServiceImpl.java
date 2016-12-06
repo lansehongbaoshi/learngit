@@ -44,9 +44,9 @@ public class KnowIndexServiceImpl extends BaseDbService implements KnowIndexServ
 
     private KnowTagRelationDataDAO knowTagRelationDAO;
     private SolrServer solrService;
-    
+
     private static final int SUCCESS = 0;
-    
+
     protected final Log logger = LogFactory.getLog(getClass());
 
     protected void doCreate() {
@@ -54,9 +54,9 @@ public class KnowIndexServiceImpl extends BaseDbService implements KnowIndexServ
     }
 
     protected void doRemove() {
-        
+
     }
-    
+
     public SolrServer getSolrService() {
         return solrService;
     }
@@ -64,7 +64,7 @@ public class KnowIndexServiceImpl extends BaseDbService implements KnowIndexServ
     public void setSolrService(SolrServer solrService) {
         this.solrService = solrService;
     }
-    
+
     public void deleteKnowIndex(String knowledgeId) {
         if (StringUtils.isNotBlank(knowledgeId)) {
             SearchProtos.SearchIndexInfo.Builder builder = SearchProtos.SearchIndexInfo.newBuilder();
@@ -72,10 +72,11 @@ public class KnowIndexServiceImpl extends BaseDbService implements KnowIndexServ
             SearchProtos.SearchIndexInfo indexInfo = builder.build();
             SearchServiceClient searchClient = SearchServiceClientFactory.getSearchServiceClient();
             MessageQueue knowQueue = searchClient.getQueue();
-            knowQueue.enqueue(QueueNameType.KNOW_INDEX_DELETER.toString(), indexInfo.toByteArray());   //名称须与SOLR配置的queueName 相同
+            knowQueue.enqueue(QueueNameType.KNOW_INDEX_DELETER.toString(), indexInfo.toByteArray()); // 名称须与SOLR配置的queueName
+                                                                                                     // 相同
         }
     }
-    
+
     @Override
     public void deleteKnowIndexBySolr(String knowledgeId) {
         if (StringUtils.isNotBlank(knowledgeId)) {
@@ -97,86 +98,97 @@ public class KnowIndexServiceImpl extends BaseDbService implements KnowIndexServ
         }
     }
 
-
     public void updateKnowIndex(String knowledgeId) {
         SearchServiceClient searchClient = SearchServiceClientFactory.getSearchServiceClient();
         searchClient.updateKnow(setKnowIndexData(knowledgeId));
     }
 
-    private KnowIndexData setKnowIndexData(String knowledgeId){
+    private KnowIndexData setKnowIndexData(String knowledgeId) {
         List<KnowTagRelationData> relation = knowTagRelationDAO.getKnowTagDatas(KnowledgeStatus.YSH, knowledgeId);
         CmsServiceClient cmsServiceClient = CmsServiceClientFactory.getCmsServiceClient();
         Article article = cmsServiceClient.getArticle(relation.get(0).getKnowledgeData().getCmsId());
         KnowledgeData know = relation.get(0).getKnowledgeData();
-        List<String> tags=new LinkedList<String>();
-        List<String> tagIds=new LinkedList<String>();
+        List<String> tags = new LinkedList<String>();
+        List<String> tagIds = new LinkedList<String>();
         List<SystemData> systems = new ArrayList<SystemData>();
-        for(KnowTagRelationData k : relation){
+        for (KnowTagRelationData k : relation) {
             tags.add(k.getTagData().getName());
             tagIds.add(k.getTagData().getId());
             SystemData system = k.getTagData().getSystemData();
-            if(!systems.contains(system)) {
+            if (!systems.contains(system)) {
                 systems.add(system);
             }
         }
-        KnowIndexData index=new KnowIndexData();
+        KnowIndexData index = new KnowIndexData();
         index.setId(know.getId());
         index.setKeywords(know.getKeywords());
         index.setTitle(article.getTitle());
         index.setContent(article.getContent());
-        
+
         Collections.sort(systems);
         List<String> list = new ArrayList<String>();
-        for(SystemData system:systems){
+        for (SystemData system : systems) {
             list.add(system.getId());
         }
         index.setSystemIds(list);
-        
+
         index.setType(know.getType());
         index.setTagIds(tagIds);
         index.setTags(tags);
-//        double sort = know.getVisitCnt() == (double)0.0 ? 0:Math.log10(know.getVisitCnt());
+        // double sort = know.getVisitCnt() == (double)0.0 ?
+        // 0:Math.log10(know.getVisitCnt());
         index.setSort(know.getSort());
         index.setVisitCnt(know.getVisitCnt());
-        index.setCtiVisitCnt(know.getCtiVisitCnt()==null?0:know.getCtiVisitCnt());
+        index.setCtiVisitCnt(know.getCtiVisitCnt() == null ? 0 : know.getCtiVisitCnt());
         return index;
     }
 
     @Override
     public KnowListVO<KnowledgeVO> searchKnow(String keywords, String systemId, int start, int pageSize) {
-//        SearchServiceClient searchClient = SearchServiceClientFactory.getSearchServiceClient();
+        // SearchServiceClient searchClient =
+        // SearchServiceClientFactory.getSearchServiceClient();
         if (start < 0) {
             start = 0;
         }
         Map<String, String> queryParams = new HashMap<String, String>();
         queryParams.put("q", keywords);
         queryParams.put("fq", String.format("system_ids:%s AND type:PUBLIC", systemId));
-        /*queryParams.put("qf", "title^25 content^10 key_words^6 tags^5");
-        queryParams.put("defType", "edismax");
-        queryParams.put("bf", "recip(rord(visit_cnt),1,1000,1000)^50 recip(rord(sort),1,100,100)^1");//bf计算出来的值位于0-1之间最合适
-        Page<KnowledgeVO> page = searchClient.searchKnow(keywords, systemId, queryParams, start, pageSize);
-        Pagination pagination = new Pagination(page.getTotalCount(), page.getPageCount(), page.getCurPage());
-        KnowListVO<KnowledgeVO> knowListVO = new KnowListVO<KnowledgeVO>(page.getList(), pagination);
-        return knowListVO;*/
+        /*
+         * queryParams.put("qf", "title^25 content^10 key_words^6 tags^5");
+         * queryParams.put("defType", "edismax"); queryParams.put("bf",
+         * "recip(rord(visit_cnt),1,1000,1000)^50 recip(rord(sort),1,100,100)^1"
+         * );//bf计算出来的值位于0-1之间最合适 Page<KnowledgeVO> page =
+         * searchClient.searchKnow(keywords, systemId, queryParams, start,
+         * pageSize); Pagination pagination = new
+         * Pagination(page.getTotalCount(), page.getPageCount(),
+         * page.getCurPage()); KnowListVO<KnowledgeVO> knowListVO = new
+         * KnowListVO<KnowledgeVO>(page.getList(), pagination); return
+         * knowListVO;
+         */
         return searchKnow(queryParams, start, pageSize);
     }
 
     @Override
     public KnowListVO<KnowledgeVO> searchKnow(String keywords, int start, int pageSize) {
-//        SearchServiceClient searchClient = SearchServiceClientFactory.getSearchServiceClient();
+        // SearchServiceClient searchClient =
+        // SearchServiceClientFactory.getSearchServiceClient();
         if (start < 0) {
             start = 0;
         }
         Map<String, String> queryParams = new HashMap<String, String>();
         queryParams.put("q", keywords);
         return searchKnow(queryParams, start, pageSize);
-        /*queryParams.put("qf", "title^25 content^10 key_words^6 tags^5");
-        queryParams.put("defType", "edismax");
-        queryParams.put("bf", "recip(rord(visit_cnt),1,1000,1000)^50 recip(rord(sort),1,100,100)^1");//bf计算出来的值位于0-1之间最合适
-        Page<KnowledgeVO> page = searchClient.searchKnow(queryParams, start, pageSize);
-        Pagination pagination = new Pagination(page.getTotalCount(), page.getPageCount(), page.getCurPage());
-        KnowListVO<KnowledgeVO> knowListVO = new KnowListVO<KnowledgeVO>(page.getList(), pagination);
-        return knowListVO;*/
+        /*
+         * queryParams.put("qf", "title^25 content^10 key_words^6 tags^5");
+         * queryParams.put("defType", "edismax"); queryParams.put("bf",
+         * "recip(rord(visit_cnt),1,1000,1000)^50 recip(rord(sort),1,100,100)^1"
+         * );//bf计算出来的值位于0-1之间最合适 Page<KnowledgeVO> page =
+         * searchClient.searchKnow(queryParams, start, pageSize); Pagination
+         * pagination = new Pagination(page.getTotalCount(),
+         * page.getPageCount(), page.getCurPage()); KnowListVO<KnowledgeVO>
+         * knowListVO = new KnowListVO<KnowledgeVO>(page.getList(), pagination);
+         * return knowListVO;
+         */
     }
 
     @Override
@@ -188,7 +200,7 @@ public class KnowIndexServiceImpl extends BaseDbService implements KnowIndexServ
         queryParams.put("qf", "title^25 content^10 key_words^6 tags^5");
         queryParams.put("defType", "edismax");
         String BF = queryParams.get("bf");
-        if(BF!=null) {
+        if (BF != null) {
             BF += "ord(visit_cnt)^0.1";
         } else {
             BF = "ord(visit_cnt)^0.1";
@@ -208,7 +220,7 @@ public class KnowIndexServiceImpl extends BaseDbService implements KnowIndexServ
         }
         queryParams.put("defType", "edismax");
         String BF = queryParams.get("bf");
-        if(BF==null) {
+        if (BF == null) {
             BF = "ord(visit_cnt)^0.1";
         }
         queryParams.put("bf", "ord(visit_cnt)^0.1");
@@ -219,14 +231,14 @@ public class KnowIndexServiceImpl extends BaseDbService implements KnowIndexServ
     }
 
     @Override
-    public RepeatVO<KnowledgeVO> getRepeatKnows(String knowId,String title) {
+    public RepeatVO<KnowledgeVO> getRepeatKnows(String knowId, String title) {
         // TODO Auto-generated method stub
         SearchServiceClient searchClient = SearchServiceClientFactory.getSearchServiceClient();
-        
-        Map<String, String> queryParams =new HashMap<String, String>();
+
+        Map<String, String> queryParams = new HashMap<String, String>();
         queryParams.put("q", title);
         queryParams.put("qf", "title");
-        queryParams.put("fq", "NOT id:"+knowId+" AND　type:PUBLIC");
+        queryParams.put("fq", "NOT id:" + knowId + " AND　type:PUBLIC");
         queryParams.put("fl", "id,title");
         queryParams.put("hl", "true");
         queryParams.put("hl.fl", "title");
@@ -235,9 +247,9 @@ public class KnowIndexServiceImpl extends BaseDbService implements KnowIndexServ
         queryParams.put("defType", "edismax");
         String BF = "ord(visit_cnt)^1 div(sort,1000)^1";
         queryParams.put("bf", BF);
-        
+
         RepeatVO<KnowledgeVO> result = searchClient.getRepeatKnows(queryParams, 0.3);
-        
+
         return result;
     }
 
@@ -245,16 +257,16 @@ public class KnowIndexServiceImpl extends BaseDbService implements KnowIndexServ
     public void updateAllKnowledgeIndex() {
         SystemService systemService = ServiceFactory.getSystemService();
         KnowledgeService knowledgeService = ServiceFactory.getKnowledgeService();
-        List<SystemData> systems = systemService.getSystems(false);
-        for(SystemData system:systems) {
+        List<SystemData> systems = systemService.getSystems(false, null);
+        for (SystemData system : systems) {
             List<KnowledgeData> list = knowledgeService.get(system.getId(), KnowledgeStatus.YSH);
             if (null != list) {
                 log.info(String.format("开始刷系统%s下知识索引，共%d", system.getId(), list.size()));
                 for (KnowledgeData temp : list) {
-                    try{
+                    try {
                         updateKnowIndex(temp.getId());
                         log.info(String.format("{method:'refreshIndex',knowId:'%s',result:'success'}", temp.getId()));
-                    } catch(Exception ex) {
+                    } catch (Exception ex) {
                         ex.printStackTrace();
                         log.error(String.format("{method:'refreshIndex',knowId:'%s',result:'fail'}", temp.getId()));
                     }

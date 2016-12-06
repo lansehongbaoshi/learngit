@@ -30,10 +30,11 @@
               <table id="dynamic-table" class="table table-striped table-bordered table-hover dataTable no-footer DTTT_selectable" role="grid" aria-describedby="dynamic-table_info">
                 <thead>
                   <tr role="row">
-                    <th class="hidden-180" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1" aria-label="Domain: activate to sort column ascending">系统位置</th>
-                    <th class="hidden-180" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1" aria-label="Domain: activate to sort column ascending">系统代码</th>
-                    <th width="150" class="hidden-200" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1">系统名称</th>
-                    <th width="200" class="hidden-480 sorting" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1" aria-label="Clicks: activate to sort column ascending">系统描述</th>
+                    <th class="hidden-180" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1" aria-label="Domain: activate to sort column ascending">排序</th>
+                    <th class="hidden-180" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1" aria-label="Domain: activate to sort column ascending">代码</th>
+                    <th width="150" class="hidden-200" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1">名称</th>
+                    <th width="200" class="hidden-480 sorting" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1" aria-label="Clicks: activate to sort column ascending">描述</th>
+                    <th width="150" class="hidden-200" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1">属性</th>
                     <th width="80" class="hidden-200" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1">标签数目</th>
                     <th width="160" class="hidden-200" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1">知识数目(内部/公开)</th>
                     <th width="300" class="hidden-200" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1">开放时间段</th>
@@ -47,6 +48,7 @@
                       <td class="hidden-80"><s:property value="#data.id" /></td>
                       <td class="hidden-260"><s:property value="#data.name" /></td>
                       <td class="hidden-260"><s:property value="#data.description" /></td>
+                      <td class="hidden-260"><s:if test="#data.property==0" >公开</s:if><s:if test="#data.property==1" >内部</s:if></td>
                       <td class="hidden-200"><s:property value="#data.tagCnt" /></td>
                       <td class="hidden-200"><s:property value="#data.knowPrivateCnt" />/<s:property value="#data.knowPublicCnt" /></td>
                       <td class="hidden-200">

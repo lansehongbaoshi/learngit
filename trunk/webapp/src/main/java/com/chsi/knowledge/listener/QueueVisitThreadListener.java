@@ -27,7 +27,7 @@ import com.ibm.icu.util.Calendar;
  */
 public class QueueVisitThreadListener implements ServletContextListener {
     protected static Log logger = LogFactory.getLog(QueueVisitThreadListener.class);
-    
+
     private static String machineName;
 
     private QueueVisitThread queueVisitThread;
@@ -41,7 +41,7 @@ public class QueueVisitThreadListener implements ServletContextListener {
         if (recordSearchLogThread.isAlive()) {
             recordSearchLogThread.interrupt();
         }
-        if(queueCtiVisitThread.isAlive()) {
+        if (queueCtiVisitThread.isAlive()) {
             queueCtiVisitThread.interrupt();
         }
     }
@@ -53,18 +53,18 @@ public class QueueVisitThreadListener implements ServletContextListener {
         recordSearchLogThread.start();
         queueCtiVisitThread = new QueueCtiVisitThread();
         queueCtiVisitThread.start();
-        
-        if(isWorkMachine()){
+
+        if (isWorkMachine()) {
             Timer timer1 = new Timer();
             CommonTask task = new CommonTask();
             Calendar cal = Calendar.getInstance();
             cal.add(Calendar.DAY_OF_YEAR, 1);
             cal.set(Calendar.HOUR_OF_DAY, 0);
             cal.set(Calendar.MINUTE, 13);
-//            cal.add(Calendar.MINUTE, 1);
+            // cal.add(Calendar.MINUTE, 1);
             Date date = cal.getTime();
-            timer1.scheduleAtFixedRate(task, date, 1000*60*60*24);//次日0点10分开始执行任务，每隔一天执行一次
-//            timer1.scheduleAtFixedRate(task, date, 1000*60);
+            timer1.scheduleAtFixedRate(task, date, 1000 * 60 * 60 * 24);// 次日0点10分开始执行任务，每隔一天执行一次
+            // timer1.scheduleAtFixedRate(task, date, 1000*60);
             logger.info("已设定定时任务CommonTask");
         }
     }

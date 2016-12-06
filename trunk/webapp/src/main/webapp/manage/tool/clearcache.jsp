@@ -28,7 +28,7 @@ if(method!=null&& !"".equals(method)) {
     if(method.equals("clear all knowledge cache")) {
         KnowledgeService KnowledgeService = ServiceFactory.getKnowledgeService();
         SystemService SystemService = ServiceFactory.getSystemService();
-        List<SystemData> list = SystemService.getSystems(false);
+        List<SystemData> list = SystemService.getSystems(false, null);
         
         for(SystemData data:list) {
             List<KnowledgeData> list2 = KnowledgeService.get(data.getId());

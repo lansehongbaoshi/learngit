@@ -16,6 +16,7 @@ import com.chsi.knowledge.dic.DiscussStatus;
 
 /**
  * 评价表，存储用户的评价信息
+ * 
  * @author chenjian
  * 
  */
@@ -42,12 +43,11 @@ public class DiscussData extends PersistentObject {
         this.createTime = discussData.getCreateTime();
     }
 
-    public DiscussData(){
+    public DiscussData() {
         super();
     }
-    
-    public DiscussData(String id, String knowledgeId, String userId,
-            DiscussStatus discussStatus, String content, Calendar createTime) {
+
+    public DiscussData(String id, String knowledgeId, String userId, DiscussStatus discussStatus, String content, Calendar createTime) {
         super();
         this.id = id;
         this.knowledgeId = knowledgeId;
@@ -116,5 +116,4 @@ public class DiscussData extends PersistentObject {
         this.content = content;
     }
 
-    
 }

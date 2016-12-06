@@ -6,10 +6,10 @@ import com.chsi.knowledge.Constants;
 import com.chsi.knowledge.pojo.SearchLogData;
 import com.chsi.knowledge.service.QueueService;
 
-public class QueueServiceImpl implements QueueService{
+public class QueueServiceImpl implements QueueService {
 
     private MessageQueue queue;
-    
+
     public MessageQueue getQueue() {
         return queue;
     }
@@ -20,8 +20,8 @@ public class QueueServiceImpl implements QueueService{
 
     @Override
     public void addVisitKnowledgeId(String knowledgeId) {
-        if(!ValidatorUtil.isNull(knowledgeId)){
-            queue.enqueue(Constants.QUEUE_VISIT_KNOWLEDGEID_NAME,knowledgeId);
+        if (!ValidatorUtil.isNull(knowledgeId)) {
+            queue.enqueue(Constants.QUEUE_VISIT_KNOWLEDGEID_NAME, knowledgeId);
         }
     }
 
@@ -36,20 +36,20 @@ public class QueueServiceImpl implements QueueService{
 
     @Override
     public void addSearchLog(SearchLogData data) {
-        if(data != null){
+        if (data != null) {
             queue.enqueue(Constants.QUEUE_SEARCH_LOG, data);
         }
     }
 
     @Override
     public SearchLogData getSearchLog() {
-        SearchLogData data = (SearchLogData)queue.dequeue(Constants.QUEUE_SEARCH_LOG);
+        SearchLogData data = (SearchLogData) queue.dequeue(Constants.QUEUE_SEARCH_LOG);
         return data;
     }
 
     @Override
     public void addCtiVisitKnowledgeId(String knowledgeId) {
-        if(!ValidatorUtil.isNull(knowledgeId)){
+        if (!ValidatorUtil.isNull(knowledgeId)) {
             queue.enqueue(Constants.QUEUE_CTI_VISIT_KNOWLEDGEID_NAME, knowledgeId);
         }
     }

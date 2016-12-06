@@ -39,7 +39,7 @@ public class DiscussDataDAOImpl extends BaseHibernateDAO implements DiscussDataD
     public DiscussCountVO getDiscussCountVOByKId(String KId) {
         String sql = " SELECT SUM(DECODE (D.DISCUSS,1,1,0)), SUM(DECODE (D.DISCUSS,0,1,0)), SUM(1), ROUND(SUM(DECODE (D.DISCUSS,1,1,0))/SUM(1), 2)*100, 100-ROUND(SUM(DECODE (D.DISCUSS,  1, 1 , 0))/SUM(1), 2)*100 FROM DISCUSS D WHERE D.KNOWLEDGE_ID = :KId ";
         Query query = hibernateUtil.getSession().createSQLQuery(sql).setString("KId", KId);
-        Object[] obj = (Object[])query.uniqueResult();
+        Object[] obj = (Object[]) query.uniqueResult();
         DiscussCountVO vo = new DiscussCountVO();
         vo.setUseful(obj[0] == null ? "0" : format(obj[0].toString()));
         vo.setUnuseful(obj[1] == null ? "0" : format(obj[1].toString()));
@@ -49,44 +49,44 @@ public class DiscussDataDAOImpl extends BaseHibernateDAO implements DiscussDataD
         return vo;
     }
 
-    private static String format(String str){
+    private static String format(String str) {
         char[] att = str.toCharArray();
         int x = att.length % 3;
         String result = "";
-        for(int i=0;i<x;i++){
+        for (int i = 0; i < x; i++) {
             result += att[i];
         }
-        if(att.length != x){
-            for(int i=x,j=0;i<att.length;i++,j++){
-                if(j % 3 == 0) {
-                    if(x==0 && j==0 ){
-                    }else{
+        if (att.length != x) {
+            for (int i = x, j = 0; i < att.length; i++, j++) {
+                if (j % 3 == 0) {
+                    if (x == 0 && j == 0) {
+                    } else {
                         result += ',';
                     }
-                }   
+                }
                 result += att[i];
             }
         }
         return result;
     }
-    
+
     @Override
-    public List<DiscussInfoVO> getDiscussInfoVOList(String KId,int start,int pageSize) {
+    public List<DiscussInfoVO> getDiscussInfoVOList(String KId, int start, int pageSize) {
         String sql = " SELECT D.USER_ID,D.CONTENT,TO_CHAR(D.CREATE_TIME,'yyyy-MM-dd hh24:mi:ss') FROM DISCUSS D WHERE D.KNOWLEDGE_ID =:KId AND D.CONTENT IS NOT NULL order by D.CREATE_TIME desc ";
         Query query = hibernateUtil.getSession().createSQLQuery(sql).setString("KId", KId);
         query.setFirstResult(start);
         query.setMaxResults(pageSize);
         List<Object[]> objects = query.list();
         List<DiscussInfoVO> voList = new ArrayList<DiscussInfoVO>();
-        for(Object[] obj:objects){
+        for (Object[] obj : objects) {
             DiscussInfoVO vo = new DiscussInfoVO();
-            vo.setUserId((String)obj[0]);
-            
+            vo.setUserId((String) obj[0]);
+
             AccountServiceClient accountServiceClient = AccountServiceClientFactory.getAccountServiceClient();
-            UserAccountData userAccountData  =  accountServiceClient.getAccountById((String)obj[0]).getValue();
-                vo.setUserName( userAccountData != null && !"".equals(userAccountData.getUsername()) ? userAccountData.getUsername() : "游客");
-            vo.setContent((String)obj[1]);
-            vo.setTime((String)obj[2]);
+            UserAccountData userAccountData = accountServiceClient.getAccountById((String) obj[0]).getValue();
+            vo.setUserName(userAccountData != null && !"".equals(userAccountData.getUsername()) ? userAccountData.getUsername() : "游客");
+            vo.setContent((String) obj[1]);
+            vo.setTime((String) obj[2]);
             voList.add(vo);
         }
         return voList;
@@ -97,24 +97,24 @@ public class DiscussDataDAOImpl extends BaseHibernateDAO implements DiscussDataD
         String sql = " SELECT sum(1) FROM DISCUSS D WHERE D.KNOWLEDGE_ID =:KId AND D.CONTENT IS NOT NULL ";
         Query query = hibernateUtil.getSession().createSQLQuery(sql).setString("KId", KId);
         Object obj = query.uniqueResult();
-        return obj==null?0:Integer.parseInt(String.valueOf(obj));
-        
+        return obj == null ? 0 : Integer.parseInt(String.valueOf(obj));
+
     }
 
     @Override
     public int getCountByKId(String kId, DiscussStatus status) {
         // TODO Auto-generated method stub
         String sql = null;
-        if(status==null){
+        if (status == null) {
             sql = " SELECT sum(1) FROM DISCUSS D WHERE D.KNOWLEDGE_ID =:KId ";
-        }else if(status==DiscussStatus.USEFUL){
+        } else if (status == DiscussStatus.USEFUL) {
             sql = " SELECT sum(1) FROM DISCUSS D WHERE D.KNOWLEDGE_ID =:KId AND D.DISCUSS = '1' ";
-        }else if(status==DiscussStatus.UNUSEFUL){
+        } else if (status == DiscussStatus.UNUSEFUL) {
             sql = " SELECT sum(1) FROM DISCUSS D WHERE D.KNOWLEDGE_ID =:KId AND D.DISCUSS = '0' ";
         }
         Query query = hibernateUtil.getSession().createSQLQuery(sql).setString("KId", kId);
         Object obj = query.uniqueResult();
-        return obj==null?0:Integer.parseInt(String.valueOf(obj));
+        return obj == null ? 0 : Integer.parseInt(String.valueOf(obj));
     }
 
 }

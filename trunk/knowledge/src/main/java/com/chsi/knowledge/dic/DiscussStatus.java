@@ -1,6 +1,8 @@
 package com.chsi.knowledge.dic;
+
 /**
  * 评价类型
+ * 
  * @author chenjian
  */
 public enum DiscussStatus {
@@ -35,5 +37,5 @@ public enum DiscussStatus {
     public String getToString() {
         return toString();
     }
-    
+
 }

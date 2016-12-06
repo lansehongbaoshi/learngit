@@ -104,7 +104,7 @@ public class KnowledgeServiceImpl extends BaseDbService implements KnowledgeServ
             return null;
         }
         KnowledgeData knowledgeData = ManageCacheUtil.getKnowledgeDataById(id);
-        Calendar lastOperTime = knowledgeData.getUpdateTime()==null ? knowledgeData.getCreateTime():knowledgeData.getUpdateTime();
+        Calendar lastOperTime = knowledgeData.getUpdateTime() == null ? knowledgeData.getCreateTime() : knowledgeData.getUpdateTime();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         String updateTime = format.format(lastOperTime.getTime());
         ConKnow conKnow = new ConKnow(knowledgeData.getId(), knowledgeData.getTitle(), knowledgeData.getContent(), knowledgeData.getKeywords(), knowledgeData.getVisitCnt(), updateTime, knowledgeData.getSystemNames());
@@ -188,7 +188,7 @@ public class KnowledgeServiceImpl extends BaseDbService implements KnowledgeServ
     public void updateVisitCntPlusOne(String id) {
         knowledgeDataDAO.updateVisitCntPlusOne(id);
     }
-    
+
     @Override
     public void updateCtiVisitCntPlusOne(String id) {
         knowledgeDataDAO.updateCtiVisitCntPlusOne(id);
@@ -226,7 +226,7 @@ public class KnowledgeServiceImpl extends BaseDbService implements KnowledgeServ
         List<KnowledgeData> list = knowledgeDataDAO.get(systemId, knowledgeStatus);
         CmsServiceClient cmsServiceClient = CmsServiceClientFactory.getCmsServiceClient();
         SystemService systemService = ServiceFactory.getSystemService();
-        for(KnowledgeData knowledgeData:list) {
+        for (KnowledgeData knowledgeData : list) {
             Article article = cmsServiceClient.getArticle(knowledgeData.getCmsId());
             knowledgeData.setArticle(article);
             List<SystemData> systemDatas = systemService.getSystemDataByKnowledgeId(knowledgeData.getId());
@@ -240,7 +240,7 @@ public class KnowledgeServiceImpl extends BaseDbService implements KnowledgeServ
         List<KnowledgeData> list = knowledgeDataDAO.get(systemId, knowledgeStatus, type.toString());
         CmsServiceClient cmsServiceClient = CmsServiceClientFactory.getCmsServiceClient();
         SystemService systemService = ServiceFactory.getSystemService();
-        for(KnowledgeData knowledgeData:list) {
+        for (KnowledgeData knowledgeData : list) {
             Article article = cmsServiceClient.getArticle(knowledgeData.getCmsId());
             knowledgeData.setArticle(article);
             List<SystemData> systemDatas = systemService.getSystemDataByKnowledgeId(knowledgeData.getId());
@@ -253,7 +253,7 @@ public class KnowledgeServiceImpl extends BaseDbService implements KnowledgeServ
     public Set<KnowledgeData> getTop(String systemId) {
         Set<KnowledgeData> set = new LinkedHashSet<KnowledgeData>();
         List<KnowledgeData> list = knowledgeDataDAO.getTop(systemId);
-        for(KnowledgeData data:list) {
+        for (KnowledgeData data : list) {
             KnowledgeData newData = ManageCacheUtil.getKnowledgeDataById(data.getId());
             set.add(newData);
         }
@@ -261,10 +261,9 @@ public class KnowledgeServiceImpl extends BaseDbService implements KnowledgeServ
     }
 
     @Override
-    public List<KnowledgeData> getKnowledgeByStatus(String systemId,
-            String tag, KnowledgeStatus dsh, String type, int start, int size) {
+    public List<KnowledgeData> getKnowledgeByStatus(String systemId, String tag, KnowledgeStatus dsh, String type, int start, int size) {
         // TODO Auto-generated method stub
-        List<KnowledgeData> list = knowledgeDataDAO.get(systemId,tag,dsh,type,start,size);
+        List<KnowledgeData> list = knowledgeDataDAO.get(systemId, tag, dsh, type, start, size);
         return list;
     }
 
@@ -276,54 +275,51 @@ public class KnowledgeServiceImpl extends BaseDbService implements KnowledgeServ
     }
 
     @Override
-    public long getKnowledgeCount(String systemId, String tag,
-            KnowledgeStatus dsh, String type,String userId) {
+    public long getKnowledgeCount(String systemId, String tag, KnowledgeStatus dsh, String type, String userId) {
         // TODO Auto-generated method stub
-        long count = knowledgeDataDAO.getKnowledgeCount(systemId,tag,dsh,type,userId);
+        long count = knowledgeDataDAO.getKnowledgeCount(systemId, tag, dsh, type, userId);
         return count;
     }
 
     @Override
-    public List<KnowledgeData> getKnowledgeByStatusAndUserId(String systemId,
-            String tag, KnowledgeStatus dsh, String type, String userId,
-            int start, int size) {
+    public List<KnowledgeData> getKnowledgeByStatusAndUserId(String systemId, String tag, KnowledgeStatus dsh, String type, String userId, int start, int size) {
         // TODO Auto-generated method stub
-        List<KnowledgeData> list = knowledgeDataDAO.get(systemId,tag,dsh,type,userId,start,size);
+        List<KnowledgeData> list = knowledgeDataDAO.get(systemId, tag, dsh, type, userId, start, size);
         return list;
     }
-    
-    public boolean judgeKnowledgeInTopCount(String knowId,int rank){
-        
+
+    public boolean judgeKnowledgeInTopCount(String knowId, int rank) {
+
         KnowledgeData knowledge = ManageCacheUtil.getKnowledgeDataById(knowId);
-        //首先判断该知识是不是置顶的知识
-        if(knowledge.getTopTime()!=null){
+        // 首先判断该知识是不是置顶的知识
+        if (knowledge.getTopTime() != null) {
             String key = "com.chsi.knowledge.util.ManageCacheUtil.getCatalogTopKnowl";
             MemCachedUtil.removeByKey(key);
             return true;
         }
-        
+
         Map<SystemData, List<KnowledgeData>> map = ManageCacheUtil.getCatalogTopKnowl(10);
         List<SystemData> systems = new ArrayList<SystemData>();
         List<KnowTagRelationData> knowTagRelations = knowTagRelationDAO.getKnowTagRelationByKnowId(knowledge.getId());
-        if(knowTagRelations!=null){
-            for(KnowTagRelationData knowTagRelation : knowTagRelations){
+        if (knowTagRelations != null) {
+            for (KnowTagRelationData knowTagRelation : knowTagRelations) {
                 SystemData system = knowTagRelation.getTagData().getSystemData();
-                if(!systems.contains(system)){
+                if (!systems.contains(system)) {
                     systems.add(system);
                 }
             }
         }
-        
-        if(systems.size()>0){
-            for(SystemData system : systems){
+
+        if (systems.size() > 0) {
+            for (SystemData system : systems) {
                 List<KnowledgeData> knows = map.get(system);
-                if(knows.size()<10){
+                if (knows.size() < 10) {
                     String key = "com.chsi.knowledge.util.ManageCacheUtil.getCatalogTopKnowl";
                     MemCachedUtil.removeByKey(key);
                     return true;
-                }else{
-                    for(KnowledgeData know : knows){
-                        if(know.getVisitCnt()<=knowledge.getVisitCnt()){
+                } else {
+                    for (KnowledgeData know : knows) {
+                        if (know.getVisitCnt() <= knowledge.getVisitCnt()) {
                             String key = "com.chsi.knowledge.util.ManageCacheUtil.getCatalogTopKnowl";
                             MemCachedUtil.removeByKey(key);
                             return true;
@@ -332,7 +328,7 @@ public class KnowledgeServiceImpl extends BaseDbService implements KnowledgeServ
                 }
             }
         }
-        return false; 
+        return false;
     }
 
 }

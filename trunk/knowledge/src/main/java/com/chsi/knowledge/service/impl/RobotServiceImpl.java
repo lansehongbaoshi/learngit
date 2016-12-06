@@ -45,11 +45,12 @@ import com.chsi.search.client.SearchServiceClient;
 import com.chsi.search.client.SearchServiceClientFactory;
 import com.chsi.search.client.vo.KnowledgeVO;
 import com.chsi.search.client.vo.RobotQABean;
+
 @SuppressWarnings("unchecked")
 public class RobotServiceImpl extends BaseDbService implements RobotService {
     RobotDAO robotDAO;
     WeatherCodeDataDAO weatherCodeDataDAO;
-    
+
     @Override
     protected void doCreate() {
         robotDAO = getDAO(ServiceConstants.ROBOT_DAO, RobotDAO.class);
@@ -58,34 +59,33 @@ public class RobotServiceImpl extends BaseDbService implements RobotService {
 
     @Override
     protected void doRemove() {
-        
+
     }
 
     @Override
     public void save(PersistentObject pojo) {
         robotDAO.save(pojo);
     }
-    
+
     @Override
     public void update(PersistentObject pojo) {
         robotDAO.update(pojo);
     }
-    
+
     @Override
     public QASessionData getQASessionDataById(String id) {
         return robotDAO.getQASessionDataById(id);
     }
-    
-    public RobotQAListVO<RobotQABean> searchRobotConf(String text,int start,int max){
-        SearchServiceClient searchClient = SearchServiceClientFactory
-                .getSearchServiceClient();
+
+    public RobotQAListVO<RobotQABean> searchRobotConf(String text, int start, int max) {
+        SearchServiceClient searchClient = SearchServiceClientFactory.getSearchServiceClient();
         Map<String, String> map = new HashMap<String, String>();
         String keywords = text;
-        if("".equals(keywords)){
+        if ("".equals(keywords)) {
             keywords = "text:*";
             map.put("sort", "_version_ desc");
-        }else{
-            keywords = "text:"+keywords;
+        } else {
+            keywords = "text:" + keywords;
         }
         map.put("q", keywords);
         map.put("df", "text");
@@ -93,9 +93,9 @@ public class RobotServiceImpl extends BaseDbService implements RobotService {
         Pagination pagination = new Pagination(page.getTotalCount(), page.getPageCount(), page.getCurPage());
         RobotQAListVO<RobotQABean> robotQAListVO = new RobotQAListVO<RobotQABean>(page.getList(), pagination);
         return robotQAListVO;
-        
+
     }
-    
+
     public AnswerVO answer(String sessionId, String knowId, String q, String systemId) {
         AnswerVO answerVO = null;
         if (!ValidatorUtil.isNull(knowId)) {// 确定知识时传递knowId、q
@@ -121,60 +121,61 @@ public class RobotServiceImpl extends BaseDbService implements RobotService {
             answerVO.setResult(list);
         } else {
             answerVO = new AnswerVO<SearchVO>();
-            q = q==null?"":q.trim();
+            q = q == null ? "" : q.trim();
             String keywords = SearchUtil.keywordsFilter2(q);
-            if(ValidatorUtil.isNull(keywords)) {
+            if (ValidatorUtil.isNull(keywords)) {
                 String content = ManageCacheUtil.getRobotABySpecialQ("#blank");
                 answerVO.setAType(AType.ROBOT);
                 answerVO.setContent(content);
                 return answerVO;
             }
-//            List<RobotASetData> robotAList = robotDAO.getAByQ(keywords);//先查是否是打招呼
-            /*判断用户的某种意图             */
-            Intent intent = new Intent(keywords,sessionId);
-            if(intent.isExist()){//如果有用户的某种意图
+            // List<RobotASetData> robotAList =
+            // robotDAO.getAByQ(keywords);//先查是否是打招呼
+            /* 判断用户的某种意图 */
+            Intent intent = new Intent(keywords, sessionId);
+            if (intent.isExist()) {// 如果有用户的某种意图
                 answerVO.setAType(AType.ROBOT);
                 answerVO.setContent(intent.getContent());
-            }else{
+            } else {
                 SearchServiceClient searchClient = SearchServiceClientFactory.getSearchServiceClient();
                 Map<String, String> map = new HashMap<String, String>();
-                map.put("q", "q:"+keywords);
+                map.put("q", "q:" + keywords);
                 map.put("qf", "q");
                 map.put("hl", "true");
                 map.put("hl.fl", "q");
                 map.put("hl.simple.pre", "<strong style='color:#c30'>");
                 map.put("hl.simple.post", "</strong>");
-                List<RobotQABean> robotAList = searchClient.searchRobotQA(map, 0, 100);//机器人常用语对话库搜索
-                if(robotAList.size()>0) {//机器人常用语对话库搜索到的话返回，不记录后台日志
-                    int randomIndex = (int)(Math.random()*robotAList.size());
+                List<RobotQABean> robotAList = searchClient.searchRobotQA(map, 0, 100);// 机器人常用语对话库搜索
+                if (robotAList.size() > 0) {// 机器人常用语对话库搜索到的话返回，不记录后台日志
+                    int randomIndex = (int) (Math.random() * robotAList.size());
                     String[] anser = robotAList.get(0).getA();
-                    String content = anser[(int)(Math.random()*anser.length)];
+                    String content = anser[(int) (Math.random() * anser.length)];
                     answerVO.setAType(AType.ROBOT);
                     answerVO.setContent(content);
-                } else {//机器人常用语对话库未搜索到的话搜索知识库
+                } else {// 机器人常用语对话库未搜索到的话搜索知识库
                     String definiteKeyword = SearchUtil.formatFullMatchKeyword(q);
                     Map<String, String> queryParams = new HashMap<String, String>();
                     queryParams.put("q", definiteKeyword);
                     queryParams.put("qf", "title");
-                    if(!ValidatorUtil.isNull(systemId)) {
+                    if (!ValidatorUtil.isNull(systemId)) {
                         queryParams.put("fq", String.format("type:PUBLIC AND system_ids:%s", systemId));
                     } else {
                         queryParams.put("fq", "type:PUBLIC");
                     }
                     KnowIndexService knowIndexService = ServiceFactory.getKnowIndexService();
-                    KnowListVO<KnowledgeVO> list = knowIndexService.customSearch(queryParams, 0, 5);//不分词，全匹配搜索
+                    KnowListVO<KnowledgeVO> list = knowIndexService.customSearch(queryParams, 0, 5);// 不分词，全匹配搜索
                     AType aType = null;
-                    if(list.getKnows().size()>0) {//全匹配搜索搜索到了
-                        if(list.getKnows().size()==1) {//如果只搜索到一个
+                    if (list.getKnows().size() > 0) {// 全匹配搜索搜索到了
+                        if (list.getKnows().size() == 1) {// 如果只搜索到一个
                             aType = AType.DEFINITE;
                             answerVO.setContent(list.getKnows().get(0).getContent());
                         } else {
                             aType = AType.INDEFINITE;
                         }
-                    } else {///全匹配搜索未搜索到则进行普通搜索（分词匹配）
+                    } else {// /全匹配搜索未搜索到则进行普通搜索（分词匹配）
                         queryParams.put("q", keywords);
-                        list = knowIndexService.customSearch(queryParams, 0, 5);//全匹配搜索不到再分词搜索
-                        if(list.getKnows().size()>0) {
+                        list = knowIndexService.customSearch(queryParams, 0, 5);// 全匹配搜索不到再分词搜索
+                        if (list.getKnows().size() > 0) {
                             aType = AType.INDEFINITE;
                         } else {
                             aType = AType.NONE;
@@ -183,7 +184,7 @@ public class RobotServiceImpl extends BaseDbService implements RobotService {
                         }
                     }
                     answerVO.setAType(aType);
-                    
+
                     QALogData qaLogData = new QALogData();
                     qaLogData.setSessionId(sessionId);
                     qaLogData.setQType(QType.CUSTOM);
@@ -191,7 +192,7 @@ public class RobotServiceImpl extends BaseDbService implements RobotService {
                     qaLogData.setaType(aType);
                     qaLogData.setCreateTime(Calendar.getInstance());
                     save(qaLogData);
-                    
+
                     List<SearchVO> list1 = new ArrayList<SearchVO>();
                     for (KnowledgeVO knowledgeVO : list.getKnows()) {
                         ALogData aLogData = new ALogData();
@@ -200,7 +201,7 @@ public class RobotServiceImpl extends BaseDbService implements RobotService {
                         aLogData.setCmsId(knowledgeData.getCmsId());
                         // aLogData.setCmsVersion(cmsVersion);后期要用到版本信息
                         save(aLogData);
-                        
+
                         SearchVO searchVO = new SearchVO(knowledgeData.getSystemDatas(), knowledgeVO.getKnowledgeId(), knowledgeVO.getTitle(), "");
                         list1.add(searchVO);
                     }
@@ -217,31 +218,31 @@ public class RobotServiceImpl extends BaseDbService implements RobotService {
         RobotQSetData rqsd = robotDAO.getRobotQSetData(qID);
         List<RobotASetData> value = robotDAO.getAByQSet(rqsd);
         result.put(rqsd, value);
-//        List<RobotQSetData> qs = robotDAO.pageQ(0, 10);
-//        for(RobotQSetData key:qs) {
-//            if(!ValidatorUtil.isNull(qID) && !qID.equals(key.getId())) continue;
-//            List<RobotASetData> value = robotDAO.getAByQSet(key);
-//            result.put(key, value);
-//        }
+        // List<RobotQSetData> qs = robotDAO.pageQ(0, 10);
+        // for(RobotQSetData key:qs) {
+        // if(!ValidatorUtil.isNull(qID) && !qID.equals(key.getId())) continue;
+        // List<RobotASetData> value = robotDAO.getAByQSet(key);
+        // result.put(key, value);
+        // }
         return result;
     }
-    
-    public List<RobotQABean> getRobotBasicConf(String[] qs){
+
+    public List<RobotQABean> getRobotBasicConf(String[] qs) {
         List<RobotQABean> list = new ArrayList<RobotQABean>();
-        for(String question :qs){
+        for (String question : qs) {
             RobotQABean rqab = new RobotQABean();
             RobotQSetData rqs = robotDAO.getRobotQSetByQ(question);
-            if(rqs!=null) {
-            List<RobotASetData> listRAS = robotDAO.getAByQSet(rqs);
-            rqab.setId(rqs.getId());
-            rqab.setQ(rqs.getQ());
-            rqab.setNum(rqs.getNum());
-            String[] ans = new String[listRAS.size()];
-            for(int i=0;i<listRAS.size();i++){
-                ans[i]=listRAS.get(i).getA();
-            }
-            rqab.setA(ans);
-            list.add(rqab);
+            if (rqs != null) {
+                List<RobotASetData> listRAS = robotDAO.getAByQSet(rqs);
+                rqab.setId(rqs.getId());
+                rqab.setQ(rqs.getQ());
+                rqab.setNum(rqs.getNum());
+                String[] ans = new String[listRAS.size()];
+                for (int i = 0; i < listRAS.size(); i++) {
+                    ans[i] = listRAS.get(i).getA();
+                }
+                rqab.setA(ans);
+                list.add(rqab);
             }
         }
         return list;
@@ -250,11 +251,11 @@ public class RobotServiceImpl extends BaseDbService implements RobotService {
     @Override
     public void deleteRobotQASet(String id) {
         RobotQSetData robotQSetData = robotDAO.getRobotQSetData(id);
-        if(null==robotQSetData){
+        if (null == robotQSetData) {
             return;
         }
         List<RobotASetData> list = robotDAO.getAByQSet(robotQSetData);
-        for(RobotASetData data:list) {
+        for (RobotASetData data : list) {
             robotDAO.del(data);
         }
         robotDAO.del(robotQSetData);
@@ -274,7 +275,7 @@ public class RobotServiceImpl extends BaseDbService implements RobotService {
     public List<PieVO> totalQ() {
         return robotDAO.totalQ();
     }
-    
+
     @Override
     public List<PieVO> totalSession(String startTime, String endTime) {
         return robotDAO.totalSession(startTime, endTime);
@@ -308,15 +309,15 @@ public class RobotServiceImpl extends BaseDbService implements RobotService {
             e.printStackTrace();
         }
         List<WeatherCodeData> weatherCodeDatas = new ArrayList<WeatherCodeData>();
-        
+
         Element root = doc.getRootElement();
         List<Element> provinces = root.elements("province");
-        for(Element province : provinces){
+        for (Element province : provinces) {
             List<Element> citys = province.elements("city");
-            for(Element city : citys){
+            for (Element city : citys) {
                 List<Element> countys = city.elements("county");
-                for(Element county : countys){
-                    weatherCodeDatas.add(new WeatherCodeData(county.attribute("id").getValue(),county.attribute("name").getValue(),county.attribute("weatherCode").getValue()));
+                for (Element county : countys) {
+                    weatherCodeDatas.add(new WeatherCodeData(county.attribute("id").getValue(), county.attribute("name").getValue(), county.attribute("weatherCode").getValue()));
                 }
             }
         }
@@ -327,12 +328,12 @@ public class RobotServiceImpl extends BaseDbService implements RobotService {
     @Override
     public WeatherCodeData getWeatherCode(String string) {
         // TODO Auto-generated method stub
-        
-        for(int i=string.length();i>0;i--){
-            for(int index=0;index<=string.length()-i;index++){
-                String add = string.substring(index,index+i);
+
+        for (int i = string.length(); i > 0; i--) {
+            for (int index = 0; index <= string.length() - i; index++) {
+                String add = string.substring(index, index + i);
                 WeatherCodeData weatherCodeData = weatherCodeDataDAO.getWeatherCodeByName(add);
-                if(weatherCodeData!=null){
+                if (weatherCodeData != null) {
                     return weatherCodeData;
                 }
             }
@@ -343,20 +344,19 @@ public class RobotServiceImpl extends BaseDbService implements RobotService {
     @Override
     public WeatherCodeData getWeatherCode(List<String> addrs) {
         // TODO Auto-generated method stub
-        for(int i=addrs.size();i>0;i--){
-            for(int index=0;index<=addrs.size()-i;index++){
+        for (int i = addrs.size(); i > 0; i--) {
+            for (int index = 0; index <= addrs.size() - i; index++) {
                 String add = "";
-                for(int j=index;j<index+i;j++){
+                for (int j = index; j < index + i; j++) {
                     add += addrs.get(j);
                 }
                 WeatherCodeData weatherCodeData = weatherCodeDataDAO.getWeatherCodeByName(add);
-                if(weatherCodeData!=null){
+                if (weatherCodeData != null) {
                     return weatherCodeData;
                 }
             }
         }
         return null;
     }
-
 
 }

@@ -9,7 +9,7 @@
 <%
 String ctxPath = request.getContextPath();
 SystemService systemService = ServiceFactory.getSystemService();
-List<SystemData> systems = systemService.getSystems(false);
+List<SystemData> systems = systemService.getSystems(false, null);
 %>
 <script type="text/javascript" src='http://t1.chei.com.cn/common/wap/help/js/template.js'></script>
 <%-- <script type="text/javascript" src="//apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script> --%>

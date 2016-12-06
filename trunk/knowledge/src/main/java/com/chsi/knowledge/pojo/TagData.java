@@ -16,6 +16,7 @@ import com.chsi.framework.pojos.PersistentObject;
 
 /**
  * 标签表信息
+ * 
  * @author chenjian
  */
 @Entity
@@ -29,10 +30,10 @@ public class TagData extends PersistentObject {
     private String name;
     private String description;
     private int sort;
-    
-    private int knowCnt;//关联的知识数量
+
+    private int knowCnt;// 关联的知识数量
     private boolean flag;
-    
+
     private Integer property;
 
     public void setData(PersistentObject persistentObject) {
@@ -44,10 +45,10 @@ public class TagData extends PersistentObject {
         this.sort = tagData.getSort();
     }
 
-    public TagData(){
+    public TagData() {
         super();
     }
-    
+
     public TagData(String id, SystemData systemData, String name, String description, int sort) {
         super();
         this.id = id;
@@ -107,7 +108,7 @@ public class TagData extends PersistentObject {
     public void setSort(int sort) {
         this.sort = sort;
     }
-    
+
     @Column(name = "PROPERTY")
     public Integer getProperty() {
         return property;
@@ -125,6 +126,7 @@ public class TagData extends PersistentObject {
     public void setKnowCnt(int knowCnt) {
         this.knowCnt = knowCnt;
     }
+
     @Transient
     public boolean isFlag() {
         return flag;

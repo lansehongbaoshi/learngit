@@ -15,12 +15,13 @@ import com.chsi.framework.struts2.BasicSupportAction;
 import com.chsi.knowledge.vo.LoginUserVO;
 import com.chsi.knowledge.web.util.WebAppUtil;
 import com.opensymphony.xwork2.ActionContext;
+
 /**
- *  BasicAction 实现大多接口，子类不用再去重复实现
+ * BasicAction 实现大多接口，子类不用再去重复实现
+ * 
  * @author chenjian
  */
-public class BasicAction extends BasicSupportAction implements ParameterAware,RequestAware,
-         ServletResponseAware, ServletRequestAware, SessionAware {
+public class BasicAction extends BasicSupportAction implements ParameterAware, RequestAware, ServletResponseAware, ServletRequestAware, SessionAware {
 
     private static final long serialVersionUID = 1L;
     protected HttpServletResponse response;
@@ -28,11 +29,11 @@ public class BasicAction extends BasicSupportAction implements ParameterAware,Re
     protected Map<String, Object> session;
     protected Map<String, Object> request;
     private Map<String, String[]> parameters;
-    
+
     protected String getLoginedUserId() {
         return WebAppUtil.getUserId();
     }
-    
+
     protected LoginUserVO getLoginUserVO() {
         return WebAppUtil.getLoginUserVO(httpRequest);
     }

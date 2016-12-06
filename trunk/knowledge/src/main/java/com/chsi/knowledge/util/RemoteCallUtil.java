@@ -20,7 +20,7 @@ import com.chsi.security.client.AuthorityServiceClientFactory;
 
 public class RemoteCallUtil {
     protected static final Log log = LogFactory.getLog(RemoteCallUtil.class);
-    
+
     private static String accountProtocol;
     private static String accountServerName;
     private static String picsrvProtocol;
@@ -28,7 +28,7 @@ public class RemoteCallUtil {
     private static String contactProtocol;
     private static String contactServerName;// contact域名
     private static String allowIp;
-    
+
     private static ContactServiceClient contactService = ContactServiceClientFactory.getContactServiceClient();
     private static AuthorityServiceClient authorityServiceClient = AuthorityServiceClientFactory.getAuthorityServiceClient();
 
@@ -63,44 +63,45 @@ public class RemoteCallUtil {
 
         }
     }
-    
+
     public static String getAccountUrl() {
         return accountProtocol + "://" + accountServerName;
     }
-    
+
     public static String getContactUrl() {
         return contactProtocol + "://" + contactServerName;
     }
-    
+
     public static String getPicsrvUrl() {
         return picsrvProtocol + "://" + picsrvServerName;
     }
-    
-    //允许客服访问知识接口的ip
+
+    // 允许客服访问知识接口的ip
     public static String getAllowIp() {
         return allowIp;
     }
-    
+
     /**
      * 当前登录人的通讯录姓名
+     * 
      * @param userId
      * @return
      */
     public static String getXm() {
         String userId = CallInfoHelper.getCurrentUser();
-        if(!ValidatorUtil.isNull(userId)) {
+        if (!ValidatorUtil.isNull(userId)) {
             return contactService.getRealInfoSingleItemValue(userId, ContactConstants.ITEM_NAME_ID);
         }
         return "";
     }
-    
+
     public static String getXmByUserId(String userId) {
-        if(!ValidatorUtil.isNull(userId)) {
+        if (!ValidatorUtil.isNull(userId)) {
             return contactService.getRealInfoSingleItemValue(userId, ContactConstants.ITEM_NAME_ID);
         }
         return "";
     }
-    
+
     public static List<String> getAuthsByUserId(String userId) {
         RemoteCallRs<String[]> rcr = authorityServiceClient.getAuthorities(userId);
         String[] strs = rcr.getSuccRsValue();

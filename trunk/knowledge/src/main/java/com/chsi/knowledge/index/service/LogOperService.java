@@ -13,7 +13,6 @@ public interface LogOperService {
 
     List<LogOperData> getLogOperByKeyId(String keyId);
 
-    LogOperListVO<LogOperVO> searchLogOper(String startDate, String endDate,
-            int curPage) throws Exception;
+    LogOperListVO<LogOperVO> searchLogOper(String startDate, String endDate, int curPage) throws Exception;
 
 }

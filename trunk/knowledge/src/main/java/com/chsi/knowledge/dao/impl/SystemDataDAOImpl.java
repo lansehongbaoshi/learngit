@@ -8,29 +8,31 @@ import com.chsi.framework.hibernate.BaseHibernateDAO;
 import com.chsi.knowledge.dao.SystemDataDAO;
 import com.chsi.knowledge.pojo.SystemData;
 
-public class SystemDataDAOImpl extends BaseHibernateDAO implements SystemDataDAO{
-    
+public class SystemDataDAOImpl extends BaseHibernateDAO implements SystemDataDAO {
+
     private static final String SELECT_SYSTEM = "select p from SystemData p ";
-    
+
     private static final String W = " where ";
+    private static final String A = " and ";
     private static final String ID = " p.id=:id";
-    
+    private static final String PROPERTY = " p.property=:property";
+
     private static final String ORDER_BY_START_TIME = " order by p.sort";
-    
+
     @SuppressWarnings("unchecked")
     @Override
     public SystemData getSystemById(String id) {
         String hql = SELECT_SYSTEM + W + ID;
-        Query query = hibernateUtil.getSession().createQuery(hql). setString("id", id);
+        Query query = hibernateUtil.getSession().createQuery(hql).setString("id", id);
         List<SystemData> list = query.list();
         return list.size() == 0 ? null : list.get(0);
     }
 
     @Override
     public void save(SystemData systemData) {
-        hibernateUtil.save(systemData);  
+        hibernateUtil.save(systemData);
     }
-    
+
     @Override
     public void update(SystemData systemData) {
         hibernateUtil.update(systemData);
@@ -41,6 +43,16 @@ public class SystemDataDAOImpl extends BaseHibernateDAO implements SystemDataDAO
     public List<SystemData> getSystems() {
         String hql = SELECT_SYSTEM + ORDER_BY_START_TIME;
         Query query = hibernateUtil.getSession().createQuery(hql);
+        List<SystemData> list = query.list();
+        return list;
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<SystemData> getSystems(int property) {
+        String hql = SELECT_SYSTEM + W + PROPERTY + ORDER_BY_START_TIME;
+        Query query = hibernateUtil.getSession().createQuery(hql);
+        query.setInteger("property", property);
         List<SystemData> list = query.list();
         return list;
     }

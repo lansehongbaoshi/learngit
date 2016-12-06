@@ -7,17 +7,19 @@ import java.util.Map;
 
 import com.chsi.knowledge.pojo.SystemData;
 import com.chsi.knowledge.pojo.TagData;
+
 /**
  * 导航工具类
+ * 
  * @author chenjian
  */
 public class NavigationUtil {
-    //层级顺序
+    // 层级顺序
     public static final int systemLev = 1;
     public static final int tagLev = 2;
     public static final int knowLev = 3;
-    
-    //获取 系统-标签-知识 三层导航
+
+    // 获取 系统-标签-知识 三层导航
     public static List<Navigation> getNavigation(SystemData systemData, TagData tagData, String title, String knowledgeId) {
         List<Navigation> list = new ArrayList<Navigation>();
         Navigation temp = getSystemLevel(systemData);
@@ -31,8 +33,8 @@ public class NavigationUtil {
             list.add(temp);
         return list;
     }
-    
-    //获取知识导航
+
+    // 获取知识导航
     public static Navigation getKnowLevel(String title, String knowledgeId) {
         if (null != title && null != knowledgeId) {
             Map<String, String> tagPar = new HashMap<String, String>();
@@ -42,12 +44,12 @@ public class NavigationUtil {
             return new Navigation(knowLev, title, title, tagPar);
         }
         return null;
-            
+
     }
-    
-    //获取标签
-    public static Navigation getTagLevel(TagData tagData){
-        if (null != tagData){
+
+    // 获取标签
+    public static Navigation getTagLevel(TagData tagData) {
+        if (null != tagData) {
             String tagName = tagData.getName();
             String tagDes = tagData.getDescription();
             Map<String, String> tagPar = new HashMap<String, String>();
@@ -57,10 +59,10 @@ public class NavigationUtil {
         }
         return null;
     }
-    
-    //系统级导航
-    public static Navigation getSystemLevel(SystemData systemData){
-        if (null != systemData){
+
+    // 系统级导航
+    public static Navigation getSystemLevel(SystemData systemData) {
+        if (null != systemData) {
             String sysName = systemData.getName();
             String sysDes = systemData.getDescription();
             Map<String, String> sysPar = new HashMap<String, String>();
@@ -69,5 +71,5 @@ public class NavigationUtil {
         }
         return null;
     }
-    
+
 }

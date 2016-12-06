@@ -20,7 +20,7 @@ public class LogOperData extends PersistentObject {
      * 
      */
     private static final long serialVersionUID = 7052104487129289016L;
-    
+
     private String id;
     private Calendar createTime;
     private String userId;
@@ -29,17 +29,12 @@ public class LogOperData extends PersistentObject {
     private String oper;
     private String message;
     private String keyId;
-    
-    
-    
+
     public LogOperData() {
         super();
     }
-    
-    
 
-    public LogOperData(Calendar createTime, String userId, String m1,
-            String oper, String message) {
+    public LogOperData(Calendar createTime, String userId, String m1, String oper, String message) {
         super();
         this.createTime = createTime;
         this.userId = userId;
@@ -48,10 +43,7 @@ public class LogOperData extends PersistentObject {
         this.message = message;
     }
 
-
-
-    public LogOperData(Calendar createTime, String userId, String m1,
-            String m2, String oper, String message) {
+    public LogOperData(Calendar createTime, String userId, String m1, String m2, String oper, String message) {
         super();
         this.createTime = createTime;
         this.userId = userId;
@@ -60,7 +52,7 @@ public class LogOperData extends PersistentObject {
         this.oper = oper;
         this.message = message;
     }
-    
+
     @Id
     @Column(name = "ID")
     @GeneratedValue(generator = "app_seq")
@@ -129,7 +121,7 @@ public class LogOperData extends PersistentObject {
     public void setMessage(String message) {
         this.message = message;
     }
-    
+
     @Column(name = "KEY_ID")
     public String getKeyId() {
         return keyId;

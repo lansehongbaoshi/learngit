@@ -24,12 +24,12 @@ public class RecycleAction extends AjaxAction {
      * 
      */
     private static final long serialVersionUID = -6758642416847428087L;
-    
+
     private KnowledgeService knowledgeService;
     private KnowIndexService knowIndexService;
     private KnowTagRelationService knowTagRelationService;
     private LogOperService logOperService;
-    
+
     private String systemId;
     private String klId;
     private List<KnowledgeData> knowls;
@@ -40,10 +40,10 @@ public class RecycleAction extends AjaxAction {
         ajaxMessage.setO(knowls);
         writeJSON(ajaxMessage);
     }
-    
+
     public void rollback() throws Exception {
         KnowledgeData knowledgeData = knowledgeService.getKnowledgeById(klId);
-        if(knowledgeData==null) {
+        if (knowledgeData == null) {
             ajaxMessage.addMessage("不存在此知识点！");
             ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
         } else {
@@ -55,22 +55,22 @@ public class RecycleAction extends AjaxAction {
         }
         writeJSON(ajaxMessage);
     }
-    
-  //彻底、完全删除，无法恢复
+
+    // 彻底、完全删除，无法恢复
     public void delKnowledgePermanently() throws Exception {
         if (!ValidatorUtil.isNull(klId)) {
             KnowledgeData data = knowledgeService.getKnowledgeById(klId);
-            if(data!=null) {
+            if (data != null) {
                 knowIndexService.deleteKnowIndexBySolr(data.getId());// 删索引
                 knowTagRelationService.del(data.getId());
                 List<KnowTagRelationData> ktrList = knowTagRelationService.getKnowTagRelationByKnowId(data.getId());
-                for(KnowTagRelationData one:ktrList) {
+                for (KnowTagRelationData one : ktrList) {
                     ManageCacheUtil.removeKnowTag(one.getTagData().getId());
                 }
                 knowledgeService.delete(data);
                 CmsServiceClient cmsServiceClient = CmsServiceClientFactory.getCmsServiceClient();
                 cmsServiceClient.deleteArticle(data.getCmsId());// 从新闻系统删除
-                
+
                 saveLogOper("回收站", "", "彻底删除", "知识", klId);
             }
             ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
@@ -80,8 +80,8 @@ public class RecycleAction extends AjaxAction {
         }
         writeJSON(ajaxMessage);
     }
-    
-    public void saveLogOper(String m1,String m2,String oper,String message,String key){
+
+    public void saveLogOper(String m1, String m2, String oper, String message, String key) {
         LogOperData logOper = new LogOperData();
         logOper.setCreateTime(Calendar.getInstance());
         com.chsi.knowledge.vo.LoginUserVO user = com.chsi.knowledge.web.util.WebAppUtil.getLoginUserVO(httpRequest);
@@ -93,7 +93,7 @@ public class RecycleAction extends AjaxAction {
         logOper.setKeyId(key);
         logOperService.save(logOper);
     }
-    
+
     public String getSystemId() {
         return systemId;
     }
@@ -149,5 +149,5 @@ public class RecycleAction extends AjaxAction {
     public void setLogOperService(LogOperService logOperService) {
         this.logOperService = logOperService;
     }
-    
+
 }

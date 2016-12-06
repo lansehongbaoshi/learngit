@@ -14,11 +14,11 @@ public class CommonTask extends TimerTask {
     @Override
     public void run() {
         try {
-            commonService.removeDuplicatedDatas();//清理同一个ip的同一关键词的重复搜索
-            commonService.removeTrashKeywords();//清理垃圾关键词
-            commonService.recordVisitLog();//记录访问量日志
-            knowIndexService.updateAllKnowledgeIndex();//刷新所有系统下的知识索引
-        } catch(Exception ex) {
+            commonService.removeDuplicatedDatas();// 清理同一个ip的同一关键词的重复搜索
+            commonService.removeTrashKeywords();// 清理垃圾关键词
+            commonService.recordVisitLog();// 记录访问量日志
+            knowIndexService.updateAllKnowledgeIndex();// 刷新所有系统下的知识索引
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
     }

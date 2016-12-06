@@ -6,7 +6,7 @@ public class LineChartVO {
     private List<String> legend;
     private List<String> xAxis;
     private List<SeriesVO> series;
-    
+
     public LineChartVO(List<String> legend, List<String> xAxis, List<SeriesVO> series) {
         this.legend = legend;
         this.xAxis = xAxis;
@@ -28,7 +28,7 @@ public class LineChartVO {
     public void setxAxis(List<String> xAxis) {
         this.xAxis = xAxis;
     }
-    
+
     public List<SeriesVO> getSeries() {
         return series;
     }

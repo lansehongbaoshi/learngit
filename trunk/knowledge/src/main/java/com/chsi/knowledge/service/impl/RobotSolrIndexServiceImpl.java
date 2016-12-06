@@ -24,8 +24,7 @@ import com.chsi.knowledge.pojo.RobotQSetData;
 import com.chsi.knowledge.service.RobotSolrIndexService;
 import com.chsi.search.common.indexdata.RobotIndexData;
 
-public class RobotSolrIndexServiceImpl extends BaseDbService implements
-        RobotSolrIndexService {
+public class RobotSolrIndexServiceImpl extends BaseDbService implements RobotSolrIndexService {
     private RobotDAO robotDAO;
     private SolrServer solrService;
     private int max = 10;
@@ -42,20 +41,20 @@ public class RobotSolrIndexServiceImpl extends BaseDbService implements
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        
+
     }
-    
-    public void updateRobotIndex(RobotQSetData robotQSetData){
-        
+
+    public void updateRobotIndex(RobotQSetData robotQSetData) {
+
         Map<RobotQSetData, List<RobotASetData>> map = robotDAO.getSolrByRQ(robotQSetData);
         List<RobotASetData> listA = map.get(robotQSetData);
         SolrInputDocument doc = new SolrInputDocument();
         doc.addField("id", robotQSetData.getId());
         doc.addField("q", robotQSetData.getQ());
         String[] anser = new String[listA.size()];
-        int i=0;
-        for(RobotASetData ra :listA){
-            anser[i++]=ra.getA();
+        int i = 0;
+        for (RobotASetData ra : listA) {
+            anser[i++] = ra.getA();
         }
         doc.addField("a", anser);
         doc.addField("num", 1);
@@ -65,23 +64,24 @@ public class RobotSolrIndexServiceImpl extends BaseDbService implements
         // TODO Auto-generated method stub
         List<RobotQSetData> list = robotDAO.allQ();
         List<SolrInputDocument> docs = new ArrayList<SolrInputDocument>();
-        for(RobotQSetData robotQSetData:list){
-            if(robotQSetData.getQ().startsWith("#")) continue;
+        for (RobotQSetData robotQSetData : list) {
+            if (robotQSetData.getQ().startsWith("#"))
+                continue;
             Map<RobotQSetData, List<RobotASetData>> map = robotDAO.getSolrByRQ(robotQSetData);
             List<RobotASetData> listA = map.get(robotQSetData);
             SolrInputDocument doc = new SolrInputDocument();
             doc.addField("id", robotQSetData.getId());
             doc.addField("q", robotQSetData.getQ());
             String[] anser = new String[listA.size()];
-            int i=0;
-            for(RobotASetData ra :listA){
-                anser[i++]=ra.getA();
+            int i = 0;
+            for (RobotASetData ra : listA) {
+                anser[i++] = ra.getA();
             }
             doc.addField("a", anser);
             doc.addField("num", robotQSetData.getNum());
             docs.add(doc);
         }
-        
+
         try {
             solrService.add(docs);
             solrService.commit();
@@ -95,6 +95,7 @@ public class RobotSolrIndexServiceImpl extends BaseDbService implements
         System.out.println("操作成功！");
 
     }
+
     @Override
     protected void doCreate() {
         // TODO Auto-generated method stub
@@ -128,9 +129,9 @@ public class RobotSolrIndexServiceImpl extends BaseDbService implements
     public void ImportDialogue(File file) {
         // TODO Auto-generated method stub
         BufferedReader br = null;
-        int index=1;
+        int index = 1;
         try {
-            br = new BufferedReader(new InputStreamReader(new FileInputStream(file),"UTF-8"));
+            br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
             String txt;
             String question = null;
             String anser = null;
@@ -138,41 +139,39 @@ public class RobotSolrIndexServiceImpl extends BaseDbService implements
 
             Map<String, RobotIndexData> map = new HashMap<String, RobotIndexData>();
             List<SolrInputDocument> docs = new ArrayList<SolrInputDocument>();
-            while((question=br.readLine())!=null){
+            while ((question = br.readLine()) != null) {
                 anser = br.readLine();
                 txt = br.readLine();
-//                System.out.println("第"+index+"对话：\t"+question);
-//                System.out.println(anser);
-                if(!set.contains(question)){
-                    RobotIndexData robotIndexData=new RobotIndexData();
+                // System.out.println("第"+index+"对话：\t"+question);
+                // System.out.println(anser);
+                if (!set.contains(question)) {
+                    RobotIndexData robotIndexData = new RobotIndexData();
                     robotIndexData.setQ(question);
                     List<String> anserList = new ArrayList<String>();
                     anserList.add(anser);
                     robotIndexData.setA(anserList);
                     map.put(question, robotIndexData);
                     set.add(question);
-                    
-                }else{
+
+                } else {
                     RobotIndexData robotIndexData = map.remove(question);
                     List<String> anserList = robotIndexData.getA();
-                    if(!anserList.contains(anser)){
+                    if (!anserList.contains(anser)) {
                         anserList.add(anser);
                     }
                     map.put(question, robotIndexData);
                 }
-                //"#############结束################".equals(txt)
-                if("#############结束################".equals(txt)){
-                    updateSolr( set, map, docs);
+                // "#############结束################".equals(txt)
+                if ("#############结束################".equals(txt)) {
+                    updateSolr(set, map, docs);
                 }
                 index++;
             }
-            
-            if(map.size()>0){
-                updateSolr( set, map, docs);
+
+            if (map.size() > 0) {
+                updateSolr(set, map, docs);
             }
-            
-            
-            
+
         } catch (UnsupportedEncodingException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -184,70 +183,66 @@ public class RobotSolrIndexServiceImpl extends BaseDbService implements
             e.printStackTrace();
         }
     }
-    
-    public void updateSolr(HashSet set,
-            Map<String, RobotIndexData> map, List<SolrInputDocument> docs)
-            throws IOException {
-        
-        for(Map.Entry<String, RobotIndexData> entry : map.entrySet()){
+
+    public void updateSolr(HashSet set, Map<String, RobotIndexData> map, List<SolrInputDocument> docs) throws IOException {
+
+        for (Map.Entry<String, RobotIndexData> entry : map.entrySet()) {
 
             RobotIndexData robotIndexData = entry.getValue();
             RobotQSetData rqsd = robotDAO.getRobotQSetByQ(robotIndexData.getQ());
 
-            if(rqsd==null){
+            if (rqsd == null) {
                 rqsd = new RobotQSetData();
                 rqsd.setQ(robotIndexData.getQ());
                 rqsd.setNum(1);
                 robotDAO.save(rqsd);
-                
-                for(String a :robotIndexData.getA()){
+
+                for (String a : robotIndexData.getA()) {
                     RobotASetData rad = new RobotASetData();
                     rad.setqId(rqsd.getId());
                     rad.setA(a);
                     robotDAO.save(rad);
                 }
-            }else{
+            } else {
 
                 List<RobotASetData> listras = robotDAO.getAByQSet(rqsd);
                 List<String> listrasa = new ArrayList<String>();
-                for(RobotASetData ra : listras){
+                for (RobotASetData ra : listras) {
                     listrasa.add(ra.getA());
                 }
-                
-                for(String a :robotIndexData.getA()){
-                    
-                    if(!listrasa.contains(a)){
+
+                for (String a : robotIndexData.getA()) {
+
+                    if (!listrasa.contains(a)) {
                         RobotASetData radtest = new RobotASetData();
                         radtest.setqId(rqsd.getId());
                         radtest.setA(a);
                         robotDAO.save(radtest);
                     }
                 }
-                for(String an : listrasa){
-                    if(!robotIndexData.getA().contains(an)){
+                for (String an : listrasa) {
+                    if (!robotIndexData.getA().contains(an)) {
                         robotIndexData.getA().add(an);
                     }
                 }
-                
-                
+
             }
-            System.out.println("正在处理："+rqsd.getId()+":"+rqsd.getQ()+"问题。");
-            
-            if(!robotIndexData.getQ().startsWith("#")){
+            System.out.println("正在处理：" + rqsd.getId() + ":" + rqsd.getQ() + "问题。");
+
+            if (!robotIndexData.getQ().startsWith("#")) {
                 SolrInputDocument doc = new SolrInputDocument();
                 doc.addField("id", rqsd.getId());
                 doc.addField("q", robotIndexData.getQ());
                 String[] ansers = new String[robotIndexData.getA().size()];
-                for(int i=0;i<robotIndexData.getA().size();i++){
-                    ansers[i]=robotIndexData.getA().get(i);
+                for (int i = 0; i < robotIndexData.getA().size(); i++) {
+                    ansers[i] = robotIndexData.getA().get(i);
                 }
 
                 doc.addField("a", ansers);
                 doc.addField("num", 1);
                 docs.add(doc);
             }
-            
-            
+
         }
         try {
             solrService.add(docs);
@@ -260,6 +255,5 @@ public class RobotSolrIndexServiceImpl extends BaseDbService implements
         map.clear();
         set.clear();
     }
-    
 
 }

@@ -9,9 +9,9 @@ import com.chsi.knowledge.dic.KnowledgeStatus;
 import com.chsi.knowledge.pojo.KnowTagRelationData;
 import com.chsi.knowledge.service.KnowTagRelationService;
 
-public class KnowTagRelationServiceImpl extends BaseDbService implements KnowTagRelationService{
+public class KnowTagRelationServiceImpl extends BaseDbService implements KnowTagRelationService {
     private KnowTagRelationDataDAO knowTagRelationDataDAO;
-    
+
     @Override
     protected void doCreate() {
         knowTagRelationDataDAO = getDAO(ServiceConstants.KNOWTAGRELATIONDATA_DAO, KnowTagRelationDataDAO.class);
@@ -20,7 +20,7 @@ public class KnowTagRelationServiceImpl extends BaseDbService implements KnowTag
     @Override
     protected void doRemove() {
         // TODO Auto-generated method stub
-        
+
     }
 
     @Override
@@ -62,5 +62,5 @@ public class KnowTagRelationServiceImpl extends BaseDbService implements KnowTag
         // TODO Auto-generated method stub
         return knowTagRelationDataDAO.getKnowsByTagId(tagId);
     }
-    
+
 }

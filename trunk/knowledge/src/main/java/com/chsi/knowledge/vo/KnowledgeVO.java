@@ -6,12 +6,12 @@ import java.util.List;
 import com.chsi.knowledge.pojo.KnowledgeData;
 import com.chsi.knowledge.pojo.SystemData;
 
-
 /**
  * 用于前台展示的知识vo
+ * 
  * @author zhangzh
  */
-public class KnowledgeVO implements Serializable{
+public class KnowledgeVO implements Serializable {
 
     /**
      * 
@@ -30,41 +30,40 @@ public class KnowledgeVO implements Serializable{
     private List<String> tagIds;
     private int visitCnt;
     private int sort;
-    
+
     public KnowledgeVO(KnowledgeData knowl) {
-        
+
     }
-    
+
     public KnowledgeVO(List<SystemData> systemDatas, String knowId, String title, String content, String updateTime) {
-        if(systemDatas!=null) {
+        if (systemDatas != null) {
             this.systemId = systemDatas.get(0).getId();
             this.system = systemDatas.get(0).getName();
-            if(systemDatas.size()>1) {
-                this.system+="...";
+            if (systemDatas.size() > 1) {
+                this.system += "...";
             }
             this.systems = "";
-            for(SystemData systemData:systemDatas) {
-                systems+=systemData.getName()+"&nbsp;";
+            for (SystemData systemData : systemDatas) {
+                systems += systemData.getName() + "&nbsp;";
             }
         }
-        
+
         this.title = title;
         this.setContent(content);
         this.knowId = knowId;
         this.updateTime = updateTime;
     }
-    
-    public KnowledgeVO(List<SystemData> systemDatas, String tags, String title, String content, String knowId,
-            List<String> tagIds, String keywords, int visitCnt, int sort, String type){
-        if(systemDatas!=null) {
+
+    public KnowledgeVO(List<SystemData> systemDatas, String tags, String title, String content, String knowId, List<String> tagIds, String keywords, int visitCnt, int sort, String type) {
+        if (systemDatas != null) {
             this.systemId = systemDatas.get(0).getId();
             this.system = systemDatas.get(0).getName();
-            if(systemDatas.size()>1) {
-                this.system+="...";
+            if (systemDatas.size() > 1) {
+                this.system += "...";
             }
             this.systems = "";
-            for(SystemData systemData:systemDatas) {
-                systems+=systemData.getName()+"&nbsp;";
+            for (SystemData systemData : systemDatas) {
+                systems += systemData.getName() + "&nbsp;";
             }
         }
         this.tags = tags;
@@ -109,7 +108,6 @@ public class KnowledgeVO implements Serializable{
     public void setTitle(String title) {
         this.title = title;
     }
-
 
     public String getKnowId() {
         return knowId;
@@ -183,5 +181,4 @@ public class KnowledgeVO implements Serializable{
         this.updateTime = updateTime;
     }
 
-    
 }

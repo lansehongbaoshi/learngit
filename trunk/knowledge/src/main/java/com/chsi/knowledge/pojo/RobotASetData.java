@@ -19,11 +19,11 @@ public class RobotASetData extends PersistentObject {
      * 
      */
     private static final long serialVersionUID = -2788510258592220956L;
-    
+
     private String id;
     private String qId;
     private String a;
-    
+
     @Id
     @Column(name = "ID")
     @GeneratedValue(generator = "app_seq")

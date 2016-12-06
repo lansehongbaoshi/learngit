@@ -7,17 +7,18 @@ public class SeriesVO {
     private String type;
     private String stack;
     private List<Long> data;
-    
+
     public SeriesVO(String name, List<Long> data) {
         this.name = name;
         this.setData(data);
         this.type = "line";
         this.stack = "";
     }
-    
+
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
     }

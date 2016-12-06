@@ -2,11 +2,12 @@ package com.chsi.knowledge.dic;
 
 /**
  * 知识所处状态
+ * 
  * @author chenjian
  */
 public enum KnowledgeStatus {
 
-    YSH, DSH, YSC, CDSC; //已审核、待审核、已删除、彻底删除
+    YSH, DSH, YSC, CDSC; // 已审核、待审核、已删除、彻底删除
 
     public String toString() {
         switch (this) {
@@ -21,8 +22,8 @@ public enum KnowledgeStatus {
         }
         return super.toString();
     }
-    
-    public int getNum(){
+
+    public int getNum() {
         switch (this) {
         case YSH:
             return 0; // 0

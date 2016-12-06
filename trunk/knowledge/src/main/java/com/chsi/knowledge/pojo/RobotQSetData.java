@@ -16,16 +16,15 @@ import com.chsi.framework.pojos.PersistentObject;
 @Table(name = "ROBOT_Q_SET")
 @DynamicUpdate(value = true)
 public class RobotQSetData extends PersistentObject {
-    
+
     /**
      * 
      */
     private static final long serialVersionUID = -2979356167086428532L;
-    
+
     private String id;
     private String q;
     private int num;
-
 
     @Id
     @Column(name = "ID")
@@ -49,6 +48,7 @@ public class RobotQSetData extends PersistentObject {
     public void setQ(String q) {
         this.q = q;
     }
+
     @Column(name = "NUM")
     public int getNum() {
         return num;

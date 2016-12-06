@@ -19,46 +19,47 @@ public class SearchLogAction extends AjaxAction {
     private String endDate;
     private int curPage;
     private String callback;
-    
 
-    public String index(){
+    public String index() {
         return SUCCESS;
     }
-    
 
-    public String searchLogOper() throws Exception{
-        LogOperListVO<LogOperVO> result = logOperService.searchLogOper(startDate,endDate,curPage);
+    public String searchLogOper() throws Exception {
+        LogOperListVO<LogOperVO> result = logOperService.searchLogOper(startDate, endDate, curPage);
         ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
         ajaxMessage.setO(result);
         writeCallbackJSON(callback);
         return NONE;
     }
-    
-    
-    
-    
-    
+
     public LogOperService getLogOperService() {
         return logOperService;
     }
+
     public void setLogOperService(LogOperService logOperService) {
         this.logOperService = logOperService;
     }
+
     public String getStartDate() {
         return startDate;
     }
+
     public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
+
     public String getEndDate() {
         return endDate;
     }
+
     public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
+
     public int getCurPage() {
         return curPage;
     }
+
     public void setCurPage(int curPage) {
         this.curPage = curPage;
     }
@@ -69,7 +70,6 @@ public class SearchLogAction extends AjaxAction {
 
     public void setCallback(String callback) {
         this.callback = callback;
-    } 
-    
+    }
 
 }

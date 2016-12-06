@@ -15,12 +15,14 @@ import com.chsi.knowledge.service.KnowTagRelationService;
 import com.chsi.knowledge.service.SystemService;
 import com.chsi.knowledge.service.TagService;
 import com.chsi.knowledge.util.ManageCacheUtil;
+
 /**
  * 后台管理 标签ACTION
+ * 
  * @author chenjian
- *
+ * 
  */
-public class TagAction extends AjaxAction{
+public class TagAction extends AjaxAction {
 
     private static final long serialVersionUID = 12312412L;
     private TagService tagService;
@@ -32,13 +34,13 @@ public class TagAction extends AjaxAction{
     private String name;
     private String description;
     private String property;
-    
+
     private TagData tagData;
-    
+
     private List<TagData> tags;
-    
+
     private int sort;
-    
+
     public TagService getTagService() {
         return tagService;
     }
@@ -110,7 +112,7 @@ public class TagAction extends AjaxAction{
     public void setSort(int sort) {
         this.sort = sort;
     }
-    
+
     public String getProperty() {
         return property;
     }
@@ -137,9 +139,9 @@ public class TagAction extends AjaxAction{
 
     public void list() throws Exception {
         tags = tagService.get(systemId);
-        for(TagData tag:tags) {
+        for (TagData tag : tags) {
             List<KnowTagRelationData> list1 = knowTagRelationService.getYSHKnowTagDatas(tag.getId());
-            tag.setKnowCnt(list1==null?0:list1.size());
+            tag.setKnowCnt(list1 == null ? 0 : list1.size());
         }
         ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
         ajaxMessage.setO(tags);
@@ -153,17 +155,17 @@ public class TagAction extends AjaxAction{
             return ERROR;
         }
         TagData tagData = new TagData(null, system, name, description, sort);
-        tagData.setProperty(ValidatorUtil.isNull(property)?0:Integer.parseInt(property));
+        tagData.setProperty(ValidatorUtil.isNull(property) ? 0 : Integer.parseInt(property));
         tagService.saveOrUpdate(tagData);
         id = tagData.getId();
         ManageCacheUtil.removeTagList(systemId);
-        /*记录新增标签日志*/
-        saveLogOper("标签管理","","新增","标签",id);
-        
+        /* 记录新增标签日志 */
+        saveLogOper("标签管理", "", "新增", "标签", id);
+
         return SUCCESS;
     }
-    
-    //更新首页
+
+    // 更新首页
     public String updateIndex() throws Exception {
         tagData = tagService.getTagData(id);
         if (null == tagData) {
@@ -172,7 +174,7 @@ public class TagAction extends AjaxAction{
         }
         return SUCCESS;
     }
-    
+
     public String update() throws Exception {
         TagData tagData = tagService.getTagData(id);
         if (null == tagData) {
@@ -182,22 +184,22 @@ public class TagAction extends AjaxAction{
         tagData.setName(name);
         tagData.setSort(sort);
         tagData.setDescription(description);
-        tagData.setProperty(ValidatorUtil.isNull(property)?0:Integer.parseInt(property));
+        tagData.setProperty(ValidatorUtil.isNull(property) ? 0 : Integer.parseInt(property));
         tagService.saveOrUpdate(tagData);
         setSystemId(tagData.getSystemData().getId());
         ManageCacheUtil.removeTagList(getSystemId());
-        
-        saveLogOper("标签管理","","修改","标签",id);
-        
+
+        saveLogOper("标签管理", "", "修改", "标签", id);
+
         return SUCCESS;
     }
-    
+
     public String delete() throws Exception {
         if (!ValidatorUtil.isNull(id)) {
             TagData tagData = tagService.getTagData(id);
-            if(tagData!=null) {
-                List<KnowTagRelationData>  list = knowTagRelationService.getAllKnowTagDatas(id);
-                if(list.size()>0) {
+            if (tagData != null) {
+                List<KnowTagRelationData> list = knowTagRelationService.getAllKnowTagDatas(id);
+                if (list.size() > 0) {
                     ajaxMessage.addMessage("删除标签前必须先清空使用该标签的知识！");
                     ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
                 } else {
@@ -205,13 +207,13 @@ public class TagAction extends AjaxAction{
                     tagService.delete(tagData);
                     ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
                     ManageCacheUtil.removeTagList(systemId);
-                    saveLogOper("标签管理","","删除","标签",id);
+                    saveLogOper("标签管理", "", "删除", "标签", id);
                 }
             } else {
                 ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
-                saveLogOper("标签管理","","删除","标签",id);
+                saveLogOper("标签管理", "", "删除", "标签", id);
             }
-            
+
         } else {
             ajaxMessage.addMessage("id不能为空！");
             ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
@@ -219,8 +221,8 @@ public class TagAction extends AjaxAction{
         writeJSON(ajaxMessage);
         return NONE;
     }
-    
-    public void saveLogOper(String m1,String m2,String oper,String message,String key){
+
+    public void saveLogOper(String m1, String m2, String oper, String message, String key) {
         LogOperData logOper = new LogOperData();
         logOper.setCreateTime(Calendar.getInstance());
         com.chsi.knowledge.vo.LoginUserVO user = com.chsi.knowledge.web.util.WebAppUtil.getLoginUserVO(httpRequest);

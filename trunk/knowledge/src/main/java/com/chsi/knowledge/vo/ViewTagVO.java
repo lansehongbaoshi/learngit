@@ -3,12 +3,14 @@ package com.chsi.knowledge.vo;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
+
 /**
  * 前台标签VO
+ * 
  * @author chsi-pc
- *
+ * 
  */
-public class ViewTagVO implements Serializable{
+public class ViewTagVO implements Serializable {
 
     /**
      * 
@@ -17,8 +19,8 @@ public class ViewTagVO implements Serializable{
     private String name;
     private String description;
     private int count;
-    private Map<String,String> param;
-    
+    private Map<String, String> param;
+
     public ViewTagVO(String tagId, String systemId, String name, String description, int count) {
         param = new HashMap<String, String>();
         param.put("tagId", tagId);

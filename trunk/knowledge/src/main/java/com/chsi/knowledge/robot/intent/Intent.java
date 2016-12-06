@@ -27,174 +27,176 @@ import com.chsi.search.client.SearchServiceClient;
 import com.chsi.search.client.SearchServiceClientFactory;
 
 public class Intent {
-    
+
     public IntentType intentType;
     private String question;
     private String sessionId;
-    /*分析后的结果*/
+    /* 分析后的结果 */
     List<String> result;
-    
-    public Intent(){
-        
+
+    public Intent() {
+
     }
-    public Intent(String question){
+
+    public Intent(String question) {
         this.question = question;
     }
-    public Intent(String question,String sessionId){
+
+    public Intent(String question, String sessionId) {
         this.question = question;
         this.sessionId = sessionId;
     }
-    
-    public boolean isExist(){
+
+    public boolean isExist() {
         /*
-         * 今天天气怎么样！
-         * 现在几点了
-         * 
+         * 今天天气怎么样！ 现在几点了
          */
         SearchServiceClient searchClient = SearchServiceClientFactory.getSearchServiceClient();
         result = searchClient.getAnalysis(getQuestion());
-        //询问日期的意图
-        if(((result.contains("星期") || result.contains("周")) && result.contains("几")) ||  result.contains("几号")){
+        // 询问日期的意图
+        if (((result.contains("星期") || result.contains("周")) && result.contains("几")) || result.contains("几号")) {
             intentType = IntentType.date;
             return true;
         }
-        //询问时间
-        if(result.contains("几点") || (result.contains("时间")) && result.contains("现在")){
+        // 询问时间
+        if (result.contains("几点") || (result.contains("时间")) && result.contains("现在")) {
             intentType = IntentType.time;
             return true;
         }
-        //询问天气的意图
-        if(result.contains("天气") || result.contains("今天天气")){
+        // 询问天气的意图
+        if (result.contains("天气") || result.contains("今天天气")) {
             intentType = IntentType.weather;
             return true;
         }
-        
+
         System.out.println(result);
         return false;
-        
+
     }
-    
-    public String getContent(){
+
+    public String getContent() {
         String content = null;
-        if(IntentType.date.toString().equals(this.intentType.toString())){
+        if (IntentType.date.toString().equals(this.intentType.toString())) {
             Time time = new Time();
-            for(String prop : result){
-                if(time.dateTypes.containsKey(prop)){
-                    //获取日期类型
+            for (String prop : result) {
+                if (time.dateTypes.containsKey(prop)) {
+                    // 获取日期类型
                     time.dateType = time.dateTypes.get(prop);
                     content = DateUtil.getDateWeek(time.dateType);
                 }
             }
-        }else if(IntentType.time.toString().equals(this.intentType.toString())){
+        } else if (IntentType.time.toString().equals(this.intentType.toString())) {
             content = DateUtil.getDateWeek() + DateUtil.getTime();
-        }else if(IntentType.weather.toString().equals(this.intentType.toString())){
+        } else if (IntentType.weather.toString().equals(this.intentType.toString())) {
             Time time = new Time();
             List<String> addrs = new ArrayList<String>();
-            if(result.indexOf("今天天气")!=-1){
+            if (result.indexOf("今天天气") != -1) {
                 int end = result.indexOf("今天天气");
                 time.dateType = 0;
-                for(int i=0;i<end;i++){
+                for (int i = 0; i < end; i++) {
                     addrs.add(result.get(i));
                 }
-                
-            }else if(result.indexOf("天气")!=-1){
+
+            } else if (result.indexOf("天气") != -1) {
                 int end = result.indexOf("天气");
                 int start = -1;
-                for(String prop : result){
-                    if(time.dateTypes.containsKey(prop)){
-                        //获取日期类型
+                for (String prop : result) {
+                    if (time.dateTypes.containsKey(prop)) {
+                        // 获取日期类型
                         time.dateType = time.dateTypes.get(prop);
                         start = result.indexOf(prop);
-                        
+
                     }
                 }
-                
-                if(start<0){
-                    //默认时间为今天
+
+                if (start < 0) {
+                    // 默认时间为今天
                     time.dateType = 0;
-                    start=-1;
+                    start = -1;
                 }
-                if(start+1==end){
-                    for(int i=0;i<start;i++){
+                if (start + 1 == end) {
+                    for (int i = 0; i < start; i++) {
                         addrs.add(result.get(i));
                     }
-                }else{
-                    for(int i=start+1;i<end;i++){
+                } else {
+                    for (int i = start + 1; i < end; i++) {
                         addrs.add(result.get(i));
                     }
                 }
-                
+
             }
-            
-            if(addrs.size()==0){
+
+            if (addrs.size() == 0) {
                 RobotService robotService = ServiceFactory.getRobotService();
                 QASessionData qaSession = robotService.getQASessionDataById(sessionId);
                 IpServiceClient ipServiceClient = IpServiceClientFactory.getIpServiceClient();
                 RemoteCallRs<IpVo> remoteCallRs = ipServiceClient.getIp(qaSession.getQUserIp());
-                if(null!=remoteCallRs.getValue() && (!"".equals(remoteCallRs.getValue().getArea()) && null!=remoteCallRs.getValue().getArea())){
-                    
+                if (null != remoteCallRs.getValue() && (!"".equals(remoteCallRs.getValue().getArea()) && null != remoteCallRs.getValue().getArea())) {
+
                     WeatherCodeData weatherCode = robotService.getWeatherCode(remoteCallRs.getValue().getArea());
-                    if(weatherCode == null){
+                    if (weatherCode == null) {
                         content = "缺少输入的地址或者您输入的语句不通顺。";
-                    }else{
-                        
-                        if(time.dateType>0){
-                            content = "http://www.weather.com.cn/weather1d/"+weatherCode.getWeatherCode()+".shtml";
-                            content = "请前往：<a href='"+content+"' target='_blank'>"+content+"</a>查看";
-                        }else{
-                            content = "http://www.weather.com.cn/weather/"+weatherCode.getWeatherCode()+".shtml";
-                            content = "请前往：<a href='"+content+"' target='_blank'>"+content+"</a>查看";
+                    } else {
+
+                        if (time.dateType > 0) {
+                            content = "http://www.weather.com.cn/weather1d/" + weatherCode.getWeatherCode() + ".shtml";
+                            content = "请前往：<a href='" + content + "' target='_blank'>" + content + "</a>查看";
+                        } else {
+                            content = "http://www.weather.com.cn/weather/" + weatherCode.getWeatherCode() + ".shtml";
+                            content = "请前往：<a href='" + content + "' target='_blank'>" + content + "</a>查看";
                         }
                     }
-                    
-                }else{
+
+                } else {
                     content = "缺少输入的地址或者您输入的语句不通顺。";
                 }
-                
-            }else if(addrs.size()==1){
+
+            } else if (addrs.size() == 1) {
                 RobotService robotService = ServiceFactory.getRobotService();
                 WeatherCodeData weatherCode = robotService.getWeatherCode(addrs.get(0));
-                if(weatherCode == null){
+                if (weatherCode == null) {
                     content = "抱歉，您输入的地址没有在中央气象局公布的地址名单中！";
-                }else{
-                    
-//                    JSONObject weather = getWeather(weatherCode);
-//                    content = DateUtil.getDateWeek(time.dateType)+" "+weather.getString("temp"+(time.dateType+1))+" "+weather.getString("weather"+(time.dateType+1));
-                    if(time.dateType>0){
-                        content = "http://www.weather.com.cn/weather1d/"+weatherCode.getWeatherCode()+".shtml";
-                        content = "请前往：<a href='"+content+"' target='_blank'>"+content+"</a>查看";
-                    }else{
-                        content = "http://www.weather.com.cn/weather/"+weatherCode.getWeatherCode()+".shtml";
-                        content = "请前往：<a href='"+content+"' target='_blank'>"+content+"</a>查看";
+                } else {
+
+                    // JSONObject weather = getWeather(weatherCode);
+                    // content =
+                    // DateUtil.getDateWeek(time.dateType)+" "+weather.getString("temp"+(time.dateType+1))+" "+weather.getString("weather"+(time.dateType+1));
+                    if (time.dateType > 0) {
+                        content = "http://www.weather.com.cn/weather1d/" + weatherCode.getWeatherCode() + ".shtml";
+                        content = "请前往：<a href='" + content + "' target='_blank'>" + content + "</a>查看";
+                    } else {
+                        content = "http://www.weather.com.cn/weather/" + weatherCode.getWeatherCode() + ".shtml";
+                        content = "请前往：<a href='" + content + "' target='_blank'>" + content + "</a>查看";
                     }
-                    
+
                 }
-            }else {
+            } else {
                 RobotService robotService = ServiceFactory.getRobotService();
                 WeatherCodeData weatherCode = robotService.getWeatherCode(addrs);
-                if(weatherCode == null){
+                if (weatherCode == null) {
                     content = "抱歉，您输入的地址没有在中央气象局公布的地址名单中！";
-                }else{
-//                    JSONObject weather = getWeather(weatherCode);
-//                    content = DateUtil.getDateWeek(time.dateType)+" "+weather.getString("temp"+(time.dateType+1))+" "+weather.getString("weather"+(time.dateType+1));
-                    if(time.dateType>0){
-                        content = "http://www.weather.com.cn/weather1d/"+weatherCode.getWeatherCode()+".shtml";
-                        content = "请前往：<a href='"+content+"' target='_blank'>"+content+"</a>查看";
-                    }else{
-                        content = "http://www.weather.com.cn/weather/"+weatherCode.getWeatherCode()+".shtml";
-                        content = "请前往：<a href='"+content+"' target='_blank'>"+content+"</a>查看";
+                } else {
+                    // JSONObject weather = getWeather(weatherCode);
+                    // content =
+                    // DateUtil.getDateWeek(time.dateType)+" "+weather.getString("temp"+(time.dateType+1))+" "+weather.getString("weather"+(time.dateType+1));
+                    if (time.dateType > 0) {
+                        content = "http://www.weather.com.cn/weather1d/" + weatherCode.getWeatherCode() + ".shtml";
+                        content = "请前往：<a href='" + content + "' target='_blank'>" + content + "</a>查看";
+                    } else {
+                        content = "http://www.weather.com.cn/weather/" + weatherCode.getWeatherCode() + ".shtml";
+                        content = "请前往：<a href='" + content + "' target='_blank'>" + content + "</a>查看";
                     }
                 }
             }
         }
         return content;
-        
+
     }
-    
-    public JSONObject getWeather(WeatherCodeData weatherCode){
-        
+
+    public JSONObject getWeather(WeatherCodeData weatherCode) {
+
         DefaultHttpClient httpclient = new DefaultHttpClient();
-        HttpGet httget = new HttpGet("http://weather.51wnl.com/weatherinfo/GetMoreWeather?cityCode="+weatherCode.getWeatherCode()+"&weatherType=0");
+        HttpGet httget = new HttpGet("http://weather.51wnl.com/weatherinfo/GetMoreWeather?cityCode=" + weatherCode.getWeatherCode() + "&weatherType=0");
         ResponseHandler<String> responseHandler = new BasicResponseHandler();
         String result = null;
         String responseBody = null;
@@ -210,9 +212,8 @@ public class Intent {
         JSONObject json = JSONObject.fromObject(responseBody);
         JSONObject jsonInfo = JSONObject.fromObject(json.get("weatherinfo"));
         return jsonInfo;
-        
+
     }
-    
 
     public IntentType getIntentType() {
         return intentType;
@@ -221,15 +222,19 @@ public class Intent {
     public void setIntentType(IntentType intentType) {
         this.intentType = intentType;
     }
+
     public String getQuestion() {
         return question;
     }
+
     public void setQuestion(String question) {
         this.question = question;
     }
+
     public String getSessionId() {
         return sessionId;
     }
+
     public void setSessionId(String sessionId) {
         this.sessionId = sessionId;
     }

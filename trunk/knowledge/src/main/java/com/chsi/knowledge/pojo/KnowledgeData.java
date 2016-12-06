@@ -22,6 +22,7 @@ import com.chsi.news.vo.Article;
 
 /**
  * 知识表
+ * 
  * @author chenjian
  * 
  */
@@ -44,7 +45,7 @@ public class KnowledgeData extends PersistentObject {
     private String updater;
     private Calendar updateTime;
     private Calendar topTime;
-    private Article article;//临时变量
+    private Article article;// 临时变量
     private List<SystemData> systemDatas;
 
     public void setData(PersistentObject persistentObject) {
@@ -62,14 +63,11 @@ public class KnowledgeData extends PersistentObject {
         this.type = knowledgeData.getType();
     }
 
-    public KnowledgeData(){
+    public KnowledgeData() {
         super();
     }
-    
-    public KnowledgeData(String id, String keywords,
-            String cmsId, int visitCnt, int sort,
-            KnowledgeStatus knowledgeStatus, String creater,
-            Calendar createTime, String updater, Calendar updateTime, String type) {
+
+    public KnowledgeData(String id, String keywords, String cmsId, int visitCnt, int sort, KnowledgeStatus knowledgeStatus, String creater, Calendar createTime, String updater, Calendar updateTime, String type) {
         super();
         this.id = id;
         this.keywords = keywords;
@@ -215,24 +213,24 @@ public class KnowledgeData extends PersistentObject {
         this.article = article;
     }
 
-    //创建者姓名
+    // 创建者姓名
     @Transient
     public String getCreaterName() {
         return RemoteCallUtil.getXmByUserId(this.creater);
     }
-    
-    //最后更新者姓名
+
+    // 最后更新者姓名
     @Transient
     public String getUpdaterName() {
         return RemoteCallUtil.getXmByUserId(this.updater);
     }
-    
+
     @Transient
     public String getSummary() {
-        if(this.article!=null) {
+        if (this.article != null) {
             String content = this.article.getContent();
             content = SearchUtil.resultFilter(content);
-            if(content.length() > 40) {
+            if (content.length() > 40) {
                 content = content.substring(0, 40) + "...";
             }
             return content;
@@ -241,16 +239,15 @@ public class KnowledgeData extends PersistentObject {
         }
     }
 
-    
     @Transient
     public String getLastOperTime(String format) {
         Calendar lastTime = null;
-        if(this.updateTime!=null) {
+        if (this.updateTime != null) {
             lastTime = this.updateTime;
         } else {
             lastTime = this.createTime;
         }
-        if(lastTime!=null) {
+        if (lastTime != null) {
             return TimeUtil.getTime(lastTime, format);
         }
         return "";
@@ -265,65 +262,66 @@ public class KnowledgeData extends PersistentObject {
     public void setSystemDatas(List<SystemData> systemDatas) {
         this.systemDatas = systemDatas;
     }
-    
+
     @Transient
     public String getSystemName() {
         String result = "";
-        if(systemDatas!=null&&systemDatas.size()>0) {
+        if (systemDatas != null && systemDatas.size() > 0) {
             result = systemDatas.get(0).getName();
-            if(systemDatas.size()>1) {
+            if (systemDatas.size() > 1) {
                 result += ";...";
             }
         }
         return result;
     }
+
     @Transient
-    public String getTypeDic(){
-        if("PRIVATE".equals(this.type)){
+    public String getTypeDic() {
+        if ("PRIVATE".equals(this.type)) {
             return "内部";
-        }else if("PUBLIC".equals(this.type)){
+        } else if ("PUBLIC".equals(this.type)) {
             return "公开";
-        }else{
+        } else {
             return "其他";
         }
     }
-    
+
     @Transient
     public String getSystemNames() {
         String result = "";
-        if(systemDatas!=null&&systemDatas.size()>0) {
-            for(SystemData systemData:systemDatas) {
+        if (systemDatas != null && systemDatas.size() > 0) {
+            for (SystemData systemData : systemDatas) {
                 result += systemData.getName() + "&nbsp;";
             }
         }
         return result;
     }
-    
+
     @Transient
     public String getTitle() {
-        if(article!=null) {
+        if (article != null) {
             return article.getTitle();
         }
         return "";
     }
-    
+
     @Transient
     public String getContent() {
-        if(article!=null) {
+        if (article != null) {
             return article.getContent();
         }
         return "";
     }
-    
+
     @Override
     public boolean equals(Object obj) {
-        if(obj!=null) {
-            KnowledgeData vo = (KnowledgeData)obj;
+        if (obj != null) {
+            KnowledgeData vo = (KnowledgeData) obj;
             return this.getId().equals(vo.getId());
         }
         return false;
     }
-    
+
     @Override
     public int hashCode() {
         return id.hashCode();

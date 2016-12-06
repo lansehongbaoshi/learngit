@@ -41,9 +41,9 @@ public class QAAction extends AjaxAction {
         qaSessionData.setQUserIp(CallInfoHelper.getCurrentUserIp());
         qaSessionData.setAUserId(null);
         robotService.save(qaSessionData);
-        
+
         hello = getHelloWord(cal, userId);
-        
+
         sessionId = qaSessionData.getId();
         hello += ManageCacheUtil.getRobotABySpecialQ("#hello");
         return SUCCESS;
@@ -57,11 +57,11 @@ public class QAAction extends AjaxAction {
             writeJSON(ajaxMessage);
         }
     }
-    
+
     public void close() throws Exception {
-        if(!ValidatorUtil.isNull(sessionId)) {
+        if (!ValidatorUtil.isNull(sessionId)) {
             QASessionData pojo = robotService.getQASessionDataById(sessionId);
-            if(pojo!=null) {
+            if (pojo != null) {
                 pojo.setEndTime(Calendar.getInstance());
                 robotService.update(pojo);
             }
@@ -126,15 +126,15 @@ public class QAAction extends AjaxAction {
 
     private String getHelloWord(Calendar cal, String userId) {
         String helloword = "";
-        if(!"Anonymous".equals(userId)) {
+        if (!"Anonymous".equals(userId)) {
             helloword += RemoteCallUtil.getXmByUserId(userId);
         }
-        if(!"".equals(helloword)) {
-            helloword+="，";
+        if (!"".equals(helloword)) {
+            helloword += "，";
         }
         int i = cal.get(GregorianCalendar.AM_PM);
-        helloword +=  i==0?"上午好。":"下午好。";
+        helloword += i == 0 ? "上午好。" : "下午好。";
         return helloword;
-        
+
     }
 }

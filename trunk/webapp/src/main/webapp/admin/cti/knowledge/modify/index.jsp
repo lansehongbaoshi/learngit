@@ -8,7 +8,7 @@
 <%
 String ctxPath = request.getContextPath();
 SystemService systemService = ServiceFactory.getSystemService();
-List<SystemData> systems = systemService.getSystems(false);
+List<SystemData> systems = systemService.getSystems(false, null);
 %>
 <link rel="stylesheet" type="text/css" href="http://t1.chei.com.cn/common/zbbm/js/autocomplete/jqueryui.autocomplete.css" />
 <script src="http://t1.chei.com.cn/common/zbbm/js/autocomplete/jqueryui.autocomplete.js"></script>

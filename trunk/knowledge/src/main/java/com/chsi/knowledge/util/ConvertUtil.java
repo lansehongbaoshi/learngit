@@ -85,21 +85,21 @@ public class ConvertUtil {
         }
         return buffer;
     }
-    
+
     public static List<SearchVO> know2SearchVO(List<KnowledgeData> list) {
         List<SearchVO> result = new ArrayList<SearchVO>();
-        for(KnowledgeData data:list) {
+        for (KnowledgeData data : list) {
             result.add(new SearchVO(data.getSystemDatas(), data.getId(), data.getArticle().getTitle(), ""));
         }
         return result;
     }
-    
+
     public static List<KnowledgeVO> know2KnowledgeVO(List<KnowledgeData> list) {
         List<KnowledgeVO> result = new ArrayList<KnowledgeVO>();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        for(KnowledgeData data:list) {
+        for (KnowledgeData data : list) {
             Calendar cal = data.getUpdateTime();
-            if(cal==null){
+            if (cal == null) {
                 cal = data.getCreateTime();
             }
             result.add(new KnowledgeVO(data.getSystemDatas(), data.getId(), data.getArticle().getTitle(), data.getArticle().getContent(), sdf.format(cal.getTime())));

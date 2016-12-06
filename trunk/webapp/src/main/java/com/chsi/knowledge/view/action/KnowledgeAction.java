@@ -22,11 +22,13 @@ import com.chsi.knowledge.vo.KnowledgeVO;
 import com.chsi.knowledge.vo.ViewKnowVO;
 import com.chsi.knowledge.vo.ViewKnowsVO;
 import com.opensymphony.xwork2.ActionContext;
+
 /**
  * 前台获取知识ACTION
+ * 
  * @author chenjian
  */
-public class KnowledgeAction extends AjaxAction{
+public class KnowledgeAction extends AjaxAction {
 
     private static final long serialVersionUID = 1L;
     private KnowledgeService knowledgeService;
@@ -37,24 +39,24 @@ public class KnowledgeAction extends AjaxAction{
     private String id;
     private String systemId;
     private String tagId;
-    private int curPage;   
+    private int curPage;
     private String callback;
-    List<KnowTagRelationData>  ktrDatas;
+    List<KnowTagRelationData> ktrDatas;
     KnowledgeData kData;
 
-    //查询所有标签及某个标签下的所有知识（公开的）
-    public void getKnowledgeList() throws Exception{
+    // 查询所有标签及某个标签下的所有知识（公开的）
+    public void getKnowledgeList() throws Exception {
         SystemData systemData = ManageCacheUtil.getSystem(systemId);
         if (null == systemData) {
             ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
         } else {
             if (tagId != null && tagId.equals("normal")) {
                 List<TagData> list = tagService.getTagData(systemId, TagProperty.DEFAULT);
-                if(list.size()>0) {
+                if (list.size() > 0) {
                     tagId = list.get(0).getId();
                 } else {
                     list = tagService.get(systemId);
-                    if(list.size()>0) {
+                    if (list.size() > 0) {
                         tagId = list.get(0).getId();
                     } else {
                         ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
@@ -62,22 +64,20 @@ public class KnowledgeAction extends AjaxAction{
                         return;
                     }
                 }
-                /*if("zb".equals(systemId)) {
-                    tagId = tagService.getTagData(systemId, "常见问题").getId();
-                } else if("yz_wb".equals(systemId)) {
-                    tagId = tagService.getTagData(systemId, "报名资格").getId();
-                } else if("yz_tm".equals(systemId)) {
-                    tagId = tagService.getTagData(systemId, "报名").getId();
-                } else if("account".equals(systemId)) {
-                    tagId = tagService.getTagData(systemId, "常见问题").getId();
-                } else if("my".equals(systemId)) {
-                    tag = tagService.getTagData("th2vv4ybh868t8f3");//默认为：学籍信息
-                    if(tag!=null) {
-                        tagId = tag.getId();
-                    } else {
-                        tagId = tagService.get("my").get(0).getId();
-                    }
-                }*/
+                /*
+                 * if("zb".equals(systemId)) { tagId =
+                 * tagService.getTagData(systemId, "常见问题").getId(); } else
+                 * if("yz_wb".equals(systemId)) { tagId =
+                 * tagService.getTagData(systemId, "报名资格").getId(); } else
+                 * if("yz_tm".equals(systemId)) { tagId =
+                 * tagService.getTagData(systemId, "报名").getId(); } else
+                 * if("account".equals(systemId)) { tagId =
+                 * tagService.getTagData(systemId, "常见问题").getId(); } else
+                 * if("my".equals(systemId)) { tag =
+                 * tagService.getTagData("th2vv4ybh868t8f3");//默认为：学籍信息
+                 * if(tag!=null) { tagId = tag.getId(); } else { tagId =
+                 * tagService.get("my").get(0).getId(); } }
+                 */
             }
             ViewKnowsVO viewKnowsVO = knowledgeService.getViewKnowsVO(systemData, tagId, (curPage - 1) * Constants.PAGE_SIZE, Constants.PAGE_SIZE);
             ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
@@ -85,17 +85,17 @@ public class KnowledgeAction extends AjaxAction{
         }
         writeCallbackJSON(callback);
     }
-    
-    //查询某个知识点（公开的）
-    public void getKnowledge() throws Exception{
+
+    // 查询某个知识点（公开的）
+    public void getKnowledge() throws Exception {
         ViewKnowVO viewKnowVO = knowledgeService.getKnowVOById(id, tagId);
-        if (null == viewKnowVO)  {
+        if (null == viewKnowVO) {
             ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
-        }else{
-            if (null != session.get(Constants.DISCUSS + id)){
+        } else {
+            if (null != session.get(Constants.DISCUSS + id)) {
                 viewKnowVO.getConKnow().setIfDiscussed(true);
             }
-            //如果没访问过，向访问知识队列中插入ID
+            // 如果没访问过，向访问知识队列中插入ID
             if (null == session.get(Constants.VISIT + id)) {
                 session.put(Constants.VISIT + id, id);
                 queueService.addVisitKnowledgeId(id);
@@ -105,9 +105,10 @@ public class KnowledgeAction extends AjaxAction{
         }
         writeCallbackJSON(callback);
     }
-    
+
     /**
      * 根据搜索结果访问知识(公开的，所有可以访问)
+     * 
      * @return
      * @throws Exception
      */
@@ -128,23 +129,23 @@ public class KnowledgeAction extends AjaxAction{
         actionCon.put("viewKnowVO", viewKnowVO);
         return SUCCESS;
     }
-    
-    //后台查看知识点
+
+    // 后台查看知识点
     public String viewKnowledge() throws Exception {
         ktrDatas = knowTagRelationService.getKnowTagRelationByKnowId(id);
         kData = knowledgeService.getKnowledgeWithArticleById(id);
         return SUCCESS;
     }
-    
-    //热门知识列表
-    public void getHotKnowledgeList() throws Exception{
+
+    // 热门知识列表
+    public void getHotKnowledgeList() throws Exception {
         SystemData systemData = ManageCacheUtil.getSystem(systemId);
         if (null == systemData) {
             ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
         } else {
             Map<SystemData, List<KnowledgeData>> map = ManageCacheUtil.getCatalogTopKnowl(10);
             List<KnowledgeData> list = map.get(systemData);
-            if(list!=null) {
+            if (list != null) {
                 ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
                 ajaxMessage.setO(ConvertUtil.know2SearchVO(list));
             } else {
@@ -153,9 +154,9 @@ public class KnowledgeAction extends AjaxAction{
         }
         writeCallbackJSON(callback);
     }
-    
-    //返回某个系统下的所有知识
-    public void listKnowledgeOfSystem() throws Exception{
+
+    // 返回某个系统下的所有知识
+    public void listKnowledgeOfSystem() throws Exception {
         SystemData systemData = ManageCacheUtil.getSystem(systemId);
         if (null == systemData) {
             ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
@@ -166,15 +167,15 @@ public class KnowledgeAction extends AjaxAction{
         }
         writeCallbackJSON(callback);
     }
-    
+
     public void setCallback(String callback) {
         this.callback = callback;
     }
-    
+
     public String getCallback() {
         return callback;
     }
-    
+
     public List<KnowTagRelationData> getKtrDatas() {
         return ktrDatas;
     }
@@ -262,6 +263,5 @@ public class KnowledgeAction extends AjaxAction{
     public void setKData(KnowledgeData kData) {
         this.kData = kData;
     }
-     
-    
+
 }

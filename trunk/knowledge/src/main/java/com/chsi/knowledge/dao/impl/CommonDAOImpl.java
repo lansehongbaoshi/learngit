@@ -30,7 +30,7 @@ public class CommonDAOImpl extends BaseHibernateDAO implements CommonDAO {
     private static String condition_user_ip_null = " p.userIP is null ";
     private static String condition_create_time = " p.createTime between :startTime and :endTime";
     private static String order_create_time = " order by p.createTime desc ";
-    
+
     private static String where = " where ";
     private static String and = " and ";
 
@@ -38,7 +38,7 @@ public class CommonDAOImpl extends BaseHibernateDAO implements CommonDAO {
     public void save(PersistentObject po) {
         hibernateUtil.getSession().save(po);
     }
-    
+
     @Override
     public void del(PersistentObject po) {
         hibernateUtil.getSession().delete(po);
@@ -56,7 +56,7 @@ public class CommonDAOImpl extends BaseHibernateDAO implements CommonDAO {
     @Override
     public List<CntVO> getTopVisitKnowl(SystemOpenTimeData sotd, Calendar startTime, Calendar endTime) {
         Query query;
-        if(sotd.getTagIds()!=null) {
+        if (sotd.getTagIds() != null) {
             query = hibernateUtil.getSession().createSQLQuery(TOP_VISIT_RECENTLY_FROM_TAG);
             String tagIds = sotd.getTagIds();
             query.setParameterList("TAG_IDS", tagIds.split(","));
@@ -66,13 +66,13 @@ public class CommonDAOImpl extends BaseHibernateDAO implements CommonDAO {
         }
         query.setCalendar("START_TIME", startTime);
         query.setCalendar("END_TIME", endTime);
-        
+
         List<Object[]> list = query.list();
         List<CntVO> result = new ArrayList<CntVO>();
-        for(Object[] objs:list) {
+        for (Object[] objs : list) {
             CntVO vo = new CntVO();
-            String id = (String)objs[0];
-            Number cnt = (Number)objs[1];
+            String id = (String) objs[0];
+            Number cnt = (Number) objs[1];
             vo.setId(id);
             vo.setCnt(cnt.intValue());
             result.add(vo);
@@ -91,24 +91,24 @@ public class CommonDAOImpl extends BaseHibernateDAO implements CommonDAO {
     @Override
     public List<SearchLogData> getTheDuplicatedData(String systemId, String keyword, String userIP) {
         String hql = fetch_search_log_data + where;
-        if(ValidatorUtil.isNull(systemId)) {
+        if (ValidatorUtil.isNull(systemId)) {
             hql += condition_system_id_null;
         } else {
             hql += condition_system_id;
         }
-        hql+= and + condition_keyword + and;
-        if(ValidatorUtil.isNull(userIP)) {
+        hql += and + condition_keyword + and;
+        if (ValidatorUtil.isNull(userIP)) {
             hql += condition_user_ip_null;
         } else {
             hql += condition_user_ip;
         }
         hql += order_create_time;
         Query query = hibernateUtil.getSession().createQuery(hql);
-        if(!ValidatorUtil.isNull(systemId)) {
+        if (!ValidatorUtil.isNull(systemId)) {
             query.setString("systemId", systemId);
         }
         query.setString("keyword", keyword);
-        if(!ValidatorUtil.isNull(userIP)) {
+        if (!ValidatorUtil.isNull(userIP)) {
             query.setString("userIP", userIP);
         }
         return query.list();
@@ -117,11 +117,11 @@ public class CommonDAOImpl extends BaseHibernateDAO implements CommonDAO {
     @Override
     public List<SearchLogData> getSearchLogData(Calendar startTime, Calendar endTime) {
         String hql = fetch_search_log_data;
-        if(startTime!=null && endTime!=null) {
+        if (startTime != null && endTime != null) {
             hql += where + condition_create_time;
         }
         Query query = hibernateUtil.getSession().createQuery(hql);
-        if(startTime!=null && endTime!=null) {
+        if (startTime != null && endTime != null) {
             query.setCalendar("startTime", startTime);
             query.setCalendar("endTime", endTime);
         }
@@ -136,5 +136,5 @@ public class CommonDAOImpl extends BaseHibernateDAO implements CommonDAO {
         query.setString("END_TIME", endTime);
         return query.list();
     }
-    
+
 }

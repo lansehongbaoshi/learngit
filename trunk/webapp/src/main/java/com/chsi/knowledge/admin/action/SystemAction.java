@@ -39,6 +39,7 @@ public class SystemAction extends AjaxAction {
     private List<TagData> tagDatas;
     private String sort;
     private String callback;
+    private String property;
 
     public SystemService getSystemService() {
         return systemService;
@@ -70,6 +71,14 @@ public class SystemAction extends AjaxAction {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getProperty() {
+        return property;
+    }
+
+    public void setProperty(String property) {
+        this.property = property;
     }
 
     public String getDescription() {
@@ -136,15 +145,17 @@ public class SystemAction extends AjaxAction {
         this.sort = sort;
     }
 
+    //获取系统列表：后台管理、客服邮件等平台提供的web api等
     public void getSystems() throws Exception {
-        List<SystemData> systems = systemService.getSystems(false);
+        List<SystemData> systems = systemService.getSystems(false, null);
         ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
         ajaxMessage.setO(systems);
         writeCallbackJSON(callback);
     }
 
+    //后台管理-系统管理：展示所有系统列表
     public String listSystems() throws Exception {
-        List<SystemData> listSystem = systemService.getSystems(true);
+        List<SystemData> listSystem = systemService.getSystems(true, null);
         systemDatas = new ArrayList<SystemVO>();
         for (SystemData system : listSystem) {
             List<TagData> list = ManageCacheUtil.getTagList(system.getId());
@@ -184,14 +195,18 @@ public class SystemAction extends AjaxAction {
         // data.setStartTime(startDate);
         // data.setEndTime(endDate);
         // }
-
+        if (ValidatorUtil.isNumber(property, 1, 2)) {
+            data.setProperty(Integer.parseInt(property));
+        } else {
+            data.setProperty(0);
+        }
         String[] startTime = getParameters().get("startTime");
         String[] endTime = getParameters().get("endTime");
         systemService.save(data, startTime, endTime);
         ManageCacheUtil.removeUnderwaySystem();
-        
+
         saveLogOper("系统管理", "", "新增", "系统", id);
-        
+
         return SUCCESS;
     }
 
@@ -209,6 +224,11 @@ public class SystemAction extends AjaxAction {
         data.setName(name);
         data.setDescription(description);
         data.setSort(ValidatorUtil.isNumber(sort) ? Integer.parseInt(sort) : 0);
+        if (ValidatorUtil.isNumber(property, 1, 2)) {
+            data.setProperty(Integer.parseInt(property));
+        } else {
+            data.setProperty(0);
+        }
         // if((!ValidatorUtil.isNull(startTime) &&
         // !ValidatorUtil.isNull(endTime))) {
         // SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -227,7 +247,7 @@ public class SystemAction extends AjaxAction {
         systemService.update(data, startTime, endTime);
         ManageCacheUtil.removeSystem(id);
         ManageCacheUtil.removeUnderwaySystem();
-        
+
         saveLogOper("系统管理", "", "修改", "系统", id);
         return SUCCESS;
     }
@@ -286,7 +306,8 @@ public class SystemAction extends AjaxAction {
     public void setCallback(String callback) {
         this.callback = callback;
     }
-    public void saveLogOper(String m1,String m2,String oper,String message,String key){
+
+    public void saveLogOper(String m1, String m2, String oper, String message, String key) {
         LogOperData logOper = new LogOperData();
         logOper.setCreateTime(Calendar.getInstance());
         com.chsi.knowledge.vo.LoginUserVO user = com.chsi.knowledge.web.util.WebAppUtil.getLoginUserVO(httpRequest);
@@ -298,12 +319,13 @@ public class SystemAction extends AjaxAction {
         logOper.setKeyId(key);
         logOperService.save(logOper);
     }
-    public String updateKnowledgeTime(){
-        if(!ValidatorUtil.isNull(id)) {
+
+    public String updateKnowledgeTime() {
+        if (!ValidatorUtil.isNull(id)) {
             List<KnowledgeData> knows = systemService.getKnowsBySystem(id);
-            if(knows!=null) {
-                for(KnowledgeData know : knows){
-                    if(KnowledgeType.PUBLIC.toString().equals(know.getType())){
+            if (knows != null) {
+                for (KnowledgeData know : knows) {
+                    if (KnowledgeType.PUBLIC.toString().equals(know.getType())) {
                         ManageCacheUtil.removeKnowledgeDataById(know.getId());
                         know.setUpdateTime(Calendar.getInstance());
                         know.setUpdater(getLoginedUserId());
@@ -315,5 +337,5 @@ public class SystemAction extends AjaxAction {
         }
         return SUCCESS;
     }
-    
+
 }

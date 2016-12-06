@@ -7,9 +7,9 @@ import java.util.List;
 import com.chsi.knowledge.pojo.KnowledgeData;
 import com.chsi.knowledge.pojo.SystemData;
 
-
 /**
  * 快捷搜索VO 搜索下拉框展示
+ * 
  * @author chenjian
  */
 public class SearchVO {
@@ -20,7 +20,7 @@ public class SearchVO {
     private String tags;
     private String title;
     private String summary;
-    private String contentTxt;//纯文本的内容，不带html标记的
+    private String contentTxt;// 纯文本的内容，不带html标记的
     private String knowId;
     private String keywords;
     private String type;
@@ -35,70 +35,41 @@ public class SearchVO {
     private String updater;
     private String updateTime;
     private String typeDic;
-    
+
     private static SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    
+
     public SearchVO(KnowledgeData knowl) {
-        
+
     }
-    
+
     public SearchVO(List<SystemData> systemDatas, String knowId, String title, String summary) {
-        if(systemDatas!=null) {
+        if (systemDatas != null) {
             this.systemId = systemDatas.get(0).getId();
             this.system = systemDatas.get(0).getName();
-            if(systemDatas.size()>1) {
-                this.system+="...";
+            if (systemDatas.size() > 1) {
+                this.system += "...";
             }
             this.systems = "";
-            for(SystemData systemData:systemDatas) {
-                systems+=systemData.getName()+"&nbsp;";
+            for (SystemData systemData : systemDatas) {
+                systems += systemData.getName() + "&nbsp;";
             }
         }
-        
+
         this.title = title;
         this.summary = summary;
         this.knowId = knowId;
     }
-    
-    public SearchVO(List<SystemData> systemDatas, String tags, String title, String summary, String contentTxt, String knowId,
-            List<String> tagIds, String keywords, int visitCnt, int sort, String type, long topTime, boolean hasImage, Calendar lastUpdateTime){
-        if(systemDatas!=null) {
+
+    public SearchVO(List<SystemData> systemDatas, String tags, String title, String summary, String contentTxt, String knowId, List<String> tagIds, String keywords, int visitCnt, int sort, String type, long topTime, boolean hasImage, Calendar lastUpdateTime) {
+        if (systemDatas != null) {
             this.systemId = systemDatas.get(0).getId();
             this.system = systemDatas.get(0).getName();
-            if(systemDatas.size()>1) {
-                this.system+="...";
+            if (systemDatas.size() > 1) {
+                this.system += "...";
             }
             this.systems = "";
-            for(SystemData systemData:systemDatas) {
-                systems+=systemData.getName()+"&nbsp;";
-            }
-        }
-        this.tags = tags;
-        this.title = title;
-        this.summary = summary;
-        this.setContentTxt(contentTxt);
-        this.knowId = knowId;
-        this.tagIds = tagIds;
-        this.keywords = keywords;
-        this.visitCnt = visitCnt;
-        this.sort = sort;
-        this.type = type;
-        this.typeDic = getTypeDic(type);
-        this.topTime = topTime;
-        this.hasImage = hasImage;
-        this.lastUpdateTime = format.format(lastUpdateTime.getTime());;
-    }
-    public SearchVO(List<SystemData> systemDatas, String tags, String title, String summary, String contentTxt, String knowId,
-            List<String> tagIds, String keywords, int visitCnt, int sort, String type, long topTime, boolean hasImage, Calendar lastUpdateTime,String creater,Calendar createTime,String updater,Calendar updateTime){
-        if(systemDatas!=null) {
-            this.systemId = systemDatas.get(0).getId();
-            this.system = systemDatas.get(0).getName();
-            if(systemDatas.size()>1) {
-                this.system+="...";
-            }
-            this.systems = "";
-            for(SystemData systemData:systemDatas) {
-                systems+=systemData.getName()+"&nbsp;";
+            for (SystemData systemData : systemDatas) {
+                systems += systemData.getName() + "&nbsp;";
             }
         }
         this.tags = tags;
@@ -115,17 +86,48 @@ public class SearchVO {
         this.topTime = topTime;
         this.hasImage = hasImage;
         this.lastUpdateTime = format.format(lastUpdateTime.getTime());
-        if(creater==null){
+        ;
+    }
+
+    public SearchVO(List<SystemData> systemDatas, String tags, String title, String summary, String contentTxt, String knowId, List<String> tagIds, String keywords, int visitCnt, int sort, String type, long topTime, boolean hasImage, Calendar lastUpdateTime, String creater, Calendar createTime, String updater, Calendar updateTime) {
+        if (systemDatas != null) {
+            this.systemId = systemDatas.get(0).getId();
+            this.system = systemDatas.get(0).getName();
+            if (systemDatas.size() > 1) {
+                this.system += "...";
+            }
+            this.systems = "";
+            for (SystemData systemData : systemDatas) {
+                systems += systemData.getName() + "&nbsp;";
+            }
+        }
+        this.tags = tags;
+        this.title = title;
+        this.summary = summary;
+        this.setContentTxt(contentTxt);
+        this.knowId = knowId;
+        this.tagIds = tagIds;
+        this.keywords = keywords;
+        this.visitCnt = visitCnt;
+        this.sort = sort;
+        this.type = type;
+        this.typeDic = getTypeDic(type);
+        this.topTime = topTime;
+        this.hasImage = hasImage;
+        this.lastUpdateTime = format.format(lastUpdateTime.getTime());
+        if (creater == null) {
             creater = "未注册";
         }
-        if(updater==null){
+        if (updater == null) {
             updater = "未注册";
         }
         this.creater = creater;
         this.updater = updater;
-        if(createTime!=null) this.createTime = format.format(createTime.getTime());
-        if(updateTime!=null) this.updateTime = format.format(updateTime.getTime());
-        
+        if (createTime != null)
+            this.createTime = format.format(createTime.getTime());
+        if (updateTime != null)
+            this.updateTime = format.format(updateTime.getTime());
+
     }
 
     public String getSystemId() {
@@ -287,22 +289,23 @@ public class SearchVO {
     public void setUpdateTime(String updateTime) {
         this.updateTime = updateTime;
     }
-    public String getTypeDic(String type){
-        if("PUBLIC".equals(this.getType())){
+
+    public String getTypeDic(String type) {
+        if ("PUBLIC".equals(this.getType())) {
             return "公开";
-        }else if("PRIVATE".equals(this.getType())){
+        } else if ("PRIVATE".equals(this.getType())) {
             return "内部";
-        }else{
+        } else {
             return "其他";
         }
     }
-    
-    public String getTypeDic(){
+
+    public String getTypeDic() {
         return this.typeDic;
     }
 
     public void setTypeDic(String type) {
         this.typeDic = getTypeDic(type);
     }
-    
+
 }

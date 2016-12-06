@@ -43,53 +43,55 @@ public class SearchAction extends AjaxAction {
     private int curPage;
     private String callback;
     private String type;
-//    private QueueService queueService = ServiceFactory.getQueueService();
+
+    // private QueueService queueService = ServiceFactory.getQueueService();
 
     // 指定系统内搜索,不过滤关键字（如：*:*）
     public void searchAllKnow() throws Exception {
         ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
         Map<String, String> queryParams = new HashMap<String, String>();
-        if(ValidatorUtil.isNull(keywords)){
+        if (ValidatorUtil.isNull(keywords)) {
             keywords = "*:*";
         }
         queryParams.put("q", keywords);
         List<String> fqs = new ArrayList<String>();
-        if (!ValidatorUtil.isNull(systemId)){
-            fqs.add("system_ids:"+systemId);
+        if (!ValidatorUtil.isNull(systemId)) {
+            fqs.add("system_ids:" + systemId);
         }
-        if(!ValidatorUtil.isNull(tag)) {
-            fqs.add("tag_ids:"+tag);
+        if (!ValidatorUtil.isNull(tag)) {
+            fqs.add("tag_ids:" + tag);
         }
-        if(!ValidatorUtil.isNull(type)) {
+        if (!ValidatorUtil.isNull(type)) {
             fqs.add(String.format("type:%s", type));
         }
-        if(fqs.size()>0) {
+        if (fqs.size() > 0) {
             String fq = org.apache.commons.lang3.StringUtils.join(fqs, " AND ");
             queryParams.put("fq", fq);
         }
-        /*if("*:*".equals(keywords)) {
-            queryParams.put("sort", "visit_cnt desc");
-        }*/
-        
+        /*
+         * if("*:*".equals(keywords)) { queryParams.put("sort",
+         * "visit_cnt desc"); }
+         */
+
         KnowListVO<KnowledgeVO> listVO = knowIndexService.searchKnow(queryParams, (curPage - 1) * Constants.PAGE_SIZE, Constants.PAGE_SIZE);
-        
+
         List<SearchVO> list = SearchUtil.exchangeResultList(listVO, keywords, 40);
-        //saveSearchLog(list);
-        
+        // saveSearchLog(list);
+
         KnowListVO<SearchVO> result = new KnowListVO<SearchVO>(list, listVO.getPagination());
         ajaxMessage.setO(result);
         writeCallbackJSON(callback);
     }
-    
+
     public void searchDSHKnow() throws Exception {
-        int start = (curPage-1) * Constants.PAGE_SIZE<0?0:(curPage-1) * Constants.PAGE_SIZE;
+        int start = (curPage - 1) * Constants.PAGE_SIZE < 0 ? 0 : (curPage - 1) * Constants.PAGE_SIZE;
         int size = Constants.PAGE_SIZE;
         ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
-        List<KnowledgeData> listKnows = knowledgeService.getKnowledgeByStatus(systemId,tag,KnowledgeStatus.DSH,type,start,size);
-        long count = knowledgeService.getKnowledgeCount(systemId,tag,KnowledgeStatus.DSH,type,"");
+        List<KnowledgeData> listKnows = knowledgeService.getKnowledgeByStatus(systemId, tag, KnowledgeStatus.DSH, type, start, size);
+        long count = knowledgeService.getKnowledgeCount(systemId, tag, KnowledgeStatus.DSH, type, "");
         CmsServiceClient cmsServiceClient = CmsServiceClientFactory.getCmsServiceClient();
         List<KnowledgeVO> knowList = new ArrayList<KnowledgeVO>();
-        for(KnowledgeData know : listKnows){
+        for (KnowledgeData know : listKnows) {
             Article article = cmsServiceClient.getArticle(know.getCmsId());
             List<TagData> tags = knowledgeService.getTagDatasByKnowId(know);
             KnowledgeVO vo = new KnowledgeVO();
@@ -100,7 +102,8 @@ public class SearchAction extends AjaxAction {
             for (TagData tag : tags) {
                 str.append(tag.getName() + " ");
                 tagIds.add(tag.getId());
-                if(!systemIds.contains(tag.getSystemData().getId())) systemIds.add(tag.getSystemData().getId());
+                if (!systemIds.contains(tag.getSystemData().getId()))
+                    systemIds.add(tag.getSystemData().getId());
             }
 
             vo.setSystemIds(systemIds);
@@ -114,31 +117,31 @@ public class SearchAction extends AjaxAction {
             vo.setTags(str.toString());
             knowList.add(vo);
         }
-        
+
         Page<KnowledgeVO> page = PageUtil.getPage(knowList.iterator(), start, size, count);
         Pagination pagination = new Pagination(page.getTotalCount(), page.getPageCount(), page.getCurPage());
         KnowListVO<KnowledgeVO> listVO = new KnowListVO<KnowledgeVO>(page.getList(), pagination);
-        
+
         List<SearchVO> list = SearchUtil.exchangeResultList(listVO, keywords, 40);
-        //saveSearchLog(list);
-        
+        // saveSearchLog(list);
+
         KnowListVO<SearchVO> result = new KnowListVO<SearchVO>(list, listVO.getPagination());
         ajaxMessage.setO(result);
         writeCallbackJSON(callback);
     }
-    
+
     public void searchSelfDSHKnow() throws Exception {
-        int start = (curPage-1) * Constants.PAGE_SIZE<0?0:(curPage-1) * Constants.PAGE_SIZE;
+        int start = (curPage - 1) * Constants.PAGE_SIZE < 0 ? 0 : (curPage - 1) * Constants.PAGE_SIZE;
         int size = Constants.PAGE_SIZE;
         ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
         LoginUserVO user = getLoginUserVO();
         String userId = user.getAcc().getId();
-        
-        List<KnowledgeData> listKnows = knowledgeService.getKnowledgeByStatusAndUserId(systemId,tag,KnowledgeStatus.DSH,type,userId,start,size);
-        long count = knowledgeService.getKnowledgeCount(systemId,tag,KnowledgeStatus.DSH,type,userId);
+
+        List<KnowledgeData> listKnows = knowledgeService.getKnowledgeByStatusAndUserId(systemId, tag, KnowledgeStatus.DSH, type, userId, start, size);
+        long count = knowledgeService.getKnowledgeCount(systemId, tag, KnowledgeStatus.DSH, type, userId);
         CmsServiceClient cmsServiceClient = CmsServiceClientFactory.getCmsServiceClient();
         List<KnowledgeVO> knowList = new ArrayList<KnowledgeVO>();
-        for(KnowledgeData know : listKnows){
+        for (KnowledgeData know : listKnows) {
             Article article = cmsServiceClient.getArticle(know.getCmsId());
             List<TagData> tags = knowledgeService.getTagDatasByKnowId(know);
             KnowledgeVO vo = new KnowledgeVO();
@@ -149,7 +152,8 @@ public class SearchAction extends AjaxAction {
             for (TagData tag : tags) {
                 str.append(tag.getName() + " ");
                 tagIds.add(tag.getId());
-                if(!systemIds.contains(tag.getSystemData().getId())) systemIds.add(tag.getSystemData().getId());
+                if (!systemIds.contains(tag.getSystemData().getId()))
+                    systemIds.add(tag.getSystemData().getId());
             }
 
             vo.setSystemIds(systemIds);
@@ -163,30 +167,27 @@ public class SearchAction extends AjaxAction {
             vo.setTags(str.toString());
             knowList.add(vo);
         }
-        
+
         Page<KnowledgeVO> page = PageUtil.getPage(knowList.iterator(), start, size, count);
         Pagination pagination = new Pagination(page.getTotalCount(), page.getPageCount(), page.getCurPage());
         KnowListVO<KnowledgeVO> listVO = new KnowListVO<KnowledgeVO>(page.getList(), pagination);
-        
+
         List<SearchVO> list = SearchUtil.exchangeResultList(listVO, keywords, 40);
-        //saveSearchLog(list);
-        for(SearchVO knowVO : list){
-            if("PUBLIC".equals(knowVO.getType())){
+        // saveSearchLog(list);
+        for (SearchVO knowVO : list) {
+            if ("PUBLIC".equals(knowVO.getType())) {
                 knowVO.setType("公开");
-            }else if("PRIVATE".equals(knowVO.getType())){
+            } else if ("PRIVATE".equals(knowVO.getType())) {
                 knowVO.setType("内部");
-            }else{
+            } else {
                 knowVO.setType("其他");
             }
         }
-        
+
         KnowListVO<SearchVO> result = new KnowListVO<SearchVO>(list, listVO.getPagination());
         ajaxMessage.setO(result);
         writeCallbackJSON(callback);
     }
-    
-    
-    
 
     public KnowIndexService getKnowIndexService() {
         return knowIndexService;
@@ -260,23 +261,16 @@ public class SearchAction extends AjaxAction {
         this.type = type;
     }
 
-    /*private void saveSearchLog(List<SearchVO> list) {
-        SearchLogData data = new SearchLogData();
-        data.setKeyword(this.keywords);
-        data.setSystemId(this.systemId);
-        StringBuffer sb = new StringBuffer();
-        int i = 0;
-        for (SearchVO vo : list) {
-            i++;
-            if (i > 10)
-                break;// 最多存储10个搜索结果id
-            sb.append(vo.getKnowId());
-            sb.append(",");
-        }
-        data.setSearchResult(sb.toString());
-        data.setCreateTime(Calendar.getInstance());
-        data.setUserId(CallInfoHelper.getCurrentUser());
-        data.setUserIP(CallInfoHelper.getCurrentUserIp());
-        queueService.addSearchLog(data);
-    }*/
+    /*
+     * private void saveSearchLog(List<SearchVO> list) { SearchLogData data =
+     * new SearchLogData(); data.setKeyword(this.keywords);
+     * data.setSystemId(this.systemId); StringBuffer sb = new StringBuffer();
+     * int i = 0; for (SearchVO vo : list) { i++; if (i > 10) break;//
+     * 最多存储10个搜索结果id sb.append(vo.getKnowId()); sb.append(","); }
+     * data.setSearchResult(sb.toString());
+     * data.setCreateTime(Calendar.getInstance());
+     * data.setUserId(CallInfoHelper.getCurrentUser());
+     * data.setUserIP(CallInfoHelper.getCurrentUserIp());
+     * queueService.addSearchLog(data); }
+     */
 }

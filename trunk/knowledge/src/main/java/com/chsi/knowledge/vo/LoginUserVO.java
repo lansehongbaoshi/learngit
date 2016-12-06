@@ -14,15 +14,16 @@ public class LoginUserVO implements Serializable {
     UserAccountData acc;
     UserOrganizationData org;
     List<String> auths;
-    
-    public LoginUserVO() {}
-    
+
+    public LoginUserVO() {
+    }
+
     public LoginUserVO(UserAccountData acc, UserOrganizationData org, List<String> auths) {
         this.acc = acc;
         this.org = org;
         this.auths = auths;
     }
-    
+
     public UserAccountData getAcc() {
         return acc;
     }
@@ -34,6 +35,7 @@ public class LoginUserVO implements Serializable {
     public UserOrganizationData getOrg() {
         return org;
     }
+
     public void setOrg(UserOrganizationData org) {
         this.org = org;
     }

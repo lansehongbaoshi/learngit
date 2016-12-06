@@ -17,7 +17,7 @@ import com.chsi.knowledge.dic.QAType;
 /**
  * 
  * @author think
- *
+ * 
  */
 @Entity
 @Table(name = "QA_SESSION")
@@ -28,7 +28,7 @@ public class QASessionData extends PersistentObject {
      * 
      */
     private static final long serialVersionUID = 8111375469862226156L;
-    
+
     private String id;
     private String systemId;
     private QAType type;
@@ -38,12 +38,11 @@ public class QASessionData extends PersistentObject {
     private String qUserIp;
     private String aUserId;
 
-    public QASessionData(){
+    public QASessionData() {
         super();
     }
-    
-    public QASessionData(String id, String systemId, QAType type, Calendar startTime, Calendar endTime,
-            String qUserId, String qUserIp,String aUserId) {
+
+    public QASessionData(String id, String systemId, QAType type, Calendar startTime, Calendar endTime, String qUserId, String qUserIp, String aUserId) {
         super();
         this.id = id;
         this.systemId = systemId;
@@ -132,5 +131,4 @@ public class QASessionData extends PersistentObject {
         this.aUserId = aUserId;
     }
 
-    
 }

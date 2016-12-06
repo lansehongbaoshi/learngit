@@ -24,7 +24,7 @@ public class PageUtil extends com.chsi.framework.page.PageUtil {
         List datas = query.list();
         return PageUtil.getPage(datas.iterator(), start, pageSize, totalRecord);
     }
-    
+
     public static Page getPage(Session session, int start, int pageSize, String countHql, String queryHql, Object... args) {
         Query query = session.createQuery(countHql);
         for (int i = 0; i < args.length; i++) {

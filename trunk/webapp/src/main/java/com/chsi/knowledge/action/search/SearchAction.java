@@ -60,7 +60,7 @@ public class SearchAction extends AjaxAction {
         } else {
             KnowListVO<KnowledgeVO> listVO = knowIndexService.searchKnow(goodKeywords, systemId, (curPage - 1) * Constants.SEARCH_PAGE_SIZE, Constants.SEARCH_PAGE_SIZE);
             List<SearchVO> list = SearchUtil.exchangeResultList(listVO, keywords, 14);
-//            saveSearchLog(list);
+            // saveSearchLog(list);
             ajaxMessage.setO(list);
         }
         ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
@@ -76,7 +76,7 @@ public class SearchAction extends AjaxAction {
             ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
             KnowListVO<KnowledgeVO> listVO = knowIndexService.searchKnow(goodKeywords, systemId, (curPage - 1) * Constants.PAGE_SIZE, Constants.PAGE_SIZE);
             List<SearchVO> list = SearchUtil.exchangeResultList(listVO, keywords, 40);
-            if(!ValidatorUtil.isNull(keywords)) {
+            if (!ValidatorUtil.isNull(keywords)) {
                 saveSearchLog(list);
             }
             KnowListVO<SearchVO> result = new KnowListVO<SearchVO>(list, listVO.getPagination());
@@ -91,15 +91,15 @@ public class SearchAction extends AjaxAction {
         Map<String, String> queryParams = new HashMap<String, String>();
         queryParams.put("q", goodKeywords);
         List<SystemOpenTimeData> systems = ManageCacheUtil.getUnderwaySystem();
-        if(systems!=null) {
+        if (systems != null) {
             StringBuffer sb = new StringBuffer();
-            for(SystemOpenTimeData system:systems) {
+            for (SystemOpenTimeData system : systems) {
                 String tagIds = system.getTagIds();
-                if(tagIds==null) {
+                if (tagIds == null) {
                     sb.append(String.format("query({!v='system_ids:%s'}) ", system));
                 } else {
                     String[] strs = tagIds.split(",");
-                    for(String str:strs) {
+                    for (String str : strs) {
                         sb.append(String.format("query({!v='tag_ids:%s'}) ", str));
                     }
                 }
@@ -110,7 +110,7 @@ public class SearchAction extends AjaxAction {
         queryParams.put("fl", "title,id");
         KnowListVO<KnowledgeVO> listVO = knowIndexService.searchKnow(queryParams, (curPage - 1) * Constants.SEARCH_PAGE_SIZE, Constants.SEARCH_PAGE_SIZE);
         List<SearchVO> list = SearchUtil.exchangeResultList(listVO, keywords, 14);
-//            saveSearchLog(list);
+        // saveSearchLog(list);
         KnowListVO<SearchVO> result = new KnowListVO<SearchVO>(list, listVO.getPagination());
         ajaxMessage.setO(result);
         ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
@@ -125,15 +125,15 @@ public class SearchAction extends AjaxAction {
         Map<String, String> queryParams = new HashMap<String, String>();
         queryParams.put("q", goodKeywords);
         List<SystemOpenTimeData> systems = ManageCacheUtil.getUnderwaySystem();
-        if(systems!=null) {
+        if (systems != null) {
             StringBuffer sb = new StringBuffer();
-            for(SystemOpenTimeData system:systems) {
+            for (SystemOpenTimeData system : systems) {
                 String tagIds = system.getTagIds();
-                if(tagIds==null) {
+                if (tagIds == null) {
                     sb.append(String.format("query({!v='system_ids:%s'}) ", system));
                 } else {
                     String[] strs = tagIds.split(",");
-                    for(String str:strs) {
+                    for (String str : strs) {
                         sb.append(String.format("query({!v='tag_ids:%s'}) ", str));
                     }
                 }
@@ -143,7 +143,7 @@ public class SearchAction extends AjaxAction {
         queryParams.put("fq", "type:PUBLIC");
         KnowListVO<KnowledgeVO> listVO = knowIndexService.searchKnow(queryParams, (curPage - 1) * Constants.PAGE_SIZE, Constants.PAGE_SIZE);
         List<SearchVO> list = SearchUtil.exchangeResultList(listVO, keywords, 40);
-        if(!ValidatorUtil.isNull(keywords)) {
+        if (!ValidatorUtil.isNull(keywords)) {
             saveSearchLog(list);
         }
         KnowListVO<SearchVO> result = new KnowListVO<SearchVO>(list, listVO.getPagination());
@@ -151,14 +151,14 @@ public class SearchAction extends AjaxAction {
         writeCallbackJSON(callback);
         return NONE;
     }
-    
+
     // 全系统或限定系统搜索公开标题（自动完成处用,如机器人）
     public String autoTitle() throws Exception {
         String goodKeywords = SearchUtil.keywordsFilter2(keywords);
         Map<String, String> queryParams = new HashMap<String, String>();
         queryParams.put("q", goodKeywords);
         queryParams.put("qf", "title");
-        if(!ValidatorUtil.isNull(systemId)) {
+        if (!ValidatorUtil.isNull(systemId)) {
             queryParams.put("fq", String.format("type:PUBLIC AND system_ids:%s", systemId));
         } else {
             queryParams.put("fq", "type:PUBLIC");
@@ -168,16 +168,17 @@ public class SearchAction extends AjaxAction {
         queryParams.put("hl.fl", "title");
         queryParams.put("hl.simple.pre", "<strong style='color:#c30'>");
         queryParams.put("hl.simple.post", "</strong>");
-//        queryParams.put("fl", "title,id");
+        // queryParams.put("fl", "title,id");
         KnowListVO<KnowledgeVO> listVO = knowIndexService.customSearch(queryParams, (curPage - 1) * Constants.SEARCH_PAGE_SIZE, Constants.SEARCH_PAGE_SIZE);
         List<SearchVO> list = SearchUtil.exchangeResultList(listVO, keywords, 14);
-//            saveSearchLog(list);
+        // saveSearchLog(list);
         KnowListVO<SearchVO> result = new KnowListVO<SearchVO>(list, listVO.getPagination());
         ajaxMessage.setO(result);
         ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
         writeCallbackJSON(callback);
         return NONE;
     }
+
     // 全系统或限定系统搜索全部标题（自动完成处用,如机器人）
     public String autoAllTitle() throws Exception {
         String goodKeywords = SearchUtil.keywordsFilter2(keywords);
@@ -189,37 +190,36 @@ public class SearchAction extends AjaxAction {
         queryParams.put("hl.fl", "title");
         queryParams.put("hl.simple.pre", "<strong style='color:#c30'>");
         queryParams.put("hl.simple.post", "</strong>");
-//        queryParams.put("fl", "title,id");
+        // queryParams.put("fl", "title,id");
         KnowListVO<KnowledgeVO> listVO = knowIndexService.customSearch(queryParams, (curPage - 1) * Constants.SEARCH_PAGE_SIZE, Constants.SEARCH_PAGE_SIZE);
         List<SearchVO> list = SearchUtil.exchangeResultList(listVO, keywords, 14);
-//            saveSearchLog(list);
+        // saveSearchLog(list);
         KnowListVO<SearchVO> result = new KnowListVO<SearchVO>(list, listVO.getPagination());
         ajaxMessage.setO(result);
         ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
         writeCallbackJSON(callback);
         return NONE;
     }
-    
-    //标题查重
-    public void checkRepeat() throws Exception{
-        if(ValidatorUtil.isNull(knowId)) {
-            knowId="?";
+
+    // 标题查重
+    public void checkRepeat() throws Exception {
+        if (ValidatorUtil.isNull(knowId)) {
+            knowId = "?";
         }
-        RepeatVO<KnowledgeVO> result = knowIndexService.getRepeatKnows(knowId,keywords);
+        RepeatVO<KnowledgeVO> result = knowIndexService.getRepeatKnows(knowId, keywords);
         ajaxMessage.setO(result);
         ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
         writeCallbackJSON(callback);
     }
 
     // 搜索关键字热度排名前几个
-    /*public String topKeywords() throws Exception {
-        List<KnowledgeData> strs = ManageCacheUtil.getTopSearchKnow();
-        ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
-        ajaxMessage.setO(strs);
-        writeJSON(ajaxMessage);
-        return NONE;
-    }*/
-    
+    /*
+     * public String topKeywords() throws Exception { List<KnowledgeData> strs =
+     * ManageCacheUtil.getTopSearchKnow();
+     * ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS); ajaxMessage.setO(strs);
+     * writeJSON(ajaxMessage); return NONE; }
+     */
+
     public KnowIndexService getKnowIndexService() {
         return knowIndexService;
     }
@@ -327,50 +327,50 @@ public class SearchAction extends AjaxAction {
         data.setUserIP(CallInfoHelper.getCurrentUserIp());
         queueService.addSearchLog(data);
     }
-    public void checkBadWord() throws IOException{
-        
+
+    public void checkBadWord() throws IOException {
+
         String text = "";
         boolean flag = false;
-        Set<String>  badTitleWords = filterWordService.getBadWords(title);
+        Set<String> badTitleWords = filterWordService.getBadWords(title);
         Object[] objTitle = filterWordService.highlightBadWords(title);
-        if(badTitleWords!=null&&badTitleWords.size()>0){
+        if (badTitleWords != null && badTitleWords.size() > 0) {
             ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
             flag = true;
             text += "<h5 style=\"font-weight:700\">标题</h5><br>";
-            text += objTitle[1]+"<br><hr/>";
+            text += objTitle[1] + "<br><hr/>";
         }
-        
-        Set<String>  badKeyWords = filterWordService.getBadWords(keywords);
+
+        Set<String> badKeyWords = filterWordService.getBadWords(keywords);
         Object[] objKeyWords = filterWordService.highlightBadWords(keywords);
-        if(badKeyWords!=null&&badKeyWords.size()>0){
+        if (badKeyWords != null && badKeyWords.size() > 0) {
             ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
             flag = true;
             text += "<h5 style=\"font-weight:700\">关键字</h5><br>";
-            text += objKeyWords[1]+"<br><hr/>";
+            text += objKeyWords[1] + "<br><hr/>";
         }
-        
-        
-        Set<String>  badContentWords = filterWordService.getBadWords(content);
+
+        Set<String> badContentWords = filterWordService.getBadWords(content);
         Object[] objContent = filterWordService.highlightBadWords(content);
         List<String> sentences = filterWordService.getBadSentences(content);
-        if(badContentWords!=null&&badContentWords.size()>0){
+        if (badContentWords != null && badContentWords.size() > 0) {
             text += "<h5 style=\"font-weight:700\">内容</h5><br>";
             ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
             flag = true;
-            for(String sentence : sentences){
-                text += sentence+"</br>";
+            for (String sentence : sentences) {
+                text += sentence + "</br>";
             }
             text += "<hr/>";
         }
-        if(flag){
+        if (flag) {
             JSONObject json = new JSONObject();
             json.put("content", text);
             ajaxMessage.setO(json);
             writeCallbackJSON(callback);
-        }else{
+        } else {
             ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
             writeCallbackJSON(callback);
         }
     }
-    
+
 }

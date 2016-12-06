@@ -14,51 +14,50 @@ import com.chsi.knowledge.service.RobotService;
 import com.chsi.knowledge.vo.PieVO;
 
 public class TotalAction extends AjaxAction {
-    
 
     /**
      * 
      */
     private static final long serialVersionUID = 1896259291368641361L;
-    
+
     private RobotService robotService;
-    
+
     private String type;
     private String start;
     private String startTime;
     private String endTime;
-    
+
     private List<PieVO> totalList;
     private List<QALogData> qaLogList;
     private Page<QALogData> page;
 
     public String option() throws Exception {
-        if(!ValidatorUtil.isNull(type)) {
-            if(type.equals("session")) {
+        if (!ValidatorUtil.isNull(type)) {
+            if (type.equals("session")) {
                 totalList = robotService.totalSession();
-            } else if(type.equals("q")) {
+            } else if (type.equals("q")) {
                 totalList = robotService.totalQ();
             }
             return SUCCESS;
         }
         return ERROR;
     }
-    
+
     public void totalQ() throws Exception {
         totalList = robotService.totalQ();
         ajaxMessage.setO(totalList);
         ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
         writeJSON(ajaxMessage);
     }
-    
+
     public String listQ() throws Exception {
-        if(!ValidatorUtil.isNull(type) && ValidatorUtil.isNumber(start)) {
+        if (!ValidatorUtil.isNull(type) && ValidatorUtil.isNumber(start)) {
             int currentPage = Integer.parseInt(start);
-            if("无答案".equals(type)) {
+            if ("无答案".equals(type)) {
                 page = robotService.pageQALogDataByAType(AType.NONE, currentPage, Constants.PAGE_SIZE_20, startTime, endTime);
-            } else if("确定答案".equals(type)) {
+            } else if ("确定答案".equals(type)) {
                 page = robotService.pageQALogDataByAType(AType.DEFINITE, currentPage, Constants.PAGE_SIZE_20, startTime, endTime);
-            } else if("不确定答案".equals(type)) {
+            } else if ("不确定答案".equals(type)) {
                 page = robotService.pageQALogDataByAType(AType.INDEFINITE, currentPage, Constants.PAGE_SIZE_20, startTime, endTime);
             }
             ServletActionContext.getRequest().setAttribute("page", page);
@@ -129,6 +128,5 @@ public class TotalAction extends AjaxAction {
     public void setEndTime(String endTime) {
         this.endTime = endTime;
     }
-    
-    
+
 }

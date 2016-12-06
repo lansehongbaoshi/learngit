@@ -24,13 +24,13 @@ public class KnowledgeVisitLogData extends PersistentObject {
     private String knowledgeId;
     private int visitCnt;
     private Calendar createTime;
-    
+
     public KnowledgeVisitLogData(KnowledgeData data) {
         this.knowledgeId = data.getId();
         this.visitCnt = data.getVisitCnt();
         this.createTime = Calendar.getInstance();
     }
-    
+
     @Id
     @Column(name = "ID")
     @GeneratedValue(generator = "app_seq")

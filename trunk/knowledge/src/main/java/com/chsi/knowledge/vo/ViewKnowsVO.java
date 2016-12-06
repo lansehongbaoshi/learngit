@@ -10,9 +10,10 @@ import com.chsi.knowledge.util.Pagination;
 
 /**
  * 知识列表与标签列表VO
+ * 
  * @author chenjian
  */
-public class ViewKnowsVO implements Serializable{
+public class ViewKnowsVO implements Serializable {
 
     /**
      * 
@@ -52,7 +53,7 @@ public class ViewKnowsVO implements Serializable{
         this.viewTagVOs = viewTagVOs;
     }
 
-    public static class Know implements Serializable{
+    public static class Know implements Serializable {
         /**
          * 
          */

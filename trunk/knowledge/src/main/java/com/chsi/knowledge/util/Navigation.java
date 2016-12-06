@@ -2,8 +2,10 @@ package com.chsi.knowledge.util;
 
 import java.io.Serializable;
 import java.util.Map;
+
 /**
  * 导航数据
+ * 
  * @author chenjian
  */
 public class Navigation implements Serializable {
@@ -16,7 +18,7 @@ public class Navigation implements Serializable {
     private String name;
     private String description;
     private Map<String, String> param;
-    
+
     public Navigation(int level, String name, String description, Map<String, String> param) {
         this.level = level;
         this.name = name;

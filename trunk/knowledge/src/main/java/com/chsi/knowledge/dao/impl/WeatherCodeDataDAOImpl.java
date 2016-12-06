@@ -9,14 +9,13 @@ import com.chsi.framework.pojos.PersistentObject;
 import com.chsi.knowledge.dao.WeatherCodeDataDAO;
 import com.chsi.knowledge.pojo.WeatherCodeData;
 
-public class WeatherCodeDataDAOImpl extends BaseHibernateDAO implements
-        WeatherCodeDataDAO {
+public class WeatherCodeDataDAOImpl extends BaseHibernateDAO implements WeatherCodeDataDAO {
 
     @Override
     public void save(List<WeatherCodeData> weatherCodeDatas) {
         // TODO Auto-generated method stub
         Session session = hibernateUtil.getSessionFactory().openSession();
-        for(PersistentObject pojo : weatherCodeDatas){
+        for (PersistentObject pojo : weatherCodeDatas) {
             session.save(pojo);
             session.flush();
         }

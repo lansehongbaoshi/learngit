@@ -11,8 +11,7 @@ public interface LogOperDataDAO {
 
     List<LogOperData> getLogOperByKeyId(String keyId);
 
-    List<LogOperData> getLogOpersByDate(Date startDate, Date endDate,
-            int curPage, int pageSize);
+    List<LogOperData> getLogOpersByDate(Date startDate, Date endDate, int curPage, int pageSize);
 
     int getLogOpersCountByDate(Date startDate, Date endDate);
 

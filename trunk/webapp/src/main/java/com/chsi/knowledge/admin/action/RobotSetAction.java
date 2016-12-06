@@ -19,18 +19,20 @@ import com.chsi.search.client.SearchServiceClient;
 import com.chsi.search.client.SearchServiceClientFactory;
 import com.chsi.search.client.vo.RobotQABean;
 import com.chsi.search.common.indexdata.RobotIndexData;
+
 /**
  * 后台管理 机器人配置
+ * 
  * @author zhangzh
- *
+ * 
  */
-public class RobotSetAction extends AjaxAction{
+public class RobotSetAction extends AjaxAction {
 
     /**
      * 
      */
     private static final long serialVersionUID = -8744022807636131205L;
-    
+
     private RobotService robotService;
     private RobotSolrIndexService robotSolrIndexService;
     private String text;
@@ -47,43 +49,45 @@ public class RobotSetAction extends AjaxAction{
     private String q;
     private String[] a;
     private int num;
-    
+
     private Map<RobotQSetData, List<RobotASetData>> qaSet;
-    
-    public String upload(){
+
+    public String upload() {
         return SUCCESS;
     }
-    public String updateCommit() throws Exception{
-        if(file!=null){
+
+    public String updateCommit() throws Exception {
+        if (file != null) {
             robotSolrIndexService.ImportDialogue(file);
             return SUCCESS;
-        }else{
+        } else {
             return ERROR;
         }
-        
+
     }
-    public void delRobotIndex() throws Exception{
+
+    public void delRobotIndex() throws Exception {
         robotSolrIndexService.deleteKnowIndexBySolr();
         System.out.println("删除索引成功！");
         ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
         writeCallbackJSON(callback);
     }
-    
-    public void synchronizationIndex() throws Exception{
+
+    public void synchronizationIndex() throws Exception {
         robotSolrIndexService.deleteKnowIndexBySolr();
         robotSolrIndexService.updateAllRobotIndex();
         System.out.println("更新索引成功！");
         ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
         writeCallbackJSON(callback);
     }
-    
+
     public String listIndex() throws Exception {
         return SUCCESS;
     }
-    
-    public void listBasic() throws IOException{
+
+    public void listBasic() throws IOException {
         ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
-        if(ValidatorUtil.isNull(qs1)&&ValidatorUtil.isNull(qs2)&&ValidatorUtil.isNull(qs3)){
+        if (ValidatorUtil.isNull(qs1) && ValidatorUtil.isNull(qs2) && ValidatorUtil.isNull(qs3)) {
             ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
             return;
         }
@@ -91,38 +95,37 @@ public class RobotSetAction extends AjaxAction{
         qs[0] = qs1;
         qs[1] = qs2;
         qs[2] = qs3;
-        
+
         List<RobotQABean> listBean = robotService.getRobotBasicConf(qs);
         ajaxMessage.setO(listBean);
         writeCallbackJSON(callback);
     }
-    
 
     public void list() throws Exception {
         ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
 
-        if(ValidatorUtil.isNull(text)){
+        if (ValidatorUtil.isNull(text)) {
             text = "*";
         }
-        if(text!=null){
-            if("".equals(text.trim())){
+        if (text != null) {
+            if ("".equals(text.trim())) {
                 text = "*";
-            }else{
+            } else {
                 text = text.trim();
             }
         }
-        
+
         RobotQAListVO<RobotQABean> result = robotService.searchRobotConf(text, (curPage - 1) * Constants.PAGE_SIZE, Constants.PAGE_SIZE);
-       
+
         ajaxMessage.setO(result);
         writeCallbackJSON(callback);
-        
-//        qaSet = robotService.getRobotQASet(null);
-//        return SUCCESS;
+
+        // qaSet = robotService.getRobotQASet(null);
+        // return SUCCESS;
     }
 
     public String add() throws Exception {
-        if(!ValidatorUtil.isNull(q) && a!=null && a.length>0) {
+        if (!ValidatorUtil.isNull(q) && a != null && a.length > 0) {
             RobotQSetData robotQSetData = new RobotQSetData();
             RobotIndexData robotIndexData = new RobotIndexData();
             robotQSetData.setQ(q);
@@ -131,8 +134,8 @@ public class RobotSetAction extends AjaxAction{
             robotIndexData.setId(robotQSetData.getId());
             robotIndexData.setQ(q);
             List<String> anser = new ArrayList<String>();
-            for(String str:a) {
-                if(!ValidatorUtil.isNull(str)) {
+            for (String str : a) {
+                if (!ValidatorUtil.isNull(str)) {
                     RobotASetData robotASetData = new RobotASetData();
                     robotASetData.setqId(robotQSetData.getId());
                     robotASetData.setA(str);
@@ -147,20 +150,20 @@ public class RobotSetAction extends AjaxAction{
         }
         return SUCCESS;
     }
-    
-    //更新首页
+
+    // 更新首页
     public String updateIndex() throws Exception {
-        if(!ValidatorUtil.isNull(id)) {
+        if (!ValidatorUtil.isNull(id)) {
             qaSet = robotService.getRobotQASet(id);
             return SUCCESS;
         } else {
             return ERROR;
         }
     }
-    
-    //更新操作
+
+    // 更新操作
     public String update() throws Exception {
-        if(!ValidatorUtil.isNull(id) && !ValidatorUtil.isNull(q) && a!=null && a.length>0) {//更新分解为：新增再删除原来的
+        if (!ValidatorUtil.isNull(id) && !ValidatorUtil.isNull(q) && a != null && a.length > 0) {// 更新分解为：新增再删除原来的
             RobotQSetData robotQSetData = new RobotQSetData();
             RobotIndexData robotIndexData = new RobotIndexData();
             robotQSetData.setQ(q);
@@ -169,8 +172,8 @@ public class RobotSetAction extends AjaxAction{
             robotIndexData.setId(robotQSetData.getId());
             robotIndexData.setQ(q);
             List<String> anser = new ArrayList<String>();
-            for(String str:a) {
-                if(!ValidatorUtil.isNull(str)) {
+            for (String str : a) {
+                if (!ValidatorUtil.isNull(str)) {
                     RobotASetData robotASetData = new RobotASetData();
                     robotASetData.setqId(robotQSetData.getId());
                     robotASetData.setA(str);
@@ -181,7 +184,7 @@ public class RobotSetAction extends AjaxAction{
             robotIndexData.setA(anser);
             robotIndexData.setNum(num);
             robotService.deleteRobotQASet(id);
-            if(!robotIndexData.getQ().startsWith("#")){
+            if (!robotIndexData.getQ().startsWith("#")) {
                 SearchServiceClient searchClient = SearchServiceClientFactory.getSearchServiceClient();
                 searchClient.updateRobotQA(robotIndexData);
                 searchClient.deleteRobotQA(id);
@@ -190,9 +193,9 @@ public class RobotSetAction extends AjaxAction{
         }
         return SUCCESS;
     }
-    
+
     public String delete() throws Exception {
-        if(!ValidatorUtil.isNull(id)) {
+        if (!ValidatorUtil.isNull(id)) {
             robotService.deleteRobotQASet(id);
             SearchServiceClient searchClient = SearchServiceClientFactory.getSearchServiceClient();
             searchClient.deleteRobotQA(id);
@@ -323,9 +326,11 @@ public class RobotSetAction extends AjaxAction{
     public void setRobotSolrIndexService(RobotSolrIndexService robotSolrIndexService) {
         this.robotSolrIndexService = robotSolrIndexService;
     }
+
     public File getFile() {
         return file;
     }
+
     public void setFile(File file) {
         this.file = file;
     }

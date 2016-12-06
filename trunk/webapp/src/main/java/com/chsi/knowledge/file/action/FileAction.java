@@ -74,23 +74,24 @@ public class FileAction extends AjaxAction {
                 String userId = WebAppUtil.getUserId();
                 File uploadFile = new File(this.upload);
                 if (uploadFile.exists()) {
-//                    String lobId = RemoteCallUtil.addFile(uploadFile, this.uploadContentType);
-//                    FileInfoData pojo = new FileInfoData();
-//                    pojo.setLobId(lobId);
-//                    pojo.setContentType(uploadContentType);
-//                    pojo.setFileName(uploadFileName);
-//                    pojo.setFileSize(uploadFile.length());
-//                    pojo.setCreateTime(Calendar.getInstance());
-//                    pojo.setCreateUserId(userId);
-//                    fileService.save(pojo);
+                    // String lobId = RemoteCallUtil.addFile(uploadFile,
+                    // this.uploadContentType);
+                    // FileInfoData pojo = new FileInfoData();
+                    // pojo.setLobId(lobId);
+                    // pojo.setContentType(uploadContentType);
+                    // pojo.setFileName(uploadFileName);
+                    // pojo.setFileSize(uploadFile.length());
+                    // pojo.setCreateTime(Calendar.getInstance());
+                    // pojo.setCreateUserId(userId);
+                    // fileService.save(pojo);
                     byte[] bytes = ConvertUtil.fileToByteArray(uploadFile);
                     String url = cmsServiceClient.saveBlob(this.uploadFileName, this.uploadContentType, bytes);
-                    if(!this.uploadContentType.contains("image")) {
+                    if (!this.uploadContentType.contains("image")) {
                         url += "&attach=true";
                     }
                     vo.setState("SUCCESS");
                     vo.setTitle(this.uploadFileName);
-//                    vo.setUrl("/file/"+pojo.getId());
+                    // vo.setUrl("/file/"+pojo.getId());
                     vo.setUrl(url);
                     vo.setOriginal(this.uploadFileName);
                 } else {
@@ -108,25 +109,18 @@ public class FileAction extends AjaxAction {
         writePlainJSON(vo);
         return NONE;
     }
-    
-    /*public String getfile() throws Exception {
-        HttpServletRequest request = ServletActionContext.getRequest();
-        String uri = request.getRequestURI();
-        String fileInfoDataId = uri.substring(uri.lastIndexOf("/")+1);
-        if(!ValidatorUtil.isNull(fileInfoDataId)) {
-            FileInfoData pojo = fileService.getFileInfoData(fileInfoDataId);
-            if(pojo!=null) {
-                LobVo lobVo = RemoteCallUtil.getFile(pojo.getLobId());
-                byte[] content = lobVo.getContent();
-                this.response.setContentType(pojo.getContentType());
-                ServletOutputStream sos = this.response.getOutputStream();
-                sos.write(content);
-                sos.flush();
-                sos.close();
-            }
-        }
-        return NONE;
-    }*/
+
+    /*
+     * public String getfile() throws Exception { HttpServletRequest request =
+     * ServletActionContext.getRequest(); String uri = request.getRequestURI();
+     * String fileInfoDataId = uri.substring(uri.lastIndexOf("/")+1);
+     * if(!ValidatorUtil.isNull(fileInfoDataId)) { FileInfoData pojo =
+     * fileService.getFileInfoData(fileInfoDataId); if(pojo!=null) { LobVo lobVo
+     * = RemoteCallUtil.getFile(pojo.getLobId()); byte[] content =
+     * lobVo.getContent(); this.response.setContentType(pojo.getContentType());
+     * ServletOutputStream sos = this.response.getOutputStream();
+     * sos.write(content); sos.flush(); sos.close(); } } return NONE; }
+     */
 
     public List<String> validateData() throws Exception {
         List<String> errList = new ArrayList<String>();

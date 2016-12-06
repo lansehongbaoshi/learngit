@@ -10,9 +10,8 @@ import com.chsi.framework.callcontrol.CallInfoHelper;
 import com.chsi.knowledge.Constants;
 import com.chsi.knowledge.vo.LoginUserVO;
 
-
 /**
- *
+ * 
  * 
  * @author chenjian
  * 
@@ -28,18 +27,18 @@ public class WebAppUtil {
         String userId = CallInfoHelper.getCurrentUser();
         return userId;
     }
-    
+
     public static String getUserIp() {
         String userIp = CallInfoHelper.getCurrentUserIp();
         return userIp;
     }
-    
+
     public static void setLoginUserVO(HttpServletRequest request, LoginUserVO data) {
         WebUtils.setSessionAttribute(request, Constants.SESSION_KNOWLEDGE, data);
     }
-    
+
     public static LoginUserVO getLoginUserVO(HttpServletRequest request) {
-        return (LoginUserVO)WebUtils.getSessionAttribute(request, Constants.SESSION_KNOWLEDGE);
+        return (LoginUserVO) WebUtils.getSessionAttribute(request, Constants.SESSION_KNOWLEDGE);
     }
 
     /**

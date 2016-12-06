@@ -14,11 +14,10 @@ public class RobotQASet extends PersistentObject {
      * 
      */
     private static final long serialVersionUID = -6578119023561696175L;
-    
+
     private String id;
     private String q;
     private String a;
-
 
     @Id
     @Column(name = "ID")

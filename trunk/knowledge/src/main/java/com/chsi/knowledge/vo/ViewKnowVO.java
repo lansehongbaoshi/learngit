@@ -6,9 +6,10 @@ import com.chsi.knowledge.util.Navigation;
 
 /**
  * 前台展示具体知识VO
+ * 
  * @author chenjian
  */
-public class ViewKnowVO{
+public class ViewKnowVO {
 
     private ConKnow conKnow; // 知识详细信息
     private List<Navigation> navigations; // 导航
@@ -44,8 +45,7 @@ public class ViewKnowVO{
         private String updateTime;
         private boolean ifDiscussed;
 
-        public ConKnow(String id, String title, String content,
-                String keywords, int visitCnt, String updateTime, String systems) {
+        public ConKnow(String id, String title, String content, String keywords, int visitCnt, String updateTime, String systems) {
             this.id = id;
             this.title = title;
             this.content = content;

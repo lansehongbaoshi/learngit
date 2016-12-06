@@ -3,7 +3,6 @@ package com.chsi.knowledge.vo;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class PieVO {
     private String name;
     private Long value;
@@ -12,7 +11,7 @@ public class PieVO {
         this.name = name;
         this.value = value;
     }
-    
+
     public String getName() {
         return name;
     }
@@ -28,19 +27,19 @@ public class PieVO {
     public void setValue(Long value) {
         this.value = value;
     }
-    
+
     public static List<String> getNames(List<PieVO> list) {
         List<String> strList = new ArrayList<String>();
-        for(PieVO vo:list) {
+        for (PieVO vo : list) {
             strList.add(vo.getName());
         }
         return strList;
     }
-    
+
     public static long totalCnt(List<PieVO> list) {
         long cnt = 0;
-        for(PieVO vo:list) {
-            cnt+=vo.getValue();
+        for (PieVO vo : list) {
+            cnt += vo.getValue();
         }
         return cnt;
     }

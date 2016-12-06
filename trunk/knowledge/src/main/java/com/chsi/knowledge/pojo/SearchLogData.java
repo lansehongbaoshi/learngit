@@ -30,7 +30,7 @@ public class SearchLogData extends PersistentObject {
     private Calendar createTime;
     private String userId;
     private String userIP;
-    
+
     @Id
     @Column(name = "ID")
     @GeneratedValue(generator = "app_seq")
@@ -58,8 +58,8 @@ public class SearchLogData extends PersistentObject {
     }
 
     public void setKeyword(String keyword) {
-        keyword = keyword==null?"":keyword;
-        this.keyword = keyword.length()>50?keyword.substring(0, 50):keyword;
+        keyword = keyword == null ? "" : keyword;
+        this.keyword = keyword.length() > 50 ? keyword.substring(0, 50) : keyword;
     }
 
     @Column(name = "SEARCH_RESULT")

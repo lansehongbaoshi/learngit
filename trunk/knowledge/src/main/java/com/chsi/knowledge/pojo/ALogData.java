@@ -14,13 +14,13 @@ import com.chsi.framework.pojos.PersistentObject;
 /**
  * 
  * @author think
- *
+ * 
  */
 @Entity
 @Table(name = "A_LOG")
 @DynamicUpdate(value = true)
 public class ALogData extends PersistentObject {
-    
+
     /**
      * 
      */
@@ -30,10 +30,10 @@ public class ALogData extends PersistentObject {
     private String cmsId;
     private String cmsVersion;
 
-    public ALogData(){
+    public ALogData() {
         super();
     }
-    
+
     public ALogData(String id, String qaLogId, String cmsId, String cmsVersion) {
         super();
         this.id = id;
@@ -83,5 +83,4 @@ public class ALogData extends PersistentObject {
         this.cmsVersion = cmsVersion;
     }
 
-    
 }

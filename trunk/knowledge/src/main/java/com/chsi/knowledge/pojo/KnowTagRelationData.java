@@ -15,6 +15,7 @@ import com.chsi.framework.pojos.PersistentObject;
 
 /**
  * 知识与标签关联表
+ * 
  * @author chenjian
  */
 @Entity
@@ -33,18 +34,18 @@ public class KnowTagRelationData extends PersistentObject {
         this.knowledgeData = relation.getKnowledgeData();
         this.tagData = relation.getTagData();
     }
-    
-    public KnowTagRelationData(){
+
+    public KnowTagRelationData() {
         super();
     }
-    
+
     public KnowTagRelationData(String id, KnowledgeData knowledgeData, TagData tagData) {
         super();
         this.id = id;
         this.knowledgeData = knowledgeData;
         this.tagData = tagData;
     }
-    
+
     @Id
     @Column(name = "ID")
     @GeneratedValue(generator = "app_seq")
@@ -55,9 +56,9 @@ public class KnowTagRelationData extends PersistentObject {
     }
 
     public void setId(String s) {
-        this.id=s;
+        this.id = s;
     }
-    
+
     @OneToOne
     @JoinColumn(name = "KNOWLEDGE_ID")
     public KnowledgeData getKnowledgeData() {
@@ -77,7 +78,7 @@ public class KnowTagRelationData extends PersistentObject {
     public void setTagData(TagData tagData) {
         this.tagData = tagData;
     }
-    
+
     public String toString() {
         return this.tagData.getName();
     }

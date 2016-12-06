@@ -32,7 +32,7 @@ public class SearchAction extends AjaxAction {
      * 
      */
     private static final long serialVersionUID = -7506196822824287063L;
-    
+
     private KnowIndexService knowIndexService;
     private KnowledgeService knowledgeService;
     private SystemService systemService;
@@ -45,32 +45,30 @@ public class SearchAction extends AjaxAction {
     private QueueService queueService = ServiceFactory.getQueueService();
 
     // 指定系统内,关键字自动完成
-    /*public void quickSearchKnow() throws Exception {
-        keywords = SearchUtil.keywordsFilter(keywords);
-        if (ValidatorUtil.isNull(keywords)) {
-            ajaxMessage.setO(new ArrayList<SearchVO>());
-        } else if (null == systemService.getSystemById(systemId)) {
-            ajaxMessage.setO(new ArrayList<SearchVO>());
-        } else {
-            KnowListVO<KnowledgeVO> listVO = knowIndexService.searchKnow(keywords, systemId, (curPage - 1) * Constants.SEARCH_PAGE_SIZE, Constants.SEARCH_PAGE_SIZE);
-            List<SearchVO> list = SearchUtil.exchangeResultList(listVO, keywords, 14);
-//            saveSearchLog(list);
-            ajaxMessage.setO(list);
-        }
-        ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
-        writeCallbackJSON(callback);
-    }*/
+    /*
+     * public void quickSearchKnow() throws Exception { keywords =
+     * SearchUtil.keywordsFilter(keywords); if (ValidatorUtil.isNull(keywords))
+     * { ajaxMessage.setO(new ArrayList<SearchVO>()); } else if (null ==
+     * systemService.getSystemById(systemId)) { ajaxMessage.setO(new
+     * ArrayList<SearchVO>()); } else { KnowListVO<KnowledgeVO> listVO =
+     * knowIndexService.searchKnow(keywords, systemId, (curPage - 1) *
+     * Constants.SEARCH_PAGE_SIZE, Constants.SEARCH_PAGE_SIZE); List<SearchVO>
+     * list = SearchUtil.exchangeResultList(listVO, keywords, 14); //
+     * saveSearchLog(list); ajaxMessage.setO(list); }
+     * ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
+     * writeCallbackJSON(callback); }
+     */
 
-    //指定系统内搜索，支持多系统
+    // 指定系统内搜索，支持多系统
     public void searchKnow() throws Exception {
         try {
             Map<String, String> queryParams = new HashMap<String, String>();
-            if(ValidatorUtil.isNull(keywords)) {
+            if (ValidatorUtil.isNull(keywords)) {
                 queryParams.put("q", "*:*");
             } else {
                 queryParams.put("q", keywords);
             }
-            if (ids!=null && ids.length>0) {
+            if (ids != null && ids.length > 0) {
                 queryParams.put("fq", SolrQueryUtil.generateFilterOrQuery("system_ids", ids));
             }
             queryParams.put("bf", "ord(cti_visit_cnt)^0.1");
@@ -84,33 +82,32 @@ public class SearchAction extends AjaxAction {
         }
         writeCallbackJSON(callback);
     }
-    
-    // 全系统搜索标题（自动完成处用,如机器人）
-    /*public String autoTitle() throws Exception {
-        keywords = SearchUtil.keywordsFilter(keywords);
-        Map<String, String> queryParams = new HashMap<String, String>();
-        queryParams.put("q", keywords);
-        queryParams.put("qf", "title");
-        queryParams.put("fq", "type:PUBLIC");
-        queryParams.put("fl", "title,id");
-        KnowListVO<KnowledgeVO> listVO = knowIndexService.customSearch(queryParams, (curPage - 1) * Constants.SEARCH_PAGE_SIZE, Constants.SEARCH_PAGE_SIZE);
-        List<SearchVO> list = SearchUtil.exchangeResultList(listVO, keywords, 14);
-//            saveSearchLog(list);
-        KnowListVO<SearchVO> result = new KnowListVO<SearchVO>(list, listVO.getPagination());
-        ajaxMessage.setO(result);
-        ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
-        writeCallbackJSON(callback);
-        return NONE;
-    }*/
 
-    //知识详情
+    // 全系统搜索标题（自动完成处用,如机器人）
+    /*
+     * public String autoTitle() throws Exception { keywords =
+     * SearchUtil.keywordsFilter(keywords); Map<String, String> queryParams =
+     * new HashMap<String, String>(); queryParams.put("q", keywords);
+     * queryParams.put("qf", "title"); queryParams.put("fq", "type:PUBLIC");
+     * queryParams.put("fl", "title,id"); KnowListVO<KnowledgeVO> listVO =
+     * knowIndexService.customSearch(queryParams, (curPage - 1) *
+     * Constants.SEARCH_PAGE_SIZE, Constants.SEARCH_PAGE_SIZE); List<SearchVO>
+     * list = SearchUtil.exchangeResultList(listVO, keywords, 14); //
+     * saveSearchLog(list); KnowListVO<SearchVO> result = new
+     * KnowListVO<SearchVO>(list, listVO.getPagination());
+     * ajaxMessage.setO(result);
+     * ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
+     * writeCallbackJSON(callback); return NONE; }
+     */
+
+    // 知识详情
     public void detailKnow() throws Exception {
-        if(ValidatorUtil.isNull(id)) {
+        if (ValidatorUtil.isNull(id)) {
             ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
             ajaxMessage.addMessage("id为空");
         } else {
             KnowledgeData data = ManageCacheUtil.getKnowledgeDataById(id);
-            if(data==null) {
+            if (data == null) {
                 ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
                 ajaxMessage.addMessage("未查到知识");
             } else {
@@ -125,7 +122,7 @@ public class SearchAction extends AjaxAction {
         }
         writeCallbackJSON(callback);
     }
-    
+
     public KnowIndexService getKnowIndexService() {
         return knowIndexService;
     }

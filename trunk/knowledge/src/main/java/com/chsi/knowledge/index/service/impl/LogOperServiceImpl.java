@@ -22,7 +22,7 @@ import com.chsi.knowledge.vo.LogOperListVO;
 import com.chsi.knowledge.vo.LogOperVO;
 
 public class LogOperServiceImpl extends BaseDbService implements LogOperService {
-    
+
     private LogOperDataDAO logOperDAO;
     private KnowledgeDataDAO knowledgeDataDAO;
 
@@ -52,33 +52,30 @@ public class LogOperServiceImpl extends BaseDbService implements LogOperService 
     }
 
     @Override
-    public LogOperListVO<LogOperVO> searchLogOper(String startDate,
-            String endDate, int curPage) throws Exception {
+    public LogOperListVO<LogOperVO> searchLogOper(String startDate, String endDate, int curPage) throws Exception {
         // TODO Auto-generated method stub
         int pageSize = 10;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date start = sdf.parse(startDate);
         Date end = sdf.parse(endDate);
-        
-        List<LogOperData> list = logOperDAO.getLogOpersByDate(start,end,curPage,pageSize);
-        int totalCount = logOperDAO.getLogOpersCountByDate(start,end);
+
+        List<LogOperData> list = logOperDAO.getLogOpersByDate(start, end, curPage, pageSize);
+        int totalCount = logOperDAO.getLogOpersCountByDate(start, end);
         Pagination pagination = new Pagination(totalCount, pageSize, curPage);
         List<LogOperVO> listVO = new ArrayList<LogOperVO>();
         ContactServiceClient contactService = ContactServiceClientFactory.getContactServiceClient();
-        for(LogOperData logOper : list){
-            LogOperVO logOperVO = new  LogOperVO(logOper);
+        for (LogOperData logOper : list) {
+            LogOperVO logOperVO = new LogOperVO(logOper);
             String user = contactService.getRealInfoSingleItemValue(logOper.getUserId(), ContactConstants.ITEM_NAME_ID);
-            if(user==null||user.equals("")){
+            if (user == null || user.equals("")) {
                 user = "未注册";
             }
             logOperVO.setUserId(user);
-            logOperVO.setOper(logOper.getOper()+"--"+logOper.getMessage()+":"+logOper.getKeyId());
+            logOperVO.setOper(logOper.getOper() + "--" + logOper.getMessage() + ":" + logOper.getKeyId());
             listVO.add(logOperVO);
         }
         LogOperListVO result = new LogOperListVO<LogOperVO>(listVO, pagination);
         return result;
     }
-
-    
 
 }

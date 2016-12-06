@@ -12,7 +12,7 @@ public interface RobotSolrIndexService {
     public void deleteKnowIndexBySolr();
 
     public void updateAllRobotIndex();
-    
+
     public void ImportDialogue(File file);
 
 }

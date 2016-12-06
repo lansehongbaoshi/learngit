@@ -20,9 +20,10 @@ import com.chsi.news.vo.Article;
 
 /**
  * 知识管理ACTION
+ * 
  * @author zhangzh
  */
-public class ManageAction extends BasicAction{
+public class ManageAction extends BasicAction {
     /**
      * 
      */
@@ -31,16 +32,16 @@ public class ManageAction extends BasicAction{
     private String tagId;
     private String title;
     private String content;
-    
+
     private String systemId;
-    
+
     private ViewKnowVO viewKnowVO;
 
     private KnowledgeService knowledgeService;
     private KnowIndexService knowIndexService;
     private TagService tagService;
     private SystemService systemService;
-    
+
     public String getId() {
         return id;
     }
@@ -72,7 +73,7 @@ public class ManageAction extends BasicAction{
     public void setContent(String content) {
         this.content = content;
     }
-    
+
     public String getSystemId() {
         return systemId;
     }
@@ -113,52 +114,53 @@ public class ManageAction extends BasicAction{
         this.tagService = tagService;
     }
 
-    //把某个系统的所有知识点刷到搜索引擎的索引
+    // 把某个系统的所有知识点刷到搜索引擎的索引
     public String refreshIndex() throws Exception {
-        if(!ValidatorUtil.isNull(systemId)) {
+        if (!ValidatorUtil.isNull(systemId)) {
             List<KnowledgeData> list = knowledgeService.get(systemId, KnowledgeStatus.YSH);
             if (null != list) {
-                log.info(systemId+"开始刷索引，共"+list.size());
+                log.info(systemId + "开始刷索引，共" + list.size());
                 for (KnowledgeData temp : list) {
-                    try{
+                    try {
                         knowIndexService.updateKnowIndex(temp.getId());
                         log.info(String.format("{method:'refreshIndex',knowId:'%s',result:'success'}", temp.getId()));
-                    } catch(Exception ex) {
+                    } catch (Exception ex) {
                         ex.printStackTrace();
                         log.error(String.format("{method:'refreshIndex',knowId:'%s',result:'fail'}", temp.getId()));
                     }
                 }
-                log.info(systemId+"结束刷索引");
+                log.info(systemId + "结束刷索引");
             }
         } else {
             knowIndexService.updateAllKnowledgeIndex();
         }
         return INPUT;
     }
-    //把某个系统的所有知识点在搜索引擎的索引删掉
+
+    // 把某个系统的所有知识点在搜索引擎的索引删掉
     public String deleteIndex() throws Exception {
-        if(!ValidatorUtil.isNull(systemId)) {
+        if (!ValidatorUtil.isNull(systemId)) {
             List<KnowledgeData> list = knowledgeService.get(systemId);
             if (null != list) {
-                log.info(systemId+"开始删索引，共"+list.size());
+                log.info(systemId + "开始删索引，共" + list.size());
                 for (KnowledgeData temp : list) {
-                    try{
+                    try {
                         knowIndexService.deleteKnowIndex(temp.getId());
                         log.info(String.format("{method:'deleteIndex',knowId:'%s',result:'success'}", temp.getId()));
-                    } catch(Exception ex) {
+                    } catch (Exception ex) {
                         ex.printStackTrace();
                         log.error(String.format("{method:'deleteIndex',knowId:'%s',result:'fail'}", temp.getId()));
                     }
                 }
-                log.info(systemId+"结束删索引");
+                log.info(systemId + "结束删索引");
             }
         }
         return INPUT;
     }
-    
-    //更新新闻系统和知识库系统里审核状态
+
+    // 更新新闻系统和知识库系统里审核状态
     public String updateStatus() throws Exception {
-        if(ValidatorUtil.isNull(systemId)) {
+        if (ValidatorUtil.isNull(systemId)) {
             return ERROR;
         }
         List<KnowledgeData> list = knowledgeService.get(systemId);
@@ -174,9 +176,10 @@ public class ManageAction extends BasicAction{
         }
         return INPUT;
     }
-    //从新闻系统里删除某个系统的所有知识，并清缓存
-    public String delete() throws Exception{
-        if(ValidatorUtil.isNull(systemId)) {
+
+    // 从新闻系统里删除某个系统的所有知识，并清缓存
+    public String delete() throws Exception {
+        if (ValidatorUtil.isNull(systemId)) {
             return ERROR;
         }
         ManageCacheUtil.removeSystem(systemId);
@@ -187,7 +190,7 @@ public class ManageAction extends BasicAction{
         }
         List<KnowledgeData> list = knowledgeService.get(systemId);
         CmsServiceClient cmsServiceClient = CmsServiceClientFactory.getCmsServiceClient();
-        for (KnowledgeData k : list){
+        for (KnowledgeData k : list) {
             cmsServiceClient.deleteArticle(k.getCmsId());
         }
         return INPUT;

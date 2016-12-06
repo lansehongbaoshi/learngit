@@ -18,7 +18,7 @@ import com.chsi.knowledge.dic.QType;
 /**
  * 
  * @author think
- *
+ * 
  */
 @Entity
 @Table(name = "QA_LOG")
@@ -28,7 +28,7 @@ public class QALogData extends PersistentObject {
      * 
      */
     private static final long serialVersionUID = -2321629795433161906L;
-    
+
     private String id;
     private String sessionId;
     private QType qType;
@@ -36,10 +36,10 @@ public class QALogData extends PersistentObject {
     private AType aType;
     private Calendar createTime;
 
-    public QALogData(){
+    public QALogData() {
         super();
     }
-    
+
     public QALogData(String id, String sessionId, QType qType, String q, AType aType, Calendar createTime) {
         super();
         this.id = id;
@@ -108,5 +108,5 @@ public class QALogData extends PersistentObject {
     public void setCreateTime(Calendar createTime) {
         this.createTime = createTime;
     }
-    
+
 }

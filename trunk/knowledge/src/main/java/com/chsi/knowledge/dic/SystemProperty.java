@@ -5,15 +5,15 @@ package com.chsi.knowledge.dic;
  * 
  * @author zhangzh
  */
-public enum TagProperty {
+public enum SystemProperty {
 
-    NULL, DEFAULT;
+    PUBLIC, PRIVATE;
 
     public String toString() {
         switch (this) {
-        case NULL:
+        case PUBLIC:
             return "0"; // 0
-        case DEFAULT:
+        case PRIVATE:
             return "1"; // 1
         }
         return super.toString();
@@ -23,12 +23,12 @@ public enum TagProperty {
         return this.ordinal();
     }
 
-    public static TagProperty getType(int ordinal) {
+    public static SystemProperty getType(int ordinal) {
         switch (ordinal) {
         case 0:
-            return TagProperty.NULL;
+            return SystemProperty.PUBLIC;
         case 1:
-            return TagProperty.DEFAULT;
+            return SystemProperty.PRIVATE;
         default:
             throw new IllegalStateException("无此类型:" + ordinal);
         }

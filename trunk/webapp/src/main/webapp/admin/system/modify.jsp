@@ -32,21 +32,17 @@
         <p>
           系统描述：<input type="text" name="description" value="<s:property value='systemData.description' />" style="width: 400px;">
         </p>
-               
-	    <p>
-           开放时间段：<input type="button" value="+" onclick="addLi()"><br>
-           <ol>
-           
+        <p>
+          开放时间段：<input type="button" value="+" onclick="addLi()"><span>（说明："内部"系统无需设置）</span><br>
+        </p>
+        <ol>
           <s:iterator value="systemData.list" var="time">
-	           <li>
-	               <input type="text" name="startTime" value="<s:date name="#time.startTime" format="yyyy-MM-dd HH:mm:ss"/>" style="width: 400px;">—<input type="text" name="endTime" value="<s:date name="#time.endTime" format="yyyy-MM-dd HH:mm:ss"/>" style="width: 400px;">&nbsp;&nbsp;<input type="button" value="x" onclick="removeLi(this)">
-               </li>
-	      </s:iterator>
-           
-
-           </ol>
-         </p>
-        
+            <li><input type="text" name="startTime" value="<s:date name="#time.startTime" format="yyyy-MM-dd HH:mm:ss"/>" style="width: 400px;">—<input type="text" name="endTime" value="<s:date name="#time.endTime" format="yyyy-MM-dd HH:mm:ss"/>" style="width: 400px;">&nbsp;&nbsp;<input type="button" value="x" onclick="removeLi(this)"></li>
+          </s:iterator>
+        </ol>
+        <p>
+          系统属性：<input type="radio" name="property" value="0" <s:if test="systemData.property==0">checked="checked"</s:if>>公开&nbsp;&nbsp;<input type="radio" name="property" value="1" <s:if test="systemData.property==1">checked="checked"</s:if>>内部
+        </p>
         <div class="clear"></div>
         <div class="clearfix form-actions">
           <div class="col-md-offset-3 col-md-9">

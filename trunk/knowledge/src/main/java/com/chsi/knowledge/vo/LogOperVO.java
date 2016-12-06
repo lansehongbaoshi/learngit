@@ -20,11 +20,11 @@ public class LogOperVO implements Serializable {
     private String oper;
     private String message;
     private String keyId;
-    
-    
+
     public LogOperVO() {
         super();
     }
+
     public LogOperVO(LogOperData logOper) {
         setId(logOper.getId());
         setCreateDate(DateUtil.calendarToString(logOper.getCreateTime()));
@@ -35,52 +35,67 @@ public class LogOperVO implements Serializable {
         setMessage(logOper.getMessage());
         setKeyId(logOper.getKeyId());
     }
-    
+
     public String getId() {
         return id;
     }
+
     public void setId(String id) {
         this.id = id;
     }
+
     public String getCreateDate() {
         return createDate;
     }
+
     public void setCreateDate(String createDate) {
         this.createDate = createDate;
     }
+
     public String getUserId() {
         return userId;
     }
+
     public void setUserId(String userId) {
         this.userId = userId;
     }
+
     public String getM1() {
         return m1;
     }
+
     public void setM1(String m1) {
         this.m1 = m1;
     }
+
     public String getM2() {
         return m2;
     }
+
     public void setM2(String m2) {
         this.m2 = m2;
     }
+
     public String getOper() {
         return oper;
     }
+
     public void setOper(String oper) {
         this.oper = oper;
     }
+
     public String getMessage() {
         return message;
     }
+
     public void setMessage(String message) {
         this.message = message;
     }
+
     public String getKeyId() {
         return keyId;
     }
+
     public void setKeyId(String keyId) {
         this.keyId = keyId;
     }

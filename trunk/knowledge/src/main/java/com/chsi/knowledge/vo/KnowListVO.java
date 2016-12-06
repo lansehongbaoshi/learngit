@@ -7,10 +7,10 @@ import com.chsi.knowledge.util.Pagination;
 
 /**
  * 问题列表
+ * 
  * @author chenjian
  */
 public class KnowListVO<T> implements Serializable {
-    
 
     /**
      * 
@@ -39,6 +39,5 @@ public class KnowListVO<T> implements Serializable {
     public void setPagination(Pagination pagination) {
         this.pagination = pagination;
     }
-
 
 }

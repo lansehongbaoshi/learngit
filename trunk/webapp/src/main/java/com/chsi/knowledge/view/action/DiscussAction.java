@@ -12,10 +12,12 @@ import com.chsi.knowledge.pojo.DiscussData;
 import com.chsi.knowledge.pojo.KnowledgeData;
 import com.chsi.knowledge.service.DiscussService;
 import com.chsi.knowledge.service.KnowledgeService;
+
 /**
  * 用户评价ACTION
+ * 
  * @author chenjian
- *
+ * 
  */
 public class DiscussAction extends AjaxAction {
 
@@ -32,7 +34,7 @@ public class DiscussAction extends AjaxAction {
         if (null != session.get(Constants.DISCUSS + knowledgeId)) {
             ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
             ajaxMessage.addMessage("您已经评论过了");
-        }else{
+        } else {
             KnowledgeData knowledge = knowledgeService.getKnowledgeById(knowledgeId);
             if (null == knowledge) {
                 ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
@@ -43,11 +45,11 @@ public class DiscussAction extends AjaxAction {
                 ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
                 ajaxMessage.addMessage("评价信息错误");
             }
-            if(!ValidatorUtil.isNull(content) && content.length()>200){
+            if (!ValidatorUtil.isNull(content) && content.length() > 200) {
                 ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
                 ajaxMessage.addMessage("评论内容过长");
             }
-            if(ValidatorUtil.isNull(userId)){
+            if (ValidatorUtil.isNull(userId)) {
                 userId = getIp(httpRequest);
             }
             if (ValidatorUtil.isNull(userId)) {
@@ -74,7 +76,7 @@ public class DiscussAction extends AjaxAction {
     public void setCallback(String callback) {
         this.callback = callback;
     }
-    
+
     public DiscussService getDiscussService() {
         return discussService;
     }
@@ -82,7 +84,7 @@ public class DiscussAction extends AjaxAction {
     public void setDiscussService(DiscussService discussService) {
         this.discussService = discussService;
     }
-    
+
     public String getCallback() {
         return callback;
     }
@@ -126,6 +128,5 @@ public class DiscussAction extends AjaxAction {
     public void setUserId(String userId) {
         this.userId = userId;
     }
-    
-   
+
 }

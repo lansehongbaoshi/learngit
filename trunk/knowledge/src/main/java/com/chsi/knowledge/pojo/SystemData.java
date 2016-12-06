@@ -14,21 +14,24 @@ import com.chsi.framework.pojos.PersistentObject;
 
 /**
  * 系统信息表
+ * 
  * @author chenjian
  * 
  */
 @Entity
 @Table(name = "SYSTEM")
 @DynamicUpdate(value = true)
-public class SystemData extends PersistentObject implements Comparable<SystemData>{
+public class SystemData extends PersistentObject implements Comparable<SystemData> {
     private static final long serialVersionUID = -4617519619519431521L;
     private String id;
     private String name;
     private String description;
     private List<SystemOpenTimeData> list;
-    
+
     private int tagCnt;
     private Integer sort;
+
+    private int property;
 
     public void setData(PersistentObject persistentObject) {
         SystemData systemData = (SystemData) persistentObject;
@@ -37,8 +40,8 @@ public class SystemData extends PersistentObject implements Comparable<SystemDat
         this.description = systemData.getDescription();
         this.sort = systemData.getSort();
     }
-    
-    public SystemData(){
+
+    public SystemData() {
         super();
     }
 
@@ -49,7 +52,7 @@ public class SystemData extends PersistentObject implements Comparable<SystemDat
         this.description = description;
         this.sort = sort;
     }
-    
+
     public SystemData(String id, String name, String description) {
         super();
         this.id = id;
@@ -96,6 +99,15 @@ public class SystemData extends PersistentObject implements Comparable<SystemDat
         this.sort = sort;
     }
 
+    @Column(name = "PROPERTY")
+    public int getProperty() {
+        return property;
+    }
+
+    public void setProperty(int property) {
+        this.property = property;
+    }
+
     @Transient
     public int getTagCnt() {
         return tagCnt;
@@ -116,13 +128,13 @@ public class SystemData extends PersistentObject implements Comparable<SystemDat
 
     @Override
     public boolean equals(Object obj) {
-        if(obj!=null) {
-            SystemData data = (SystemData)obj;
+        if (obj != null) {
+            SystemData data = (SystemData) obj;
             return this.getId().equals(data.getId());
         }
         return false;
     }
-    
+
     @Override
     public int hashCode() {
         return this.getId().hashCode();
@@ -130,7 +142,7 @@ public class SystemData extends PersistentObject implements Comparable<SystemDat
 
     @Override
     public int compareTo(SystemData o) {
-        if(o!=null) {
+        if (o != null) {
             return this.sort - o.getSort();
         }
         return 1;

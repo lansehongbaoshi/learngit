@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 /**
  * 分页信息
+ * 
  * @author chenjian
  */
 public class Pagination implements Serializable {

@@ -15,6 +15,7 @@ import com.chsi.knowledge.Constants;
 
 /**
  * 缓存工具
+ * 
  * @author chenjian
  */
 public class MemCachedUtil {
@@ -47,15 +48,15 @@ public class MemCachedUtil {
             }
         }
     }
-    private static final SpyMemcachedClient cacheClient = SpyMemcachedClientFactory.getSpyMemcachedClient(
-            memCachePoolName, memCacheAppName, "com.chsi.cache.cfg.RemotePoolConfigServiceImpl");
+    private static final SpyMemcachedClient cacheClient = SpyMemcachedClientFactory.getSpyMemcachedClient(memCachePoolName, memCacheAppName, "com.chsi.cache.cfg.RemotePoolConfigServiceImpl");
 
     private MemCachedUtil() {
 
     }
-    
+
     /**
      * 读取缓存
+     * 
      * @param key
      * @return
      */
@@ -69,6 +70,7 @@ public class MemCachedUtil {
 
     /**
      * 删除缓存
+     * 
      * @param key
      */
     public static void removeByKey(String key) {
@@ -77,23 +79,24 @@ public class MemCachedUtil {
         }
         cacheClient.delete(key);
     }
-    
+
     /**
      * 增加缓存-指定了缓存有效时间,超过有效时间缓存失效
+     * 
      * @param key
      * @param obj
      * @return
      */
-    /*public static boolean add(String key, Object obj) {
-        if (ValidatorUtil.isNull(key)) {
-            throw new IllegalArgumentException("增加缓存:key未赋值");
-        }
-        if (null == obj) {
-            throw new IllegalArgumentException("增加缓存:obj未赋值");
-        }
-        return cacheClient.add(key, obj, CacheExpireTimeUtil.getExpireTimeInHour(Constants.CACHE_EXPIRE_TIME_IN_HOUR));
-    }*/
-    
+    /*
+     * public static boolean add(String key, Object obj) { if
+     * (ValidatorUtil.isNull(key)) { throw new
+     * IllegalArgumentException("增加缓存:key未赋值"); } if (null == obj) { throw new
+     * IllegalArgumentException("增加缓存:obj未赋值"); } return cacheClient.add(key,
+     * obj,
+     * CacheExpireTimeUtil.getExpireTimeInHour(Constants.CACHE_EXPIRE_TIME_IN_HOUR
+     * )); }
+     */
+
     public static boolean set(String key, Object obj) {
         if (ValidatorUtil.isNull(key)) {
             throw new IllegalArgumentException("替代缓存:key未赋值");
@@ -103,5 +106,5 @@ public class MemCachedUtil {
         }
         return cacheClient.set(key, obj, CacheExpireTimeUtil.getExpireTimeInHour(Constants.CACHE_EXPIRE_TIME_IN_HOUR));
     }
-    
+
 }
