@@ -8,6 +8,7 @@ import="com.chsi.knowledge.pojo.KnowledgeData,com.chsi.knowledge.util.ManageCach
 <script src="http://t1.chei.com.cn/common/kn/js/kn_page.js"></script>
 <script src='http://t1.chsi.com.cn/common/plugins/dialog/6.0.5/dialog-min.js'></script>
 <script src='http://t1.chsi.com.cn/common/plugins/dialog/6.0.5/dialog-plus-min.js'></script>
+<script src="/js/jfconvert.js"></script>
 <%String systemId = request.getParameter("system"); 
 systemId = systemId==null?"":systemId;%>
 <style>
@@ -191,12 +192,16 @@ function errorMsg(){
 }
 //文本框输入调用
 function input() {
-	var q =htmlspecialchars($("#inputbox").val());
+	var q = htmlspecialchars($("#inputbox").val());
+	var searchQ = q;
+	<%if(systemId.equals("yz_gat")){%>
+	searchQ=Simplized(q);//面向港澳台招生的用户会输入繁体字，发送给机器人前要简体化
+	<%}%>
 	if($.trim(q)=="") return;	
 	$("#showbox").append("<div class='clearfix marginb'><div class='person'><div class='icon2'></div>"+q+"</div></div>");
 	var height = $("#showbox").prop("scrollHeight");//原来的高度	
 	$("#showbox").scrollTop(height);//滚动到原来的高度，正好从最新用户输入开始显示								
-	$.post("/robot/qa.action",{sessionId:sessionId,q:q,systemId:"<%=systemId%>"},function(result){
+	$.post("/robot/qa.action",{sessionId:sessionId,q:searchQ,systemId:"<%=systemId%>"},function(result){
 		if(result.flag=='true') {
 			var data = result.o;
 			//console.log(result);
