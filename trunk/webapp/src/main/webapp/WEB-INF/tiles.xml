@@ -115,9 +115,7 @@
     </definition>
     
     <!-- 机器人 -->
-    <definition name="robot.index" extends="admin.knowledge.modal" >
-        <put-attribute name="title" value="学信网机器人"/>
-        <put-attribute name="content" value="/robot/chat.jsp"/>
+    <definition name="robot.index" template="/robot/chat.jsp">
     </definition>
     
     <!-- 机器人配置 -->

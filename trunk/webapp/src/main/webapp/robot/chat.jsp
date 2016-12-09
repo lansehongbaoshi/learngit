@@ -1,8 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
 import="com.chsi.knowledge.pojo.KnowledgeData,com.chsi.knowledge.util.ManageCacheUtil,java.util.*" %>
 <%@ taglib uri="/struts-tags" prefix="s"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<title>学信网机器人</title>
 <link rel="stylesheet" href="http://t2.chei.com.cn/common/zbbm/js/autocomplete/jqueryui.autocomplete.css" />
 <link rel="stylesheet"  href='http://t1.chsi.com.cn/common/plugins/dialog/6.0.5/css/ui-dialog.css' />
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/common.css"/>
+<link rel="stylesheet" type="text/css" href="http://t4.chsi.com.cn/common/jqueryui/1.11.2/themes/cupertino/jquery-ui.min.css" />
+<script type="text/javascript" src="http://t4.chsi.com.cn/common/jquery/1.8.3/jquery.min.js"></script>
 <script src="http://t3.chei.com.cn/common/zbbm/js/autocomplete/jqueryui.autocomplete.js"></script>
 <script src='http://t1.chei.com.cn/common/wap/help/js/template.js'></script>
 <script src="http://t1.chei.com.cn/common/kn/js/kn_page.js"></script>
@@ -77,6 +85,12 @@ systemId = systemId==null?"":systemId;%>
 .ui-dialog-content img {max-width: 1200px;}
 .ui-widget {font:14px tahoma,arial,'Microsoft YaHei','微软雅黑','宋体', SimSun, sans-serif}
 </style>
+<jsp:include page="/common/ga.jsp"></jsp:include>
+</head>
+<body>
+    <div class="content">
+        
+    
 <div class="logo">
 	<div class="logo_img"></div>
 	<div class="logo_title">学信网机器人 | chsi.com.cn</div>
@@ -471,7 +485,7 @@ $(function() {
 	            data:postdata, 
 	            dataType: "jsonp",
 	            jsonp: "callback", //回调函数的参数  
-	            jsonpCallback: "parseAutoSearch", //回调函数的名称  
+	            //jsonpCallback: "parseAutoSearch", //回调函数的名称  
 	            success: function(data) {
 	                response($.map(data["o"].knows, function(item){
 	                    return {
@@ -579,3 +593,6 @@ $(function(){
     ajaxJSONP("systemId="+systemId,"knList");   
 });
 </script>
+
+</body>
+</html>
