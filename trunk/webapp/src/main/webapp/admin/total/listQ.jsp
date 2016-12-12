@@ -46,7 +46,7 @@
                       <td class="hidden-80">
                       <ol>
                       <s:iterator value="#data.answers" id="answer">
-                      <li class="zxx_text_overflow_1" title="<s:property value="#answer.article.title" />"><s:property value="#answer.article.title" /></li>
+                      <li class="zxx_text_overflow_1" title="<s:property value="#answer.article.title" escape="false"/>"><s:property value="#answer.article.title" escape="false"/></li>
                       </s:iterator>
                       </ol>
                       </td>
