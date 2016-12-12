@@ -15,6 +15,7 @@
         </interceptors>
         <action name="getKnowledgeList" class="knowledgeViewActionBean" method="getKnowledgeList"></action>
         <action name="getKnowledge" class="knowledgeViewActionBean" method="getKnowledge"></action>
+        <action name="knowledgeDetail" class="knowledgeViewActionBean" method="detailKnow"></action>
         <action name="getHotKnowledgeList" class="knowledgeViewActionBean" method="getHotKnowledgeList"></action>
         <action name="getKnowledgeOfSystem" class="knowledgeViewActionBean" method="listKnowledgeOfSystem"></action>
         <action name="getKnowForSearch" class="knowledgeViewActionBean" method="getKnowForSearch">

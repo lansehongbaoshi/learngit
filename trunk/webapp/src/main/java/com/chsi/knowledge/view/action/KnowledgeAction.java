@@ -3,6 +3,7 @@ package com.chsi.knowledge.view.action;
 import java.util.List;
 import java.util.Map;
 
+import com.chsi.framework.util.ValidatorUtil;
 import com.chsi.knowledge.Constants;
 import com.chsi.knowledge.action.base.AjaxAction;
 import com.chsi.knowledge.dic.TagProperty;
@@ -102,6 +103,30 @@ public class KnowledgeAction extends AjaxAction {
             }
             ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
             ajaxMessage.setO(viewKnowVO);
+        }
+        writeCallbackJSON(callback);
+    }
+    
+    // 知识详情,通过知识id返回知识json
+    public void detailKnow() throws Exception {
+        if (ValidatorUtil.isNull(id)) {
+            ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
+            ajaxMessage.addMessage("id为空");
+        } else {
+            KnowledgeData data = ManageCacheUtil.getKnowledgeDataById(id);
+            if (data == null) {
+                ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
+                ajaxMessage.addMessage("未查到知识");
+            } else {
+                KnowledgeVO vo = new KnowledgeVO();
+                vo.setKnowId(data.getId());
+                vo.setTitle(data.getArticle().getTitle());
+                vo.setContent(data.getArticle().getContent());
+                vo.setUpdateTime(data.getLastOperTime("yyyy-MM-dd HH:mm"));
+                ajaxMessage.setO(vo);
+                ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
+                queueService.addCtiVisitKnowledgeId(id);
+            }
         }
         writeCallbackJSON(callback);
     }

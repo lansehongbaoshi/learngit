@@ -3,7 +3,6 @@ package com.chsi.knowledge.vo;
 import java.io.Serializable;
 import java.util.List;
 
-import com.chsi.knowledge.pojo.KnowledgeData;
 import com.chsi.knowledge.pojo.SystemData;
 
 /**
@@ -30,8 +29,9 @@ public class KnowledgeVO implements Serializable {
     private List<String> tagIds;
     private int visitCnt;
     private int sort;
+    
 
-    public KnowledgeVO(KnowledgeData knowl) {
+    public KnowledgeVO() {
 
     }
 
