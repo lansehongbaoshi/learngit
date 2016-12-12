@@ -18,6 +18,7 @@ import com.chsi.knowledge.vo.AnswerVO;
 public class QAAction extends AjaxAction {
     private String sessionId;
     private String systemId;
+    private String system;
     private String q;
     private String knowId;
     private String hello;
@@ -32,7 +33,7 @@ public class QAAction extends AjaxAction {
 
     public String index() throws Exception {
         QASessionData qaSessionData = new QASessionData();
-        qaSessionData.setSystemId(systemId);
+        qaSessionData.setSystemId(system);
         qaSessionData.setType(QAType.ROBOT);
         Calendar cal = Calendar.getInstance();
         qaSessionData.setStartTime(cal);
@@ -136,5 +137,13 @@ public class QAAction extends AjaxAction {
         helloword += i == 0 ? "上午好。" : "下午好。";
         return helloword;
 
+    }
+
+    public String getSystem() {
+        return system;
+    }
+
+    public void setSystem(String system) {
+        this.system = system;
     }
 }

@@ -13,7 +13,8 @@ if(!ValidatorUtil.isNull(type)) {
         %>
 ({title:{text:'机器人会话统计',subtext:<%=String.format("'共%d个会话'",PieVO.totalCnt(totalList))%>,x:'center'},tooltip:{trigger:'item',formatter:"{a}<br/>{b}:{c}({d}%)"},legend:{orient:'vertical',left:'left',data:<%=JSONArray.fromObject(PieVO.getNames(totalList)).toString()%>},series:[{name:'会话类型',type:'pie',radius:'55%',center:['50%','60%'],data:<%=JSONArray.fromObject(totalList).toString()%>,itemStyle:{emphasis:{shadowBlur:10,shadowOffsetX:0,shadowColor:'rgba(0,0,0,0.5)'}}}]})
 <%} else if(type.equals("q")) {
-        totalList = robotService.totalQ(startTime, endTime);
+    String systemId = request.getParameter("systemId");
+        totalList = robotService.totalQ(systemId, startTime, endTime);
         %>
 ({title:{text:'机器人问题统计',subtext:<%=String.format("'共%d个问题,点【无答案】【不确定答案】可看详情'",PieVO.totalCnt(totalList))%>,x:'center'},tooltip:{trigger:'item',formatter:"{a}<br/>{b}:{c}({d}%)"},legend:{orient:'vertical',left:'left',data:<%=JSONArray.fromObject(PieVO.getNames(totalList)).toString()%>},series:[{name:'问题类型',type:'pie',radius:'55%',center:['50%','60%'],data:<%=JSONArray.fromObject(totalList).toString()%>,itemStyle:{emphasis:{shadowBlur:10,shadowOffsetX:0,shadowColor:'rgba(0,0,0,0.5)'}}}]})
 <% } else if(type.equals("visitlog")) {

@@ -26,6 +26,7 @@ public class TotalAction extends AjaxAction {
     private String start;
     private String startTime;
     private String endTime;
+    private String systemId;
 
     private List<PieVO> totalList;
     private List<QALogData> qaLogList;
@@ -54,11 +55,11 @@ public class TotalAction extends AjaxAction {
         if (!ValidatorUtil.isNull(type) && ValidatorUtil.isNumber(start)) {
             int currentPage = Integer.parseInt(start);
             if ("无答案".equals(type)) {
-                page = robotService.pageQALogDataByAType(AType.NONE, currentPage, Constants.PAGE_SIZE_20, startTime, endTime);
+                page = robotService.pageQALogDataByAType(systemId, AType.NONE, currentPage, Constants.PAGE_SIZE_20, startTime, endTime);
             } else if ("确定答案".equals(type)) {
-                page = robotService.pageQALogDataByAType(AType.DEFINITE, currentPage, Constants.PAGE_SIZE_20, startTime, endTime);
+                page = robotService.pageQALogDataByAType(systemId, AType.DEFINITE, currentPage, Constants.PAGE_SIZE_20, startTime, endTime);
             } else if ("不确定答案".equals(type)) {
-                page = robotService.pageQALogDataByAType(AType.INDEFINITE, currentPage, Constants.PAGE_SIZE_20, startTime, endTime);
+                page = robotService.pageQALogDataByAType(systemId, AType.INDEFINITE, currentPage, Constants.PAGE_SIZE_20, startTime, endTime);
             }
             ServletActionContext.getRequest().setAttribute("page", page);
         }
@@ -127,6 +128,14 @@ public class TotalAction extends AjaxAction {
 
     public void setEndTime(String endTime) {
         this.endTime = endTime;
+    }
+
+    public String getSystemId() {
+        return systemId;
+    }
+
+    public void setSystemId(String systemId) {
+        this.systemId = systemId;
     }
 
 }

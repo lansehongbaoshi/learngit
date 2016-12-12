@@ -63,7 +63,7 @@ margin-top: 10px;
           </h3>
           <div>
             <div id="knowl_condition" class="leftpart" style="display:none;">
-            <span class="">系统：<select id="systemIds" class="" name="systemId"></select></span><br>
+            <span class="">系统：<select id="systemIds1" class="systemIds" name="systemId"></select></span><br>
             <span class="">个数：<input id="topCnt" type="text" name="topCnt" value="6" style="width:100px;"></span><br>
             <span class="line-height-30">开始日期：</span>                            
             <div class="input-group date form_datetime a_v_time" style="margin:0;" data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_input1">
@@ -93,6 +93,7 @@ margin-top: 10px;
             <p class="margin-top-10"><b>说明：</b><br>空会话——用户并未发出提问</p>
             </div>
             <div id="knowl_q" class="leftpart" style="display:none;">
+            <span class="">系统：<select id="systemIds2" class="systemIds" name="systemId"><option value="">未确定系统</option></select></span><br>
             <span class="line-height-30">开始日期：</span>                            
             <div class="input-group date form_datetime a_v_time" style="margin:0;" data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_input1">
             <input id="startDate2" name="startDate" class="form-control for-height32" size="16" type="text" value="<%=startDate%>" readonly>
@@ -171,7 +172,7 @@ function getNames(values){
     	$("#knowl_btn").on('click',function(){
     		var data = {};
     		data.type = 'visitlog';
-    		data.systemId=$("#systemIds").val();
+    		data.systemId=$("#systemIds1").val();
 			data.topCnt=$("#topCnt").val();
 			data.startTime=$("#startDate").val();
 			data.endTime=$("#endDate").val();
@@ -206,6 +207,7 @@ function getNames(values){
     		data.type = 'q';
 			data.startTime=$("#startDate2").val();
 			data.endTime=$("#endDate2").val();
+			data.systemId=$("#systemIds2").val();
 			if(data.startTime>data.endTime) {
                 alert("开始日期不能晚于截止日期！");
                 return;
@@ -231,7 +233,7 @@ function getNames(values){
                         var option = json.o[i];
                         options += "<option value='" + option.id + "'>" + option.name + "</option>";
                     }
-                    $("#systemIds").html(options);
+                    $(".systemIds").append(options);
                 }
             }
         );

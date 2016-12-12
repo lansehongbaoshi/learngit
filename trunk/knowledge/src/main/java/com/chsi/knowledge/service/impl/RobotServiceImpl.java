@@ -283,8 +283,8 @@ public class RobotServiceImpl extends BaseDbService implements RobotService {
     }
 
     @Override
-    public List<PieVO> totalQ(String startTime, String endTime) {
-        return robotDAO.totalQ(startTime, endTime);
+    public List<PieVO> totalQ(String systemId, String startTime, String endTime) {
+        return robotDAO.totalQ(systemId, startTime, endTime);
     }
 
     @Override
@@ -293,8 +293,8 @@ public class RobotServiceImpl extends BaseDbService implements RobotService {
     }
 
     @Override
-    public Page<QALogData> pageQALogDataByAType(AType aType, int currentPage, int pageSize, String startTime, String endTime) {
-        Page<QALogData> page = robotDAO.pageQALogDataByAType(aType, currentPage, pageSize, startTime, endTime);
+    public Page<QALogData> pageQALogDataByAType(String systemId, AType aType, int currentPage, int pageSize, String startTime, String endTime) {
+        Page<QALogData> page = robotDAO.pageQALogDataByAType(systemId, aType, currentPage, pageSize, startTime, endTime);
         setAnswers(page);
         return page;
     }

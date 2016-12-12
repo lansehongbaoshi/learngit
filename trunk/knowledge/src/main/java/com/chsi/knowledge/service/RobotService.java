@@ -69,7 +69,7 @@ public interface RobotService {
      */
     List<PieVO> totalQ();
 
-    List<PieVO> totalQ(String startTime, String endTime);
+    List<PieVO> totalQ(String systemId, String startTime, String endTime);
 
     /**
      * 查询问题列表，包括：无答案、确定答案、不确定答案这三种情况
@@ -79,7 +79,7 @@ public interface RobotService {
      */
     List<QALogData> listQALogDataByAType(AType aType);
 
-    Page<QALogData> pageQALogDataByAType(AType aType, int currentPage, int pageSize, String startTime, String endTime);
+    Page<QALogData> pageQALogDataByAType(String systemId, AType aType, int currentPage, int pageSize, String startTime, String endTime);
 
     boolean addWeatherAddr(String string);
 

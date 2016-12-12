@@ -64,7 +64,7 @@ public interface RobotDAO {
      */
     List<PieVO> totalQ();
 
-    List<PieVO> totalQ(String startTime, String endTime);
+    List<PieVO> totalQ(String systemId, String startTime, String endTime);
 
     /**
      * 查询问题列表
@@ -80,7 +80,7 @@ public interface RobotDAO {
      * @param aType
      * @return
      */
-    Page<QALogData> pageQALogDataByAType(AType aType, int currentPage, int pageSize, String startTime, String endTime);
+    Page<QALogData> pageQALogDataByAType(String systemId, AType aType, int currentPage, int pageSize, String startTime, String endTime);
     
     List<ALogData> listALogDataByQId(String qId);
 

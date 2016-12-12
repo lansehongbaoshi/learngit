@@ -21,14 +21,14 @@ import com.chsi.knowledge.pojo.RobotASetData;
 import com.chsi.knowledge.pojo.RobotQSetData;
 import com.chsi.knowledge.util.PageUtil;
 import com.chsi.knowledge.vo.PieVO;
-import com.chsi.search.client.vo.RobotQABean;
 
 public class RobotDAOImpl extends BaseHibernateDAO implements RobotDAO {
     private static String query_robot_a_by_like_q = "select aa from RobotQSetData qq,RobotASetData aa where aa.qId=qq.id and qq.q like (:q)";
     private static String query_robot_a_by_q = "select aa from RobotQSetData qq,RobotASetData aa where aa.qId=qq.id and qq.q = :q";
     private static String query_all_q = "from RobotQSetData";
     private static String query_qa_log_by_a_type = "from QALogData where aType=:aType";
-    private static String query_qa_log_by_a_type_page = "from QALogData where aType=?";
+    private static String from_qa_log_by_a_type_page = "from QALogData p,QASessionData q where p.sessionId=q.id and p.aType=? ";
+    private static String select_qa_log_by_a_type_page = "select p from QALogData p,QASessionData q where p.sessionId=q.id and p.aType=? ";
     private static String query_a_log_by_a_type_page = "from ALogData where qaLogId=:qaLogId";
     private static String query_qa_session_by_id = "from QASessionData where id=:id";
     private static String from_a = "from RobotQSetData";
@@ -39,9 +39,11 @@ public class RobotDAOImpl extends BaseHibernateDAO implements RobotDAO {
 
     private static String w_id = " where id=:id";
     private static String w_q = " where q=:q";
-    private static String a_createTime = " and to_char(createTime,'yyyy-mm-dd') between ? and ?";
+    private static String a_p_createTime = " and to_char(p.createTime,'yyyy-mm-dd') between ? and ?";
+    private static String a_q_system_id_null = " and q.systemId is null";
+    private static String a_q_system_id = " and q.systemId=?";
 
-    private static String order_by_session_id_create_time_desc = " order by sessionId,createTime desc";
+    private static String order_by_session_id_create_time_desc = " order by p.sessionId,p.createTime desc";
 
     @Override
     public void save(PersistentObject pojo) {
@@ -185,17 +187,24 @@ public class RobotDAOImpl extends BaseHibernateDAO implements RobotDAO {
     }
 
     @Override
-    public List<PieVO> totalQ(String startTime, String endTime) {
+    public List<PieVO> totalQ(String systemId, String startTime, String endTime) {
         List<PieVO> list = new ArrayList<PieVO>();
 
-        String SQL = "SELECT SUM(DECODE(A_TYPE,0,1,0)) AS N,SUM(DECODE(A_TYPE,1,1,0)) AS D,SUM(DECODE(A_TYPE,2,1,0)) AS I FROM QA_LOG where to_char(CREATE_TIME,'yyyy-mm-dd') between :startTime and :endTime";
+        String SQL = "SELECT SUM(DECODE(A_TYPE,0,1,0)) AS N,SUM(DECODE(A_TYPE,1,1,0)) AS D,SUM(DECODE(A_TYPE,2,1,0)) AS I FROM QA_LOG A,QA_SESSION B where to_char(A.CREATE_TIME,'yyyy-mm-dd') between :startTime and :endTime AND A.SESSION_ID=B.ID";
+        if (ValidatorUtil.isNull(systemId)) {
+            SQL += " AND B.SYSTEM_ID IS NULL";
+        } else {
+            SQL += " AND B.SYSTEM_ID=:systemId";
+        }
         Query query = hibernateUtil.getSession().createSQLQuery(SQL).setString("startTime", startTime).setString("endTime", endTime);
-        List<Object[]> result = query.list();
-        if (result.size() > 0) {
-            Object[] objs = result.get(0);
-            list.add(new PieVO("无答案", ((BigDecimal) objs[0]).longValue()));
-            list.add(new PieVO("确定答案", ((BigDecimal) objs[1]).longValue()));
-            list.add(new PieVO("不确定答案", ((BigDecimal) objs[2]).longValue()));
+        if (!ValidatorUtil.isNull(systemId)) {
+            query.setString("systemId", systemId);
+        }
+        Object[] result = (Object[]) query.uniqueResult();
+        if (result != null) {
+            list.add(new PieVO("无答案", result[0] == null ? 0 : ((BigDecimal) result[0]).longValue()));
+            list.add(new PieVO("确定答案", result[1] == null ? 0 : ((BigDecimal) result[1]).longValue()));
+            list.add(new PieVO("不确定答案", result[2] == null ? 0 : ((BigDecimal) result[2]).longValue()));
         }
         return list;
     }
@@ -209,9 +218,17 @@ public class RobotDAOImpl extends BaseHibernateDAO implements RobotDAO {
     }
 
     @Override
-    public Page<QALogData> pageQALogDataByAType(AType aType, int currentPage, int pageSize, String startTime, String endTime) {
-        String countyHql = count + query_qa_log_by_a_type_page + a_createTime;
-        String queryHql = query_qa_log_by_a_type_page + a_createTime + order_by_session_id_create_time_desc;
+    public Page<QALogData> pageQALogDataByAType(String systemId, AType aType, int currentPage, int pageSize, String startTime, String endTime) {
+        String countyHql;
+        String queryHql;
+        if (ValidatorUtil.isNull(systemId)) {
+            countyHql = count + from_qa_log_by_a_type_page + a_p_createTime + a_q_system_id_null;
+            queryHql = select_qa_log_by_a_type_page + a_p_createTime + a_q_system_id_null + order_by_session_id_create_time_desc;
+        } else {
+            countyHql = count + from_qa_log_by_a_type_page + a_p_createTime + a_q_system_id;
+            queryHql = select_qa_log_by_a_type_page + a_p_createTime + a_q_system_id + order_by_session_id_create_time_desc;
+        }
+
         Page page = PageUtil.getPage(hibernateUtil.getSession(), currentPage, pageSize, countyHql, queryHql, aType, startTime, endTime);
         return page;
     }

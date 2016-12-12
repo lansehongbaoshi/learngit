@@ -23,7 +23,7 @@
       <div class="row">
         <div class="col-xs-12">
           <h3 class="row header smaller lighter blue">
-            <span class="col-xs-7">所有"<s:property value="type" />"问题</span> <span class="col-xs-5"> 
+            <span class="col-xs-7">[<s:property value="systemId" />]所有"<s:property value="type" />"问题</span> <span class="col-xs-5"> 
             </span>
           </h3>
           <div>
