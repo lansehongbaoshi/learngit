@@ -31,15 +31,25 @@
               <table id="dynamic-table" class="table table-striped table-bordered table-hover dataTable no-footer DTTT_selectable" role="grid" aria-describedby="dynamic-table_info">
                 <thead>
                   <tr role="row">
+                    <th width="200" class="hidden-80" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1" aria-label="Domain: activate to sort column ascending">会话id</th>
                     <th width="200" class="hidden-80" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1" aria-label="Domain: activate to sort column ascending">提问时间</th>
                     <th class="hidden-180" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1" aria-label="Domain: activate to sort column ascending">提问详情</th>
+                    <th class="hidden-180" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1" aria-label="Domain: activate to sort column ascending">回答详情</th>
                   </tr>
                 </thead>
                 <tbody id="systemIds">
                   <s:iterator value="page.list" id="data">
                     <tr role="row" class="odd">
+                      <td class="hidden-80"><s:property value="#data.sessionId" /></td>
                       <td class="hidden-80"><s:date format="yyyy-MM-dd HH:mm:ss" name="#data.createTime"/></td>
                       <td class="hidden-80"><s:property value="#data.q" /></td>
+                      <td class="hidden-80">
+                      <ol>
+                      <s:iterator value="#data.answers" id="answer">
+                      <li class="zxx_text_overflow_1" title="<s:property value="#answer.article.title" />"><s:property value="#answer.article.title" /></li>
+                      </s:iterator>
+                      </ol>
+                      </td>
                     </tr>
                   </s:iterator>
                 </tbody>

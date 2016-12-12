@@ -216,8 +216,11 @@ function getNames(values){
       			myChart.setOption(option);
       			myChart.on('click', function (params) {
     				if(params.name=='无答案')
-    			    window.open('/admin/total/listQ.action?start=0&type=' + encodeURIComponent(params.name)+'&startTime='+$("#startDate2").val()+'&endTime='+$("#endDate2").val());
-    			});
+    				    window.open('/admin/total/listQ.action?start=0&type=' + encodeURIComponent(params.name)+'&startTime='+$("#startDate2").val()+'&endTime='+$("#endDate2").val());
+    				else if(params.name=='不确定答案') {
+    					window.open('/admin/total/listQ.action?start=0&type=' + encodeURIComponent(params.name)+'&startTime='+$("#startDate2").val()+'&endTime='+$("#endDate2").val());
+    				}
+      			});
         	});
     	});
     	$.getJSON("/admin/listSystem.action",

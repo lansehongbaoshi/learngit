@@ -109,6 +109,8 @@ public interface KnowledgeService {
     /* 前台service结束 */
 
     KnowledgeData getKnowledgeById(String id);
+    
+    KnowledgeData getKnowledgeByCmsId(String cmsId);
 
     /**
      * 根据标签ID 取出多条知识

@@ -6,6 +6,7 @@ import java.util.Map;
 import com.chsi.framework.page.Page;
 import com.chsi.framework.pojos.PersistentObject;
 import com.chsi.knowledge.dic.AType;
+import com.chsi.knowledge.pojo.ALogData;
 import com.chsi.knowledge.pojo.QALogData;
 import com.chsi.knowledge.pojo.QASessionData;
 import com.chsi.knowledge.pojo.RobotASetData;
@@ -80,6 +81,8 @@ public interface RobotDAO {
      * @return
      */
     Page<QALogData> pageQALogDataByAType(AType aType, int currentPage, int pageSize, String startTime, String endTime);
+    
+    List<ALogData> listALogDataByQId(String qId);
 
     /**
      * 根据问题查找RobotQSetDate

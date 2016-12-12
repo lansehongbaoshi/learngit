@@ -31,6 +31,7 @@ import com.chsi.knowledge.pojo.RobotASetData;
 import com.chsi.knowledge.pojo.RobotQSetData;
 import com.chsi.knowledge.pojo.WeatherCodeData;
 import com.chsi.knowledge.robot.intent.Intent;
+import com.chsi.knowledge.service.KnowledgeService;
 import com.chsi.knowledge.service.RobotService;
 import com.chsi.knowledge.service.ServiceFactory;
 import com.chsi.knowledge.util.ManageCacheUtil;
@@ -293,7 +294,9 @@ public class RobotServiceImpl extends BaseDbService implements RobotService {
 
     @Override
     public Page<QALogData> pageQALogDataByAType(AType aType, int currentPage, int pageSize, String startTime, String endTime) {
-        return robotDAO.pageQALogDataByAType(aType, currentPage, pageSize, startTime, endTime);
+        Page<QALogData> page = robotDAO.pageQALogDataByAType(aType, currentPage, pageSize, startTime, endTime);
+        setAnswers(page);
+        return page;
     }
 
     @Override
@@ -357,6 +360,23 @@ public class RobotServiceImpl extends BaseDbService implements RobotService {
             }
         }
         return null;
+    }
+    
+    private void setAnswers(Page<QALogData> page) {
+        KnowledgeService knowledgeService = ServiceFactory.getKnowledgeService();
+        for(QALogData data:page.getList()) {
+            if(data.getaType()==AType.INDEFINITE || data.getaType()==AType.DEFINITE) {
+                List<ALogData> list = robotDAO.listALogDataByQId(data.getId());
+                List<KnowledgeData> answers = new ArrayList<KnowledgeData>();
+                for(ALogData a:list) {
+                    KnowledgeData know = knowledgeService.getKnowledgeByCmsId(a.getCmsId());//没有标题和内容
+                    String knowId = know.getId();
+                    know = ManageCacheUtil.getKnowledgeDataById(knowId);//有标题和内容
+                    answers.add(know);
+                }
+                data.setAnswers(answers);
+            }
+        }
     }
 
 }

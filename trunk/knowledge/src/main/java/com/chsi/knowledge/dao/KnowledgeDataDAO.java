@@ -57,6 +57,8 @@ public interface KnowledgeDataDAO {
     void delete(KnowledgeData knowledgeData);
 
     KnowledgeData getKnowledgeById(String id);
+    
+    KnowledgeData getKnowledgeByCmsId(String cmsId);
 
     /**
      * 标签ID，知识状态统计知识数量

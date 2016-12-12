@@ -27,6 +27,7 @@ public class KnowledgeDataDAOImpl extends BaseHibernateDAO implements KnowledgeD
     private static final String W = " where ";
     private static final String A = " and ";
     private static final String ID = " p.id=:id";
+    private static final String CMS_ID = " p.cmsId=:cmsId";
     private static final String TAG_ID = " p.tagData.id=:tagId";
     private static final String KNOWLEDGE_KNOWLEDGESTATUS = " p.knowledgeData.knowledgeStatus=:knowledgeStatus";
     private static final String KNOWLEDGE_TYPE = " p.knowledgeData.type=:type";
@@ -54,6 +55,13 @@ public class KnowledgeDataDAOImpl extends BaseHibernateDAO implements KnowledgeD
     public KnowledgeData getKnowledgeById(String id) {
         String hql = SELECT_KNOWLEDGE + W + ID;
         Query query = hibernateUtil.getSession().createQuery(hql).setString("id", id);
+        List<KnowledgeData> list = query.list();
+        return list.size() == 0 ? null : list.get(0);
+    }
+    
+    public KnowledgeData getKnowledgeByCmsId(String cmsId) {
+        String hql = SELECT_KNOWLEDGE + W + CMS_ID;
+        Query query = hibernateUtil.getSession().createQuery(hql).setString("cmsId", cmsId);
         List<KnowledgeData> list = query.list();
         return list.size() == 0 ? null : list.get(0);
     }

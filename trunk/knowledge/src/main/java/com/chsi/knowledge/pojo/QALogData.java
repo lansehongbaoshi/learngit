@@ -1,12 +1,14 @@
 package com.chsi.knowledge.pojo;
 
 import java.util.Calendar;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
@@ -35,6 +37,8 @@ public class QALogData extends PersistentObject {
     private String q;
     private AType aType;
     private Calendar createTime;
+    
+    private List<KnowledgeData> answers;
 
     public QALogData() {
         super();
@@ -107,6 +111,15 @@ public class QALogData extends PersistentObject {
 
     public void setCreateTime(Calendar createTime) {
         this.createTime = createTime;
+    }
+
+    @Transient
+    public List<KnowledgeData> getAnswers() {
+        return answers;
+    }
+
+    public void setAnswers(List<KnowledgeData> answers) {
+        this.answers = answers;
     }
 
 }
