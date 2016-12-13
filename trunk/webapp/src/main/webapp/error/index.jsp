@@ -6,6 +6,7 @@
 <%
 String ctxPath = request.getContextPath();
 String message = (String)request.getAttribute(Constants.REQUEST_ERROR);
+System.out.println(String.format("whoseError{userIp:%s,userId:%s}", request.getRemoteAddr(), request.getRemoteUser()));
 if(null == message || message.equals("")){
 	message = "系统访问出现异常";
 }

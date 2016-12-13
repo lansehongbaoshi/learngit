@@ -225,7 +225,7 @@ function getNames(values){
       			});
         	});
     	});
-    	$.getJSON("/admin/listSystem.action",
+    	$.getJSON("/admin/total/listSystem.action",
             function showSystems(json) {
                 if (json.flag == "true") {
                     var options = "";

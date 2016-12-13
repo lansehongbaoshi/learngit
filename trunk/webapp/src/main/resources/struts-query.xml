@@ -23,5 +23,24 @@
         </action>
         <action name="searchAllKnow" class="htglSearchActionBean" method="searchAllKnow"></action>
     </package>
-    
+    <package name="admin.total" extends="knowledge-default" namespace="/admin/total">
+        <interceptors>
+          <interceptor-stack name="knowledgeStack">
+              <interceptor-ref name="chsiDefaultStack"></interceptor-ref>
+              <interceptor-ref name="store">
+                  <param name="operationMode">AUTOMATIC</param>
+              </interceptor-ref>
+          </interceptor-stack>
+        </interceptors>
+        <action name="listSystem" class="systemActionBean" method="getSystems"></action>
+        <action name="list">
+            <result name="success" type="tiles">admin.total.list</result>
+        </action>
+        <action name="option" class="totalActionBean" method="option">
+            <result name="success" type="tiles">admin.total.option</result>
+        </action>
+        <action name="listQ" class="totalActionBean" method="listQ">
+            <result name="success" type="tiles">admin.total.listQ</result>
+        </action>
+    </package>
 </struts>

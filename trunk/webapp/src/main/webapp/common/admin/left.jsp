@@ -3,29 +3,26 @@
 com.chsi.knowledge.vo.LoginUserVO user = com.chsi.knowledge.web.util.WebAppUtil.getLoginUserVO(request);
 %>
 <div id="sidebar" class="sidebar responsive">
-<script type="text/javascript">
+  <script type="text/javascript">
 try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
 </script>
   <ul id="menu" class="nav nav-list">
     <%if(user.getAuths().contains(com.chsi.knowledge.Constants.ROLE_CTI_USER) && !user.getAuths().contains(com.chsi.knowledge.Constants.ROLE_KNOWLEDGE)) {%>
-        <li id="homepage_menu" class=""><a href="/admin/cti/index.action"> <i class="menu-icon fa fa-tachometer"></i> <span class="menu-text"> 首页 </span>
-        </a> <b class="arrow"></b></li>
+    <li id="homepage_menu" class=""><a href="/admin/cti/index.action"> <i class="menu-icon fa fa-tachometer"></i> <span class="menu-text"> 首页 </span>
+    </a> <b class="arrow"></b></li>
     <%} else if(user.getAuths().contains(com.chsi.knowledge.Constants.ROLE_KNOWLEDGE)){ %>
-     <li id="homepage_menu" class=""><a href="/admin/index.action"> <i class="menu-icon fa fa-tachometer"></i> <span class="menu-text"> 首页 </span>
-        </a> <b class="arrow"></b></li>
+    <li id="homepage_menu" class=""><a href="/admin/index.action"> <i class="menu-icon fa fa-tachometer"></i> <span class="menu-text"> 首页 </span>
+    </a> <b class="arrow"></b></li>
     <%} %>
-    
     <%if(user.getAuths().contains(com.chsi.knowledge.Constants.ROLE_KNOWLEDGE_READONLY)) {%>
-    
     <li id="search_menu" class=""><a href="/admin/query/searchindex.action"> <i class="menu-icon fa fa-search"></i> <span class="menu-text"> 知识查询 </span>
     </a> <b class="arrow"></b></li>
+    <li id="total_menu" class=""><a href="/admin/total/list"> <i class="menu-icon fa fa-area-chart"></i> <span class="menu-text"> 统计分析 </span>
+    </a> <b class="arrow"></b></li>
     <%} %>
-    
     <%if(user.getAuths().contains(com.chsi.knowledge.Constants.ROLE_CTI_USER) && !user.getAuths().contains(com.chsi.knowledge.Constants.ROLE_KNOWLEDGE)) {%>
-    
     <li id="search_menu" class=""><a href="/admin/cti/knowledge/searchindex.action"> <i class="menu-icon fa fa-pencil-square-o"></i> <span class="menu-text"> 知识管理 </span>
     </a> <b class="arrow"></b></li>
-    
     <li id="add_menu" class=""><a href="/admin/cti/knowledge/searchadd.action"> <i class="menu-icon fa fa-file-text"></i> <span class="menu-text"> 待审核知识 </span>
     </a> <b class="arrow"></b></li>
     <%} %>
