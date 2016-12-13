@@ -221,15 +221,18 @@ public class RobotDAOImpl extends BaseHibernateDAO implements RobotDAO {
     public Page<QALogData> pageQALogDataByAType(String systemId, AType aType, int currentPage, int pageSize, String startTime, String endTime) {
         String countyHql;
         String queryHql;
+        Page page;
         if (ValidatorUtil.isNull(systemId)) {
             countyHql = count + from_qa_log_by_a_type_page + a_p_createTime + a_q_system_id_null;
             queryHql = select_qa_log_by_a_type_page + a_p_createTime + a_q_system_id_null + order_by_session_id_create_time_desc;
+            page = PageUtil.getPage(hibernateUtil.getSession(), currentPage, pageSize, countyHql, queryHql, aType, startTime, endTime);
         } else {
             countyHql = count + from_qa_log_by_a_type_page + a_p_createTime + a_q_system_id;
             queryHql = select_qa_log_by_a_type_page + a_p_createTime + a_q_system_id + order_by_session_id_create_time_desc;
+            page = PageUtil.getPage(hibernateUtil.getSession(), currentPage, pageSize, countyHql, queryHql, aType, startTime, endTime, systemId);
         }
 
-        Page page = PageUtil.getPage(hibernateUtil.getSession(), currentPage, pageSize, countyHql, queryHql, aType, startTime, endTime);
+        
         return page;
     }
 

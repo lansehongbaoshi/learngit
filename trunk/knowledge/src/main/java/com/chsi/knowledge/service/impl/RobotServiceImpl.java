@@ -370,9 +370,11 @@ public class RobotServiceImpl extends BaseDbService implements RobotService {
                 List<KnowledgeData> answers = new ArrayList<KnowledgeData>();
                 for(ALogData a:list) {
                     KnowledgeData know = knowledgeService.getKnowledgeByCmsId(a.getCmsId());//没有标题和内容
-                    String knowId = know.getId();
-                    know = ManageCacheUtil.getKnowledgeDataById(knowId);//有标题和内容
-                    answers.add(know);
+                    if(know!=null) {
+                        String knowId = know.getId();
+                        know = ManageCacheUtil.getKnowledgeDataById(knowId);//有标题和内容
+                        answers.add(know);
+                    }
                 }
                 data.setAnswers(answers);
             }
