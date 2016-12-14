@@ -126,7 +126,7 @@ systemId = systemId==null?"":systemId;%>
 					<li class="cn" onclick="ajaxJSONP('systemId=my','knList')" data-id="my">学信档案</li>
 					<li class="cn no-border-right" onclick="ajaxJSONP('systemId=yz_wb','knList')" data-id="yz_wb" >研招统考</li>
 					<li class="cn" onclick="ajaxJSONP('systemId=yz_tm','knList')" data-id="yz_tm">研招推免</li>
-                    <li class="cn" onclick="ajaxJSONP('systemId=zb','knList')" data-id="zb">应征报名</li>
+                    <li class="cn" onclick="ajaxJSONP('systemId=zb','knList')" data-id="zb">征兵报名</li>
                     <li class="cn no-border-right" onclick="ajaxJSONP('systemId=cet','knList')" data-id="cet">四六级查分</li>
                     <li class="cn" onclick="ajaxJSONP('systemId=yz_gat','knList')" data-id="yz_gat">面向港澳台招生</li>
                     <li class="cn" onclick="ajaxJSONP('systemId=gk_tk','knList')" data-id="gk_tk">高考统考招生</li>

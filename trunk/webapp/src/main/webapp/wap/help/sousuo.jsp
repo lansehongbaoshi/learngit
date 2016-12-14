@@ -8,7 +8,7 @@ import="com.chsi.knowledge.pojo.KnowledgeData,com.chsi.knowledge.util.ManageCach
     <meta charset="utf-8">
     <title>搜索_学信网帮助中心</title>
     <meta name="Keywords" content="学信网帮助中心，学信网常见问题">
-    <meta name="Description" content="学信网帮助中心，学信网账号、学信档案、应征报名、四六级查分、研招统考、研招推免、学历与成绩认证、面向港澳台招生、高考统考招生、高考特殊类型招生、高考特殊类型报名">
+    <meta name="Description" content="学信网帮助中心，学信网账号、学信档案、征兵报名、四六级查分、研招统考、研招推免、学历与成绩认证、面向港澳台招生、高考统考招生、高考特殊类型招生、高考特殊类型报名">
     <link href="http://t1.chei.com.cn/common/wap/help/css/reset.min.css" rel="stylesheet"/>
     <link href="http://t2.chei.com.cn/common/wap/help/css/style.min.css?20160922" rel="stylesheet"/>
     <!--[if lt IE 9]><script src="http://t3.chei.com.cn/common/wap/help/js/respond.js"></script><![endif]-->
