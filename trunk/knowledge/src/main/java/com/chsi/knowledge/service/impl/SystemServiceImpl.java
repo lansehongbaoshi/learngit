@@ -175,4 +175,11 @@ public class SystemServiceImpl extends BaseDbService implements SystemService {
         knowledgeDataDAO.update(knows);
     }
 
+    @Override
+    public SystemData getSystemByName(String systemName) {
+        // TODO Auto-generated method stub
+        SystemData systemData = systemDataDAO.getKnowledgeByName(systemName);
+        return systemData;
+    }
+
 }

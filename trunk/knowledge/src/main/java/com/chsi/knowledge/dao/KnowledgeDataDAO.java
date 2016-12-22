@@ -5,6 +5,7 @@ import java.util.List;
 import com.chsi.knowledge.dic.KnowledgeStatus;
 import com.chsi.knowledge.dic.KnowledgeType;
 import com.chsi.knowledge.pojo.KnowledgeData;
+import com.chsi.knowledge.pojo.SystemData;
 import com.chsi.knowledge.pojo.TagData;
 
 /**
@@ -86,5 +87,7 @@ public interface KnowledgeDataDAO {
     void update(List<KnowledgeData> knows);
 
     List<KnowledgeData> get(String systemId, String tag, KnowledgeStatus dsh, String type, String userId, int start, int size);
+
+    SystemData getKnowledgeByName(String systemName);
 
 }

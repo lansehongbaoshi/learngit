@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 
 import com.chsi.account.client.AccountServiceClient;
 import com.chsi.account.client.AccountServiceClientFactory;
@@ -12,6 +13,9 @@ import com.chsi.framework.hibernate.BaseHibernateDAO;
 import com.chsi.knowledge.dao.DiscussDataDAO;
 import com.chsi.knowledge.dic.DiscussStatus;
 import com.chsi.knowledge.pojo.DiscussData;
+import com.chsi.knowledge.pojo.KnowledgeData;
+import com.chsi.knowledge.util.ManageCacheUtil;
+import com.chsi.knowledge.util.MemCachedUtil;
 import com.chsi.knowledge.vo.DiscussCountVO;
 import com.chsi.knowledge.vo.DiscussInfoVO;
 
@@ -115,6 +119,89 @@ public class DiscussDataDAOImpl extends BaseHibernateDAO implements DiscussDataD
         Query query = hibernateUtil.getSession().createSQLQuery(sql).setString("KId", kId);
         Object obj = query.uniqueResult();
         return obj == null ? 0 : Integer.parseInt(String.valueOf(obj));
+    }
+
+    @Override
+    public List<DiscussCountVO> getBadKnowledgeRank() {
+        // TODO Auto-generated method stub
+        String sql = "select A.knowledge_id, A.total, B.badCount, B.badCount / A.total*100 rank " +
+        		"   from (select knowledge_id, count(*) total " +
+        		"           from discuss " +
+        		"          group by knowledge_id) A " +
+        		"  right join (select knowledge_id, count(*) badCount " +
+        		"                from discuss " +
+        		"               group by knowledge_id, discuss " +
+        		"              having discuss = '0') B " +
+        		"     on A.knowledge_id = B.knowledge_id " +
+        		"  where rownum < 11 " +
+        		"  order by rank desc ";
+        SQLQuery query = hibernateUtil.getSession().createSQLQuery(sql);
+        List<Object[]> objects = query.list();
+        List<DiscussCountVO> result = new ArrayList<DiscussCountVO>();
+        for(Object[] obj:objects){
+            DiscussCountVO vo = new DiscussCountVO();
+            KnowledgeData knowledge = ManageCacheUtil.getKnowledgeDataById((String)obj[0]);
+            vo.setKnowledge(knowledge);
+            vo.setSum(obj[1].toString());
+            vo.setUnuseful(obj[2].toString());
+            vo.setUnusefulPersent(obj[3].toString());
+            result.add(vo);
+        }
+        return result;
+    }
+
+    @Override
+    public Object[] getSystemStatictics(String systemId) {
+        // TODO Auto-generated method stub
+        String sql ="select count(*),sum(discuss) from discuss A where A.Knowledge_Id in (select knowledge_id from knowledge_tag_relation where tag_id in (select id from tag where system_id='"+systemId+"')) order by A.knowledge_id";
+        SQLQuery query = hibernateUtil.getSession().createSQLQuery(sql);
+        List<Object[]> objects = query.list();
+        Object[] obj = null;
+        if(objects.size()>0){
+            obj = objects.get(0);
+            if(obj[0]==null) obj[0] = "0";
+            if(obj[1]==null) obj[1] = "0";
+            return obj;
+        }else{
+            return null;
+        }
+    }
+
+    @Override
+    public List<DiscussCountVO> getKnowledgeInSystemTop(String systemId,
+            int discuss) {
+        // TODO Auto-generated method stub
+        String sql ="select A.knowledge_id,A.total,B.xSum,B.xSum/A.total*100 ranks from (select knowledge_id,count(*) total from discuss where Knowledge_Id in (select knowledge_id from knowledge_tag_relation where tag_id in (select id from tag where system_id='"+systemId+"'))  group by knowledge_id order by knowledge_id) A left join (select knowledge_id,count(*) xSum from discuss where Knowledge_Id in (select knowledge_id from knowledge_tag_relation where tag_id in (select id from tag where system_id='"+systemId+"')) and discuss="+discuss+" group by knowledge_id order by knowledge_id) B on A.knowledge_id=B.knowledge_id where B.xSum>0 and rownum<11 order by ranks desc";
+        SQLQuery query = hibernateUtil.getSession().createSQLQuery(sql);
+        List<Object[]> objects = query.list();
+        List<DiscussCountVO> result = new ArrayList<DiscussCountVO>();
+        for(Object[] obj:objects){
+            DiscussCountVO vo = new DiscussCountVO();
+            KnowledgeData knowledge = ManageCacheUtil.getKnowledgeDataById((String)obj[0]);
+            vo.setKnowledge(knowledge);
+            vo.setSum(obj[1].toString());
+            if(discuss==0){
+                if(obj[2]==null){
+                    vo.setUnuseful("0");
+                    vo.setUnusefulPersent("0");
+                }else{
+                    vo.setUnuseful(obj[2].toString());
+                    vo.setUnusefulPersent(obj[3].toString());
+                }
+            }else{
+                if(obj[2]==null){
+                    vo.setUseful("0");
+                    vo.setUsefulPersent("0");
+                }else{
+                    vo.setUseful(obj[2].toString());
+                    vo.setUsefulPersent(obj[3].toString());
+                }
+            }
+            
+            
+            result.add(vo);
+        }
+        return result;
     }
 
 }

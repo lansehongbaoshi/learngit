@@ -1,5 +1,7 @@
 package com.chsi.knowledge.vo;
 
+import com.chsi.knowledge.pojo.KnowledgeData;
+
 public class DiscussCountVO {
 
     private String useful;
@@ -7,6 +9,8 @@ public class DiscussCountVO {
     private String sum;
     private String usefulPersent;
     private String unusefulPersent;
+    private KnowledgeData knowledge;
+    private String title;
 
     public String getUseful() {
         return useful;
@@ -47,5 +51,17 @@ public class DiscussCountVO {
     public void setUnusefulPersent(String unusefulPersent) {
         this.unusefulPersent = unusefulPersent;
     }
-
+    public KnowledgeData getKnowledge() {
+        return knowledge;
+    }
+    public void setKnowledge(KnowledgeData knowledge) {
+        this.knowledge = knowledge;
+    }
+    public String getTitle() {
+        return title;
+    }
+    public void setTitle(String title) {
+        this.title = title;
+    }
+    
 }

@@ -61,4 +61,6 @@ public interface SystemService {
 
     void updateSystemKnowTime(List<KnowledgeData> knows);
 
+    SystemData getSystemByName(String systemName);
+    
 }

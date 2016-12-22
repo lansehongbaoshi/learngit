@@ -51,6 +51,12 @@
         <property name="knowTagRelationService" ref="knowTagRelationService" />
         <property name="discussService" ref="discussService" />
     </bean>
+    <bean id="knowledgeStatisticsActionBean"  class="com.chsi.knowledge.admin.action.KnowledgeStatisticsAction"  scope="request">
+        <property name="knowledgeService" ref="knowledgeService" />
+        <property name="systemService" ref="systemService" />
+        <property name="knowTagRelationService" ref="knowTagRelationService" />
+        <property name="discussService" ref="discussService" />
+    </bean>
     
     <bean id="manageActionBean"  class="com.chsi.knowledge.manage.action.ManageAction"  scope="request">
         <property name="knowIndexService" ref="knowIndexService" />

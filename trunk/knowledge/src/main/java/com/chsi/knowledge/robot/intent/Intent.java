@@ -136,19 +136,23 @@ public class Intent {
                     WeatherCodeData weatherCode = robotService.getWeatherCode(remoteCallRs.getValue().getArea());
                     if (weatherCode == null) {
                         content = "缺少输入的地址或者您输入的语句不通顺。";
+                        content = "http://www.weather.com.cn/weather/101010100.shtml";
+                        content = "请前往中国天气网查看：<a href='"+content+"' target='_blank'>"+content+"</a>查看";
                     } else {
 
                         if (time.dateType > 0) {
                             content = "http://www.weather.com.cn/weather1d/" + weatherCode.getWeatherCode() + ".shtml";
-                            content = "请前往：<a href='" + content + "' target='_blank'>" + content + "</a>查看";
+                            content = "请前往中国天气网查看：<a href='" + content + "' target='_blank'>" + content + "</a>查看";
                         } else {
                             content = "http://www.weather.com.cn/weather/" + weatherCode.getWeatherCode() + ".shtml";
-                            content = "请前往：<a href='" + content + "' target='_blank'>" + content + "</a>查看";
+                            content = "请前往中国天气网查看：<a href='" + content + "' target='_blank'>" + content + "</a>查看";
                         }
                     }
 
                 } else {
                     content = "缺少输入的地址或者您输入的语句不通顺。";
+                    content = "http://www.weather.com.cn/weather/101010100.shtml";
+                    content = "请前往中国天气网查看：<a href='"+content+"' target='_blank'>"+content+"</a>查看";
                 }
 
             } else if (addrs.size() == 1) {
@@ -156,6 +160,8 @@ public class Intent {
                 WeatherCodeData weatherCode = robotService.getWeatherCode(addrs.get(0));
                 if (weatherCode == null) {
                     content = "抱歉，您输入的地址没有在中央气象局公布的地址名单中！";
+                    content = "http://www.weather.com.cn/weather/101010100.shtml";
+                    content = "请前往中国天气网查看：<a href='"+content+"' target='_blank'>"+content+"</a>查看";
                 } else {
 
                     // JSONObject weather = getWeather(weatherCode);
@@ -163,10 +169,10 @@ public class Intent {
                     // DateUtil.getDateWeek(time.dateType)+" "+weather.getString("temp"+(time.dateType+1))+" "+weather.getString("weather"+(time.dateType+1));
                     if (time.dateType > 0) {
                         content = "http://www.weather.com.cn/weather1d/" + weatherCode.getWeatherCode() + ".shtml";
-                        content = "请前往：<a href='" + content + "' target='_blank'>" + content + "</a>查看";
+                        content = "请前往中国天气网查看：<a href='" + content + "' target='_blank'>" + content + "</a>查看";
                     } else {
                         content = "http://www.weather.com.cn/weather/" + weatherCode.getWeatherCode() + ".shtml";
-                        content = "请前往：<a href='" + content + "' target='_blank'>" + content + "</a>查看";
+                        content = "请前往中国天气网查看：<a href='" + content + "' target='_blank'>" + content + "</a>查看";
                     }
 
                 }
@@ -175,16 +181,18 @@ public class Intent {
                 WeatherCodeData weatherCode = robotService.getWeatherCode(addrs);
                 if (weatherCode == null) {
                     content = "抱歉，您输入的地址没有在中央气象局公布的地址名单中！";
+                    content = "http://www.weather.com.cn/weather/101010100.shtml";
+                    content = "请前往中国天气网查看：<a href='"+content+"' target='_blank'>"+content+"</a>查看";
                 } else {
                     // JSONObject weather = getWeather(weatherCode);
                     // content =
                     // DateUtil.getDateWeek(time.dateType)+" "+weather.getString("temp"+(time.dateType+1))+" "+weather.getString("weather"+(time.dateType+1));
                     if (time.dateType > 0) {
                         content = "http://www.weather.com.cn/weather1d/" + weatherCode.getWeatherCode() + ".shtml";
-                        content = "请前往：<a href='" + content + "' target='_blank'>" + content + "</a>查看";
+                        content = "请前往中国天气网查看：<a href='" + content + "' target='_blank'>" + content + "</a>查看";
                     } else {
                         content = "http://www.weather.com.cn/weather/" + weatherCode.getWeatherCode() + ".shtml";
-                        content = "请前往：<a href='" + content + "' target='_blank'>" + content + "</a>查看";
+                        content = "请前往中国天气网查看：<a href='" + content + "' target='_blank'>" + content + "</a>查看";
                     }
                 }
             }

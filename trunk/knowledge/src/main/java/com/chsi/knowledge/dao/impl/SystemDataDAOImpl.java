@@ -15,8 +15,8 @@ public class SystemDataDAOImpl extends BaseHibernateDAO implements SystemDataDAO
     private static final String W = " where ";
     private static final String A = " and ";
     private static final String ID = " p.id=:id";
+    private static final String NAME = " p.name=:name ";
     private static final String PROPERTY = " p.property=:property";
-
     private static final String ORDER_BY_START_TIME = " order by p.sort";
 
     @SuppressWarnings("unchecked")
@@ -69,6 +69,14 @@ public class SystemDataDAOImpl extends BaseHibernateDAO implements SystemDataDAO
         query.setString("KNOWLEDGE_ID", knowledgeId);
         List list = query.list();
         return list;
+    }
+
+    @Override
+    public SystemData getKnowledgeByName(String systemName) {
+        String hql = SELECT_SYSTEM + W + NAME;
+        Query query = hibernateUtil.getSession().createQuery(hql). setString("name", systemName);
+        List<SystemData> list = query.list();
+        return list.size() == 0 ? null : list.get(0);
     }
 
 }

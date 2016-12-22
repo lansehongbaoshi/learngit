@@ -11,6 +11,7 @@ import com.chsi.knowledge.dao.KnowledgeDataDAO;
 import com.chsi.knowledge.dic.KnowledgeStatus;
 import com.chsi.knowledge.dic.KnowledgeType;
 import com.chsi.knowledge.pojo.KnowledgeData;
+import com.chsi.knowledge.pojo.SystemData;
 import com.chsi.knowledge.pojo.TagData;
 
 public class KnowledgeDataDAOImpl extends BaseHibernateDAO implements KnowledgeDataDAO {
@@ -263,5 +264,15 @@ public class KnowledgeDataDAOImpl extends BaseHibernateDAO implements KnowledgeD
         List<KnowledgeData> list = query.list();
         return list;
     }
+    
+    @Override
+    public SystemData getKnowledgeByName(String systemName) {
+        // TODO Auto-generated method stub
+        String hql = "select p from KnowledgeData p where p.name=:name";
+        Query query = hibernateUtil.getSession().createQuery(hql).setString("name", systemName);
+        List<SystemData> list = query.list();
+        return list.size() == 0 ? null : list.get(0);
+    }
+    
 
 }
