@@ -5,7 +5,7 @@ String ctxPath = request.getContextPath();
 %>
 <script src="/js/echarts.min.js"></script>
 
-<div id="knowledgestatistics" style="width: 770px;height:500px;float:left;">
+<div id="knowledgestatistics" style="width: 100%;height:500px;float:left;">
 </div>
 <script type="text/javascript">
 $(document).ready(function(){
@@ -49,7 +49,7 @@ function getAllSystemRank(){
         var option = {
             backgroundColor: '#eee',
             title: {
-                text: '系统知识统计表',
+                text: '系统评价情况',
                 left :'center'
             },
             legend: {

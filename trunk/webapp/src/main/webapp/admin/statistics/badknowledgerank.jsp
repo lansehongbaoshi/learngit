@@ -5,7 +5,7 @@ String ctxPath = request.getContextPath();
 %>
 <script src="/js/echarts.min.js"></script>
 
-<div id="main" style="width: 770px;height:500px;float:left;">
+<div id="main" style="width: 100%;height:500px;float:left;">
 </div>
 <script type="text/javascript">
 //基于准备好的dom，初始化echarts实例
@@ -30,7 +30,7 @@ $(document).ready(function(){
     	var option = {
     		    backgroundColor: '#eee',
     		    title: {
-    		        text: '差评统计表',
+    		        text: '差评排名',
     		        left :'center'
     		    },
     		    tooltip: {},
