@@ -5,7 +5,7 @@ String ctxPath = request.getContextPath();
 %>
 <script src="/js/echarts.min.js"></script>
 
-<div id="main" style="width: 100%;height:500px;float:left;">
+<div id="main" style="width: 100%;height:500px;float:left;max-width: 579px;">
 </div>
 <script type="text/javascript">
 //基于准备好的dom，初始化echarts实例

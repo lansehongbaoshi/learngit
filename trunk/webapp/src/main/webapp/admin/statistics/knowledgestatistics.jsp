@@ -5,7 +5,7 @@ String ctxPath = request.getContextPath();
 %>
 <script src="/js/echarts.min.js"></script>
 
-<div id="knowledgestatistics" style="width: 100%;height:500px;float:left;">
+<div id="knowledgestatistics" style="width: 100%;height:500px;float:left;max-width: 579px;">
 </div>
 <script type="text/javascript">
 $(document).ready(function(){

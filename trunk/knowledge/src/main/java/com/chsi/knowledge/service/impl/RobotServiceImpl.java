@@ -97,7 +97,7 @@ public class RobotServiceImpl extends BaseDbService implements RobotService {
 
     }
 
-    public AnswerVO answer(String sessionId, String knowId, String q, String systemId) {
+    public AnswerVO answer(String sessionId, String knowId, String q, String systemId,String ip) {
         AnswerVO answerVO = null;
         if (!ValidatorUtil.isNull(knowId)) {// 确定知识时传递knowId、q
             KnowledgeData knowledgeData = ManageCacheUtil.getKnowledgeDataById(knowId);
@@ -133,7 +133,7 @@ public class RobotServiceImpl extends BaseDbService implements RobotService {
             // List<RobotASetData> robotAList =
             // robotDAO.getAByQ(keywords);//先查是否是打招呼
             /* 判断用户的某种意图 */
-            Intent intent = new Intent(keywords, sessionId);
+            Intent intent = new Intent(keywords, sessionId,ip);
             if (intent.isExist()) {// 如果有用户的某种意图
                 answerVO.setAType(AType.ROBOT);
                 answerVO.setContent(intent.getContent());

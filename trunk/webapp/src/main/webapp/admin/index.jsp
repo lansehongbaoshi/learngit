@@ -5,6 +5,9 @@
       <div class="col-md-6"><jsp:include page="/admin/statistics/badknowledgerank.jsp"/></div>
       <div class="col-md-6"><jsp:include page="/admin/statistics/knowledgestatistics.jsp"/></div>      
    </div>
+   <div class="row">
+      <div class="col-md-6"><jsp:include page="/admin/statistics/knowledgeDSHCount.jsp"/></div>
+   </div>
 </div>
 
 

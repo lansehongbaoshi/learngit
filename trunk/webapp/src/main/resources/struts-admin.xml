@@ -64,6 +64,7 @@
         </action>
         <action name="searchAllKnow" class="htglSearchActionBean" method="searchAllKnow"></action>
         <action name="searchDSHKnow" class="htglSearchActionBean" method="searchDSHKnow"></action>
+        <action name="searchDSHKnowCount" class="htglSearchActionBean" method="searchDSHKnowCount"></action>
     </package>
     
     

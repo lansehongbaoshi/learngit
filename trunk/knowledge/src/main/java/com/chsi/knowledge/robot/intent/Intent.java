@@ -11,6 +11,7 @@ import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.log4j.Logger;
 
 import com.chsi.framework.remote.RemoteCallRs;
 import com.chsi.ipsrv.client.IpServiceClient;
@@ -31,8 +32,10 @@ public class Intent {
     public IntentType intentType;
     private String question;
     private String sessionId;
+    private String ip;
     /* 分析后的结果 */
     List<String> result;
+    public Logger logger = Logger.getLogger(Intent.class);
 
     public Intent() {
 
@@ -42,9 +45,10 @@ public class Intent {
         this.question = question;
     }
 
-    public Intent(String question, String sessionId) {
+    public Intent(String question, String sessionId,String ip) {
         this.question = question;
         this.sessionId = sessionId;
+        this.ip = ip;
     }
 
     public boolean isExist() {
@@ -128,9 +132,10 @@ public class Intent {
 
             if (addrs.size() == 0) {
                 RobotService robotService = ServiceFactory.getRobotService();
-                QASessionData qaSession = robotService.getQASessionDataById(sessionId);
                 IpServiceClient ipServiceClient = IpServiceClientFactory.getIpServiceClient();
-                RemoteCallRs<IpVo> remoteCallRs = ipServiceClient.getIp(qaSession.getQUserIp());
+                logger.info("获取到的IP地址为："+ip);
+                RemoteCallRs<IpVo> remoteCallRs = ipServiceClient.getIp(ip);
+                logger.info("从IP库中解析ip后的到的地址："+remoteCallRs.getValue().getArea()+"--"+remoteCallRs.getValue().getArea());
                 if (null != remoteCallRs.getValue() && (!"".equals(remoteCallRs.getValue().getArea()) && null != remoteCallRs.getValue().getArea())) {
 
                     WeatherCodeData weatherCode = robotService.getWeatherCode(remoteCallRs.getValue().getArea());

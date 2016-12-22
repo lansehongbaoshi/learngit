@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import net.sf.json.JSONObject;
+
 import com.chsi.cms.client.CmsServiceClient;
 import com.chsi.cms.client.CmsServiceClientFactory;
 import com.chsi.framework.page.Page;
@@ -81,6 +83,15 @@ public class SearchAction extends AjaxAction {
         KnowListVO<SearchVO> result = new KnowListVO<SearchVO>(list, listVO.getPagination());
         ajaxMessage.setO(result);
         writeCallbackJSON(callback);
+    }
+    public void searchDSHKnowCount() throws Exception {
+        long count = knowledgeService.getKnowledgeCount(systemId, tag, KnowledgeStatus.DSH, type, "");
+        JSONObject json = new JSONObject();
+        json.put("total", count);
+        ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
+        ajaxMessage.setO(json);
+        writeCallbackJSON(callback);
+        
     }
 
     public void searchDSHKnow() throws Exception {

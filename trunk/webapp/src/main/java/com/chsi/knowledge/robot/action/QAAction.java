@@ -3,6 +3,8 @@ package com.chsi.knowledge.robot.action;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.chsi.framework.callcontrol.CallInfoHelper;
 import com.chsi.framework.util.ValidatorUtil;
 import com.chsi.knowledge.Constants;
@@ -52,7 +54,8 @@ public class QAAction extends AjaxAction {
 
     public void qa() throws Exception {
         if (!ValidatorUtil.isNull(sessionId)) {// sessionId必选参数，没有就说明异常
-            AnswerVO answerVO = robotService.answer(sessionId, knowId, q, systemId);
+            String ip = getRemoteHost(httpRequest);
+            AnswerVO answerVO = robotService.answer(sessionId, knowId, q, systemId,ip);
             ajaxMessage.setO(answerVO);
             ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
             writeJSON(ajaxMessage);
@@ -145,5 +148,19 @@ public class QAAction extends AjaxAction {
 
     public void setSystem(String system) {
         this.system = system;
+    }
+    
+    public String getRemoteHost(HttpServletRequest request){
+        String ip = request.getHeader("x-forwarded-for");
+        if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)){
+            ip = request.getHeader("Proxy-Client-IP");
+        }
+        if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)){
+            ip = request.getHeader("WL-Proxy-Client-IP");
+        }
+        if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)){
+            ip = request.getRemoteAddr();
+        }
+        return ip.equals("0:0:0:0:0:0:0:1")?"127.0.0.1":ip;
     }
 }
