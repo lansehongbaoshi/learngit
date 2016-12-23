@@ -83,7 +83,7 @@ String ctxPath = request.getContextPath();
                 </thead>
                 <tbody id="search_result">
                   <tr role="row" class="odd">
-                    <td colspan="5">无数据</td>
+                    <td colspan="8">无数据</td>
                   </tr>
                 </tbody>
               </table>
