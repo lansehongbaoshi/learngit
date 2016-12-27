@@ -5,7 +5,7 @@ String ctxPath = request.getContextPath();
 %>
 <script src="/js/echarts.min.js"></script>
 
-<div id="knowledgestatistics" style="width: 100%;height:500px;float:left;max-width: 579px;">
+<div id="knowledgestatistics" style="width: 100%;height:400px;float:left;max-width: 579px;">
 </div>
 <script type="text/javascript">
 $(document).ready(function(){
@@ -57,22 +57,22 @@ function getAllSystemRank(){
                 align: 'left',
                 left: 10
             },
-            brush: {
-                type: ['rect', 'polygon', 'lineX', 'lineY', 'keep', 'clear'],
-                xAxisIndex: 0
-            },
-            toolbox: {
-                show: true,
-                feature: {
+//             brush: {
+//                 type: ['rect', 'polygon', 'lineX', 'lineY', 'keep', 'clear'],
+//                 xAxisIndex: 0
+//             },
+//             toolbox: {
+//                 show: true,
+//                 feature: {
 
-                    dataView: {readOnly: true},
-                    magicType: {
-                        type: ['stack', 'tiled']
-                    },
-                    restore: {},
-                    saveAsImage: {}
-                }
-            },
+//                     dataView: {readOnly: true},
+//                     magicType: {
+//                         type: ['stack', 'tiled']
+//                     },
+//                     restore: {},
+//                     saveAsImage: {}
+//                 }
+//             },
             tooltip: {},
             xAxis: {
                 data: xAxisData,
@@ -93,22 +93,22 @@ function getAllSystemRank(){
                 splitArea: {show: false}
             },
             grid: {
-                left: 100
+                left: 50
             },
-            visualMap: {
-                type: 'continuous',
-                dimension: 1,
-                text: ['High', 'Low'],
-//              inverse: true,
-                itemHeight: 340,
-                calculable: true,
-                min: -100,
-                max: 100,
-                top: 65,
-                left: 10,
-                inRange: {
-                    colorLightness: [0.4, 0.8]
-                }
+//             visualMap: {
+//                 type: 'continuous',
+//                 dimension: 1,
+//                 text: ['High', 'Low'],
+//                inverse: true,
+//                 itemHeight: 340,
+//                 calculable: true,
+//                 min: -100,
+//                 max: 100,
+//                 top: 65,
+//                 left: 10,
+//                 inRange: {
+//                     colorLightness: [0.4, 0.8]
+//                 }
 //               outOfRange: {
 //                   color: '#bbb'
 //               },
@@ -117,7 +117,7 @@ function getAllSystemRank(){
 //                       color: '#2f4554'
 //                   }
 //               }
-            },
+//             },
             series: [
                      {
                          name: '好评',
@@ -218,7 +218,7 @@ function getRankInSystem(systemName,seriesName){
 	                    }
 	                ],
 	                grid: {
-	                    left: 100
+	                    left: 50
 	                },
 	                series: [
 	                         {
