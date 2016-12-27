@@ -142,7 +142,7 @@ public class Intent {
                     WeatherCodeData weatherCode = robotService.getWeatherCode(remoteCallRs.getValue().getArea());
                     if (weatherCode == null) {
                         content = "缺少输入的地址或者您输入的语句不通顺。";
-                        content = "http://www.weather.com.cn/weather/101010100.shtml";
+                        content = "http://www.weather.com.cn/";
                         content = "请前往中国天气网查看：<a href='"+content+"' target='_blank'>"+content+"</a>";
 
                     } else {
@@ -158,7 +158,7 @@ public class Intent {
 
                 } else {
                     content = "缺少输入的地址或者您输入的语句不通顺。";
-                    content = "http://www.weather.com.cn/weather/101010100.shtml";
+                    content = "http://www.weather.com.cn/";
                     content = "请前往中国天气网查看：<a href='"+content+"' target='_blank'>"+content+"</a>";
                 }
                
@@ -169,7 +169,7 @@ public class Intent {
                 WeatherCodeData weatherCode = robotService.getWeatherCode(addrs.get(0));
                 if (weatherCode == null) {
                     content = "抱歉，您输入的地址没有在中央气象局公布的地址名单中！";
-                    content = "http://www.weather.com.cn/weather/101010100.shtml";
+                    content = "http://www.weather.com.cn/";
                     content = "请前往中国天气网查看：<a href='"+content+"' target='_blank'>"+content+"</a>";
                 } else {
 
@@ -190,7 +190,7 @@ public class Intent {
                 WeatherCodeData weatherCode = robotService.getWeatherCode(addrs);
                 if (weatherCode == null) {
                     content = "抱歉，您输入的地址没有在中央气象局公布的地址名单中！";
-                    content = "http://www.weather.com.cn/weather/101010100.shtml";
+                    content = "http://www.weather.com.cn/";
                     content = "请前往中国天气网查看：<a href='"+content+"' target='_blank'>"+content+"</a>";
                 } else {
                     // JSONObject weather = getWeather(weatherCode);
