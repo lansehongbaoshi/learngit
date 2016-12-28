@@ -5,7 +5,7 @@ String ctxPath = request.getContextPath();
 %>
 <style>
 h1.jumbo {
-    font-size:12em;
+    font-size:6em;
     margin:0;
     color:#4d63bc;
 }

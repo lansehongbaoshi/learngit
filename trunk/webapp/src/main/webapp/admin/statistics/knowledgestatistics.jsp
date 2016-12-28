@@ -5,7 +5,7 @@ String ctxPath = request.getContextPath();
 %>
 <script src="/js/echarts.min.js"></script>
 
-<div id="knowledgestatistics" style="width: 100%;height:400px;float:left;max-width: 579px;">
+<div id="knowledgestatistics" style="width: 100%;height:400px;float:left;max-width: 550px;">
 </div>
 <script type="text/javascript">
 $(document).ready(function(){
@@ -76,11 +76,12 @@ function getAllSystemRank(){
             tooltip: {},
             xAxis: {
                 data: xAxisData,
-                name: 'X Axis',
+//                name: 'X Axis',
+                margin:2,
                 silent: false,
                 axisLabel: {
                     interval: 0,
-                    rotate: -45
+                    rotate: -30
                 },
                 axisLine: {onZero: true},
                 splitLine: {show: false},
@@ -93,7 +94,8 @@ function getAllSystemRank(){
                 splitArea: {show: false}
             },
             grid: {
-                left: 50
+                left: 50,
+                bottom:100
             },
 //             visualMap: {
 //                 type: 'continuous',
@@ -184,11 +186,12 @@ function getRankInSystem(systemName,seriesName){
 	                },
 	                xAxis: {
 	                    data: xgoodAxisData,
-	                    name: '知识标题',
+//	                    name: '知识标题',
 	                    silent: false,
 	                    axisLabel: {
 	                        interval: 0,
-	                        rotate: -45
+	                        margin:2,
+	                        rotate: -30
 	                    },
 	                    axisLine: {onZero: true},
 	                    splitLine: {show: false},
@@ -218,7 +221,8 @@ function getRankInSystem(systemName,seriesName){
 	                    }
 	                ],
 	                grid: {
-	                    left: 50
+	                    left: 50,
+	                    bottom:100
 	                },
 	                series: [
 	                         {

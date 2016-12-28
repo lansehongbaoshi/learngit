@@ -5,7 +5,7 @@ String ctxPath = request.getContextPath();
 %>
 <script src="/js/echarts.min.js"></script>
 
-<div id="main" style="width: 100%;height:400px;float:left;max-width: 579px;">
+<div id="main" style="width: 100%;height:400px;float:left;max-width: 550px;">
 </div>
 <script type="text/javascript">
 //基于准备好的dom，初始化echarts实例
@@ -41,11 +41,12 @@ $(document).ready(function(){
     		    },
     		    xAxis: {
     		        data: xAxisBadData,
-    		        name: '知识标题',
+//    		        name: '知识标题',
     		        silent: false,
     		        axisLabel: {
     		            interval: 0,
-    		            rotate: -45
+    		            margin:3,
+    		            rotate: -30
     		        },
     		        axisLine: {onZero: true},
     		        splitLine: {show: false},
@@ -57,7 +58,8 @@ $(document).ready(function(){
     		        splitArea: {show: false}
     		    },
     		    grid: {
-    		        left: 50
+    		        left: 50,
+    		        bottom:100
     		    },
     		    series: [
     		             {
