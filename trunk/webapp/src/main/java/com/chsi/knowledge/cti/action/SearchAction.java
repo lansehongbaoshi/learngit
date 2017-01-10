@@ -42,6 +42,7 @@ public class SearchAction extends AjaxAction {
     private String id;
     private int curPage;
     private String callback;
+    private String type;
     private QueueService queueService = ServiceFactory.getQueueService();
 
     // 指定系统内,关键字自动完成
@@ -69,7 +70,9 @@ public class SearchAction extends AjaxAction {
                 queryParams.put("q", keywords);
             }
             if (ids != null && ids.length > 0) {
-                queryParams.put("fq", SolrQueryUtil.generateFilterOrQuery("system_ids", ids));
+                queryParams.put("fq", SolrQueryUtil.generateFilterOrQuery("system_ids", ids)+"AND type:"+type);
+            }else{
+                queryParams.put("fq", "type:"+type);
             }
             queryParams.put("bf", "ord(cti_visit_cnt)^0.1");
             KnowListVO<KnowledgeVO> listVO = knowIndexService.customSearch(queryParams, (curPage - 1) * Constants.PAGE_SIZE, Constants.PAGE_SIZE);
@@ -115,6 +118,8 @@ public class SearchAction extends AjaxAction {
                 vo.setKnowledgeId(data.getId());
                 vo.setTitle(data.getArticle().getTitle());
                 vo.setContent(data.getArticle().getContent());
+                vo.setUpdaterName(data.getUpdaterName());
+                vo.setHasImage(SearchUtil.hasImgTag(data.getArticle().getContent()));
                 ajaxMessage.setO(vo);
                 ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
                 queueService.addCtiVisitKnowledgeId(id);
@@ -193,5 +198,13 @@ public class SearchAction extends AjaxAction {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

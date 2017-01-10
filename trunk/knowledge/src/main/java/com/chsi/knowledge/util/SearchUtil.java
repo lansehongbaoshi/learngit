@@ -148,7 +148,7 @@ public class SearchUtil {
         return result;
     }
 
-    private static boolean hasImgTag(String html) {
+    public static boolean hasImgTag(String html) {
         if (ValidatorUtil.isNull(html))
             return false;
         Pattern p = Pattern.compile("<\\s*img\\s+([^>]*)\\s*>");
