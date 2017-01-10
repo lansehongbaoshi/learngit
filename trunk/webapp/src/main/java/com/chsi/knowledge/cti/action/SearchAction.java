@@ -8,6 +8,7 @@ import java.util.Map;
 import com.chsi.framework.util.ValidatorUtil;
 import com.chsi.knowledge.Constants;
 import com.chsi.knowledge.action.base.AjaxAction;
+import com.chsi.knowledge.dic.KnowledgeType;
 import com.chsi.knowledge.index.service.KnowIndexService;
 import com.chsi.knowledge.pojo.KnowledgeData;
 import com.chsi.knowledge.service.KnowledgeService;
@@ -70,9 +71,16 @@ public class SearchAction extends AjaxAction {
                 queryParams.put("q", keywords);
             }
             if (ids != null && ids.length > 0) {
-                queryParams.put("fq", SolrQueryUtil.generateFilterOrQuery("system_ids", ids)+"AND type:"+type);
+                if(!KnowledgeType.PRIVATE.toString().equals(type) && !KnowledgeType.PUBLIC.toString().equals(type)){
+                    queryParams.put("fq", SolrQueryUtil.generateFilterOrQuery("system_ids", ids));
+                }else{
+                    queryParams.put("fq", SolrQueryUtil.generateFilterOrQuery("system_ids", ids)+"AND type:"+type);
+                }
+                
             }else{
-                queryParams.put("fq", "type:"+type);
+                if(KnowledgeType.PRIVATE.toString().equals(type) || KnowledgeType.PUBLIC.toString().equals(type)){
+                    queryParams.put("fq", "type:"+type);
+                }
             }
             queryParams.put("bf", "ord(cti_visit_cnt)^0.1");
             KnowListVO<KnowledgeVO> listVO = knowIndexService.customSearch(queryParams, (curPage - 1) * Constants.PAGE_SIZE, Constants.PAGE_SIZE);
