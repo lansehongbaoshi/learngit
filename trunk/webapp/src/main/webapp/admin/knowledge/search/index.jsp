@@ -246,22 +246,28 @@ String ctxPath = request.getContextPath();
             	}
             });
             $(document).on("click",".fa-flag-o",function(e) {
-              
+            	
             	var id = $(this).closest("tr").data("id");
             	if(id!=''){
-            	$.post("/admin/knowledge/topKnowledge.action",{id:id});
-            	$("#searchBtn").click();
+            	$.post("/admin/knowledge/topKnowledge.action",{id:id},
+            		function refresh(json){
+            		   $("#searchBtn").click();
+            	});
+            	
             	}
-                e.preventDefault();
+//                e.preventDefault();
             });
             $(document).on("click",".fa-flag",function(e) {
-              
+
                 var id = $(this).closest("tr").data("id");
                 if(id!=''){
-                $.post("/admin/knowledge/untopKnowledge.action",{id:id});
-                $("#searchBtn").click();
+                $.post("/admin/knowledge/untopKnowledge.action",{id:id},
+                	function refresh(json){
+                	   $("#searchBtn").click();
+                });
+                
                 }
-                e.preventDefault();
+//                e.preventDefault();
             });
         })
     </script>

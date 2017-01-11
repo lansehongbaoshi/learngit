@@ -25,7 +25,8 @@ public class KnowTagRelationDataDAOImpl extends BaseHibernateDAO implements Know
     private static final String DEL_RELATION = "delete from KnowTagRelationData p ";
 
     private static final String ORDERBY_KNOWLEDGE_VISITCNT_SORT = " order by p.knowledgeData.visitCnt desc, p.knowledgeData.sort desc";
-
+    private static final String ORDERBY_KNOWLEDGE_TOPTIME_VISITCNT_SORT = " order by p.knowledgeData.topTime desc nulls last, p.knowledgeData.visitCnt desc, p.knowledgeData.sort desc";
+    
     @Override
     public void save(KnowTagRelationData knowTagRelationData) {
         hibernateUtil.save(knowTagRelationData);
@@ -54,7 +55,7 @@ public class KnowTagRelationDataDAOImpl extends BaseHibernateDAO implements Know
         if (type != null) {
             hql += A + KNOWLEDGE_TYPE;
         }
-        hql += ORDERBY_KNOWLEDGE_VISITCNT_SORT;
+        hql += ORDERBY_KNOWLEDGE_TOPTIME_VISITCNT_SORT;
         Query query = hibernateUtil.getSession().createQuery(hql).setInteger("knowledgeStatus", knowledgeStatus.getOrdinal()).setString("tagId", tagId);
         if (type != null) {
             query.setString("type", type.toString());
