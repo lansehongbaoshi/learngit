@@ -17,6 +17,7 @@ import com.chsi.knowledge.service.QueueService;
 import com.chsi.knowledge.service.ServiceFactory;
 import com.chsi.knowledge.service.SystemService;
 import com.chsi.knowledge.service.TagService;
+import com.chsi.knowledge.util.CacheUtil;
 import com.chsi.knowledge.util.ConvertUtil;
 import com.chsi.knowledge.util.ManageCacheUtil;
 import com.chsi.knowledge.vo.KnowledgeVO;
@@ -99,7 +100,8 @@ public class KnowledgeAction extends AjaxAction {
             // 如果没访问过，向访问知识队列中插入ID
             if (null == session.get(Constants.VISIT + id)) {
                 session.put(Constants.VISIT + id, id);
-                queueService.addVisitKnowledgeId(id);
+//                queueService.addVisitKnowledgeId(id);
+                CacheUtil.addVisitKnowledgeCache(id);
             }
             ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
             ajaxMessage.setO(viewKnowVO);
@@ -149,7 +151,8 @@ public class KnowledgeAction extends AjaxAction {
         // 如果没访问过，向访问知识队列中插入ID
         if (null == session.get(Constants.VISIT + id)) {
             session.put(Constants.VISIT + id, id);
-            queueService.addVisitKnowledgeId(id);
+//            queueService.addVisitKnowledgeId(id);
+            CacheUtil.addVisitKnowledgeCache(id);
         }
         actionCon.put("viewKnowVO", viewKnowVO);
         return SUCCESS;

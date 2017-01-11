@@ -188,6 +188,10 @@ public class KnowledgeServiceImpl extends BaseDbService implements KnowledgeServ
     public void updateVisitCntPlusOne(String id) {
         knowledgeDataDAO.updateVisitCntPlusOne(id);
     }
+    
+    public void updateVisitCntPlus(String id,int count) {
+        knowledgeDataDAO.updateVisitCntPlus(id,count);
+    }
 
     @Override
     public void updateCtiVisitCntPlusOne(String id) {

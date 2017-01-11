@@ -15,6 +15,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.chsi.knowledge.task.CommonTask;
+import com.chsi.knowledge.task.HoursTask;
 import com.chsi.knowledge.thread.QueueCtiVisitThread;
 import com.chsi.knowledge.thread.QueueVisitThread;
 import com.chsi.knowledge.thread.RecordSearchLogThread;
@@ -53,10 +54,15 @@ public class QueueVisitThreadListener implements ServletContextListener {
         recordSearchLogThread.start();
         queueCtiVisitThread = new QueueCtiVisitThread();
         queueCtiVisitThread.start();
-
+        
+        Timer timer = new Timer();
+        HoursTask hoursTask = new HoursTask();
+        timer.scheduleAtFixedRate(hoursTask, new Date(), 1000 * 60 * 60);// 机器启动开始执行执行任务，每隔一小时执行一次
+        
         if (isWorkMachine()) {
             Timer timer1 = new Timer();
             CommonTask task = new CommonTask();
+            
             Calendar cal = Calendar.getInstance();
             cal.add(Calendar.DAY_OF_YEAR, 1);
             cal.set(Calendar.HOUR_OF_DAY, 0);
@@ -64,6 +70,7 @@ public class QueueVisitThreadListener implements ServletContextListener {
             // cal.add(Calendar.MINUTE, 1);
             Date date = cal.getTime();
             timer1.scheduleAtFixedRate(task, date, 1000 * 60 * 60 * 24);// 次日0点10分开始执行任务，每隔一天执行一次
+           
             // timer1.scheduleAtFixedRate(task, date, 1000*60);
             logger.info("已设定定时任务CommonTask");
         }

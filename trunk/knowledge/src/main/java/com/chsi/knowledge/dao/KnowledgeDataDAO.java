@@ -90,4 +90,6 @@ public interface KnowledgeDataDAO {
 
     SystemData getKnowledgeByName(String systemName);
 
+    void updateVisitCntPlus(String id, int count);
+
 }

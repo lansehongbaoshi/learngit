@@ -105,6 +105,8 @@ public interface KnowledgeService {
     void updateVisitCntPlusOne(String id);
 
     void updateCtiVisitCntPlusOne(String id);
+    
+    public void updateVisitCntPlus(String id,int count);
 
     /* 前台service结束 */
 
