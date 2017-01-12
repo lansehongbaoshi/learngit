@@ -294,8 +294,8 @@ public class KnowledgeAction extends AjaxAction {
             error = "请输入回答";
         } else if (tagIds == null || tagIds.length == 0) {
             error = "请先到\"<a href='/admin/tag/index.action'>便签管理</a>\"中增加标签";
-        } else if (!ValidatorUtil.isNumber(sort) || (Integer.parseInt(sort) < 1 || Integer.parseInt(sort) > 99)) {
-            error = "请输入热点度:1~99之间的整数,数值越大,排序越靠前";
+        } else if (!ValidatorUtil.isNumber(sort) || (Integer.parseInt(sort) < 1 || Integer.parseInt(sort) > 999)) {
+            error = "请输入热点度:1~999之间的整数,数值越大,排序越靠前";
         } else if (ValidatorUtil.isNull(type)) {
             error = "请设定知识类型";
         }
@@ -362,8 +362,8 @@ public class KnowledgeAction extends AjaxAction {
             error = "请输入回答";
         } else if (tagIds == null || tagIds.length == 0) {
             error = "请先到\"<a href='/admin/tag/index.action'>便签管理</a>\"中增加标签";
-        } else if (!ValidatorUtil.isNumber(sort) || (Integer.parseInt(sort) < 1 || Integer.parseInt(sort) > 99)) {
-            error = "请输入热点度:1~99之间的整数,数值越大,排序越靠前";
+        } else if (!ValidatorUtil.isNumber(sort) || (Integer.parseInt(sort) < 1 || Integer.parseInt(sort) > 999)) {
+            error = "请输入热点度:1~999之间的整数,数值越大,排序越靠前";
         } else if (ValidatorUtil.isNull(type)) {
             error = "请设定知识类型";
         }
@@ -443,8 +443,8 @@ public class KnowledgeAction extends AjaxAction {
             error = "请输入回答";
         } else if (tagIds == null || tagIds.length == 0) {
             error = "请先到\"<a href='/admin/tag/index.action'>便签管理</a>\"中增加标签";
-        } else if (!ValidatorUtil.isNumber(sort) || (Integer.parseInt(sort) < 1 || Integer.parseInt(sort) > 99)) {
-            error = "请输入热点度:1~99之间的整数,数值越大,排序越靠前";
+        } else if (!ValidatorUtil.isNumber(sort) || (Integer.parseInt(sort) < 1 || Integer.parseInt(sort) > 999)) {
+            error = "请输入热点度:1~999之间的整数,数值越大,排序越靠前";
         } else if (ValidatorUtil.isNull(type)) {
             error = "请设定知识类型";
         }
@@ -547,8 +547,8 @@ public class KnowledgeAction extends AjaxAction {
             error = "请输入回答";
         } else if (tagIds == null || tagIds.length == 0) {
             error = "请先到\"<a href='/admin/tag/index.action'>便签管理</a>\"中增加标签";
-        } else if (!ValidatorUtil.isNumber(sort) || (Integer.parseInt(sort) < 1 || Integer.parseInt(sort) > 99)) {
-            error = "请输入热点度:1~99之间的整数,数值越大,排序越靠前";
+        } else if (!ValidatorUtil.isNumber(sort) || (Integer.parseInt(sort) < 1 || Integer.parseInt(sort) > 999)) {
+            error = "请输入热点度:1~999之间的整数,数值越大,排序越靠前";
         } else if (ValidatorUtil.isNull(type)) {
             error = "请设定知识类型";
         }
@@ -599,8 +599,8 @@ public class KnowledgeAction extends AjaxAction {
             error = "请输入回答";
         } else if (tagIds == null || tagIds.length == 0) {
             error = "请先到\"<a href='/admin/tag/index.action'>便签管理</a>\"中增加标签";
-        } else if (!ValidatorUtil.isNumber(sort) || (Integer.parseInt(sort) < 1 || Integer.parseInt(sort) > 99)) {
-            error = "请输入热点度:1~99之间的整数,数值越大,排序越靠前";
+        } else if (!ValidatorUtil.isNumber(sort) || (Integer.parseInt(sort) < 1 || Integer.parseInt(sort) > 999)) {
+            error = "请输入热点度:1~999之间的整数,数值越大,排序越靠前";
         } else if (ValidatorUtil.isNull(type)) {
             error = "请设定知识类型";
         }

@@ -51,7 +51,7 @@ List<SystemData> systems = systemService.getSystems(false, null);
         <div class="form-group">
           <label for="" class="col-sm-1 control-label no-padding-top">热点度：</label>
           <div class="col-sm-9">
-            <input id="sort" type="text" name="sort" style="width: 100px;" value="<s:property value=" knowledgeData.sort " />"> <span>（说明：1~99之间的整数,数值越大,排序越靠前）</span>
+            <input id="sort" type="text" name="sort" style="width: 100px;" value="<s:property value=" knowledgeData.sort " />"> <span>（说明：1~999之间的整数,数值越大,排序越靠前）</span>
           </div>
         </div>
         <div class="form-group">
@@ -302,10 +302,10 @@ function checkTheForm(from){
         return false;
     }
     var sort = $("#sort").val();
-    var r = /^[1-9][0-9]{0,1}$/;　　//正整数
+    var r = /^[1-9][0-9]{0,2}$/;　　//正整数
     var flag=r.test(sort);
-    if(!flag||sort.length<1||Number(sort)<1||Number(sort)>99){
-        alert("请输入热点度:1~99之间的整数,数值越大,排序越靠前");
+    if(!flag||sort.length<1||Number(sort)<1||Number(sort)>999){
+        alert("请输入热点度:1~999之间的整数,数值越大,排序越靠前");
         return false;
     }
     var type = $($("select[name='type']")[0]).val();
