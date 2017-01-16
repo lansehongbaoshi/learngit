@@ -68,7 +68,7 @@ public class SearchAction extends AjaxAction {
             if (ValidatorUtil.isNull(keywords)) {
                 queryParams.put("q", "*:*");
             } else {
-                queryParams.put("q", keywords);
+                queryParams.put("q", "title:"+keywords+" OR content:"+keywords);
             }
             if (ids != null && ids.length > 0) {
                 if(!KnowledgeType.PRIVATE.toString().equals(type) && !KnowledgeType.PUBLIC.toString().equals(type)){
