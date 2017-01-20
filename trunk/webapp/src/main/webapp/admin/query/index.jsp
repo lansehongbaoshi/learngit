@@ -162,11 +162,13 @@ String ctxPath = request.getContextPath();
             var prePage = "";
             var nextPage = "";
             if (curPage - 1 > 0) {
-                prePage = " <li class=\"paginate_button previous\" aria-controls=\"dynamic-table\" tabindex=\"0\" id=\"dynamic-table_previous\"><a href=\"javascript:void(0)\" onclick=\"showSearchResult('" + systemId + "','" + keywords + "','" + (curPage - 1) + "')\">上一页</a>";
+            	prePage  = " <li class=\"paginate_button frist\" aria-controls=\"dynamic-table\" tabindex=\"0\" id=\"dynamic-table_frist\"><a href=\"javascript:void(0)\" onclick=\"showSearchResult('" + systemId + "','" + keywords + "','1')\">首页</a>";
+                prePage += " <li class=\"paginate_button previous\" aria-controls=\"dynamic-table\" tabindex=\"0\" id=\"dynamic-table_previous\"><a href=\"javascript:void(0)\" onclick=\"showSearchResult('" + systemId + "','" + keywords + "','" + (curPage - 1) + "')\">上一页</a>";
             }
       
             if (curPage + 1 <= pageCount) {
-                nextPage = " <li class=\"paginate_button next\" aria-controls=\"dynamic-table\" tabindex=\"0\" id=\"dynamic-table_next\"><a href=\"javascript:void(0)\" onclick=\"showSearchResult('" + systemId + "','" + keywords + "','" + (curPage + 1) + "')\">下一页</a></li>";
+                nextPage  = " <li class=\"paginate_button next\" aria-controls=\"dynamic-table\" tabindex=\"0\" id=\"dynamic-table_next\"><a href=\"javascript:void(0)\" onclick=\"showSearchResult('" + systemId + "','" + keywords + "','" + (curPage + 1) + "')\">下一页</a></li>";
+                nextPage += " <li class=\"paginate_button last\" aria-controls=\"dynamic-table\" tabindex=\"0\" id=\"dynamic-table_last\"><a href=\"javascript:void(0)\" onclick=\"showSearchResult('" + systemId + "','" + keywords + "','" + (pageCount) + "')\">末页</a></li>";
             }
             var htmlStr = "<ul class=\"pagination\">" + prePage + nextPage + "</ul>";
             return htmlStr;

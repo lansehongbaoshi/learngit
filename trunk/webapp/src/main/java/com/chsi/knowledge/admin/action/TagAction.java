@@ -160,7 +160,7 @@ public class TagAction extends AjaxAction {
         id = tagData.getId();
         ManageCacheUtil.removeTagList(systemId);
         /* 记录新增标签日志 */
-        saveLogOper("标签管理", "", "新增", "标签", id);
+        saveLogOper("标签管理", "", "新增", "标签|name:"+tagData.getName(), id);
 
         return SUCCESS;
     }
@@ -177,6 +177,8 @@ public class TagAction extends AjaxAction {
 
     public String update() throws Exception {
         TagData tagData = tagService.getTagData(id);
+        String oldName = tagData.getName();
+        
         if (null == tagData) {
             request.put(Constants.REQUEST_ERROR, "未查到要更新的标签");
             return ERROR;
@@ -188,8 +190,12 @@ public class TagAction extends AjaxAction {
         tagService.saveOrUpdate(tagData);
         setSystemId(tagData.getSystemData().getId());
         ManageCacheUtil.removeTagList(getSystemId());
-
-        saveLogOper("标签管理", "", "修改", "标签", id);
+        if(tagData.getName().equals(oldName)){
+            saveLogOper("标签管理", "", "修改", "标签|name:"+tagData.getName(), id);
+        }else{
+            saveLogOper("标签管理", "", "修改", "标签|old name:"+oldName+",new name:"+tagData.getName(), id);
+        }
+        
 
         return SUCCESS;
     }
@@ -207,11 +213,11 @@ public class TagAction extends AjaxAction {
                     tagService.delete(tagData);
                     ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
                     ManageCacheUtil.removeTagList(systemId);
-                    saveLogOper("标签管理", "", "删除", "标签", id);
+                    saveLogOper("标签管理", "", "删除", "标签|name:"+tagData.getName(), id);
                 }
             } else {
                 ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
-                saveLogOper("标签管理", "", "删除", "标签", id);
+                saveLogOper("标签管理", "", "删除", "标签|name:"+tagData.getName(), id);
             }
 
         } else {

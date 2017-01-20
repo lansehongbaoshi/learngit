@@ -242,7 +242,7 @@ function formatP(pagination, text, type, curPage) {
 
     if (curPage + 1 <= pageCount) {
         nextPage  = " <li class=\"paginate_button next\" aria-controls=\"dynamic-table\" tabindex=\"0\" id=\"dynamic-table_next\"><a href=\"javascript:void(0)\" onclick=\"showSearchResult('" + text + "','" + type + "'," + (curPage + 1) + ")\">下一页</a></li>";
-        nextPage += " <li class=\"paginate_button last\" aria-controls=\"dynamic-table\" tabindex=\"0\" id=\"dynamic-table_last\"><a href=\"javascript:void(0)\" onclick=\"showSearchResult('" + text + "','" + type + "','" + (pageCount) + "')\">尾页</a></li>";
+        nextPage += " <li class=\"paginate_button last\" aria-controls=\"dynamic-table\" tabindex=\"0\" id=\"dynamic-table_last\"><a href=\"javascript:void(0)\" onclick=\"showSearchResult('" + text + "','" + type + "','" + (pageCount) + "')\">末页</a></li>";
     }
     var htmlStr = "<ul class=\"pagination\">" + prePage + nextPage + "</ul>";
     return htmlStr;

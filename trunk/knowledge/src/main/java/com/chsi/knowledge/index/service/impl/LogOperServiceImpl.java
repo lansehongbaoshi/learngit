@@ -71,7 +71,7 @@ public class LogOperServiceImpl extends BaseDbService implements LogOperService 
                 user = "未注册";
             }
             logOperVO.setUserId(user);
-            logOperVO.setOper(logOper.getOper() + "--" + logOper.getMessage() + ":" + logOper.getKeyId());
+            logOperVO.setOper(logOper.getOper() + "--" + logOper.getMessage() + ",id:" + logOper.getKeyId());
             listVO.add(logOperVO);
         }
         LogOperListVO result = new LogOperListVO<LogOperVO>(listVO, pagination);

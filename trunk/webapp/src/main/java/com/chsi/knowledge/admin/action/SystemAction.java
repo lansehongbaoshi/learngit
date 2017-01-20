@@ -205,7 +205,7 @@ public class SystemAction extends AjaxAction {
         systemService.save(data, startTime, endTime);
         ManageCacheUtil.removeUnderwaySystem();
 
-        saveLogOper("系统管理", "", "新增", "系统", id);
+        saveLogOper("系统管理", "", "新增", "系统|name:"+data.getName(), id);
 
         return SUCCESS;
     }
@@ -217,6 +217,7 @@ public class SystemAction extends AjaxAction {
         }
 
         SystemData data = systemService.getSystemById(id);
+        String oldName = data.getName();
         if (null == data) {
             request.put(Constants.REQUEST_ERROR, "未查到要更新的系统");
             return ERROR;
@@ -247,8 +248,12 @@ public class SystemAction extends AjaxAction {
         systemService.update(data, startTime, endTime);
         ManageCacheUtil.removeSystem(id);
         ManageCacheUtil.removeUnderwaySystem();
-
-        saveLogOper("系统管理", "", "修改", "系统", id);
+        if(data.getName().equals(oldName)){
+            saveLogOper("系统管理", "", "修改", "系统|name:"+data.getName(), id);
+        }else{
+            saveLogOper("系统管理", "", "修改", "系统|old name:"+oldName+",new name:"+data.getName(), id);
+        }
+        
         return SUCCESS;
     }
 
@@ -263,10 +268,10 @@ public class SystemAction extends AjaxAction {
                 } else {
                     systemService.delete(systemData);
                     ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
-                    saveLogOper("系统管理", "", "删除", "系统", id);
+                    saveLogOper("系统管理", "", "删除", "系统|name:"+systemData.getName(), id);
                 }
             } else {
-                saveLogOper("系统管理", "", "删除", "系统", id);
+                saveLogOper("系统管理", "", "删除", "系统|name:"+systemData.getName(), id);
                 ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
             }
         } else {

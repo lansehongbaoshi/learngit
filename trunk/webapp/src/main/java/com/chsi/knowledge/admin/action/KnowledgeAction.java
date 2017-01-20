@@ -305,7 +305,8 @@ public class KnowledgeAction extends AjaxAction {
         }
         LoginUserVO loginUserVO = getLoginUserVO();
         if (!ValidatorUtil.isNull(id) && !ValidatorUtil.isNull(title) && !ValidatorUtil.isNull(content) && !ValidatorUtil.isNull(sort) && tagIds != null && tagIds.length > 0 && !ValidatorUtil.isNull(keywords) && !ValidatorUtil.isNull(type)) {
-            KnowledgeData data = knowledgeService.getKnowledgeById(id);
+            KnowledgeData data = ManageCacheUtil.getKnowledgeDataById(id);
+            String oldTitle = data.getTitle();
             data.setKeywords(keywords);
             data.setSort(Integer.parseInt(sort));
             data.setUpdateTime(Calendar.getInstance());
@@ -342,7 +343,14 @@ public class KnowledgeAction extends AjaxAction {
 
             logOper.setM2("");
             logOper.setOper("修改");
-            logOper.setMessage("知识");
+            String message = "知识|";
+            if(oldTitle.equals(title)){
+                message += "title:"+title;
+            }else{
+                message += "old title:"+oldTitle+", new title:"+title;
+            }
+            
+            logOper.setMessage(message);
             logOper.setKeyId(id);
             logOperService.save(logOper);
 
@@ -373,8 +381,8 @@ public class KnowledgeAction extends AjaxAction {
         }
         LoginUserVO loginUserVO = getLoginUserVO();
         if (!ValidatorUtil.isNull(id) && !ValidatorUtil.isNull(title) && !ValidatorUtil.isNull(content) && !ValidatorUtil.isNull(sort) && tagIds != null && tagIds.length > 0 && !ValidatorUtil.isNull(keywords) && !ValidatorUtil.isNull(type)) {
-            KnowledgeData data = knowledgeService.getKnowledgeById(id);
-
+            KnowledgeData data = ManageCacheUtil.getKnowledgeDataById(id);
+            String oldTitle = data.getTitle();
             LogOperData logOper = new LogOperData();
             logOper.setCreateTime(Calendar.getInstance());
             com.chsi.knowledge.vo.LoginUserVO user = com.chsi.knowledge.web.util.WebAppUtil.getLoginUserVO(httpRequest);
@@ -382,7 +390,13 @@ public class KnowledgeAction extends AjaxAction {
 
             logOper.setM2("");
             logOper.setOper("修改");
-            logOper.setMessage("知识");
+            String message = "知识|";
+            if(oldTitle.equals(title)){
+                message += "title:"+title;
+            }else{
+                message += "old title:"+oldTitle+", new title:"+title;
+            }
+            logOper.setMessage(message);
             logOper.setKeyId(id);
 
             if (data.getKnowledgeStatus() == KnowledgeStatus.YSH) {
@@ -454,7 +468,8 @@ public class KnowledgeAction extends AjaxAction {
         }
         LoginUserVO loginUserVO = getLoginUserVO();
         if (!ValidatorUtil.isNull(id) && !ValidatorUtil.isNull(title) && !ValidatorUtil.isNull(content) && !ValidatorUtil.isNull(sort) && tagIds != null && tagIds.length > 0 && !ValidatorUtil.isNull(keywords) && !ValidatorUtil.isNull(type)) {
-            KnowledgeData data = knowledgeService.getKnowledgeById(id);
+            KnowledgeData data = ManageCacheUtil.getKnowledgeDataById(id);
+            String oldTitle = data.getTitle();
             data.setKeywords(keywords);
             data.setSort(Integer.parseInt(sort));
             data.setUpdateTime(Calendar.getInstance());
@@ -485,7 +500,13 @@ public class KnowledgeAction extends AjaxAction {
             logOper.setM1("知识审核");
             logOper.setM2("");
             logOper.setOper("审核");
-            logOper.setMessage("知识");
+            String message = "知识|";
+            if(oldTitle.equals(title)){
+                message += "title:"+title;
+            }else{
+                message += "old title:"+oldTitle+", new title:"+title;
+            }
+            logOper.setMessage(message);
             logOper.setKeyId(id);
             logOperService.save(logOper);
 
@@ -581,7 +602,10 @@ public class KnowledgeAction extends AjaxAction {
 
         logOper.setM2("");
         logOper.setOper("新增");
-        logOper.setMessage("知识");
+        String message = "知识|";
+        message += "title:"+title;
+
+        logOper.setMessage(message);
         logOper.setKeyId(id);
         logOperService.save(logOper);
         return SUCCESS;
@@ -632,7 +656,9 @@ public class KnowledgeAction extends AjaxAction {
 
         logOper.setM2("");
         logOper.setOper("新增");
-        logOper.setMessage("知识");
+        String message = "知识|";
+        message += "title:"+title;
+        logOper.setMessage(message);
         logOper.setKeyId(id);
         logOperService.save(logOper);
         return SUCCESS;
@@ -663,7 +689,9 @@ public class KnowledgeAction extends AjaxAction {
                 logOper.setM1("知识管理");
                 logOper.setM2("");
                 logOper.setOper("删除");
-                logOper.setMessage("知识");
+                String message = "知识|";
+                message += "title:"+title;
+                logOper.setMessage(message);
                 logOper.setKeyId(id);
                 logOperService.save(logOper);
 

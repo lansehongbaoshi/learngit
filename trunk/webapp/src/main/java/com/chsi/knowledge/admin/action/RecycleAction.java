@@ -51,7 +51,7 @@ public class RecycleAction extends AjaxAction {
             knowledgeService.update(knowledgeData);
             knowIndexService.updateKnowIndex(klId);
             ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
-            saveLogOper("回收站", "", "恢复", "知识", klId);
+            saveLogOper("回收站", "", "恢复", "知识|title:"+knowledgeData.getTitle(), klId);
         }
         writeJSON(ajaxMessage);
     }
@@ -71,7 +71,7 @@ public class RecycleAction extends AjaxAction {
                 CmsServiceClient cmsServiceClient = CmsServiceClientFactory.getCmsServiceClient();
                 cmsServiceClient.deleteArticle(data.getCmsId());// 从新闻系统删除
 
-                saveLogOper("回收站", "", "彻底删除", "知识", klId);
+                saveLogOper("回收站", "", "彻底删除", "知识|title:"+data.getTitle(), klId);
             }
             ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
         } else {
