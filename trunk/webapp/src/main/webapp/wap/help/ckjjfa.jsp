@@ -4,6 +4,7 @@ import="com.chsi.knowledge.pojo.*,com.chsi.knowledge.service.*,java.util.List" %
 <%@ page import="com.chsi.knowledge.util.ManageCacheUtil" %>
 <%@ page import="com.chsi.cms.client.*" %>
 <%@ page import="com.chsi.news.vo.Article" %>
+<%@ page import="com.chsi.knowledge.util.CacheUtil" %>
 <%@ taglib uri="/struts-tags" prefix="s"%>
 <% 
 String id = request.getParameter("id");
@@ -15,7 +16,8 @@ KnowledgeData knowledgeData = ManageCacheUtil.getKnowledgeDataById(id);
 String visitedFlag = Constants.VISIT + id;
 if (null == session.getAttribute(visitedFlag)) {
     session.setAttribute(visitedFlag, id);
-    ServiceFactory.getQueueService().addVisitKnowledgeId(id);
+//    ServiceFactory.getQueueService().addVisitKnowledgeId(id);
+    CacheUtil.addVisitKnowledgeCache(id);
 }
 String discussedFlag = Constants.DISCUSS + id;
 boolean isDiscussed = null != session.getAttribute(discussedFlag);
