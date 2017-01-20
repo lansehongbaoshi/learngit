@@ -322,7 +322,7 @@ public class KnowledgeServiceImpl extends BaseDbService implements KnowledgeServ
         if (systems.size() > 0) {
             for (SystemData system : systems) {
                 List<KnowledgeData> knows = map.get(system);
-                if (knows.size() < 10) {
+                if (knows==null || knows.size() < 10) {
                     String key = "com.chsi.knowledge.util.ManageCacheUtil.getCatalogTopKnowl";
                     MemCachedUtil.removeByKey(key);
                     return true;

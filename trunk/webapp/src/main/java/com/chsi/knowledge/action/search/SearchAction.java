@@ -333,8 +333,8 @@ public class SearchAction extends AjaxAction {
         String text = "";
         boolean flag = false;
         Set<String> badTitleWords = filterWordService.getBadWords(title);
-        Object[] objTitle = filterWordService.highlightBadWords(title);
         if (badTitleWords != null && badTitleWords.size() > 0) {
+            Object[] objTitle = filterWordService.highlightBadWords(title);
             ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
             flag = true;
             text += "<h5 style=\"font-weight:700\">标题</h5><br>";
@@ -342,8 +342,8 @@ public class SearchAction extends AjaxAction {
         }
 
         Set<String> badKeyWords = filterWordService.getBadWords(keywords);
-        Object[] objKeyWords = filterWordService.highlightBadWords(keywords);
         if (badKeyWords != null && badKeyWords.size() > 0) {
+            Object[] objKeyWords = filterWordService.highlightBadWords(keywords);
             ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
             flag = true;
             text += "<h5 style=\"font-weight:700\">关键字</h5><br>";
@@ -351,9 +351,8 @@ public class SearchAction extends AjaxAction {
         }
 
         Set<String> badContentWords = filterWordService.getBadWords(content);
-        Object[] objContent = filterWordService.highlightBadWords(content);
-        List<String> sentences = filterWordService.getBadSentences(content);
         if (badContentWords != null && badContentWords.size() > 0) {
+            List<String> sentences = filterWordService.getBadSentences(content);
             text += "<h5 style=\"font-weight:700\">内容</h5><br>";
             ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
             flag = true;
