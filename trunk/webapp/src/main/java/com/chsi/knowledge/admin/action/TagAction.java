@@ -6,12 +6,15 @@ import java.util.List;
 import com.chsi.framework.util.ValidatorUtil;
 import com.chsi.knowledge.Constants;
 import com.chsi.knowledge.action.base.AjaxAction;
+import com.chsi.knowledge.dic.KnowledgeType;
 import com.chsi.knowledge.index.service.LogOperService;
 import com.chsi.knowledge.pojo.KnowTagRelationData;
+import com.chsi.knowledge.pojo.KnowledgeData;
 import com.chsi.knowledge.pojo.LogOperData;
 import com.chsi.knowledge.pojo.SystemData;
 import com.chsi.knowledge.pojo.TagData;
 import com.chsi.knowledge.service.KnowTagRelationService;
+import com.chsi.knowledge.service.KnowledgeService;
 import com.chsi.knowledge.service.SystemService;
 import com.chsi.knowledge.service.TagService;
 import com.chsi.knowledge.util.ManageCacheUtil;
@@ -28,6 +31,7 @@ public class TagAction extends AjaxAction {
     private TagService tagService;
     private SystemService systemService;
     private KnowTagRelationService knowTagRelationService;
+    private KnowledgeService knowledgeService;
     private LogOperService logOperService;
     private String systemId;
     private String id;
@@ -137,6 +141,14 @@ public class TagAction extends AjaxAction {
         this.logOperService = logOperService;
     }
 
+    public KnowledgeService getKnowledgeService() {
+        return knowledgeService;
+    }
+
+    public void setKnowledgeService(KnowledgeService knowledgeService) {
+        this.knowledgeService = knowledgeService;
+    }
+
     public void list() throws Exception {
         tags = tagService.get(systemId);
         for (TagData tag : tags) {
@@ -198,6 +210,35 @@ public class TagAction extends AjaxAction {
         
 
         return SUCCESS;
+    }
+    
+    public String updatetime() throws Exception{
+        if (!ValidatorUtil.isNull(id)) {
+            List<KnowledgeData> knows= knowTagRelationService.getKnowlegdesByTagid(id);
+            TagData tagData = tagService.getTagData(id);
+            if (knows != null) {
+                for (KnowledgeData know : knows) {
+                    if (KnowledgeType.PUBLIC.toString().equals(know.getType())) {
+                        ManageCacheUtil.removeKnowledgeDataById(know.getId());
+                        know.setUpdateTime(Calendar.getInstance());
+                        know.setUpdater(getLoginedUserId());
+                        knowledgeService.update(know);
+                    }
+                }
+                saveLogOper("标签管理", "", "更新时间", "标签|name:"+tagData.getName(), id);
+                ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
+            }else{
+                ajaxMessage.addMessage("该标签下不存在知识！");
+                ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
+            }
+            
+        } else {
+            
+            ajaxMessage.addMessage("id不能为空！");
+            ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
+        }
+        writeJSON(ajaxMessage);
+        return NONE;
     }
 
     public String delete() throws Exception {

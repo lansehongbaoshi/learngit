@@ -7,6 +7,7 @@ import com.chsi.knowledge.ServiceConstants;
 import com.chsi.knowledge.dao.KnowTagRelationDataDAO;
 import com.chsi.knowledge.dic.KnowledgeStatus;
 import com.chsi.knowledge.pojo.KnowTagRelationData;
+import com.chsi.knowledge.pojo.KnowledgeData;
 import com.chsi.knowledge.service.KnowTagRelationService;
 
 public class KnowTagRelationServiceImpl extends BaseDbService implements KnowTagRelationService {
@@ -61,6 +62,13 @@ public class KnowTagRelationServiceImpl extends BaseDbService implements KnowTag
     public List<KnowTagRelationData> getYSHKnowTagDatas(String tagId) {
         // TODO Auto-generated method stub
         return knowTagRelationDataDAO.getKnowsByTagId(tagId);
+    }
+
+    @Override
+    public List<KnowledgeData> getKnowlegdesByTagid(String id) {
+        // TODO Auto-generated method stub
+        List<KnowledgeData> knowledgeDatas = knowTagRelationDataDAO.getYSHKnowsByTagId(id);
+        return knowledgeDatas;
     }
 
 }

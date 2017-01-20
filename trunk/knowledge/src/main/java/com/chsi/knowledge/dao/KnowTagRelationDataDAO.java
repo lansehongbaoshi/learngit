@@ -70,4 +70,6 @@ public interface KnowTagRelationDataDAO {
     List<KnowledgeData> getKnowsBySystemId(String systemId);
 
     List<KnowTagRelationData> getKnowsByTagId(String tagId);
+
+    List<KnowledgeData> getYSHKnowsByTagId(String id);
 }

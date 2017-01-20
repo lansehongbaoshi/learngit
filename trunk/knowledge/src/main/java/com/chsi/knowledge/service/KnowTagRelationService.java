@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.chsi.knowledge.dic.KnowledgeStatus;
 import com.chsi.knowledge.pojo.KnowTagRelationData;
+import com.chsi.knowledge.pojo.KnowledgeData;
 
 public interface KnowTagRelationService {
     KnowTagRelationData getKnowTagRelationByKnowId(String knowledgeId, String tagId);
@@ -33,4 +34,6 @@ public interface KnowTagRelationService {
     List<KnowTagRelationData> getAllKnowTagDatas(String tagId);
 
     List<KnowTagRelationData> getYSHKnowTagDatas(String tagId);
+
+    List<KnowledgeData> getKnowlegdesByTagid(String id);
 }

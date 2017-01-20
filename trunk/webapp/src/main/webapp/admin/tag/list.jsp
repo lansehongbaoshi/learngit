@@ -105,7 +105,17 @@
                           for (var i = 0; i < json.o.length; i++) {
                               var tag = json.o[i];
                               var odd_even = (i%2==0)?"even":"odd";
-                           str = str + (" <tr role=\"row\" class=\""+odd_even+"\"><td>"+ tag.name +"</td><td class=\"hidden-260\">" + tag.description + "</td><td class=\"hidden-100\">" + tag.sort + "</td><td class=\"hidden-100\">" + tag.knowCnt + "</td><td class=\"hidden-50\">" + (tag.property==1?"<i class=\"ace-icon fa fa-check bigger-130\"></i>":"") + "</td><td><div class=\"hidden-sm hidden-xs action-buttons\" data-id=\"" + tag.id +"\"> <a class=\"green\" title=\"修改\" href='/admin/tag/updateIndex.action?id=" + tag.id +"'><i class=\"ace-icon fa fa-pencil bigger-130\"></i> </a> <a title=\"删除\" class=\"red delBtn\" href=\"javascript:void(0)\"> <i class=\"ace-icon fa fa-trash-o bigger-130\"></i> </a></div>" + "</td></tr>");
+                           str = str + (" <tr role=\"row\" class=\""+odd_even+"\">"+
+                        		   "<td>"+ tag.name +"</td>"+
+                        		   "<td class=\"hidden-260\">" + tag.description + "</td>"+
+                        		   "<td class=\"hidden-100\">" + tag.sort + "</td>"+
+                        		   "<td class=\"hidden-100\">" + tag.knowCnt + "</td>"+
+                        		   "<td class=\"hidden-50\">" + (tag.property==1?"<i class=\"ace-icon fa fa-check bigger-130\"></i>":"") + "</td>"+
+                        		   "<td><div class=\"hidden-sm hidden-xs action-buttons\" data-id=\"" + tag.id +"\"> "+
+                        		   "<a class=\"green\" title=\"修改\" href='/admin/tag/updateIndex.action?id=" + tag.id +"'><i class=\"ace-icon fa fa-pencil bigger-130\"></i> </a>"+
+                        		   "<a data-action=\"update-time\" class=\"update-time\" href=\"javascript:void(0)\" title=\"将当前时间设置为更新时间\"> <i class=\"ace-icon fa fa-clock-o bigger-130\"></i></a>"+
+                        		   "<a title=\"删除\" class=\"red delBtn\" href=\"javascript:void(0)\"> <i class=\"ace-icon fa fa-trash-o bigger-130\"></i> </a></div>" + 
+                        		   "</td></tr>");
                            
                           }
                           $("#tags_result").html(str);
@@ -132,5 +142,25 @@
 	            	)
             	}
             });
+            
+            $(document).on("click",".update-time",function() {
+                if(confirm("确定刷新该标签下所有已发布知识的更新时间吗？")) {
+                	var $div = $(this).closest("div");
+                    var tagId = $div.data("id");
+                    console.log("tagid:"+tagId);
+                    $.getJSON(
+                    "/admin/tag/updatetime.action",
+                    {id:tagId},
+                    function(data){
+                    	if(data.flag=='true') {
+                            alert("更新成功");
+                        } else {
+                            var errMsg = data.errorMessages[0];
+                            alert(errMsg);
+                        }
+                    });
+                }
+            });
+            
         })
     </script>

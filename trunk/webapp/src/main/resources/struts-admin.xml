@@ -246,6 +246,8 @@
         </action>
         <action name="delete" class="tagActionBean" method="delete">
         </action>
+        <action name="updatetime" class="tagActionBean" method="updatetime">
+        </action>
     </package>
     
     <package name="admin.recycle" extends="knowledge-default" namespace="/admin/recycle">
