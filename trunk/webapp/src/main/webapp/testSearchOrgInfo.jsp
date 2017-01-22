@@ -22,13 +22,12 @@ orgTypes.add("49000");
 orgTypes.add("41000");
 orgTypes.add("45000");
 orgTypes.add("47000"); */
-String orderBy = request.getParameter("orderBy");
 try{
     String keyword = request.getParameter("keyword");
     if(keyword!=null) {
-        List<OrgUserInfoVO> orgUsers = searchClient.getOrgUserInfos(keyword, orgTypes, orderBy!=null?orderBy:"", 0, 100).getList();
-        for(OrgUserInfoVO vo:orgUsers) {
-            out.println(String.format("<p>xm:%s,dwdm:%s,dwmc:%s,userType:%s,zwlx:%s</p>",vo.getXm(),vo.getDwdm(),vo.getDwmc(),vo.getUserType(),vo.getZwlx()));
+        List<OrgInfoVO> orgs = searchClient.getOrgInfos(keyword, orgTypes, "", 0, 100).getList();
+        for(OrgInfoVO vo:orgs) {
+            out.println(net.sf.json.JSONObject.fromObject(vo).toString());
         }
     	//out.println("=====searchClient.getOrgInfos(\"邢台\", orgTypes, \"dwdm\", 0, 20).getList().size()"+searchClient.getOrgInfos("邢台", orgTypes, "dwdm", 0, 20).getList().size());
     }else{%>
