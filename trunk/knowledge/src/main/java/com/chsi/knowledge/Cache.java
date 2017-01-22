@@ -18,8 +18,12 @@ public class Cache {
     }
     
     /*增加访问知识记录访问的知识的id和次数*/
-    Map<String, Integer> visitKnowledgeCache = new HashMap<String, Integer>();
-    public Map<String, Integer> getVisitKnowledgeCache() {
+    public static Map<String, Integer> visitKnowledgeCache = new HashMap<String, Integer>();
+    
+    public static Map<String, Integer> getVisitKnowledgeCache() {
+        if(visitKnowledgeCache==null){
+            visitKnowledgeCache = new HashMap<String, Integer>();
+        }
         return visitKnowledgeCache;
     }
 
