@@ -16,7 +16,6 @@ public class HoursTask extends TimerTask {
         // TODO Auto-generated method stub
         Cache cache = Cache.getCache();
         Map<String, Integer> visitKnowledgeCache = cache.getVisitKnowledgeCache();
-        System.out.println("更新知识访问数量！本次缓存数量："+visitKnowledgeCache.size());
         if(visitKnowledgeCache.size()>0){
             for(Map.Entry<String, Integer> entry : visitKnowledgeCache.entrySet()){
                 String id = entry.getKey();

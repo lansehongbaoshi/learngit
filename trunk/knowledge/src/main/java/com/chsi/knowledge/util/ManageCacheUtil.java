@@ -212,4 +212,16 @@ public class ManageCacheUtil {
         }
         return result;
     }
+
+    public static TagData getKnowTagById(String tagId) {
+        // TODO Auto-generated method stub
+        String key = CACHE_KEY_ + "getKnowTagById" + tagId;
+        TagData result = MemCachedUtil.get(key);
+        if (result == null) {
+            TagService tagService = ServiceFactory.getTagService();
+            result = tagService.getTagData(tagId);
+            MemCachedUtil.set(key, result);
+        }
+        return result;
+    }
 }

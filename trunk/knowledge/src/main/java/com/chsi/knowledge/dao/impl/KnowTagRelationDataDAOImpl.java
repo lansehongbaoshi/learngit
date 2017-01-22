@@ -1,8 +1,10 @@
 package com.chsi.knowledge.dao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 
 import com.chsi.framework.hibernate.BaseHibernateDAO;
 import com.chsi.knowledge.dao.KnowTagRelationDataDAO;
@@ -10,6 +12,8 @@ import com.chsi.knowledge.dic.KnowledgeStatus;
 import com.chsi.knowledge.dic.KnowledgeType;
 import com.chsi.knowledge.pojo.KnowTagRelationData;
 import com.chsi.knowledge.pojo.KnowledgeData;
+import com.chsi.knowledge.pojo.TagData;
+import com.chsi.knowledge.util.ManageCacheUtil;
 
 public class KnowTagRelationDataDAOImpl extends BaseHibernateDAO implements KnowTagRelationDataDAO {
 
@@ -56,11 +60,32 @@ public class KnowTagRelationDataDAOImpl extends BaseHibernateDAO implements Know
             hql += A + KNOWLEDGE_TYPE;
         }
         hql += ORDERBY_KNOWLEDGE_TOPTIME_VISITCNT_SORT;
-        Query query = hibernateUtil.getSession().createQuery(hql).setInteger("knowledgeStatus", knowledgeStatus.getOrdinal()).setString("tagId", tagId);
+        String sql = "select p.id,p.knowledge_id,p.tag_id from knowledge_tag_relation p right join knowledge k on k.id = p.knowledge_id " 
+        		    +"where p.tag_id = :tagId "+(type != null?"and k.type = :type":"")+" and k.status = :knowledgeStatus " 
+//        		    +"order by k.top_time desc nulls last ,k.visit_cnt desc ,k.sort desc"
+        		    +"order by k.sort desc"
+        		    ;
+        SQLQuery sqlquery = hibernateUtil.getSession().createSQLQuery(sql);
+        sqlquery.setInteger("knowledgeStatus", knowledgeStatus.getOrdinal());
+        sqlquery.setString("tagId", tagId);
         if (type != null) {
-            query.setString("type", type.toString());
+            sqlquery.setString("type", type.toString());
         }
-        List<KnowTagRelationData> list = query.list();
+        List result = sqlquery.list();
+        List<KnowTagRelationData> list = new ArrayList<KnowTagRelationData>();
+        for(Object objs : result){
+            Object[] row = (Object[]) objs;
+            KnowledgeData knowledgeData = ManageCacheUtil.getKnowledgeDataById(row[1].toString());
+            TagData tagData = ManageCacheUtil.getKnowTagById(row[2].toString());
+            KnowTagRelationData knowTagRelationData = new KnowTagRelationData(row[0].toString(),knowledgeData,tagData);
+            list.add(knowTagRelationData);
+        }
+        
+//        Query query = hibernateUtil.getSession().createQuery(hql).setInteger("knowledgeStatus", knowledgeStatus.getOrdinal()).setString("tagId", tagId);
+//        if (type != null) {
+//            query.setString("type", type.toString());
+//        }
+//        List<KnowTagRelationData> list = query.list();
         return list;
     }
 

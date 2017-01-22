@@ -57,7 +57,7 @@ public class QueueVisitThreadListener implements ServletContextListener {
         
         Timer timer = new Timer();
         HoursTask hoursTask = new HoursTask();
-        timer.scheduleAtFixedRate(hoursTask, new Date(), 1000 * 60  );// 机器启动开始执行执行任务，每隔一小时执行一次
+        timer.scheduleAtFixedRate(hoursTask, new Date(), 1000 * 60 * 60 );// 机器启动开始执行执行任务，每隔一小时执行一次
         logger.info("已设定定时任务hoursTask");
         if (isWorkMachine()) {
             Timer timer1 = new Timer();
