@@ -41,4 +41,6 @@ public interface TagService {
     List<TagData> getTagData(String systemId, TagProperty property);
 
     TagData getTagData(String id);
+
+    List<TagData> getTagDatasBySystemId(String systemId);
 }

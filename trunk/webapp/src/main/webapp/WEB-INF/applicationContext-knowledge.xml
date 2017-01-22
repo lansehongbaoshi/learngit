@@ -113,6 +113,7 @@
         <property name="knowIndexService" ref="knowIndexService" />
         <property name="systemService" ref="systemService" />
         <property name="knowledgeService" ref="knowledgeService" />
+        <property name="tagService" ref="tagService" />
     </bean>
     <!-- 操作日志 -->
     <bean id="logOperActionBean"  class="com.chsi.knowledge.admin.action.SearchLogAction"  scope="request">

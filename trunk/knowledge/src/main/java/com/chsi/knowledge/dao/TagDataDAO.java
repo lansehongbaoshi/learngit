@@ -28,4 +28,6 @@ public interface TagDataDAO {
     TagData getTagData(String systemId, String name);
 
     List<TagData> getTagData(String systemId, Integer property);
+
+    List<TagData> getTagDatasBySystemId(String systemId);
 }

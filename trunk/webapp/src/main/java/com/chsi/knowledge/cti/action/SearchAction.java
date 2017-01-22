@@ -5,16 +5,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+
 import com.chsi.framework.util.ValidatorUtil;
 import com.chsi.knowledge.Constants;
 import com.chsi.knowledge.action.base.AjaxAction;
 import com.chsi.knowledge.dic.KnowledgeType;
 import com.chsi.knowledge.index.service.KnowIndexService;
 import com.chsi.knowledge.pojo.KnowledgeData;
+import com.chsi.knowledge.pojo.TagData;
 import com.chsi.knowledge.service.KnowledgeService;
 import com.chsi.knowledge.service.QueueService;
 import com.chsi.knowledge.service.ServiceFactory;
 import com.chsi.knowledge.service.SystemService;
+import com.chsi.knowledge.service.TagService;
 import com.chsi.knowledge.util.ManageCacheUtil;
 import com.chsi.knowledge.util.SearchUtil;
 import com.chsi.knowledge.vo.KnowListVO;
@@ -36,6 +41,7 @@ public class SearchAction extends AjaxAction {
 
     private KnowIndexService knowIndexService;
     private KnowledgeService knowledgeService;
+    private TagService tagService;
     private SystemService systemService;
     private String keywords;
     private String systemId;
@@ -44,6 +50,7 @@ public class SearchAction extends AjaxAction {
     private int curPage;
     private String callback;
     private String type;
+    private String tagid;
     private QueueService queueService = ServiceFactory.getQueueService();
 
     // 指定系统内,关键字自动完成
@@ -81,6 +88,11 @@ public class SearchAction extends AjaxAction {
                 if(KnowledgeType.PRIVATE.toString().equals(type) || KnowledgeType.PUBLIC.toString().equals(type)){
                     queryParams.put("fq", "type:"+type);
                 }
+            }
+            if(tagid != null && !"".equals(tagid)){
+                String filterFiled = queryParams.remove("fq");
+                filterFiled += "tag_ids:"+tagid;
+                queryParams.put("fq", filterFiled);
             }
             queryParams.put("bf", "ord(cti_visit_cnt)^0.1");
             KnowListVO<KnowledgeVO> listVO = knowIndexService.customSearch(queryParams, (curPage - 1) * Constants.PAGE_SIZE, Constants.PAGE_SIZE);
@@ -131,6 +143,30 @@ public class SearchAction extends AjaxAction {
                 ajaxMessage.setO(vo);
                 ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
                 queueService.addCtiVisitKnowledgeId(id);
+            }
+        }
+        writeCallbackJSON(callback);
+    }
+    
+    public void getTags() throws Exception{
+        if (ValidatorUtil.isNull(systemId)) {
+            ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
+            ajaxMessage.addMessage("系统id为空");
+        }else{
+            List<TagData> tags = ManageCacheUtil.getTagList(systemId);
+            if (tags == null || tags.size()<1) {
+                ajaxMessage.setFlag(Constants.AJAX_FLAG_ERROR);
+                ajaxMessage.addMessage("未查到标签");
+            }else{
+                ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
+                JSONArray jsons = new JSONArray();
+                for(TagData tag :tags){
+                    JSONObject json = new JSONObject();
+                    json.put("id", tag.getId());
+                    json.put("name", tag.getName());
+                    jsons.add(json);
+                }
+                ajaxMessage.setO(jsons);
             }
         }
         writeCallbackJSON(callback);
@@ -215,4 +251,21 @@ public class SearchAction extends AjaxAction {
     public void setType(String type) {
         this.type = type;
     }
+
+    public String getTagid() {
+        return tagid;
+    }
+
+    public void setTagid(String tagid) {
+        this.tagid = tagid;
+    }
+
+    public TagService getTagService() {
+        return tagService;
+    }
+
+    public void setTagService(TagService tagService) {
+        this.tagService = tagService;
+    }
+    
 }

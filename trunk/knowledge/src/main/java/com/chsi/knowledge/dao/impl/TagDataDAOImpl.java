@@ -62,4 +62,13 @@ public class TagDataDAOImpl extends BaseHibernateDAO implements TagDataDAO {
         return list;
     }
 
+    @Override
+    public List<TagData> getTagDatasBySystemId(String systemId) {
+        // TODO Auto-generated method stub
+        String hql = SELECT_TAG + W + SYSTEM_ID + ORDERBY_SORT;
+        Query query = hibernateUtil.getSession().createQuery(hql).setString("systemId", systemId);
+        List<TagData> list = query.list();
+        return list;
+    }
+
 }

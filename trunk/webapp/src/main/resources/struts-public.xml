@@ -51,5 +51,6 @@
         <action name="searchKnow" class="ctiSearchActionBean" method="searchKnow"></action>
         <action name="getKnow" class="ctiSearchActionBean" method="detailKnow"></action>
         <action name="listSystem" class="systemActionBean" method="getSystems"></action>
+        <action name="getTags" class="ctiSearchActionBean" method="getTags"></action>
     </package>
 </struts>

@@ -89,4 +89,10 @@ public class TagServiceImpl extends BaseDbService implements TagService {
         return list;
     }
 
+    @Override
+    public List<TagData> getTagDatasBySystemId(String systemId) {
+        List<TagData> list = tagDataDAO.getTagDatasBySystemId(systemId);
+        return list;
+    }
+
 }
