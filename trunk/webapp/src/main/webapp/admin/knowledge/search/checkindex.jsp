@@ -76,7 +76,7 @@ String ctxPath = request.getContextPath();
                     <th width="" class="hidden-180" tabindex="1" aria-controls="dynamic-table" rowspan="2" colspan="1" aria-label="Domain: activate to sort column ascending">标题</th>
                     <th width="" class="hidden-200" tabindex="3" aria-controls="dynamic-table" rowspan="1" colspan="1">回答摘要</th>
                     <th width="70" class="hidden-480" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1" aria-label="Clicks: activate to sort column ascending">创建人</th>
-                    <th width="80" class="hidden-480" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1" aria-label="Clicks: activate to sort column ascending">创建时间</th>
+                    <th width="150" class="hidden-480" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1" aria-label="Clicks: activate to sort column ascending">创建时间</th>
                     <th width="100" class="hidden-480" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1" aria-label="Status: activate to sort column ascending">状态</th>
                     <th width="" class="sorting_disabled" rowspan="1" colspan="1" aria-label=""></th>
                   </tr>
