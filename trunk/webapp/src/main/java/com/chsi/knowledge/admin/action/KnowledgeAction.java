@@ -652,7 +652,7 @@ public class KnowledgeAction extends AjaxAction {
         com.chsi.knowledge.vo.LoginUserVO user = com.chsi.knowledge.web.util.WebAppUtil.getLoginUserVO(httpRequest);
         logOper.setUserId(user.getAcc().getId());
 
-        logOper.setM1("知识新增");
+        logOper.setM1("知识管理");
 
         logOper.setM2("");
         logOper.setOper("新增");
