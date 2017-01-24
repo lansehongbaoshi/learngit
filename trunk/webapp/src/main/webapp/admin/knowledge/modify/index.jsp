@@ -107,7 +107,7 @@ List<SystemData> systems = systemService.getSystems(false, null);
   </div>
 </div>
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog"  aria-labelledby="myModalLabel" aria-hidden="true">
-   <div class="modal-dialog">
+   <div class="modal-dialog" style="width:900px;">
       <div class="modal-content">
          <div class="modal-header">
             <button type="button" class="close" 
@@ -120,12 +120,11 @@ List<SystemData> systems = systemService.getSystems(false, null);
          </div>
          <div class="modal-body">
          <%for(SystemData system:systems){ %>
-         <p><%=system.getName() %>：</p>
-            <p>
+         <p><b><%=system.getName() %>：</b>
             <%List<TagData> tags = ManageCacheUtil.getTagList(system.getId());
             for(TagData tag:tags){
             %>
-            <span style="margin:0 2px;"><input type="checkbox" name="tagIds" value="<%=tag.getId()%>" title="<%=tag.getName()%>"><%=tag.getName()%></span>
+            <span style="margin:0 1px;"><input type="checkbox" name="tagIds" value="<%=tag.getId()%>" title="<%=tag.getName()%>"><%=tag.getName()%></span>
             <%} %>
             </p>
             <%} %>
@@ -252,6 +251,7 @@ $(function(){
     $("#myModal .modal-body input").each(function(){
     	if(tagIds.indexOf($(this).val())>-1) {
     		$(this).attr("checked","checked");
+    		$(this).parent().attr("style","color:red;font-weight:bold;");
     	}
     });
 });
