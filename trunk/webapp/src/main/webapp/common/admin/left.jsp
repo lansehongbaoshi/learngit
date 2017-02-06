@@ -66,7 +66,7 @@ try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
 	$(function () {
 		var flag = false;
 		$("#menu li").children("a").each(function (index, domEle) {
-//			console.log(this.href);
+//			//console.log(this.href);
 			if(this.href == url){
 				flag = true;
 				$(this).parent().addClass("active");

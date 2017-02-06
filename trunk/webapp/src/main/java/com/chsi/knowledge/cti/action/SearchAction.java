@@ -91,7 +91,7 @@ public class SearchAction extends AjaxAction {
             }
             if(tagid != null && !"".equals(tagid)){
                 String filterFiled = queryParams.remove("fq");
-                filterFiled += "tag_ids:"+tagid;
+                filterFiled += " AND tag_ids:"+tagid;
                 queryParams.put("fq", filterFiled);
             }
             queryParams.put("bf", "ord(cti_visit_cnt)^0.1");

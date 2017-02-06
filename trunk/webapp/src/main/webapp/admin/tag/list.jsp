@@ -147,7 +147,7 @@
                 if(confirm("确定刷新该标签下所有已发布知识的更新时间吗？")) {
                 	var $div = $(this).closest("div");
                     var tagId = $div.data("id");
-                    console.log("tagid:"+tagId);
+                    //console.log("tagid:"+tagId);
                     $.getJSON(
                     "/admin/tag/updatetime.action",
                     {id:tagId},

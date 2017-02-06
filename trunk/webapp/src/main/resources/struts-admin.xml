@@ -364,6 +364,8 @@
         </action>
         <action name="badKnowledgeRank" class="knowledgeStatisticsActionBean" method="getBadKnowledgeRank">
         </action>
+        <action name="goodKnowledgeRank" class="knowledgeStatisticsActionBean" method="getGoodKnowledgeRank">
+        </action>
         <action name="badKnowledgeInSystem" class="knowledgeStatisticsActionBean" method="getKnowledgeInSystemTopBad">
         </action>
         <action name="goodKnowledgeInSystem" class="knowledgeStatisticsActionBean" method="getKnowledgeInSystemTopGood">

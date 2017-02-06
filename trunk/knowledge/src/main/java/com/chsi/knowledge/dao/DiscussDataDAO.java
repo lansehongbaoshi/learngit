@@ -32,6 +32,7 @@ public interface DiscussDataDAO {
 
     int getCountByKId(String kId, DiscussStatus status);
     List<DiscussCountVO> getBadKnowledgeRank();
+    List<DiscussCountVO> getGoodKnowledgeRank();
     /**
      * 获取一个系统中评价的总数和好评的总数
      * @param systemId
@@ -39,4 +40,5 @@ public interface DiscussDataDAO {
      */
     Object[] getSystemStatictics(String systemId);
     List<DiscussCountVO> getKnowledgeInSystemTop(String systemId, int discuss);
+
 }

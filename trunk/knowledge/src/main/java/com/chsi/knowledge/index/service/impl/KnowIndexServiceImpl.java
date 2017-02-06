@@ -44,6 +44,7 @@ public class KnowIndexServiceImpl extends BaseDbService implements KnowIndexServ
 
     private KnowTagRelationDataDAO knowTagRelationDAO;
     private SolrServer solrService;
+    private SystemService systemService;
 
     private static final int SUCCESS = 0;
 
@@ -64,6 +65,7 @@ public class KnowIndexServiceImpl extends BaseDbService implements KnowIndexServ
     public void setSolrService(SolrServer solrService) {
         this.solrService = solrService;
     }
+
 
     public void deleteKnowIndex(String knowledgeId) {
         if (StringUtils.isNotBlank(knowledgeId)) {
@@ -239,7 +241,7 @@ public class KnowIndexServiceImpl extends BaseDbService implements KnowIndexServ
         queryParams.put("q", title);
         queryParams.put("qf", "title");
         queryParams.put("fq", "NOT id:" + knowId + " AND　type:PUBLIC");
-        queryParams.put("fl", "id,title");
+        queryParams.put("fl", "id,title,system_ids");
         queryParams.put("hl", "true");
         queryParams.put("hl.fl", "title");
         queryParams.put("hl.simple.pre", "<strong style='color:#c30'>");
@@ -249,7 +251,19 @@ public class KnowIndexServiceImpl extends BaseDbService implements KnowIndexServ
         queryParams.put("bf", BF);
 
         RepeatVO<KnowledgeVO> result = searchClient.getRepeatKnows(queryParams, 0.3);
-
+        for(KnowledgeVO know : result.getDatas()){
+            List<String> systemIds = know.getSystemIds();
+            if(systemIds !=null && systemIds.size()>0){
+                String systemNames = "";
+                systemService = ServiceFactory.getSystemService();
+                systemNames = systemService.getSystemById(systemIds.get(0)).getName();
+                for(int i=1;i<systemIds.size();i++){
+                    systemNames += ",";
+                    systemNames += systemService.getSystemById(systemIds.get(i)).getName();
+                }
+                know.setSystemNames(systemNames);
+            }
+        }
         return result;
     }
 

@@ -47,6 +47,15 @@ public class KnowledgeStatisticsAction extends AjaxAction {
         
     }
     
+    public void getGoodKnowledgeRank() throws Exception{
+        
+        List<DiscussCountVO> result = discussService.getGoodKnowledgeRank();
+        ajaxMessage.setFlag(SUCCESS);
+        ajaxMessage.setO(result);
+        writeCallbackJSON(callback);
+        
+    }
+    
     public void getKnowledgeInSystemTopGood() throws Exception{
         
         SystemData systemData = systemService.getSystemByName(systemName);

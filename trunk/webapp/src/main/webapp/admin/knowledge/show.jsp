@@ -69,7 +69,7 @@ if("update".equals(from)) {
          },
          function showLogResult(json) {
              if (json.flag == "true") {
-//                 console.log(json.o);
+//                 //console.log(json.o);
                  if(json.o.length<1){
                      $(".modal-body").html("没有查询到数据！");
                  }else{

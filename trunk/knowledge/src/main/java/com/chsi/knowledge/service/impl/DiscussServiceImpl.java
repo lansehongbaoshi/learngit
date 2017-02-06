@@ -128,6 +128,18 @@ public class DiscussServiceImpl extends BaseDbService implements DiscussService 
         }
         return list;
     }
+    
+    @Override
+    public List<DiscussCountVO> getGoodKnowledgeRank() {
+        List<DiscussCountVO> list = discussDataDAO.getGoodKnowledgeRank();
+        for(DiscussCountVO vo : list){
+            String usefulPersent =String.format("%.2f", new Float(vo.getUsefulPersent())) ;
+            vo.setUsefulPersent(usefulPersent);
+            KnowledgeData know = vo.getKnowledge();
+            vo.setTitle(know.getTitle());
+        }
+        return list;
+    }
 
     @Override
     public List<DiscussCountVO> getKnowledgeInSystemTopBad(String systemId) {
@@ -156,6 +168,7 @@ public class DiscussServiceImpl extends BaseDbService implements DiscussService 
         }
         return list;
     }
+
 
    /* @Override
     public DiscussVO getDiscussVOByKnowledgeId(String knowledgeId) {

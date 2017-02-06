@@ -34,6 +34,7 @@ public interface DiscussService {
     JSONObject getDiscussCount(String kId);
     List<SystemStatisticsVO> getSystemStatistics();
     List<DiscussCountVO> getBadKnowledgeRank();
+    List<DiscussCountVO> getGoodKnowledgeRank();
     /**
      * 获取一个系统差评排名的前十名
      * @param systemId
@@ -46,4 +47,5 @@ public interface DiscussService {
      * @return
      */
     List<DiscussCountVO> getKnowledgeInSystemTopGood(String systemId);
+
 }

@@ -127,8 +127,9 @@ public class DiscussDataDAOImpl extends BaseHibernateDAO implements DiscussDataD
         String sql = "select A.knowledge_id, A.total, B.badCount, B.badCount / A.total*100 rank " +
         		"   from (select knowledge_id, count(*) total " +
         		"           from discuss " +
-        		"          group by knowledge_id) A " +
-        		"  right join (select knowledge_id, count(*) badCount " +
+        		"          group by knowledge_id " +
+        		"        having count(*) > 5) A " +
+        		"  left join (select knowledge_id, count(*) badCount " +
         		"                from discuss " +
         		"               group by knowledge_id, discuss " +
         		"              having discuss = '0') B " +
@@ -145,6 +146,35 @@ public class DiscussDataDAOImpl extends BaseHibernateDAO implements DiscussDataD
             vo.setSum(obj[1].toString());
             vo.setUnuseful(obj[2].toString());
             vo.setUnusefulPersent(obj[3].toString());
+            result.add(vo);
+        }
+        return result;
+    }
+
+    @Override
+    public List<DiscussCountVO> getGoodKnowledgeRank() {
+        String sql = "select A.knowledge_id, A.total, B.goodCount, B.goodCount / A.total*100 rank " +
+                "   from (select knowledge_id, count(*) total " +
+                "           from discuss " +
+                "          group by knowledge_id " +
+                "        having count(*) > 5) A " +
+                "  left join (select knowledge_id, count(*) goodCount " +
+                "                from discuss " +
+                "               group by knowledge_id, discuss " +
+                "              having discuss = '1') B " +
+                "     on A.knowledge_id = B.knowledge_id " +
+                "  where rownum < 11 " +
+                "  order by rank desc ";
+        SQLQuery query = hibernateUtil.getSession().createSQLQuery(sql);
+        List<Object[]> objects = query.list();
+        List<DiscussCountVO> result = new ArrayList<DiscussCountVO>();
+        for(Object[] obj:objects){
+            DiscussCountVO vo = new DiscussCountVO();
+            KnowledgeData knowledge = ManageCacheUtil.getKnowledgeDataById((String)obj[0]);
+            vo.setKnowledge(knowledge);
+            vo.setSum(obj[1].toString());
+            vo.setUseful(obj[2].toString());
+            vo.setUsefulPersent(obj[3].toString());
             result.add(vo);
         }
         return result;

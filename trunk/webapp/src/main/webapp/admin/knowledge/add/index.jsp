@@ -221,12 +221,12 @@ $(function() {
         },function showBadWordResult(json) {
             
             if (json.flag == 'true') {
-                console.log(json.o.content);
+                //console.log(json.o.content);
                 $("#contentModalText").html(json.o.content); 
                 $("#contentModal").modal("show");
                 
             }else{
-                console.log(content);
+                //console.log(content);
                 $("#content").val(content);
                 isChanged = false;
                 $("#myform").submit();
@@ -271,7 +271,7 @@ $(function() {
                 jsonp: "callback", //回调函数的参数  
                 jsonpCallback: "parseAutoSearch", //回调函数的名称  
                 success: function(data) {
-                    console.log(data);
+                    //console.log(data);
                     response($.map(data["o"].knows, function(item){
                         return {
                             value: item.title,
@@ -306,7 +306,7 @@ $(function() {
 	    
 	$("#title").blur(function () { 
         var title = $(this).val();
-        console.log(title);
+        //console.log(title);
         $.getJSON("/admin/knowledge/searchindex/addindex/checkRepeat.action", {
             keywords: title,
             t: new Date().getTime()
@@ -317,9 +317,9 @@ $(function() {
                     
                 	var text = "<font>";
                     for(var i=0;i<json.o.datas.length;i++){
-                        text += json.o.datas[i].title+"<br>"
+                        text += json.o.datas[i].title + "--["+json.o.datas[i].systemNames+"]<br>";
                     }
-                    text += "</font>"
+                    text += "</font>";
                     $("#titleModalText").html(text); 
 //                    $("#titleModalText").css("color","red");
                     $("#titleCheck").html("<font style='color:red;'>存在疑似重复标题，点击<a href='javascript:void(0)' onclick='showRepeatTitle()' >查看</a></font>"); 
@@ -347,7 +347,7 @@ function checkTheForm(from){
         return false;
     }
     var tagIds = $("#selectedtag input[name='tagIds']");
-    console.log(tagIds);
+    //console.log(tagIds);
     if(tagIds.length<1){
         alert("请先到便签管理中增加标签");
         return false;

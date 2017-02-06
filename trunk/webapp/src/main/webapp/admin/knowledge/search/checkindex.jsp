@@ -215,7 +215,7 @@ String ctxPath = request.getContextPath();
             	var id = $(this).closest("tr").data("id");
             	if(id!=''){
             	$("#theId").val(id);
-            	console.log(id);
+            	//console.log(id);
             	$("#modifyForm").submit();
             	}
             });

@@ -181,7 +181,7 @@ function getNames(values){
                 return;
             }
     		$.post("/admin/total/option.jsp",data,function(result){
-    			console.log(result);
+    			//console.log(result);
         		var option = eval(result);
         		var myChart = echarts.init(document.getElementById('main'));
       			myChart.setOption(option);

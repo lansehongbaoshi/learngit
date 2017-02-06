@@ -137,7 +137,7 @@ String ctxPath = request.getContextPath();
                 },
                 function showSearchResult(json) {
                     if (json.flag == 'true') {
-                    	console.log(json);
+                    	//console.log(json);
                         $("#search_result").html("");
                         $("#search_table_header").html("");
                         $("#dynamic-table_info").html("");
@@ -238,7 +238,7 @@ String ctxPath = request.getContextPath();
             	var id = $(this).closest("tr").data("id");
             	if(id!=''){
             	$("#theId").val(id);
-            	console.log(id);
+            	//console.log(id);
             	$("#modifyForm").submit();
             	}
             });

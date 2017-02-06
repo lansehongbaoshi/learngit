@@ -86,7 +86,7 @@ function ajaxJSONP(url,text,callback,flag){
 		//jsonpCallback: callback, //回调函数的名称 
 		success: callback,
 		error: function(XMLHttpRequest, textStatus, errorThrown){
-			console.log(textStatus+":"+data);
+			//console.log(textStatus+":"+data);
 		}
 	});
 	return false;

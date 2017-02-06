@@ -115,7 +115,7 @@ String knowledgeId = request.getParameter("kId");
 <script type="text/javascript">
 
 $(function(){
-	console.log("知识的kId：<%=knowledgeId%>");
+	//console.log("知识的kId：<%=knowledgeId%>");
 	showSearchResult("<%=knowledgeId%>",0);
 	showDiscussCount("<%=knowledgeId%>");
 });
@@ -124,7 +124,7 @@ function showDiscussCount(KId){
 	$.getJSON("/common/showDiscussCount.action", {
         id:KId
     },function showCountResult(json){
-    	console.log(json);
+    	//console.log(json);
     	if (json.flag == 'true') {
     		$("#discussCount").html("");
     		var count = json.o;

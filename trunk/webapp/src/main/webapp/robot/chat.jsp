@@ -353,7 +353,7 @@ $(function(){
 	//图片跳转
 	$("#showbox").on("click","img",function(){
 		var s_src=$(this)[0].src;
-//		console.log(s_src);
+//		//console.log(s_src);
 //		window.open(s_src);
 		dialog({
 			title:"查看大图",
@@ -379,7 +379,7 @@ $(function(){
                 padding:10,
                 ok:function () {
                 	var content=$("#kn_feedback").val();
-//              	console.log(id);
+//              	//console.log(id);
                 	if($.trim(content).length>=200){ 
                 		alert("您输入的评论内容过长，请输200字以内的字符");
                 	    return false;

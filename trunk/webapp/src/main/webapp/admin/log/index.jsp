@@ -224,7 +224,7 @@ function showSearchResult(startDate, endDate, curPage) {
                     $("#search_result").append(str);
                 }
                 $("#search_table_header").html("查询 \“"+$("#startDate1").val() +"\”至\“"+$("#endDate1").val()+"\” 的结果").show();
-                console.log("第"+(parseInt(curPage)+1)+"页,共 "+ pagination.totalCount +" 条。");
+                //console.log("第"+(parseInt(curPage)+1)+"页,共 "+ pagination.totalCount +" 条。");
                 $("#dynamic-table_info").html("第"+(parseInt(curPage)+1)+"页,共 "+ pagination.totalCount +" 条。");
                 $("#dynamic-table_paginate").html(formatP(pagination, startDate, endDate, curPage));
                 $("#table_footer_info").show();
@@ -238,7 +238,7 @@ function formatP(pagination, startDate, endDate, curPage) {
     var curPage = pagination.curPage;
     var totalCount = pagination.totalCount;
     var pageCount = Math.ceil(totalCount / pagination.pageCount);
-    console.log(curPage+"---"+pageCount);
+    //console.log(curPage+"---"+pageCount);
     var prePage = "";
     var nextPage = "";
     if (curPage - 1 >= 0) {

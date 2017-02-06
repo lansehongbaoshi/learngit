@@ -17,7 +17,7 @@ $(document).ready(function(){
 function getAllSystemRank(){
 	$.getJSON("/admin/statistics/knowledgeStatistics.action?t="+new Date(), function showSearchResult(json) {
         //指定图表的配置项和数据
-        console.log(json);
+        //console.log(json);
         
         //基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById('knowledgestatistics'));
@@ -154,14 +154,14 @@ function getAllSystemRank(){
 function getRankInSystem(systemName,seriesName){
 	
 	if(seriesName=="好评"){
-		console.log(systemName+"--"+seriesName);
+		//console.log(systemName+"--"+seriesName);
 		$.getJSON("/admin/statistics/goodKnowledgeInSystem.action?t="+new Date(),{
 			systemName:systemName,
 			seriesName:seriesName
 		},
 		function showSearchResult(json) {
-			console.log("点击了："+systemName+"的"+seriesName);
-			console.log(json);
+			//console.log("点击了："+systemName+"的"+seriesName);
+			//console.log(json);
 			var goodKnowledgeInSystemChart = echarts.init(document.getElementById('knowledgestatistics'));
 			var goodData = [];
 			var xgoodAxisData = [];
@@ -241,8 +241,8 @@ function getRankInSystem(systemName,seriesName){
             seriesName:seriesName
         },
         function showSearchResult(json) {
-        	console.log("点击了："+systemName+"的"+seriesName);
-            console.log(json);
+        	//console.log("点击了："+systemName+"的"+seriesName);
+            //console.log(json);
             
             var badKnowledgeInSystemChart = echarts.init(document.getElementById('knowledgestatistics'));
             var badData = [];
