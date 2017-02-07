@@ -21,7 +21,7 @@ String ctxPath = request.getContextPath();
 
 
     <div class="page-content">
-
+<br>
        <div class="rows">
        <div class="col-xs-12 col-md-2">
         <select id="type" class="form-control" name="type">

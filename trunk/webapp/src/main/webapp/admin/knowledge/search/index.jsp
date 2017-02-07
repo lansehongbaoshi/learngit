@@ -25,12 +25,13 @@ String ctxPath = request.getContextPath();
   <!-- /.breadcrumb -->
 </div>
 <div class="page-content">
-  <div class="page-header">
+  <!-- <div class="page-header">
     <h1>
       知识管理 <small> <i class="ace-icon fa fa-angle-double-right"></i> 根据条件搜索
       </small>
     </h1>
-  </div>
+  </div> -->
+  <br>
   <div class="rows">
     <div class="col-xs-12 col-md-2">
       <select id="type" class="form-control" name="type">

@@ -14,12 +14,13 @@
   <!-- /.breadcrumb -->
 </div>
 <div class="page-content">
-  <div class="page-header">
+  <!-- <div class="page-header">
     <h1>
       回收站 <small> <i class="ace-icon fa fa-angle-double-right"></i> 指定系統查询
       </small>
     </h1>
-  </div>
+  </div> -->
+  <br>
   <div class="rows">
     <div class="col-xs-12 col-md-3">
       <select id="systemIds" class="form-control" name="systemId">

@@ -65,14 +65,14 @@ String startDate = TimeUtil.getTime(cal, "yyyy-MM-dd");
 
 
 <div class="page-content">
-    <div class="page-header">
+    <%-- <div class="page-header">
         <h1>
             查询 <small> <i class="ace-icon fa fa-angle-double-right"></i>
                 根据条件查询
             </small>
         </h1>
-    </div>
-
+    </div> --%>
+<br>
     <div class="rows">
         <div id="date" class="col-xs-12" style="display:;">
             <div class="col-xs-2 leftpart">
