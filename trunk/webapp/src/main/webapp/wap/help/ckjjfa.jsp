@@ -17,7 +17,7 @@ String visitedFlag = Constants.VISIT + id;
 if (null == session.getAttribute(visitedFlag)) {
     session.setAttribute(visitedFlag, id);
 //    ServiceFactory.getQueueService().addVisitKnowledgeId(id);
-    CacheUtil.addVisitKnowledgeCache(id);
+    CacheUtil.addVisitKnowledgeCache(id,"M");
 }
 String discussedFlag = Constants.DISCUSS + id;
 boolean isDiscussed = null != session.getAttribute(discussedFlag);

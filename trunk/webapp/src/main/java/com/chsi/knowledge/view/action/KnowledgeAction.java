@@ -102,7 +102,7 @@ public class KnowledgeAction extends AjaxAction {
                 session.put(Constants.VISIT + id, id);
 //                queueService.addVisitKnowledgeId(id);
 //                System.out.println("自定义缓存工具向缓存中存入当前访问的知识。"+id);
-                CacheUtil.addVisitKnowledgeCache(id);
+                CacheUtil.addVisitKnowledgeCache(id,"W");
             }
             ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
             ajaxMessage.setO(viewKnowVO);
@@ -153,7 +153,7 @@ public class KnowledgeAction extends AjaxAction {
         if (null == session.get(Constants.VISIT + id)) {
             session.put(Constants.VISIT + id, id);
 //            queueService.addVisitKnowledgeId(id);
-            CacheUtil.addVisitKnowledgeCache(id);
+            CacheUtil.addVisitKnowledgeCache(id,"W");
         }
         actionCon.put("viewKnowVO", viewKnowVO);
         return SUCCESS;

@@ -340,4 +340,10 @@ public class KnowledgeServiceImpl extends BaseDbService implements KnowledgeServ
         return false;
     }
 
+    @Override
+    public void updateVisitCnt(KnowledgeData knowledgeData) {
+        // TODO Auto-generated method stub
+        knowledgeDataDAO.updateVisitCnts(knowledgeData);
+    }
+
 }

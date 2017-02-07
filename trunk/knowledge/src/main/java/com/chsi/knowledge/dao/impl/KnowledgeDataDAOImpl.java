@@ -282,6 +282,14 @@ public class KnowledgeDataDAOImpl extends BaseHibernateDAO implements KnowledgeD
         return list.size() == 0 ? null : list.get(0);
     }
 
+    @Override
+    public void updateVisitCnts(KnowledgeData knowledgeData) {
+        // TODO Auto-generated method stub
+        String hql = "update KnowledgeData p set p.visitCnt=p.visitCnt+"+knowledgeData.getVisitCnt()+",p.webVisitCnt=p.webVisitCnt+"+knowledgeData.getWebVisitCnt()+",p.mVisitCnt=p.mVisitCnt+"+knowledgeData.getmVisitCnt() + W + ID;
+        Query query = hibernateUtil.getSession().createQuery(hql).setString("id", knowledgeData.getId());
+        query.executeUpdate();
+    }
+
    
     
 

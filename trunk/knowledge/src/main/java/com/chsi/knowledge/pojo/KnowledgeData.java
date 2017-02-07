@@ -47,6 +47,9 @@ public class KnowledgeData extends PersistentObject {
     private Calendar topTime;
     private Article article;// 临时变量
     private List<SystemData> systemDatas;
+    private Integer webVisitCnt;
+    private Integer mVisitCnt;
+    
 
     public void setData(PersistentObject persistentObject) {
         KnowledgeData knowledgeData = (KnowledgeData) persistentObject;
@@ -139,6 +142,24 @@ public class KnowledgeData extends PersistentObject {
 
     public void setCtiVisitCnt(Integer ctiVisitCnt) {
         this.ctiVisitCnt = ctiVisitCnt;
+    }
+
+    @Column(name = "WEB_VISIT_CNT")
+    public Integer getWebVisitCnt() {
+        return webVisitCnt;
+    }
+
+    public void setWebVisitCnt(Integer webVisitCnt) {
+        this.webVisitCnt = webVisitCnt;
+    }
+
+    @Column(name = "M_VISIT_CNT")
+    public Integer getmVisitCnt() {
+        return mVisitCnt;
+    }
+
+    public void setmVisitCnt(Integer mVisitCnt) {
+        this.mVisitCnt = mVisitCnt;
     }
 
     @Column(name = "SORT")

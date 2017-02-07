@@ -92,4 +92,6 @@ public interface KnowledgeDataDAO {
 
     void updateVisitCntPlus(String id, int count);
 
+    void updateVisitCnts(KnowledgeData knowledgeData);
+
 }

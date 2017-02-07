@@ -148,4 +148,6 @@ public interface KnowledgeService {
      * @return
      */
     public boolean judgeKnowledgeInTopCount(String knowId, int rank);
+
+    void updateVisitCnt(KnowledgeData knowledgeData);
 }
