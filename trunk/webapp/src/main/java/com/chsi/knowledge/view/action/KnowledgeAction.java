@@ -101,7 +101,7 @@ public class KnowledgeAction extends AjaxAction {
             if (null == session.get(Constants.VISIT + id)) {
                 session.put(Constants.VISIT + id, id);
 //                queueService.addVisitKnowledgeId(id);
-                System.out.println("自定义缓存工具向缓存中存入当前访问的知识。"+id);
+//                System.out.println("自定义缓存工具向缓存中存入当前访问的知识。"+id);
                 CacheUtil.addVisitKnowledgeCache(id);
             }
             ajaxMessage.setFlag(Constants.AJAX_FLAG_SUCCESS);
