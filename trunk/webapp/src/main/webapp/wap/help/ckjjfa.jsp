@@ -32,7 +32,7 @@ int otherNum = 5;
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta charset="utf-8">
-    <title>查看解决方案_学信网帮助中心</title>
+    <title><%=knowledgeData.getArticle().getTitle().trim() %>_学信网帮助中心</title>
     <meta name="Keywords" content="学信网帮助中心，学信网常见问题">
     <meta name="Description" content="学信网帮助中心，学信网账号、学信档案、征兵报名、四六级查分、研招统考、研招推免、学历与成绩认证、面向港澳台招生、高考统考招生、高考特殊类型招生、高考特殊类型报名">
   </head>

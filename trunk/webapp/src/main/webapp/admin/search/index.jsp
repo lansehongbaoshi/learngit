@@ -44,7 +44,7 @@ String ctxPath = request.getContextPath();
         </div>
         <div class="col-xs-12 col-md-6">
         <div class="input-group">
-        <input id="keywords" type="text" class="form-control search-query" placeholder="知识点标题、回答、标签、关键字(默认搜索所有)..." name="keywords" />
+        <input id="keywords" type="text" class="form-control search-query" placeholder="知识标题、回答、标签、关键字(默认搜索所有)..." name="keywords" />
         <span class="input-group-btn">
 <button type="button" id="searchBtn" class="btn btn-purple btn-sm">
 																			<span class="ace-icon fa fa-search icon-on-right bigger-110"></span> 搜索
