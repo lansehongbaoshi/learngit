@@ -75,8 +75,24 @@ String startDate = TimeUtil.getTime(cal, "yyyy-MM-dd");
 <br>
     <div class="rows">
         <div id="date" class="col-xs-12" style="display:;">
-            <div class="col-xs-2 leftpart">
-                <span class="line-height-30">开始日期：</span>
+            <div class="col-xs-2 ">
+                <select id="operator" class="form-control" name="operator">
+                <option value="">请选择操作人</option>
+                <s:iterator id="operator" value="operators">
+                    <option value="<s:property value="#operator.id" />"><s:property value="#operator.name" /></option>
+                </s:iterator>
+                </select>
+            </div>
+            
+            <div class="col-xs-2 ">
+                <select id="operation" class="form-control" name="operation">
+			        <option value="">请选择操作类型</option>
+			        <s:iterator id="operation" value="operations">
+			        <option value="<s:property value="#operation" />"><s:property value="#operation" /></option>
+			        </s:iterator>
+                </select>
+            </div>
+            <div class="col-xs-2 " >
                 <div class="input-group date form_datetime a_v_time"
                     style="margin: 0;" data-date="" data-date-format="yyyy-mm-dd"
                     data-link-field="dtp_input1">
@@ -87,8 +103,9 @@ String startDate = TimeUtil.getTime(cal, "yyyy-MM-dd");
                         class="glyphicon glyphicon-calendar"></span></span>
                 </div>
             </div>
-            <div class="col-xs-2 leftpart">
-                <span class="line-height-30"> 截止日期：</span>
+            <div class="col-xs-1" style="margin:auto 5px;">————</div>
+
+            <div class="col-xs-2" >
                 <div class="input-group date form_datetime a_v_time"
                     style="margin: 0;" data-date="" data-date-format="yyyy-mm-dd"
                     data-link-field="dtp_input1">
@@ -99,9 +116,8 @@ String startDate = TimeUtil.getTime(cal, "yyyy-MM-dd");
                         class="glyphicon glyphicon-calendar"></span></span>
                 </div>
             </div>
-            <div class="col-xs-8"></div>
+            <div class="col-xs-2"></div>
             <div class="col-xs-1 col-md-1 input-group">
-                <span class="line-height-30">&nbsp;&nbsp;</span>
                 <div class="input-group">
                     <span class="input-group-btn">
                         <button type="button" id="searchBtn" class="btn btn-purple btn-sm">
@@ -196,6 +212,8 @@ $(".form_datetime").datetimepicker({
     
 function showSearchResult(startDate, endDate, curPage) {
     $.getJSON("/admin/log/index/searchLogOper.action", {
+    	operator: $("#operator").val(),
+    	operation:$("#operation").val(),
     	startDate: startDate,
     	endDate: endDate,
         curPage: curPage,

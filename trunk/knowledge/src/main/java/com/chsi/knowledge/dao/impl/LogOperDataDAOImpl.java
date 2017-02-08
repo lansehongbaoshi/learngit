@@ -28,24 +28,58 @@ public class LogOperDataDAOImpl extends BaseHibernateDAO implements LogOperDataD
     }
 
     @Override
-    public int getLogOpersCountByDate(Date startDate, Date endDate) {
-        String hql = "SELECT COUNT(*) FROM LogOperData A WHERE A.createTime between ? and ? ORDER BY A.createTime DESC";
+    public int getLogOpersCountByDate(String operator, String operation, Date startDate, Date endDate) {
+        String hql = "SELECT COUNT(*) FROM LogOperData A WHERE A.createTime between ? and ? "
+                + ("".equals(operator)?"":" AND A.userId=:userId ")
+                + ("".equals(operation)?"":" AND A.oper=:oper ")
+                + " ORDER BY A.createTime DESC";
         Query query = hibernateUtil.getSession().createQuery(hql);
         query.setDate(0, startDate);
         query.setDate(1, endDate);
-
+        if(!"".equals(operator)){
+            query.setString("userId", operator);
+        }
+        if(!"".equals(operation)){
+            query.setString("oper", operation);
+        }
         return Integer.parseInt(query.uniqueResult().toString());
     }
 
     @Override
-    public List<LogOperData> getLogOpersByDate(Date startDate, Date endDate, int curPage, int pageSize) {
-        String hql = "SELECT A FROM LogOperData A WHERE A.createTime between ? and ? ORDER BY A.createTime DESC";
+    public List<LogOperData> getLogOpersByDate(String operator, String operation, Date startDate, Date endDate, int curPage, int pageSize) {
+        String hql = "SELECT A FROM LogOperData A WHERE A.createTime between ? and ? "
+                + ("".equals(operator)?"":" AND A.userId=:userId ")
+                + ("".equals(operation)?"":" AND A.oper=:oper ")
+                + " ORDER BY A.createTime DESC";
+        
         Query query = hibernateUtil.getSession().createQuery(hql);
         query.setDate(0, startDate);
         query.setDate(1, endDate);
-
+        if(!"".equals(operator)){
+            query.setString("userId", operator);
+        }
+        if(!"".equals(operation)){
+            query.setString("oper", operation);
+        }
+        
         query.setMaxResults(pageSize);
         query.setFirstResult(curPage * pageSize);
+        return query.list();
+    }
+
+    @Override
+    public List<String> getLogOperAllUserId() {
+        // TODO Auto-generated method stub
+        String hql = "SELECT DISTINCT A.userId FROM LogOperData A";
+        Query query = hibernateUtil.getSession().createQuery(hql);
+        return query.list();
+    }
+
+    @Override
+    public List<String> getLogOperAllOperations() {
+        // TODO Auto-generated method stub
+        String hql = "SELECT DISTINCT A.oper FROM LogOperData A";
+        Query query = hibernateUtil.getSession().createQuery(hql);
         return query.list();
     }
 

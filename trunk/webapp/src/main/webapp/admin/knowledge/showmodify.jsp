@@ -11,7 +11,7 @@ if("update".equals(from)) {
 } else if("add".equals(from)) {
     title="新增知识成功";
 } else {
-    title="知识详情";
+    title="知识详情1";
 }
 %>
 <style type="text/css">
@@ -56,7 +56,7 @@ if("update".equals(from)) {
             }
         });
         
-        getLogOperData($("#kId").val());
+        getLogOperData("<s:property value=" knowledgeData.id " />");
         
     }); 
 
@@ -65,6 +65,7 @@ if("update".equals(from)) {
     } catch (e) {}
     
     function getLogOperData(keyId){
+
         $.getJSON("/admin/knowledge/checkindex/getLogOper.action", {
             keyId:keyId
          },
@@ -193,7 +194,7 @@ if("update".equals(from)) {
             <div class="widget-box widget-color-green2" style="border: none">
                 <div class="widget-header">
                     <h4 class="widget-title lighter smaller">操作人</h4>
-                    <a href="#myModal" data-toggle="modal" style="color: white;">历史日志</a>
+                    <a href="#myModal" data-toggle="modal" style="color: white;">操作日志</a>
                 </div>
 
                 <div class="widget-body">
@@ -243,7 +244,7 @@ if("update".equals(from)) {
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"
                     aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">历史日志</h4>
+                <h4 class="modal-title" id="myModalLabel">操作日志</h4>
             </div>
             <div class="modal-body">正在获取数据，请稍等...</div>
             <div class="modal-footer">

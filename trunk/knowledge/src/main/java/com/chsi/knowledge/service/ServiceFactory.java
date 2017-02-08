@@ -3,6 +3,7 @@ package com.chsi.knowledge.service;
 import com.chsi.framework.service.spring.SpringBeanLocator;
 import com.chsi.knowledge.ServiceConstants;
 import com.chsi.knowledge.index.service.KnowIndexService;
+import com.chsi.knowledge.index.service.LogOperService;
 import com.chsi.knowledge.service.impl.CommonServiceImpl;
 
 public class ServiceFactory {
@@ -42,6 +43,10 @@ public class ServiceFactory {
 
     public static RobotService getRobotService() {
         return springBeanLocator.getBean(ServiceConstants.ROBOT_SERVICE);
+    }
+    
+    public static LogOperService getLogOperService(){
+        return springBeanLocator.getBean(ServiceConstants.LogOper_Service);
     }
     
 }

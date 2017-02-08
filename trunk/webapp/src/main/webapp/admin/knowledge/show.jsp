@@ -64,6 +64,7 @@ if("update".equals(from)) {
     } catch (e) {}
     
     function getLogOperData(keyId){
+
         $.getJSON("/admin/knowledge/checkindex/getLogOper.action", {
             keyId:keyId
          },

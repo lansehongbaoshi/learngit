@@ -7,6 +7,7 @@ import java.util.Map;
 import com.chsi.knowledge.dic.KnowledgeStatus;
 import com.chsi.knowledge.dic.KnowledgeType;
 import com.chsi.knowledge.dic.SystemProperty;
+import com.chsi.knowledge.index.service.LogOperService;
 import com.chsi.knowledge.pojo.KnowTagRelationData;
 import com.chsi.knowledge.pojo.KnowledgeData;
 import com.chsi.knowledge.pojo.RobotASetData;
@@ -21,6 +22,7 @@ import com.chsi.knowledge.service.ServiceFactory;
 import com.chsi.knowledge.service.SystemService;
 import com.chsi.knowledge.service.TagService;
 import com.chsi.knowledge.vo.KnowledgeVO;
+import com.chsi.knowledge.vo.Operator;
 
 /**
  * 缓存管理工具
@@ -221,6 +223,28 @@ public class ManageCacheUtil {
             TagService tagService = ServiceFactory.getTagService();
             result = tagService.getTagData(tagId);
             MemCachedUtil.set(key, result);
+        }
+        return result;
+    }
+
+    public static List<Operator> getLogOperUsers() {
+        // TODO Auto-generated method stub
+        String key = CACHE_KEY_ + "getLogOperUsers";
+        List<Operator> result = MemCachedUtil.get(key);
+        if (result == null) {
+            LogOperService logOperService = ServiceFactory.getLogOperService();
+            result = logOperService.getOperators();
+        }
+        return result;
+    }
+
+    public static List<String> getLogOperations() {
+        // TODO Auto-generated method stub
+        String key = CACHE_KEY_ + "getLogOperations";
+        List<String> result = MemCachedUtil.get(key);
+        if (result == null) {
+            LogOperService logOperService = ServiceFactory.getLogOperService();
+            result = logOperService.getOperations();
         }
         return result;
     }
