@@ -223,7 +223,21 @@ $(function() {
             if (json.flag == 'true') {
                 //console.log(json.o.content);
                 $("#contentModalText").html(json.o.content); 
-                $("#contentModal").modal("show");
+                $("#contentModal").on("show.bs.modal",function(){  
+                    // 是弹出框居中。。。  
+                    var $modal_dialog = $("#contentModal");  
+                    //获取可视窗口的高度  
+                    var clientHeight = (document.body.clientHeight < document.documentElement.clientHeight) ? document.body.clientHeight: document.documentElement.clientHeight;  
+                    //得到dialog的高度  
+                    var dialogHeight = $("#contentModal").find(".modal-dialog").height();;  
+                    //计算出距离顶部的高度  
+//                     var m_top = (clientHeight - dialogHeight)/2;  
+//                     console.log("clientHeight : " + clientHeight);  
+//                     console.log("dialogHeight : " + dialogHeight);  
+//                     console.log("m_top : " + m_top);  
+                    $modal_dialog.css({'margin': '100px auto'});
+                }).modal("show");
+                $(".modal-backdrop").remove();//删除class值为modal-backdrop的标签，可去除阴影
                 
             }else{
                 //console.log(content);
@@ -327,6 +341,17 @@ $(function() {
             }
         });
     }); 
+	
+	$("#repeatTitleModal").draggable({   
+        handle: ".modal-header",   
+        cursor: 'move',   
+        refreshPositions: false  
+    });  
+    $("#contentModal").draggable({   
+        handle: ".modal-header",   
+        cursor: 'move',   
+        refreshPositions: false  
+    });  
 });
 
 function checkTheForm(from){
@@ -380,7 +405,21 @@ window.onbeforeunload = function (e) {
 }
 	
 function showRepeatTitle(){
-    $("#repeatTitleModal").modal("show");
+	$("#repeatTitleModal").on("show.bs.modal",function(){  
+        // 是弹出框居中。。。  
+        var $modal_dialog = $("#repeatTitleModal");  
+        //获取可视窗口的高度  
+        var clientHeight = (document.body.clientHeight < document.documentElement.clientHeight) ? document.body.clientHeight: document.documentElement.clientHeight;  
+        //得到dialog的高度  
+        var dialogHeight = $("#repeatTitleModal").find(".modal-dialog").height();;  
+        //计算出距离顶部的高度  
+//         var m_top = (clientHeight - dialogHeight)/2;  
+//         console.log("clientHeight : " + clientHeight);  
+//         console.log("dialogHeight : " + dialogHeight);  
+//         console.log("m_top : " + m_top);  
+        $modal_dialog.css({'margin': '200px auto'});
+    }).modal("show");
+    $(".modal-backdrop").remove();//删除class值为modal-backdrop的标签，可去除阴影
 }
 	
 </script>
