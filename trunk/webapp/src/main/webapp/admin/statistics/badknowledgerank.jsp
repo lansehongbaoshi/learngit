@@ -77,7 +77,7 @@ function getGoodRank(){
                               top: 5,
                               z: 10,
                               style: {
-                                  image: '/images/wap/help/switch.png',
+                                  image: '/images/wap/help/qiehuan.png',
                                   width: 25,
                                   height: 25,
                                   opacity: 0.9
@@ -170,7 +170,7 @@ function getBadRank(){
                               top: 5,
                               z: 10,
                               style: {
-                                  image: '/images/wap/help/switch.png',
+                                  image: '/images/wap/help/qiehuan.png',
                                   width: 25,
                                   height: 25,
                                   opacity: 0.9

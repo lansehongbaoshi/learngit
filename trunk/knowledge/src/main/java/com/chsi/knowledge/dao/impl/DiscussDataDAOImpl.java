@@ -10,6 +10,7 @@ import com.chsi.account.client.AccountServiceClient;
 import com.chsi.account.client.AccountServiceClientFactory;
 import com.chsi.account.client.UserAccountData;
 import com.chsi.framework.hibernate.BaseHibernateDAO;
+import com.chsi.knowledge.Constants;
 import com.chsi.knowledge.dao.DiscussDataDAO;
 import com.chsi.knowledge.dic.DiscussStatus;
 import com.chsi.knowledge.pojo.DiscussData;
@@ -128,7 +129,7 @@ public class DiscussDataDAOImpl extends BaseHibernateDAO implements DiscussDataD
         		"   from (select knowledge_id, count(*) total " +
         		"           from discuss " +
         		"          group by knowledge_id " +
-        		"        having count(*) > 5) A " +
+        		"        having count(*) > "+Constants.MIX_DISCUSS_COUNT+") A " +
         		"  left join (select knowledge_id, count(*) badCount " +
         		"                from discuss " +
         		"               group by knowledge_id, discuss " +
@@ -157,7 +158,7 @@ public class DiscussDataDAOImpl extends BaseHibernateDAO implements DiscussDataD
                 "   from (select knowledge_id, count(*) total " +
                 "           from discuss " +
                 "          group by knowledge_id " +
-                "        having count(*) > 5) A " +
+                "        having count(*) > "+Constants.MIX_DISCUSS_COUNT+") A " +
                 "  left join (select knowledge_id, count(*) goodCount " +
                 "                from discuss " +
                 "               group by knowledge_id, discuss " +
@@ -201,7 +202,7 @@ public class DiscussDataDAOImpl extends BaseHibernateDAO implements DiscussDataD
     public List<DiscussCountVO> getKnowledgeInSystemTop(String systemId,
             int discuss) {
         // TODO Auto-generated method stub
-        String sql ="select A.knowledge_id,A.total,B.xSum,B.xSum/A.total*100 ranks from (select knowledge_id,count(*) total from discuss where Knowledge_Id in (select knowledge_id from knowledge_tag_relation where tag_id in (select id from tag where system_id='"+systemId+"'))  group by knowledge_id order by knowledge_id) A left join (select knowledge_id,count(*) xSum from discuss where Knowledge_Id in (select knowledge_id from knowledge_tag_relation where tag_id in (select id from tag where system_id='"+systemId+"')) and discuss="+discuss+" group by knowledge_id order by knowledge_id) B on A.knowledge_id=B.knowledge_id where B.xSum>0 and rownum<11 order by ranks desc";
+        String sql ="select A.knowledge_id,A.total,B.xSum,B.xSum/A.total*100 ranks from (select knowledge_id,count(*) total from discuss where Knowledge_Id in (select knowledge_id from knowledge_tag_relation where tag_id in (select id from tag where system_id='"+systemId+"'))  group by knowledge_id having count(*)>"+Constants.MIX_DISCUSS_COUNT+" order by knowledge_id) A left join (select knowledge_id,count(*) xSum from discuss where Knowledge_Id in (select knowledge_id from knowledge_tag_relation where tag_id in (select id from tag where system_id='"+systemId+"')) and discuss="+discuss+" group by knowledge_id order by knowledge_id) B on A.knowledge_id=B.knowledge_id where B.xSum>0 and rownum<11 order by ranks desc";
         SQLQuery query = hibernateUtil.getSession().createSQLQuery(sql);
         List<Object[]> objects = query.list();
         List<DiscussCountVO> result = new ArrayList<DiscussCountVO>();

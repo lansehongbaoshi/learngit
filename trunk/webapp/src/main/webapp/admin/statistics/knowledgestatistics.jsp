@@ -207,10 +207,10 @@ function getRankInSystem(systemName,seriesName){
 		                    type: 'image',
 		                    id: 'logo',
 		                    right: 50,
-		                    top: 50,
+		                    top: 5,
 		                    z: 10,
 	                        style: {
-	                            image: '/images/wap/help/wap_back.png',
+	                            image: '/images/wap/help/fanhui.png',
 	                            width: 25,
 	                            height: 25,
 	                            opacity: 0.9
@@ -288,10 +288,10 @@ function getRankInSystem(systemName,seriesName){
 	                        type: 'image',
 	                        id: 'logo',
 	                        right: 50,
-	                        top: 50,
+                            top: 5,
 	                        z: 10,
                             style: {
-                                image: '/images/wap/help/wap_back.png',
+                                image: '/images/wap/help/fanhui.png',
                                 width: 25,
                                 height: 25,
                                 opacity: 0.9
