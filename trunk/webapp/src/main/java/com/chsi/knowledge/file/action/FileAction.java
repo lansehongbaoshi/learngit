@@ -10,7 +10,6 @@ import com.chsi.framework.util.ValidatorUtil;
 import com.chsi.knowledge.action.base.AjaxAction;
 import com.chsi.knowledge.util.ConvertUtil;
 import com.chsi.knowledge.vo.UpFileResponseVO;
-import com.chsi.knowledge.web.util.WebAppUtil;
 
 public class FileAction extends AjaxAction {
 
@@ -71,7 +70,6 @@ public class FileAction extends AjaxAction {
         try {
             List<String> validateResult = validateData();
             if (validateResult.size() == 0) {
-                String userId = WebAppUtil.getUserId();
                 File uploadFile = new File(this.upload);
                 if (uploadFile.exists()) {
                     // String lobId = RemoteCallUtil.addFile(uploadFile,
@@ -92,7 +90,8 @@ public class FileAction extends AjaxAction {
                     vo.setState("SUCCESS");
                     vo.setTitle(this.uploadFileName);
                     // vo.setUrl("/file/"+pojo.getId());
-                    vo.setUrl(url);
+                    String httpsUrl = url.replaceAll("http:", "https:");
+                    vo.setUrl(httpsUrl);//解决https网址引入http地址照片的安全问题
                     vo.setOriginal(this.uploadFileName);
                 } else {
                     vo.setState("文件不存在");
