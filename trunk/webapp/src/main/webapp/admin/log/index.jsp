@@ -77,7 +77,7 @@ String startDate = TimeUtil.getTime(cal, "yyyy-MM-dd");
         <div id="date" class="col-xs-12" style="display:;">
             <div class="col-xs-2 ">
                 <select id="operator" class="form-control" name="operator">
-                <option value="">请选择操作人</option>
+                <option value="">请选择操作人...</option>
                 <s:iterator id="operator" value="operators">
                     <option value="<s:property value="#operator.id" />"><s:property value="#operator.name" /></option>
                 </s:iterator>
@@ -86,37 +86,38 @@ String startDate = TimeUtil.getTime(cal, "yyyy-MM-dd");
             
             <div class="col-xs-2 ">
                 <select id="operation" class="form-control" name="operation">
-			        <option value="">请选择操作类型</option>
+			        <option value="">请选择操作类型...</option>
 			        <s:iterator id="operation" value="operations">
 			        <option value="<s:property value="#operation" />"><s:property value="#operation" /></option>
 			        </s:iterator>
                 </select>
             </div>
-            <div class="col-xs-2 " >
-                <div class="input-group date form_datetime a_v_time"
-                    style="margin: 0;" data-date="" data-date-format="yyyy-mm-dd"
-                    data-link-field="dtp_input1">
-                    <input id="startDate1" name="startDate"
-                        class="form-control for-height32" size="16" type="text"
-                        value="<%=startDate%>" readonly> <span
-                        class="input-group-addon"><span
-                        class="glyphicon glyphicon-calendar"></span></span>
+            <div class="col-xs-6 " >
+                <div class="col-xs-3 " >
+	                <div class="input-group date form_datetime a_v_time"
+	                    style="margin: 0;" data-date="" data-date-format="yyyy-mm-dd"
+	                    data-link-field="dtp_input1">
+	                    <input id="startDate1" name="startDate"
+	                        class="form-control for-height32" size="16" type="text"
+	                        value="<%=startDate%>" readonly> <span
+	                        class="input-group-addon"><span
+	                        class="glyphicon glyphicon-calendar"></span></span>
+	                </div>
+                </div>
+                <font style="padding: 5px 0px;float: left;">—</font>
+                <div class="col-xs-3 " >
+	                <div class="input-group date form_datetime a_v_time"
+	                    style="margin: 0;" data-date="" data-date-format="yyyy-mm-dd"
+	                    data-link-field="dtp_input1">
+	                    <input id="endDate1" name="endDate"
+	                        class="form-control for-height32" size="16" type="text"
+	                        value="<%=endDate%>" readonly> <span
+	                        class="input-group-addon"><span
+	                        class="glyphicon glyphicon-calendar"></span></span>
+	                </div>
                 </div>
             </div>
-            <div class="col-xs-1" style="margin:auto 5px;">————</div>
-
-            <div class="col-xs-2" >
-                <div class="input-group date form_datetime a_v_time"
-                    style="margin: 0;" data-date="" data-date-format="yyyy-mm-dd"
-                    data-link-field="dtp_input1">
-                    <input id="endDate1" name="endDate"
-                        class="form-control for-height32" size="16" type="text"
-                        value="<%=endDate%>" readonly> <span
-                        class="input-group-addon"><span
-                        class="glyphicon glyphicon-calendar"></span></span>
-                </div>
-            </div>
-            <div class="col-xs-2"></div>
+            
             <div class="col-xs-1 col-md-1 input-group">
                 <div class="input-group">
                     <span class="input-group-btn">
